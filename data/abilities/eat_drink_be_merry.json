@@ -1,9 +1,9 @@
 {
   "id": "11e062df-7e8b-476b-b43a-d8003661b2ff",
   "isDeleted": false,
-  "lastModified": "2026-06-27T23:53:19.444Z",
+  "lastModified": "2026-07-13T20:03:59.335Z",
   "name": "Eat, Drink & Be Merry",
-  "description": "<p><em>You always pack a special drink or foodstuff and know when to bring it out to boost morale.</em></p><p>Once per Quest, you may upgrade the party's Keeping by one tier for one rest. When you do, each party member who partakes gains 1 Hope.</p><p><strong>Describe what you bring out to share.</strong></p>",
+  "description": "<p><em>You always pack a special drink or foodstuff and know when to bring it out to boost morale.</em></p><p>Once per Quest, you may upgrade the Quest's Keeping by one tier for one rest. When you do, each party member who partakes gains 1 Hope.</p><p><strong>Describe what you bring out to share.</strong></p>",
   "source": "0c876a74-a89b-42dc-b76a-4592a0478d81",
   "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
   "mpCost": null,

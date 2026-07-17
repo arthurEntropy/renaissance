@@ -1,0 +1,12 @@
+{
+  "source": "10f46ecd-e6f5-4d3b-b510-d4035ab24f56",
+  "id": "11587a0d-fa3a-45ea-9bc4-d889fe885802",
+  "createdAt": "2026-07-11T02:22:05.891Z",
+  "lastModified": "2026-07-13T01:35:59.682Z",
+  "name": "Compound Trap",
+  "actionCost": "c7ea4889-0dc9-40cb-a437-70329cac43ab",
+  "description": "<p><em>Preparation time: 10 minutes.</em></p><p>Once per day: You rig together any number of your traps, placing all of them within short range of one another. Choose any number of spaces within the area bounded by the traps' locations. Those spaces are the trigger. Roll Craft to set the Difficulty.</p><p>The first creature that moves into a trigger space springs the trap and must roll Awareness against the Difficulty. On a failure, choose one trap effect per trap you used to create the compound trap. On a pass, choose one trap effect total.</p><p>Once the trap has sprung, it takes 1 minute of effort to separate the traps from one another before you can use them individually.</p><p><strong>Describe your compound trap.</strong></p>",
+  "artUrl": "https://cdn.midjourney.com/0e254eb6-5dc8-436d-acd7-3a4204700c4e/0_1.jpeg",
+  "xpCost": 10,
+  "successes": "<p>✨: Increase the Difficulty by 2.</p><p>🌞: You may specify a certain number of creatures - up to 3 - that must be in trigger spaces before the trap will spring. When that happens, each of those creatures rolls Awareness against the Difficulty and is subject to the trap effects.</p>"
+}

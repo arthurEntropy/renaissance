@@ -1,0 +1,14 @@
+{
+  "id": "03b57e4f-63a9-40d7-9822-c2da4810a617",
+  "isDeleted": false,
+  "lastModified": "2026-07-15T01:06:32.381Z",
+  "name": "Interpose",
+  "artUrl": "https://cdn.midjourney.com/56af1ecc-b26a-4152-b7c6-130bbff0ba33/0_1.png",
+  "description": "<p>Choose an adjacent creature you have attacked and hit this combat. For the next minute, any time the chosen creature would attack a creature other than you while you are adjacent to it, you become the target of the attack. The effect ends if you attack a creature other than the chosen creature.</p><p><strong>Describe how you keep their attention.</strong></p>",
+  "source": "d4dce5e2-e767-464d-91f0-c40b47f788b3",
+  "actionCost": "40656418-af01-43ae-8a60-a1bd0124efb4",
+  "mpCost": 1,
+  "xpCost": 5,
+  "canBeActive": false,
+  "hasDifficulty": false
+}

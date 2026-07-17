@@ -1,14 +1,14 @@
 {
   "id": "53ee5622-541a-4851-a5f3-1f5ded6903d1",
   "createdAt": "2026-03-10T00:03:08.126Z",
-  "lastModified": "2026-07-02T15:50:08.851Z",
+  "lastModified": "2026-07-14T18:46:04.598Z",
   "name": "Greater Wild Shape",
   "artUrl": "https://cdn.midjourney.com/5e353aa2-9817-42a9-ac11-485a0963335f/0_1.png",
-  "description": "<p>You must have <em>Wild Shape </em>to gain this ability.</p><p>When you use <em>Wild Shape</em>, you may transform into any non-humanoid creature of up to Challenge 5 that you have seen.</p><p><strong>Describe your transformation.</strong></p>",
+  "description": "<p>You must have <em>Wild Shape </em>to gain this ability.</p><p>When you use <em>Wild Shape</em>, you may transform into any non-humanoid creature of up to Challenge 10 that you have seen.</p><p><strong>Describe your transformation.</strong></p>",
   "improvements": [
     {
       "name": "Superior Wild Shape",
-      "description": "<p>When you use <em>Wild Shape</em>, you may transform into any non-humanoid creature of up to Challenge 10 that you have seen.</p>",
+      "description": "<p>When you use <em>Wild Shape</em>, you may transform into any non-humanoid creature of up to Challenge 20 that you have seen.</p>",
       "xpCost": 25,
       "id": "34895912-5819-4d05-abfe-6d1f46cfb8d8"
     },
@@ -20,7 +20,7 @@
     },
     {
       "name": "Animal Shapes",
-      "description": "<p>You may spend 1 minute casting <em>Wild Shape </em>as a ritual. If you do, you may target any number of willing creatures within short range with the spell, paying 1 MP for each creature other than yourself and transforming them into any non-humanoid creature of up to Challenge 5 that you have seen.</p>",
+      "description": "<p>You may spend 1 minute casting <em>Wild Shape </em>as a ritual. If you do, you may target any number of willing creatures within short range with the spell, spending 1 MP for each creature other than yourself and transforming them into any non-humanoid creature of up to Challenge 5 that you have seen.</p>",
       "xpCost": 50,
       "id": "88dbe0c5-71e2-4ebc-b167-99498ddbebfe"
     }

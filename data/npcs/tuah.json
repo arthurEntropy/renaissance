@@ -2,7 +2,7 @@
   "id": "dd4ad3a1-0d8b-4e05-8548-ee81bbb61c29",
   "isDeleted": false,
   "createdAt": "2026-07-08T14:38:54.454Z",
-  "lastModified": "2026-07-09T19:47:22.935Z",
+  "lastModified": "2026-07-10T20:03:52.422Z",
   "characterType": "npc",
   "name": "Tuah",
   "featuredArtUrls": [
@@ -18,8 +18,8 @@
       "key": "awe",
       "ranks": 0,
       "isFavored": false,
-      "isIllFavored": true,
-      "diceMod": -1,
+      "isIllFavored": false,
+      "diceMod": 0,
       "manualDiceMod": 0
     },
     {
@@ -27,7 +27,7 @@
       "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": -1,
+      "diceMod": 0,
       "manualDiceMod": 0
     },
     {
@@ -35,23 +35,23 @@
       "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": -1,
+      "diceMod": 0,
       "manualDiceMod": 0
     },
     {
       "key": "fortitude",
       "ranks": 0,
       "isFavored": false,
-      "isIllFavored": true,
-      "diceMod": -1,
+      "isIllFavored": false,
+      "diceMod": 0,
       "manualDiceMod": 0
     },
     {
       "key": "craft",
       "ranks": 0,
       "isFavored": false,
-      "isIllFavored": true,
-      "diceMod": -1,
+      "isIllFavored": false,
+      "diceMod": 0,
       "manualDiceMod": 0
     },
     {
@@ -136,7 +136,7 @@
     }
   ],
   "endurance": {
-    "current": 0,
+    "current": 15,
     "base": 15
   },
   "hope": {
@@ -151,7 +151,7 @@
   "shadow": 0,
   "injury": 0,
   "states": {
-    "weary": true,
+    "weary": false,
     "twiceWeary": false,
     "miserable": false,
     "twiceMiserable": false,
@@ -231,13 +231,21 @@
   "equipmentSortOption": "",
   "equipmentCustomGroups": [],
   "mp": {
-    "current": 0,
-    "base": 0
+    "current": 3,
+    "base": 5
   },
   "abilities": [
     {
       "id": "9d6d82e0-bc0d-4f68-85dd-c2f3e2e17597",
-      "collapsed": false,
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false,
+      "columnIndex": 0
+    },
+    {
+      "id": "4b472223-80bd-437d-b57e-2ff52ab2a3eb",
+      "collapsed": true,
       "showImprovements": false,
       "showSuccesses": false,
       "isActive": false,
@@ -245,15 +253,7 @@
     },
     {
       "id": "0be14c83-458a-41f4-b5ac-29c2b4266ea5",
-      "collapsed": false,
-      "showImprovements": false,
-      "showSuccesses": false,
-      "isActive": false,
-      "columnIndex": 1
-    },
-    {
-      "id": "47d52f7a-294c-4658-9dbe-d065c115abf6",
-      "collapsed": false,
+      "collapsed": true,
       "showImprovements": false,
       "showSuccesses": false,
       "isActive": false,
@@ -261,26 +261,27 @@
     },
     {
       "id": "ea5b56c6-375f-4426-84be-cf4df79b7505",
-      "collapsed": false,
+      "collapsed": true,
       "showImprovements": false,
       "showSuccesses": false,
       "isActive": false,
-      "columnIndex": 2
+      "columnIndex": 1
     },
     {
       "id": "d9ee0cb0-438c-4c9b-918b-fb846cf92211",
-      "collapsed": false,
+      "collapsed": true,
       "showImprovements": false,
       "showSuccesses": false,
       "isActive": false,
       "columnIndex": 2
     },
     {
-      "id": "d3a64a0d-dc98-4a78-b2ef-ee7247be0d81",
-      "collapsed": false,
+      "id": "47d52f7a-294c-4658-9dbe-d065c115abf6",
+      "collapsed": true,
       "showImprovements": false,
       "showSuccesses": false,
-      "isActive": true
+      "isActive": false,
+      "columnIndex": 2
     }
   ],
   "groupAbilitiesBySource": false,
@@ -297,18 +298,18 @@
   },
   "rollStats": {
     "skillChecks": {
-      "attempts": 5,
-      "successes": 5,
-      "totalSum": 69,
-      "bestTotal": 17,
+      "attempts": 13,
+      "successes": 13,
+      "totalSum": 177,
+      "bestTotal": 25,
       "hardestSuccess": 14,
       "bySkill": {
-        "Dexterity": 4,
+        "Dexterity": 12,
         "Strength": 1
       },
-      "solCount": 0,
-      "morteCount": 1,
-      "successCount": 2
+      "solCount": 1,
+      "morteCount": 2,
+      "successCount": 6
     },
     "contests": {
       "engagement": {
@@ -402,8 +403,8 @@
   "weight": 175,
   "keeping": "5e6f7a8b-9c0d-4e1f-2a3b-4c5d6e7f8a9b",
   "treasure": 2,
-  "xp": 1,
-  "updatedAt": "2026-07-09T19:47:22.935Z",
+  "xp": 2,
+  "updatedAt": "2026-07-10T20:03:52.422Z",
   "description": "",
   "size": 0,
   "reach": 0,

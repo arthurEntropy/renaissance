@@ -1,7 +1,7 @@
 {
   "id": "da248ac8-1eed-483b-b717-cf8a430a2ed5",
   "createdAt": "2026-04-08T15:08:50.747Z",
-  "lastModified": "2026-04-10T12:43:29.071Z",
+  "lastModified": "2026-07-15T15:22:30.989Z",
   "name": "Phantasm",
   "artUrl": "https://cdn.midjourney.com/24a395c9-e472-4f3c-8047-21f5a0a2b596/0_3.png",
   "description": "<p><em>Concentration, up to 1 minute.</em></p><p>Roll Awe vs Spirit against a creature within medium range. On a win, you create a fearsome illusion in its mind: an object, creature, or other visible phenomenon of your choice, no larger than 10 ft in any dimension, appearing within short range of it. The illusion is perceivable only to that creature. Your roll result becomes the Difficulty.</p><p>At the start of each of the creature’s turns, it must roll Spirit against the Difficulty. On a pass, the illusion dissipates and the spell ends. On a failure, the creature checks a Condition.</p><p>If the creature attempts to touch the illusion, it rolls Spirit against the Difficulty, with the same results.</p><p>If the creature suffers a Bout of Madness as a result of this spell, the spell ends, but for the next 1d4 days, the creature gains no benefit from short rests and only gains the benefits of a short rest when it completes a long rest.</p><p><strong>Describe the phantasm.</strong></p>",
@@ -12,5 +12,6 @@
   "mpCost": 5,
   "xpCost": 25,
   "canBeActive": true,
-  "hasDifficulty": true
+  "hasDifficulty": true,
+  "successes": "<p>✨: On a win, increase the Difficulty by 2.</p><p>🌞: On a win, the creature cannot clear Conditions while the spell lasts.</p>"
 }

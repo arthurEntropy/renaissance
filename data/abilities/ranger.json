@@ -2,15 +2,23 @@
   "id": "f48f7fa7-e9a2-482d-b7ee-0e195471f7c8",
   "isDeleted": false,
   "createdAt": "2026-02-03T21:18:18.268Z",
-  "lastModified": "2026-04-21T13:04:04.517Z",
+  "lastModified": "2026-07-11T03:16:04.694Z",
   "name": "Ranger",
   "artUrl": "https://cdn.midjourney.com/9fe1eb22-9249-4425-bbf7-e290848f3f5d/0_3.png",
-  "description": "<p>Your skill in the wild is exceptional. Your base MP increases to 10.</p><p><strong>Describe your prowess.</strong></p>",
+  "description": "<p>You are an expert in certain types of terrain. Choose two from among:</p><p><strong>Forest, Plains, Mountain, Desert, Wetland, Water, Underground.</strong></p><p>While in a biome that includes one of the chosen terrain types, your base MP is doubled. Your current MP increases and decreases by the same amount whenever you enter or exit such a biome.</p><p><strong>Describe your knowledge of the land.</strong></p>",
   "source": "10f46ecd-e6f5-4d3b-b510-d4035ab24f56",
   "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
   "mpCost": null,
   "xpCost": 30,
   "manaCost": null,
   "canBeActive": false,
-  "hasDifficulty": false
+  "hasDifficulty": false,
+  "improvements": [
+    {
+      "name": "Master of the Wild",
+      "description": "<p>Choose two more terrain types.</p>",
+      "xpCost": 15,
+      "id": "d1539847-3691-4e62-a606-58e1835311c7"
+    }
+  ]
 }

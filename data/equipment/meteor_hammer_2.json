@@ -1,7 +1,7 @@
 {
   "isDeleted": false,
   "createdAt": "2026-05-06T17:55:10.305Z",
-  "lastModified": "2026-06-24T14:44:55.264Z",
+  "lastModified": "2026-07-16T12:46:44.988Z",
   "name": "Meteor Hammer",
   "artUrl": "https://cdn.midjourney.com/0b70492f-5403-4f2d-bbcf-3608ec35cb72/0_0.png",
   "description": "",
@@ -18,7 +18,7 @@
   "grade": "ebcc2bcb-8221-4ca0-bef3-000fb7e59e96",
   "weight": 1,
   "length": 5,
-  "reach": 0,
+  "reach": 5,
   "range": null,
   "twoHanded": true,
   "thrown": false,
@@ -40,5 +40,5 @@
   ],
   "defenseBonus": 0,
   "id": "cb9c998b-cb46-4243-b924-c822480504dc",
-  "hasDifficulty": false
+  "hasDifficulty": true
 }

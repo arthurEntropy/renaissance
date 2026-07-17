@@ -2,13 +2,13 @@
   "id": "3e1ff0fd-659b-43d7-94df-bd3269a60b36",
   "isDeleted": false,
   "createdAt": "2026-07-08T16:06:56.845Z",
-  "lastModified": "2026-07-08T19:04:46.840Z",
+  "lastModified": "2026-07-10T19:48:34.352Z",
   "characterType": "beastInstance",
   "name": "Spore Hound B",
   "featuredArtUrls": [
     "https://cdn.midjourney.com/39ad5992-8dc0-48f7-9e24-e9633e4377ae/0_1.png"
   ],
-  "speed": 0,
+  "speed": 30,
   "notes": "",
   "body": 2,
   "heart": 1,
@@ -26,9 +26,9 @@
       "key": "strength",
       "ranks": 2,
       "isFavored": false,
-      "isIllFavored": false,
+      "isIllFavored": true,
       "diceMod": 0,
-      "manualDiceMod": 0
+      "manualDiceMod": -3
     },
     {
       "key": "dexterity",
@@ -136,7 +136,7 @@
     }
   ],
   "endurance": {
-    "current": 0,
+    "current": 1,
     "base": 10
   },
   "hope": {
@@ -144,8 +144,8 @@
     "base": 2
   },
   "defense": {
-    "current": 11,
-    "base": 1
+    "current": 6,
+    "base": 6
   },
   "load": 0,
   "shadow": 0,
@@ -165,9 +165,13 @@
     "afraid": false,
     "troubled": false
   },
-  "engagementDice": [],
+  "engagementDice": [
+    6
+  ],
   "engagementSuccesses": [],
-  "engagementDiceStatuses": {},
+  "engagementDiceStatuses": {
+    "user_added_0": "expended"
+  },
   "equipment": [],
   "groupEquipmentBySource": false,
   "groupEquipmentByCustom": false,
@@ -188,17 +192,17 @@
     "states": true,
     "baseEndurance": true,
     "baseHope": true,
-    "baseDefense": true
+    "baseDefense": false
   },
   "rollStats": {
     "skillChecks": {
-      "attempts": 1,
-      "successes": 1,
-      "totalSum": 9,
+      "attempts": 3,
+      "successes": 3,
+      "totalSum": 20,
       "bestTotal": 9,
       "hardestSuccess": null,
       "bySkill": {
-        "Strength": 1
+        "Strength": 3
       },
       "solCount": 0,
       "morteCount": 0,
@@ -207,7 +211,7 @@
     "contests": {
       "engagement": {
         "wins": 0,
-        "losses": 0,
+        "losses": 1,
         "draws": 0
       },
       "opposed": {
@@ -247,7 +251,7 @@
   "keeping": null,
   "treasure": 0,
   "xp": 0,
-  "updatedAt": "2026-07-08T19:04:46.840Z",
+  "updatedAt": "2026-07-10T19:48:34.352Z",
   "description": "",
   "size": 1,
   "reach": 5,

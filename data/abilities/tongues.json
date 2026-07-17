@@ -1,14 +1,14 @@
 {
   "id": "1d094a42-5d6e-4403-83f4-e1e17610a80d",
   "createdAt": "2026-03-10T15:48:11.543Z",
-  "lastModified": "2026-03-17T15:21:37.564Z",
+  "lastModified": "2026-07-16T15:32:42.690Z",
   "name": "Tongues",
   "artUrl": "https://cdn.midjourney.com/c378ce5a-78fa-4741-918c-6c42017d0dd0/0_0.png",
   "description": "<p>For the next hour, a creature you touch can understand any spoken language it hears, and any creature that knows at least one language and can hear the target understands what it says.</p><p><strong>Describe the effects of the spell.</strong></p>",
   "improvements": [
     {
       "name": "Parley",
-      "description": "<p>Instead choose a point within Short Range. The effects of the spell extend to each creature within Short Range of that point.</p>",
+      "description": "<p>Instead choose a point within short range. The effects of the spell extend to each creature within short range of that point.</p>",
       "xpCost": 15,
       "id": "f7989310-ee9c-46f2-be4b-45b42ac88615"
     }

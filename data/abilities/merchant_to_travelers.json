@@ -2,10 +2,10 @@
   "source": "5a639d7b-847a-468b-9bbe-5275d31fdf66",
   "id": "19374ab9-2cbf-48a6-aea4-bbd5aa58bb50",
   "createdAt": "2026-06-19T14:25:04.379Z",
-  "lastModified": "2026-06-19T19:52:17.837Z",
+  "lastModified": "2026-07-15T12:11:45.185Z",
   "name": "Merchant to Travelers",
-  "description": "<p><em>You've seen the merchants of Upham charge high prices to travelers who are happy to pay them.</em></p><p>Whenever you encounter a party of travelers in the wilderness, you may attempt to sell some of your provisions to them for profit. Roll Awe, Perform or Persuade against a difficulty equal to 12 plus the other party's current Keeping. On a pass, you gain 1d4 Treasure.</p><p><strong>Describe how you make the deal.</strong></p>",
-  "successes": "<p>🌞: They are desperate for provisions. On a pass, you gain 1d10 Treasure.</p><p>💀: You make a bad deal. Pass or fail, you gain 1 Treasure and lower your party's Keeping by 1 tier.</p>",
+  "description": "<p><em>You've seen the merchants of Upham charge high prices to travelers who are happy to pay them.</em></p><p>Whenever you encounter travelers outside of cities and towns, you may attempt to sell some of your provisions to them for profit. Roll Awe, Perform or Persuade against a difficulty equal to 10 plus the travelers' current Keeping. On a pass, you gain 1d4 Treasure.</p><p><strong>Describe how you make the deal.</strong></p>",
+  "successes": "<p>🌞: They are desperate for provisions. On a pass, you gain 1d10 Treasure. On a failure, you gain 1 Treasure.</p><p>💀: You make a bad deal. Pass or fail, you gain 1 Treasure and lower the Quest's Keeping by 1 tier.</p>",
   "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
   "artUrl": "https://cdn.midjourney.com/160a2448-1278-4658-9ab8-9af0a4ae60a8/0_1.png"
 }

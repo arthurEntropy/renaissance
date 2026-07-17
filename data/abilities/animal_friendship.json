@@ -1,11 +1,11 @@
 {
   "id": "6bcf3cfa-c9bf-45eb-b598-6a78ac5de507",
   "createdAt": "2026-03-04T17:45:52.446Z",
-  "lastModified": "2026-03-17T14:17:56.451Z",
+  "lastModified": "2026-07-12T20:42:49.873Z",
   "name": "Animal Friendship",
   "artUrl": "https://cdn.midjourney.com/c5e26d34-53fb-439f-a078-83f0f40a05b7/0_2.png",
   "description": "<p>Choose an animal within short range. You and the animal must be able to see and hear each other. Roll Persuade vs Insight. On a win, for the next day, the animal is convinced that you mean it no harm. If you or an ally attack the animal, the spell ends.</p><p><strong>Describe how you calm the animal.</strong></p>",
-  "successes": "<p>✨: The effects lasts for an additional day.</p><p>🌞: The creature considers you a friend. It will follow and defend you, though you have no special ability to communicate with it.</p>",
+  "successes": "<p>✨: The effects lasts for an additional day.</p><p>🌞: The creature considers you a friend. It will follow and defend you for the next day, though you have no special ability to communicate with it.</p>",
   "source": "937d52da-0ebf-4d74-b3ee-be395f2f5d0a",
   "isMagical": true,
   "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",

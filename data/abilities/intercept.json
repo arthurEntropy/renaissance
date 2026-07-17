@@ -1,10 +1,10 @@
 {
   "id": "6bd8eec2-3aa3-4e00-b73c-c716b938550b",
   "isDeleted": false,
-  "lastModified": "2026-03-17T13:15:27.797Z",
+  "lastModified": "2026-07-15T01:22:11.841Z",
   "name": "Intercept",
   "artUrl": "https://cdn.midjourney.com/4611c2e0-d356-4a68-8530-16b0f5b12e8d/0_1.png",
-  "description": "<p><em>Trigger: A creature would make an attack roll against an ally.</em></p><p>If the attacking creature is within half your Speed, you may move to a space adjacent to them. You become the target of their attack.</p><p><strong>Describe how you dash across the battlefield.</strong></p>",
+  "description": "<p><em>Trigger: A creature makes an attack roll against another creature.</em></p><p>You may move up to half your Speed toward the attacking creature. If at the end of your movement you are adjacent to the attacking creature, you become the target of the attack.</p><p><strong>Describe how you dash across the battlefield.</strong></p>",
   "source": "d4dce5e2-e767-464d-91f0-c40b47f788b3",
   "actionCost": "c4df395c-8284-4c4f-bf01-e293ed51c58c",
   "mpCost": 3,

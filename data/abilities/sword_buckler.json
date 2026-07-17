@@ -2,23 +2,17 @@
   "id": "f85bb409-f0f2-4ba7-a921-fa6a567e995f",
   "isDeleted": false,
   "createdAt": "2026-01-30T17:12:44.609Z",
-  "lastModified": "2026-03-16T20:26:11.185Z",
+  "lastModified": "2026-07-16T14:55:17.590Z",
   "name": "Sword & Buckler",
   "artUrl": "https://cdn.midjourney.com/0ee2c88c-5569-425a-b78d-5e7bb57cc22f/0_3.png",
-  "description": "<p>You are trained in light shields.</p><p><strong>Describe your technique.</strong></p>",
+  "description": "<p>You gain double the normal Defense bonus granted by any light shield you are wielding.</p><p><strong>Describe your technique.</strong></p>",
   "successes": "",
   "improvements": [
     {
       "name": "Buckler Punch",
-      "description": "<p>When you roll an engagement success while wielding a light shield, you may spend 1 MP to access the <em>Knockback</em> success.</p>",
+      "description": "<p>When you roll an engagement success while wielding a light shield, you may spend it and 1 MP to achieve the Knockback effect.</p>",
       "xpCost": 10,
       "id": "ffba5115-ecb3-4023-8392-7e16d3d34b4c"
-    },
-    {
-      "name": "Untouchable",
-      "description": "<p>When wielding a light shield, you gain +WITS Defense instead of the shield's normal Defense bonus.</p>",
-      "xpCost": 20,
-      "id": "68d267a0-fb20-44ae-8dac-1ed2f0f80f8b"
     }
   ],
   "source": "4eccfe5d-de19-4bc5-8c9c-374d793d67f0",

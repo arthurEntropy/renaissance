@@ -1,10 +1,10 @@
 {
   "id": "c1c66bb5-5bf0-4dfc-ad2e-24ae1d7fbbe7",
   "createdAt": "2026-03-11T14:59:19.427Z",
-  "lastModified": "2026-03-17T15:20:44.876Z",
+  "lastModified": "2026-07-15T19:59:49.373Z",
   "name": "Protection",
   "artUrl": "https://cdn.midjourney.com/bfb112af-a8ae-4db0-9518-e1d25886edb5/0_3.png",
-  "description": "<p>You touch a creature and ward it against harm. Roll Spirit to set the Difficulty.</p><p>Whenever a creature targets the protected creature with a spell, the caster must roll Spirit against the Difficulty. On a pass, the spell is cast normally. On a failure, the spell fails and any spent MP is lost.</p><p>Whenever the protected creature takes damage, reduce the damage by an amount equal to the Difficulty. Then reduce the Difficulty by the same amount.</p><p>If the Difficulty is reduced to 0, this spell immediately ends.</p><p><strong>Describe how you ward the creature against harm.</strong></p>",
+  "description": "<p>You touch a creature and ward it against harm. Roll Spirit to set the Difficulty.</p><p>Whenever a creature targets the protected creature with a spell, the caster must roll Spirit against the Difficulty. On a pass, the spell is cast normally. On a failure, the spell has no effect and any spent MP is lost.</p><p>Whenever the protected creature takes damage, reduce the damage by an amount equal to the Difficulty. Then reduce the Difficulty by the same amount.</p><p>If the Difficulty is reduced to 0, this spell immediately ends.</p><p><strong>Describe how you ward the creature against harm.</strong></p>",
   "successes": "<p>✨: Increase the Difficulty by 2.</p><p>🌞: Add HEART to the Difficulty.</p>",
   "source": "162ae4db-7a67-4770-8a2c-7e9883da14f6",
   "isMagical": true,

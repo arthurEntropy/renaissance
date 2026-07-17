@@ -1,10 +1,10 @@
 {
   "id": "c88f92c5-a000-4a3b-ad10-69dee0b2d60e",
   "createdAt": "2026-04-06T23:45:04.834Z",
-  "lastModified": "2026-04-10T13:38:11.288Z",
+  "lastModified": "2026-07-15T02:14:07.585Z",
   "name": "Madness",
   "artUrl": "https://cdn.midjourney.com/ba9fc9aa-230b-4d0f-b341-288504f677dc/0_2.png",
-  "description": "<p><em>Concentration, up to 1 minute.</em></p><p>Roll Persuade vs. Riddle against a creature within long range. On a win, you fill the creature's mind with irrational anger, its eyes glow a color of your choosing and your roll result becomes the Difficulty.</p><p>At the start of each of the creature's turns, you may spend a reaction to force the creature to spend an action to make a melee attack against a creature you mentally designate. After resolving this attack, the target may roll Riddle against the Difficulty, ending the effect on a pass.</p><p><strong>Describe the change that comes over them.</strong></p>",
+  "description": "<p><em>Concentration, up to 1 minute.</em></p><p>Roll Persuade vs. Riddle against a creature within long range. On a win, you fill the creature's mind with irrational anger, its eyes glow a color of your choosing and your roll result becomes the Difficulty.</p><p>At the start of each of the creature's turns, you may spend a reaction. If you do, the creature spends an action and makes a melee attack against a creature you mentally designate. After the attack, the affected creature may roll Riddle against the Difficulty, ending the effect on a pass.</p><p><strong>Describe the change that comes over them.</strong></p>",
   "successes": "<p>✨: Win or loss, the creature checks a Condition.</p><p>🌞: When you spend a reaction to force the creature to make an attack, you may also force it to move in a direction of your choosing, up to half its Speed.</p>",
   "source": "dab3e414-0118-49be-9779-4e3018cdba71",
   "school": "9d93af3f-008e-429d-b7c4-7838a39d3b1b",

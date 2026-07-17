@@ -1,10 +1,10 @@
 {
   "id": "180e2ca1-86ad-4e8a-a053-2f4d7409394a",
   "createdAt": "2026-03-11T13:42:14.798Z",
-  "lastModified": "2026-03-17T15:23:21.160Z",
+  "lastModified": "2026-07-14T00:11:25.914Z",
   "name": "Feeblemind",
   "artUrl": "https://cdn.midjourney.com/65843112-9fc8-4593-83f5-3b1a3dfd2e66/0_3.png",
-  "description": "<p>Roll Spirit vs Spirit against a creature within medium range.</p><p>On a win, the creature’s WITS and HEART scores become 0, they temporarily lose all ranks in all Skills under WITS and HEART, and your roll result becomes this spell's Difficulty. The creature can’t cast spells, activate magic items, understand language, or communicate in any intelligible way. The creature can, however, identify its friends, follow them, and even protect them. At the end of each week, the creature can repeat its Spirit roll against the Difficulty. On a pass, the spell ends.</p><p>On a loss, the creature takes 3d8+HEART damage.</p><p><strong>Describe the effects of the curse.</strong></p>",
+  "description": "<p>Roll Spirit vs Spirit against a creature within medium range.</p><p>On a win, the creature’s WITS and HEART scores become 0, they temporarily lose all ranks in all skills under WITS and HEART, and your roll result becomes the Difficulty. The creature can’t cast spells, activate magic items, understand language, or communicate in any intelligible way. The creature can, however, identify its friends, follow them, and even protect them. At the end of each week, the creature can repeat its Spirit roll against the Difficulty. On a pass, the spell ends.</p><p>On a loss, the creature takes 3d8+HEART damage.</p><p><strong>Describe the effects of the curse.</strong></p>",
   "successes": "<p>✨: An additional week must pass before the creature can attempt to end the spell.</p><p>🌞: Each subsequent time the creature rolls Spirit against the Difficulty, its roll is Ill-Favored.</p>",
   "source": "162ae4db-7a67-4770-8a2c-7e9883da14f6",
   "school": "19af0449-55e0-49ee-93c1-58d4daaaf9a5",

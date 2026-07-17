@@ -1,10 +1,10 @@
 {
   "id": "ccd69dd4-8c55-46cb-b3ad-2ffae28d7f6b",
   "createdAt": "2026-04-08T14:12:29.283Z",
-  "lastModified": "2026-04-10T12:21:40.613Z",
+  "lastModified": "2026-07-15T12:19:21.166Z",
   "name": "Message",
   "artUrl": "https://cdn.midjourney.com/c7b97a27-de73-41b8-9f52-37bcc05565e0/0_3.png",
-  "description": "<p>Choose a creature within far range. If you have spoken to the creature before, you do not need to be able to see the creature. You transmit a one-sentence message to the creature, so long as it remains within far range. The creature hears the message in its mind and may respond with a one-sentence reply as a free action within the next round. You hear the response in your mind.</p><p>If the creature replies, you may spend 1 MP to send another message and receive another reply within 1 round. You may repeat this as many times as you choose, so long as the creature continues responding.</p><p><strong>Describe how you send and receive the messages.</strong></p>",
+  "description": "<p>Choose a creature within far range. If you have spoken to the creature before, you do not need to be able to see the creature. You transmit a one-sentence message to the creature.</p><p>The creature hears the message in its mind and, so long as it remains within far range, may respond with a one-sentence reply as a free action within the next round. You hear the response in your mind.</p><p>If the creature replies, you may spend 1 MP to send another message and receive another reply within 1 round. You may repeat this as many times as you choose, so long as the creature continues responding and remains within far range.</p><p><strong>Describe how you send and receive the messages.</strong></p>",
   "improvements": [
     {
       "name": "Sending",

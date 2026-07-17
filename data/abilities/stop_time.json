@@ -1,10 +1,10 @@
 {
   "id": "39d2f237-58fb-471d-aad9-13a264ea765c",
   "createdAt": "2026-04-14T17:55:47.868Z",
-  "lastModified": "2026-04-14T17:59:33.046Z",
+  "lastModified": "2026-07-16T19:37:54.983Z",
   "name": "Stop Time",
   "artUrl": "https://cdn.midjourney.com/7d79bc5f-a3aa-4ae8-8548-9bbb4d215e52/0_2.png",
-  "description": "<p>You briefly stop the flow of time for everyone but yourself. No time passes for other creatures, while you take 1d4+1 turns in a row, during which you can use actions and move as normal.</p><p>The spell ends if you or an effect you create affects a creature other than you or an object being worn or carried by someone other than you. In addition, the spell ends if you move to a place more than far range from the location where you cast it.</p>",
+  "description": "<p>You briefly stop the flow of time for everyone but yourself. No time passes for other creatures, while you take 1d4+1 turns in a row, during which you can spend actions and move as normal.</p><p>The spell ends if you or an effect you create affects a creature other than you or an object being worn or carried by someone other than you. In addition, the spell ends if you move to a place more than far range from the location where you cast it.</p><p><strong>Describe how you stop time.</strong></p>",
   "source": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
   "school": "c4a153b2-8906-4b95-be65-d8e5a5cc73ff",
   "isMagical": true,

@@ -2,10 +2,10 @@
   "id": "139e5a9e-7ed1-4cf3-9d03-447ea4c3c274",
   "isDeleted": false,
   "createdAt": "2026-02-04T14:34:08.684Z",
-  "lastModified": "2026-03-11T23:29:51.353Z",
+  "lastModified": "2026-07-15T19:23:18.851Z",
   "name": "Poppet",
   "artUrl": "https://cdn.midjourney.com/cfa4c1ed-a5bb-4886-b7d8-fabf30f1c48c/0_1.png",
-  "description": "<p>Choose a creature you have touched within the last day, or a creature within long range.</p><p>You fashion a tiny doll that crudely resembles the creature. For the next minute, while you are holding the doll, once per round, you may spend a half action to achieve one of the following effects, choosing each effect only once:</p><ul><li><p>The creature regains HEART Endurance.</p></li><li><p>The creature takes +1d to a skill of your choice.</p></li><li><p>The creature clears a Condition.</p></li></ul><p>When you use the doll for the third time, it is destroyed, leaving its heart behind in the form of a seed. Until the spell ends, any creature can eat the seed as a half action. A creature that does so gains 2d8 temporary Endurance.</p><p><strong>Describe your poppet and how you use it.</strong></p>",
+  "description": "<p>Choose a creature you have touched within the last day, or a creature within long range.</p><p>You fashion a tiny doll that crudely resembles the creature. For the next minute, while you are holding the doll, once per round, you may spend a half action to achieve one of the following effects, choosing each effect only once:</p><ul><li><p>The creature regains HEART Endurance.</p></li><li><p>The creature takes +1d to a skill of your choice.</p></li><li><p>The creature clears a Condition.</p></li></ul><p>When you use the doll for the third time, it is destroyed, leaving its heart behind in the form of a seed. Until the spell ends, any creature may eat the seed as a half action. A creature that does so gains 2d8 Endurance.</p><p><strong>Describe your poppet and how you use it.</strong></p>",
   "improvements": [
     {
       "name": "Malicious Intent",

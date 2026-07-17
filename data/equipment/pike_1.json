@@ -1,7 +1,7 @@
 {
   "isDeleted": false,
   "createdAt": "2026-05-06T17:55:10.305Z",
-  "lastModified": "2026-06-24T14:27:55.573Z",
+  "lastModified": "2026-07-14T19:08:17.076Z",
   "name": "Pike",
   "artUrl": "https://cdn.midjourney.com/463e9f71-9760-497f-ae76-a1c40d37a55a/0_3.png",
   "description": "",
@@ -20,7 +20,7 @@
   "length": 12,
   "reach": 10,
   "range": null,
-  "twoHanded": false,
+  "twoHanded": true,
   "thrown": false,
   "finesse": false,
   "piercing": true,

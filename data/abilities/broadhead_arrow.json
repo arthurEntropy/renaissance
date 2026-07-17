@@ -1,0 +1,20 @@
+{
+  "source": "10f46ecd-e6f5-4d3b-b510-d4035ab24f56",
+  "id": "90dde26a-256c-4bd4-9d54-ba5c54792b99",
+  "createdAt": "2026-07-11T03:07:18.542Z",
+  "lastModified": "2026-07-11T19:18:00.994Z",
+  "name": "Broadhead Arrow",
+  "actionCost": "40656418-af01-43ae-8a60-a1bd0124efb4",
+  "mpCost": 1,
+  "description": "<p>Once per rest per rank you have in Craft: The next time you attack with a projectile weapon this turn, if the attack hits a creature, it deals no damage, but the creature rolls Injury.</p><p><strong>Describe the wound.</strong></p>",
+  "artUrl": "https://cdn.midjourney.com/d4289862-124a-4153-9ae8-d7a04af59877/0_3.jpeg",
+  "improvements": [
+    {
+      "name": "Barbed Broadhead",
+      "description": "<p>On a hit, the next time the creature regains Endurance, it rolls Injury again.</p>",
+      "xpCost": 5,
+      "id": "a23859e6-1710-4477-8c41-0f55fe6e8623"
+    }
+  ],
+  "xpCost": 5
+}

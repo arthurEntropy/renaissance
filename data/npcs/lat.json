@@ -2,7 +2,7 @@
   "id": "b0dfc21f-b910-4a42-aca0-ad497a099139",
   "isDeleted": false,
   "createdAt": "2026-07-08T13:01:58.229Z",
-  "lastModified": "2026-07-09T13:01:24.154Z",
+  "lastModified": "2026-07-10T20:03:10.114Z",
   "characterType": "npc",
   "name": "Lat",
   "featuredArtUrls": [
@@ -136,7 +136,7 @@
     }
   ],
   "endurance": {
-    "current": 0,
+    "current": 6,
     "base": 16
   },
   "hope": {
@@ -167,14 +167,25 @@
   },
   "engagementDice": [],
   "engagementSuccesses": [],
-  "engagementDiceStatuses": {},
+  "engagementDiceStatuses": {
+    "user_added_0": "expended",
+    "a15bd153-dd45-457a-b4c4-87be91ce1d52_0": "expended",
+    "user_added_3": "expended",
+    "user_added_2": "expended",
+    "user_added_1": "expended",
+    "mestiere_0": "expended",
+    "mestiere_1": "expended",
+    "mestiere_2": "expended",
+    "mestiere_3": "expended",
+    "mestiere_4": "expended"
+  },
   "equipment": [],
   "groupEquipmentBySource": false,
   "groupEquipmentByCustom": false,
   "equipmentSortOption": "name-asc",
   "equipmentCustomGroups": [],
   "mp": {
-    "current": 0,
+    "current": 4,
     "base": 0
   },
   "abilities": [
@@ -249,23 +260,23 @@
   },
   "rollStats": {
     "skillChecks": {
-      "attempts": 2,
-      "successes": 1,
-      "totalSum": 36,
+      "attempts": 11,
+      "successes": 10,
+      "totalSum": 170,
       "bestTotal": 24,
       "hardestSuccess": null,
       "bySkill": {
-        "Strength": 1,
-        "Fortitude": 1
+        "Strength": 8,
+        "Fortitude": 3
       },
-      "solCount": 1,
+      "solCount": 3,
       "morteCount": 0,
       "successCount": 2
     },
     "contests": {
       "engagement": {
-        "wins": 0,
-        "losses": 0,
+        "wins": 4,
+        "losses": 2,
         "draws": 0
       },
       "opposed": {
@@ -334,7 +345,7 @@
     "d194ad54-7ca8-4902-a140-e6401681ee55",
     "352c844b-6d4f-4b61-b475-315421a453e7"
   ],
-  "mestiereId": "558abd15-f90f-40d7-80d8-df73a37f977c",
+  "mestiereId": "e0a69b6f-38f9-4fa5-a1ef-5e5777299e82",
   "age": 131,
   "heightFeet": 3,
   "heightInches": 6,
@@ -342,7 +353,7 @@
   "keeping": "2b3c4d5e-6f7a-4b8c-9d0e-1f2a3b4c5d6e",
   "treasure": 7,
   "xp": 0,
-  "updatedAt": "2026-07-09T13:01:24.154Z",
+  "updatedAt": "2026-07-10T20:03:10.114Z",
   "description": "",
   "size": 0,
   "reach": 0,

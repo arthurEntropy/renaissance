@@ -1,10 +1,10 @@
 {
   "id": "f52ae657-c211-46bc-9dc7-7d1444f55711",
   "isDeleted": false,
-  "lastModified": "2026-03-17T00:44:07.995Z",
+  "lastModified": "2026-07-14T13:53:14.447Z",
   "name": "Formidable",
   "artUrl": "https://cdn.midjourney.com/86161bbc-5177-4631-9c1b-cf6b40aa4fc0/0_3.png",
-  "description": "<p><em>Trigger: You knock a creature unconscious.</em></p><p>Roll Awe vs Spirit against any number of creatures within short range. On each win, that creature checks two Conditions. On each loss, the creature checks one Condition.</p>",
+  "description": "<p><em>Trigger: You knock a creature unconscious.</em></p><p>Roll Awe vs Spirit against any number of creatures within short range. On each win, that creature checks two Conditions. On each loss, the creature checks one Condition.</p><p><strong>Describe your formidable presence.</strong></p>",
   "successes": "<p>✨: Win or lose, each creature takes -1d to attack rolls against you for 1 round.</p><p>🌞: Win or lose, each creature may not move closer to you for 1 round.</p>",
   "source": "1e4131c7-8a6f-422c-998a-5147600c946e",
   "actionCost": "c4df395c-8284-4c4f-bf01-e293ed51c58c",

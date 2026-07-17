@@ -1,0 +1,16 @@
+{
+  "id": "98d0673c-dc45-427e-af3a-ac674889654a",
+  "isDeleted": false,
+  "createdAt": "2026-01-31T00:50:31.258Z",
+  "lastModified": "2026-07-12T21:56:06.204Z",
+  "name": "Executioner",
+  "artUrl": "https://cdn.midjourney.com/52a4e098-f8ec-495a-a67f-719b981ead7e/0_0.png",
+  "description": "<p>Whenever you inflict Injury on a creature, if the Injury causes them to become Twice Helpless, their head is severed or crushed (as appropriate for your weapon), their Endurance is reduced to 0, and they die immediately.</p><p><strong>Describe how you end them.</strong></p>",
+  "source": "1e4131c7-8a6f-422c-998a-5147600c946e",
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": 30,
+  "manaCost": null,
+  "canBeActive": false,
+  "hasDifficulty": false
+}

@@ -1,14 +1,14 @@
 {
   "id": "4e9fba27-e52b-4a67-8f1c-b671de8703dd",
   "createdAt": "2026-03-11T14:07:54.135Z",
-  "lastModified": "2026-03-17T15:21:17.672Z",
+  "lastModified": "2026-07-16T00:04:22.865Z",
   "name": "Remove Curse",
   "artUrl": "https://cdn.midjourney.com/a11c6c54-467e-44eb-8059-93772348a24b/0_3.png",
   "description": "<p>You touch one creature or object and end all curses affecting it. If the object is a cursed magic item, its curse remains, but the spell breaks its owner’s attunement to the object so it can be removed or discarded.</p><p><strong>Describe how your remove the curse.</strong></p>",
   "improvements": [
     {
       "name": "Freedom of Movement",
-      "description": "<p>You may also remove any effects from a creature that are currently reducing its Speed or inhibiting its movement. If it is bound by mundane restraints or is Grappled, it may spend 5 ft of movement on its next turn to escape.</p>",
+      "description": "<p>You may also remove any effects from a creature that are currently reducing its Speed or inhibiting its movement. If it is bound by mundane restraints or is grappled, it may spend 5 ft of movement on its next turn to escape.</p>",
       "xpCost": 5,
       "id": "2830a1ad-b013-4fcc-92c4-428a922d1ca8"
     }

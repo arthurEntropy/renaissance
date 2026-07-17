@@ -1,10 +1,10 @@
 {
   "id": "75e1dc58-f195-4e23-be00-24dfbbc1a757",
   "isDeleted": false,
-  "lastModified": "2026-03-16T23:24:51.417Z",
+  "lastModified": "2026-07-13T23:58:01.020Z",
   "name": "Everyone Has A Price",
   "artUrl": "https://cdn.midjourney.com/43b8eaf3-0c67-4929-8783-58c668944514/0_0.png",
-  "description": "<p>Once per rest for each level of <em>Swagger</em> you have: Choose a humanoid you have had a conversation with before and name a specific action you want them to take. The GM tells you the amount of Treasure it would take to convince them to perform that action, if it is within their capability.</p><p><strong>Describe how you suss out their price.</strong></p>",
+  "description": "<p>Once per rest for each level of <em>Swagger</em> you have: Choose a humanoid you have spoken with or observed for at least one minute and name a specific action you want them to take. The GM tells you the amount of Treasure it would take to convince them to perform that action, if it is within their capability.</p><p><strong>Describe how you suss out their price.</strong></p>",
   "source": "45ca935d-938b-4974-961c-4171cc388904",
   "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
   "mpCost": null,

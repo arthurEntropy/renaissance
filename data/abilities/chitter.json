@@ -1,10 +1,10 @@
 {
   "id": "bea391ca-bbfb-415f-88bf-3b69b94439bd",
   "createdAt": "2026-03-09T18:32:00.518Z",
-  "lastModified": "2026-03-17T14:31:49.296Z",
+  "lastModified": "2026-07-13T00:09:09.512Z",
   "name": "Chitter",
   "artUrl": "https://cdn.midjourney.com/2b288143-a7bc-4c90-b130-3a018f458b05/0_3.png",
-  "description": "<p><em>Concentration, up to 1 minute.</em></p><p>Your Colony makes a loud chittering sound, unsettling your foes. Each time a creature attempts to move within short range of you, you may roll Spirit vs Fortitude against them. On a win, that creature must spend the rest of its available movement moving away from you.</p><p><strong>Describe the chittering.</strong></p>",
+  "description": "<p><em>Concentration, up to 1 minute.</em></p><p>Your Colony makes a loud chittering sound, unsettling your foes. Each time a creature moves within short range of you, you may roll Spirit vs Fortitude against them. On a win, that creature must spend the rest of its available movement moving away from you.</p><p><strong>Describe the chittering.</strong></p>",
   "successes": "<p>✨: On a win, the creature takes -1 Defense for the next round.</p><p>🌞: On a win, the creature checks a Condition.</p>",
   "source": "937d52da-0ebf-4d74-b3ee-be395f2f5d0a",
   "school": "6e98ce47-8b88-47ce-b348-a443d89bac83",

@@ -1,10 +1,10 @@
 {
   "id": "45509525-7db1-48cf-ac50-cd812a5ce9bb",
   "createdAt": "2026-03-11T14:47:00.764Z",
-  "lastModified": "2026-03-11T20:44:27.741Z",
+  "lastModified": "2026-07-15T01:19:41.568Z",
   "name": "Inflict Wounds",
   "artUrl": "https://cdn.midjourney.com/6ff8c862-d67a-40e9-8eee-25c986cd68f5/0_3.png",
-  "description": "<p>Roll Spirit vs Defense against an adjacent creature. On a pass, you touch the creature and it takes 2d10+HEART damage.</p><p><strong>Describe how you inflict the wounds.</strong></p>",
+  "description": "<p>Roll Spirit vs Defense against an adjacent creature. On a pass, you touch the creature and it takes 2d10+HEART damage.</p><p><strong>Describe the wounds you inflict.</strong></p>",
   "source": "162ae4db-7a67-4770-8a2c-7e9883da14f6",
   "isMagical": true,
   "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",

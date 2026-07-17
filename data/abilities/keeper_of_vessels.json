@@ -2,10 +2,10 @@
   "id": "c59e50f9-4063-4066-bc80-c634b3b5aacf",
   "isDeleted": false,
   "createdAt": "2026-02-02T20:54:44.191Z",
-  "lastModified": "2026-03-17T02:05:01.496Z",
+  "lastModified": "2026-07-15T01:30:31.486Z",
   "name": "Keeper of Vessels",
   "artUrl": "https://cdn.midjourney.com/12c351aa-b953-4bc9-8ec5-aebb51f67e6e/0_3.png",
-  "description": "<p>Once per rest, choose up to 3 vessels you are carrying. These become your active vessels, which can be used for your <em>Summon</em> ability. Any previously active vessels that you don't choose become inactive.</p><p>Also, at the end of each rest, each creature in one of your vessels (active or not) regains Endurance equal to its twice its BODY score, plus the Keeping of the vessel.</p><p><strong>Describe how you carry your vessels.</strong></p>",
+  "description": "<p>Each rest, choose up to 3 vessels you are carrying. These become your active vessels, which can be used for your <em>Summon</em> ability. Any previously active vessels that you don't choose become inactive.</p><p>Also, at the end of each rest, each creature in one of your vessels (active or not) regains Endurance equal to its its BODY score, plus the Keeping of the vessel.</p><p><strong>Describe how you carry your vessels.</strong></p>",
   "improvements": [
     {
       "name": "The Very Best",

@@ -1,10 +1,10 @@
 {
   "id": "0d70f263-078a-48bf-bb4d-73922ba80a17",
   "createdAt": "2026-03-06T19:41:59.870Z",
-  "lastModified": "2026-03-17T14:44:47.265Z",
+  "lastModified": "2026-07-16T19:38:23.406Z",
   "name": "Take Root",
-  "artUrl": "https://cdn.midjourney.com/2644a830-c65c-457a-b04d-060cda53104c/0_1.png",
-  "description": "<p><em>Concentration, up to 1 hour.</em></p><p>Your plant ward spreads along your limbs, extending roots from your hands and feet that cling to surfaces, objects, and creatures.</p><p>You may spend a half action to attach or release these roots. To attach to a creature, roll Spirit vs. Dexterity. On a win, the roots take hold.</p><p>While attached, you remain firmly adhered. You may spend an action to crush or constrict the target, dealing 1d8 + HEART damage to the object or creature you are attached to.</p><p>If a creature attempts to pull you free, roll Spirit vs. Strength. On a win, you remain attached. On a loss, you are dislodged.</p>",
+  "artUrl": "https://cdn.midjourney.com/6e428b8e-f6e4-4d2b-a64f-53503824b413/0_2.png",
+  "description": "<p><em>Concentration, up to 1 hour.</em></p><p>Your Ward Plant spreads along your limbs, extending roots from your hands and feet that cling to surfaces, objects, and creatures.</p><p>You may spend a half action to attach or release these roots. To attach to a creature, roll Spirit vs Dexterity. On a win, the roots take hold.</p><p>While attached, you remain firmly adhered. You may spend an action to crush or constrict a creature or object you're attached to, dealing 1d8 + HEART damage.</p><p>If a creature attempts to detach the roots, roll Spirit vs Strength. On a win, you remain attached. On a loss, you are detached.</p><p><strong>Describe the root growth.</strong></p>",
   "source": "937d52da-0ebf-4d74-b3ee-be395f2f5d0a",
   "school": "f8572abf-975d-4007-b007-4cbe9bfdec01",
   "isMagical": true,

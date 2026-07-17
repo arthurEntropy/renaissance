@@ -1,20 +1,20 @@
 {
   "id": "1e289ca8-cf6a-4f0d-ad7c-a13fc8e1f381",
   "isDeleted": false,
-  "lastModified": "2026-07-08T13:10:17.213Z",
+  "lastModified": "2026-07-17T13:42:34.860Z",
   "name": "Fists Up",
   "artUrl": "https://cdn.midjourney.com/e5d5231e-2d99-47b2-aa1d-b3dc4970239d/0_3.png",
-  "description": "<p>Whenever you make an unarmed melee attack on your turn, you may make one attack per free hand.</p><p>When you make an unarmed melee attack or make a melee attack with an improvised weapon, the damage die for the attack is a d6.</p><p><strong>Describe how your stripped-down style delivers a brutal blow.</strong></p>",
+  "description": "<p>Whenever you spend an action to make an unarmed melee attack on your turn, you may make one attack per free hand.</p><p>Your damage die for unarmed melee attacks and attacks with improvised weapons is a d6.</p><p>These effects are suspended while you are wearing armor of martial grade or higher.</p><p><strong>Describe how your stripped-down style delivers a brutal blow.</strong></p>",
   "improvements": [
     {
       "name": "Fists of Fury",
-      "description": "<p>Your damage die for unarmed melee attacks and melee attacks with improvised weapons increases to a d8.</p>",
+      "description": "<p>Your damage die for unarmed melee attacks and attacks with improvised weapons is a d8.</p>",
       "xpCost": 15,
       "id": "c0cce62d-03a8-5654-92e9-c354f4233834"
     },
     {
       "name": "Sting Like A Bee",
-      "description": "<p>Your damage die for unarmed melee attacks and melee attacks with improvised weapons increases to a d10.</p>",
+      "description": "<p>Your damage die for unarmed melee attacks and attacks with improvised weapons is a d10.</p>",
       "xpCost": 30,
       "id": "cd9bad53-973c-437d-8dbf-170e407660d5"
     }

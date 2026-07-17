@@ -1,0 +1,12 @@
+{
+  "source": "10f46ecd-e6f5-4d3b-b510-d4035ab24f56",
+  "id": "7f6bc354-992f-47e5-a134-22b804ec3d41",
+  "createdAt": "2026-07-11T03:46:54.790Z",
+  "lastModified": "2026-07-11T19:09:30.608Z",
+  "name": "Incendiary Arrow",
+  "artUrl": "https://cdn.midjourney.com/3e582637-96db-488d-bc51-63fe1109eb6f/0_2.jpeg",
+  "description": "<p>Once per day per rank you have in Craft: The next time you fire a projectile weapon this turn, halve the range of the weapon for the shot, and the projectile carries fire with it.</p><p>If the projectile hits a creature, it deals an additional 1d4 damage. If the projectile hits a flammable object, it sets fire to the object.</p><p><strong>Describe how you prepare and fire the arrow.</strong></p>",
+  "actionCost": "40656418-af01-43ae-8a60-a1bd0124efb4",
+  "xpCost": 5,
+  "mpCost": 1
+}

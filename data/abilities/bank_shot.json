@@ -1,14 +1,14 @@
 {
   "id": "cd57b634-a8c9-4e33-8ca6-3e1a3dacef3d",
   "createdAt": "2026-02-27T19:35:52.808Z",
-  "lastModified": "2026-03-17T01:13:38.394Z",
+  "lastModified": "2026-07-12T21:46:47.949Z",
   "name": "Bank Shot",
   "artUrl": "https://cdn.midjourney.com/d9942d80-ecec-4761-8eea-3bcdc6d1d37d/0_0.png",
-  "description": "<p>When you attack with your orb, you may bounce it off a flat surface as part of its trajectory. The total distance it travels for the attack must still be within its range.</p><p>If the target of the attack is a creature that you can see, you may roll Dexterity vs Dexterity for the attack roll.</p><p><strong>Describe your bank shot.</strong></p>",
+  "description": "<p>When you attack with your orb, you may bounce it off a flat surface as part of its trajectory. The total distance it travels for the attack must still be within its range.</p><p>If the target of the attack is a creature that you can see, you may roll Dexterity vs Dexterity against it, landing a normal hit on a win.</p><p><strong>Describe your bank shot.</strong></p>",
   "improvements": [
     {
       "name": "Play!",
-      "description": "<p>You may attempt to bounce the orb off of any creature or object that is at least as large as your orb. If you do, your Dexterity roll is ill-favored.</p>",
+      "description": "<p>You may instead attempt to bounce your orb off of one creature before hitting a second creature. Roll Dexterity vs Dexterity against the first creature. On two wins, you land a normal hit on both creatures. If the first creature wins, you miss both. If you win against the first but lose against the second, you only land a hit against the first.</p>",
       "xpCost": 5,
       "id": "dda9dc97-97d7-4439-b284-3c48e8fce6fb"
     }

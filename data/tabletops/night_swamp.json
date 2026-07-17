@@ -2,7 +2,7 @@
   "id": "f3c8c845-59f1-4481-bafb-2f1e0d5da452",
   "isDeleted": false,
   "createdAt": "2026-07-10T14:12:23.517Z",
-  "lastModified": "2026-07-10T17:45:10.758Z",
+  "lastModified": "2026-07-10T23:21:02.675Z",
   "campaignId": "c9ddeab9-d180-4fc5-869f-e64239bc3376",
   "name": "Night Swamp",
   "backgroundImage": {
@@ -10,11 +10,45 @@
     "naturalWidth": 2912,
     "naturalHeight": 1632
   },
-  "items": [],
+  "items": [
+    {
+      "id": "3277c6ca-b000-42fc-8557-7d3323d086cd",
+      "characterId": "b4417462-600b-4571-b2ad-a572ad01733f",
+      "isBeast": false,
+      "name": "Damla",
+      "portraitUrl": "https://cdn.midjourney.com/2ef0de1a-3306-441c-9f5e-0899dcced474/0_0.png",
+      "size": 1,
+      "x": 2240,
+      "y": 880,
+      "zIndex": 40
+    },
+    {
+      "id": "9e778c75-3b26-43e7-bc05-968b4263c6f8",
+      "characterId": "dd4ad3a1-0d8b-4e05-8548-ee81bbb61c29",
+      "isBeast": false,
+      "name": "Tuah",
+      "portraitUrl": "https://cdn.midjourney.com/28e56c75-1364-472a-be48-82ecf005fe62/0_1.png",
+      "size": 1,
+      "x": 1600,
+      "y": 1040,
+      "zIndex": 22
+    },
+    {
+      "id": "2b346a04-8520-4aeb-9be3-b51d593a9bc4",
+      "characterId": "6a9c30a0-25ce-4dcc-99bd-06d5c226d1c3",
+      "isBeast": true,
+      "name": "Mycoderm A",
+      "portraitUrl": "https://cdn.midjourney.com/1981f3be-8de5-4457-9d0f-da52943eb68c/0_0.png",
+      "size": 3,
+      "x": 2240,
+      "y": 960,
+      "zIndex": 25
+    }
+  ],
   "transform": {
-    "scale": 0.5022156324807011,
-    "x": 187.12210970480498,
-    "y": 70.73972743932342
+    "scale": 0.6832588235294115,
+    "x": -488.15463841559404,
+    "y": -256.4574024340451
   },
   "gridSize": 80,
   "gridColor": "#ffffff",

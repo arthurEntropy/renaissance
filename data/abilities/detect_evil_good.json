@@ -1,10 +1,10 @@
 {
   "id": "3dffcf91-1f3e-42ff-a6b2-a259f7a15a19",
   "createdAt": "2026-03-11T12:51:34.306Z",
-  "lastModified": "2026-05-13T20:25:50.759Z",
+  "lastModified": "2026-07-13T13:41:51.619Z",
   "name": "Detect Evil & Good",
   "artUrl": "https://cdn.midjourney.com/8bd0cb7a-7c09-428b-b0a6-8e1e5c023b7b/0_1.png",
-  "description": "<p><em>Concentration, up to 10 minutes.</em></p><p>You sense the presence of any deities, spirits and undead. For each of these that is within...</p><ul><li><p>Far range, you just sense its presence.</p></li><li><p>Long range, you sense its presence and whether its Alignment is evil, neutral or good.</p></li><li><p>Medium range, you know its location and its full Alignment.</p></li><li><p>Short Range, you know its location, full Alignment and Domain.</p></li></ul><p>You also detect whether any creatures within Short Range are currently under any effects imposed by a deity, spirit or undead.</p><p>This sense is blocked by barriers of metal of any thickness, barriers of stone at least 1 ft thick, or barriers of any solid material at least 3 ft thick.</p><p><strong>Describe how you sense these entities.</strong></p>",
+  "description": "<p><em>Concentration, up to 10 minutes.</em></p><p>You sense the presence of any deities, spirits and undead. For each of these that is within...</p><ul><li><p>Far range, you just sense its presence.</p></li><li><p>Long range, you sense its presence and direction relative to you. For a deity, you learn whether its Alignment is evil, neutral or good.</p></li><li><p>Medium range, you learn its precise location. For a deity, you learn its full Alignment.</p></li><li><p>Short Range, you learn its precise location and can see a glowing outline around them, which is visible to you even if you don't have line of sight to their location. For a deity, you learn its full Alignment and its Domain.</p></li></ul><p>You also detect whether any creatures within short range are currently under any effects imposed by a deity, spirit or undead.</p><p>This sense is blocked by barriers of metal of any thickness, barriers of stone at least 1 ft thick, or barriers of any solid material at least 3 ft thick.</p><p><strong>Describe how you sense these entities.</strong></p>",
   "improvements": [
     {
       "name": "Dispel Evil & Good",
