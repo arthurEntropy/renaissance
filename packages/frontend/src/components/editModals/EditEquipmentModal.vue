@@ -152,7 +152,7 @@
       </div>
 
       <!-- Weapon Properties -->
-      <div v-if="equipmentIsWeapon" class="form-group vertical">
+      <div class="form-group vertical">
         <label>Weapon Properties:</label>
         <div class="properties-inline">
           <label for="twoHanded" class="property-checkbox">
@@ -175,7 +175,7 @@
       </div>
 
       <!-- Engagement Dice -->
-      <div v-if="equipmentIsWeapon" class="form-group vertical">
+      <div class="form-group vertical">
         <label>Engagement Dice:</label>
         <div class="dice-row">
           <div v-for="dieType in dieTypes" :key="'engagement-' + dieType" class="dice-column">
@@ -186,7 +186,7 @@
       </div>
 
       <!-- Damage Dice -->
-      <div v-if="equipmentIsWeapon" class="form-group vertical">
+      <div class="form-group vertical">
         <label>Damage Dice:</label>
         <div class="dice-row">
           <div v-for="dieType in dieTypes" :key="'damage-' + dieType" class="dice-column">
@@ -197,7 +197,7 @@
       </div>
 
       <!-- Engagement Successes -->
-      <div v-if="equipmentIsWeapon" class="form-group vertical">
+      <div class="form-group vertical">
         <label>Engagement Successes:</label>
         <div class="properties-inline">
           <label v-for="success in engagementSuccessesStore.items" :key="success.id" :for="'success-' + success.id"
@@ -344,13 +344,6 @@ const convertCountsToArray = (diceCounts) => {
 // Initialize dice counts from equipment data
 engagementDiceCounts.value = convertArrayToCounts(editedEquipment.value?.engagementDice || [])
 damageDiceCounts.value = convertArrayToCounts(editedEquipment.value?.damageDice || [])
-
-// Computed properties
-const equipmentIsWeapon = computed(() => {
-  if (!editedEquipment.value?.type) return false
-  const equipmentType = equipmentTypesStore.items.find(t => t.id === editedEquipment.value.type)
-  return equipmentType?.name === 'Weapon'
-})
 
 // Equipment categories management
 const availableSubtypes = computed(() => {
