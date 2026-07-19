@@ -679,7 +679,7 @@ export function useTabletopCanvas(campaignId, tabletopId) {
             return
         }
 
-        if (e.key === ' ' && isMeasuring.value) {
+        if (e.key === 'Shift' && isMeasuring.value) {
             e.preventDefault()
             if (dragState.value) {
                 // Lock current snapped position as a waypoint for each token track

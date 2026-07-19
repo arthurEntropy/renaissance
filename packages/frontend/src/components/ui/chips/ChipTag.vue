@@ -134,6 +134,7 @@ const clearTooltip = () => {
 .chip.success {
     background: var(--color-success);
     color: var(--color-white);
+    border: 1px solid var(--color-success);
 }
 
 /* Rounded variants */
@@ -160,6 +161,7 @@ const clearTooltip = () => {
 
 .chip.success:hover:not(.no-hover) {
     background-color: var(--color-success-hover);
+    border: 1px solid var(--color-success-hover);
 }
 
 .chip.no-hover {

@@ -247,4 +247,8 @@ onUnmounted(() => {
     color: var(--color-text-primary);
     margin-top: var(--space-sm);
 }
+
+.chip {
+    cursor: pointer;
+}
 </style>

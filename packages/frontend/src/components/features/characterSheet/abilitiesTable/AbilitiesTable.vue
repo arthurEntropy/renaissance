@@ -91,6 +91,12 @@
     <ContestModal v-if="contestModalOpen" :initial-session-config="contestSessionConfig"
       @close="contestModalOpen = false" />
 
+    <!-- Damage Roll Modal -->
+    <CustomRollModal v-if="showDamageRollModal && damageRollModalConfig && selectedCharacter" title="Damage Roll"
+      :character="selectedCharacter" :initial-dice-counts="damageRollModalConfig.initialDiceCounts"
+      :initial-modifier="damageRollModalConfig.initialModifier" :roll-name="damageRollModalConfig.rollName"
+      :source-name="damageRollModalConfig.sourceName" roll-mode="damage" @close="showDamageRollModal = false" />
+
   </CharacterSheetSection>
 </template>
 
@@ -124,10 +130,10 @@ import { useSourcesStore } from '@/stores/sourcesStore'
 import { useConceptsStore } from '@/stores/conceptsStore'
 import { useRollsStore } from '@/stores/rollsStore'
 import { MANA_COLOR_ORDER } from '@/constants/manaColors'
-import DamageRollService from '@/services/rolls/damageRollService'
+import CustomRollModal from '@/components/features/characterSheet/customDiceRoller/CustomRollModal.vue'
 import CustomRollService from '@/services/rolls/customRollService'
 import { RollTypes } from '@/constants/rollTypes'
-import { getModifierStatKey, getModifierStatLabel } from '@/utils/characterKeyUtils'
+import { getModifierStatKey } from '@/utils/characterKeyUtils'
 import { SKILLS } from '@shared/constants/characterConstants'
 
 const props = defineProps({
@@ -162,6 +168,8 @@ const rollLinkRollType = ref(null)
 const rollLinkBiomeDiceMod = ref(0)
 const contestModalOpen = ref(false)
 const contestSessionConfig = ref(null)
+const showDamageRollModal = ref(false)
+const damageRollModalConfig = ref(null)
 
 const sortOptions = ABILITY_SORT_OPTIONS
 
@@ -389,44 +397,46 @@ const handleRollLink = (rollData) => {
     rollLinkBiomeDiceMod.value = rollData.biomeDiceMod ?? 0
     showSkillCheckModal.value = true
   } else if (rollData.type === 'damage-roll') {
-    // Transform dice format from [{count, sides}] to [{dieSize}...]
-    const dicePool = []
+    // Build initial dice counts for CustomRollModal
+    const initialDiceCounts = {}
     rollData.dice.forEach(die => {
-      for (let i = 0; i < die.count; i++) {
-        dicePool.push({ dieSize: die.sides })
-      }
+      initialDiceCounts[die.sides] = (initialDiceCounts[die.sides] || 0) + die.count
     })
 
-    // Apply biome dice modifier
-    const adjustedPool = applyBiomeDiceMod(dicePool, rollData.biomeDiceMod ?? 0)
+    // Apply biome dice modifier by adding/removing dice of the last die type
+    const biomeMod = rollData.biomeDiceMod ?? 0
+    if (biomeMod !== 0 && rollData.dice.length > 0) {
+      const dicePool = []
+      rollData.dice.forEach(die => {
+        for (let i = 0; i < die.count; i++) dicePool.push(die.sides)
+      })
+      const adjusted = applyBiomeDiceMod(dicePool.map(s => ({ dieSize: s })), biomeMod)
+      const adjustedCounts = {}
+      adjusted.forEach(d => { adjustedCounts[d.dieSize] = (adjustedCounts[d.dieSize] || 0) + 1 })
+      Object.assign(initialDiceCounts, adjustedCounts)
+      // Zero out any sides that were fully removed
+      Object.keys(initialDiceCounts).forEach(side => {
+        if (!adjustedCounts[side]) delete initialDiceCounts[side]
+      })
+    }
 
-    // Calculate modifier value
     let modifierValue = 0
-    let modifierLabel = 'Modifier'
-
     if (rollData.modifier) {
       if (rollData.modifier.type === 'stat') {
         const statName = getModifierStatKey(rollData.modifier)
         modifierValue = selectedCharacter.value[statName] || 0
-        modifierLabel = getModifierStatLabel(rollData.modifier)
       } else if (rollData.modifier.type === 'number') {
         modifierValue = rollData.modifier.value
       }
     }
 
-    const rollResult = DamageRollService.makeDamageRoll(
-      adjustedPool,
-      modifierValue,
-      selectedCharacter.value,
-      {
-        sourceName: 'Description',
-        modifierLabel,
-        footer: modifierValue !== 0 ? `${modifierValue >= 0 ? '+' : ''}${modifierLabel}` : undefined
-      }
-    )
-    if (rollResult) {
-      rollsStore.setRoll(rollResult)
+    damageRollModalConfig.value = {
+      initialDiceCounts,
+      initialModifier: modifierValue,
+      rollName: rollData.linkText || 'Damage',
+      sourceName: 'Description',
     }
+    showDamageRollModal.value = true
   } else if (rollData.type === 'custom-roll') {
     // Transform dice format from [{count, sides}] to [{dieSize}...]
     const dicePool = []

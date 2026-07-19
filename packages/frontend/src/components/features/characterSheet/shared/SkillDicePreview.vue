@@ -20,7 +20,7 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue'
+import { computed } from 'vue'
 import { getDiceFontMaxClass } from '@/utils/diceFontUtils'
 import { DIE_TYPE } from '@shared/constants/dice'
 import { buildDiceSetForSkill, resolveEffectiveFavoredStatus } from '@/utils/skillDiceUtils'
@@ -56,10 +56,6 @@ const props = defineProps({
 
 const emit = defineEmits(['toggle-favored'])
 
-// Tracks which state was last applied so flat alternates favored ↔ ill-favored.
-// Starting as 'ill-favored' means first click on a flat skill goes to favored.
-const lastAppliedFavoredState = ref('ill-favored')
-
 const skillConfig = computed(() => ({
     ranks: props.ranks,
     diceMod: props.diceMod,
@@ -83,20 +79,16 @@ const d6CssClass = getDiceFontMaxClass(DIE_TYPE.D6)
 
 function handleD12Click() {
     if (!props.canToggleFavored) return
-
-    const { isFavored, isIllFavored } = props
-    if (isFavored && !isIllFavored) {
-        lastAppliedFavoredState.value = 'favored'
-        emit('toggle-favored', { isFavored: false, isIllFavored: false })
-    } else if (isIllFavored && !isFavored) {
-        lastAppliedFavoredState.value = 'ill-favored'
+    const { isFavored, isIllFavored } = effectiveFavored.value
+    if (isFavored) {
+        // favored → ill-favored
+        emit('toggle-favored', { isFavored: false, isIllFavored: true })
+    } else if (isIllFavored) {
+        // ill-favored → flat
         emit('toggle-favored', { isFavored: false, isIllFavored: false })
     } else {
-        if (lastAppliedFavoredState.value === 'ill-favored') {
-            emit('toggle-favored', { isFavored: true, isIllFavored: false })
-        } else {
-            emit('toggle-favored', { isFavored: false, isIllFavored: true })
-        }
+        // flat → favored
+        emit('toggle-favored', { isFavored: true, isIllFavored: false })
     }
 }
 </script>

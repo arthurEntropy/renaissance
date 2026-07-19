@@ -45,7 +45,8 @@
         :force-active="badgeForceActive" :hidden-by-default="badgeHiddenByDefault" @toggle="handleBaseAbilityToggle" />
 
       <!-- Difficulty badge for abilities that set a difficulty -->
-      <DifficultyBadge v-if="isShowingDifficulty" :value="abilityDifficulty" @update:value="handleDifficultyUpdate" />
+      <DifficultyBadge v-if="isShowingDifficulty" :value="abilityDifficulty" :readonly="!character"
+        @update:value="handleDifficultyUpdate" />
     </template>
 
     <!-- Activate / Deactivate FAB: shares the admin-buttons row with edit/delete FABs -->
@@ -135,7 +136,7 @@ const props = defineProps({
   },
   showDifficultyBadge: {
     type: Boolean,
-    default: false
+    default: true,
   },
   // null = uncontrolled (original hover/click behaviour outside a table context)
   // true/false = controlled by the table (edit mode vs display mode)
@@ -149,9 +150,7 @@ const emit = defineEmits(['edit', 'update', 'update:collapsed', 'update:showImpr
 const cardPreview = useCardPreview()
 
 // Difficulty badge
-const isShowingDifficulty = computed(() =>
-  props.showDifficultyBadge && !!props.ability.hasDifficulty && !!props.character
-)
+const isShowingDifficulty = computed(() => !!props.ability.hasDifficulty)
 
 const characterAbilityEntry = computed(() =>
   props.character?.abilities?.find(a => a.id === props.ability.id) ?? null
@@ -332,6 +331,16 @@ function confirmRemoveWithRefund() {
 
 function confirmRemoveNoRefund() {
   doRemove(false)
+}
+
+function confirmAddWithSpend() {
+  const updatedCharacter = CharacterService.addAbilityToCharacter(props.character, props.ability)
+  if (!updatedCharacter) return
+  const xpCost = props.ability.xpCost ?? 0
+  const deducted = xpCost > 0
+    ? { ...updatedCharacter, xp: Math.max(0, (updatedCharacter.xp ?? 0) - xpCost) }
+    : updatedCharacter
+  emit('update', deducted)
 }
 
 function confirmAddFree() {

@@ -126,7 +126,7 @@
       </div>
 
       <!-- Difficulty badge for Hunter's Traps and other difficulty-setting equipment -->
-      <DifficultyBadge v-if="showDifficultyBadge && hasDifficultyBadge && character" :value="trapDifficulty"
+      <DifficultyBadge v-if="showDifficultyBadge && hasDifficultyBadge" :value="trapDifficulty" :readonly="!character"
         @update:value="handleTrapDifficultyUpdate" />
 
       <!-- Discovery modal for Mesmer's Masks -->
@@ -249,7 +249,7 @@ const props = defineProps({
   },
   showDifficultyBadge: {
     type: Boolean,
-    default: false
+    default: true,
   },
   // When true, the keeping cost badge is always hidden until the card is hovered
   // (mirrors the XP badge behaviour in AbilityCard within AbilitiesTable)
@@ -428,11 +428,6 @@ const equipmentCategoriesDisplay = computed(() => {
 const equipmentPropertiesDisplay = computed(() => {
   const sections = []
 
-  // Add length if greater than 0
-  if (props.equipment.length > 0) {
-    sections.push(`Length: ${props.equipment.length} ft`)
-  }
-
   // Add reach if greater than 0
   if (props.equipment.reach > 0) {
     sections.push(`Reach: ${props.equipment.reach}`)
@@ -446,13 +441,16 @@ const equipmentPropertiesDisplay = computed(() => {
     }
   }
 
-  // Group weapon attributes together as a comma-separated list
+  // Group weapon properties together as a comma-separated list
   const weaponAttributes = []
   if (props.equipment.twoHanded) {
     weaponAttributes.push('Two-Handed')
   }
   if (props.equipment.thrown) {
     weaponAttributes.push('Thrown')
+  }
+  if (props.equipment.projectile) {
+    weaponAttributes.push('Projectile')
   }
   if (props.equipment.finesse) {
     weaponAttributes.push('Finesse')
@@ -850,6 +848,4 @@ onMounted(async () => {
   pointer-events: auto;
   transform: translateY(-50%) translateX(0);
 }
-
-/* Difficulty badge (Hunter's Trap) - extracted to DifficultyBadge.vue */
 </style>

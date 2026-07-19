@@ -1,17 +1,22 @@
+```vue
 <template>
-    <div class="difficulty-badge edit-trigger" :class="{ 'difficulty-badge--set': value != null }"
-        :title="value != null ? `Difficulty: ${value}` : 'Set difficulty'" @click.stop="startEdit">
+    <div class="difficulty-badge edit-trigger" :class="{
+        'difficulty-badge--set': value != null,
+        'difficulty-badge--readonly': readonly,
+    }" :title="value != null ? `Difficulty: ${value}` : (readonly ? '' : 'Set difficulty')"
+        @click.stop="startEdit">
         <div class="difficulty-badge-content">
-            <input v-if="editing" :ref="el => { if (el) el.focus() }" v-model="editValue" type="number"
+            <input v-if="!readonly && editing" :ref="el => { if (el) el.focus() }" v-model="editValue" type="number"
                 class="difficulty-badge-input" @keydown.enter="commitEdit" @keydown.escape="cancelEdit"
                 @blur="commitEdit" @click.stop />
             <span v-else class="difficulty-badge-text">
                 {{ value != null ? value : '' }}
             </span>
         </div>
-        <FloatingActionButton v-if="value != null && !editing" :variant="FAB_TYPES.REFRESH" :size="FAB_SIZES.SMALL"
-            :visibility="FAB_VISIBILITIES.ON_HOVER" class="difficulty-badge-clear" title="Clear difficulty"
-            @click.stop="$emit('update:value', null)" />
+
+        <FloatingActionButton v-if="value != null && !editing && !readonly" :variant="FAB_TYPES.REFRESH"
+            :size="FAB_SIZES.SMALL" :visibility="FAB_VISIBILITIES.ON_HOVER" class="difficulty-badge-clear"
+            title="Clear difficulty" @click.stop="$emit('update:value', null)" />
     </div>
 </template>
 
@@ -25,6 +30,10 @@ const props = defineProps({
         type: Number,
         default: null,
     },
+    readonly: {
+        type: Boolean,
+        default: false,
+    },
 })
 
 const emit = defineEmits(['update:value'])
@@ -33,14 +42,18 @@ const editing = ref(false)
 const editValue = ref('')
 
 function startEdit() {
+    if (props.readonly) return
+
     editValue.value = props.value != null ? String(props.value) : ''
     editing.value = true
 }
 
 function commitEdit() {
     if (!editing.value) return
+
     const raw = editValue.value
     const parsed = raw === '' || raw === null ? null : parseInt(String(raw), 10)
+
     emit('update:value', parsed === null || isNaN(parsed) ? null : parsed)
     editing.value = false
 }
@@ -65,10 +78,17 @@ function cancelEdit() {
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
     z-index: var(--z-interactive);
     transition: border-color var(--transition-fast);
     pointer-events: auto;
+}
+
+.difficulty-badge:not(.difficulty-badge--readonly) {
+    cursor: pointer;
+}
+
+.difficulty-badge--readonly {
+    cursor: default;
 }
 
 .difficulty-badge--set {
@@ -120,3 +140,4 @@ function cancelEdit() {
     transform: translate(-50%, -50%) rotate(-45deg);
 }
 </style>
+```
