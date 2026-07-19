@@ -1,8 +1,29 @@
 import { watch, onUnmounted } from 'vue'
 import * as CharacterUtils from '@shared/utils/characterUtils'
 import { useCharactersStore } from '@/stores/charactersStore'
+import { normalizeRollStats } from '@/services/rolls/rollStatsService'
 
 const SAVE_DEBOUNCE_MS = 500
+
+// WeakMap for pending refunds so callers can pre-register refunds before the
+// reactive update triggers the watchers below.
+const pendingRefunds = new WeakMap()
+
+/**
+ * Call this BEFORE applying a refund to a character's xp or treasure.
+ * The stat watchers will treat the matching increase as a reversal of spending
+ * rather than new earnings.
+ * @param {object} character - the reactive character object
+ * @param {{ xp?: number, treasure?: number }} amounts
+ */
+export function scheduleStatsRefund(character, { xp = 0, treasure = 0 } = {}) {
+  if (!character) return
+  const current = pendingRefunds.get(character) || { xp: 0, treasure: 0 }
+  pendingRefunds.set(character, {
+    xp: current.xp + xp,
+    treasure: current.treasure + treasure,
+  })
+}
 
 export function useCharacterStatWatchers(selectedCharacter, allEquipment) {
   const charactersStore = useCharactersStore()
@@ -141,4 +162,50 @@ export function useCharacterStatWatchers(selectedCharacter, allEquipment) {
       CharacterUtils.handleEquipmentChange(selectedCharacter.value, equipment)
     }
   }, { deep: true })
+
+  // XP tracking — increase counts as earned, decrease counts as spent.
+  // Refunds (registered via scheduleStatsRefund) are absorbed from the earned delta
+  // and instead decrement the spent counter.
+  watch(() => selectedCharacter.value?.xp, (newVal, oldVal) => {
+    const char = selectedCharacter.value
+    if (!char || oldVal === undefined || newVal === oldVal) return
+    const delta = (newVal ?? 0) - (oldVal ?? 0)
+    if (delta === 0) return
+    const pending = pendingRefunds.get(char) || { xp: 0, treasure: 0 }
+    const stats = normalizeRollStats(char.rollStats)
+    if (delta > 0) {
+      const refundPortion = Math.min(pending.xp, delta)
+      const earnedPortion = delta - refundPortion
+      if (earnedPortion > 0) stats.xpEarned = (stats.xpEarned ?? 0) + earnedPortion
+      if (refundPortion > 0) {
+        stats.xpSpent = Math.max(0, (stats.xpSpent ?? 0) - refundPortion)
+        pendingRefunds.set(char, { ...pending, xp: pending.xp - refundPortion })
+      }
+    } else {
+      stats.xpSpent = (stats.xpSpent ?? 0) + Math.abs(delta)
+    }
+    char.rollStats = stats
+  })
+
+  // Treasure tracking — same pattern as XP tracking above.
+  watch(() => selectedCharacter.value?.treasure, (newVal, oldVal) => {
+    const char = selectedCharacter.value
+    if (!char || oldVal === undefined || newVal === oldVal) return
+    const delta = (newVal ?? 0) - (oldVal ?? 0)
+    if (delta === 0) return
+    const pending = pendingRefunds.get(char) || { xp: 0, treasure: 0 }
+    const stats = normalizeRollStats(char.rollStats)
+    if (delta > 0) {
+      const refundPortion = Math.min(pending.treasure, delta)
+      const earnedPortion = delta - refundPortion
+      if (earnedPortion > 0) stats.treasureEarned = (stats.treasureEarned ?? 0) + earnedPortion
+      if (refundPortion > 0) {
+        stats.treasureSpent = Math.max(0, (stats.treasureSpent ?? 0) - refundPortion)
+        pendingRefunds.set(char, { ...pending, treasure: pending.treasure - refundPortion })
+      }
+    } else {
+      stats.treasureSpent = (stats.treasureSpent ?? 0) + Math.abs(delta)
+    }
+    char.rollStats = stats
+  })
 }

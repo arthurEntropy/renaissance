@@ -88,12 +88,6 @@
           <input type="number" id="weight" v-model.number="editedEquipment.weight" min="0" class="modal-input" />
         </div>
 
-        <!-- Length -->
-        <div class="form-column weight-input">
-          <label for="length" class="left-aligned">Length:</label>
-          <input type="number" id="length" v-model.number="editedEquipment.length" min="0" class="modal-input" />
-        </div>
-
         <!-- Reach -->
         <div class="form-column weight-input">
           <label for="reach" class="left-aligned">Reach:</label>
@@ -170,6 +164,10 @@
           <label for="piercing" class="property-checkbox">
             <input type="checkbox" id="piercing" v-model="editedEquipment.piercing" />
             Piercing
+          </label>
+          <label for="projectile" class="property-checkbox">
+            <input type="checkbox" id="projectile" v-model="editedEquipment.projectile" />
+            Projectile
           </label>
         </div>
       </div>
@@ -372,12 +370,11 @@ const saveEquipment = () => {
   editedEquipment.value.weight = Number.isFinite(editedEquipment.value.weight)
     ? editedEquipment.value.weight
     : 0
-  editedEquipment.value.length = Number.isFinite(editedEquipment.value.length)
-    ? editedEquipment.value.length
-    : 0
   editedEquipment.value.reach = Number.isFinite(editedEquipment.value.reach)
     ? editedEquipment.value.reach
     : 0
+  // Remove legacy length field if present
+  delete editedEquipment.value.length
   baseSave()
 }
 

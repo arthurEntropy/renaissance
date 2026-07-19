@@ -10,8 +10,8 @@
   "defenseBonus": 5,
   "engagementDice": [],
   "damageDice": [],
-  "length": 0,
   "reach": 0,
   "id": "82dbaf53-560a-45cb-96b8-d4a974bae008",
-  "hasDifficulty": false
+  "hasDifficulty": false,
+  "projectile": false
 }

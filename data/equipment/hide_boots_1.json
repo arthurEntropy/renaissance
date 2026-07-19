@@ -10,11 +10,11 @@
   "defenseBonus": 1,
   "engagementDice": [],
   "damageDice": [],
-  "length": 0,
   "reach": 0,
   "id": "876cb7c8-b140-40d7-bb6a-efd5d84aa0a3",
   "source": "3085883d-e74b-40aa-84a9-af6fccb3d98e",
   "artUrl": "https://cdn.midjourney.com/d592eff9-1464-42eb-8ff2-beb5a214f881/0_3.png",
   "keeping": "2b3c4d5e-6f7a-4b8c-9d0e-1f2a3b4c5d6e",
-  "hasDifficulty": false
+  "hasDifficulty": false,
+  "projectile": false
 }

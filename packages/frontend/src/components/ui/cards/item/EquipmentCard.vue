@@ -183,6 +183,7 @@ import SuccessesSection from '@/components/ui/cards/item/SuccessesSection.vue'
 import ConfirmPurchaseModal from '@/components/ui/modals/ConfirmPurchaseModal.vue'
 import ConfirmRemovalModal from '@/components/ui/modals/ConfirmRemovalModal.vue'
 import CharacterService from '@/services/entities/characterService'
+import { scheduleStatsRefund } from '@/composables/useCharacterStatWatchers'
 import { getDiceFontMaxClass } from '@/utils/diceFontUtils'
 import { ItemType } from '@shared/constants/itemTypes'
 import { ARMOR_TYPE_ID } from '@/constants/armorConstants'
@@ -393,7 +394,9 @@ const lacksTraining = computed(() => {
   const key = martialTrainingKey.value
   if (!key) return false
   const mestiere = conceptsStore.mestieri.find(m => m.id === props.character.mestiereId)
-  const trainedGrades = mestiere?.novizio?.martialTraining?.[key] ?? []
+  const mestiereGrades = mestiere?.novizio?.martialTraining?.[key] ?? []
+  const manualGrades = props.character.martialTrainingOverrides?.[key] ?? []
+  const trainedGrades = [...new Set([...mestiereGrades, ...manualGrades])]
   if (!props.equipment.grade) return false
   return !trainedGrades.includes(props.equipment.grade)
 })
@@ -556,6 +559,9 @@ function doEquipmentRemove(refundTreasure = false) {
   const updatedCharacter = CharacterService.removeItem(props.character, 'equipment', equipmentIndex)
   if (!updatedCharacter) return
   const cost = keepingCost.value ?? 0
+  if (refundTreasure && cost > 0) {
+    scheduleStatsRefund(props.character, { treasure: cost })
+  }
   const withRefund = refundTreasure && cost > 0
     ? { ...updatedCharacter, treasure: (updatedCharacter.treasure ?? 0) + cost }
     : updatedCharacter

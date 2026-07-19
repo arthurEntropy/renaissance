@@ -322,7 +322,11 @@
         "losses": 0,
         "draws": 0
       }
-    }
+    },
+    "xpEarned": 0,
+    "xpSpent": 0,
+    "treasureEarned": 0,
+    "treasureSpent": 0
   },
   "biomeTags": [],
   "biomeId": null,
@@ -412,10 +416,10 @@
   "hunterTraps": [
     {
       "id": "7f0257dc-e923-4140-b3f5-1d19ada4b60c",
-      "isDropped": true,
-      "isThrown": false,
       "difficulty": 10,
       "imageUrl": "/src/assets/icons/hunter/spiky_pit.png"
     }
-  ]
+  ],
+  "sectionOrder": [],
+  "martialTrainingOverrides": {}
 }

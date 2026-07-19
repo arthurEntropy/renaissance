@@ -284,7 +284,11 @@
         "losses": 0,
         "draws": 0
       }
-    }
+    },
+    "xpEarned": 0,
+    "xpSpent": 0,
+    "treasureEarned": 0,
+    "treasureSpent": 0
   },
   "biomeTags": [],
   "biomeId": null,
@@ -358,5 +362,7 @@
   "size": 0,
   "reach": 0,
   "featuredArtUrl": "https://cdn.midjourney.com/bff8c211-796e-4598-84d9-3013c2fc4d17/0_1.png",
-  "hunterTraps": []
+  "hunterTraps": [],
+  "sectionOrder": [],
+  "martialTrainingOverrides": {}
 }

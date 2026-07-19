@@ -2,13 +2,13 @@
   "id": "276cb26a-76b5-4b9f-8f14-96fc7f80c019",
   "isDeleted": false,
   "createdAt": "2026-07-09T12:56:02.379Z",
-  "lastModified": "2026-07-16T15:03:05.638Z",
+  "lastModified": "2026-07-19T01:52:07.481Z",
   "characterType": "playerCharacter",
   "name": "Omoo",
   "featuredArtUrls": [
     "https://cdn.midjourney.com/afe2f988-0990-418f-8b54-5ebf57c70560/0_1.png"
   ],
-  "speed": 0,
+  "speed": 60,
   "notes": "",
   "body": 0,
   "heart": 0,
@@ -16,7 +16,7 @@
   "skills": [
     {
       "key": "awe",
-      "ranks": 0,
+      "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -177,7 +177,15 @@
     "current": 0,
     "base": 0
   },
-  "abilities": [],
+  "abilities": [
+    {
+      "id": "3ae7e89d-fee2-4fec-bfd5-4bb0b110d285",
+      "collapsed": false,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false
+    }
+  ],
   "groupAbilitiesBySource": false,
   "groupAbilitiesByManaColor": false,
   "groupAbilitiesByCustom": false,
@@ -192,13 +200,15 @@
   },
   "rollStats": {
     "skillChecks": {
-      "attempts": 0,
-      "successes": 0,
-      "totalSum": 0,
-      "bestTotal": null,
+      "attempts": 1,
+      "successes": 1,
+      "totalSum": 12,
+      "bestTotal": 12,
       "hardestSuccess": null,
-      "bySkill": {},
-      "solCount": 0,
+      "bySkill": {
+        "Perform": 1
+      },
+      "solCount": 1,
       "morteCount": 0,
       "successCount": 0
     },
@@ -213,11 +223,15 @@
         "losses": 0,
         "draws": 0
       }
-    }
+    },
+    "xpEarned": 0,
+    "xpSpent": 0,
+    "treasureEarned": 4,
+    "treasureSpent": 5
   },
   "biomeTags": [],
   "biomeId": null,
-  "nimbleStep": 0,
+  "nimbleStep": 6,
   "swagger": 0,
   "swaggerIconIndex": 0,
   "swaggerColor": "#ffffff",
@@ -243,24 +257,18 @@
   "hunterTraps": [
     {
       "id": "55b82c59-6303-49dc-99b0-3a5468df7c73",
-      "isDropped": false,
-      "isThrown": false,
-      "difficulty": null,
-      "imageUrl": "/assets/box_trap-UKovvTGi.png"
+      "difficulty": 10,
+      "imageUrl": "/src/assets/icons/hunter/box_trap.png"
     },
     {
       "id": "0eab7488-dbac-4c5b-bcc4-7ead2eb75bfa",
-      "isDropped": false,
-      "isThrown": false,
       "difficulty": null,
-      "imageUrl": "/assets/spiky_pit-DDRMZ_Zo.png"
+      "imageUrl": "/src/assets/icons/hunter/spiky_pit.png"
     },
     {
       "id": "6590c759-3a82-4420-b088-0939f0a9ae29",
-      "isDropped": false,
-      "isThrown": false,
       "difficulty": null,
-      "imageUrl": "/assets/wolf_trap-BxLxSTHf.png"
+      "imageUrl": "/src/assets/icons/hunter/wolf_trap.png"
     }
   ],
   "campaignId": null,
@@ -269,17 +277,29 @@
   "pronouns": "",
   "ancestryIds": [],
   "cultureIds": [],
-  "mestiereId": "45ca935d-938b-4974-961c-4171cc388904",
+  "mestiereId": "10f46ecd-e6f5-4d3b-b510-d4035ab24f56",
   "age": 0,
   "heightFeet": 0,
   "heightInches": 0,
   "weight": 0,
-  "keeping": null,
-  "treasure": 8,
+  "keeping": "5e6f7a8b-9c0d-4e1f-2a3b-4c5d6e7f8a9b",
+  "treasure": 6,
   "xp": 13,
-  "updatedAt": "2026-07-16T15:03:05.638Z",
+  "updatedAt": "2026-07-19T01:52:07.481Z",
   "description": "",
   "size": 0,
   "reach": 0,
-  "featuredArtUrl": "https://cdn.midjourney.com/afe2f988-0990-418f-8b54-5ebf57c70560/0_1.png"
+  "featuredArtUrl": "https://cdn.midjourney.com/afe2f988-0990-418f-8b54-5ebf57c70560/0_1.png",
+  "manualSpeedMod": -10,
+  "sectionOrder": [
+    "hunter",
+    "abilities",
+    "equipment",
+    "biome",
+    "engagement"
+  ],
+  "martialTrainingOverrides": {
+    "meleeGrades": [],
+    "polearmGrades": []
+  }
 }

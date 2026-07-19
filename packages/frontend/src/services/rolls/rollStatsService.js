@@ -20,6 +20,10 @@ export function createEmptyRollStats() {
       engagement: { wins: 0, losses: 0, draws: 0 },
       contest: { wins: 0, losses: 0, draws: 0 },
     },
+    xpEarned: 0,
+    xpSpent: 0,
+    treasureEarned: 0,
+    treasureSpent: 0,
   }
 }
 
@@ -46,6 +50,10 @@ export function normalizeRollStats(rollStats) {
         ...((incoming.contests && incoming.contests.contest) || {}),
       },
     },
+    xpEarned: incoming.xpEarned ?? 0,
+    xpSpent: incoming.xpSpent ?? 0,
+    treasureEarned: incoming.treasureEarned ?? 0,
+    treasureSpent: incoming.treasureSpent ?? 0,
   }
 }
 

@@ -28,13 +28,13 @@ import { createBaseEntity } from './baseEntity.js'
  *
  * Properties
  * @property {number} weight - Weight value, in pounds
- * @property {number} length - Length value, in feet
  * @property {number} reach - Reach value, in increments of 5 feet
  * @property {UUID|null} range - Range UUID reference
  * @property {boolean} twoHanded - Whether item requires two hands
  * @property {boolean} thrown - Whether item can be thrown
  * @property {boolean} finesse - Whether item has the finesse property
  * @property {boolean} piercing - Whether item has the piercing property
+ * @property {boolean} projectile - Whether item fires projectiles (bows, crossbows)
  *
  * Combat
  * @property {DieSize[]} damageDice - Damage dice values by die size
@@ -76,13 +76,13 @@ export function createDefaultEquipment() {
 
     // Properties
     weight: 0,
-    length: 0,
     reach: 0,
     range: null,
     twoHanded: false,
     thrown: false,
     finesse: false,
     piercing: false,
+    projectile: false,
 
     // Combat
     damageDice: [],

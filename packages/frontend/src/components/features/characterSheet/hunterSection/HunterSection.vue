@@ -9,7 +9,7 @@
             <div class="badge-group">
                 <TrapBadge v-for="slot in trapSlots" :key="slot.id" :trap="slot.trap" :is-ghost="slot.isGhost"
                     @add="openAddModal" @edit="openEditModal(slot.trap)" @remove="removeTrap(slot.trap)"
-                    @toggle-state="handleToggleState" @update-difficulty="handleUpdateDifficulty(slot.trap, $event)" />
+                    @update-difficulty="handleUpdateDifficulty(slot.trap, $event)" />
             </div>
         </div>
 
@@ -79,8 +79,6 @@ function handleSave(data) {
     } else {
         traps.push({
             id: crypto.randomUUID(),
-            isDropped: false,
-            isThrown: false,
             difficulty: null,
             ...data,
         })
@@ -94,19 +92,6 @@ function removeTrap(trap) {
     if (!selectedCharacter.value) return
     selectedCharacter.value.hunterTraps =
         (selectedCharacter.value.hunterTraps ?? []).filter((t) => t.id !== trap.id)
-}
-
-function handleToggleState(updatedTrap) {
-    if (!selectedCharacter.value) return
-    const traps = [...(selectedCharacter.value.hunterTraps ?? [])]
-    const idx = traps.findIndex((t) => t.id === updatedTrap.id)
-    if (idx === -1) return
-    traps[idx] = { ...traps[idx], isDropped: updatedTrap.isDropped, isThrown: updatedTrap.isThrown }
-    // Clear difficulty when the trap is reset to inactive
-    if (!updatedTrap.isDropped && !updatedTrap.isThrown) {
-        traps[idx].difficulty = null
-    }
-    selectedCharacter.value.hunterTraps = traps
 }
 
 function handleUpdateDifficulty(trap, newValue) {

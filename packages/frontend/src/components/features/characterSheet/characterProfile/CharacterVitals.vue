@@ -1,5 +1,7 @@
 <template>
     <div v-if="character" class="vitals-info edit-hover-area">
+        <FloatingActionButton v-if="canEdit" :variant="FAB_TYPES.SETTINGS" :size="FAB_SIZES.SMALL"
+            :visibility="FAB_VISIBILITIES.ON_HOVER" class="settings-button-overlay" @click="openSettingsModal" />
         <FloatingActionButton v-if="canEdit" :variant="FAB_TYPES.EDIT" :size="FAB_SIZES.SMALL"
             :visibility="FAB_VISIBILITIES.ON_HOVER" class="edit-button-overlay" @click="openEditModal" />
 
@@ -28,7 +30,7 @@
                     <span v-if="!cultures.length">None</span>
                     <span v-for="(culture, index) in cultures" :key="culture.id">
                         <router-link :to="`/cultures/${createSlug(culture.name)}`" class="concept-link">{{ culture.name
-                        }}</router-link><span v-if="index < cultures.length - 1">, </span>
+                            }}</router-link><span v-if="index < cultures.length - 1">, </span>
                     </span>
                 </div>
             </div>
@@ -62,6 +64,9 @@
 
         <!-- Edit Modal -->
         <CharacterVitalsEditModal v-if="isEditModalOpen" @close="closeEditModal" />
+
+        <!-- Settings Modal -->
+        <CharacterSettingsModal v-if="isSettingsModalOpen" @close="closeSettingsModal" />
     </div>
     <Teleport to="body">
         <div v-if="showIconPicker" class="swagger-icon-dropdown" :style="dropdownStyle">
@@ -90,6 +95,7 @@ import { createSlug } from '@/utils/urlHelpers'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 import CharacterVitalsEditModal from './CharacterVitalsEditModal.vue'
+import CharacterSettingsModal from './CharacterSettingsModal.vue'
 import { LANDSKNECHT_MESTIERE_ID, SWAGGER_ICONS, shieldMaskStyle } from './swaggerConstants'
 import { isBeastTemplate, isBeastInstance } from '@/utils/characterTypeGuards'
 const charactersStore = useCharactersStore()
@@ -102,6 +108,7 @@ const isBeastCharacter = computed(() =>
 const canEdit = computed(() => charactersStore.canEditSelectedCharacter)
 
 const isEditModalOpen = ref(false)
+const isSettingsModalOpen = ref(false)
 
 const ancestries = computed(() => {
     if (!character.value?.ancestryIds?.length) return []
@@ -236,6 +243,14 @@ const openEditModal = () => {
 
 const closeEditModal = () => {
     isEditModalOpen.value = false
+}
+
+const openSettingsModal = () => {
+    isSettingsModalOpen.value = true
+}
+
+const closeSettingsModal = () => {
+    isSettingsModalOpen.value = false
 }
 
 onMounted(async () => {

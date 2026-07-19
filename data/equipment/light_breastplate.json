@@ -11,7 +11,7 @@
   "defenseBonus": 1,
   "engagementDice": [],
   "damageDice": [],
-  "length": 0,
   "reach": 0,
-  "hasDifficulty": false
+  "hasDifficulty": false,
+  "projectile": false
 }

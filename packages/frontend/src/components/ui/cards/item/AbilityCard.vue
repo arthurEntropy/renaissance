@@ -87,6 +87,7 @@ import SuccessesSection from '@/components/ui/cards/item/SuccessesSection.vue'
 import ConfirmPurchaseModal from '@/components/ui/modals/ConfirmPurchaseModal.vue'
 import ConfirmRemovalModal from '@/components/ui/modals/ConfirmRemovalModal.vue'
 import CharacterService from '@/services/entities/characterService'
+import { scheduleStatsRefund } from '@/composables/useCharacterStatWatchers'
 import { ItemType } from '@shared/constants/itemTypes'
 
 const props = defineProps({
@@ -316,6 +317,9 @@ function doRemove(refundXp = false) {
   const updatedCharacter = CharacterService.removeItem(props.character, 'abilities', abilityIndex)
   if (!updatedCharacter) return
   const xpCost = props.ability.xpCost ?? 0
+  if (refundXp && xpCost > 0) {
+    scheduleStatsRefund(props.character, { xp: xpCost })
+  }
   const withRefund = refundXp && xpCost > 0
     ? { ...updatedCharacter, xp: (updatedCharacter.xp ?? 0) + xpCost }
     : updatedCharacter

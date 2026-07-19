@@ -27,19 +27,11 @@
             </div>
         </div>
 
-        <!-- Footer strip: Dropped | DifficultyBadge | Thrown -->
+        <!-- Footer strip: DifficultyBadge -->
         <div class="badge__footer">
-            <FloatingActionButton :variant="FAB_TYPES.TRAP_DROP" :size="FAB_SIZES.LARGE"
-                :visibility="FAB_VISIBILITIES.ALWAYS" :is-active="trap.isDropped"
-                @click.stop="$emit('toggle-state', { ...trap, isDropped: !trap.isDropped, isThrown: false })" />
-
             <div class="badge__difficulty-host">
                 <DifficultyBadge :value="trap.difficulty" @update:value="$emit('update-difficulty', $event)" />
             </div>
-
-            <FloatingActionButton :variant="FAB_TYPES.TRAP_THROW" :size="FAB_SIZES.LARGE"
-                :visibility="FAB_VISIBILITIES.ALWAYS" :is-active="trap.isThrown"
-                @click.stop="$emit('toggle-state', { ...trap, isThrown: !trap.isThrown, isDropped: false })" />
         </div>
     </div>
 </template>
@@ -62,7 +54,7 @@ const props = defineProps({
     },
 })
 
-const emit = defineEmits(['add', 'edit', 'remove', 'toggle-state', 'update-difficulty'])
+const emit = defineEmits(['add', 'edit', 'remove', 'update-difficulty'])
 
 const isCustomImage = computed(() => /^https?:\/\//i.test(props.trap?.imageUrl ?? ''))
 
@@ -173,11 +165,11 @@ function handleRemove() {
     color: var(--color-text-muted);
 }
 
-/* Footer strip */
+/* Footer strip with translucent background */
 .badge__footer {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     padding: var(--space-xs) var(--space-xs);
     border-top: 1px solid var(--color-border-primary);
     position: relative;

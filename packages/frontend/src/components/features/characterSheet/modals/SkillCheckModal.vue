@@ -41,12 +41,12 @@
 
     <!-- Roll Type Toggle -->
     <div class="roll-type-toggle">
-      <ActionButton :variant="rollType === RollTypes.CONTEST ? 'primary' : 'outline'" size="large" text="Contest"
-        @click="rollType = RollTypes.CONTEST" />
       <ActionButton :variant="rollType === 'unopposed' ? 'primary' : 'outline'" size="large" text="Unopposed"
         @click="rollType = 'unopposed'" />
-      <ActionButton :variant="rollType === RollTypes.SKILL_CHECK ? 'primary' : 'outline'" size="large" text="Difficulty"
-        @click="rollType = RollTypes.SKILL_CHECK" />
+      <ActionButton :variant="rollType === RollTypes.SKILL_CHECK ? 'primary' : 'outline'" size="large"
+        text="vs Difficulty" @click="rollType = RollTypes.SKILL_CHECK" />
+      <ActionButton :variant="rollType === RollTypes.CONTEST ? 'primary' : 'outline'" size="large" text="Contest"
+        @click="rollType = RollTypes.CONTEST" />
     </div>
 
     <!-- Difficulty Wheel -->

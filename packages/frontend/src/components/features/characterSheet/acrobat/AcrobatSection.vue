@@ -4,7 +4,7 @@
             <template #header-center>
                 <p v-if="speed <= 0" class="no-speed-message">Set a speed on the profile to use this tracker.</p>
                 <div v-else class="nimble-inline">
-                    <span class="nimble-label-actions">{{ actionsDisplay }}</span>
+                    <span class="nimble-label-movement">{{ movementDisplay }}</span>
                     <div class="nimble-bar-wrapper">
                         <div class="nimble-bar" aria-hidden="true">
                             <div class="nimble-fill" :style="{ width: fillPercent + '%' }" />
@@ -12,9 +12,10 @@
                                 :style="{ left: ((i / segmentCount) * 100) + '%' }" />
                         </div>
                         <input type="range" class="nimble-slider" :min="0" :max="segmentCount" :step="1"
-                            :value="nimbleStep" aria-label="Trade movement for actions" @input="onSliderInput" />
+                            :value="segmentCount - nimbleStep" aria-label="Trade movement for actions"
+                            @input="onSliderInput" />
                     </div>
-                    <span class="nimble-label-movement">{{ movementDisplay }}</span>
+                    <span class="nimble-label-actions">{{ actionsDisplay }}</span>
                 </div>
             </template>
             <template #header-right>
@@ -49,7 +50,7 @@ const nimbleStep = computed({
 })
 
 const fillPercent = computed(() => {
-    if (segmentCount.value === 0) return 0
+    if (segmentCount.value === 0) return 100
     return (nimbleStep.value / segmentCount.value) * 100
 })
 
@@ -69,7 +70,7 @@ const movementDisplay = computed(() => {
 })
 
 function onSliderInput(event) {
-    nimbleStep.value = Number(event.target.value)
+    nimbleStep.value = segmentCount.value - Number(event.target.value)
 }
 
 function resetSlider() {
@@ -117,23 +118,23 @@ function resetSlider() {
     min-width: 0;
 }
 
-.nimble-label-actions {
-    flex-shrink: 0;
-    width: 84px;
-    text-align: right;
-    font-size: var(--font-size-14);
-    font-weight: var(--font-weight-semibold);
-    color: var(--color-primary);
-    white-space: nowrap;
-}
-
 .nimble-label-movement {
     flex-shrink: 0;
     width: 60px;
-    text-align: left;
+    text-align: right;
     font-size: var(--font-size-14);
     font-weight: var(--font-weight-semibold);
     color: var(--color-accent-cyan);
+    white-space: nowrap;
+}
+
+.nimble-label-actions {
+    flex-shrink: 0;
+    width: 84px;
+    text-align: left;
+    font-size: var(--font-size-14);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-primary);
     white-space: nowrap;
 }
 
@@ -160,7 +161,7 @@ function resetSlider() {
 
 .nimble-fill {
     position: absolute;
-    left: 0;
+    right: 0;
     top: 0;
     height: 100%;
     background: var(--color-primary);

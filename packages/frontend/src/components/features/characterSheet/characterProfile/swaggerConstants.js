@@ -10,7 +10,7 @@ import shield9 from '@/assets/icons/swagger/shield_9.png'
 import shield10 from '@/assets/icons/swagger/shield_10.png'
 
 export const LANDSKNECHT_MESTIERE_ID = '45ca935d-938b-4974-961c-4171cc388904'
-export const SWAGGER_MAX = 5
+export const SWAGGER_MAX = 3
 export const SWAGGER_ICONS = [
   shield1,
   shield2,

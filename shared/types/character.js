@@ -88,8 +88,6 @@ import { createBaseEntity } from './baseEntity.js'
  * @typedef {Object} HunterTrap
  * @property {UUID} id - Local UUID
  * @property {string} imageUrl - Icon path or custom image URL
- * @property {boolean} isDropped - Whether the trap has been dropped in place
- * @property {boolean} isThrown - Whether the trap has been thrown (mutually exclusive with isDropped)
  * @property {number|null} difficulty - The set Difficulty for the trap (null if not set)
  */
 
@@ -115,7 +113,7 @@ import { createBaseEntity } from './baseEntity.js'
  */
 
 /**
- * @typedef {Object} RollStats
+ * @typedef {Object} CharacterStats
  * @property {Object} skillChecks - Skill check statistics
  * @property {number} skillChecks.attempts - Number of skill checks attempted
  * @property {number} skillChecks.successes - Number of successful skill checks
@@ -129,6 +127,10 @@ import { createBaseEntity } from './baseEntity.js'
  * @property {Object} contests - Contest result statistics
  * @property {Object} contests.engagement - Engagement win/loss/draw counts
  * @property {Object} contests.contest - Contest win/loss/draw counts
+ * @property {number} xpEarned - Total XP earned (incremented when xp increases)
+ * @property {number} xpSpent - Total XP spent (incremented when xp decreases)
+ * @property {number} treasureEarned - Total treasure earned (incremented when treasure increases)
+ * @property {number} treasureSpent - Total treasure spent (incremented when treasure decreases)
  */
 
 /**
@@ -181,7 +183,7 @@ import { createBaseEntity } from './baseEntity.js'
  * 
  * // Settings & Stats
  * @property {AutoCalculationsSettings} autoCalculations - Auto-calculation settings
- * @property {RollStats} rollStats - Aggregate roll statistics for this character
+ * @property {CharacterStats} rollStats - Aggregate statistics for this character
  * 
  * // Mestiere-specific fields
  * @property {string[]} [biomeTags] - Active biome tags affecting this character
@@ -199,6 +201,8 @@ import { createBaseEntity } from './baseEntity.js'
  * @property {string|null} campaignId - If set, this character belongs to a campaign
  * @property {string|null} [ownerId] - Owner user ID
  * @property {boolean} [isPublicPreview] - Whether this character is shown as a preview to unauthenticated visitors
+ * @property {string[]} [sectionOrder] - Ordered list of section identifiers for the character sheet layout
+ * @property {Object.<string, string[]>} [martialTrainingOverrides] - Manually added martial training grades, keyed by training category
  */
 
 /**
@@ -343,6 +347,10 @@ function createDefaultCharacterBase() {
         engagement: { wins: 0, losses: 0, draws: 0 },
         contest: { wins: 0, losses: 0, draws: 0 },
       },
+      xpEarned: 0,
+      xpSpent: 0,
+      treasureEarned: 0,
+      treasureSpent: 0,
     },
 
     // Mestiere-specific fields
@@ -361,6 +369,10 @@ function createDefaultCharacterBase() {
     campaignId: null,
     ownerId: null,
     isPublicPreview: false,
+
+    // Layout and overrides
+    sectionOrder: [],
+    martialTrainingOverrides: {},
   }
 }
 

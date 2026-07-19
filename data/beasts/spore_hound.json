@@ -213,7 +213,11 @@
         "losses": 0,
         "draws": 0
       }
-    }
+    },
+    "xpEarned": 0,
+    "xpSpent": 0,
+    "treasureEarned": 0,
+    "treasureSpent": 0
   },
   "biomeTags": [],
   "biomeId": null,
@@ -249,5 +253,7 @@
   "description": "",
   "size": 1,
   "reach": 5,
-  "challenge": 5
+  "challenge": 5,
+  "sectionOrder": [],
+  "martialTrainingOverrides": {}
 }

@@ -170,52 +170,6 @@
 
         </form>
 
-        <CharacterRollStats v-if="!isBeastCharacter" @reset-stats="resetStats" />
-
-        <!-- Settings Section -->
-        <div class="settings-section">
-            <div class="settings-divider"></div>
-
-            <div class="settings-content">
-                <!-- PC → NPC conversion -->
-                <template v-if="showConvertToNPCButton">
-                    <div v-if="pendingConvertToNPCCampaignId" class="pending-conversion">
-                        <span class="pending-label">Converting to NPC</span>
-                        <ActionButton variant="neutral" size="small" text="Cancel"
-                            @click="pendingConvertToNPCCampaignId = ''" />
-                    </div>
-                    <ActionButton v-else variant="outline" size="small" text="Convert to NPC"
-                        @click="showConvertToNpcModal = true" />
-                </template>
-
-                <!-- NPC → PC conversion -->
-                <template v-if="showConvertToPCButton">
-                    <div v-if="pendingConvertToPC" class="pending-conversion">
-                        <span class="pending-label">Converting to Player Character</span>
-                        <ActionButton variant="neutral" size="small" text="Cancel"
-                            @click="pendingConvertToPC = false" />
-                    </div>
-                    <ActionButton v-else variant="outline" size="small" text="Convert to Player Character"
-                        @click="showConvertToPcModal = true" />
-                </template>
-
-                <!-- Transfer Ownership -->
-                <ActionButton v-if="showTransferOwnershipButton" variant="outline" size="small"
-                    text="Transfer Ownership" @click="showTransferModal = true" />
-
-                <!-- Delete -->
-                <ActionButton variant="danger" size="small" text="Delete Character" @click="showDeleteModal = true" />
-            </div>
-
-            <!-- Public Preview (admin only) -->
-            <div v-if="authStore.isAdmin" class="public-preview-row">
-                <label class="public-preview-label">
-                    <input type="checkbox" v-model="formData.isPublicPreview" />
-                    Public Preview Character
-                </label>
-            </div>
-        </div>
-
         <template #actions>
             <ActionButton variant="neutral" size="large" text="Cancel" @click="closeModal" />
             <ActionButton variant="primary" size="large" text="Save" @click="saveChanges" />
@@ -223,13 +177,6 @@
     </BaseModal>
 
     <!-- Settings action modals -->
-    <ConvertToNpcModal v-if="showConvertToNpcModal" :gmCampaigns="gmCampaigns" @close="showConvertToNpcModal = false"
-        @confirm="onConvertToNpcConfirm" />
-    <ConvertToPcModal v-if="showConvertToPcModal" @close="showConvertToPcModal = false"
-        @confirm="onConvertToPcConfirm" />
-    <TransferOwnershipModal v-if="showTransferModal" :character="character" @close="showTransferModal = false" />
-    <DeleteCharacterModal v-if="showDeleteModal" :character="character" @close="showDeleteModal = false"
-        @deleted="closeModal" />
     <GeneticsWizardModal v-if="showGeneticsWizard && selectedAncestryAObject && selectedAncestryBObject"
         :ancestry-a="selectedAncestryAObject" :ancestry-b="selectedAncestryBObject"
         @close="showGeneticsWizard = false" />
@@ -239,49 +186,20 @@
 import { ref, computed, onMounted } from 'vue'
 import { useCharactersStore } from '@/stores/charactersStore'
 import { useConceptsStore } from '@/stores/conceptsStore'
-import { useCampaignStore } from '@/stores/campaignStore'
-import { useAuthStore } from '@/stores/authStore'
 import { createEmptyRollStats } from '@/services/rolls/rollStatsService'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import BaseModal from '@/components/ui/modals/BaseModal.vue'
-import CharacterRollStats from './CharacterRollStats.vue'
-import ConvertToNpcModal from './ConvertToNpcModal.vue'
-import ConvertToPcModal from './ConvertToPcModal.vue'
-import TransferOwnershipModal from './TransferOwnershipModal.vue'
-import DeleteCharacterModal from './DeleteCharacterModal.vue'
 import GeneticsWizardModal from './GeneticsWizardModal.vue'
-import { isBeastTemplate, isBeastInstance, isPlayerCharacter, isNPC } from '@/utils/characterTypeGuards'
-import { CAMPAIGN_ROLE, CAMPAIGN_MEMBER_STATUS } from '@shared/constants/campaignConstants'
+import { isBeastTemplate, isBeastInstance } from '@/utils/characterTypeGuards'
 
 const charactersStore = useCharactersStore()
 const conceptsStore = useConceptsStore()
-const campaignStore = useCampaignStore()
-const authStore = useAuthStore()
 const emit = defineEmits(['close'])
 
 const character = charactersStore.selectedCharacter
 const isBeastCharacter = computed(() =>
     isBeastTemplate(character) || isBeastInstance(character)
 )
-
-const isPlayerChar = computed(() => isPlayerCharacter(character))
-const isNPCChar = computed(() => isNPC(character))
-
-// Campaigns where the current user has an accepted GM role
-const gmCampaigns = computed(() => {
-    const uid = authStore.user?.uid
-    if (!uid) return []
-    return campaignStore.campaigns.filter(campaign =>
-        campaign.members?.some(m =>
-            m.userId === uid &&
-            m.role === CAMPAIGN_ROLE.GM &&
-            m.status === CAMPAIGN_MEMBER_STATUS.ACCEPTED
-        )
-    )
-})
-
-const showConvertToNPCButton = computed(() => isPlayerChar.value && gmCampaigns.value.length > 0)
-const showConvertToPCButton = computed(() => isNPCChar.value)
 
 // Genetics Wizard
 const showGeneticsWizard = ref(false)
@@ -294,29 +212,6 @@ const selectedAncestryAObject = computed(() =>
 const selectedAncestryBObject = computed(() =>
     conceptsStore.ancestries.find(a => a.id === formData.value.ancestryIds[1]) || null
 )
-
-// Modal visibility
-const showConvertToNpcModal = ref(false)
-const showConvertToPcModal = ref(false)
-const showTransferModal = ref(false)
-const showDeleteModal = ref(false)
-
-// Type conversion pending state (applied on save)
-const pendingConvertToNPCCampaignId = ref('')
-const pendingConvertToPC = ref(false)
-
-const onConvertToNpcConfirm = (campaignId) => {
-    pendingConvertToNPCCampaignId.value = campaignId
-    showConvertToNpcModal.value = false
-}
-
-const onConvertToPcConfirm = () => {
-    pendingConvertToPC.value = true
-    showConvertToPcModal.value = false
-}
-
-// Transfer Ownership
-const showTransferOwnershipButton = computed(() => isPlayerChar.value)
 
 const formData = ref({
     name: '',
@@ -331,7 +226,6 @@ const formData = ref({
     description: '',
     size: 0,
     reach: 0,
-    isPublicPreview: false,
     featuredArtUrl: '',
 })
 
@@ -377,7 +271,6 @@ onMounted(() => {
         description: character.description || '',
         size: character.size || 0,
         reach: character.reach || 0,
-        isPublicPreview: character.isPublicPreview || false,
         featuredArtUrl: character.featuredArtUrls?.[0] || '',
     }
     initialFormDataSnapshot.value = JSON.stringify(formData.value)
@@ -404,7 +297,6 @@ const saveChanges = () => {
             description: formData.value.description,
             size: formData.value.size,
             reach: formData.value.reach,
-            isPublicPreview: formData.value.isPublicPreview,
         })
         if (!char.featuredArtUrls) char.featuredArtUrls = []
         char.featuredArtUrls[0] = formData.value.featuredArtUrl
@@ -422,38 +314,6 @@ const saveChanges = () => {
         // Save art URL
         if (!char.featuredArtUrls) char.featuredArtUrls = []
         char.featuredArtUrls[0] = formData.value.featuredArtUrl
-
-        // Apply type conversion if requested
-        if (pendingConvertToPC.value && isNPCChar.value) {
-            char.characterType = 'playerCharacter'
-            // Add character to the campaign member's character list so it stays visible in the campaign
-            const campaignId = char.campaignId
-            const ownerId = char.ownerId
-            if (campaignId && ownerId) {
-                const campaign = campaignStore.getById(campaignId)
-                const member = campaign?.members?.find(m => m.userId === ownerId)
-                if (member) {
-                    const currentIds = member.characterIds || []
-                    if (!currentIds.includes(char.id)) {
-                        campaignStore.updateMemberCharacters(campaignId, ownerId, [...currentIds, char.id])
-                    }
-                }
-            }
-        } else if (pendingConvertToNPCCampaignId.value && isPlayerChar.value) {
-            char.characterType = 'npc'
-            char.campaignId = pendingConvertToNPCCampaignId.value
-
-            // Remove from all campaign player character lists
-            const charId = char.id
-            campaignStore.campaigns.forEach(campaign => {
-                campaign.members?.forEach(member => {
-                    if (member.characterIds?.includes(charId)) {
-                        const updatedIds = member.characterIds.filter(id => id !== charId)
-                        campaignStore.updateMemberCharacters(campaign.id, member.userId, updatedIds)
-                    }
-                })
-            })
-        }
     }
     closeModal()
 }
