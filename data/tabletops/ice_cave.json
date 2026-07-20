@@ -2,7 +2,7 @@
   "id": "e0b22160-6efe-45f7-9360-8c20412e617e",
   "isDeleted": false,
   "createdAt": "2026-07-10T14:14:48.580Z",
-  "lastModified": "2026-07-19T14:43:12.831Z",
+  "lastModified": "2026-07-20T17:58:03.782Z",
   "campaignId": "c9ddeab9-d180-4fc5-869f-e64239bc3376",
   "name": "Ice Cave",
   "backgroundImage": {
@@ -19,5 +19,25 @@
   "gridSize": 20,
   "gridColor": "#ffffff",
   "gridOpacity": 0.16,
-  "showPaths": true
+  "showPaths": true,
+  "radiusAreas": [
+    {
+      "id": "ba38724f-fd43-4452-b9b5-94043acee25e",
+      "originX": 370,
+      "originY": 390,
+      "radiusFeet": 50,
+      "color": "#ffffff",
+      "label": "",
+      "tokenId": null
+    },
+    {
+      "id": "fca97239-57b5-478d-b924-392715b44766",
+      "originX": 870,
+      "originY": 370,
+      "radiusFeet": 50,
+      "color": "#ff0000",
+      "label": "RED ZONE",
+      "tokenId": null
+    }
+  ]
 }

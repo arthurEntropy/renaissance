@@ -2,7 +2,7 @@
   "id": "276cb26a-76b5-4b9f-8f14-96fc7f80c019",
   "isDeleted": false,
   "createdAt": "2026-07-09T12:56:02.379Z",
-  "lastModified": "2026-07-19T14:36:20.077Z",
+  "lastModified": "2026-07-20T19:33:02.544Z",
   "characterType": "playerCharacter",
   "name": "Omoo",
   "featuredArtUrls": [
@@ -11,7 +11,7 @@
   "speed": 60,
   "notes": "",
   "body": 0,
-  "heart": 0,
+  "heart": 4,
   "wits": 0,
   "skills": [
     {
@@ -141,7 +141,7 @@
   },
   "hope": {
     "current": 0,
-    "base": 0
+    "base": 8
   },
   "defense": {
     "current": 0,
@@ -282,7 +282,38 @@
       "isTalisman": false
     }
   ],
-  "summonerVessels": [],
+  "summonerVessels": [
+    {
+      "id": "23edcc99-c07f-4c12-929d-53b11057fc0c",
+      "isActive": false,
+      "isSummoned": false,
+      "imageUrl": "/src/assets/icons/summoner/tube.png?t=1784575874224",
+      "keeping": "2b3c4d5e-6f7a-4b8c-9d0e-1f2a3b4c5d6e",
+      "vesselNote": "",
+      "beastId": null,
+      "friendship": 0
+    },
+    {
+      "id": "87a90edc-9860-44e6-a42b-53aecd34fda6",
+      "isActive": false,
+      "isSummoned": false,
+      "imageUrl": "/src/assets/icons/summoner/wrecking-ball.png?t=1784573626557",
+      "keeping": "4d5e6f7a-8b9c-4d0e-1f2a-3b4c5d6e7f8a",
+      "vesselNote": "",
+      "beastId": null,
+      "friendship": 0
+    },
+    {
+      "id": "b675d0d1-2759-4c68-a8fc-d8d6f376c608",
+      "isActive": false,
+      "isSummoned": false,
+      "imageUrl": "/src/assets/icons/summoner/magic-potion.png?t=1784573626457",
+      "keeping": "3c4d5e6f-7a8b-4c9d-0e1f-2a3b4c5d6e7f",
+      "vesselNote": "",
+      "beastId": null,
+      "friendship": 0
+    }
+  ],
   "hunterTraps": [
     {
       "id": "55b82c59-6303-49dc-99b0-3a5468df7c73",
@@ -306,7 +337,7 @@
   "pronouns": "",
   "ancestryIds": [],
   "cultureIds": [],
-  "mestiereId": "1e4131c7-8a6f-422c-998a-5147600c946e",
+  "mestiereId": "558abd15-f90f-40d7-80d8-df73a37f977c",
   "age": 0,
   "heightFeet": 0,
   "heightInches": 0,
@@ -314,7 +345,7 @@
   "keeping": "5e6f7a8b-9c0d-4e1f-2a3b-4c5d6e7f8a9b",
   "treasure": 6,
   "xp": 3,
-  "updatedAt": "2026-07-19T14:36:20.076Z",
+  "updatedAt": "2026-07-20T19:33:02.544Z",
   "description": "",
   "size": 0,
   "reach": 0,

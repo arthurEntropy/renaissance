@@ -58,13 +58,18 @@ import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import BaseModal from '@/components/ui/modals/BaseModal.vue'
 
 // Static icon imports – resolved at build time by Vite
+import beadsIcon from '@/assets/icons/witch/beads.png'
 import billiardIcon from '@/assets/icons/witch/billiard.png'
+import boneIcon from '@/assets/icons/witch/bone.png'
 import bookIcon from '@/assets/icons/witch/book.png'
 import bowIcon from '@/assets/icons/witch/bow.png'
 import braceletIcon from '@/assets/icons/witch/bracelet.png'
 import breadIcon from '@/assets/icons/witch/bread.png'
 import cakeIcon from '@/assets/icons/witch/cake.png'
+import candleIcon from '@/assets/icons/witch/candle.png'
 import carrotIcon from '@/assets/icons/witch/carrot.png'
+import dumplingIcon from '@/assets/icons/witch/dumpling.png'
+import hatIcon from '@/assets/icons/witch/hat.png'
 import jeweleryIcon from '@/assets/icons/witch/jewelery.png'
 import necklaceIcon from '@/assets/icons/witch/necklace.png'
 import oliveIcon from '@/assets/icons/witch/olive.png'
@@ -75,13 +80,18 @@ import winkleIcon from '@/assets/icons/witch/winkle.png'
 import woodIcon from '@/assets/icons/witch/wood.png'
 
 const ICON_URL_MAP = {
+    beads: beadsIcon,
     billiard: billiardIcon,
+    bone: boneIcon,
     book: bookIcon,
     bow: bowIcon,
     bracelet: braceletIcon,
     bread: breadIcon,
     cake: cakeIcon,
+    candle: candleIcon,
     carrot: carrotIcon,
+    dumpling: dumplingIcon,
+    hat: hatIcon,
     jewelery: jeweleryIcon,
     necklace: necklaceIcon,
     olive: oliveIcon,
