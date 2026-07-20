@@ -2,9 +2,9 @@
     <div class="tabletop-root" @wheel.prevent="handleWheel" @contextmenu.prevent>
 
         <!-- Canvas Container -->
-        <div class="canvas-container" :class="{ 'is-panning': isPanning }" ref="canvasContainerRef"
-            @mousedown="handleContainerMousedown" @dragover="handleDragOver" @dragleave="handleDragLeave"
-            @drop="handleDrop">
+        <div class="canvas-container" :class="{ 'is-panning': isPanning }" :style="canvasCursorStyle"
+            ref="canvasContainerRef" @mousedown="handleContainerMousedown" @dragover="handleDragOver"
+            @dragleave="handleDragLeave" @drop="handleDrop">
 
             <!-- Grid overlay (always visible, tracks canvas transform) -->
             <div class="canvas-grid" :style="canvasGridStyle" />
@@ -15,6 +15,17 @@
                 <!-- Background map image -->
                 <img v-if="backgroundImage" :src="backgroundImage.url" class="canvas-bg-image" draggable="false" />
 
+                <!-- Persistent radius areas: inside .canvas so they sit above the map
+                     but below tokens (canvas-items each have z-index ≥ 1). -->
+                <TabletopRadiusAreaOverlay :areas="radiusAreasWithZIndex" :transform="transform" :grid-size="gridSize"
+                    :selected-area-id="selectedRadiusAreaId" :editing-area-id="editingRadiusAreaId"
+                    :hovered-area-id="hoveringRadiusAreaId" :hovered-canvas-pos="hoveredCanvasPos"
+                    @select="onRadiusAreaSelect($event)" @deselect="selectedRadiusAreaId = null"
+                    @resize-start="beginRadiusResize($event)" @move-start="beginAreaMove"
+                    @set-color="(id, color) => setRadiusAreaColor(id, color)"
+                    @set-label="(id, label) => setRadiusAreaLabel(id, label)"
+                    @remove-area="_removeRadiusArea($event)" />
+
                 <!-- Canvas tokens -->
                 <div v-for="item in canvasItems" :key="item.id" class="canvas-item edit-hover-area"
                     :ref="(el) => registerTokenRef(item.id, el)" :class="{ 'is-dragging': isDragging(item.id) }"
@@ -22,9 +33,6 @@
                     @mousedown="handleTokenMousedown(item, $event)">
                     <TabletopToken :name="item.name" :portrait-url="item.portraitUrl" :is-beast="item.isBeast"
                         :size="item.size" :grid-size="gridSize" :is-selected="isSelected(item.id)" />
-                    <FloatingActionButton :variant="FAB_TYPES.DELETE" :size="FAB_SIZES.SMALL"
-                        :visibility="FAB_VISIBILITIES.ON_HOVER" tabindex="-1"
-                        style="position: absolute; top: -7px; right: -7px;" @click.stop="removeToken(item.id)" />
                 </div>
 
                 <!-- Rubber-band selection rect -->
@@ -53,6 +61,11 @@
             <TabletopMeasurementOverlay v-else-if="isMeasuring" :waypoints="measureWaypoints"
                 :current-point="measureCurrent" :transform="transform" :grid-size="gridSize" :exact-mode="isCmdHeld"
                 :token-size="1" :show-paths="showPaths" />
+
+            <!-- Radius measurement overlay -->
+            <TabletopRadiusMeasurementOverlay v-if="isRadiusMeasuring && radiusOrigin && radiusCurrent"
+                :origin="radiusOrigin" :current-point="radiusCurrent" :transform="transform" :grid-size="gridSize"
+                :snap-enabled="isShiftHeld" />
         </div>
 
         <!-- Bottom Toolbar -->
@@ -77,8 +90,10 @@ import { useTabletopCanvas } from '@/composables/useTabletopCanvas'
 import TabletopToken from '@/components/features/tabletop/TabletopToken.vue'
 import TabletopToolbar from '@/components/features/tabletop/TabletopToolbar.vue'
 import TabletopMeasurementOverlay from '@/components/features/tabletop/TabletopMeasurementOverlay.vue'
-import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
-import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
+import TabletopRadiusMeasurementOverlay from '@/components/features/tabletop/TabletopRadiusMeasurementOverlay.vue'
+import TabletopRadiusAreaOverlay from '@/components/features/tabletop/TabletopRadiusAreaOverlay.vue'
+import radiusCursorUrl from '@/assets/icons/cursor/radius.png'
+import rulerCursorUrl from '@/assets/icons/cursor/ruler.png'
 
 const route = useRoute()
 const router = useRouter()
@@ -121,6 +136,10 @@ const {
     measureWaypoints,
     measureCurrent,
     isCmdHeld,
+    isShiftHeld,
+    isRadiusMeasuring,
+    radiusOrigin,
+    radiusCurrent,
     registerTokenRef,
     handleWheel,
     handleContainerMousedown,
@@ -137,10 +156,35 @@ const {
     setGridOpacity,
     showPaths,
     setShowPaths,
-    removeToken,
+    radiusAreas,
+    selectedRadiusAreaId,
+    editingRadiusAreaId,
+    hoveringRadiusAreaId,
+    hoveredCanvasPos,
+    removeRadiusArea: _removeRadiusArea,
+    setRadiusAreaColor,
+    setRadiusAreaLabel,
+    beginRadiusResize,
+    beginAreaMove,
+    bringRadiusAreaToFront,
     clearAll,
     loadState,
 } = useTabletopCanvas(campaignId, tabletopId)
+
+// Newer areas are later in the array = rendered on top (DOM order stacking)
+const radiusAreasWithZIndex = computed(() => radiusAreas.value)
+
+// Custom cursor: show ruler when shift held, radius when shift+cmd/ctrl held
+const canvasCursorStyle = computed(() => {
+    if (isShiftHeld.value && isCmdHeld.value) return { cursor: `url('${radiusCursorUrl}') 8 8, crosshair` }
+    if (isShiftHeld.value) return { cursor: `url('${rulerCursorUrl}') 8 8, crosshair` }
+    return {}
+})
+
+const onRadiusAreaSelect = (id) => {
+    selectedRadiusAreaId.value = id
+    bringRadiusAreaToFront(id)
+}
 
 async function handleToggleActiveTabletop() {
     if (!campaignId.value || !tabletopId.value) return
@@ -207,6 +251,7 @@ onMounted(async () => {
     left: 0;
     transform-origin: 0 0;
     will-change: transform;
+    z-index: 2;
 }
 
 /* Background map image – fills the bounded canvas */

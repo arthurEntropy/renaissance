@@ -32,6 +32,17 @@ import { createBaseEntity } from './baseEntity.js'
  */
 
 /**
+ * @typedef {Object} RadiusArea
+ * @property {string} id - Unique identifier for this area
+ * @property {number} originX - Canvas-space x coordinate of the origin
+ * @property {number} originY - Canvas-space y coordinate of the origin
+ * @property {number} radiusFeet - Radius in feet
+ * @property {string} color - CSS hex colour string (e.g. '#ffffff')
+ * @property {string} label - User-defined display label for this area
+ * @property {string|null} tokenId - Character/token ID this area is anchored to, or null for a free area
+ */
+
+/**
  * @typedef {Object} TabletopFields
  * @property {string} campaignId - ID of the owning campaign
  * @property {string} name - Tabletop display name
@@ -42,6 +53,7 @@ import { createBaseEntity } from './baseEntity.js'
  * @property {string} gridColor - Grid line colour as a CSS hex string
  * @property {number} gridOpacity - Grid line opacity between 0 and 1
  * @property {boolean} showPaths - Whether to show measurement paths while dragging tokens
+ * @property {RadiusArea[]} radiusAreas - Persistent radius measurement areas placed on the canvas
  */
 
 /**
@@ -67,5 +79,6 @@ export function createDefaultTabletop(campaignId, name = 'New Tabletop') {
     gridColor: '#ffffff',
     gridOpacity: 0.06,
     showPaths: true,
+    radiusAreas: [],
   }
 }

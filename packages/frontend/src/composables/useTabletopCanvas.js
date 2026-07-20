@@ -164,12 +164,6 @@ export function useTabletopCanvas(campaignId, tabletopId) {
     const selectedIds = ref(new Set())
     const isSelected = (id) => selectedIds.value.has(id) || _liveSelectionIds.value.has(id)
     const clearSelection = () => { selectedIds.value = new Set() }
-    const toggleSelected = (id) => {
-        const next = new Set(selectedIds.value)
-        if (next.has(id)) next.delete(id)
-        else next.add(id)
-        selectedIds.value = next
-    }
 
     // ─── Z-index stacking ────────────────────────────────────────────────────
     const topZIndex = ref(1)
@@ -203,7 +197,30 @@ export function useTabletopCanvas(campaignId, tabletopId) {
     const measureWaypoints = ref([])
     const measureCurrent = ref(null)
     const isCmdHeld = ref(false)
+    const isShiftHeld = ref(false)
 
+    // ─── Radius measurement ───────────────────────────────────────────────────
+    // { x, y } canvas-space origin (center of square or token)
+    const isRadiusMeasuring = ref(false)
+    const radiusOrigin = ref(null)
+    // Raw cursor position in canvas-space (snapping is handled in the overlay component)
+    const radiusCurrent = ref(null)    // Token id this radius measurement originated from (null for canvas-origin)
+    let _radiusSourceTokenId = null
+
+    // ─── Persistent radius areas ──────────────────────────────────────────────
+    // Each area: { id, originX, originY, radiusFeet, color, tokenId? }
+    const radiusAreas = ref([])
+    const selectedRadiusAreaId = ref(null)
+    // id of the radius area currently being re-adjusted (resize drag)
+    const editingRadiusAreaId = ref(null)
+    // id of the area the cursor is currently inside (computed from mousemove)
+    const hoveringRadiusAreaId = ref(null)
+    // Canvas-space cursor position; passed to overlay for edge-cursor direction
+    const hoveredCanvasPos = ref(null)
+    // True while the user is dragging an edge to resize an existing area
+    let _isResizeDrag = false
+    // { areaId, originX, originY, startMouseX, startMouseY } while dragging an anchor circle
+    let _areaMoveState = null
     // ─── Rubber-band selection ────────────────────────────────────────────────
     const isSelecting = ref(false)
     const selectionRectCanvas = ref(null) // { x1, y1, x2, y2 } in canvas coords
@@ -218,6 +235,11 @@ export function useTabletopCanvas(campaignId, tabletopId) {
 
     const handleContainerMousedown = (e) => {
         if (e.button === 2) {
+            // Right-click during radius measurement: persist the area
+            if (isRadiusMeasuring.value && radiusOrigin.value && radiusCurrent.value) {
+                _commitRadiusArea()
+                return
+            }
             // Right-click: start pan, cancel any active canvas measurement
             isPanning.value = true
             _panStart.x = e.clientX
@@ -229,9 +251,32 @@ export function useTabletopCanvas(campaignId, tabletopId) {
                 measureWaypoints.value = []
                 measureCurrent.value = null
             }
+            if (isRadiusMeasuring.value) {
+                isRadiusMeasuring.value = false
+                radiusOrigin.value = null
+                radiusCurrent.value = null
+                _radiusSourceTokenId = null
+            }
         } else if (e.button === 0) {
-            if (e.shiftKey) {
-                // Shift+left-click on empty canvas: start or extend canvas measurement
+            if (e.shiftKey && (e.metaKey || e.ctrlKey)) {
+                // Shift+Cmd/Ctrl: start radius measurement at this canvas position
+                const pos = _containerPos(e)
+                if (!pos) return
+                const cx = snapCenter(pos.canvasX)
+                const cy = snapCenter(pos.canvasY)
+                isMeasuring.value = false
+                measureWaypoints.value = []
+                measureCurrent.value = null
+                isRadiusMeasuring.value = true
+                radiusOrigin.value = { x: cx, y: cy }
+                radiusCurrent.value = { x: cx, y: cy }
+            } else if (e.shiftKey) {
+                // Shift+left-click on empty canvas: start or extend canvas linear measurement
+                if (isRadiusMeasuring.value) {
+                    isRadiusMeasuring.value = false
+                    radiusOrigin.value = null
+                    radiusCurrent.value = null
+                }
                 const pos = _containerPos(e)
                 if (!pos) return
                 const cx = snapCenter(pos.canvasX)
@@ -253,6 +298,13 @@ export function useTabletopCanvas(campaignId, tabletopId) {
                     measureWaypoints.value = []
                     measureCurrent.value = null
                 }
+                if (isRadiusMeasuring.value) {
+                    isRadiusMeasuring.value = false
+                    radiusOrigin.value = null
+                    radiusCurrent.value = null
+                    _radiusSourceTokenId = null
+                }
+                selectedRadiusAreaId.value = null
                 clearSelection()
                 const pos = _containerPos(e)
                 if (pos) {
@@ -286,9 +338,39 @@ export function useTabletopCanvas(campaignId, tabletopId) {
         e.stopPropagation()
 
         if (e.shiftKey) {
-            // Shift+click: toggle selection without starting a drag
-            toggleSelected(item.id)
+            if (e.metaKey || e.ctrlKey) {
+                // Shift+Cmd/Ctrl: start radius measurement from this token's center
+                isMeasuring.value = false
+                measureWaypoints.value = []
+                measureCurrent.value = null
+                const halfPx = (item.size * gridSize.value) / 2
+                isRadiusMeasuring.value = true
+                radiusOrigin.value = { x: item.x + halfPx, y: item.y + halfPx }
+                radiusCurrent.value = { x: item.x + halfPx, y: item.y + halfPx }
+                _radiusSourceTokenId = item.characterId ?? item.id
+            } else {
+                // Shift+click: start linear measurement from this token's center
+                if (isRadiusMeasuring.value) {
+                    isRadiusMeasuring.value = false
+                    radiusOrigin.value = null
+                    radiusCurrent.value = null
+                    _radiusSourceTokenId = null
+                }
+                const halfPx = (item.size * gridSize.value) / 2
+                isMeasuring.value = true
+                measureWaypoints.value = [{ x: item.x + halfPx, y: item.y + halfPx }]
+                measureCurrent.value = { x: item.x + halfPx, y: item.y + halfPx }
+                _canvasMeasureDragging = false
+            }
             return
+        }
+
+        // Cancel any active radius measurement when starting a token drag
+        if (isRadiusMeasuring.value) {
+            isRadiusMeasuring.value = false
+            radiusOrigin.value = null
+            radiusCurrent.value = null
+            _radiusSourceTokenId = null
         }
 
         // Determine which tokens to drag: if clicked token is already selected, drag all selected;
@@ -431,6 +513,18 @@ export function useTabletopCanvas(campaignId, tabletopId) {
             return
         }
 
+        // ── Area anchor drag ────────────────────────────────────────────────
+        if (_areaMoveState) {
+            const dx = (e.clientX - _areaMoveState.startMouseX) / transform.value.scale
+            const dy = (e.clientY - _areaMoveState.startMouseY) / transform.value.scale
+            const area = radiusAreas.value.find(a => a.id === _areaMoveState.areaId)
+            if (area) {
+                area.originX = snapCenter(_areaMoveState.originX + dx)
+                area.originY = snapCenter(_areaMoveState.originY + dy)
+            }
+            return
+        }
+
         if (dragState.value) {
             const ds = dragState.value
             const dx = (e.clientX - ds.startMouseX) / transform.value.scale
@@ -478,19 +572,202 @@ export function useTabletopCanvas(campaignId, tabletopId) {
             }
             tokenGhosts.value = newGhosts
             if (isMeasuring.value) measureTracks.value = newTracks
+            // Live-update radius areas linked to dragged tokens
+            for (const { id, startX, startY } of ds.items) {
+                const dragItem = canvasItemsById.value.get(id)
+                if (!dragItem) continue
+                const snappedX = snap(startX + dx)
+                const snappedY = snap(startY + dy)
+                const halfPx = (dragItem.size * gridSize.value) / 2
+                const charId = dragItem.characterId ?? dragItem.id
+                for (const area of radiusAreas.value) {
+                    if (area.tokenId === charId) {
+                        area.originX = snappedX + halfPx
+                        area.originY = snappedY + halfPx
+                    }
+                }
+            }
             return
         }
 
-        // Update canvas measurement current point (no token drag active)
-        if (isMeasuring.value) {
-            const pos = _containerPos(e)
-            if (pos) {
+        // Update canvas measurement current point(s) (no token drag active)
+        const pos = _containerPos(e)
+        hoveredCanvasPos.value = pos
+        if (pos) {
+            if (isMeasuring.value) {
                 measureCurrent.value = { x: snapCenter(pos.canvasX), y: snapCenter(pos.canvasY) }
             }
+            if (isRadiusMeasuring.value) {
+                radiusCurrent.value = { x: pos.canvasX, y: pos.canvasY }
+            }
+            // Compute which area (if any) the cursor is inside — topmost wins
+            let newHoveredId = null
+            for (let i = radiusAreas.value.length - 1; i >= 0; i--) {
+                const area = radiusAreas.value[i]
+                const r = area.radiusFeet * gridSize.value / 5
+                const dx = pos.canvasX - area.originX
+                const dy = pos.canvasY - area.originY
+                if (dx * dx + dy * dy <= r * r) { newHoveredId = area.id; break }
+            }
+            hoveringRadiusAreaId.value = newHoveredId
+        } else {
+            hoveringRadiusAreaId.value = null
         }
     }
 
+    // ─── Radius area helpers ──────────────────────────────────────────────────
+    // Named range values (feet). Shift-held snaps to these; otherwise 5ft grid.
+    const _RADIUS_RANGE_FEET = [5, 25, 50, 100, 200]
+
+    const _computeRadiusFeet = (originX, originY, currentX, currentY, shiftHeld) => {
+        const dx = currentX - originX
+        const dy = currentY - originY
+        const rawPx = Math.sqrt(dx * dx + dy * dy)
+        const rawFeet = rawPx * 5 / gridSize.value
+        if (shiftHeld) {
+            // Snap to nearest named range
+            return _RADIUS_RANGE_FEET.reduce((best, feet) =>
+                Math.abs(feet - rawFeet) < Math.abs(best - rawFeet) ? feet : best,
+                _RADIUS_RANGE_FEET[0])
+        }
+        // Default: always snap to 5ft grid, minimum 5ft
+        return Math.max(5, Math.round(rawFeet / 5) * 5)
+    }
+
+    const _commitRadiusArea = () => {
+        if (!radiusOrigin.value || !radiusCurrent.value) return
+        const feet = _computeRadiusFeet(
+            radiusOrigin.value.x, radiusOrigin.value.y,
+            radiusCurrent.value.x, radiusCurrent.value.y,
+            isShiftHeld.value
+        )
+        if (feet < 1) return
+        // If editing an existing area, update it and bring it to front
+        if (editingRadiusAreaId.value) {
+            const idx = radiusAreas.value.findIndex(a => a.id === editingRadiusAreaId.value)
+            if (idx !== -1) {
+                const area = radiusAreas.value[idx]
+                area.originX = radiusOrigin.value.x
+                area.originY = radiusOrigin.value.y
+                area.radiusFeet = feet
+                radiusAreas.value.splice(idx, 1)
+                radiusAreas.value.push(area)
+            }
+            editingRadiusAreaId.value = null
+        } else {
+            radiusAreas.value.push({
+                id: crypto.randomUUID(),
+                originX: radiusOrigin.value.x,
+                originY: radiusOrigin.value.y,
+                radiusFeet: feet,
+                color: '#ffffff',
+                label: '',
+                tokenId: _radiusSourceTokenId ?? null,
+            })
+        }
+        isRadiusMeasuring.value = false
+        radiusOrigin.value = null
+        radiusCurrent.value = null
+        _radiusSourceTokenId = null
+        saveState()
+    }
+
+    const removeRadiusArea = (id) => {
+        radiusAreas.value = radiusAreas.value.filter(a => a.id !== id)
+        if (selectedRadiusAreaId.value === id) selectedRadiusAreaId.value = null
+        saveState()
+    }
+
+    const setRadiusAreaColor = (id, color) => {
+        const area = radiusAreas.value.find(a => a.id === id)
+        if (area) { area.color = color; saveState() }
+    }
+
+    const setRadiusAreaLabel = (id, label) => {
+        const area = radiusAreas.value.find(a => a.id === id)
+        if (area) { area.label = label; saveState() }
+    }
+
+    const beginEditRadiusArea = (id) => {
+        const area = radiusAreas.value.find(a => a.id === id)
+        if (!area) return
+        editingRadiusAreaId.value = id
+        isRadiusMeasuring.value = true
+        radiusOrigin.value = { x: area.originX, y: area.originY }
+        // Place current at the east edge so the measurement overlay has a starting point
+        const radiusPx = area.radiusFeet * gridSize.value / 5
+        radiusCurrent.value = { x: area.originX + radiusPx, y: area.originY }
+        _radiusSourceTokenId = area.tokenId ?? null
+    }
+
+    // Moves a radius area to the top of the rendering stack (end of the array).
+    const bringRadiusAreaToFront = (areaId) => {
+        const idx = radiusAreas.value.findIndex(a => a.id === areaId)
+        if (idx !== -1 && idx !== radiusAreas.value.length - 1) {
+            const [area] = radiusAreas.value.splice(idx, 1)
+            radiusAreas.value.push(area)
+        }
+    }
+
+    // Called by the overlay when the user mousedowns on an area's edge outline.
+    // Puts the area into resize-drag mode; mouseup commits the new radius.
+    const beginRadiusResize = (areaId) => {
+        bringRadiusAreaToFront(areaId)
+        beginEditRadiusArea(areaId)
+        _isResizeDrag = true
+    }
+
+    // Called by the overlay when the user mousedowns on a free area's anchor circle.
+    // Drag moves the area origin; mouseup snaps and commits.
+    const beginAreaMove = (areaId, clientX, clientY) => {
+        const area = radiusAreas.value.find(a => a.id === areaId)
+        if (!area) return
+        _areaMoveState = {
+            areaId,
+            originX: area.originX,
+            originY: area.originY,
+            startMouseX: clientX,
+            startMouseY: clientY,
+        }
+        bringRadiusAreaToFront(areaId)
+    }
+
     const handleGlobalMouseup = () => {
+        // ── Area anchor drag: snap origin and commit ─────────────────────────
+        if (_areaMoveState) {
+            const area = radiusAreas.value.find(a => a.id === _areaMoveState.areaId)
+            if (area) {
+                area.originX = snapCenter(area.originX)
+                area.originY = snapCenter(area.originY)
+            }
+            _areaMoveState = null
+            saveState()
+            return
+        }
+
+        // ── Edge resize drag: commit the new radius on mouseup ───────────────
+        if (_isResizeDrag) {
+            _isResizeDrag = false
+            if (isRadiusMeasuring.value && radiusOrigin.value && radiusCurrent.value) {
+                _commitRadiusArea()
+            } else {
+                isRadiusMeasuring.value = false
+                radiusOrigin.value = null
+                radiusCurrent.value = null
+                _radiusSourceTokenId = null
+                editingRadiusAreaId.value = null
+            }
+            return
+        }
+
+        // Stop radius measurement on any other mouseup
+        if (isRadiusMeasuring.value && !isPanning.value) {
+            isRadiusMeasuring.value = false
+            radiusOrigin.value = null
+            radiusCurrent.value = null
+            _radiusSourceTokenId = null
+        }
+
         if (isPanning.value) {
             isPanning.value = false
             saveState()
@@ -537,6 +814,15 @@ export function useTabletopCanvas(campaignId, tabletopId) {
                         item.y = snappedY
                         const el = _tokenElementRefs.get(id)
                         if (el) el.style.transform = `translate(${snappedX}px, ${snappedY}px)`
+                        // Update any radius areas linked to this token
+                        const charId = item.characterId ?? item.id
+                        const halfPx = (item.size * gridSize.value) / 2
+                        for (const area of radiusAreas.value) {
+                            if (area.tokenId === charId) {
+                                area.originX = snappedX + halfPx
+                                area.originY = snappedY + halfPx
+                            }
+                        }
                     }
                 }
                 saveState()
@@ -651,8 +937,9 @@ export function useTabletopCanvas(campaignId, tabletopId) {
         const tag = document.activeElement?.tagName?.toLowerCase()
         if (tag === 'input' || tag === 'textarea' || document.activeElement?.isContentEditable) return
 
-        // Track cmd/ctrl for measurement exact-mode even without a mousemove
+        // Track modifier keys for measurement modes
         if (e.key === 'Meta' || e.key === 'Control') isCmdHeld.value = true
+        if (e.key === 'Shift') isShiftHeld.value = true
 
         const ctrlOrCmd = e.metaKey || e.ctrlKey
 
@@ -697,16 +984,37 @@ export function useTabletopCanvas(campaignId, tabletopId) {
             return
         }
 
-        if (e.key === 'Escape' && isMeasuring.value && !dragState.value) {
+        if (e.key === 'Escape') {
+            if (isMeasuring.value && !dragState.value) {
+                e.preventDefault()
+                isMeasuring.value = false
+                measureWaypoints.value = []
+                measureCurrent.value = null
+            }
+            if (isRadiusMeasuring.value) {
+                e.preventDefault()
+                isRadiusMeasuring.value = false
+                radiusOrigin.value = null
+                radiusCurrent.value = null
+                _radiusSourceTokenId = null
+                editingRadiusAreaId.value = null
+                _isResizeDrag = false
+            }
+            if (selectedRadiusAreaId.value) {
+                e.preventDefault()
+                selectedRadiusAreaId.value = null
+            }
+        }
+
+        if ((e.key === 'Delete' || e.key === 'Backspace') && selectedRadiusAreaId.value && selectedIds.value.size === 0) {
             e.preventDefault()
-            isMeasuring.value = false
-            measureWaypoints.value = []
-            measureCurrent.value = null
+            removeRadiusArea(selectedRadiusAreaId.value)
         }
     }
 
     const handleGlobalKeyup = (e) => {
         if (e.key === 'Meta' || e.key === 'Control') isCmdHeld.value = false
+        if (e.key === 'Shift') isShiftHeld.value = false
     }
 
     // ─── Persistence ─────────────────────────────────────────────────────────
@@ -724,6 +1032,7 @@ export function useTabletopCanvas(campaignId, tabletopId) {
                 gridColor: gridColor.value,
                 gridOpacity: gridOpacity.value,
                 showPaths: showPaths.value,
+                radiusAreas: radiusAreas.value,
             }).catch((err) => console.warn('[VTT] Failed to persist tabletop state:', err))
         }, 500)
     }
@@ -745,6 +1054,7 @@ export function useTabletopCanvas(campaignId, tabletopId) {
         if (tabletop.gridColor) gridColor.value = tabletop.gridColor
         if (tabletop.gridOpacity != null) gridOpacity.value = tabletop.gridOpacity
         if (tabletop.showPaths != null) showPaths.value = tabletop.showPaths
+        if (Array.isArray(tabletop.radiusAreas)) radiusAreas.value = tabletop.radiusAreas
     }
 
     // ─── Tabletop switch (route param changes without component re-mount) ───────
@@ -769,12 +1079,33 @@ export function useTabletopCanvas(campaignId, tabletopId) {
             _redoCount.value = 0
             selectedIds.value = new Set()
             topZIndex.value = 1
+            isRadiusMeasuring.value = false
+            radiusOrigin.value = null
+            radiusCurrent.value = null
+            _radiusSourceTokenId = null
+            editingRadiusAreaId.value = null
+            _isResizeDrag = false
+            _areaMoveState = null
+            isShiftHeld.value = false
+            radiusAreas.value = []
+            selectedRadiusAreaId.value = null
+            hoveringRadiusAreaId.value = null
+            hoveredCanvasPos.value = null
             loadState()
         }
     )
 
+    // ─── Global right-click → commit radius area ──────────────────────────────
+    const handleGlobalMousedown = (e) => {
+        if (e.button === 2 && isRadiusMeasuring.value) {
+            e.preventDefault()
+            _commitRadiusArea()
+        }
+    }
+
     // ─── Lifecycle ────────────────────────────────────────────────────────────
     onMounted(() => {
+        window.addEventListener('mousedown', handleGlobalMousedown, true)
         window.addEventListener('mousemove', handleGlobalMousemove)
         window.addEventListener('mouseup', handleGlobalMouseup)
         window.addEventListener('keydown', handleGlobalKeydown)
@@ -783,6 +1114,7 @@ export function useTabletopCanvas(campaignId, tabletopId) {
 
     onUnmounted(() => {
         if (_saveTimer) clearTimeout(_saveTimer)
+        window.removeEventListener('mousedown', handleGlobalMousedown, true)
         window.removeEventListener('mousemove', handleGlobalMousemove)
         window.removeEventListener('mouseup', handleGlobalMouseup)
         window.removeEventListener('keydown', handleGlobalKeydown)
@@ -816,6 +1148,10 @@ export function useTabletopCanvas(campaignId, tabletopId) {
         measureWaypoints,
         measureCurrent,
         isCmdHeld,
+        isShiftHeld,
+        isRadiusMeasuring,
+        radiusOrigin,
+        radiusCurrent,
         registerTokenRef,
         handleWheel,
         handleContainerMousedown,
@@ -832,6 +1168,18 @@ export function useTabletopCanvas(campaignId, tabletopId) {
         setGridOpacity,
         showPaths,
         setShowPaths,
+        radiusAreas,
+        selectedRadiusAreaId,
+        editingRadiusAreaId,
+        hoveringRadiusAreaId,
+        hoveredCanvasPos,
+        removeRadiusArea,
+        setRadiusAreaColor,
+        setRadiusAreaLabel,
+        beginEditRadiusArea,
+        beginRadiusResize,
+        beginAreaMove,
+        bringRadiusAreaToFront,
         removeToken,
         clearAll,
         loadState,

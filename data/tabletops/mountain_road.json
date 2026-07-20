@@ -2,56 +2,19 @@
   "id": "72c67c75-1353-4abf-8177-968723206d18",
   "isDeleted": false,
   "createdAt": "2026-07-10T14:16:51.012Z",
-  "lastModified": "2026-07-10T19:19:21.925Z",
+  "lastModified": "2026-07-20T15:16:54.456Z",
   "campaignId": "c9ddeab9-d180-4fc5-869f-e64239bc3376",
   "name": "Mountain Road",
-  "backgroundImage": {
-    "url": "https://cdn.midjourney.com/49b76786-5947-4778-a4c4-3056d6a93d9c/0_0.png",
-    "naturalWidth": 1456,
-    "naturalHeight": 816
-  },
-  "items": [
-    {
-      "id": "d18e01e3-8660-49c6-b331-a33f74d810f3",
-      "characterId": "2fb7cd7a-91fc-4f2b-a4b4-8c815eddcea0",
-      "isBeast": false,
-      "name": "Jøna",
-      "portraitUrl": "https://cdn.midjourney.com/4a189b12-7aac-4e8b-bc16-6d867629d244/0_0.png",
-      "size": 1,
-      "x": 960,
-      "y": 640,
-      "zIndex": 50
-    },
-    {
-      "id": "877c2090-4f40-45a9-a6f1-d250944991ac",
-      "characterId": "dd4ad3a1-0d8b-4e05-8548-ee81bbb61c29",
-      "isBeast": false,
-      "name": "Tuah",
-      "portraitUrl": "https://cdn.midjourney.com/28e56c75-1364-472a-be48-82ecf005fe62/0_1.png",
-      "size": 1,
-      "x": 1240,
-      "y": 680,
-      "zIndex": 60
-    },
-    {
-      "id": "a406cdb6-9357-4d44-8655-0a5b2083eaab",
-      "characterId": "b4417462-600b-4571-b2ad-a572ad01733f",
-      "isBeast": false,
-      "name": "Damla",
-      "portraitUrl": "https://cdn.midjourney.com/2ef0de1a-3306-441c-9f5e-0899dcced474/0_0.png",
-      "size": 1,
-      "x": 960,
-      "y": 600,
-      "zIndex": 62
-    }
-  ],
+  "backgroundImage": null,
+  "items": [],
   "transform": {
-    "scale": 1.1663999999999994,
-    "x": -1.2588985900242733,
-    "y": -39.15885541739533
+    "scale": 0.7350298527964532,
+    "x": 283.5180575077951,
+    "y": 166.666222591031
   },
   "gridSize": 40,
   "gridColor": "#ffffff",
   "gridOpacity": 0.06,
-  "showPaths": true
+  "showPaths": true,
+  "radiusAreas": []
 }
