@@ -8,11 +8,13 @@
 
     <!-- Description with categories, properties, dice, and successes -->
     <template #before-description>
-      <div v-if="equipmentCategoriesDisplay" class="equipment-categories-header text-stroke">
-        <em>{{ equipmentCategoriesDisplay }}</em>
+      <div v-if="equipmentCategoriesDisplay" class="equipment-categories-header text-stroke"
+        @mouseover="handlePropertyHintMouseover" @mouseleave="handlePropertyHintMouseleave">
+        <em v-html="equipmentCategoriesDisplay"></em>
       </div>
-      <div v-if="equipmentPropertiesDisplay" class="equipment-properties-header text-stroke">
-        <em>{{ equipmentPropertiesDisplay }}</em>
+      <div v-if="equipmentPropertiesDisplay" class="equipment-properties-header text-stroke"
+        @mouseover="handlePropertyHintMouseover" @mouseleave="handlePropertyHintMouseleave">
+        <em v-html="equipmentPropertiesDisplay"></em>
       </div>
     </template>
 
@@ -32,7 +34,7 @@
         +{{ equipment.defenseBonus }} Defense
       </div>
 
-      <div v-if="isWeapon" class="dice-display-section">
+      <div v-if="hasDiceSection" class="dice-display-section">
 
         <!-- Engagement dice -->
         <div class="dice-group">
@@ -154,12 +156,20 @@
   <ConfirmRemovalModal v-if="showConfirmRemovalModal" :item-name="equipment.name" :cost="keepingCost"
     :character-balance="character?.treasure ?? 0" currency-label="Treasure" @confirm-refund="confirmRemoveWithRefund"
     @confirm-no-refund="confirmRemoveNoRefund" @close="showConfirmRemovalModal = false" />
+
+  <!-- Property hint tooltip (reach, range, weapon properties, firearm subtype) -->
+  <teleport to="body">
+    <div v-if="showPropertyTooltip" class="property-hint-tooltip" :style="propertyTooltipStyle">
+      {{ propertyTooltipContent?.definition }}
+    </div>
+  </teleport>
 </template>
 
 <script setup>
 import { onMounted, computed, ref } from 'vue'
 import { ChevronUpIcon, ChevronDownIcon } from '@heroicons/vue/24/outline'
 import { useCardPreview } from '@/composables/useCardPreview'
+import { useTooltip } from '@/composables/useFloatingElement'
 import { useEquipmentStore } from '@/stores/equipmentStore'
 import { useEquipmentTypesStore } from '@/stores/equipmentTypesStore'
 import { useEquipmentSubtypesStore } from '@/stores/equipmentSubtypesStore'
@@ -187,6 +197,33 @@ import { scheduleStatsRefund } from '@/composables/useCharacterStatWatchers'
 import { getDiceFontMaxClass } from '@/utils/diceFontUtils'
 import { ItemType } from '@shared/constants/itemTypes'
 import { ARMOR_TYPE_ID } from '@/constants/armorConstants'
+
+// Definitions for weapon properties and subtypes — shown on hover
+const PROPERTY_DEFINITIONS = {
+  Reach: 'Extends your melee reach by the listed number of feet. By default, your reach covers adjacent 5-foot squares.',
+  'Range:Adjacent': 'Up to 5 ft (or your reach).',
+  'Range:Short': 'Up to 25 ft.',
+  'Range:Medium': 'Up to 50 ft.',
+  'Range:Long': 'Up to 100 ft.',
+  'Range:Far': 'Up to 200 ft.',
+  'Two-Handed': 'Requires both hands to wield.',
+  Thrown: 'Can be thrown to attack at range in addition to melee use. Still counts as a melee weapon when thrown, using Strength for the attack roll. Treated as a ranged attack.',
+  Finesse: 'Can be used with either Strength or Dexterity for the attack roll. The choice is made each time you attack.',
+  Piercing: 'Attacks inflict Injury on a fate die result of 10 or Sol 🌞, rather than just Sol 🌞.',
+  Projectile: 'Uses ammunition (arrows, bolts, etc.) to attack at range.',
+  Firearm: 'Each attack requires a half action to reload (both hands must be free). Rolling Morte 💀 on an attack roll causes a misfire — roll Injury and spend an action to repair before reloading.',
+}
+
+function escapeHtml(str) {
+  return str ? str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;') : ''
+}
+
+function hintSpan(key, displayText) {
+  const text = displayText ?? key
+  return PROPERTY_DEFINITIONS[key]
+    ? `<span class="property-hint" data-property="${escapeHtml(key)}">${escapeHtml(text)}</span>`
+    : escapeHtml(text)
+}
 
 defineOptions({
   inheritAttrs: false
@@ -267,6 +304,39 @@ const props = defineProps({
 const emit = defineEmits(['edit', 'duplicate', 'update', 'height-changed', 'update:showImprovements', 'update:showSuccesses', 'roll-damage', 'roll-link', 'transfer'])
 
 const cardPreview = useCardPreview()
+
+// Property hint tooltip (reach, range, weapon properties, firearm subtype)
+const {
+  content: propertyTooltipContent,
+  style: propertyTooltipStyle,
+  isVisible: showPropertyTooltip,
+  show: showPropertyHint,
+  hide: hidePropertyHint,
+} = useTooltip()
+
+function handlePropertyHintMouseover(event) {
+  const target = event.target
+  if (target.classList?.contains('property-hint')) {
+    const definition = PROPERTY_DEFINITIONS[target.dataset.property]
+    if (definition) {
+      const pointerRect = {
+        getBoundingClientRect: () => ({
+          left: event.clientX, right: event.clientX,
+          top: event.clientY, bottom: event.clientY,
+          width: 0, height: 0,
+        })
+      }
+      showPropertyHint({ definition }, pointerRect)
+    }
+  } else {
+    hidePropertyHint()
+  }
+}
+
+function handlePropertyHintMouseleave(event) {
+  if (event.relatedTarget?.classList?.contains('property-hint')) return
+  hidePropertyHint()
+}
 
 // Discovery number (Mesmer's Mask)
 const editingDiscovery = ref(false)
@@ -375,6 +445,10 @@ const isWeapon = computed(() => {
   return type?.name === 'Weapon' // TODO: Figure out a way to avoid using string comparison here
 })
 
+const hasDiceSection = computed(() =>
+  (props.equipment.engagementDice?.length > 0) || (props.equipment.damageDice?.length > 0)
+)
+
 // Training category key for the equipment item
 const martialTrainingKey = computed(() => {
   if (props.equipment.type === ARMOR_TYPE_ID) return 'armorGrades'
@@ -402,6 +476,7 @@ const lacksTraining = computed(() => {
 })
 
 // Format is "Type - Subtype, Grade", e.g. "Weapon - Melee, Martial"
+// Returns HTML — subtype gets a hint span if a definition exists (e.g. Firearm)
 const equipmentCategoriesDisplay = computed(() => {
   if (!props.equipment.type) return null
 
@@ -409,55 +484,46 @@ const equipmentCategoriesDisplay = computed(() => {
   const subtype = equipmentSubtypesStore.getById(props.equipment.subtype)
   const grade = equipmentGradesStore.getById(props.equipment.grade)
 
-  let display = ''
+  let html = ''
 
   if (type) {
-    display += type.name
+    html += escapeHtml(type.name)
     if (subtype) {
-      display += ` - ${subtype.name}`
+      html += ` - ${hintSpan(subtype.name)}`
     }
     if (grade) {
-      display += `, ${grade.name}`
+      html += `, ${escapeHtml(grade.name)}`
     }
   }
 
-  return display || null
+  return html || null
 })
 
-// Format is "Length: X ft  |  Reach: Y  |  Range: Z  |  [Weapon Attributes]"
+// Format is "Reach: Y  |  Range: Z  |  [Weapon Attributes]"
+// Returns HTML — each term gets a hint span with its definition on hover
 const equipmentPropertiesDisplay = computed(() => {
   const sections = []
 
   // Add reach if greater than 0
   if (props.equipment.reach > 0) {
-    sections.push(`Reach: ${props.equipment.reach}`)
+    sections.push(`${hintSpan('Reach')}: ${props.equipment.reach}`)
   }
 
   // Add range if set
   if (props.equipment.range) {
     const range = equipmentRangesStore.getById(props.equipment.range)
     if (range) {
-      sections.push(`Range: ${range.name}`)
+      sections.push(hintSpan(`Range:${range.name}`, `Range: ${range.name}`))
     }
   }
 
   // Group weapon properties together as a comma-separated list
   const weaponAttributes = []
-  if (props.equipment.twoHanded) {
-    weaponAttributes.push('Two-Handed')
-  }
-  if (props.equipment.thrown) {
-    weaponAttributes.push('Thrown')
-  }
-  if (props.equipment.projectile) {
-    weaponAttributes.push('Projectile')
-  }
-  if (props.equipment.finesse) {
-    weaponAttributes.push('Finesse')
-  }
-  if (props.equipment.piercing) {
-    weaponAttributes.push('Piercing')
-  }
+  if (props.equipment.twoHanded) weaponAttributes.push(hintSpan('Two-Handed'))
+  if (props.equipment.thrown) weaponAttributes.push(hintSpan('Thrown'))
+  if (props.equipment.projectile) weaponAttributes.push(hintSpan('Projectile'))
+  if (props.equipment.finesse) weaponAttributes.push(hintSpan('Finesse'))
+  if (props.equipment.piercing) weaponAttributes.push(hintSpan('Piercing'))
   if (weaponAttributes.length > 0) {
     sections.push(weaponAttributes.join(', '))
   }
@@ -712,6 +778,12 @@ onMounted(async () => {
   border-bottom: 1px solid var(--overlay-black-medium);
 }
 
+.equipment-categories-header :deep(.property-hint:hover),
+.equipment-properties-header :deep(.property-hint:hover) {
+  text-decoration: underline dotted var(--color-gray-light);
+  cursor: help;
+}
+
 .equipment-properties-header {
   font-size: var(--font-size-12);
   color: var(--color-text-secondary);
@@ -847,5 +919,24 @@ onMounted(async () => {
   opacity: 1;
   pointer-events: auto;
   transform: translateY(-50%) translateX(0);
+}
+</style>
+
+<!-- Tooltip is teleported to body, so unscoped styles are needed -->
+<style>
+.property-hint-tooltip {
+  position: fixed;
+  z-index: var(--z-tooltip);
+  background: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  padding: var(--space-sm);
+  border-radius: var(--radius-5);
+  border: 1px solid var(--color-text-primary);
+  box-shadow: var(--shadow-elevation-md);
+  max-width: 280px;
+  transform: translateX(-50%);
+  pointer-events: none;
+  font-size: var(--font-size-12);
+  line-height: var(--line-height-normal);
 }
 </style>
