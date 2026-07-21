@@ -1,10 +1,10 @@
 {
   "id": "551ac93c-74bc-4458-8a1a-f99a60cea631",
   "isDeleted": false,
-  "lastModified": "2026-03-17T13:14:42.943Z",
+  "lastModified": "2026-07-15T01:36:14.220Z",
   "name": "Lead The Charge",
   "artUrl": "https://cdn.midjourney.com/801c9a98-35d5-49d0-ae02-590a101b1df2/0_2.png",
-  "description": "<p>Once per round: For the next round, you take –2 Defense and all allies within medium range get +1d to their attack rolls.</p><p><strong>Describe how you charge ahead.</strong></p>",
+  "description": "<p>Once per round: For the next round, you take –2 Defense and all allies within medium range get +1d to their attack rolls.</p><p><strong>Describe how you lead the charge.</strong></p>",
   "improvements": [
     {
       "name": "Break Their Line",

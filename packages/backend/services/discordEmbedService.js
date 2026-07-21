@@ -100,7 +100,7 @@ export function createSkillCheckEmbed(data) {
   }
 }
 
-export function createOpposedSkillCheckEmbed(data) {
+export function createContestEmbed(data) {
   const { 
     characterName, 
     opponentName, 
@@ -112,7 +112,7 @@ export function createOpposedSkillCheckEmbed(data) {
   } = data
   
   return {
-    title: `🤼‍♂️ Opposed Skill Check: ${characterName} vs ${opponentName}`,
+    title: `🤼‍♂️ Contest: ${characterName} vs ${opponentName}`,
     description: winner === WINNER.TIE ? '**TIE**' : `**${winner === WINNER.USER ? characterName : opponentName} WINS**`,
     color: COLORS.NEUTRAL,
     fields: [

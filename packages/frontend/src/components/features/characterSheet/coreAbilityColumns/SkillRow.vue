@@ -62,28 +62,18 @@ const handleSkillClick = () => {
     }
 }
 
-// Tracks which state was last applied, so that flat alternates between favored and ill-favored.
-// Starting as 'ill-favored' means the first click on a flat skill goes to favored.
-const lastAppliedFavoredState = ref('ill-favored')
-
 const handleD12Click = () => {
     if (!props.canEdit) return
-    const { isFavored, isIllFavored } = props.skill
-    if (isFavored && !isIllFavored) {
-        // favored → flat
-        lastAppliedFavoredState.value = 'favored'
-        emit('update-favored-status', skillId.value, { isFavored: false, isIllFavored: false })
-    } else if (isIllFavored && !isFavored) {
+    const { isFavored, isIllFavored } = effectiveFavored.value
+    if (isFavored) {
+        // favored → ill-favored
+        emit('update-favored-status', skillId.value, { isFavored: false, isIllFavored: true })
+    } else if (isIllFavored) {
         // ill-favored → flat
-        lastAppliedFavoredState.value = 'ill-favored'
         emit('update-favored-status', skillId.value, { isFavored: false, isIllFavored: false })
     } else {
-        // flat → favored or ill-favored, alternating
-        if (lastAppliedFavoredState.value === 'ill-favored') {
-            emit('update-favored-status', skillId.value, { isFavored: true, isIllFavored: false })
-        } else {
-            emit('update-favored-status', skillId.value, { isFavored: false, isIllFavored: true })
-        }
+        // flat → favored
+        emit('update-favored-status', skillId.value, { isFavored: true, isIllFavored: false })
     }
 }
 

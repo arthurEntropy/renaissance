@@ -25,7 +25,7 @@
         <div class="keeping-badge text-stroke" :style="keepingBadgeStyle">
           <select title="Keeping" class="keeping-select" :value="character.keeping || ''" :disabled="!canEdit"
             @change="character.keeping = $event.target.value || null">
-            <option value="">Choose...</option>
+            <option value="">Select Keeping...</option>
             <option v-for="k in keepingStore.standardKeeping" :key="k.id" :value="k.id">{{ k.name }}</option>
           </select>
         </div>
@@ -161,7 +161,7 @@ const keepingBadgeStyle = computed(() => {
 .keeping-badge {
   display: flex;
   align-items: center;
-  background-color: var(--color-gray-light);
+  background-color: var(--color-gray-dark);
   padding: var(--space-xs) calc(var(--space-md) + 8px) var(--space-xs) var(--space-xs);
   border-top-left-radius: var(--radius-15);
   position: relative;

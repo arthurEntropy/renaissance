@@ -1,7 +1,7 @@
 {
   "isDeleted": false,
   "createdAt": "2026-05-06T17:55:10.305Z",
-  "lastModified": "2026-06-24T14:24:25.104Z",
+  "lastModified": "2026-07-21T02:31:22.040Z",
   "name": "Lantern Shield",
   "artUrl": "https://cdn.midjourney.com/4626c200-b046-4e9b-b316-1bb62129a81c/0_1.jpeg",
   "description": "<p>Counts as both a melee weapon and a shield.</p><p>When a lit candle is placed inside, it projects light out to short range.</p>",
@@ -17,7 +17,6 @@
   "subtype": "ab765755-b7c9-47ac-b62f-34f069e00dc3",
   "grade": "ebcc2bcb-8221-4ca0-bef3-000fb7e59e96",
   "weight": 7,
-  "length": 2,
   "reach": 0,
   "range": null,
   "twoHanded": false,
@@ -28,13 +27,15 @@
     8
   ],
   "engagementDice": [
-    8,
+    4,
     10
   ],
   "engagementSuccesses": [
-    "f6a7b8c9-d0e1-42f3-a4b5-c6d7e8f9a0b1"
+    "f6a7b8c9-d0e1-42f3-a4b5-c6d7e8f9a0b1",
+    "b8c9d0e1-f2a3-44b5-c6d7-e8f9a0b1c2d3"
   ],
   "defenseBonus": 3,
   "id": "5c461fe0-4ad1-470b-9edd-7c3094190e79",
-  "hasDifficulty": false
+  "hasDifficulty": false,
+  "projectile": false
 }

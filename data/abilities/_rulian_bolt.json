@@ -1,0 +1,17 @@
+{
+  "id": "3ae7e89d-fee2-4fec-bfd5-4bb0b110d285",
+  "createdAt": "2026-04-13T18:57:29.432Z",
+  "lastModified": "2026-07-15T02:16:31.432Z",
+  "name": "Ærulian Bolt",
+  "artUrl": "https://cdn.midjourney.com/e781605e-de77-491b-9c9c-ad4057a28063/0_1.png",
+  "description": "<p>You project three glowing bolts of magical force. Each bolt strikes a creature of your choice within long range, dealing 1d4+1 damage. The bolts strike simultaneously.</p><p>When you cast this spell, you may spend MP to create additional darts, 1-for-1.</p><p><strong>Describe the bolts.</strong></p>",
+  "improvements": [],
+  "source": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
+  "school": "0341bd63-648c-48c2-ba5d-ce92322e5a09",
+  "isMagical": true,
+  "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
+  "mpCost": 1,
+  "xpCost": 5,
+  "canBeActive": false,
+  "hasDifficulty": false
+}

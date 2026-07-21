@@ -1,14 +1,14 @@
 {
   "id": "bdc10a98-d189-4917-9330-9fadb116c8e8",
   "isDeleted": false,
-  "lastModified": "2026-03-16T19:37:49.389Z",
+  "lastModified": "2026-07-14T18:23:16.115Z",
   "name": "Go Down Swinging",
   "artUrl": "https://cdn.midjourney.com/10e98f64-e032-4dba-a6c8-b61b9a93193a/0_3.png",
-  "description": "<p>Whenever your current Endurance is less than half your maximum Endurance:</p><ul><li><p>Your Defense increases by your BODY score.</p></li><li><p>Each time you attack, you gain +1d to either the attack roll or the damage roll, your choice.</p></li></ul>",
+  "description": "<p>While your current Endurance is less than half your base Endurance:</p><ul><li><p>Your current Defense increases by your BODY score.</p></li><li><p>Each time you attack, you gain +1d to either the attack roll or the damage roll, your choice.</p></li></ul><p><strong>Describe how you become more dangerous.</strong></p>",
   "improvements": [
     {
       "name": "Nothing To Lose",
-      "description": "<p>Double the effects of this ability when your current endurance is equal or less than <strong>¼</strong> your maximum Endurance.</p>",
+      "description": "<p>Double the effects of this ability when your current Endurance is equal or less than <strong>¼</strong> your maximum Endurance.</p>",
       "xpCost": 10,
       "id": "3a6b3769-f951-5d8b-b708-1b5a4d54f329"
     }

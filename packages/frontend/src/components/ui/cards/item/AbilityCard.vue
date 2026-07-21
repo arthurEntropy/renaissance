@@ -45,7 +45,8 @@
         :force-active="badgeForceActive" :hidden-by-default="badgeHiddenByDefault" @toggle="handleBaseAbilityToggle" />
 
       <!-- Difficulty badge for abilities that set a difficulty -->
-      <DifficultyBadge v-if="isShowingDifficulty" :value="abilityDifficulty" @update:value="handleDifficultyUpdate" />
+      <DifficultyBadge v-if="isShowingDifficulty" :value="abilityDifficulty" :readonly="!character"
+        @update:value="handleDifficultyUpdate" />
     </template>
 
     <!-- Activate / Deactivate FAB: shares the admin-buttons row with edit/delete FABs -->
@@ -87,6 +88,7 @@ import SuccessesSection from '@/components/ui/cards/item/SuccessesSection.vue'
 import ConfirmPurchaseModal from '@/components/ui/modals/ConfirmPurchaseModal.vue'
 import ConfirmRemovalModal from '@/components/ui/modals/ConfirmRemovalModal.vue'
 import CharacterService from '@/services/entities/characterService'
+import { scheduleStatsRefund } from '@/composables/useCharacterStatWatchers'
 import { ItemType } from '@shared/constants/itemTypes'
 
 const props = defineProps({
@@ -134,7 +136,7 @@ const props = defineProps({
   },
   showDifficultyBadge: {
     type: Boolean,
-    default: false
+    default: true,
   },
   // null = uncontrolled (original hover/click behaviour outside a table context)
   // true/false = controlled by the table (edit mode vs display mode)
@@ -148,9 +150,7 @@ const emit = defineEmits(['edit', 'update', 'update:collapsed', 'update:showImpr
 const cardPreview = useCardPreview()
 
 // Difficulty badge
-const isShowingDifficulty = computed(() =>
-  props.showDifficultyBadge && !!props.ability.hasDifficulty && !!props.character
-)
+const isShowingDifficulty = computed(() => !!props.ability.hasDifficulty)
 
 const characterAbilityEntry = computed(() =>
   props.character?.abilities?.find(a => a.id === props.ability.id) ?? null
@@ -316,6 +316,9 @@ function doRemove(refundXp = false) {
   const updatedCharacter = CharacterService.removeItem(props.character, 'abilities', abilityIndex)
   if (!updatedCharacter) return
   const xpCost = props.ability.xpCost ?? 0
+  if (refundXp && xpCost > 0) {
+    scheduleStatsRefund(props.character, { xp: xpCost })
+  }
   const withRefund = refundXp && xpCost > 0
     ? { ...updatedCharacter, xp: (updatedCharacter.xp ?? 0) + xpCost }
     : updatedCharacter
@@ -328,6 +331,16 @@ function confirmRemoveWithRefund() {
 
 function confirmRemoveNoRefund() {
   doRemove(false)
+}
+
+function confirmAddWithSpend() {
+  const updatedCharacter = CharacterService.addAbilityToCharacter(props.character, props.ability)
+  if (!updatedCharacter) return
+  const xpCost = props.ability.xpCost ?? 0
+  const deducted = xpCost > 0
+    ? { ...updatedCharacter, xp: Math.max(0, (updatedCharacter.xp ?? 0) - xpCost) }
+    : updatedCharacter
+  emit('update', deducted)
 }
 
 function confirmAddFree() {

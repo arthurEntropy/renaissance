@@ -116,7 +116,7 @@
     <!-- Martial Training Popup -->
     <MartialTrainingPopup v-if="showMartialTrainingPopup" :novizio="characterMestiereNovizio"
       :equipment-grades="equipmentGradesStore.items" :mestiere-name="characterMestiere?.name"
-      :anchor-el="martialTrainingAnchorEl" @close="showMartialTrainingPopup = false" />
+      :anchor-el="martialTrainingAnchorEl" :character="selectedCharacter" @close="showMartialTrainingPopup = false" />
 
     <!-- Transfer Equipment Modal -->
     <TransferEquipmentModal v-if="showTransferEquipmentModal && transferEquipmentItem && selectedCharacter"
@@ -174,11 +174,10 @@ import { useRollsStore } from '@/stores/rollsStore'
 import { useCampaignStore } from '@/stores/campaignStore'
 import { useAuthStore } from '@/stores/authStore'
 import EngagementSuccessService from '@/services/entities/engagementSuccessService'
-import DamageRollService from '@/services/rolls/damageRollService'
 import CustomRollService from '@/services/rolls/customRollService'
 import { RollTypes } from '@/constants/rollTypes'
 import { MESMER_MASK_SUBTYPE_ID } from '@/constants/mesmerConstants'
-import { getModifierStatKey, getModifierStatLabel } from '@/utils/characterKeyUtils'
+import { getModifierStatKey } from '@/utils/characterKeyUtils'
 
 const props = defineProps({
   isEditMode: {
@@ -488,48 +487,36 @@ const handleDamageRoll = (equipment) => {
 const handleRollLink = (rollData) => {
   if (!selectedCharacter.value) return
 
-  if (rollData.type === 'skill-check' || rollData.type === 'opposed-skill-check') {
+  if (rollData.type === 'skill-check' || rollData.type === 'contest') {
     rollLinkSkill.value = rollData.skill
-    rollLinkRollType.value = rollData.type === 'opposed-skill-check'
-      ? RollTypes.OPPOSED_SKILL_CHECK
+    rollLinkRollType.value = rollData.type === 'contest'
+      ? RollTypes.CONTEST
       : RollTypes.SKILL_CHECK
     showSkillCheckModal.value = true
   } else if (rollData.type === 'damage-roll') {
-    // Transform dice format from [{count, sides}] to [{dieSize}...]
-    const dicePool = []
+    // Build initial dice counts for CustomRollModal from the roll link data
+    const initialDiceCounts = {}
     rollData.dice.forEach(die => {
-      for (let i = 0; i < die.count; i++) {
-        dicePool.push({ dieSize: die.sides })
-      }
+      initialDiceCounts[die.sides] = (initialDiceCounts[die.sides] || 0) + die.count
     })
 
-    // Calculate modifier value
     let modifierValue = 0
-    let modifierLabel = 'Modifier'
-
     if (rollData.modifier) {
       if (rollData.modifier.type === 'stat') {
         const statName = getModifierStatKey(rollData.modifier)
         modifierValue = selectedCharacter.value[statName] || 0
-        modifierLabel = getModifierStatLabel(rollData.modifier)
       } else if (rollData.modifier.type === 'number') {
         modifierValue = rollData.modifier.value
       }
     }
 
-    const rollResult = DamageRollService.makeDamageRoll(
-      dicePool,
-      modifierValue,
-      selectedCharacter.value,
-      {
-        sourceName: 'Description',
-        modifierLabel,
-        footer: modifierValue !== 0 ? `${modifierValue >= 0 ? '+' : ''}${modifierLabel}` : undefined
-      }
-    )
-    if (rollResult) {
-      rollsStore.setRoll(rollResult)
+    damageRollModalConfig.value = {
+      initialDiceCounts,
+      initialModifier: modifierValue,
+      rollName: rollData.linkText || 'Damage',
+      sourceName: 'Description',
     }
+    showDamageRollModal.value = true
   } else if (rollData.type === 'custom-roll') {
     // Transform dice format from [{count, sides}] to [{dieSize}...]
     const dicePool = []

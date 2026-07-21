@@ -2,9 +2,9 @@
   "source": "3085883d-e74b-40aa-84a9-af6fccb3d98e",
   "id": "86b1f9e4-104f-47b9-9d37-0894543f7392",
   "createdAt": "2026-06-18T14:34:25.327Z",
-  "lastModified": "2026-06-18T15:05:07.728Z",
+  "lastModified": "2026-07-13T20:01:23.111Z",
   "name": "Earthtouched",
-  "description": "<p><em>The effects of living near Mount Ardis have given you strange powers over stone.</em></p><p>At any time, you may spend a half action to cause up to 1 pound of freestanding stone to levitate and move, at your walking speed, within short range.</p><p>Once per rest, you may spend an action to similarly move up to 10 pounds of freestanding stone.</p><p><strong>Describe how you manipulate stone.</strong></p>",
+  "description": "<p><em>The effects of living near Mount Ardis have given you strange powers over stone.</em></p><p>At any time, you may spend a half action to cause up to 1 pound of freestanding stone to levitate and move, up to your Speed, within short range.</p><p>Once per rest, you may spend an action to similarly move up to 10 pounds of freestanding stone.</p><p><strong>Describe how you manipulate stone.</strong></p>",
   "isMagical": false,
   "artUrl": "https://cdn.midjourney.com/2a0c14b6-5cdd-4e0e-b131-330d029cf35e/0_3.png",
   "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1"

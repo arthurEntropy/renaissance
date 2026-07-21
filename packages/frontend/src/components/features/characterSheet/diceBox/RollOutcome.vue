@@ -14,7 +14,7 @@
                                 : 'draws' }}
                     </span>
                 </span>
-                <span v-else-if="isOpposedSkillCheck" class="opposed-score">
+                <span v-else-if="isContest" class="contest-score">
                     <span class="roll-number user-total" :class="outcomeClass">{{ rollData.userTotal }}</span>
                     <span class="score-separator">vs</span>
                     <span class="roll-number opponent-total">{{ rollData.opponentTotal }}</span>
@@ -59,7 +59,7 @@ const props = defineProps({
         type: Boolean,
         required: true
     },
-    isOpposedSkillCheck: {
+    isContest: {
         type: Boolean,
         required: true
     },
@@ -113,7 +113,7 @@ const outcomeClass = computed(() => {
         }
     }
 
-    if (props.isOpposedSkillCheck) {
+    if (props.isContest) {
         return {
             success: props.rollData.winner === WINNER.USER,
             failure: props.rollData.winner === WINNER.OPPONENT,
@@ -211,7 +211,7 @@ onUnmounted(() => {
 }
 
 .engagement-score,
-.opposed-score {
+.contest-score {
     display: flex;
     align-items: center;
     gap: var(--space-sm);

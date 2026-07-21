@@ -2,7 +2,7 @@
   "id": "b4417462-600b-4571-b2ad-a572ad01733f",
   "isDeleted": false,
   "createdAt": "2026-07-08T12:49:04.391Z",
-  "lastModified": "2026-07-09T12:56:40.834Z",
+  "lastModified": "2026-07-17T21:20:43.491Z",
   "characterType": "npc",
   "name": "Damla",
   "featuredArtUrls": [
@@ -136,7 +136,7 @@
     }
   ],
   "endurance": {
-    "current": 3,
+    "current": 2,
     "base": 20
   },
   "hope": {
@@ -167,19 +167,26 @@
   },
   "engagementDice": [],
   "engagementSuccesses": [],
-  "engagementDiceStatuses": {},
+  "engagementDiceStatuses": {
+    "user_added_1": "expended",
+    "user_added_0": "expended",
+    "mestiere_0": "selected",
+    "mestiere_1": "selected",
+    "mestiere_2": "selected",
+    "mestiere_3": "selected"
+  },
   "equipment": [
     {
       "id": "01a676c1-05c4-4d59-9ca7-3586d03d6161",
       "quantity": 1,
       "isCarried": true,
-      "collapsed": false
+      "collapsed": true
     },
     {
       "id": "5aaa3981-8f83-431a-bbfb-a4eff17cfcd7",
       "quantity": 1,
       "isCarried": true,
-      "collapsed": false
+      "collapsed": true
     }
   ],
   "groupEquipmentBySource": false,
@@ -203,7 +210,7 @@
       "id": "bbf8f9d6-45a6-4703-9388-b771935d4a0a",
       "collapsed": false,
       "showImprovements": false,
-      "showSuccesses": false,
+      "showSuccesses": true,
       "isActive": false,
       "columnIndex": 1
     },
@@ -262,36 +269,40 @@
   },
   "rollStats": {
     "skillChecks": {
-      "attempts": 30,
-      "successes": 22,
-      "totalSum": 457,
+      "attempts": 47,
+      "successes": 39,
+      "totalSum": 733,
       "bestTotal": 31,
       "hardestSuccess": 11,
       "bySkill": {
-        "Dexterity": 22,
-        "Fortitude": 1,
-        "Strength": 7
+        "Dexterity": 35,
+        "Fortitude": 2,
+        "Strength": 10
       },
-      "solCount": 5,
-      "morteCount": 2,
-      "successCount": 9
+      "solCount": 7,
+      "morteCount": 3,
+      "successCount": 14
     },
     "contests": {
       "engagement": {
-        "wins": 0,
+        "wins": 1,
         "losses": 0,
         "draws": 0
       },
-      "opposed": {
-        "wins": 0,
+      "contest": {
+        "wins": 1,
         "losses": 0,
         "draws": 0
       }
-    }
+    },
+    "xpEarned": 0,
+    "xpSpent": 0,
+    "treasureEarned": 0,
+    "treasureSpent": 0
   },
   "biomeTags": [],
   "biomeId": null,
-  "nimbleStep": 1,
+  "nimbleStep": 4,
   "swagger": 0,
   "swaggerIconIndex": 0,
   "swaggerColor": "#ffffff",
@@ -325,10 +336,12 @@
   "keeping": "4d5e6f7a-8b9c-4d0e-1f2a-3b4c5d6e7f8a",
   "treasure": 12,
   "xp": 0,
-  "updatedAt": "2026-07-09T12:56:40.834Z",
+  "updatedAt": "2026-07-17T21:20:43.490Z",
   "description": "",
   "size": 0,
   "reach": 0,
   "featuredArtUrl": "https://cdn.midjourney.com/2ef0de1a-3306-441c-9f5e-0899dcced474/0_0.png",
-  "hunterTraps": []
+  "hunterTraps": [],
+  "sectionOrder": [],
+  "martialTrainingOverrides": {}
 }

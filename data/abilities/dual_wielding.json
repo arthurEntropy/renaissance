@@ -1,10 +1,10 @@
 {
   "id": "df41e010-07b6-40bf-bc67-ec2a01c9b95d",
   "isDeleted": false,
-  "lastModified": "2026-03-16T20:29:12.183Z",
+  "lastModified": "2026-07-13T19:58:41.229Z",
   "name": "Dual Wielding",
   "artUrl": "https://cdn.midjourney.com/0cb0d2db-0e05-44b2-ae69-ec45913d8bc9/0_0.png",
-  "description": "<p>You gain +2 Defense while wielding a separate melee weapon in each hand.</p><p>When you make an attack with one of these weapons and miss, you may immediately make a follow-up attack as a free action with the other weapon if it is light, using the same engagement result as the first attack.</p><p><strong>Describe your technique.</strong></p>",
+  "description": "<p>You gain +2 Defense while wielding a separate melee weapon in each hand.</p><p>When you make an attack with one of these weapons and miss, you may immediately make a follow-up attack as a free action with the other weapon if it is light, using the engagement result from the first attack.</p><p><strong>Describe your technique.</strong></p>",
   "improvements": [
     {
       "name": "Ambidextrous",
@@ -15,7 +15,7 @@
     {
       "name": "Relentless",
       "description": "<p>You can make the follow-up attack even if the initial attack hits.</p>",
-      "xpCost": 10,
+      "xpCost": 20,
       "id": "5cdf24a8-94a3-54a9-8d29-e31c0a213826"
     }
   ],

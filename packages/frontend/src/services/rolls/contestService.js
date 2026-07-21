@@ -1,0 +1,97 @@
+import { RollTypes } from '@/constants/rollTypes'
+import { WINNER } from '@shared/constants/winner.js'
+import eventBus, { ROLL_EVENTS } from '../events/eventBus'
+import BaseRollService from './baseRollService.js'
+
+class ContestService extends BaseRollService {
+
+  // Initial roll is an isolated step, since opponent's results are not yet known
+  static makeContestRoll(skill, character) {
+    const { diceResults, total, isAutoFail } = this.performSkillCheckRoll(skill, character)
+    
+    // Format dice for display (adds CSS classes, emojis, and sorts them)
+    const formattedDiceResults = this.formatDiceForDisplay(diceResults, RollTypes.CONTEST)
+    
+    return {
+      diceResults: formattedDiceResults,
+      totalSum: total,
+      isAutoFail: isAutoFail,
+      skillConfig: skill,
+      characterInfo: character
+    }
+  }
+
+  // Result object is created as a separate step, since we need both users' results.
+  // It's also independent from sending to Discord because users need to review and accept the result first.
+  static createContestResult(session, userCharacterId, opponentCharacterId) {
+    const userSession = session.users.find(u => u.characterInfo.id === userCharacterId)
+    const opponentSession = session.users.find(u => u.characterInfo.id === opponentCharacterId)
+    
+    if (!userSession || !opponentSession) {
+      return null
+    }
+
+    const winner = this._determineWinner(session, userCharacterId)
+    
+    const result = this.createRollResult(RollTypes.CONTEST, {
+      characterName: userSession.characterInfo.name,
+      opponentName: opponentSession.characterInfo.name,
+      skillName: userSession.skillCheckConfig.name,
+      opponentSkillName: opponentSession.skillCheckConfig.name,
+      userTotal: userSession.rollTotal,
+      opponentTotal: opponentSession.rollTotal,
+      winner: winner,
+      diceResults: userSession.rollResults, // User's dice for display in DiceBox
+      userDiceResults: userSession.rollResults,
+      opponentDiceResults: opponentSession.rollResults,
+      userFavoredStatus: this.getFavoredStatus(userSession.skillCheckConfig),
+      opponentFavoredStatus: this.getFavoredStatus(opponentSession.skillCheckConfig),
+      session: session
+    })
+
+    return result
+  }
+
+  // Separate method to emit event when result is accepted by both users
+  static emitContestResult(session, userCharacterId, opponentCharacterId, options = {}) {
+    const result = this.createContestResult(session, userCharacterId, opponentCharacterId)
+    if (result) {
+      eventBus.emit(ROLL_EVENTS.CONTEST, {
+        contestResult: result,
+        integrations: {
+          discord: options.sendToDiscord !== false
+        }
+      })
+    }
+    return result
+  }
+
+  static _determineWinner(session, userCharacterId) {
+    if (session.winner !== null && session.winner !== undefined) {
+      // Server winner is 0-indexed: 0 = first user, 1 = second user
+      const winnerUser = session.users[session.winner]
+      
+      if (winnerUser) {
+        return winnerUser.characterInfo.id === userCharacterId ? WINNER.USER : WINNER.OPPONENT
+      }
+    }
+    
+    // Fallback to client-side calculation if server doesn't provide winner
+    const userSession = session.users.find(u => u.characterInfo.id === userCharacterId)
+    const opponentSession = session.users.find(u => u.characterInfo.id !== userCharacterId)
+    
+    if (userSession && opponentSession) {
+      return this._determineContestWinner(userSession.rollTotal, opponentSession.rollTotal)
+    }
+    
+    return WINNER.TIE
+  }
+
+  static _determineContestWinner(userTotal, opponentTotal) {
+    if (userTotal > opponentTotal) return WINNER.USER
+    if (opponentTotal > userTotal) return WINNER.OPPONENT
+    return WINNER.TIE
+  }
+}
+
+export default ContestService

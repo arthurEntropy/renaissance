@@ -42,17 +42,17 @@
         "dieSize": 6
       }
     ],
-    "engagementDiceNotes": "",
     "engagementSuccesses": [
       "b8c9d0e1-f2a3-44b5-c6d7-e8f9a0b1c2d3"
     ],
+    "engagementDiceNotes": "",
     "engagementSuccessNotes": "",
     "baseMP": 5,
     "baseMpNotes": "",
-    "abilities": "",
-    "gratuiti": ""
+    "abilities": "<p><em>Guide, Trapper</em> and <em>Set Traps.</em></p>",
+    "gratuiti": "<p>A waterskin, a backpack &amp; bedroll, a traveling cloak, a hunting horn, a pocketknife.</p>"
   },
-  "lastModified": "2026-04-15T18:27:51.886Z",
+  "lastModified": "2026-07-11T19:35:47.646Z",
   "hooks": [],
   "playlists": []
 }

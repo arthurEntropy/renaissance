@@ -2,10 +2,10 @@
   "id": "50ac36f0-481a-491c-9671-0688b06d4255",
   "isDeleted": false,
   "createdAt": "2025-12-31T00:15:23.069Z",
-  "lastModified": "2026-03-31T01:25:50.735Z",
+  "lastModified": "2026-07-15T20:02:54.867Z",
   "name": "Quicken",
   "artUrl": "https://cdn.midjourney.com/6c9fe199-7ae4-42f2-922b-87e06c1a49fc/0_1.png",
-  "description": "<p><em>Concentration, up to 1 minute.</em></p><p>Choose one:</p><ul><li><p>Your speed doubles.</p></li><li><p>+1 half action on each of your turns.</p></li><li><p>+2 Defense</p></li><li><p>Your Dexterity rolls are favored.</p></li></ul><p>At the beginning of each of your turns, you lose 1 Endurance for each effect you chose.</p><p>When you cast this spell, roll Lore to see if you trigger any additional effects.</p><p><strong>Describe the spell's effects.</strong></p>",
+  "description": "<p><em>Concentration, up to 1 minute.</em></p><p>Choose one:</p><ul><li><p>Your speed doubles.</p></li><li><p>+1 half action on each of your turns.</p></li><li><p>Your Dexterity rolls are favored.</p></li></ul><p>At the beginning of each of your turns, you lose 1 Endurance for each effect you chose.</p><p>When you cast this spell, roll Lore to see if you trigger any additional effects.</p><p><strong>Describe the spell's effects.</strong></p>",
   "successes": "<p>✨: Choose one additional effect.</p><p>🌞: Choose two additional effects.</p><p>💀: Your heart races wildly. Check two Conditions. You cannot uncheck those Conditions while this spell lasts. At the beginning of each of your turns, you lose an additional 1 Endurance for each effect you chose.</p>",
   "improvements": [
     {

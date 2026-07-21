@@ -1,7 +1,7 @@
 {
   "isDeleted": false,
   "createdAt": "2026-05-06T17:55:10.305Z",
-  "lastModified": "2026-06-24T14:27:55.573Z",
+  "lastModified": "2026-07-14T19:08:17.076Z",
   "name": "Pike",
   "artUrl": "https://cdn.midjourney.com/463e9f71-9760-497f-ae76-a1c40d37a55a/0_3.png",
   "description": "",
@@ -17,10 +17,9 @@
   "subtype": "3d4f28d9-d757-4789-b3a2-0e9fffda4fc0",
   "grade": "a9023254-92ed-4c54-9840-5a7577c1aa1f",
   "weight": 10,
-  "length": 12,
   "reach": 10,
   "range": null,
-  "twoHanded": false,
+  "twoHanded": true,
   "thrown": false,
   "finesse": false,
   "piercing": true,
@@ -33,5 +32,6 @@
   "engagementSuccesses": [],
   "defenseBonus": 0,
   "id": "83f9dff7-e49a-4552-9e49-bd2e766986a7",
-  "hasDifficulty": false
+  "hasDifficulty": false,
+  "projectile": false
 }

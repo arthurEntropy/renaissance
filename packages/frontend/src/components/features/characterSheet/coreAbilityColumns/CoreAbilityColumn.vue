@@ -23,10 +23,10 @@
 
     <SkillCheckModal v-if="skillCheckModalOpen && character" :character="character" :selectedSkillKey="selectedSkillKey"
       :defaultDifficulty="rollsStore.lastDifficulty" @close="skillCheckModalOpen = false"
-      @update-difficulty="rollsStore.setLastDifficulty" @start-opposed-skill-check="handleStartOpposedSkillCheck" />
+      @update-difficulty="rollsStore.setLastDifficulty" @start-contest="handleStartContest" />
 
-    <OpposedSkillCheckModal v-if="opposedSkillCheckModalOpen && character" :character="character"
-      :initial-session-config="opposedSessionConfig" @close="opposedSkillCheckModalOpen = false" />
+    <ContestModal v-if="contestModalOpen && character" :character="character"
+      :initial-session-config="contestSessionConfig" @close="contestModalOpen = false" />
   </CharacterSheetSection>
 </template>
 
@@ -46,7 +46,7 @@ import CoreAbilityHeader from './CoreAbilityHeader.vue'
 import SkillRow from './SkillRow.vue'
 import StatRow from './StatRow.vue'
 import SkillCheckModal from '@/components/features/characterSheet/modals/SkillCheckModal.vue'
-import OpposedSkillCheckModal from '@/components/features/characterSheet/rollModal/OpposedSkillCheckModal.vue'
+import ContestModal from '@/components/features/characterSheet/rollModal/ContestModal.vue'
 import { findSkillById, getSkillId } from '@/utils/characterKeyUtils'
 
 const props = defineProps({
@@ -239,19 +239,19 @@ const handleFavoredStatusUpdate = (skillKey, { isFavored, isIllFavored }) => {
 }
 
 const skillCheckModalOpen = ref(false)
-const opposedSkillCheckModalOpen = ref(false)
+const contestModalOpen = ref(false)
 const selectedSkillKey = ref('')
-const opposedSessionConfig = ref(null)
+const contestSessionConfig = ref(null)
 
 const openSkillCheckModal = (skillKey) => {
   selectedSkillKey.value = skillKey
   skillCheckModalOpen.value = true
 }
 
-const handleStartOpposedSkillCheck = (config) => {
+const handleStartContest = (config) => {
   skillCheckModalOpen.value = false
-  opposedSessionConfig.value = config
-  opposedSkillCheckModalOpen.value = true
+  contestSessionConfig.value = config
+  contestModalOpen.value = true
 }
 </script>
 

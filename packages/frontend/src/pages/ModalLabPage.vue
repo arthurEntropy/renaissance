@@ -54,7 +54,7 @@
                     <h3 class="modal-label">SkillCheckModal</h3>
                     <div class="modal-frame">
                         <SkillCheckModal :character="character" selected-skill-key="" @close="() => { }"
-                            @update-difficulty="() => { }" @start-opposed-skill-check="() => { }" />
+                            @update-difficulty="() => { }" @start-contest="() => { }" />
                     </div>
                 </div>
             </div>
@@ -80,9 +80,9 @@
             <!-- Row 4 -->
             <div class="modal-row">
                 <div v-if="character" class="modal-card modal-card--700">
-                    <h3 class="modal-label">OpposedSkillCheckModal</h3>
+                    <h3 class="modal-label">ContestModal</h3>
                     <div class="modal-frame">
-                        <OpposedSkillCheckModal :initial-session-config="null" @close="() => { }" />
+                        <ContestModal :initial-session-config="null" @close="() => { }" />
                     </div>
                 </div>
 
@@ -175,7 +175,7 @@ import CreateCampaignModal from '@/components/features/campaigns/CreateCampaignM
 import AllDiceModal from '@/components/features/characterSheet/diceBox/AllDiceModal.vue'
 import SkillCheckModal from '@/components/features/characterSheet/modals/SkillCheckModal.vue'
 import EngagementRollModal from '@/components/features/characterSheet/rollModal/EngagementRollModal.vue'
-import OpposedSkillCheckModal from '@/components/features/characterSheet/rollModal/OpposedSkillCheckModal.vue'
+import ContestModal from '@/components/features/characterSheet/rollModal/ContestModal.vue'
 import VesselModal from '@/components/features/characterSheet/summonerSection/VesselModal.vue'
 import WitchcraftItemModal from '@/components/features/characterSheet/witchcraftTracker/WitchcraftItemModal.vue'
 import ConceptSettingsModal from '@/components/features/conceptDetail/components/ConceptSettingsModal.vue'

@@ -1,0 +1,14 @@
+{
+  "id": "9ec47fcf-338e-4510-8eb3-ef36ec03f941",
+  "isDeleted": false,
+  "lastModified": "2026-07-14T13:21:16.384Z",
+  "name": "Audacious Assault",
+  "artUrl": "https://cdn.midjourney.com/79587bec-725b-4f72-938c-8fd59afc939e/0_1.png",
+  "description": "<p>If you have at least one level of <em>Swagger</em>, make a melee weapon attack, skipping engagement and rolling Awe vs Awareness for the attack roll.</p><p>On a hit, roll and deal damage as normal. Then, if you have at least two levels of <em>Swagger,</em> you may make another attack in the same way against the same creature as a free action.</p><p>On a second hit, roll and deal damage as normal again. Then, if you have at least three levels of <em>Swagger</em>, repeat the attack a third time.</p><p><strong>Describe your flourishes.</strong></p>",
+  "source": "45ca935d-938b-4974-961c-4171cc388904",
+  "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
+  "mpCost": 1,
+  "xpCost": 5,
+  "canBeActive": false,
+  "hasDifficulty": false
+}

@@ -1,10 +1,10 @@
 {
   "id": "56da8c36-5b32-45cd-88ca-03b635503e35",
   "createdAt": "2026-04-08T14:44:55.049Z",
-  "lastModified": "2026-04-10T12:20:36.138Z",
+  "lastModified": "2026-07-13T15:59:27.544Z",
   "name": "Doppelgänger",
   "artUrl": "https://cdn.midjourney.com/f2f0f915-abdc-4ba2-886b-613255d1a15d/0_0.png",
-  "description": "<p><em>Concentration, up to 1 hour.</em></p><p>You create an illusory double of yourself, which appears adjacent to you.</p><p>You can see through its eyes and hear through its ears as if you were located where it is. You my switch between using its senses and your own by spending a half action. While you are using its senses, you are blinded and deafened in regard to your own surroundings.</p><p>You can spend an action to move the doppelgänger up to twice your speed and make it gesture, speak, and behave in whatever way you choose. The double cannot move beyond far range from you.</p><p>Physical interaction with the duplicate reveals the nature of the illusion. If the illusion takes any damage, the spell ends.</p><p><strong>Describe the movement of the doppelgänger.</strong></p>",
+  "description": "<p><em>Concentration, up to 1 hour.</em></p><p>You create an illusory double of yourself, which appears in an adjacent space.</p><p>You can see through its eyes and hear through its ears as if you were located where it is. You my switch between using its senses and your own by spending a half action. While you are using its senses, you are blinded and deafened with regard to your own surroundings.</p><p>You may spend an action to move the doppelgänger up to twice your speed and make it gesture, speak, and behave in whatever way you choose. The double cannot move beyond far range from you.</p><p>Physical interaction with the duplicate reveals the nature of the illusion. If the illusion takes any damage, the spell ends.</p><p><strong>Describe the movement of the doppelgänger.</strong></p>",
   "improvements": [
     {
       "name": "Imposter",

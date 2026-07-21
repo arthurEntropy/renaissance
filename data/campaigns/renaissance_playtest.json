@@ -2,7 +2,7 @@
   "id": "c9ddeab9-d180-4fc5-869f-e64239bc3376",
   "isDeleted": false,
   "createdAt": "2026-05-18T17:56:57.471Z",
-  "lastModified": "2026-07-10T17:44:49.126Z",
+  "lastModified": "2026-07-20T17:10:37.753Z",
   "slug": "renaissance-playtest",
   "name": "Renaissance Playtest",
   "description": "<p>This is a test campaign that I'm using to playtest the game and app.</p>",
@@ -154,5 +154,5 @@
     "e0b22160-6efe-45f7-9360-8c20412e617e",
     "72c67c75-1353-4abf-8177-968723206d18"
   ],
-  "activeTabletopId": "e0b22160-6efe-45f7-9360-8c20412e617e"
+  "activeTabletopId": "f3c8c845-59f1-4481-bafb-2f1e0d5da452"
 }

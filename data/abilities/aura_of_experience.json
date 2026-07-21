@@ -1,19 +1,19 @@
 {
   "id": "c447c4d5-d5f1-4f1a-9246-cb3881d30ed8",
   "isDeleted": false,
-  "lastModified": "2026-03-16T23:50:12.134Z",
+  "lastModified": "2026-07-12T21:31:23.102Z",
   "name": "Aura Of Experience",
   "artUrl": "https://cdn.midjourney.com/2a5f27b4-8cc0-4e50-b0c0-9b5abbca6af9/0_2.png",
-  "description": "<p>Allies within short range of you get +1d to attack rolls.</p><p>Additionally, for each different Culture of origin among the weapons and armor you are wielding or wearing, your base MP increases by 1, up to 5 additional MP.</p><p>Finally, at the beginning of each combat, for each level of <em>Swagger </em>you have, choose two of the below dice to add to your pool of engagement dice:</p><p style=\"text-align: center\"><span class=\"dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon df-d4-4\" style=\"font-size: 36px;\"></span> <span class=\"dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon df-d6-6\" style=\"font-size: 36px;\"></span> <span class=\"dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon df-d8-8\" style=\"font-size: 36px;\"></span> <span class=\"dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon df-d10-10\" style=\"font-size: 36px;\"></span> <span class=\"dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon df-d12-12\" style=\"font-size: 36px;\"></span> <span class=\"dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon df-d20-20\" style=\"font-size: 36px;\"></span></p><p style=\"text-align: left\">Choose each die type only once. These dice are available to you for the duration of the combat.</p><p><strong>Describe your presence on the battlefield.</strong></p>",
+  "description": "<p>Allies within short range of you get +1d to attack rolls.</p><p>Additionally, for each different Culture of origin among the weapons and armor you are wielding or wearing, your base MP increases by 1, up to 5 additional MP.</p><p><strong>Describe your presence on the battlefield.</strong></p>",
   "improvements": [
     {
       "name": "Inspiring",
-      "description": "<p>Whenever you roll 🌞 on an attack roll, an ally within short range may use their reaction to make a melee attack.</p>",
+      "description": "<p>Whenever you roll 🌞 on an attack roll, an ally within short range may spend a reaction to make a melee attack.</p>",
       "xpCost": 5,
       "id": "fe501c7d-0d44-5dee-b652-025ff40791ad"
     },
     {
-      "name": "Put Your Back Into It",
+      "name": "Put Your Backs Into It",
       "description": "<p>Allies within short range may spend 2 Endurance before making an attack roll. If they do and land a hit, +1d to the damage roll.</p>",
       "xpCost": 5,
       "id": "c4d67aa6-fa4b-5cd8-9259-75b810f28afa"

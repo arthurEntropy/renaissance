@@ -1,10 +1,10 @@
 {
   "id": "3ccd9c77-deaf-4f96-aaef-907d8e2baf01",
   "isDeleted": false,
-  "lastModified": "2026-05-15T18:44:57.518Z",
+  "lastModified": "2026-07-13T20:02:46.944Z",
   "name": "Easy To Mend",
   "artUrl": "https://cdn.midjourney.com/0b24fecf-ec2e-4b51-9545-78d14caf9735/0_2.png",
-  "description": "<p><em>Being made of rope, your injuries are easier than most to repair. The quality of the repair depends on the quality of the rope you carry.</em></p><p>On a short rest, reduce your Injury score by the cost, in Treasure, of your current Keeping. Double this effect on a long rest.</p><p><strong>Describe how you repair your wounds.</strong></p>",
+  "description": "<p><em>Being made of rope, your injuries are easier than most to repair. The quality of the repair depends on the quality of the rope you carry.</em></p><p>On each short rest, reduce your Injury score by the cost, in Treasure, of the Quest's Keeping. Double this effect on a long rest.</p><p><strong>Describe how you repair your wounds.</strong></p>",
   "source": "15bb5476-5cca-48ee-a6a0-95b0ea6cc803",
   "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
   "mpCost": null,

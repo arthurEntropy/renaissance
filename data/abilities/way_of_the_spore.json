@@ -1,10 +1,10 @@
 {
   "id": "e2cd82f4-30db-4c3e-aa76-20170b5e7694",
   "createdAt": "2026-03-06T03:20:41.579Z",
-  "lastModified": "2026-03-17T15:11:34.998Z",
+  "lastModified": "2026-07-16T19:40:06.872Z",
   "name": "Way of the Spore",
   "artUrl": "https://cdn.midjourney.com/ad77129b-2fbc-4e06-abbb-9623cd198df7/0_0.png",
-  "description": "<p>Your body is inoculated with mycelial Symbiotes, granting you access to all Way of the Spore abilities.</p><p>Whenever you use one of these abilities, the Symbiotes sprout visible fungal growths across your skin. At other times, you may suppress or display these growths as you wish, though a faint, mold-like pattern always remains.</p><p>Once per rest, you may call upon your Symbiotes to mend your wounds, reducing your Injury by half your HEART score.</p>",
+  "description": "<p>Your body is inoculated with mycelial Symbiotes, granting you access to all Way of the Spore abilities.</p><p>Whenever you use one of these abilities, the Symbiotes sprout visible fungal growths across your skin. At other times, you may suppress or display these growths as you wish, though a faint, mold-like pattern always remains.</p><p>Once per rest, you may call upon your Symbiotes to mend your wounds, reducing your Injury by your HEART score.</p><p><strong>Describe your new appearance.</strong></p>",
   "source": "937d52da-0ebf-4d74-b3ee-be395f2f5d0a",
   "school": "c1bc149a-25c9-4414-a736-1a6cdffb5719",
   "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",

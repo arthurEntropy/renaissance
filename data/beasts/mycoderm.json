@@ -208,12 +208,16 @@
         "losses": 0,
         "draws": 0
       },
-      "opposed": {
+      "contest": {
         "wins": 0,
         "losses": 0,
         "draws": 0
       }
-    }
+    },
+    "xpEarned": 0,
+    "xpSpent": 0,
+    "treasureEarned": 0,
+    "treasureSpent": 0
   },
   "biomeTags": [],
   "biomeId": null,
@@ -249,5 +253,7 @@
   "size": 3,
   "reach": 5,
   "updatedAt": "2026-07-08T12:42:23.420Z",
-  "challenge": 12
+  "challenge": 12,
+  "sectionOrder": [],
+  "martialTrainingOverrides": {}
 }

@@ -2,15 +2,23 @@
   "id": "ea5b56c6-375f-4426-84be-cf4df79b7505",
   "isDeleted": false,
   "createdAt": "2026-02-03T17:30:31.824Z",
-  "lastModified": "2026-03-16T20:44:53.309Z",
+  "lastModified": "2026-07-11T18:28:15.502Z",
   "name": "Set Trap",
   "artUrl": "https://cdn.midjourney.com/ed7df680-f07f-428a-a9d2-a6614f6aa98a/0_3.png",
-  "description": "<p>Choose one:</p><ul><li><p><strong>Drop</strong>. You drop and conceal one of your traps in an adjacent space. Roll Stealth to set that trap's Difficulty. When a creature enters the trap's space, it rolls Awareness against the Difficulty.</p></li><li><p><strong>Throw</strong>. You throw a trap to an unoccupied space within short range. Roll Craft to set that trap's Difficulty. When a creature enters the trap's space, it rolls Dexterity against the Difficulty.</p></li></ul><p>Either way, if the creature fails its check, the trap springs. Choose two of your trap effects (defined in the <em>Trapper </em>trait). On a loss, just choose one Trap effect.</p><p><strong>Describe how you set your trap.</strong></p>",
+  "description": "<p>You place and conceal one of your traps in an unoccupied adjacent space. Roll Craft to set the trap's Difficulty.</p><p>When a creature enters the trap's space, the trap springs and the creature rolls Awareness against the Difficulty. On a failure, choose two different trap effects (defined in the <em>Trapper </em>trait). On a pass, choose one trap effect.</p><p>When you set the trap, each creature within short range that can see you learns the location of the trap, unless you roll Stealth vs Awareness against them. On each win, that creature does not learn the location of the trap.</p><p><strong>Describe how you set your trap.</strong></p>",
   "source": "10f46ecd-e6f5-4d3b-b510-d4035ab24f56",
   "actionCost": "40656418-af01-43ae-8a60-a1bd0124efb4",
   "mpCost": null,
   "xpCost": null,
   "manaCost": null,
   "canBeActive": false,
-  "hasDifficulty": false
+  "hasDifficulty": false,
+  "improvements": [
+    {
+      "name": "Throw Trap",
+      "description": "<p>Instead of setting your trap in a fixed location, you may set it and hold it at the ready, using both hands. While you are doing so, when a creature moves within short range of you, you may spend a reaction to throw the trap in its path. Roll Dexterity vs Awareness against the creature. On a win, choose one of your trap's effects.</p>",
+      "xpCost": 10,
+      "id": "c8334c07-f7de-47f6-b6c3-4fe4746efaa9"
+    }
+  ]
 }

@@ -1,10 +1,10 @@
 {
   "id": "199407ee-df83-4829-a41c-ad3e93e02455",
   "createdAt": "2026-03-11T15:47:55.899Z",
-  "lastModified": "2026-03-31T00:32:32.010Z",
+  "lastModified": "2026-07-15T19:25:40.831Z",
   "name": "Power Word: Heal",
   "artUrl": "https://cdn.midjourney.com/6e1d4501-5c1a-41bd-b1e1-4bc7d99824d1/0_1.png",
-  "description": "<p>You touch a creature. The creature's current Endurance increases to equal its maximum Endurance, and all effects on it immediately end. If the creature is prone, it can spend a reaction to stand up.</p><p><strong>Describe how you cast the spell.</strong></p>",
+  "description": "<p>You touch a creature. The creature's current Endurance increases to equal its base Endurance, and all effects on it immediately end. If the creature is prone, it can spend a reaction to stand up.</p><p><strong>Describe how you cast the spell.</strong></p>",
   "source": "162ae4db-7a67-4770-8a2c-7e9883da14f6",
   "isMagical": true,
   "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",

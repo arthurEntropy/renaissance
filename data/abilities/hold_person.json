@@ -1,15 +1,15 @@
 {
   "id": "d280dcad-3e65-4e9a-9173-c7450cc0205c",
   "createdAt": "2026-04-14T20:13:18.587Z",
-  "lastModified": "2026-04-14T20:34:12.951Z",
+  "lastModified": "2026-07-16T19:33:10.064Z",
   "name": "Hold Person",
   "artUrl": "https://cdn.midjourney.com/083c7ae4-ee08-43a5-84b2-e5ab71168447/0_3.png",
-  "description": "<p><em>Concentration, up to 1 minute.</em></p><p>Roll Lore vs Spirit against a humanoid creature within medium range. On a win, the creature cannot move, speak, or take actions or reactions, and attacks against the creature are favored. Your roll result becomes the Difficulty. At the end of each of the creature's turns, it may roll Spirit against the Difficulty to attempt to end the spell.</p>",
+  "description": "<p><em>Concentration, up to 1 minute.</em></p><p>Roll Lore vs Spirit against a humanoid creature within medium range. On a win, the creature cannot move, speak, or take actions or reactions, and attacks against the creature are favored. Your roll result becomes the Difficulty. At the end of each of the creature's turns, it may roll Spirit against the Difficulty to attempt to end the spell.</p><p><strong>Describe how you stop them in their tracks.</strong></p>",
   "successes": "<p>✨: Increase the Difficulty by 2.</p><p>🌞: The spell does not require concentration and lasts the full minute. The creature does not get to attempt to end the spell.</p><p>💀: You become the target of the spell. Check a Condition.</p>",
   "improvements": [
     {
       "name": "Hold Creature",
-      "description": "<p>You may spend an additional 3 MP to target any creature.</p>",
+      "description": "<p>You may spend an additional 3 MP to target any creature, not just humanoids.</p>",
       "xpCost": 15,
       "id": "a27431dc-a843-43ed-9bf1-4b6265b725b3"
     }

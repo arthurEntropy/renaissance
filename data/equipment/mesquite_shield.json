@@ -1,20 +1,22 @@
 {
   "type": "1cc02e7b-cdaf-477c-a198-6be0ad5ab47f",
   "createdAt": "2026-05-21T15:55:35.050Z",
-  "lastModified": "2026-06-24T13:13:20.627Z",
+  "lastModified": "2026-07-21T02:28:46.400Z",
   "isTemplate": false,
   "name": "Mesquite Shield",
   "subtype": "5ec6d867-7dbf-41c0-b196-3ada5985e6ea",
   "grade": "b92d3394-2c64-487f-8c90-c56ea1cbd3f3",
   "weight": 4,
   "defenseBonus": 2,
-  "engagementDice": [],
+  "engagementDice": [
+    6
+  ],
   "damageDice": [],
-  "length": 0,
   "reach": 0,
   "id": "e9559e97-d1b7-48d4-a358-d9da0614aa6d",
   "source": "be62ac3d-7168-4779-8274-e60574a2fd27",
   "artUrl": "https://cdn.midjourney.com/f9cc44ad-ea29-4cdc-8b4c-d4fd23f1dd30/0_0.png",
   "keeping": "3c4d5e6f-7a8b-4c9d-0e1f-2a3b4c5d6e7f",
-  "hasDifficulty": false
+  "hasDifficulty": false,
+  "projectile": false
 }

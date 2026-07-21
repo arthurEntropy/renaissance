@@ -1,10 +1,10 @@
 {
   "id": "92c5bb49-f863-4fc6-a60c-890646ba20a2",
   "isDeleted": false,
-  "lastModified": "2026-02-12T21:37:52.075Z",
+  "lastModified": "2026-07-15T19:59:04.378Z",
   "name": "Pull One",
   "artUrl": "https://cdn.midjourney.com/2c0eb2bb-562d-4135-895e-e64a5a78acf9/0_1.png",
-  "description": "<p>Draw one card from your Cartomancy deck.</p>",
+  "description": "<p>Draw one card from your Cartomancy deck.</p><p><strong>Describe your technique.</strong></p>",
   "source": "96e062f8-646e-49f4-8eec-d92bd5fb77c4",
   "actionCost": "40656418-af01-43ae-8a60-a1bd0124efb4",
   "mpCost": null,

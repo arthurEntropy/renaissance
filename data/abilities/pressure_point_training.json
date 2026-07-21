@@ -1,20 +1,20 @@
 {
   "id": "bbf8f9d6-45a6-4703-9388-b771935d4a0a",
   "isDeleted": false,
-  "lastModified": "2026-05-14T21:06:32.857Z",
+  "lastModified": "2026-07-17T13:33:27.846Z",
   "name": "Pressure Point Training",
   "artUrl": "https://cdn.midjourney.com/2349ffb5-01f4-448f-a93e-ff1f992c0d72/0_1.png",
-  "description": "<p>You are trained in special pressure point techniques. You may spend a half action to make a pressure point attack, rolling Dexterity vs Defense against an adjacent creature. On a win, choose one:</p><ul><li><p>The creature checks a Condition.</p></li><li><p>The creature's speed is reduced by 5 ft for the next minute.</p></li><li><p>The creature takes -1d to all rolls under BODY for 1 round.</p></li><li><p>The creature cannot use reactions for 1 round.</p></li></ul><p>You may make multiple pressure point attacks each turn. The effects are cumulative.</p><p><strong>Describe your technique.</strong></p>",
+  "description": "<p>You are trained in special pressure point techniques. You may spend a half action to make a pressure point attack: Roll Dexterity against an adjacent creature's Defense. On a pass, choose one:</p><ul><li><p>The creature takes -1 Defense for 1 round.</p></li><li><p>The creature's speed is reduced by 5 ft for 1 round.</p></li><li><p>The creature takes -1d to all rolls under BODY for 1 round.</p></li><li><p>The creature cannot spend reactions for 1 round.</p></li></ul><p>You may make multiple pressure point attacks each turn, and may choose each effect any number of times. The effects are cumulative.</p><p><strong>Describe your technique.</strong></p>",
   "improvements": [
     {
-      "name": "Catch Them Off-Guard",
-      "description": "<p>In Engagement, you may spend Engagement successes to make pressure point attacks. You still must make the opposed skill check for each attack.</p>",
+      "name": "Clever Touch",
+      "description": "<p>You may spend engagement successes to make pressure point attacks (you still must roll Dexterity against your opponent's Defense for each attack).</p>",
       "xpCost": 5,
       "id": "7ee3fb4d-0ca1-535d-999c-bf18fad83568"
     },
     {
       "name": "Five Touch Attack",
-      "description": "<p>If you successfully make five pressure point attacks against the same creature within one round, they roll Injury and check a Condition. Their speed is reduced to zero until the end of their next turn.</p>",
+      "description": "<p>If you successfully make five pressure point attacks against the same creature within one round, that creature rolls Injury, checks a Condition, and for the next round, it cannot make attacks that require physical movement and its Speed is reduced to 0.</p>",
       "xpCost": 10,
       "id": "d6ced026-b5ab-557f-9f10-d6fa092e7cd9"
     }
@@ -24,5 +24,6 @@
   "mpCost": null,
   "xpCost": 10,
   "canBeActive": false,
-  "hasDifficulty": false
+  "hasDifficulty": false,
+  "successes": "<p>✨: Choose one additional effect.</p><p>🌞: Choose two additional effects.</p>"
 }

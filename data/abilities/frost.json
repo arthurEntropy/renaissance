@@ -1,15 +1,15 @@
 {
   "id": "20b15810-3312-4e21-ab98-e236838fecbf",
   "createdAt": "2026-04-23T13:47:15.133Z",
-  "lastModified": "2026-04-23T15:12:09.207Z",
+  "lastModified": "2026-07-14T17:22:06.975Z",
   "name": "Frost",
   "artUrl": "https://cdn.midjourney.com/ccd66316-0eaf-46f4-9e62-889af61111b8/0_1.png",
   "description": "<p>Uncheck a Condition. If you did, roll Spirit vs Strength against a creature within medium range. On a win, the creature takes 1d8 damage and its speed is reduced by 10 ft for 1 round. On a loss, half damage and no speed reduction.</p><p>If the Condition you unchecked was Insecure or Afraid, +1d damage.</p><p><strong>Describe the frost.</strong></p>",
-  "successes": "<p>✨: +1d damage.</p><p>✨: The creature's speed is reduced by an additional 10 ft.</p><p>🌞: The creature's speed is reduced to 0.</p>",
+  "successes": "<p>✨: The creature's speed is reduced by an additional 10 ft.</p><p>🌞: The creature's speed is reduced to 0 for 1 round.</p>",
   "improvements": [
     {
       "name": "Blizzard",
-      "description": "<p>You may pay double the mana cost to instead choose a point within medium range and roll Spirit vs Strength against each creature within short range of that point, with the same effects on each win or loss.</p>",
+      "description": "<p>You may pay triple the mana cost to instead choose a point within medium range and roll Spirit vs Strength against each creature within short range of that point, with the same effects on each win or loss.</p>",
       "xpCost": 10,
       "id": "883677b6-0216-40ab-a28d-cc6c6b47de13"
     }

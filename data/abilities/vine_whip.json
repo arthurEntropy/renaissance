@@ -1,15 +1,15 @@
 {
   "id": "0353aa97-c033-47ff-979e-5ed5a0b565c8",
   "createdAt": "2026-03-06T19:11:12.294Z",
-  "lastModified": "2026-04-10T14:19:24.723Z",
+  "lastModified": "2026-07-16T17:33:22.209Z",
   "name": "Vine Whip",
   "artUrl": "https://cdn.midjourney.com/1f7ca583-9157-450e-9102-d26f8f2a22ed/0_1.png",
-  "description": "<p><em>Concentration, up to 1 minute.</em></p><p>Your Ward Plant grows a long tendril that you may use as a melee Weapon. It has a Reach of 5ft, has Finesse, grants one d4 Engagement die, and deals 1d4+BODY damage on a hit.</p><p><strong>Describe your whip.</strong></p>",
+  "description": "<p><em>Concentration, up to 1 minute.</em></p><p>Your Ward Plant grows a long tendril that you may use as a melee weapon. It has a reach of 5ft, has finesse, grants one d4 engagement die, and deals 1d4+BODY damage on a hit.</p><p><strong>Describe your whip.</strong></p>",
   "successes": "",
   "improvements": [
     {
       "name": "Vine Rope",
-      "description": "<p>Once per rest: While Vine Whip is in effect, you may spend a half action to extend the tendril into a 25 ft long vine. It can grip and release objects at your command and can hold up to 300 lbs of weight.</p>",
+      "description": "<p>Once per rest: While Vine Whip is in effect, you may spend a half action to extend the tendril into a long vine that extends out to short range. It can grip and release objects at your command and can hold up to 300 lbs of weight.</p>",
       "xpCost": 5,
       "id": "f9c8266c-8326-42f3-9c72-00d18a302255"
     }

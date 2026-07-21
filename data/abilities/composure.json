@@ -2,14 +2,14 @@
   "id": "18d87a10-1a25-493c-a549-7644744788f1",
   "isDeleted": false,
   "createdAt": "2026-01-30T16:58:31.702Z",
-  "lastModified": "2026-03-16T20:28:11.469Z",
+  "lastModified": "2026-07-13T01:33:27.633Z",
   "name": "Composure",
   "artUrl": "https://cdn.midjourney.com/7f80d922-d8f5-4210-9e85-92eb5c5501ce/0_0.png",
   "description": "<p>You may spend any number of MP to gain an equal number of d4 engagement dice, which persist for 1 round.</p><p><strong>Describe your poise in battle.</strong></p>",
   "improvements": [
     {
       "name": "Poise",
-      "description": "<p>You gain an additional d4 Engagement die for each MP you spend.</p>",
+      "description": "<p>You gain one additional d4 engagement die for each MP you spend.</p>",
       "xpCost": 15,
       "id": "8efc52bd-b89a-469a-8728-ab800c5e3c66"
     }

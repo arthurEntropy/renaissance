@@ -1,10 +1,10 @@
 {
   "id": "5b9967f3-a2f9-4515-a94f-d00ca8147cf3",
   "createdAt": "2026-03-10T13:09:04.363Z",
-  "lastModified": "2026-05-13T12:06:42.247Z",
+  "lastModified": "2026-07-12T02:02:12.345Z",
   "name": "Alarm",
   "artUrl": "https://cdn.midjourney.com/dea3d886-1a15-4737-bd34-525f2d7aeda3/0_0.png",
-  "description": "<p><em>Casting time: 1 minute.</em></p><p>You ward against unwanted intrusion. Choose a door, window, or an area no larger than 20 ft in any dimension. For the next day, you are alerted whenever a creature touches the warded object or enters the warded area. When you cast the spell, you may designate creatures that do not trigger the alarm.</p><p>Choose whether the alarm is audible or mental:</p><ul><li><p><strong>Audible</strong>: The alarm produces a sound of your choosing, audible within Long Range.</p></li><li><p><strong>Mental</strong>: You are alerted in your mind and awakened if sleeping.</p></li></ul><p><strong>Describe how you cast the ward.</strong></p>",
+  "description": "<p><em>Casting time: 1 minute.</em></p><p>You ward against unwanted intrusion. Choose a door, window, or an area no larger than 20 ft in any dimension. For the next day, you are alerted whenever a creature touches the warded object or enters the warded area. When you cast the spell, you may designate creatures that do not trigger the alarm.</p><p>Choose whether the alarm is audible or mental:</p><ul><li><p><strong>Audible</strong>: The alarm produces a sound of your choosing, audible within long range.</p></li><li><p><strong>Mental</strong>: You are alerted in your mind and awakened if sleeping.</p></li></ul><p><strong>Describe how you cast the ward.</strong></p>",
   "successes": "",
   "improvements": [
     {

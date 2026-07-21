@@ -1,8 +1,7 @@
 <template>
   <!-- Card Container -->
   <div ref="cardElement" class="base-card edit-hover-area" :class="{ collapsed: collapsed, collapsible: collapsible }"
-    :style="cardStyle" @click="collapsible ? toggleCollapsed() : null"
-    :title="showSource && sourceName ? `Source: ${sourceName}` : null">
+    :style="cardStyle" @click="collapsible ? toggleCollapsed() : null">
 
     <!-- Admin Buttons -->
     <div v-if="editable || duplicatable || deletable || $slots['admin-actions']" class="admin-buttons">
@@ -122,7 +121,6 @@ const props = defineProps({
   duplicatable: { type: Boolean, default: false },
   deletable: { type: Boolean, default: false },
   collapsible: { type: Boolean, default: true },
-  showSource: { type: Boolean, default: true },
   itemType: { type: String, default: ItemType.ABILITY },
   fallbackBackgroundUrl: { type: String, default: null },
 })
@@ -141,11 +139,6 @@ const optimizedArtUrl = useOptimizedImage(() => props.item.artUrl, MIDJOURNEY_IM
 // Computed properties
 const sources = computed(() => sourcesStore.sources)
 const showCardArtwork = computed(() => userStore.userProfile?.preferences?.showCardArtwork ?? true)
-
-const sourceName = computed(() => {
-  if (!props.item.source) return 'Unknown'
-  return sourcesStore.getSourceName(props.item.source)
-})
 
 const rawCardBackgroundUrl = computed(() => {
   const source = sources.value ? sourcesStore.getSourceById(props.item.source) : null

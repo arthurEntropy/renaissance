@@ -1,10 +1,10 @@
 {
   "id": "0704fd08-ce09-40a6-9db0-62ff6e7839f7",
   "isDeleted": false,
-  "lastModified": "2026-03-17T01:16:10.059Z",
+  "lastModified": "2026-07-16T19:31:06.432Z",
   "name": "Free Throw",
   "artUrl": "https://cdn.midjourney.com/65ca68eb-56a8-4ff7-a7ec-a28989deab28/0_2.png",
-  "description": "<p><em>Trigger: A creature within your orb's range deals damage to you with an attack.</em></p><p>Make an attack against that creature with your orb.</p>",
+  "description": "<p><em>Trigger: A creature within your orb's range deals damage to you with an attack.</em></p><p>Make an attack against that creature with your orb.</p><p><strong>Describe how you retaliate.</strong></p>",
   "source": "a07490af-2d77-4968-9adc-0a2a7c84ef70",
   "actionCost": "c4df395c-8284-4c4f-bf01-e293ed51c58c",
   "mpCost": "",

@@ -1,10 +1,10 @@
 {
   "id": "8e346eb3-1e72-4b3f-971c-497eac98a06c",
   "isDeleted": false,
-  "lastModified": "2026-05-16T17:27:33.765Z",
+  "lastModified": "2026-07-17T15:13:38.500Z",
   "name": "Nimble",
   "artUrl": "https://cdn.midjourney.com/50c1cfc5-07c3-4455-84fd-d6d7dc6149cb/0_2.png",
-  "description": "<p>Your base Speed is doubled, but you start each of your turns with no actions by default. You may convert movement into actions at a rate of 10 ft per half action, spending as much movement as you like in this way each turn.</p><p>Additionally, your jump distance and height are doubled, you can run up vertical surfaces up to ¼ your Speed as if it were flat ground, and you take no damage from falling up to ¼ your Speed if all your limbs are unrestrained.</p><p><strong>Describe your agility.</strong></p>",
+  "description": "<p>Your Speed is permanently doubled, but you start each of your turns with no actions. You may convert movement into actions at a rate of one half action per 10 ft, spending as much movement as you like in this way each turn.</p><p>Additionally, your jump distance and height are doubled, you can run up vertical surfaces up to ¼ your Speed as if it were flat ground, and you take no damage from falling up to ¼ your Speed if all your limbs are unrestrained. Getting up from prone costs you movement equal to half your natural Speed, not the multiplied amount granted by this ability.</p><p>These effects are suspended while you are wearing any armor of common grade or higher.</p><p><strong>Describe your agility.</strong></p>",
   "improvements": [
     {
       "name": "Hard To Pin Down",
@@ -14,13 +14,13 @@
     },
     {
       "name": "Ready To Spring",
-      "description": "<p>You may spend half your movement to assume a ready position. If you do, for the next round, each time a creature makes a melee attack against you, skip Engagement and instead roll Dexterity vs Dexterity, treating the outcome as if it were the outcome of an Engagement.</p>",
+      "description": "<p>You may spend movement equal to half your Speed to assume a ready position. If you do, for the next round, each time a creature makes a melee attack against you, skip engagement and instead roll Dexterity vs Dexterity, treating the outcome as if it were the outcome of an engagement.</p>",
       "xpCost": 10,
       "id": "050b6440-b906-5a90-a0f9-5201ed941562"
     },
     {
       "name": "Like The Wind",
-      "description": "<p>Your base Speed is tripled instead of doubled.</p>",
+      "description": "<p>Your Speed is permanently tripled instead of doubled.</p>",
       "xpCost": 30,
       "id": "5101de51-b275-5117-9c02-8802f70655cc"
     }

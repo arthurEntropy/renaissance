@@ -1,20 +1,22 @@
 {
   "type": "1cc02e7b-cdaf-477c-a198-6be0ad5ab47f",
   "createdAt": "2026-05-21T15:55:35.050Z",
-  "lastModified": "2026-06-24T13:12:57.829Z",
+  "lastModified": "2026-07-21T02:28:10.191Z",
   "isTemplate": false,
   "name": "Woven Reed Shield",
   "subtype": "5ec6d867-7dbf-41c0-b196-3ada5985e6ea",
   "grade": "ad30b114-3c19-413f-aad2-5f270bd95684",
   "weight": 2,
   "defenseBonus": 1,
-  "engagementDice": [],
+  "engagementDice": [
+    4
+  ],
   "damageDice": [],
-  "length": 0,
   "reach": 0,
   "id": "8cab669e-1a7d-490b-b38c-2b5b3cda7f71",
   "source": "be62ac3d-7168-4779-8274-e60574a2fd27",
   "artUrl": "https://cdn.midjourney.com/3f3df778-fab7-45c3-9b1b-d6c34c871ece/0_3.png",
   "keeping": "2b3c4d5e-6f7a-4b8c-9d0e-1f2a3b4c5d6e",
-  "hasDifficulty": false
+  "hasDifficulty": false,
+  "projectile": false
 }

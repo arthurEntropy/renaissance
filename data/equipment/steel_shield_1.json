@@ -1,20 +1,22 @@
 {
   "type": "1cc02e7b-cdaf-477c-a198-6be0ad5ab47f",
   "createdAt": "2026-05-21T15:55:35.050Z",
-  "lastModified": "2026-06-24T13:14:45.195Z",
+  "lastModified": "2026-07-21T02:31:37.702Z",
   "isTemplate": false,
   "name": "Steel Shield",
   "subtype": "5ec6d867-7dbf-41c0-b196-3ada5985e6ea",
   "grade": "ebcc2bcb-8221-4ca0-bef3-000fb7e59e96",
   "weight": 10,
   "defenseBonus": 4,
-  "engagementDice": [],
+  "engagementDice": [
+    10
+  ],
   "damageDice": [],
-  "length": 0,
   "reach": 0,
   "id": "6bfff512-3659-4c83-90b1-38ad47b44c69",
   "source": "be62ac3d-7168-4779-8274-e60574a2fd27",
   "artUrl": "https://cdn.midjourney.com/13a74334-0653-4166-9491-e25c822c55ff/0_3.png",
   "keeping": "5e6f7a8b-9c0d-4e1f-2a3b-4c5d6e7f8a9b",
-  "hasDifficulty": false
+  "hasDifficulty": false,
+  "projectile": false
 }

@@ -1,0 +1,22 @@
+{
+  "type": "1cc02e7b-cdaf-477c-a198-6be0ad5ab47f",
+  "createdAt": "2026-05-21T15:55:35.050Z",
+  "lastModified": "2026-07-21T02:32:24.763Z",
+  "isTemplate": false,
+  "name": "Champion's Shield",
+  "subtype": "5ec6d867-7dbf-41c0-b196-3ada5985e6ea",
+  "grade": "a9023254-92ed-4c54-9840-5a7577c1aa1f",
+  "weight": 15,
+  "defenseBonus": 5,
+  "engagementDice": [
+    12
+  ],
+  "damageDice": [],
+  "reach": 0,
+  "id": "8f03ac49-0555-49f8-ad1a-b162758fd2af",
+  "source": "cdc93466-8327-4096-a8c2-04cccf3e3835",
+  "artUrl": "https://cdn.midjourney.com/7c314a01-aa17-4a9a-a0fc-9bf6b300f6a8/0_0.png",
+  "keeping": "785f93f5-e4fd-4512-b888-5efdc1a1130f",
+  "hasDifficulty": false,
+  "projectile": false
+}

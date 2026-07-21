@@ -1,14 +1,14 @@
 {
   "id": "05f788f2-cf7a-4bf0-a65c-e41bbe0f5ea3",
   "isDeleted": false,
-  "lastModified": "2026-05-23T20:01:30.272Z",
+  "lastModified": "2026-07-16T14:39:06.879Z",
   "name": "Strong Swimmer",
-  "description": "<p><em>Your days spent in a harbor town gave you ample opportunity to become a strong swimmer.</em></p><p>Swimming does not cost you extra movement, and the amount of time you can hold your breath underwater is doubled.</p><p><strong>Describe how you move effortlessly through water.</strong></p>",
+  "description": "<p><em>Your days spent in a harbor town made you a strong swimmer.</em></p><p>Swimming does not cost you extra movement, and the amount of time you can hold your breath before suffocating is doubled.</p><p><strong>Describe how you move effortlessly through water.</strong></p>",
   "source": "c02c53d1-b456-45d0-a048-6fc941cacc03",
   "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
   "mpCost": null,
   "xpCost": null,
   "canBeActive": false,
   "hasDifficulty": false,
-  "artUrl": "https://cdn.midjourney.com/8bab415e-9655-4fe1-a498-41feb547bba4/0_3.png"
+  "artUrl": "https://cdn.midjourney.com/2e6c501c-58e3-4e1f-a5d1-d3f6c4e6eb55/0_0.png"
 }

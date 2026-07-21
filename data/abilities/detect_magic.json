@@ -2,15 +2,15 @@
   "id": "316b84c2-2f3c-449e-9d93-0a611c8b55c3",
   "isDeleted": false,
   "createdAt": "2025-12-30T15:34:50.260Z",
-  "lastModified": "2026-04-14T17:15:32.702Z",
+  "lastModified": "2026-07-13T13:46:34.738Z",
   "name": "Detect Magic",
   "artUrl": "https://cdn.midjourney.com/6d30df46-0897-4798-86b3-84e804e3cdb5/0_2.png",
   "description": "<p><em>Concentration, up to 10 minutes.</em></p><p>While this spell is active, you sense the presence of magic within short range.</p><p>When you sense magic in this way, you may spend an action to see a faint aura around any visible creature or object in range that bears magic. The color of the aura tells you which Mestiere, if any, is the source of the magic, as well as which School within that Mestiere, if any. Each time you do this, roll Lore to see if you trigger any additional effects.</p><p><strong>Describe how you sense magic around you.</strong></p>",
-  "successes": "<p>✨: The range of your sense increases to medium range.</p><p>🌞: You learn which specific spells, if any, are currently effecting each creature or object.</p><p>💀: Your probing senses reach too far. Hostile creatures within long range are alerted to your presence, though not your precise location. Check a Condition.</p>",
+  "successes": "<p>✨: The range of your sense increases to medium range.</p><p>🌞: You learn which specific spells, if any, are currently affecting each magic-bearing creature or object.</p><p>💀: Your probing senses reach too far. Hostile creatures within long range are alerted to your presence, though not your precise location. Check a Condition.</p>",
   "improvements": [
     {
       "name": "Identify",
-      "description": "<p>When you sense magic on an object, you may spend an additional 1 MP and 1 minute touching the object to learn the full, detailed extent of its mundane and magical properties, including its culture of origin. If the object was created by a spell, you learn the spell that created it.</p>",
+      "description": "<p>When you sense magic on an object, you may spend an additional 1 MP and 1 minute touching the object to learn the full, detailed extent of its mundane and magical properties, including its culture of origin, if any. If the object was created by a spell, you learn the spell that created it.</p>",
       "xpCost": 5,
       "id": "757fb1d9-f286-4c80-809d-75758dc37f2b"
     }

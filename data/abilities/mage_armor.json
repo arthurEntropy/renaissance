@@ -1,10 +1,10 @@
 {
   "id": "00a475b1-7f4e-491b-896e-8237567716a9",
   "createdAt": "2026-04-13T23:44:17.401Z",
-  "lastModified": "2026-04-14T17:39:03.646Z",
+  "lastModified": "2026-07-15T02:14:44.724Z",
   "name": "Mage Armor",
   "artUrl": "https://cdn.midjourney.com/2acf3274-71cc-41d2-b74d-032fe110b909/0_0.png",
-  "description": "<p>You touch a willing creature and a protective magical force surrounds it. For the next hour, the creature's Defense increases by your WITS score.</p>",
+  "description": "<p>You touch a willing creature and a protective magical force surrounds it. For the next hour, the creature's Defense increases by your WITS score.</p><p><strong>Describe the protective magic.</strong></p>",
   "improvements": [],
   "source": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
   "school": "6dee9b36-a9ea-4edf-ad7b-7321e4408da5",

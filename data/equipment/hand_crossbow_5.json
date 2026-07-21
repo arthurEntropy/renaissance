@@ -17,7 +17,6 @@
   "subtype": "b4946b09-e149-4896-8129-6d7d8b58a6ff",
   "grade": "b92d3394-2c64-487f-8c90-c56ea1cbd3f3",
   "weight": 5,
-  "length": 1,
   "reach": 0,
   "range": "55e83a64-59b5-4d1a-b30f-2a01ff020a0b",
   "twoHanded": false,
@@ -31,5 +30,6 @@
   "engagementSuccesses": [],
   "defenseBonus": 0,
   "id": "a6325bc2-aee8-4010-9fd8-ce151a079453",
-  "hasDifficulty": false
+  "hasDifficulty": false,
+  "projectile": true
 }

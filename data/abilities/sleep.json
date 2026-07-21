@@ -1,10 +1,10 @@
 {
   "id": "4db092a5-3036-4d76-986d-6327b6689ce8",
   "createdAt": "2026-04-08T17:34:48.741Z",
-  "lastModified": "2026-04-10T13:39:15.810Z",
+  "lastModified": "2026-07-16T13:39:00.835Z",
   "name": "Sleep",
   "artUrl": "https://cdn.midjourney.com/6a8ffb22-0e72-46d2-994b-b74f6b9d3e8a/0_0.png",
-  "description": "<p>Roll Persuade to set the Difficulty.</p><p>Choose any number of creatures within medium range with a combined Challenge equal to or less than the Difficulty. If a creature does not have a Challenge score, add together its BODY, HEART and WITS score and use the result as its Challenge score.</p><p>Each chosen creature must roll Riddle against the Difficulty. On each failure, the creature falls into a magical slumber for 1 minute. On each pass, the creature's speed is halved for 1 round.</p><p><strong>Describe how sleep falls upon them.</strong></p>",
+  "description": "<p>Roll Persuade to set the Difficulty.</p><p>Choose any number of creatures within medium range with a combined Challenge equal to or less than the Difficulty. If a creature does not have a Challenge score, use the sum of its BODY, HEART and WITS scores instead.</p><p>Each chosen creature must roll Riddle against the Difficulty. On each failure, the creature falls into a magical slumber for 1 minute. On each pass, the creature's speed is halved for 1 round.</p><p><strong>Describe how sleep falls upon them.</strong></p>",
   "successes": "<p>✨: Roll an additional d6 and add it to your roll result. If you get another ✨, you may repeat this effect.</p><p>🌞: The effect instead lasts for 10 minutes.</p>",
   "improvements": [],
   "source": "dab3e414-0118-49be-9779-4e3018cdba71",

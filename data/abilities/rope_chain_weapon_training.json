@@ -1,20 +1,20 @@
 {
   "id": "fafd1877-3ecf-4da7-a29a-e14e5a345a9d",
   "isDeleted": false,
-  "lastModified": "2026-03-16T20:00:33.967Z",
+  "lastModified": "2026-07-16T12:47:08.993Z",
   "name": "Rope & Chain Weapon Training",
   "artUrl": "https://cdn.midjourney.com/e7f1e258-f3b0-4468-9123-0d7b19eae1f8/0_1.png",
-  "description": "<p>You are trained in the use of rope and chain weapons, a special weapon type.</p><p>Whenever you make an attack with a rope or chain weapon, you may spend any number of additional half actions before making the attack roll. On a hit, +1d damage for each half action you spent.</p><p><strong>Describe your technique.</strong></p>",
+  "description": "<p>You are trained in the use of Rope &amp; Chain weapons, a special weapon type.</p><p>Whenever you make an attack with a Rope &amp; Chain weapon, you may spend any number of additional half actions before making the attack roll, spinning the weapon in preparation for a strike. On a hit, +1d damage for each half action you spent in this way.</p><p><strong>Describe your technique.</strong></p>",
   "improvements": [
     {
       "name": "Grappling",
-      "description": "<p>When you hit with a rope or chain weapon, you may spend a half action to attempt to grapple the target with the weapon. Roll Dexterity vs Dexterity. On a win, the target is grappled and your roll result becomes the Difficulty they roll against to attempt to escape the grapple. If you are no longer holding the weapon when they make an attempt to escape, their roll is favored. Any adjacent creature can free them by spending an action (no roll required).</p><p>While a rope or chain weapon is grappling a foe, you cannot attack with it. However, you may spend an action to pull or drag the grappled creature up to 1/4 your Speed or knock them prone.</p>",
+      "description": "<p>When you hit with a Rope &amp; Chain weapon, if the creature is no more than 3 sizes larger than you, you may spend a half action to attempt to grapple the target with the weapon. Roll Dexterity vs Dexterity. On a win, the target is grappled and your roll result becomes the Difficulty.</p><p>The creature may attempt to escape the grapple using an action on their turn as normal, but instead of rolling Strength vs Strength, they roll Strength against the Difficulty. If you are no longer wielding the weapon when they make an attempt to escape, their roll is favored. Any adjacent creature can free them from the grapple by spending an action (no roll required).</p><p>While a Rope &amp; Chain weapon is grappling a creature, you cannot attack with it. However, you may spend an action to pull them down with the weapon, knocking them prone.</p>",
       "xpCost": 5,
       "id": "8ab4398d-585e-58db-ae9a-42e03c43b4d3"
     },
     {
-      "name": "Reach",
-      "description": "<p>Once per turn, you may double the reach of a rope or chain weapon for one attack, but you must spend a half action to pull the weapon back to you before you can make another attack with it.</p>",
+      "name": "Extended Reach",
+      "description": "<p>Once per turn, you may double the reach of a Rope &amp; Chain weapon for one attack, but you must spend a half action to pull the weapon back to you before you can make another attack with it.</p>",
       "xpCost": 10,
       "id": "fc3f90a9-f954-5257-82a6-d1fd1203c886"
     }
@@ -24,5 +24,5 @@
   "mpCost": null,
   "xpCost": 10,
   "canBeActive": false,
-  "hasDifficulty": false
+  "hasDifficulty": true
 }

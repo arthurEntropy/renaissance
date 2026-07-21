@@ -1,10 +1,10 @@
 {
   "id": "bd8f66a4-5849-483b-9123-b0085c0e5a5c",
   "isDeleted": false,
-  "lastModified": "2026-03-16T19:59:35.086Z",
+  "lastModified": "2026-07-11T00:21:19.406Z",
   "name": "Cat-Like Tread",
   "artUrl": "https://cdn.midjourney.com/8fa5339f-e829-451b-ad57-c58e0764e9d5/0_3.png",
-  "description": "<p>You may roll Dexterity instead of Stealth to sneak or hide.</p><p><strong>Describe your careful movement.</strong></p>",
+  "description": "<p>You may traverse precarious spans like rooftops, rafters, ropes or narrow ledges of a length up to your Speed without having to make a skill check to maintain balance.</p><p>Once per rest, you may roll Dexterity instead of Stealth.</p><p><strong>Describe your careful movement.</strong></p>",
   "source": "e10d7d9f-9d93-46b0-9846-d60241031644",
   "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
   "mpCost": null,

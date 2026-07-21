@@ -142,7 +142,11 @@ export function updateFavoredStatus(character) {
   character.skills.forEach((skill) => {
     const totalDiceMod = (skill.diceMod || 0) + (skill.manualDiceMod || 0)
     const effectiveRanks = (skill.ranks || 0) + totalDiceMod
-    skill.isIllFavored = effectiveRanks < 0
+    // Only auto-set ill-favored when effective ranks go negative; never auto-reset
+    // to false — that is handled exclusively by the manual d12 toggle.
+    if (effectiveRanks < 0) {
+      skill.isIllFavored = true
+    }
     // Auto-favor when dice modifier pushes effective ranks beyond the maximum
     if (effectiveRanks > MAX_SKILL_RANKS) {
       skill.isFavored = true

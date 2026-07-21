@@ -6,13 +6,18 @@ export const WITCH_MESTIERE_NAME = 'witch'
 
 // Icon filenames (without .png) in /assets/icons/witch/
 export const WITCH_ICON_KEYS = [
+  'beads',
   'billiard',
+  'bone',
   'book',
   'bow',
   'bracelet',
   'bread',
   'cake',
+  'candle',
   'carrot',
+  'dumpling',
+  'hat',
   'jewelery',
   'necklace',
   'olive',
@@ -24,7 +29,12 @@ export const WITCH_ICON_KEYS = [
 ]
 
 export const WITCH_ICON_LABELS = {
+  beads: 'Beads',
   billiard: 'Ball',
+  bone: 'Bone',
+  candle: 'Candle',
+  dumpling: 'Dumpling',
+  hat: 'Hat',
   book: 'Book',
   bow: 'Wand',
   bracelet: 'Ribbon',

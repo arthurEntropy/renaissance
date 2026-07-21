@@ -88,12 +88,6 @@
           <input type="number" id="weight" v-model.number="editedEquipment.weight" min="0" class="modal-input" />
         </div>
 
-        <!-- Length -->
-        <div class="form-column weight-input">
-          <label for="length" class="left-aligned">Length:</label>
-          <input type="number" id="length" v-model.number="editedEquipment.length" min="0" class="modal-input" />
-        </div>
-
         <!-- Reach -->
         <div class="form-column weight-input">
           <label for="reach" class="left-aligned">Reach:</label>
@@ -152,7 +146,7 @@
       </div>
 
       <!-- Weapon Properties -->
-      <div v-if="equipmentIsWeapon" class="form-group vertical">
+      <div class="form-group vertical">
         <label>Weapon Properties:</label>
         <div class="properties-inline">
           <label for="twoHanded" class="property-checkbox">
@@ -171,11 +165,15 @@
             <input type="checkbox" id="piercing" v-model="editedEquipment.piercing" />
             Piercing
           </label>
+          <label for="projectile" class="property-checkbox">
+            <input type="checkbox" id="projectile" v-model="editedEquipment.projectile" />
+            Projectile
+          </label>
         </div>
       </div>
 
       <!-- Engagement Dice -->
-      <div v-if="equipmentIsWeapon" class="form-group vertical">
+      <div class="form-group vertical">
         <label>Engagement Dice:</label>
         <div class="dice-row">
           <div v-for="dieType in dieTypes" :key="'engagement-' + dieType" class="dice-column">
@@ -186,7 +184,7 @@
       </div>
 
       <!-- Damage Dice -->
-      <div v-if="equipmentIsWeapon" class="form-group vertical">
+      <div class="form-group vertical">
         <label>Damage Dice:</label>
         <div class="dice-row">
           <div v-for="dieType in dieTypes" :key="'damage-' + dieType" class="dice-column">
@@ -197,7 +195,7 @@
       </div>
 
       <!-- Engagement Successes -->
-      <div v-if="equipmentIsWeapon" class="form-group vertical">
+      <div class="form-group vertical">
         <label>Engagement Successes:</label>
         <div class="properties-inline">
           <label v-for="success in engagementSuccessesStore.items" :key="success.id" :for="'success-' + success.id"
@@ -345,13 +343,6 @@ const convertCountsToArray = (diceCounts) => {
 engagementDiceCounts.value = convertArrayToCounts(editedEquipment.value?.engagementDice || [])
 damageDiceCounts.value = convertArrayToCounts(editedEquipment.value?.damageDice || [])
 
-// Computed properties
-const equipmentIsWeapon = computed(() => {
-  if (!editedEquipment.value?.type) return false
-  const equipmentType = equipmentTypesStore.items.find(t => t.id === editedEquipment.value.type)
-  return equipmentType?.name === 'Weapon'
-})
-
 // Equipment categories management
 const availableSubtypes = computed(() => {
   if (!editedEquipment.value?.type) return []
@@ -379,12 +370,11 @@ const saveEquipment = () => {
   editedEquipment.value.weight = Number.isFinite(editedEquipment.value.weight)
     ? editedEquipment.value.weight
     : 0
-  editedEquipment.value.length = Number.isFinite(editedEquipment.value.length)
-    ? editedEquipment.value.length
-    : 0
   editedEquipment.value.reach = Number.isFinite(editedEquipment.value.reach)
     ? editedEquipment.value.reach
     : 0
+  // Remove legacy length field if present
+  delete editedEquipment.value.length
   baseSave()
 }
 

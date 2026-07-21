@@ -1,14 +1,14 @@
 {
   "id": "a0d8b922-f703-45f2-a95b-49c532dd50aa",
   "createdAt": "2026-04-14T00:32:08.338Z",
-  "lastModified": "2026-04-14T13:57:32.734Z",
+  "lastModified": "2026-07-15T01:44:00.781Z",
   "name": "Levitate",
   "artUrl": "https://cdn.midjourney.com/a546605d-ee41-4b8c-a895-77aa584a3d03/0_0.png",
-  "description": "<p><em>Concentration, up to 10 minutes.</em></p><p>One creature or loose object of your choice within medium range rises vertically, up to 20 feet, and remains suspended there. The spell can levitate a target that weighs up to twice your weight. Roll Lore to set the Difficulty. If the target is an unwilling creature, it may roll Fortitude against the Difficulty. On a pass, the spell ends.</p><p>The target can move only by pushing or pulling against a fixed object or surface within reach. You can spend an action to change the target’s altitude by up to 20 feet in either direction. If at any point the target becomes further than medium range from you, the spell ends.</p><p>When the spell ends, the target floats gently to the ground if it is still aloft.</p>",
+  "description": "<p><em>Concentration, up to 10 minutes.</em></p><p>One creature or loose object of your choice within medium range rises vertically, up to 20 feet, and remains suspended there. The spell can levitate a target that weighs up to twice your weight. Roll Lore to set the Difficulty. If the target is an unwilling creature, it may roll Fortitude against the Difficulty. On a pass, the spell ends.</p><p>You can spend an action to change the target’s altitude by up to 20 feet in either direction. If at any point the target becomes further than medium range from you, the spell ends. If the target is a creature, it can move only by pushing or pulling against a fixed object or surface within reach.</p><p>When the spell ends, the target floats gently to the ground if it is still aloft.</p><p><strong>Describe the levitation.</strong></p>",
   "successes": "<p>✨: The target may be as far as long range from you without causing the spell to end.</p><p>🌞: You may spend an action to move the target up to 20 feet in any direction.</p><p>💀: Check a Condition. You become the target of the spell, and the effect is lasts for the full 10 minutes regardless of concentration, or until you manage to get both your feet on solid ground.</p>",
   "improvements": [
     {
-      "name": "Greater Levitate",
+      "name": "Greater Levitation",
       "description": "<p>You may target a creature or object up to four times your weight.</p>",
       "xpCost": 10,
       "id": "086bb391-fabb-435a-a324-e0b6e366288e"

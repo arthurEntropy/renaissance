@@ -2,7 +2,7 @@
   "id": "ac32f037-8649-4366-b4d0-72acba0d32df",
   "isDeleted": false,
   "createdAt": "2026-07-10T14:13:23.614Z",
-  "lastModified": "2026-07-10T17:52:30.965Z",
+  "lastModified": "2026-07-20T13:22:07.616Z",
   "campaignId": "c9ddeab9-d180-4fc5-869f-e64239bc3376",
   "name": "Desert",
   "backgroundImage": {
@@ -19,28 +19,18 @@
       "portraitUrl": "https://cdn.midjourney.com/2ef0de1a-3306-441c-9f5e-0899dcced474/0_0.png",
       "size": 1,
       "x": 1560,
-      "y": 660,
-      "zIndex": 4
-    },
-    {
-      "id": "1a77f5c1-4485-4a68-95c5-b1ed9c243190",
-      "characterId": "6a9c30a0-25ce-4dcc-99bd-06d5c226d1c3",
-      "isBeast": true,
-      "name": "Mycoderm A",
-      "portraitUrl": "https://cdn.midjourney.com/1981f3be-8de5-4457-9d0f-da52943eb68c/0_0.png",
-      "size": 3,
-      "x": 1860,
-      "y": 780,
-      "zIndex": 8
+      "y": 480,
+      "zIndex": 26
     }
   ],
   "transform": {
-    "scale": 0.7379195294117646,
-    "x": -38.33793590913683,
-    "y": -87.29426712834186
+    "scale": 0.5022156324807007,
+    "x": -12.464732036483952,
+    "y": 127.46004194740829
   },
   "gridSize": 60,
-  "gridColor": "#ffffff",
-  "gridOpacity": 0.27,
-  "showPaths": true
+  "gridColor": "#000000",
+  "gridOpacity": 0.2,
+  "showPaths": true,
+  "radiusAreas": []
 }

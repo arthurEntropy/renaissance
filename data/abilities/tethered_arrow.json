@@ -1,0 +1,12 @@
+{
+  "source": "10f46ecd-e6f5-4d3b-b510-d4035ab24f56",
+  "id": "4d115f40-256a-487f-bdc0-4be898815458",
+  "createdAt": "2026-07-11T03:38:57.367Z",
+  "lastModified": "2026-07-11T19:13:33.908Z",
+  "name": "Tethered Arrow",
+  "artUrl": "https://cdn.midjourney.com/eed5870e-c12e-437c-a212-ce38de9f851d/0_2_640_N.webp?method=shortest",
+  "description": "<p>Once per day per rank you have in Craft: The next time you fire a projectile weapon this turn, halve the range of the weapon for the shot, and the projectile carries with it a thin cord, which stretches from the where it lands to you, up to far range.</p><p>The cord is not strong - it can only bear up to 10 lbs of weight, but it can be used, for example, to pull heavier rope across the same span.</p><p><strong>Describe your tethered arrow.</strong></p>",
+  "xpCost": 5,
+  "mpCost": 1,
+  "actionCost": "40656418-af01-43ae-8a60-a1bd0124efb4"
+}

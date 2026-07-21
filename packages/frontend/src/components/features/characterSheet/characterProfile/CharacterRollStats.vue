@@ -60,9 +60,32 @@
                 <span class="roll-stats-value">{{ engagementRecord }}</span>
             </div>
             <div class="roll-stats-row">
-                <span class="roll-stats-label">Opposed W/L/D</span>
+                <span class="roll-stats-label">Contest W/L/D</span>
                 <span class="roll-stats-dots" aria-hidden="true"></span>
-                <span class="roll-stats-value">{{ opposedRecord }}</span>
+                <span class="roll-stats-value">{{ contestRecord }}</span>
+            </div>
+
+            <div class="roll-stats-subheading">XP &amp; Treasure</div>
+
+            <div class="roll-stats-row">
+                <span class="roll-stats-label">XP Earned</span>
+                <span class="roll-stats-dots" aria-hidden="true"></span>
+                <span class="roll-stats-value">{{ xpEarned }}</span>
+            </div>
+            <div class="roll-stats-row">
+                <span class="roll-stats-label">XP Spent</span>
+                <span class="roll-stats-dots" aria-hidden="true"></span>
+                <span class="roll-stats-value">{{ xpSpent }}</span>
+            </div>
+            <div class="roll-stats-row">
+                <span class="roll-stats-label">Treasure Earned</span>
+                <span class="roll-stats-dots" aria-hidden="true"></span>
+                <span class="roll-stats-value">{{ treasureEarned }}</span>
+            </div>
+            <div class="roll-stats-row">
+                <span class="roll-stats-label">Treasure Spent</span>
+                <span class="roll-stats-dots" aria-hidden="true"></span>
+                <span class="roll-stats-value">{{ treasureSpent }}</span>
             </div>
 
             <div class="roll-stats-actions">
@@ -144,10 +167,15 @@ const engagementRecord = computed(() => {
     return `${engagement.wins || 0} / ${engagement.losses || 0} / ${engagement.draws || 0}`
 })
 
-const opposedRecord = computed(() => {
-    const opposed = characterRollStats.value.contests.opposed
-    return `${opposed.wins || 0} / ${opposed.losses || 0} / ${opposed.draws || 0}`
+const contestRecord = computed(() => {
+    const contest = characterRollStats.value.contests.contest
+    return `${contest.wins || 0} / ${contest.losses || 0} / ${contest.draws || 0}`
 })
+
+const xpEarned = computed(() => characterRollStats.value.xpEarned ?? 0)
+const xpSpent = computed(() => characterRollStats.value.xpSpent ?? 0)
+const treasureEarned = computed(() => characterRollStats.value.treasureEarned ?? 0)
+const treasureSpent = computed(() => characterRollStats.value.treasureSpent ?? 0)
 
 </script>
 

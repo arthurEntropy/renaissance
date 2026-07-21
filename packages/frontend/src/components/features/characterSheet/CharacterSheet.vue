@@ -15,14 +15,16 @@
                 <CoreAbilityColumn :column="CORE_ABILITIES.HEART" />
                 <CoreAbilityColumn :column="CORE_ABILITIES.WITS" />
                 <ConditionsColumn :is-edit-mode="canEdit" />
-                <AcrobatSection v-if="showAcrobatSection" />
-                <EngagementTable :can-edit="canEdit" />
-                <EquipmentTable :is-edit-mode="canEdit" />
-                <AbilitiesTable :canEdit="canEdit" />
-                <BiomeSection v-if="showBiomeSection" />
-                <WitchcraftSection v-if="showWitchcraftSection" />
-                <SummonerSection v-if="showSummonerSection" />
-                <HunterSection v-if="showHunterSection" />
+                <template v-for="sectionKey in orderedSectionKeys" :key="sectionKey">
+                    <EngagementTable v-if="sectionKey === 'engagement'" :can-edit="canEdit" />
+                    <EquipmentTable v-else-if="sectionKey === 'equipment'" :is-edit-mode="canEdit" />
+                    <AbilitiesTable v-else-if="sectionKey === 'abilities'" :canEdit="canEdit" />
+                    <BiomeSection v-else-if="sectionKey === 'biome'" />
+                    <AcrobatSection v-else-if="sectionKey === 'acrobat'" />
+                    <WitchcraftSection v-else-if="sectionKey === 'witchcraft'" />
+                    <SummonerSection v-else-if="sectionKey === 'summoner'" />
+                    <HunterSection v-else-if="sectionKey === 'hunter'" />
+                </template>
             </div>
         </div>
     </div>
@@ -39,6 +41,8 @@ import { BIOME_MESTIERI } from '@shared/constants/biomeTags'
 import { WITCH_MESTIERE_NAME } from '@/constants/witchcraftConstants'
 import { SUMMONER_MESTIERE_NAME } from '@/constants/summonerConstants'
 import { HUNTER_MESTIERE_NAME } from '@/constants/hunterConstants'
+import { ACROBAT_MESTIERE_NAME } from '@/constants/acrobatConstants'
+import { DEFAULT_SECTION_ORDER } from '@/constants/characterSheetConstants'
 import CharacterProfile from '@/components/features/characterSheet/characterProfile/CharacterProfile.vue'
 import CharacterNotes from '@/components/features/characterSheet/characterNotes/CharacterNotes.vue'
 import CoreAbilityColumn from '@/components/features/characterSheet/coreAbilityColumns/CoreAbilityColumn.vue'
@@ -74,7 +78,7 @@ const showBiomeSection = computed(() => {
 const showAcrobatSection = computed(() => {
     if (!selectedCharacter.value?.mestiereId) return false
     const mestiere = conceptsStore.mestieri.find(m => m.id === selectedCharacter.value.mestiereId)
-    return mestiere?.name?.toLowerCase() === 'acrobat'
+    return mestiere?.name?.toLowerCase() === ACROBAT_MESTIERE_NAME
 })
 
 const showWitchcraftSection = computed(() => {
@@ -93,6 +97,26 @@ const showHunterSection = computed(() => {
     if (!selectedCharacter.value?.mestiereId) return false
     const mestiere = conceptsStore.mestieri.find(m => m.id === selectedCharacter.value.mestiereId)
     return mestiere?.name?.toLowerCase() === HUNTER_MESTIERE_NAME
+})
+
+const SECTION_VISIBILITY = computed(() => ({
+    engagement: true,
+    equipment: true,
+    abilities: true,
+    biome: showBiomeSection.value,
+    acrobat: showAcrobatSection.value,
+    witchcraft: showWitchcraftSection.value,
+    summoner: showSummonerSection.value,
+    hunter: showHunterSection.value,
+}))
+
+// Compute the ordered list of visible section keys, respecting character's saved order
+const orderedSectionKeys = computed(() => {
+    const stored = selectedCharacter.value?.sectionOrder ?? []
+    const base = stored.length
+        ? [...stored.filter(k => DEFAULT_SECTION_ORDER.includes(k)), ...DEFAULT_SECTION_ORDER.filter(k => !stored.includes(k))]
+        : DEFAULT_SECTION_ORDER
+    return base.filter(k => SECTION_VISIBILITY.value[k])
 })
 
 const handleClose = () => {

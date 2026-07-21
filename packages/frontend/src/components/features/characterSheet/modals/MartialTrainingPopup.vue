@@ -16,8 +16,9 @@
                     <span class="mt-label">{{ row.label }}</span>
                     <div class="mt-chips">
                         <ChipTag v-for="grade in equipmentGrades" :key="grade.id" :text="grade.name"
-                            :variant="novizio?.martialTraining?.[row.key]?.includes(grade.id) ? CHIP_TAG_VARIANTS.PRIMARY : CHIP_TAG_VARIANTS.DIM"
-                            :rounded="CHIP_TAG_ROUNDED.FULL" :hoverable="false" />
+                            :variant="gradeChipVariant(row.key, grade.id)" :rounded="CHIP_TAG_ROUNDED.FULL"
+                            :hoverable="isEditable && !isMestiereGrade(row.key, grade.id)"
+                            @click="handleGradeClick(row.key, grade.id)" />
                     </div>
                 </div>
             </div>
@@ -32,6 +33,7 @@ import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue'
 import ChipTag from '@/components/ui/chips/ChipTag.vue'
 import { CHIP_TAG_VARIANTS, CHIP_TAG_ROUNDED } from '@/constants/chipTag'
 import { sanitizeHtml } from '@/utils/sanitizeHtml'
+import { useCharactersStore } from '@/stores/charactersStore'
 import meleeIcon from '@/assets/icons/martial/melee.png'
 import polearmIcon from '@/assets/icons/martial/polearms.png'
 import rangedIcon from '@/assets/icons/martial/ranged.png'
@@ -55,9 +57,16 @@ const props = defineProps({
         type: Object,
         default: null,
     },
+    character: {
+        type: Object,
+        default: null,
+    },
 })
 
 const emit = defineEmits(['close'])
+
+const charactersStore = useCharactersStore()
+const isEditable = computed(() => !!props.character)
 
 const GAP = 8
 const VIEWPORT_PADDING = 10
@@ -71,6 +80,38 @@ const martialRows = [
 ]
 
 const safeMartialTrainingNotes = computed(() => sanitizeHtml(props.novizio?.martialTrainingNotes))
+
+function isMestiereGrade(key, gradeId) {
+    return props.novizio?.martialTraining?.[key]?.includes(gradeId) ?? false
+}
+
+function isManualGrade(key, gradeId) {
+    const char = charactersStore.selectedCharacter
+    return char?.martialTrainingOverrides?.[key]?.includes(gradeId) ?? false
+}
+
+function gradeChipVariant(key, gradeId) {
+    if (isMestiereGrade(key, gradeId)) return CHIP_TAG_VARIANTS.PRIMARY
+    if (isManualGrade(key, gradeId)) return CHIP_TAG_VARIANTS.SUCCESS
+    return CHIP_TAG_VARIANTS.DIM
+}
+
+function handleGradeClick(key, gradeId) {
+    if (!isEditable.value) return
+    if (isMestiereGrade(key, gradeId)) return // Can't remove mestiere training
+
+    const char = charactersStore.selectedCharacter
+    if (!char) return
+    if (!char.martialTrainingOverrides) {
+        char.martialTrainingOverrides = {}
+    }
+    const current = char.martialTrainingOverrides[key] ?? []
+    if (current.includes(gradeId)) {
+        char.martialTrainingOverrides[key] = current.filter(id => id !== gradeId)
+    } else {
+        char.martialTrainingOverrides[key] = [...current, gradeId]
+    }
+}
 
 const popupEl = ref(null)
 const positionStyle = ref({})
@@ -205,5 +246,9 @@ onUnmounted(() => {
     font-size: var(--font-size-15);
     color: var(--color-text-primary);
     margin-top: var(--space-sm);
+}
+
+.chip {
+    cursor: pointer;
 }
 </style>

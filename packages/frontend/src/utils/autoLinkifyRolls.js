@@ -10,7 +10,7 @@ import { CORE_ABILITIES } from '@shared/constants/characterConstants'
  * @typedef {{ key: string, label: string }} CoreAbility
  * @typedef {{ type: 'stat', value: CoreAbility } | { type: 'number', value: number }} RollModifier
  * @typedef {{
- *   type?: 'opposed-skill-check' | 'skill-check-multiple' | 'skill-check' | 'damage-roll' | 'custom-roll',
+ *   type?: 'contest' | 'skill-check-multiple' | 'skill-check' | 'damage-roll' | 'custom-roll',
  *   skill?: string,
  *   opponentSkill?: string,
  *   skills?: string[],
@@ -38,7 +38,7 @@ const CORE_ABILITIES_PATTERN = CORE_ABILITIES_LIST.map((ability) => ability.labe
 
 // Combined pattern matches all roll types in priority order
 const ROLL_PATTERN = new RegExp(
-  // Pattern 1: "Roll <Skill> vs <Skill>" (opposed check) - highest priority
+  // Pattern 1: "Roll <Skill> vs <Skill>" (contest) - highest priority
   `[Rr]oll\\s+(${SKILLS_PATTERN})\\s+vs\\.?\\s+(${SKILLS_PATTERN})` +
   '|' +
   // Pattern 2: "Roll <Skill>, <Skill>, ... and/or <Skill>" (multiple skill options)
@@ -63,11 +63,11 @@ const ROLL_PATTERN = new RegExp(
 function parseRollMatch(match) {
   const fullMatch = match[0]
   
-  // Opposed skill check: Roll <Skill> vs <Skill>
+  // Contest: Roll <Skill> vs <Skill>
   if (match[1] && match[2]) {
     const rollPrefix = fullMatch.match(/^[Rr]oll\s+/)?.[0] ?? ''
     return {
-      type: 'opposed-skill-check',
+      type: 'contest',
       skill: match[1],
       opponentSkill: match[2],
       fullText: fullMatch,

@@ -1,10 +1,10 @@
 {
   "id": "bb5e4bb7-2ac2-47b7-b739-be0ce16f5a05",
   "createdAt": "2026-02-27T16:58:47.021Z",
-  "lastModified": "2026-03-17T01:35:20.051Z",
+  "lastModified": "2026-07-16T15:49:41.119Z",
   "name": "Traveling",
   "artUrl": "https://cdn.midjourney.com/24188537-e804-4d5e-86f0-e27f1b63ce46/0_2.png",
-  "description": "<p>You throw your orb to an unoccupied space within its range. When it arrives there, you teleport to the orb's location, appearing with your hands touching the orb.</p>",
+  "description": "<p>You throw your orb to an unoccupied space within its range. When it arrives there, you teleport to the orb's location, appearing with your hands touching the orb.</p><p><strong>Describe how you teleport.</strong></p>",
   "source": "a07490af-2d77-4968-9adc-0a2a7c84ef70",
   "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
   "mpCost": 3,
