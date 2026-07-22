@@ -16,6 +16,18 @@
         <div v-if="!isCollapsed" class="witchcraft-content">
             <div class="witchcraft-row">
 
+                <!-- Familiar -->
+                <template v-if="hasFamiliarAbility">
+                    <div class="witchcraft-group">
+                        <span class="witchcraft-group__label">Familiar</span>
+                        <div class="badge-group">
+                            <FamiliarBadge :familiar="familiarCharacter" @edit="openFamiliarModal"
+                                @remove="removeFamiliar" @open="openFamiliarSheet" />
+                        </div>
+                    </div>
+                    <div class="witchcraft-vdivider" />
+                </template>
+
                 <!-- Tokens -->
                 <div class="witchcraft-group">
                     <span class="witchcraft-group__label">Tokens</span>
@@ -51,6 +63,9 @@
         <WitchcraftItemModal v-if="showModal" :type="modalType" :item="modalItem" :owned-abilities="ownedAbilities"
             @save="handleSave" @close="showModal = false" />
 
+        <!-- Familiar modal -->
+        <FamiliarEditModal v-if="showFamiliarModal" @close="showFamiliarModal = false" @chosen="onFamiliarChosen" />
+
     </CharacterSheetSection>
 </template>
 
@@ -60,10 +75,14 @@ import CharacterSheetSection from '@/components/ui/containers/CharacterSheetSect
 import TableHeader from '@/components/ui/tables/TableHeader.vue'
 import WitchcraftBadge from './WitchcraftBadge.vue'
 import WitchcraftItemModal from './WitchcraftItemModal.vue'
+import FamiliarBadge from './FamiliarBadge.vue'
+import FamiliarEditModal from './FamiliarEditModal.vue'
 import { useCharactersStore } from '@/stores/charactersStore'
 import { useAbilitiesStore } from '@/stores/abilitiesStore'
+import { useAppCharacterSheetModal } from '@/composables/useAppCharacterSheetModal'
 import {
     WITCHCRAFT_TALISMANS_ABILITY_ID,
+    WITCHCRAFT_FAMILIAR_ABILITY_ID,
 } from '@/constants/witchcraftConstants'
 
 // Stores
@@ -71,6 +90,7 @@ import {
 const charactersStore = useCharactersStore()
 const abilitiesStore = useAbilitiesStore()
 const selectedCharacter = computed(() => charactersStore.selectedCharacter)
+const { open: openCharacterSheet } = useAppCharacterSheetModal()
 
 // Section collapse
 
@@ -83,6 +103,41 @@ const hasTalismansAbility = computed(() =>
         (a) => a.id === WITCHCRAFT_TALISMANS_ABILITY_ID
     ) ?? false
 )
+
+const hasFamiliarAbility = computed(() =>
+    selectedCharacter.value?.abilities?.some(
+        (a) => a.id === WITCHCRAFT_FAMILIAR_ABILITY_ID
+    ) ?? false
+)
+
+// Familiar
+
+const familiarCharacter = computed(() => {
+    const familiarId = selectedCharacter.value?.witchFamiliar?.characterId
+    if (!familiarId) return null
+    return charactersStore.getById(familiarId) ?? null
+})
+
+const showFamiliarModal = ref(false)
+
+function openFamiliarModal() {
+    showFamiliarModal.value = true
+}
+
+function onFamiliarChosen(characterId) {
+    if (!selectedCharacter.value) return
+    selectedCharacter.value.witchFamiliar = { characterId }
+    showFamiliarModal.value = false
+}
+
+function removeFamiliar() {
+    if (!selectedCharacter.value) return
+    selectedCharacter.value.witchFamiliar = null
+}
+
+function openFamiliarSheet() {
+    if (familiarCharacter.value) openCharacterSheet(familiarCharacter.value)
+}
 
 // Character-owned abilities (resolved) — used in the spell picker
 

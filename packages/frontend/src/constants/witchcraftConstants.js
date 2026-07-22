@@ -1,6 +1,9 @@
 // Ability ID for the Witchcraft Talismans ability
 export const WITCHCRAFT_TALISMANS_ABILITY_ID = '51d0523f-8778-4ceb-9cce-2a47a6b46088'
 
+// Ability ID for the Witch's Familiar ability
+export const WITCHCRAFT_FAMILIAR_ABILITY_ID = '0697db22-c8a1-4c8c-afb3-8b14a82b2c8d'
+
 // Witch mestiere concept ID — used to gate the tracker section
 export const WITCH_MESTIERE_NAME = 'witch'
 

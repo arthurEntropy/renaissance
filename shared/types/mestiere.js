@@ -25,8 +25,7 @@ import { ConceptType } from '../constants/conceptTypes.js'
  * @property {string} engagementSuccessNotes - Special cases or conditions for engagement successes (rich text)
  * @property {number} baseMP - Starting base Mestieri Points
  * @property {string} baseMpNotes - Notes about MP (rich text)
- * @property {string} abilities - Starting abilities description (rich text)
- * @property {string} gratuiti - Starting gratuiti description (rich text)
+ * @property {string} abilities - Starting abilities description (rich text) * @property {string} spellcasting - Spellcasting rules and notes (rich text) * @property {string} gratuiti - Starting gratuiti description (rich text)
  */
 
 /**

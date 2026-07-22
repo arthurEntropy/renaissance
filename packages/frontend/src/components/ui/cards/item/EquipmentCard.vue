@@ -140,7 +140,7 @@
     <!-- Admin actions slot — transfer FAB and/or untrained indicator -->
     <template v-if="showTransferButton || lacksTraining" #admin-actions>
       <FloatingActionButton v-if="showTransferButton" :variant="FAB_TYPES.TRANSFER" :size="FAB_SIZES.SMALL"
-        :visibility="FAB_VISIBILITIES.ON_HOVER" @click.stop="$emit('transfer', equipment)" />
+        :visibility="FAB_VISIBILITIES.ALWAYS" @click.stop="$emit('transfer', equipment)" />
       <FloatingActionButton v-if="lacksTraining" :variant="FAB_TYPES.UNTRAINED" :size="FAB_SIZES.SMALL"
         :visibility="FAB_VISIBILITIES.ALWAYS" />
     </template>

@@ -81,6 +81,13 @@
             class="novizio-text-editor novizio-text-editor--spaced" />
         </div>
 
+        <!-- Spellcasting -->
+        <div class="novizio-subsection">
+          <strong>SPELLCASTING</strong>
+          <text-editor v-model="localNovizio.spellcasting" placeholder="Spellcasting rules, notes..." height="80px"
+            :auto-height="true" class="novizio-text-editor novizio-text-editor--spaced" />
+        </div>
+
         <!-- Gratuiti -->
         <div class="novizio-subsection">
           <div class="novizio-subsection-header">
@@ -173,6 +180,12 @@
         <div class="novizio-subsection" v-if="hasAnyNovizioData && novizio && novizio.abilities">
           <strong>ABILITIES</strong>
           <div class="novizio-placeholder" v-html="safeAbilities"></div>
+        </div>
+
+        <!-- Spellcasting -->
+        <div class="novizio-subsection" v-if="hasAnyNovizioData && novizio && novizio.spellcasting">
+          <strong>SPELLCASTING</strong>
+          <div class="novizio-placeholder" v-html="safeSpellcasting"></div>
         </div>
 
         <!-- Gratuiti -->
@@ -298,6 +311,7 @@ const getDefaultNovizio = () => ({
   baseMP: 1,
   baseMpNotes: '',
   abilities: '',
+  spellcasting: '',
   gratuiti: ''
 })
 
@@ -344,7 +358,7 @@ const hasAnyNovizioData = computed(() => {
   const hasDice = hasAnyEngagementDice(n.engagementDice)
   const hasEngagement = hasDice || n.engagementSuccesses?.length > 0 || n.engagementDiceNotes?.toString().trim() || n.engagementSuccessNotes?.toString().trim()
   return hasMartial || hasEngagement
-    || [n.description, n.abilities, n.gratuiti, n.baseMpNotes, n.martialTrainingNotes].some(val => val?.toString().trim())
+    || [n.description, n.abilities, n.spellcasting, n.gratuiti, n.baseMpNotes, n.martialTrainingNotes].some(val => val?.toString().trim())
     || n.baseMP > 1
 })
 
@@ -354,6 +368,7 @@ const safeEngagementDiceNotes = computed(() => sanitizeHtml(concept.value?.noviz
 const safeEngagementSuccessNotes = computed(() => sanitizeHtml(concept.value?.novizio?.engagementSuccessNotes))
 const safeBaseMpNotes = computed(() => sanitizeHtml(concept.value?.novizio?.baseMpNotes))
 const safeAbilities = computed(() => sanitizeHtml(concept.value?.novizio?.abilities))
+const safeSpellcasting = computed(() => sanitizeHtml(concept.value?.novizio?.spellcasting))
 const safeGratuiti = computed(() => sanitizeHtml(concept.value?.novizio?.gratuiti))
 
 const syncLocalNovizio = (sourceConcept) => {
@@ -379,6 +394,7 @@ const syncLocalNovizio = (sourceConcept) => {
       baseMP: n.baseMP ?? 1,
       baseMpNotes: n.baseMpNotes || '',
       abilities: n.abilities || '',
+      spellcasting: n.spellcasting || '',
       gratuiti: n.gratuiti || '',
     }
   } else {

@@ -1,7 +1,7 @@
 <template>
     <div v-if="hasAnyTokens" class="token-rail-container">
         <div v-if="hasFocusedTokens" class="token-group token-group--focused"
-            :class="{ 'is-active-view': isViewingFocusedCharacterSheet, 'token-group--has-stats': showFocusedCharacterStats }">
+            :class="{ 'is-active-view': isViewingFocusedCharacterSheet, 'token-group--has-stats': showFocusedCharacterStats, 'token-group--stats-always': statsAlwaysVisible && showFocusedCharacterStats }">
             <div class="token-group-header">
                 <span class="token-group-label">Selected</span>
             </div>
@@ -69,6 +69,7 @@
 
 <script setup>
 import { computed, ref, watch } from 'vue'
+import { useRoute } from 'vue-router'
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/vue/24/outline'
 import { useCharacterContextStore } from '@/stores/characterContextStore'
 import { useCharactersStore } from '@/stores/charactersStore'
@@ -86,6 +87,7 @@ import { useTabletopDragState } from '@/composables/useTabletopDragState'
 const characterContextStore = useCharacterContextStore()
 const charactersStore = useCharactersStore()
 const campaignStore = useCampaignStore()
+const route = useRoute()
 const { setDraggingCharacter, clearDraggingCharacter } = useTabletopDragState()
 const { getSummonedBeastForCharacterId } = useSummonedBeast()
 const { open: openCharacterSheet, close: closeCharacterSheet, isOpen: isCharacterSheetOpen } = useAppCharacterSheetModal()
@@ -157,6 +159,15 @@ const hasAnyTokens = computed(() => {
 const showFocusedCharacterStats = computed(() => {
     if (!visibleFocusedCharacter.value || isBeastCharacter(visibleFocusedCharacter.value)) return false
     return true
+})
+
+// On these pages, always render the stats row without needing hover
+const ALWAYS_SHOW_STATS_PATHS = ['/abilities', '/equipment']
+const statsAlwaysVisible = computed(() => {
+    const path = route.path
+    return ALWAYS_SHOW_STATS_PATHS.includes(path) ||
+        path.startsWith('/mestieri') ||
+        path.startsWith('/cultures')
 })
 
 function getTokenComponent(character) {
@@ -316,6 +327,11 @@ function getFocusedTokenProps(character) {
 }
 
 .token-group--has-stats:hover .token-group-stats {
+    max-height: 40px;
+    opacity: 1;
+}
+
+.token-group--stats-always .token-group-stats {
     max-height: 40px;
     opacity: 1;
 }
