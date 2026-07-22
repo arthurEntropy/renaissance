@@ -2,7 +2,7 @@
   "id": "0697db22-c8a1-4c8c-afb3-8b14a82b2c8d",
   "isDeleted": false,
   "createdAt": "2026-02-04T01:37:37.066Z",
-  "lastModified": "2026-07-16T18:42:49.288Z",
+  "lastModified": "2026-07-21T18:53:03.388Z",
   "name": "Witch's Familiar",
   "artUrl": "https://cdn.midjourney.com/56d8e396-a423-4297-9057-18ff25f01505/0_0.png",
   "description": "<p>You form a magical bond with a creature of your choice with a Challenge of 0.</p><ul><li><p><strong>Witch’s Bond:</strong> Your familiar’s base Endurance is equal to either its natural base or your BODY, HEART, and WITS scores combined, whichever is higher.</p></li><li><p><strong>Telepathic Connection:</strong> You can communicate telepathically with your familiar at any distance. You may spend a half action to see and hear through your familiar’s senses for up to 1 round, sacrificing your own sight and hearing while doing so. You may end the effect early as a free action.</p></li><li><p><strong>Combat &amp; Revival:</strong> Your familiar rolls its own initiative and acts on its own turn. Any time it would be reduced to 0 Endurance, you may spend 1 MP as a free action to reduce it to 1 Endurance instead. If your familiar dies, their body vanishes, and you can perform a ritual to revive them during a short or long rest. The ritual requires ingredients of Opulent Keeping (spend 4 Treasure), and your familiar returns to life at base Endurance in a space within short range of you.</p></li></ul><p>You may only have one familiar at a time. Choosing a new familiar severs the bond with the previous one.</p><p><strong>Describe your familiar.</strong></p>",
@@ -18,7 +18,7 @@
   "isMagical": false,
   "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
   "mpCost": null,
-  "xpCost": null,
+  "xpCost": "",
   "manaCost": null,
   "canBeActive": false,
   "hasDifficulty": false

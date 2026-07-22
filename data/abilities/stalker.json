@@ -1,0 +1,8 @@
+{
+  "id": "3bc1ac9b-6cfc-490b-9ab6-8589932701b8",
+  "createdAt": "2026-07-21T19:57:52.911Z",
+  "lastModified": "2026-07-21T19:58:18.100Z",
+  "name": "Stalker",
+  "description": "<p>Whenever you roll <a target=\"_blank\" rel=\"noopener noreferrer\" class=\"roll-link\" href=\"https://renaissance-frontend.onrender.com/abilities#\">Stealth</a>, +1d for each tag in the current biome that matches your native biome.</p>",
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1"
+}

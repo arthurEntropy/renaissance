@@ -1,18 +1,18 @@
 {
-  "id": "93866275-3365-4a80-9a11-b8185884faab",
+  "id": "e5b32942-2470-4758-aa4b-612b2cafd1a5",
   "isDeleted": false,
-  "createdAt": "2026-07-08T16:06:59.660Z",
-  "lastModified": "2026-07-21T14:58:27.886Z",
-  "characterType": "beastInstance",
-  "name": "Spore Hound C",
+  "createdAt": "2026-07-21T19:53:18.803Z",
+  "lastModified": "2026-07-22T00:26:50.318Z",
+  "characterType": "beast",
+  "name": "Cat",
   "featuredArtUrls": [
-    "https://cdn.midjourney.com/39ad5992-8dc0-48f7-9e24-e9633e4377ae/0_1.png"
+    "https://cdn.midjourney.com/e12fdd37-68ee-4d06-9bd7-dec01ae9a5b6/0_3.png"
   ],
   "speed": 30,
   "notes": "",
-  "body": 2,
-  "heart": 1,
-  "wits": 1,
+  "body": 0,
+  "heart": 0,
+  "wits": 0,
   "skills": [
     {
       "key": "awe",
@@ -24,7 +24,7 @@
     },
     {
       "key": "strength",
-      "ranks": 2,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -50,8 +50,8 @@
       "key": "craft",
       "ranks": 0,
       "isFavored": false,
-      "isIllFavored": true,
-      "diceMod": -1,
+      "isIllFavored": false,
+      "diceMod": 0,
       "manualDiceMod": 0
     },
     {
@@ -80,7 +80,7 @@
     },
     {
       "key": "spirit",
-      "ranks": 1,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -90,8 +90,8 @@
       "key": "aid",
       "ranks": 0,
       "isFavored": false,
-      "isIllFavored": true,
-      "diceMod": -1,
+      "isIllFavored": false,
+      "diceMod": 0,
       "manualDiceMod": 0
     },
     {
@@ -104,7 +104,7 @@
     },
     {
       "key": "awareness",
-      "ranks": 1,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -112,7 +112,7 @@
     },
     {
       "key": "stealth",
-      "ranks": 1,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -130,22 +130,22 @@
       "key": "riddle",
       "ranks": 0,
       "isFavored": false,
-      "isIllFavored": true,
-      "diceMod": -1,
+      "isIllFavored": false,
+      "diceMod": 0,
       "manualDiceMod": 0
     }
   ],
   "endurance": {
     "current": 1,
-    "base": 10
+    "base": 1
   },
   "hope": {
-    "current": 2,
-    "base": 2
+    "current": 0,
+    "base": 0
   },
   "defense": {
-    "current": 1,
-    "base": 6
+    "current": 0,
+    "base": 0
   },
   "load": 0,
   "shadow": 0,
@@ -163,15 +163,11 @@
     "guilty": false,
     "angry": false,
     "afraid": false,
-    "troubled": true
+    "troubled": false
   },
-  "engagementDice": [
-    6
-  ],
+  "engagementDice": [],
   "engagementSuccesses": [],
-  "engagementDiceStatuses": {
-    "user_added_0": "expended"
-  },
+  "engagementDiceStatuses": {},
   "equipment": [],
   "groupEquipmentBySource": false,
   "groupEquipmentByCustom": false,
@@ -181,7 +177,29 @@
     "current": 0,
     "base": 0
   },
-  "abilities": [],
+  "abilities": [
+    {
+      "id": "b62162c2-751b-49f0-a602-db5da4d388da",
+      "collapsed": false,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false
+    },
+    {
+      "id": "f46f015e-f4c6-4032-8ded-3f100fc43d8d",
+      "collapsed": false,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false
+    },
+    {
+      "id": "3bc1ac9b-6cfc-490b-9ab6-8589932701b8",
+      "collapsed": false,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false
+    }
+  ],
   "groupAbilitiesBySource": false,
   "groupAbilitiesByManaColor": false,
   "groupAbilitiesByCustom": false,
@@ -190,23 +208,21 @@
   "autoCalculations": {
     "load": true,
     "states": true,
-    "baseEndurance": true,
+    "baseEndurance": false,
     "baseHope": true,
-    "baseDefense": false
+    "baseDefense": true
   },
   "rollStats": {
     "skillChecks": {
-      "attempts": 4,
-      "successes": 4,
-      "totalSum": 61,
-      "bestTotal": 20,
+      "attempts": 0,
+      "successes": 0,
+      "totalSum": 0,
+      "bestTotal": null,
       "hardestSuccess": null,
-      "bySkill": {
-        "Strength": 4
-      },
+      "bySkill": {},
       "solCount": 0,
-      "morteCount": 2,
-      "successCount": 4
+      "morteCount": 0,
+      "successCount": 0
     },
     "contests": {
       "engagement": {
@@ -216,7 +232,7 @@
       },
       "contest": {
         "wins": 0,
-        "losses": 4,
+        "losses": 0,
         "draws": 0
       }
     },
@@ -241,9 +257,12 @@
   },
   "witchcraftTokens": [],
   "summonerVessels": [],
-  "campaignId": "c9ddeab9-d180-4fc5-869f-e64239bc3376",
+  "hunterTraps": [],
+  "campaignId": null,
   "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
   "isPublicPreview": false,
+  "sectionOrder": [],
+  "martialTrainingOverrides": {},
   "pronouns": "",
   "ancestryIds": [],
   "cultureIds": [],
@@ -255,12 +274,8 @@
   "keeping": null,
   "treasure": 0,
   "xp": 0,
-  "updatedAt": "2026-07-21T14:58:27.886Z",
-  "description": "",
+  "updatedAt": "2026-07-22T00:26:50.318Z",
+  "description": "Darkvision, Biomes: Civilization",
   "size": 1,
-  "reach": 5,
-  "challenge": 5,
-  "templateId": "720bd912-d3a4-4096-9dfd-24d80508ef6e",
-  "sectionOrder": [],
-  "martialTrainingOverrides": {}
+  "reach": 5
 }

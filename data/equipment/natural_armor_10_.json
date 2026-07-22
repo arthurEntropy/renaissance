@@ -1,0 +1,15 @@
+{
+  "id": "db418790-1337-43d4-8d92-53a29b16a240",
+  "createdAt": "2026-07-21T23:43:58.749Z",
+  "lastModified": "2026-07-21T23:50:37.008Z",
+  "name": "Natural Armor (+10)",
+  "type": "1cc02e7b-cdaf-477c-a198-6be0ad5ab47f",
+  "subtype": null,
+  "defenseBonus": 10,
+  "engagementDice": [
+    10
+  ],
+  "damageDice": [],
+  "weight": 0,
+  "reach": 0
+}

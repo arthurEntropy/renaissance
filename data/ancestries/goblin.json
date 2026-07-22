@@ -10,13 +10,13 @@
   "backgroundImage": "",
   "cardBackgroundImage": "https://cdn.midjourney.com/787576dd-0a5c-4e70-a08a-a61ac19e4312/0_1.png",
   "expansion": "",
-  "lastModified": "2026-04-24T17:18:33.770Z",
+  "lastModified": "2026-07-21T13:43:11.699Z",
   "physiology": {
     "heightMin": 3,
     "heightMax": 4,
     "weightMin": 30,
     "weightMax": 120,
     "lifespan": 60,
-    "speed": 30
+    "speed": 25
   }
 }

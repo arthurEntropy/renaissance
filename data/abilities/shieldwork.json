@@ -1,10 +1,10 @@
 {
   "id": "983c85c3-6189-42d0-aa7b-4247056a093e",
   "isDeleted": false,
-  "lastModified": "2026-07-16T13:23:06.772Z",
+  "lastModified": "2026-07-21T17:43:51.891Z",
   "name": "Shieldwork",
   "artUrl": "https://cdn.midjourney.com/a34032cc-b61c-4901-bd9e-61c791d7c5af/0_3.png",
-  "description": "<p>While you are wielding a shield, you gain +1 Defense, and the Knockback engagement success effect is available to you.</p><p><strong>Describe how you wield your shield.</strong></p>",
+  "description": "<p>While you are wielding a shield, you gain +2 Defense, and the Knockback engagement success effect is available to you.</p><p><strong>Describe how you wield your shield.</strong></p>",
   "source": "d4dce5e2-e767-464d-91f0-c40b47f788b3",
   "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
   "mpCost": "",

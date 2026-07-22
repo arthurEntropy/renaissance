@@ -1,10 +1,10 @@
 {
   "id": "a918fcbe-8b9b-424b-83f6-933284cc71e7",
   "createdAt": "2026-03-06T20:46:40.608Z",
-  "lastModified": "2026-03-17T15:14:29.962Z",
+  "lastModified": "2026-07-21T18:17:45.482Z",
   "name": "Way of the Tooth",
   "artUrl": "https://cdn.midjourney.com/96e96eaf-246d-437c-b625-86dd23137148/0_2.png",
-  "description": "<p>You have access to all <em>Way of the Tooth</em> abilities. You take on the aspect of a predatory animal: your canine teeth and fingernails grow long and sharp, your pupils become vertical slits and your hair grows thicker and in more places on your body, like fur. This change grants you these benefits:</p><ul><li><p>Your Awe rolls are favored.</p></li><li><p>You may use Spirit instead of Strength to make unarmed melee attacks, and your unarmed melee attacks deal 1d6+BODY damage.</p></li></ul><p>Additionally, once per rest, you may spend a half action to mark a creature you can see as your prey for the next hour. During that time:</p><ul><li><p>Your first attack roll against it each round is favored.</p></li><li><p>You don’t provoke opportunity attacks from it.</p></li><li><p>Any Awareness rolls you make to find it are favored.</p></li></ul><p><strong>Describe your new appearance.</strong></p>",
+  "description": "<p>You have access to all <em>Way of the Tooth</em> abilities.</p><p>You take on the aspect of a predatory animal: your canine teeth and fingernails grow long and sharp, your pupils become vertical slits and your hair grows thicker and in more places on your body, like fur. This change grants you these benefits:</p><ul><li><p>Your Awe rolls are favored.</p></li><li><p>You may use Spirit instead of Strength to make unarmed melee attacks, and your unarmed melee attacks deal 1d6+BODY damage.</p></li></ul><p><strong>Describe your new appearance.</strong></p>",
   "improvements": [
     {
       "name": "Vicious",
