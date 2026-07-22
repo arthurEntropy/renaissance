@@ -2,7 +2,7 @@
   "id": "93866275-3365-4a80-9a11-b8185884faab",
   "isDeleted": false,
   "createdAt": "2026-07-08T16:06:59.660Z",
-  "lastModified": "2026-07-10T19:22:16.829Z",
+  "lastModified": "2026-07-21T14:58:27.886Z",
   "characterType": "beastInstance",
   "name": "Spore Hound C",
   "featuredArtUrls": [
@@ -50,8 +50,8 @@
       "key": "craft",
       "ranks": 0,
       "isFavored": false,
-      "isIllFavored": false,
-      "diceMod": 0,
+      "isIllFavored": true,
+      "diceMod": -1,
       "manualDiceMod": 0
     },
     {
@@ -90,8 +90,8 @@
       "key": "aid",
       "ranks": 0,
       "isFavored": false,
-      "isIllFavored": false,
-      "diceMod": 0,
+      "isIllFavored": true,
+      "diceMod": -1,
       "manualDiceMod": 0
     },
     {
@@ -130,13 +130,13 @@
       "key": "riddle",
       "ranks": 0,
       "isFavored": false,
-      "isIllFavored": false,
-      "diceMod": 0,
+      "isIllFavored": true,
+      "diceMod": -1,
       "manualDiceMod": 0
     }
   ],
   "endurance": {
-    "current": 10,
+    "current": 1,
     "base": 10
   },
   "hope": {
@@ -144,7 +144,7 @@
     "base": 2
   },
   "defense": {
-    "current": 6,
+    "current": 1,
     "base": 6
   },
   "load": 0,
@@ -163,11 +163,15 @@
     "guilty": false,
     "angry": false,
     "afraid": false,
-    "troubled": false
+    "troubled": true
   },
-  "engagementDice": [],
+  "engagementDice": [
+    6
+  ],
   "engagementSuccesses": [],
-  "engagementDiceStatuses": {},
+  "engagementDiceStatuses": {
+    "user_added_0": "expended"
+  },
   "equipment": [],
   "groupEquipmentBySource": false,
   "groupEquipmentByCustom": false,
@@ -192,17 +196,17 @@
   },
   "rollStats": {
     "skillChecks": {
-      "attempts": 2,
-      "successes": 2,
-      "totalSum": 37,
+      "attempts": 4,
+      "successes": 4,
+      "totalSum": 61,
       "bestTotal": 20,
       "hardestSuccess": null,
       "bySkill": {
-        "Strength": 2
+        "Strength": 4
       },
       "solCount": 0,
-      "morteCount": 0,
-      "successCount": 2
+      "morteCount": 2,
+      "successCount": 4
     },
     "contests": {
       "engagement": {
@@ -212,7 +216,7 @@
       },
       "contest": {
         "wins": 0,
-        "losses": 0,
+        "losses": 4,
         "draws": 0
       }
     },
@@ -251,7 +255,7 @@
   "keeping": null,
   "treasure": 0,
   "xp": 0,
-  "updatedAt": "2026-07-10T19:22:16.828Z",
+  "updatedAt": "2026-07-21T14:58:27.886Z",
   "description": "",
   "size": 1,
   "reach": 5,

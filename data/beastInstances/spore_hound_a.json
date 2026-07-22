@@ -2,7 +2,7 @@
   "id": "a675e17d-bf53-4ff3-937a-242aea3d0e7a",
   "isDeleted": false,
   "createdAt": "2026-07-08T16:06:53.811Z",
-  "lastModified": "2026-07-10T19:21:52.292Z",
+  "lastModified": "2026-07-21T15:03:45.961Z",
   "characterType": "beastInstance",
   "name": "Spore Hound A",
   "featuredArtUrls": [
@@ -136,7 +136,7 @@
     }
   ],
   "endurance": {
-    "current": 10,
+    "current": 0,
     "base": 10
   },
   "hope": {
@@ -165,9 +165,13 @@
     "afraid": false,
     "troubled": false
   },
-  "engagementDice": [],
+  "engagementDice": [
+    6
+  ],
   "engagementSuccesses": [],
-  "engagementDiceStatuses": {},
+  "engagementDiceStatuses": {
+    "user_added_0": "expended"
+  },
   "equipment": [],
   "groupEquipmentBySource": false,
   "groupEquipmentByCustom": false,
@@ -192,22 +196,22 @@
   },
   "rollStats": {
     "skillChecks": {
-      "attempts": 4,
-      "successes": 2,
-      "totalSum": 24,
+      "attempts": 6,
+      "successes": 4,
+      "totalSum": 52,
       "bestTotal": 17,
       "hardestSuccess": null,
       "bySkill": {
-        "Strength": 4
+        "Strength": 6
       },
-      "solCount": 0,
+      "solCount": 1,
       "morteCount": 0,
       "successCount": 0
     },
     "contests": {
       "engagement": {
-        "wins": 0,
-        "losses": 0,
+        "wins": 1,
+        "losses": 6,
         "draws": 0
       },
       "contest": {
@@ -219,7 +223,7 @@
     "xpEarned": 0,
     "xpSpent": 0,
     "treasureEarned": 0,
-    "treasureSpent": 0
+    "treasureSpent": 11
   },
   "biomeTags": [],
   "biomeId": null,
@@ -251,7 +255,7 @@
   "keeping": null,
   "treasure": 0,
   "xp": 0,
-  "updatedAt": "2026-07-10T19:21:52.292Z",
+  "updatedAt": "2026-07-21T15:03:45.961Z",
   "description": "",
   "size": 1,
   "reach": 5,

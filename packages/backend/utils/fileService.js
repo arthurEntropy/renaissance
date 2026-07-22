@@ -37,12 +37,14 @@ const CONCEPT_SPLIT_ENTITIES = Object.freeze([
   'cultures',
   'mestieri',
   'worldElements',
+  'beastItemThemes',
 ])
 const CONCEPT_ENTITY_BY_TYPE = Object.freeze({
   ANCESTRY: 'ancestries',
   CULTURE: 'cultures',
   MESTIERE: 'mestieri',
   WORLD_ELEMENT: 'worldElements',
+  BEAST_ITEM_THEME: 'beastItemThemes',
 })
 
 const sanitizeFilename = (name) => {

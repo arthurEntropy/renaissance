@@ -56,10 +56,18 @@
 
         <!-- Beast Vitals Details -->
         <div class="vitals-details" v-else>
+            <!-- Traits: senses + special movement speeds -->
+            <div v-if="beastTraits.length" class="vitals-detail">
+                <div class="beast-traits-text">{{ beastTraits.join(', ') }}</div>
+            </div>
+            <!-- Description -->
             <div class="vitals-detail">
                 <div class="vitals-value beast-vitals-text" ref="beastDescriptionRef">{{ character.description || '' }}
                 </div>
             </div>
+            <!-- Biome Tags -->
+            <BiomeTagDisplay v-if="hasBeastBiomeTags" :augment-tags="character.biomeTagsAugment || []"
+                :inhibit-tags="character.biomeTagsInhibit || []" :active-tags="biomeStore.activeTags" />
         </div>
 
         <!-- Edit Modal -->
@@ -91,15 +99,18 @@
 import { ref, computed, onMounted, onUnmounted, watch, nextTick } from 'vue'
 import { useCharactersStore } from '@/stores/charactersStore'
 import { useConceptsStore } from '@/stores/conceptsStore'
+import { useBiomeStore } from '@/stores/biomeStore'
 import { createSlug } from '@/utils/urlHelpers'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 import CharacterVitalsEditModal from './CharacterVitalsEditModal.vue'
 import CharacterSettingsModal from './CharacterSettingsModal.vue'
+import BiomeTagDisplay from '@/components/ui/biome/BiomeTagDisplay.vue'
 import { LANDSKNECHT_MESTIERE_ID, SWAGGER_ICONS, shieldMaskStyle } from './swaggerConstants'
 import { isBeastTemplate, isBeastInstance } from '@/utils/characterTypeGuards'
 const charactersStore = useCharactersStore()
 const conceptsStore = useConceptsStore()
+const biomeStore = useBiomeStore()
 
 const character = computed(() => charactersStore.selectedCharacter)
 const isBeastCharacter = computed(() =>
@@ -130,6 +141,28 @@ const mestiere = computed(() => {
 })
 
 const isLandsknecht = computed(() => character.value?.mestiereId === LANDSKNECHT_MESTIERE_ID)
+
+// Beast traits: senses + special movement speeds shown above description
+const beastTraits = computed(() => {
+    const char = character.value
+    if (!char) return []
+    const traits = []
+    if (char.hasDarkvision) traits.push('Darkvision')
+    if (char.hasBlindsight) traits.push('Blindsight')
+    if (char.hasTremorsense) traits.push('Tremorsense')
+    if (char.hasTruesight) traits.push('Truesight')
+    if (char.swimSpeed > 0) traits.push(`Swim (${char.swimSpeed} ft)`)
+    if (char.climbSpeed > 0) traits.push(`Climb (${char.climbSpeed} ft)`)
+    if (char.flySpeed > 0) traits.push(`Fly (${char.flySpeed} ft)`)
+    if (char.burrowSpeed > 0) traits.push(`Burrow (${char.burrowSpeed} ft)`)
+    return traits
+})
+
+const hasBeastBiomeTags = computed(() => {
+    const char = character.value
+    if (!char) return false
+    return (char.biomeTagsAugment?.length > 0) || (char.biomeTagsInhibit?.length > 0)
+})
 
 const nameContainerRef = ref(null)
 const nameRef = ref(null)
@@ -344,6 +377,13 @@ onMounted(async () => {
     font-size: var(--font-size-14);
     color: var(--color-text-secondary);
     overflow: hidden;
+    line-height: 1.4;
+}
+
+.beast-traits-text {
+    font-size: var(--font-size-14);
+    font-style: italic;
+    color: var(--color-primary);
     line-height: 1.4;
 }
 

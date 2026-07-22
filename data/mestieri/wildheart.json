@@ -25,15 +25,15 @@
     },
     "martialTrainingNotes": "",
     "engagementDice": [],
-    "engagementDiceNotes": "",
     "engagementSuccesses": [],
+    "engagementDiceNotes": "",
     "engagementSuccessNotes": "",
     "baseMP": 10,
     "baseMpNotes": "",
-    "abilities": "<p><em>Wild Attunement</em> and any combination of other Wildheart abilities - not from a school - with a combined XP cost of no more than 15.</p><p>Also choose one: <em>Way of the Hive, Way of the Green, Way of the Spore, Way of the Tooth.</em></p>",
+    "abilities": "<p><em>Wild Attunement</em> and any combination of other Wildheart abilities - not from a <em>Way</em> - with a combined XP cost of no more than 15.</p><p>Also choose one: <em>Way of the Hive, Way of the Green, Way of the Spore, Way of the Tooth</em>, and one ability from the chosen school costing no more than 5 XP.</p>",
     "gratuiti": ""
   },
-  "lastModified": "2026-07-02T15:45:48.272Z",
+  "lastModified": "2026-07-21T18:09:05.990Z",
   "hooks": [],
   "playlists": []
 }

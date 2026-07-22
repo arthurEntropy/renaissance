@@ -2,7 +2,7 @@
   "id": "c9ddeab9-d180-4fc5-869f-e64239bc3376",
   "isDeleted": false,
   "createdAt": "2026-05-18T17:56:57.471Z",
-  "lastModified": "2026-07-20T17:10:37.753Z",
+  "lastModified": "2026-07-21T14:34:26.934Z",
   "slug": "renaissance-playtest",
   "name": "Renaissance Playtest",
   "description": "<p>This is a test campaign that I'm using to playtest the game and app.</p>",
@@ -96,7 +96,7 @@
   "combatGroups": [
     {
       "id": "group-1783526479296-r4csi9",
-      "name": "Foes",
+      "name": "Spore Bois",
       "combatants": [
         {
           "id": "beast:6a9c30a0-25ce-4dcc-99bd-06d5c226d1c3",
@@ -122,7 +122,7 @@
     },
     {
       "id": "group-1783532553201-zx2h3z",
-      "name": "Our Heroes",
+      "name": "Ragtaggers",
       "combatants": [
         {
           "id": "npc:b4417462-600b-4571-b2ad-a572ad01733f",
@@ -143,6 +143,27 @@
           "id": "npc:dd4ad3a1-0d8b-4e05-8548-ee81bbb61c29",
           "type": "npc",
           "characterId": "dd4ad3a1-0d8b-4e05-8548-ee81bbb61c29"
+        }
+      ]
+    },
+    {
+      "id": "group-1784643249714-pp0y3y",
+      "name": "Jungle Crew",
+      "combatants": [
+        {
+          "id": "npc:cb66fcb1-7ffc-449a-a969-233cae93be32",
+          "type": "npc",
+          "characterId": "cb66fcb1-7ffc-449a-a969-233cae93be32"
+        },
+        {
+          "id": "npc:c4995e1d-ce28-489e-937b-b48872f10b15",
+          "type": "npc",
+          "characterId": "c4995e1d-ce28-489e-937b-b48872f10b15"
+        },
+        {
+          "id": "npc:16b72ab7-e855-420f-93f2-c94bce03f8b1",
+          "type": "npc",
+          "characterId": "16b72ab7-e855-420f-93f2-c94bce03f8b1"
         }
       ]
     }

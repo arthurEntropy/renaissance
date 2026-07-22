@@ -1,8 +1,8 @@
 {
   "id": "276cb26a-76b5-4b9f-8f14-96fc7f80c019",
-  "isDeleted": false,
+  "isDeleted": true,
   "createdAt": "2026-07-09T12:56:02.379Z",
-  "lastModified": "2026-07-20T19:33:02.544Z",
+  "lastModified": "2026-07-21T12:54:29.777Z",
   "characterType": "playerCharacter",
   "name": "Omoo",
   "featuredArtUrls": [
@@ -345,7 +345,7 @@
   "keeping": "5e6f7a8b-9c0d-4e1f-2a3b-4c5d6e7f8a9b",
   "treasure": 6,
   "xp": 3,
-  "updatedAt": "2026-07-20T19:33:02.544Z",
+  "updatedAt": "2026-07-21T12:54:29.777Z",
   "description": "",
   "size": 0,
   "reach": 0,

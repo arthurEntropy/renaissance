@@ -6,14 +6,26 @@
 
         <template #additional-filters>
             <div v-if="isAdmin" class="top-row-actions">
-                <label class="template-toggle">
-                    <input type="checkbox" v-model="templatesOnly" />
-                    <span>Templates Only</span>
-                </label>
-                <label class="template-toggle">
-                    <input type="checkbox" v-model="showTemplates" />
-                    <span>Show Templates</span>
-                </label>
+                <div class="toggle-column">
+                    <label class="template-toggle">
+                        <input type="checkbox" v-model="templatesOnly" />
+                        <span>Templates Only</span>
+                    </label>
+                    <label class="template-toggle">
+                        <input type="checkbox" v-model="showTemplates" />
+                        <span>Show Templates</span>
+                    </label>
+                </div>
+                <div class="toggle-column">
+                    <label class="template-toggle">
+                        <input type="checkbox" v-model="beastEquipmentOnly" />
+                        <span>Beast Equipment Only</span>
+                    </label>
+                    <label class="template-toggle">
+                        <input type="checkbox" v-model="showBeastEquipment" />
+                        <span>Show Beast Equipment</span>
+                    </label>
+                </div>
             </div>
         </template>
 
@@ -54,14 +66,26 @@
             @add="createEquipment">
             <template #additional-filters>
                 <div v-if="isAdmin" class="top-row-actions">
-                    <label class="template-toggle">
-                        <input type="checkbox" v-model="templatesOnly" />
-                        <span>Templates Only</span>
-                    </label>
-                    <label class="template-toggle">
-                        <input type="checkbox" v-model="showTemplates" />
-                        <span>Show Templates</span>
-                    </label>
+                    <div class="toggle-column">
+                        <label class="template-toggle">
+                            <input type="checkbox" v-model="templatesOnly" />
+                            <span>Templates Only</span>
+                        </label>
+                        <label class="template-toggle">
+                            <input type="checkbox" v-model="showTemplates" />
+                            <span>Show Templates</span>
+                        </label>
+                    </div>
+                    <div class="toggle-column">
+                        <label class="template-toggle">
+                            <input type="checkbox" v-model="beastEquipmentOnly" />
+                            <span>Beast Equipment Only</span>
+                        </label>
+                        <label class="template-toggle">
+                            <input type="checkbox" v-model="showBeastEquipment" />
+                            <span>Show Beast Equipment</span>
+                        </label>
+                    </div>
                 </div>
             </template>
         </FilterBar>
@@ -143,6 +167,8 @@ const searchQuery = ref('')
 const equipmentTagFilters = ref([])
 const showTemplates = ref(false)
 const templatesOnly = ref(false)
+const showBeastEquipment = ref(false)
+const beastEquipmentOnly = ref(false)
 const engagementSuccessOptions = computed(() => engagementSuccessesStore.items)
 const isLoadingMore = ref(false)
 const improvementVisibility = ref(new Map())
@@ -292,6 +318,12 @@ const allFilteredEquipment = computed(() => {
         filtered = filtered.filter((item) => !item.isTemplate)
     }
 
+    if (beastEquipmentOnly.value) {
+        filtered = filtered.filter((item) => item.isBeastEquipment)
+    } else if (!showBeastEquipment.value) {
+        filtered = filtered.filter((item) => !item.isBeastEquipment)
+    }
+
     if (sourceIds.length > 0) {
         filtered = filtered.filter((item) => sourceIds.includes(item.source))
     }
@@ -397,6 +429,8 @@ useFilterPersistence('equipment', {
     equipmentTagFilters,
     showTemplates,
     templatesOnly,
+    showBeastEquipment,
+    beastEquipmentOnly,
 })
 
 // Improvement visibility methods
@@ -505,7 +539,7 @@ const refreshData = async () => {
 }
 
 // Watchers
-watch([searchQuery, equipmentTagFilters, sortOption, showTemplates, templatesOnly, groupByOption], () => {
+watch([searchQuery, equipmentTagFilters, sortOption, showTemplates, templatesOnly, showBeastEquipment, beastEquipmentOnly, groupByOption], () => {
     reset()
 })
 
@@ -546,6 +580,14 @@ const layoutProps = computed(() => ({
 
 .top-row-actions {
     margin-left: auto;
+    display: flex;
+    gap: var(--space-lg);
+}
+
+.toggle-column {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
 }
 
 .template-toggle {

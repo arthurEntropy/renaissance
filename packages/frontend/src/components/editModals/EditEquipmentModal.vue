@@ -6,6 +6,10 @@
 
       <!-- Flags: Custom, Template, Magic -->
       <div class="form-group centered">
+        <label for="isBeastEquipment">
+          <input type="checkbox" id="isBeastEquipment" v-model="editedEquipment.isBeastEquipment" />
+          Beast Equip.
+        </label>
         <label for="isMagical">
           <input type="checkbox" id="isMagical" v-model="editedEquipment.isMagical" />
           Magic
@@ -19,7 +23,7 @@
           Template
         </label>
         <label for="hasDifficulty">
-          <input type="checkbox" id="hasDifficulty" v-model="editedEquipment.hasDifficulty" />
+          <input type="checkbox" id="hasD ifficulty" v-model="editedEquipment.hasDifficulty" />
           Has Difficulty
         </label>
       </div>
@@ -285,6 +289,11 @@ const emit = defineEmits(['update', 'delete', 'close'])
 
 // Use edit modal form composable
 const { editedData: editedEquipment, save: baseSave, deleteItem, handleOverlayClick } = useEditModalForm(props, emit)
+
+// Ensure engagementSuccesses is always an array (older data may be missing this field)
+if (!Array.isArray(editedEquipment.value.engagementSuccesses)) {
+  editedEquipment.value.engagementSuccesses = []
+}
 
 // Stores
 const equipmentTypesStore = useEquipmentTypesStore()

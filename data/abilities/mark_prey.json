@@ -1,0 +1,15 @@
+{
+  "source": "937d52da-0ebf-4d74-b3ee-be395f2f5d0a",
+  "id": "a4ffcda4-40ad-42ba-9bc1-917568989cd9",
+  "createdAt": "2026-07-21T18:17:00.430Z",
+  "lastModified": "2026-07-21T18:33:48.959Z",
+  "biomeTagsAugment": [],
+  "biomeTagsInhibit": [],
+  "name": "Mark Prey",
+  "canBeActive": true,
+  "actionCost": "40656418-af01-43ae-8a60-a1bd0124efb4",
+  "xpCost": 5,
+  "school": "0be89610-8361-4d2e-ab5c-da6e6722458e",
+  "description": "<p>Once per rest: You mark a creature you can see as your prey. For the next hour:</p><ul><li><p>Your first attack roll against it each round is favored.</p></li><li><p>You don’t provoke opportunity attacks from it.</p></li><li><p>Any Awareness rolls you make to find it are favored.</p></li></ul><p><strong>Describe how you pursue your prey.</strong></p>",
+  "artUrl": "https://cdn.midjourney.com/db3712b0-8de8-4756-868e-18f1a3cd31d1/0_3.png"
+}

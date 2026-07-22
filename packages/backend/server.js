@@ -225,7 +225,8 @@ entities.forEach((entity) => {
     entity === 'ancestries' ||
     entity === 'cultures' ||
     entity === 'mestieri' ||
-    entity === 'worldElements'
+    entity === 'worldElements' ||
+    entity === 'beastItemThemes'
   ) {
     return
   }

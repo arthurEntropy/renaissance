@@ -6,9 +6,15 @@
         :height-feet="character.heightFeet || 0" :height-inches="character.heightInches || 0"
         :weight="character.weight || 0" />
       <div v-else class="beast-physical-stats">
+        <span v-if="beastTypeNames.length" class="beast-physical-stat">
+          <span class="beast-physical-stat-label">Type: </span>
+          <!-- Comma-separated list of beast types -->
+          <span v-for="(typeName, index) in beastTypeNames" :key="typeName" class="beast-physical-stat-value">{{
+            typeName }}<span v-if="index < beastTypeNames.length - 1">, </span></span>
+        </span>
         <span class="beast-physical-stat">
           <span class="beast-physical-stat-label">Size: </span>
-          <span class="beast-physical-stat-value">{{ character.size || 0 }}</span>
+          <span class="beast-physical-stat-value">{{ formatBeastSize(character.size) }}</span>
         </span>
         <span class="beast-physical-stat">
           <span class="beast-physical-stat-label">Reach: </span>
@@ -65,6 +71,7 @@ import NumberInput from '@/components/ui/forms/NumberInput.vue'
 import { NUMBER_INPUT_SIZES } from '@/constants/numberInput'
 import { useCharactersStore } from '@/stores/charactersStore'
 import { useKeepingStore } from '@/stores/keepingStore'
+import { useBeastTypesStore } from '@/stores/beastTypesStore'
 import { KEEPING_COLORS } from '@/constants/keepingConstants'
 import { isBeastTemplate, isBeastInstance } from '@/utils/characterTypeGuards'
 import { useOptimizedImage } from '@/composables/useOptimizedImage'
@@ -86,8 +93,21 @@ const props = defineProps({
 defineEmits(['close-sheet'])
 
 const charactersStore = useCharactersStore()
+const keepingStore = useKeepingStore()
+const beastTypesStore = useBeastTypesStore()
 
 const character = computed(() => props.characterOverride ?? charactersStore.selectedCharacter ?? { characterType: 'playerCharacter' })
+
+const beastTypeNames = computed(() => {
+  const ids = character.value?.beastTypeIds || []
+  return ids.map(id => beastTypesStore.getById(id)?.name).filter(Boolean)
+})
+
+function formatBeastSize(size) {
+  if (size === 0.25) return '¼'
+  if (size === 0.5) return '½'
+  return String(size ?? 0)
+}
 const isBeastCharacter = computed(() =>
   isBeastTemplate(character.value) || isBeastInstance(character.value)
 )
@@ -95,7 +115,6 @@ const canEdit = computed(() => {
   if (props.forceReadonly || props.characterOverride) return false
   return charactersStore.canEditSelectedCharacter
 })
-const keepingStore = useKeepingStore()
 
 const keepingImageUrl = computed(() => {
   if (!character.value?.keeping) return ''
@@ -251,11 +270,32 @@ const keepingBadgeStyle = computed(() => {
 .beast-physical-stats {
   display: flex;
   justify-content: center;
+  align-items: center;
   gap: var(--space-sm);
   font-size: var(--font-size-10);
   font-style: italic;
   color: var(--color-gray-light);
   line-height: var(--line-height-none);
+}
+
+.beast-types-list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1px;
+}
+
+.beast-type-name {
+  color: var(--color-text-secondary);
+  font-style: italic;
+  font-size: var(--font-size-10);
+  white-space: nowrap;
+}
+
+.beast-size-reach {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
 }
 
 .beast-physical-stat-label {

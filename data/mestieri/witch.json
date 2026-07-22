@@ -25,15 +25,15 @@
     },
     "martialTrainingNotes": "",
     "engagementDice": [],
-    "engagementDiceNotes": "",
     "engagementSuccesses": [],
+    "engagementDiceNotes": "",
     "engagementSuccessNotes": "",
     "baseMP": 10,
     "baseMpNotes": "",
-    "abilities": "<p><em>Retributive Curses, Witch's Familiar, Witchcraft Tokens, Spare the Dying.</em> Also choose any number of additional Witch abilities with a combined XP cost of no more than 15.</p>",
+    "abilities": "<p><em>Retributive Curses, Witch's Familiar, Witchcraft Tokens, </em>and choose any number of additional Witch abilities with a combined XP cost of no more than 15.</p>",
     "gratuiti": ""
   },
-  "lastModified": "2026-04-15T18:54:51.830Z",
+  "lastModified": "2026-07-21T18:53:42.924Z",
   "hooks": [],
   "playlists": []
 }

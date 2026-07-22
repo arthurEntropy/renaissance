@@ -70,6 +70,24 @@
             </template>
         </AdminListManager>
 
+        <AdminListManager title="Beast Types" item-name="Beast Type" :store="beastTypesStore"
+            :default-item="{ name: '', description: '', artUrl: '', index: 0 }">
+            <template #fields="{ item, update }">
+                <div class="beast-type-admin-fields">
+                    <div class="beast-type-top-row">
+                        <input v-model="item.name" @blur="update" class="field-input" placeholder="Type Name" />
+                        <input v-model="item.description" @blur="update" class="field-input flex-1"
+                            placeholder="Description" />
+                    </div>
+                    <div class="biome-art-row">
+                        <input v-model="item.artUrl" @blur="update" class="url-input" placeholder="Art URL" />
+                        <img v-if="item.artUrl" :src="item.artUrl" class="biome-art-preview"
+                            alt="Beast type art preview" />
+                    </div>
+                </div>
+            </template>
+        </AdminListManager>
+
         <AdminListManager title="Biomes" item-name="Biome" :store="biomesStore"
             :default-item="{ name: '', description: '', artUrl: '', tags: [], index: 0 }">
             <template #fields="{ item, update }">
@@ -131,6 +149,21 @@
             </template>
         </AdminListManager>
 
+        <AdminListManager title="Beast Item Themes" item-name="Beast Item Theme" :store="beastItemThemesStore"
+            :default-item="{ name: '', cardBackgroundImage: '', index: 0 }">
+            <template #fields="{ item, update }">
+                <div class="biome-admin-fields">
+                    <input v-model="item.name" @blur="update" class="field-input" placeholder="Name" />
+                    <div class="biome-art-row">
+                        <input v-model="item.cardBackgroundImage" @blur="update" class="url-input"
+                            placeholder="Card Background Image URL" />
+                        <img v-if="item.cardBackgroundImage" :src="item.cardBackgroundImage" class="biome-art-preview"
+                            alt="Card background preview" />
+                    </div>
+                </div>
+            </template>
+        </AdminListManager>
+
         <AdminReportingPanel />
     </div>
 </template>
@@ -148,6 +181,8 @@ import { useEquipmentGradesStore } from '@/stores/equipmentGradesStore'
 import { useEquipmentRangesStore } from '@/stores/equipmentRangesStore'
 import { useEngagementSuccessesStore } from '@/stores/engagementSuccessesStore'
 import { useBiomesStore } from '@/stores/biomesStore'
+import { useBeastTypesStore } from '@/stores/beastTypesStore'
+import { useBeastItemThemesStore } from '@/stores/beastItemThemesStore'
 import { useAbilitySchoolsStore } from '@/stores/abilitySchoolsStore'
 import { useConceptsStore } from '@/stores/conceptsStore'
 import { useKeepingStore } from '@/stores/keepingStore'
@@ -162,6 +197,8 @@ const equipmentGradesStore = useEquipmentGradesStore()
 const equipmentRangesStore = useEquipmentRangesStore()
 const engagementSuccessesStore = useEngagementSuccessesStore()
 const biomesStore = useBiomesStore()
+const beastTypesStore = useBeastTypesStore()
+const beastItemThemesStore = useBeastItemThemesStore()
 const abilitySchoolsStore = useAbilitySchoolsStore()
 const conceptsStore = useConceptsStore()
 const keepingStore = useKeepingStore()
@@ -300,5 +337,19 @@ const mestriereGroupStore = computed(() => ({
     border-radius: var(--radius-5);
     border: 1px solid var(--color-gray-medium);
     flex-shrink: 0;
+}
+
+.beast-type-admin-fields {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    flex: 1;
+    min-width: 0;
+}
+
+.beast-type-top-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
 }
 </style>

@@ -1,20 +1,20 @@
 {
   "id": "d4c43cb4-a4d4-4f27-ae4a-6334bb84ea46",
   "isDeleted": false,
-  "lastModified": "2026-07-13T01:28:06.396Z",
+  "lastModified": "2026-07-21T17:54:10.517Z",
   "name": "Close Ranks",
   "artUrl": "https://cdn.midjourney.com/f3626633-06df-4300-b720-341aae5dce08/0_2.png",
-  "description": "<p>While you and at least one ally are adjacent to one another, you and all contiguous, adjacent allies gain +2 Defense.</p><p>Once per round, as a free action, you may spend 1 MP to give one of those allies +1d on a single melee attack roll.</p><p><strong>Describe how you form up.</strong></p>",
+  "description": "<p>While you and at least one ally are adjacent to one another, you and all adjacent allies gain +5 Defense.</p><p>Once per round, you may spend a half action or 1 MP to give an adjacent ally +1d on their next attack roll.</p><p><strong>Describe how you form up.</strong></p>",
   "improvements": [
     {
       "name": "Shield Wall",
-      "description": "<p>If you and each of your contiguous adjacent allies are all wielding shields, each of you automatically wins any engagements you enter as defenders.</p>",
+      "description": "<p>While you and at least one ally are adjacent to one another and each of you is wielding a shield, you and each adjacent ally automatically win engagement.</p>",
       "xpCost": 5,
       "id": "5a5f4617-1dfe-591f-bbe9-b77b8de3ee4f"
     },
     {
       "name": "Hold The Line",
-      "description": "<p>When you or any of your adjacent allies are attacked, all of you may contribute engagement dice to the engagement.</p>",
+      "description": "<p>While you and at least one ally are adjacent to one another, you and all adjacent allies may contribute engagement dice to each other's engagement rolls.</p>",
       "xpCost": 10,
       "id": "8e1a010d-deb5-5e63-8441-7730b5583299"
     }

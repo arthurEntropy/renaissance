@@ -1,0 +1,368 @@
+{
+  "id": "c4995e1d-ce28-489e-937b-b48872f10b15",
+  "isDeleted": false,
+  "createdAt": "2026-07-21T13:24:01.786Z",
+  "lastModified": "2026-07-21T14:58:22.615Z",
+  "characterType": "npc",
+  "name": "Futt",
+  "featuredArtUrls": [
+    "https://cdn.midjourney.com/e216b4eb-7477-4c60-a113-ddf66def313d/0_2.png"
+  ],
+  "speed": 25,
+  "notes": "",
+  "body": 2,
+  "heart": 3,
+  "wits": 2,
+  "skills": [
+    {
+      "key": "awe",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "strength",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "dexterity",
+      "ranks": 2,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "fortitude",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "craft",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "perform",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "insight",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "courtesy",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "spirit",
+      "ranks": 3,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "aid",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "persuade",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "awareness",
+      "ranks": 1,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "stealth",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "lore",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "riddle",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    }
+  ],
+  "endurance": {
+    "current": 4,
+    "base": 10
+  },
+  "hope": {
+    "current": 6,
+    "base": 6
+  },
+  "defense": {
+    "current": 3,
+    "base": 3
+  },
+  "load": 0,
+  "shadow": 0,
+  "injury": 0,
+  "states": {
+    "weary": false,
+    "twiceWeary": false,
+    "miserable": false,
+    "twiceMiserable": false,
+    "helpless": false,
+    "twiceHelpless": false
+  },
+  "conditions": {
+    "insecure": false,
+    "guilty": false,
+    "angry": false,
+    "afraid": false,
+    "troubled": false
+  },
+  "engagementDice": [],
+  "engagementSuccesses": [],
+  "engagementDiceStatuses": {},
+  "equipment": [
+    {
+      "id": "4e4d30f4-3477-4ebc-88fd-cd2c7e57b2b6",
+      "quantity": 1,
+      "isCarried": true,
+      "isWielding": false
+    },
+    {
+      "id": "12440c5a-2b7d-4481-98ac-6f7c5caaa3bc",
+      "quantity": 1,
+      "isCarried": true,
+      "isWielding": false
+    },
+    {
+      "id": "f8cbac6e-f93c-4254-ad37-3fcb151fb4e0",
+      "quantity": 1,
+      "isCarried": true,
+      "isWielding": true
+    }
+  ],
+  "groupEquipmentBySource": false,
+  "groupEquipmentByCustom": false,
+  "equipmentSortOption": "name-asc",
+  "equipmentCustomGroups": [],
+  "mp": {
+    "current": 7,
+    "base": 10
+  },
+  "abilities": [
+    {
+      "id": "260b0a4b-fcf8-43ae-ae53-92f5c2efbdb6",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false,
+      "columnIndex": 0
+    },
+    {
+      "id": "5ea47cda-b70e-4530-af7e-8a4f2e0f2fb3",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false,
+      "columnIndex": 0
+    },
+    {
+      "id": "855f6379-52b6-4fd5-8c10-ee2b00225893",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false,
+      "columnIndex": 0
+    },
+    {
+      "id": "6da4d70f-eb14-48d3-b8ed-c53f39f268a5",
+      "collapsed": false,
+      "showImprovements": false,
+      "showSuccesses": true,
+      "isActive": false,
+      "columnIndex": 0
+    },
+    {
+      "id": "f906a23e-b95d-421a-b4ed-b094c3086497",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false,
+      "columnIndex": 1
+    },
+    {
+      "id": "c5ccc124-c1c0-4a4a-a01f-42243b86759a",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false,
+      "columnIndex": 1
+    },
+    {
+      "id": "a52f7c3a-4275-4043-b716-3bd4ff896e0f",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false,
+      "columnIndex": 1
+    },
+    {
+      "id": "dbd3d35e-5846-49f5-94db-030d8515fdf0",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false,
+      "columnIndex": 2
+    },
+    {
+      "id": "05f788f2-cf7a-4bf0-a65c-e41bbe0f5ea3",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false,
+      "columnIndex": 2
+    }
+  ],
+  "groupAbilitiesBySource": false,
+  "groupAbilitiesByManaColor": false,
+  "groupAbilitiesByCustom": false,
+  "abilitySortOption": "",
+  "abilityCustomGroups": [],
+  "autoCalculations": {
+    "load": true,
+    "states": true,
+    "baseEndurance": false,
+    "baseHope": true,
+    "baseDefense": true
+  },
+  "rollStats": {
+    "skillChecks": {
+      "attempts": 1,
+      "successes": 0,
+      "totalSum": 7,
+      "bestTotal": 7,
+      "hardestSuccess": null,
+      "bySkill": {
+        "Fortitude": 1
+      },
+      "solCount": 0,
+      "morteCount": 0,
+      "successCount": 0
+    },
+    "contests": {
+      "engagement": {
+        "wins": 0,
+        "losses": 0,
+        "draws": 0
+      },
+      "contest": {
+        "wins": 3,
+        "losses": 0,
+        "draws": 0
+      }
+    },
+    "xpEarned": 2,
+    "xpSpent": 5,
+    "treasureEarned": 9,
+    "treasureSpent": 49
+  },
+  "biomeTags": [
+    "forest",
+    "wetland",
+    "water",
+    "hot"
+  ],
+  "biomeId": "b3d789b0-cf4d-46d4-a571-5ed79d357d62",
+  "nimbleStep": 0,
+  "swagger": 0,
+  "swaggerIconIndex": 0,
+  "swaggerColor": "#ffffff",
+  "manaPool": {
+    "white": [],
+    "blue": [],
+    "black": [],
+    "red": [],
+    "green": [],
+    "colorless": []
+  },
+  "witchcraftTokens": [],
+  "summonerVessels": [],
+  "hunterTraps": [],
+  "campaignId": "c9ddeab9-d180-4fc5-869f-e64239bc3376",
+  "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
+  "isPublicPreview": false,
+  "sectionOrder": [
+    "abilities",
+    "engagement",
+    "equipment",
+    "biome"
+  ],
+  "martialTrainingOverrides": {},
+  "pronouns": "he/him",
+  "ancestryIds": [
+    "6ff91bc4-122f-4e95-bb08-b577f1a94bb6"
+  ],
+  "cultureIds": [
+    "c02c53d1-b456-45d0-a048-6fc941cacc03"
+  ],
+  "mestiereId": "937d52da-0ebf-4d74-b3ee-be395f2f5d0a",
+  "age": 53,
+  "heightFeet": 3,
+  "heightInches": 8,
+  "weight": 90,
+  "keeping": "2b3c4d5e-6f7a-4b8c-9d0e-1f2a3b4c5d6e",
+  "treasure": 2,
+  "xp": 2,
+  "updatedAt": "2026-07-21T14:58:22.615Z",
+  "description": "",
+  "size": 0,
+  "reach": 0,
+  "featuredArtUrl": "https://cdn.midjourney.com/e216b4eb-7477-4c60-a113-ddf66def313d/0_2.png"
+}

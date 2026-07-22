@@ -146,6 +146,89 @@
 
             <!-- Beast Fields -->
             <template v-else>
+                <!-- Beast Types -->
+                <div class="form-group vertical">
+                    <label class="left-aligned">Beast Types:</label>
+                    <div class="beast-flags">
+                        <label v-for="beastType in beastTypesStore.items" :key="beastType.id"
+                            :for="'beast-type-' + beastType.id" class="property-checkbox">
+                            <input type="checkbox" :id="'beast-type-' + beastType.id" :value="beastType.id"
+                                v-model="formData.beastTypeIds" />
+                            {{ beastType.name }}
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Size & Reach -->
+                <div class="form-group beast-number-row">
+                    <div class="beast-number-field">
+                        <label for="size" class="left-aligned">Size:</label>
+                        <select id="size" v-model="formData.size" class="modal-input beast-size-select">
+                            <option :value="0">0</option>
+                            <option :value="0.25">¼</option>
+                            <option :value="0.5">½</option>
+                            <option :value="1">1</option>
+                            <option :value="2">2</option>
+                            <option :value="3">3</option>
+                            <option :value="4">4</option>
+                            <option :value="5">5</option>
+                            <option :value="6">6</option>
+                            <option :value="7">7</option>
+                            <option :value="8">8</option>
+                            <option :value="9">9</option>
+                            <option :value="10">10</option>
+                        </select>
+                    </div>
+                    <div class="beast-number-field">
+                        <label for="reach" class="left-aligned">Reach:</label>
+                        <input id="reach" type="number" min="0" v-model.number="formData.reach"
+                            class="modal-input beast-number-input" placeholder="0" />
+                    </div>
+                    <div class="beast-number-field">
+                        <label for="burrowSpeed" class="left-aligned">Burrow:</label>
+                        <input id="burrowSpeed" type="number" min="0" step="5" v-model.number="formData.burrowSpeed"
+                            class="modal-input beast-number-input" placeholder="0" />
+                    </div>
+                    <div class="beast-number-field">
+                        <label for="climbSpeed" class="left-aligned">Climb:</label>
+                        <input id="climbSpeed" type="number" min="0" step="5" v-model.number="formData.climbSpeed"
+                            class="modal-input beast-number-input" placeholder="0" />
+                    </div>
+                    <div class="beast-number-field">
+                        <label for="flySpeed" class="left-aligned">Fly:</label>
+                        <input id="flySpeed" type="number" min="0" step="5" v-model.number="formData.flySpeed"
+                            class="modal-input beast-number-input" placeholder="0" />
+                    </div>
+                    <div class="beast-number-field">
+                        <label for="swimSpeed" class="left-aligned">Swim:</label>
+                        <input id="swimSpeed" type="number" min="0" step="5" v-model.number="formData.swimSpeed"
+                            class="modal-input beast-number-input" placeholder="0" />
+                    </div>
+                </div>
+
+                <!-- Senses -->
+                <div class="form-group vertical">
+                    <label class="left-aligned">Senses:</label>
+                    <div class="beast-flags">
+                        <label for="hasDarkvision" class="property-checkbox">
+                            <input type="checkbox" id="hasDarkvision" v-model="formData.hasDarkvision" />
+                            Darkvision
+                        </label>
+                        <label for="hasBlindsight" class="property-checkbox">
+                            <input type="checkbox" id="hasBlindsight" v-model="formData.hasBlindsight" />
+                            Blindsight
+                        </label>
+                        <label for="hasTremorsense" class="property-checkbox">
+                            <input type="checkbox" id="hasTremorsense" v-model="formData.hasTremorsense" />
+                            Tremorsense
+                        </label>
+                        <label for="hasTruesight" class="property-checkbox">
+                            <input type="checkbox" id="hasTruesight" v-model="formData.hasTruesight" />
+                            Truesight
+                        </label>
+                    </div>
+                </div>
+
                 <!-- Description -->
                 <div class="form-column">
                     <label for="description" class="left-aligned">Description:</label>
@@ -153,19 +236,15 @@
                         placeholder="Describe the beast..." />
                 </div>
 
-                <!-- Size & Reach -->
-                <div class="form-group beast-number-row">
-                    <div class="beast-number-field">
-                        <label for="size" class="left-aligned">Size:</label>
-                        <input id="size" type="number" min="0" v-model.number="formData.size"
-                            class="modal-input beast-number-input" placeholder="0" />
-                    </div>
-                    <div class="beast-number-field">
-                        <label for="reach" class="left-aligned">Reach (ft):</label>
-                        <input id="reach" type="number" min="0" v-model.number="formData.reach"
-                            class="modal-input beast-number-input" placeholder="0" />
-                    </div>
+                <!-- Biome Tags -->
+                <div class="form-group vertical">
+                    <label class="left-aligned">Biome Tags:</label>
+                    <BiomeTagsCyclePicker :augment-tags="formData.biomeTagsAugment"
+                        :inhibit-tags="formData.biomeTagsInhibit"
+                        @update:augment-tags="formData.biomeTagsAugment = $event"
+                        @update:inhibit-tags="formData.biomeTagsInhibit = $event" />
                 </div>
+
             </template>
 
         </form>
@@ -186,14 +265,16 @@
 import { ref, computed, onMounted } from 'vue'
 import { useCharactersStore } from '@/stores/charactersStore'
 import { useConceptsStore } from '@/stores/conceptsStore'
-import { createEmptyRollStats } from '@/services/rolls/rollStatsService'
+import { useBeastTypesStore } from '@/stores/beastTypesStore'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import BaseModal from '@/components/ui/modals/BaseModal.vue'
 import GeneticsWizardModal from './GeneticsWizardModal.vue'
+import BiomeTagsCyclePicker from '@/components/ui/biome/BiomeTagsCyclePicker.vue'
 import { isBeastTemplate, isBeastInstance } from '@/utils/characterTypeGuards'
 
 const charactersStore = useCharactersStore()
 const conceptsStore = useConceptsStore()
+const beastTypesStore = useBeastTypesStore()
 const emit = defineEmits(['close'])
 
 const character = charactersStore.selectedCharacter
@@ -227,6 +308,17 @@ const formData = ref({
     size: 0,
     reach: 0,
     featuredArtUrl: '',
+    hasDarkvision: false,
+    hasBlindsight: false,
+    hasTremorsense: false,
+    hasTruesight: false,
+    burrowSpeed: 0,
+    climbSpeed: 0,
+    flySpeed: 0,
+    swimSpeed: 0,
+    biomeTagsAugment: [],
+    biomeTagsInhibit: [],
+    beastTypeIds: [],
 })
 
 // Shift-aware change handlers for the first ancestry/culture slots.
@@ -269,11 +361,26 @@ onMounted(() => {
         heightInches: character.heightInches || 0,
         weight: character.weight || 0,
         description: character.description || '',
-        size: character.size || 0,
+        size: character.size ?? 0,
         reach: character.reach || 0,
         featuredArtUrl: character.featuredArtUrls?.[0] || '',
+        hasDarkvision: character.hasDarkvision || false,
+        hasBlindsight: character.hasBlindsight || false,
+        hasTremorsense: character.hasTremorsense || false,
+        hasTruesight: character.hasTruesight || false,
+        burrowSpeed: character.burrowSpeed || 0,
+        climbSpeed: character.climbSpeed || 0,
+        flySpeed: character.flySpeed || 0,
+        swimSpeed: character.swimSpeed || 0,
+        biomeTagsAugment: [...(character.biomeTagsAugment || [])],
+        biomeTagsInhibit: [...(character.biomeTagsInhibit || [])],
+        beastTypeIds: [...(character.beastTypeIds || [])],
     }
     initialFormDataSnapshot.value = JSON.stringify(formData.value)
+
+    if (beastTypesStore.items.length === 0) {
+        beastTypesStore.fetch()
+    }
 })
 
 const closeModal = () => {
@@ -297,6 +404,17 @@ const saveChanges = () => {
             description: formData.value.description,
             size: formData.value.size,
             reach: formData.value.reach,
+            hasDarkvision: formData.value.hasDarkvision,
+            hasBlindsight: formData.value.hasBlindsight,
+            hasTremorsense: formData.value.hasTremorsense,
+            hasTruesight: formData.value.hasTruesight,
+            burrowSpeed: formData.value.burrowSpeed,
+            climbSpeed: formData.value.climbSpeed,
+            flySpeed: formData.value.flySpeed,
+            swimSpeed: formData.value.swimSpeed,
+            biomeTagsAugment: formData.value.biomeTagsAugment,
+            biomeTagsInhibit: formData.value.biomeTagsInhibit,
+            beastTypeIds: formData.value.beastTypeIds,
         })
         if (!char.featuredArtUrls) char.featuredArtUrls = []
         char.featuredArtUrls[0] = formData.value.featuredArtUrl
@@ -316,15 +434,6 @@ const saveChanges = () => {
         char.featuredArtUrls[0] = formData.value.featuredArtUrl
     }
     closeModal()
-}
-
-const resetStats = () => {
-    const shouldReset = confirm('Reset all tracked character stats?')
-    if (!shouldReset) return
-
-    const char = charactersStore.selectedCharacter
-    if (!char) return
-    char.rollStats = createEmptyRollStats()
 }
 
 const hasSelectedAncestry = computed(() =>
@@ -505,16 +614,39 @@ const randomizeVitals = () => {
     display: flex;
     gap: var(--space-md);
     align-items: flex-end;
+    justify-content: flex-start;
+    flex-wrap: wrap;
 }
 
 .beast-number-field {
     display: flex;
     flex-direction: column;
     gap: var(--space-xs);
+    width: 75px;
 }
 
 .beast-number-input {
     width: 80px;
+}
+
+.beast-size-select {
+    width: 80px;
+}
+
+.beast-flags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+    margin-top: var(--space-xs);
+}
+
+.property-checkbox {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    font-size: var(--font-size-14);
+    color: var(--color-text-primary);
+    cursor: pointer;
 }
 
 /* Settings Section Styles */

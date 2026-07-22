@@ -130,16 +130,25 @@ const armorTrainedGrades = computed(() => {
 
 const armorDefenseBonus = computed(() => {
   if (!character.value?.equipment || !allEquipment.value) return 0
+
   const trainedGrades = armorTrainedGrades.value
+  const isBeast = character.value.characterType === "beast"
+
   return character.value.equipment
     .filter(entry => entry.isWielding)
     .reduce((sum, entry) => {
       const eq = allEquipment.value.find(e => e.id === entry.id)
-      if (eq?.type === ARMOR_TYPE_ID && eq?.defenseBonus > 0) {
-        const isTrained = trainedGrades.includes(eq.grade)
-        const bonus = isTrained ? eq.defenseBonus : Math.floor(eq.defenseBonus / 2)
+
+      if (eq?.type === ARMOR_TYPE_ID && eq.defenseBonus > 0) {
+        const bonus = isBeast
+          ? eq.defenseBonus
+          : trainedGrades.includes(eq.grade)
+            ? eq.defenseBonus
+            : Math.floor(eq.defenseBonus / 2)
+
         return sum + bonus
       }
+
       return sum
     }, 0)
 })

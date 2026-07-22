@@ -19,6 +19,7 @@ import { createBaseEntity } from './baseEntity.js'
  * @property {boolean} isCustom - Whether this is custom/user-created equipment
  * @property {boolean} isTemplate - Whether this is a template for creating new equipment
  * @property {boolean} isMagical - Whether this equipment is magical
+ * @property {boolean} isBeastEquipment - Whether this equipment is beast-specific (used to populate beast character sheets)
  * @property {boolean} hasDifficulty - Whether this equipment sets a Difficulty that should be tracked per-character
  *
  * Categories
@@ -67,6 +68,7 @@ export function createDefaultEquipment() {
     isCustom: false,
     isTemplate: false,
     isMagical: false,
+    isBeastEquipment: false,
     hasDifficulty: false,
     
     // Categories

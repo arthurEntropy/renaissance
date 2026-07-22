@@ -2,7 +2,7 @@
   "id": "731421e9-f9cb-41c1-b902-76993e0bef6f",
   "isDeleted": false,
   "createdAt": "2026-05-18T19:00:51.372Z",
-  "lastModified": "2026-07-08T12:42:23.420Z",
+  "lastModified": "2026-07-22T02:15:37.366Z",
   "characterType": "beast",
   "name": "Mycoderm",
   "featuredArtUrls": [
@@ -10,7 +10,7 @@
   ],
   "speed": 30,
   "notes": "",
-  "body": 7,
+  "body": 6,
   "heart": 3,
   "wits": 2,
   "skills": [
@@ -32,7 +32,7 @@
     },
     {
       "key": "dexterity",
-      "ranks": 1,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -136,16 +136,16 @@
     }
   ],
   "endurance": {
-    "current": 35,
-    "base": 35
+    "current": 30,
+    "base": 30
   },
   "hope": {
     "current": 6,
     "base": 6
   },
   "defense": {
-    "current": 13,
-    "base": 13
+    "current": 7,
+    "base": 12
   },
   "load": 0,
   "shadow": 0,
@@ -168,7 +168,22 @@
   "engagementDice": [],
   "engagementSuccesses": [],
   "engagementDiceStatuses": {},
-  "equipment": [],
+  "equipment": [
+    {
+      "id": "db418790-1337-43d4-8d92-53a29b16a240",
+      "quantity": 1,
+      "isCarried": true,
+      "isWielding": true,
+      "collapsed": false
+    },
+    {
+      "id": "4d9fd1b5-b468-431c-961f-82a84c91de39",
+      "quantity": 1,
+      "isCarried": true,
+      "isWielding": true,
+      "collapsed": false
+    }
+  ],
   "groupEquipmentBySource": false,
   "groupEquipmentByCustom": false,
   "equipmentSortOption": "name-asc",
@@ -188,7 +203,7 @@
     "states": true,
     "baseEndurance": true,
     "baseHope": true,
-    "baseDefense": false
+    "baseDefense": true
   },
   "rollStats": {
     "skillChecks": {
@@ -252,8 +267,29 @@
   "description": "",
   "size": 3,
   "reach": 5,
-  "updatedAt": "2026-07-08T12:42:23.420Z",
-  "challenge": 12,
+  "updatedAt": "2026-07-22T02:15:37.366Z",
+  "challenge": 11,
   "sectionOrder": [],
-  "martialTrainingOverrides": {}
+  "martialTrainingOverrides": {},
+  "hasDarkvision": true,
+  "hasBlindsight": false,
+  "hasTremorsense": false,
+  "hasTruesight": false,
+  "burrowSpeed": 0,
+  "climbSpeed": 0,
+  "flySpeed": 0,
+  "swimSpeed": 0,
+  "biomeTagsAugment": [
+    "forest",
+    "wetland",
+    "underground"
+  ],
+  "biomeTagsInhibit": [
+    "civilized",
+    "cold"
+  ],
+  "beastTypeIds": [
+    "b7e57001-0000-4000-a000-000000000002",
+    "b7e57001-0000-4000-a000-00000000000d"
+  ]
 }

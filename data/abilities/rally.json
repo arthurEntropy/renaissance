@@ -1,10 +1,10 @@
 {
   "id": "324647ca-8a6f-4e3c-8c44-a7bdb8fb837f",
   "isDeleted": false,
-  "lastModified": "2026-07-15T20:05:50.666Z",
+  "lastModified": "2026-07-21T17:42:20.169Z",
   "name": "Rally",
   "artUrl": "https://cdn.midjourney.com/d292ae2f-7bdc-4a50-adb7-cebf3ff56804/0_3.png",
-  "description": "<p>Once per rest: If your current Endurance is less than half of your base Endurance, regain Endurance equal to your BODY score.</p><p><strong>Describe how you find a reserve of strength.</strong></p>",
+  "description": "<p>Once per rest: If your current Endurance is less than half of your base Endurance, regain Endurance equal to twice your BODY score.</p><p><strong>Describe how you find a reserve of strength.</strong></p>",
   "improvements": [
     {
       "id": "7a4b8c9d-e2f1-4567-8901-234567890abc",
@@ -21,7 +21,7 @@
     {
       "id": "8b5c9d0e-f3f2-5678-9012-34567890abcd",
       "name": "Iron Heart",
-      "description": "<p>Whenever you spend MP on this ability to regain Endurance, you instead regain twice your BODY score.</p>",
+      "description": "<p>Whenever you spend MP on this ability to regain Endurance, you instead regain three times your BODY score.</p>",
       "xpCost": 10
     }
   ],
