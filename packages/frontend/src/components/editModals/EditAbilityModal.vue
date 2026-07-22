@@ -150,6 +150,8 @@ import BiomeTagsCyclePicker from '@/components/ui/biome/BiomeTagsCyclePicker.vue
 import { useEditModalForm } from '@/composables/useEditModalForm'
 import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 import { computed, watch, onBeforeUnmount } from 'vue'
+
+defineOptions({ inheritAttrs: false })
 import { useSourcesStore } from '@/stores/sourcesStore'
 import { useAbilitySchoolsStore } from '@/stores/abilitySchoolsStore'
 

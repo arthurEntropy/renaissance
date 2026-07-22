@@ -11,10 +11,8 @@
 
     <!-- Filled badge -->
     <div v-else class="familiar-badge edit-hover-area" @click="$emit('open')">
-        <!-- Top-right controls: edit, delete -->
+        <!-- Top-right controls: delete only -->
         <div class="familiar-badge__controls">
-            <FloatingActionButton :variant="FAB_TYPES.EDIT" :size="FAB_SIZES.SMALL"
-                :visibility="FAB_VISIBILITIES.ON_HOVER" @click.stop="$emit('edit')" />
             <FloatingActionButton :variant="FAB_TYPES.DELETE" :size="FAB_SIZES.SMALL"
                 :visibility="FAB_VISIBILITIES.ON_HOVER" @click.stop="handleRemove" />
         </div>

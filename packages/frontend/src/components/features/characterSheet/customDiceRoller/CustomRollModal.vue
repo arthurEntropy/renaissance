@@ -89,6 +89,8 @@ const props = defineProps({
     rollMode: { type: String, default: 'custom' }, // 'custom' | 'damage'
     rollName: { type: String, default: '' },
     sourceName: { type: String, default: '' },
+    // When set, pre-highlights the matching stat button (e.g. 'body', 'heart', 'wits')
+    initialActiveStatKey: { type: String, default: null },
 })
 
 const emit = defineEmits(['close'])
@@ -128,6 +130,13 @@ const sendToDiscord = ref(true)
 // Stat button active tracking
 const activeStatButton = ref(null) // 'body' | 'heart' | 'wits' | null
 const activeStatValue = ref(null)
+
+// Pre-highlight stat button if initial modifier corresponds to a known stat
+if (props.initialActiveStatKey) {
+    const char = props.character || charactersStore.selectedCharacter
+    activeStatButton.value = props.initialActiveStatKey
+    activeStatValue.value = char?.[props.initialActiveStatKey] ?? props.initialModifier
+}
 
 watch(modifier, (newVal) => {
     if (activeStatButton.value !== null && newVal !== activeStatValue.value) {

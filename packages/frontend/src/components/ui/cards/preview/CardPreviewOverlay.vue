@@ -5,18 +5,31 @@
                 :class="{ 'placed-left': isOverlayOnLeftSide }" :style="overlayStyle" @mouseenter="cancelHide"
                 @mouseleave="scheduleHide">
                 <AbilityCard v-if="previewAbility" :ability="previewAbility" :collapsed="false" :collapsible="false"
-                    :editable="false" :show-xp-badge="true" :show-action-buttons="false"
+                    :editable="false" :show-xp-badge="true" :show-action-buttons="false" :character="previewCharacter"
                     :show-improvement-toggle="false" :show-improvements="previewShowImprovements"
                     :show-successes="previewShowSuccesses" @update:showImprovements="previewShowImprovements = $event"
-                    @update:showSuccesses="previewShowSuccesses = $event" />
+                    @update:showSuccesses="previewShowSuccesses = $event" @roll-link="handlePreviewRollLink" />
                 <EquipmentCard v-else-if="previewEquipment" :equipment="previewEquipment" :collapsed="false"
                     :collapsible="false" :editable="false" :duplicatable="false" :show-keeping-badge="true"
-                    :show-improvement-toggle="false" :show-improvements="previewShowImprovements"
-                    :engagement-success-options="[]" :enable-damage-roll="false" :show-successes="previewShowSuccesses"
+                    :character="previewCharacter" :show-improvement-toggle="false"
+                    :show-improvements="previewShowImprovements" :engagement-success-options="[]"
+                    :enable-damage-roll="false" :show-successes="previewShowSuccesses"
                     @update:showImprovements="previewShowImprovements = $event"
-                    @update:showSuccesses="previewShowSuccesses = $event" />
+                    @update:showSuccesses="previewShowSuccesses = $event" @roll-link="handlePreviewRollLink" />
             </div>
         </Transition>
+
+        <!-- Roll modals spawned from preview roll-link clicks -->
+        <SkillCheckModal v-if="showSkillCheckModal && previewCharacter" :selected-skill-key="rollLinkSkillKey"
+            :character="previewCharacter" :default-roll-type="rollLinkRollType" :default-dice-mod="rollLinkDiceMod"
+            @close="showSkillCheckModal = false" @start-contest="handleStartContest" />
+        <ContestModal v-if="contestModalOpen" :initial-session-config="contestSessionConfig"
+            @close="contestModalOpen = false" />
+        <CustomRollModal v-if="showRollModal && rollModalConfig && previewCharacter" :title="rollModalConfig.title"
+            :character="previewCharacter" :initial-dice-counts="rollModalConfig.initialDiceCounts"
+            :initial-modifier="rollModalConfig.initialModifier" :roll-name="rollModalConfig.rollName"
+            :source-name="rollModalConfig.sourceName" :roll-mode="rollModalConfig.rollMode"
+            :initial-active-stat-key="rollModalConfig.initialActiveStatKey" @close="showRollModal = false" />
     </Teleport>
 </template>
 
@@ -24,13 +37,22 @@
 import { ref, computed, watch, onUnmounted } from 'vue'
 import AbilityCard from '@/components/ui/cards/item/AbilityCard.vue'
 import EquipmentCard from '@/components/ui/cards/item/EquipmentCard.vue'
+import SkillCheckModal from '@/components/features/characterSheet/modals/SkillCheckModal.vue'
+import ContestModal from '@/components/features/characterSheet/rollModal/ContestModal.vue'
+import CustomRollModal from '@/components/features/characterSheet/customDiceRoller/CustomRollModal.vue'
 import { useCardPreview } from '@/composables/useCardPreview'
+import { useCharactersStore } from '@/stores/charactersStore'
+import { RollTypes } from '@/constants/rollTypes'
+import { getModifierStatKey } from '@/utils/characterKeyUtils'
+import { SKILLS } from '@shared/constants/characterConstants'
 
 const PREVIEW_WIDTH = 350
 const GAP = 12
 const VIEWPORT_MARGIN = 8
 
 const { previewAbility, previewEquipment, anchorRect, scheduleHide, cancelHide } = useCardPreview()
+const charactersStore = useCharactersStore()
+const previewCharacter = computed(() => charactersStore.selectedCharacter)
 
 const overlayEl = ref(null)
 // Tracks the rendered height of the overlay so we can clamp it to the viewport.
@@ -39,6 +61,16 @@ const overlayEl = ref(null)
 const overlayHeight = ref(0)
 const previewShowImprovements = ref(false)
 const previewShowSuccesses = ref(false)
+
+// Roll modal state
+const showSkillCheckModal = ref(false)
+const rollLinkSkillKey = ref(null)
+const rollLinkRollType = ref(null)
+const rollLinkDiceMod = ref(0)
+const contestModalOpen = ref(false)
+const contestSessionConfig = ref(null)
+const showRollModal = ref(false)
+const rollModalConfig = ref(null)
 
 let resizeObserver = null
 watch(overlayEl, (el) => {
@@ -67,6 +99,54 @@ watch(
         previewShowSuccesses.value = false
     }
 )
+
+function handlePreviewRollLink(rollData) {
+    if (!previewCharacter.value) return
+
+    // Dismiss the preview overlay when a roll modal is about to open
+    scheduleHide()
+
+    if (rollData.type === 'skill-check' || rollData.type === 'contest') {
+        rollLinkSkillKey.value = Object.values(SKILLS).find(s => s.label === rollData.skill)?.key ?? rollData.skill?.toLowerCase() ?? null
+        rollLinkRollType.value = rollData.type === 'contest' ? RollTypes.CONTEST : RollTypes.SKILL_CHECK
+        rollLinkDiceMod.value = rollData.biomeDiceMod ?? 0
+        showSkillCheckModal.value = true
+    } else if (rollData.type === 'damage-roll' || rollData.type === 'custom-roll') {
+        const initialDiceCounts = {}
+        rollData.dice.forEach(die => {
+            initialDiceCounts[die.sides] = (initialDiceCounts[die.sides] || 0) + die.count
+        })
+
+        let modifierValue = 0
+        let initialActiveStatKey = null
+        if (rollData.modifier) {
+            if (rollData.modifier.type === 'stat') {
+                const statName = getModifierStatKey(rollData.modifier)
+                modifierValue = previewCharacter.value[statName] || 0
+                initialActiveStatKey = statName || null
+            } else if (rollData.modifier.type === 'number') {
+                modifierValue = rollData.modifier.value
+            }
+        }
+
+        rollModalConfig.value = {
+            initialDiceCounts,
+            initialModifier: modifierValue,
+            rollName: rollData.linkText || (rollData.type === 'damage-roll' ? 'Damage' : 'Custom Roll'),
+            sourceName: 'Description',
+            rollMode: rollData.type === 'damage-roll' ? 'damage' : 'custom',
+            title: rollData.type === 'damage-roll' ? 'Damage Roll' : 'Custom Roll',
+            initialActiveStatKey,
+        }
+        showRollModal.value = true
+    }
+}
+
+function handleStartContest(config) {
+    showSkillCheckModal.value = false
+    contestSessionConfig.value = config
+    contestModalOpen.value = true
+}
 
 const overlayStyle = computed(() => {
     if (!anchorRect.value) return {}

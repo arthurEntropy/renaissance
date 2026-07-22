@@ -17,7 +17,7 @@
     <!-- Successes section (appears after description) -->
     <template #after-description>
       <SuccessesSection v-if="ability.successes" :successes="ability.successes" :is-expanded="showSuccesses"
-        @update:isExpanded="toggleSuccesses" />
+        @update:isExpanded="toggleSuccesses" @roll-link="$emit('roll-link', $event)" />
     </template>
 
     <!-- Ability improvements -->
@@ -58,9 +58,9 @@
   </base-card>
 
   <!-- Confirm Purchase modal: shown when adding an ability to a character -->
-  <ConfirmPurchaseModal v-if="showConfirmModal" item-type="ability" :cost="ability.xpCost ?? null"
-    :character-balance="character?.xp ?? 0" currency-label="XP" @confirm-spend="confirmAddWithSpend"
-    @confirm-free="confirmAddFree" @close="showConfirmModal = false" />
+  <ConfirmPurchaseModal v-if="showConfirmModal" item-type="ability" :item-name="ability.name"
+    :cost="ability.xpCost ?? null" :character-balance="character?.xp ?? 0" currency-label="XP"
+    @confirm-spend="confirmAddWithSpend" @confirm-free="confirmAddFree" @close="showConfirmModal = false" />
 
   <!-- Confirm Removal modal: shown when removing an ability from a character -->
   <ConfirmRemovalModal v-if="showConfirmRemovalModal" :item-name="ability.name" :cost="ability.xpCost ?? null"
