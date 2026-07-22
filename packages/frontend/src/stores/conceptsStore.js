@@ -39,6 +39,10 @@ export const useConceptsStore = defineStore('concepts', () => {
     sortByName(base.items.value.filter((c) => c.conceptType === ConceptType.WORLD_ELEMENT))
   )
 
+  const beastItemThemes = computed(() =>
+    sortByName(base.items.value.filter((c) => c.conceptType === ConceptType.BEAST_ITEM_THEME))
+  )
+
   // Campaign-filtered variants: when in campaign, only show included concept sources
   const filterByCampaign = (items) => {
     if (!campaignStore.isInCampaign || !campaignStore.activeIncludedConceptIds?.length) {
@@ -65,6 +69,7 @@ export const useConceptsStore = defineStore('concepts', () => {
   const visibleCultures = computed(() => filterByCampaign(filterByExpansion(cultures.value)))
   const visibleMestieri = computed(() => filterByCampaign(filterByExpansion(mestieri.value)))
   const visibleWorldElements = computed(() => filterByCampaign(filterByExpansion(worldElements.value)))
+  const visibleBeastItemThemes = computed(() => filterByExpansion(beastItemThemes.value))
   
   // Type-specific selected items (computed from base.selectedItem)
   const selectedAncestry = computed(() => 
@@ -109,12 +114,14 @@ export const useConceptsStore = defineStore('concepts', () => {
     cultures,
     mestieri,
     worldElements,
+    beastItemThemes,
 
     // Campaign-filtered variants (only concepts included in active campaign)
     visibleAncestries,
     visibleCultures,
     visibleMestieri,
     visibleWorldElements,
+    visibleBeastItemThemes,
     
     // Selection
     selectedConcept: base.selectedItem,

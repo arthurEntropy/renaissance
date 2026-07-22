@@ -3,6 +3,7 @@ export const SOURCE_TYPE_DEFINITIONS = [
     { id: 'culture', label: 'Cultures', listKey: 'cultures' },
     { id: 'mestiere', label: 'Mestieri', listKey: 'mestieri' },
     { id: 'worldElement', label: 'World Elements', listKey: 'worldElements' },
+    { id: 'beastItemTheme', label: 'Beast', listKey: 'beastItemThemes' },
     { id: 'general', label: 'General', listKey: null },
 ]
 

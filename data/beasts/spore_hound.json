@@ -2,13 +2,13 @@
   "id": "720bd912-d3a4-4096-9dfd-24d80508ef6e",
   "isDeleted": false,
   "createdAt": "2026-07-08T16:01:37.904Z",
-  "lastModified": "2026-07-22T01:18:30.577Z",
+  "lastModified": "2026-07-22T02:15:49.190Z",
   "characterType": "beast",
   "name": "Spore Hound",
   "featuredArtUrls": [
     "https://cdn.midjourney.com/39ad5992-8dc0-48f7-9e24-e9633e4377ae/0_1.png"
   ],
-  "speed": 0,
+  "speed": 35,
   "notes": "",
   "body": 2,
   "heart": 1,
@@ -136,7 +136,7 @@
     }
   ],
   "endurance": {
-    "current": 0,
+    "current": 10,
     "base": 10
   },
   "hope": {
@@ -144,8 +144,8 @@
     "base": 2
   },
   "defense": {
-    "current": 11,
-    "base": 1
+    "current": 6,
+    "base": 6
   },
   "load": 0,
   "shadow": 0,
@@ -168,7 +168,22 @@
   "engagementDice": [],
   "engagementSuccesses": [],
   "engagementDiceStatuses": {},
-  "equipment": [],
+  "equipment": [
+    {
+      "id": "3a61c9aa-09ba-4b44-9efb-529795835e69",
+      "quantity": 1,
+      "isCarried": true,
+      "isWielding": true,
+      "collapsed": false
+    },
+    {
+      "id": "a77e5e36-1c1d-4a15-865f-da6748d815b7",
+      "quantity": 1,
+      "isCarried": true,
+      "isWielding": true,
+      "collapsed": false
+    }
+  ],
   "groupEquipmentBySource": false,
   "groupEquipmentByCustom": false,
   "equipmentSortOption": "name-asc",
@@ -249,11 +264,31 @@
   "keeping": null,
   "treasure": 0,
   "xp": 0,
-  "updatedAt": "2026-07-22T01:18:30.577Z",
+  "updatedAt": "2026-07-22T02:15:49.190Z",
   "description": "",
   "size": 1,
   "reach": 5,
   "challenge": 5,
   "sectionOrder": [],
-  "martialTrainingOverrides": {}
+  "martialTrainingOverrides": {},
+  "hasDarkvision": true,
+  "hasBlindsight": false,
+  "hasTremorsense": false,
+  "hasTruesight": false,
+  "burrowSpeed": 0,
+  "climbSpeed": 0,
+  "flySpeed": 0,
+  "swimSpeed": 0,
+  "biomeTagsAugment": [
+    "forest",
+    "wetland",
+    "underground"
+  ],
+  "biomeTagsInhibit": [
+    "cold",
+    "civilized"
+  ],
+  "beastTypeIds": [
+    "b7e57001-0000-4000-a000-000000000002"
+  ]
 }

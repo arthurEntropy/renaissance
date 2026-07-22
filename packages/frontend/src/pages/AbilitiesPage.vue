@@ -4,6 +4,21 @@
     v-model:groupBy="groupByOption" v-model:sortOption="sortOption" v-bind="layoutProps" @create="createAbility"
     @load-more="loadMore">
 
+    <template #additional-filters>
+      <div v-if="isAdmin" class="top-row-actions">
+        <div class="toggle-column">
+          <label class="beast-toggle">
+            <input type="checkbox" v-model="beastAbilitiesOnly" />
+            <span>Beast Abilities Only</span>
+          </label>
+          <label class="beast-toggle">
+            <input type="checkbox" v-model="showBeastAbilities" />
+            <span>Show Beast Abilities</span>
+          </label>
+        </div>
+      </div>
+    </template>
+
     <!-- Item cards slot -->
     <template #item-cards="{ items }">
       <AbilityCard v-for="ability in items" :key="ability.id" :ability="ability" :editable="isAdmin" :sources="sources"
@@ -38,6 +53,20 @@
       :tag-picker-mode="'cascade'" :multiselect="true" :group-options="groupByOptions" :order-options="sortOptions"
       :show-add-button="isAdmin" search-placeholder="Search abilities..." :tag-search-placeholder="'Filter by tags...'"
       :stats="stats" :hide-to-top-button="showEditAbilityModal" @add="createAbility">
+      <template #additional-filters>
+        <div v-if="isAdmin" class="top-row-actions">
+          <div class="toggle-column">
+            <label class="beast-toggle">
+              <input type="checkbox" v-model="beastAbilitiesOnly" />
+              <span>Beast Abilities Only</span>
+            </label>
+            <label class="beast-toggle">
+              <input type="checkbox" v-model="showBeastAbilities" />
+              <span>Show Beast Abilities</span>
+            </label>
+          </div>
+        </div>
+      </template>
     </FilterBar>
 
     <!-- School Grouped view -->
@@ -162,6 +191,8 @@ const abilityTagFilters = ref([])
 const improvementVisibility = ref(new Map())
 const successesVisibility = ref(new Map())
 const isLoadingMore = ref(false)
+const showBeastAbilities = ref(false)
+const beastAbilitiesOnly = ref(false)
 
 // Computed properties
 const isAdmin = computed(() => authStore.isAdmin)
@@ -314,6 +345,12 @@ const allFilteredAbilities = computed(() => {
 
   // Filter out deleted items
   let filtered = (abilities.value || []).filter((item) => !item.isDeleted)
+
+  if (beastAbilitiesOnly.value) {
+    filtered = filtered.filter((item) => item.isBeastAbility)
+  } else if (!showBeastAbilities.value) {
+    filtered = filtered.filter((item) => !item.isBeastAbility)
+  }
 
   // Campaign mode: restrict to abilities from included concept sources
   const campaignStore = useCampaignStore()
@@ -495,6 +532,8 @@ useFilterPersistence('abilities', {
   groupByOption,
   searchQuery,
   abilityTagFilters,
+  showBeastAbilities,
+  beastAbilitiesOnly,
 })
 
 // Improvement visibility methods
@@ -630,5 +669,45 @@ const layoutProps = computed(() => ({
   color: var(--color-gray-light);
   font-size: var(--font-size-14);
   font-style: italic;
+}
+
+.top-row-actions {
+  margin-left: auto;
+  display: flex;
+  gap: var(--space-lg);
+}
+
+.toggle-column {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.beast-toggle {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  font-size: var(--font-size-14);
+  color: var(--color-white);
+  cursor: pointer;
+  user-select: none;
+}
+
+.beast-toggle:hover {
+  opacity: 0.9;
+}
+
+.beast-toggle input[type="checkbox"] {
+  cursor: pointer;
+  width: 16px;
+  height: 16px;
+}
+
+.beast-toggle span {
+  white-space: nowrap;
 }
 </style>

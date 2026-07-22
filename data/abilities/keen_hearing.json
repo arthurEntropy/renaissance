@@ -1,8 +1,11 @@
 {
   "id": "f753b036-89b5-457b-b216-942fc09832b6",
   "createdAt": "2026-07-21T23:41:33.891Z",
-  "lastModified": "2026-07-21T23:41:58.643Z",
+  "lastModified": "2026-07-22T01:58:12.096Z",
   "name": "Keen Hearing",
   "description": "<p>Whenever you roll Awareness to listen, the roll is favored.</p>",
-  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1"
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "isPassive": true,
+  "source": "4064763c-377d-46f8-bc9a-74e1e621e875",
+  "school": null
 }

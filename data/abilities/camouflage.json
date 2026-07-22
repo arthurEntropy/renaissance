@@ -1,8 +1,11 @@
 {
   "id": "2b1f3cf5-5d30-4234-8328-40bf9f4680be",
   "createdAt": "2026-07-21T19:21:41.790Z",
-  "lastModified": "2026-07-21T19:46:17.304Z",
+  "lastModified": "2026-07-22T01:58:39.580Z",
   "name": "Camouflage",
   "description": "<p>Whenever you roll Stealth, +1d for each tag in the current biome that matches your native biome.</p>",
-  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1"
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "isPassive": true,
+  "source": "4064763c-377d-46f8-bc9a-74e1e621e875",
+  "school": null
 }

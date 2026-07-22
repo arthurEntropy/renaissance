@@ -12,6 +12,7 @@ export const useSourcesStore = defineStore('sources', () => {
     cultures: conceptsStore.visibleCultures || [],
     mestieri: conceptsStore.visibleMestieri || [],
     worldElements: conceptsStore.visibleWorldElements || [],
+    beastItemThemes: conceptsStore.visibleBeastItemThemes || [],
   }))
 
   // Flat list of visible sources for efficient set-membership checks and item filtering.
@@ -19,7 +20,8 @@ export const useSourcesStore = defineStore('sources', () => {
     ...(conceptsStore.visibleAncestries || []),
     ...(conceptsStore.visibleCultures || []),
     ...(conceptsStore.visibleMestieri || []),
-    ...(conceptsStore.visibleWorldElements || [])
+    ...(conceptsStore.visibleWorldElements || []),
+    ...(conceptsStore.visibleBeastItemThemes || []),
   ])
 
   // Unfiltered flat list — used only for display lookups (source names, types) so that
@@ -28,7 +30,8 @@ export const useSourcesStore = defineStore('sources', () => {
     ...(conceptsStore.ancestries || []),
     ...(conceptsStore.cultures || []),
     ...(conceptsStore.mestieri || []),
-    ...(conceptsStore.worldElements || [])
+    ...(conceptsStore.worldElements || []),
+    ...(conceptsStore.beastItemThemes || []),
   ])
 
   const isLoading = computed(() => conceptsStore.isLoading)
@@ -64,6 +67,7 @@ export const useSourcesStore = defineStore('sources', () => {
     if (source.conceptType === 'CULTURE') return 'culture'
     if (source.conceptType === 'MESTIERE') return 'mestiere'
     if (source.conceptType === 'WORLD_ELEMENT') return 'worldElement'
+    if (source.conceptType === 'BEAST_ITEM_THEME') return 'beastItemTheme'
     return 'general'
   }
 

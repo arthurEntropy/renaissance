@@ -2,7 +2,7 @@
   "id": "731421e9-f9cb-41c1-b902-76993e0bef6f",
   "isDeleted": false,
   "createdAt": "2026-05-18T19:00:51.372Z",
-  "lastModified": "2026-07-22T01:20:45.063Z",
+  "lastModified": "2026-07-22T02:15:37.366Z",
   "characterType": "beast",
   "name": "Mycoderm",
   "featuredArtUrls": [
@@ -145,7 +145,7 @@
   },
   "defense": {
     "current": 7,
-    "base": 7
+    "base": 12
   },
   "load": 0,
   "shadow": 0,
@@ -267,7 +267,7 @@
   "description": "",
   "size": 3,
   "reach": 5,
-  "updatedAt": "2026-07-22T01:20:45.063Z",
+  "updatedAt": "2026-07-22T02:15:37.366Z",
   "challenge": 11,
   "sectionOrder": [],
   "martialTrainingOverrides": {},
@@ -285,7 +285,8 @@
     "underground"
   ],
   "biomeTagsInhibit": [
-    "civilized"
+    "civilized",
+    "cold"
   ],
   "beastTypeIds": [
     "b7e57001-0000-4000-a000-000000000002",

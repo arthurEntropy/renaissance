@@ -1,8 +1,11 @@
 {
   "id": "b62162c2-751b-49f0-a602-db5da4d388da",
   "createdAt": "2026-07-21T19:46:50.692Z",
-  "lastModified": "2026-07-21T19:47:23.952Z",
+  "lastModified": "2026-07-22T01:55:22.696Z",
   "name": "Night-Eyed",
   "description": "<p>Whenever you roll Awareness in dim light or darkness, +2d.</p>",
-  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1"
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "isPassive": true,
+  "source": "26d227ef-9dfb-4a8c-ae91-65764541888a",
+  "school": null
 }

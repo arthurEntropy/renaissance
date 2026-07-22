@@ -6,6 +6,10 @@
 
       <!-- Flags -->
       <div class="form-group centered">
+        <label for="isBeastAbility">
+          <input type="checkbox" id="isBeastAbility" v-model="editedAbility.isPassive" />
+          Beast Ability
+        </label>
         <label for="isMagical">
           <input type="checkbox" id="isMagical" v-model="editedAbility.isMagical" />
           Spell

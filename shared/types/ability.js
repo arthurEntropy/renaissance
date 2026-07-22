@@ -17,6 +17,7 @@ import { createBaseEntity } from './baseEntity.js'
  * @property {UUID|null} source - Source concept UUID (ancestry, culture, mestiere, world element)
  * @property {UUID|null} school - Ability school UUID reference (only for mestiere-sourced abilities)
  * @property {boolean} isMagical - Whether this ability is magical (referred to as a "spell" in the rules/UI)
+ * @property {boolean} isBeastAbility - Whether this ability is beast-specific (used to populate beast character sheets)
  * @property {boolean} canBeActive - Whether this ability can be toggled active (to track duration/ongoing effects)
  * @property {boolean} hasDifficulty - Whether this ability sets a Difficulty that should be tracked per-character
  * 
@@ -52,6 +53,7 @@ export function createDefaultAbility() {
     source: null,
     school: null,
     isMagical: false,
+    isBeastAbility: false,
 
     // Costs
     actionCost: null,
