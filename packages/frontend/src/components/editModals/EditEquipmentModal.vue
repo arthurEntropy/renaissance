@@ -286,6 +286,11 @@ const emit = defineEmits(['update', 'delete', 'close'])
 // Use edit modal form composable
 const { editedData: editedEquipment, save: baseSave, deleteItem, handleOverlayClick } = useEditModalForm(props, emit)
 
+// Ensure engagementSuccesses is always an array (older data may be missing this field)
+if (!Array.isArray(editedEquipment.value.engagementSuccesses)) {
+  editedEquipment.value.engagementSuccesses = []
+}
+
 // Stores
 const equipmentTypesStore = useEquipmentTypesStore()
 const equipmentSubtypesStore = useEquipmentSubtypesStore()

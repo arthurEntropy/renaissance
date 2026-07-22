@@ -2,7 +2,7 @@
   "id": "5c062e5a-f179-4326-b956-d3a39031e5cb",
   "isDeleted": false,
   "createdAt": "2026-07-21T19:07:27.144Z",
-  "lastModified": "2026-07-22T00:13:25.926Z",
+  "lastModified": "2026-07-22T01:18:28.836Z",
   "characterType": "beast",
   "name": "Owl",
   "featuredArtUrls": [
@@ -278,9 +278,30 @@
   "keeping": null,
   "treasure": 0,
   "xp": 0,
-  "updatedAt": "2026-07-22T00:13:25.926Z",
+  "updatedAt": "2026-07-22T01:18:28.836Z",
   "description": "Darkvision, Flying (25 ft), Biomes: Forest",
-  "size": 1,
+  "size": 0.25,
   "reach": 5,
-  "challenge": 0
+  "challenge": 0,
+  "hasDarkvision": true,
+  "hasBlindsight": false,
+  "hasTremorsense": false,
+  "hasTruesight": false,
+  "burrowSpeed": 0,
+  "climbSpeed": 0,
+  "flySpeed": 25,
+  "swimSpeed": 0,
+  "biomeTagsAugment": [
+    "forest",
+    "plains",
+    "mountain",
+    "desert",
+    "wetland"
+  ],
+  "biomeTagsInhibit": [
+    "civilized"
+  ],
+  "beastTypeIds": [
+    "68d4459c-1c9f-4b98-b3be-d8d795a51372"
+  ]
 }

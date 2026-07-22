@@ -35,6 +35,7 @@ export {
 	createDefaultBeast,
 	createDefaultBeastInstance,
 } from './character.js'
+export { createDefaultBeastType } from './beastType.js'
 export { createDefaultEngagementSuccess } from './engagementSuccess.js'
 export { createDefaultExpansion } from './expansion.js'
 export { createDefaultKeeping } from './keeping.js'

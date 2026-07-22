@@ -70,6 +70,14 @@
             </template>
         </AdminListManager>
 
+        <AdminListManager title="Beast Types" item-name="Beast Type" :store="beastTypesStore"
+            :default-item="{ name: '', description: '', artUrl: '', index: 0 }">
+            <template #fields="{ item, update }">
+                <input v-model="item.name" @blur="update" class="field-input" placeholder="Type Name" />
+                <input v-model="item.description" @blur="update" class="field-input flex-1" placeholder="Description" />
+            </template>
+        </AdminListManager>
+
         <AdminListManager title="Biomes" item-name="Biome" :store="biomesStore"
             :default-item="{ name: '', description: '', artUrl: '', tags: [], index: 0 }">
             <template #fields="{ item, update }">
@@ -148,6 +156,7 @@ import { useEquipmentGradesStore } from '@/stores/equipmentGradesStore'
 import { useEquipmentRangesStore } from '@/stores/equipmentRangesStore'
 import { useEngagementSuccessesStore } from '@/stores/engagementSuccessesStore'
 import { useBiomesStore } from '@/stores/biomesStore'
+import { useBeastTypesStore } from '@/stores/beastTypesStore'
 import { useAbilitySchoolsStore } from '@/stores/abilitySchoolsStore'
 import { useConceptsStore } from '@/stores/conceptsStore'
 import { useKeepingStore } from '@/stores/keepingStore'
@@ -162,6 +171,7 @@ const equipmentGradesStore = useEquipmentGradesStore()
 const equipmentRangesStore = useEquipmentRangesStore()
 const engagementSuccessesStore = useEngagementSuccessesStore()
 const biomesStore = useBiomesStore()
+const beastTypesStore = useBeastTypesStore()
 const abilitySchoolsStore = useAbilitySchoolsStore()
 const conceptsStore = useConceptsStore()
 const keepingStore = useKeepingStore()

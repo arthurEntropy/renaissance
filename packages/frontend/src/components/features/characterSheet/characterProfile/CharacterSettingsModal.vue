@@ -3,7 +3,7 @@
         <form @submit.prevent="saveChanges">
 
             <!-- Section Ordering -->
-            <div v-if="!isBeastCharacter" class="form-group vertical">
+            <div class="form-group vertical">
                 <label class="left-aligned">Section Order:</label>
                 <p class="settings-hint">Drag sections to reorder them on the character sheet.</p>
                 <draggable v-model="orderedSections" item-key="key" handle=".drag-handle" class="section-order-list"

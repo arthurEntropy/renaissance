@@ -4,6 +4,7 @@ import { createBaseEntity } from './baseEntity.js'
 /**
  * @typedef {import('./baseEntity.js').BaseEntity} BaseEntity
  * @typedef {import('./dice.js').DieSize} DieSize
+ * @typedef {import('../constants/biomeTags.js').BiomeTagValue} BiomeTagValue
  */
 
 /**
@@ -224,8 +225,27 @@ import { createBaseEntity } from './baseEntity.js'
  * @typedef {Object} BeastFields
  * @property {number} challenge - Challenge rating for beasts (0 = not applicable)
  * @property {string} description - Beast description
- * @property {number} size - Beast size value
+ * @property {number} size - Beast size value (supports ¼=0.25, ½=0.5, and whole numbers)
  * @property {number} reach - Beast reach, in feet
+ *
+ * // Senses
+ * @property {boolean} hasDarkvision - Whether the beast has darkvision
+ * @property {boolean} hasBlindsight - Whether the beast has blindsight
+ * @property {boolean} hasTremorsense - Whether the beast has tremorsense
+ * @property {boolean} hasTruesight - Whether the beast has truesight
+ *
+ * // Movement speeds
+ * @property {number} burrowSpeed - Burrowing speed in feet (0 = none)
+ * @property {number} climbSpeed - Climbing speed in feet (0 = none)
+ * @property {number} flySpeed - Flying speed in feet (0 = none)
+ * @property {number} swimSpeed - Swimming speed in feet (0 = none)
+ *
+ * // Biome interactions
+ * @property {BiomeTagValue[]} biomeTagsAugment - Biome tags that augment this beast
+ * @property {BiomeTagValue[]} biomeTagsInhibit - Biome tags that inhibit this beast
+ *
+ * // Beast types
+ * @property {UUID[]} beastTypeIds - IDs of beast types for this creature
  */
 
 /**
@@ -398,6 +418,25 @@ function createDefaultBeastFields() {
     description: '',
     size: 0,
     reach: 0,
+
+    // Senses
+    hasDarkvision: false,
+    hasBlindsight: false,
+    hasTremorsense: false,
+    hasTruesight: false,
+
+    // Movement speeds
+    burrowSpeed: 0,
+    climbSpeed: 0,
+    flySpeed: 0,
+    swimSpeed: 0,
+
+    // Biome interactions
+    biomeTagsAugment: [],
+    biomeTagsInhibit: [],
+
+    // Beast types
+    beastTypeIds: [],
   }
 }
 

@@ -2,7 +2,7 @@
   "id": "e5b32942-2470-4758-aa4b-612b2cafd1a5",
   "isDeleted": false,
   "createdAt": "2026-07-21T19:53:18.803Z",
-  "lastModified": "2026-07-22T00:26:50.318Z",
+  "lastModified": "2026-07-22T01:17:38.934Z",
   "characterType": "beast",
   "name": "Cat",
   "featuredArtUrls": [
@@ -274,8 +274,26 @@
   "keeping": null,
   "treasure": 0,
   "xp": 0,
-  "updatedAt": "2026-07-22T00:26:50.318Z",
-  "description": "Darkvision, Biomes: Civilization",
-  "size": 1,
-  "reach": 5
+  "updatedAt": "2026-07-22T01:17:38.933Z",
+  "description": "",
+  "size": 0.25,
+  "reach": 5,
+  "hasDarkvision": true,
+  "hasBlindsight": false,
+  "hasTremorsense": false,
+  "hasTruesight": false,
+  "burrowSpeed": 0,
+  "climbSpeed": 20,
+  "flySpeed": 0,
+  "swimSpeed": 0,
+  "biomeTagsAugment": [
+    "plains",
+    "civilized"
+  ],
+  "biomeTagsInhibit": [
+    "cold"
+  ],
+  "beastTypeIds": [
+    "68d4459c-1c9f-4b98-b3be-d8d795a51372"
+  ]
 }

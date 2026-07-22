@@ -2,7 +2,7 @@
   "id": "731421e9-f9cb-41c1-b902-76993e0bef6f",
   "isDeleted": false,
   "createdAt": "2026-05-18T19:00:51.372Z",
-  "lastModified": "2026-07-22T00:13:24.958Z",
+  "lastModified": "2026-07-22T01:20:45.063Z",
   "characterType": "beast",
   "name": "Mycoderm",
   "featuredArtUrls": [
@@ -175,6 +175,13 @@
       "isCarried": true,
       "isWielding": true,
       "collapsed": false
+    },
+    {
+      "id": "4d9fd1b5-b468-431c-961f-82a84c91de39",
+      "quantity": 1,
+      "isCarried": true,
+      "isWielding": true,
+      "collapsed": false
     }
   ],
   "groupEquipmentBySource": false,
@@ -257,11 +264,31 @@
   "keeping": null,
   "treasure": 0,
   "xp": 0,
-  "description": "Darkvision, Biomes:",
+  "description": "",
   "size": 3,
   "reach": 5,
-  "updatedAt": "2026-07-22T00:13:24.958Z",
+  "updatedAt": "2026-07-22T01:20:45.063Z",
   "challenge": 11,
   "sectionOrder": [],
-  "martialTrainingOverrides": {}
+  "martialTrainingOverrides": {},
+  "hasDarkvision": true,
+  "hasBlindsight": false,
+  "hasTremorsense": false,
+  "hasTruesight": false,
+  "burrowSpeed": 0,
+  "climbSpeed": 0,
+  "flySpeed": 0,
+  "swimSpeed": 0,
+  "biomeTagsAugment": [
+    "forest",
+    "wetland",
+    "underground"
+  ],
+  "biomeTagsInhibit": [
+    "civilized"
+  ],
+  "beastTypeIds": [
+    "b7e57001-0000-4000-a000-000000000002",
+    "b7e57001-0000-4000-a000-00000000000d"
+  ]
 }

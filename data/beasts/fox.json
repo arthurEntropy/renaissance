@@ -2,7 +2,7 @@
   "id": "cb86452b-fb7b-409a-835b-b3383c93f11e",
   "isDeleted": false,
   "createdAt": "2026-07-21T23:35:22.100Z",
-  "lastModified": "2026-07-22T00:13:23.806Z",
+  "lastModified": "2026-07-22T01:17:47.561Z",
   "characterType": "beast",
   "name": "Fox",
   "featuredArtUrls": [
@@ -274,8 +274,29 @@
   "keeping": null,
   "treasure": 0,
   "xp": 0,
-  "updatedAt": "2026-07-22T00:13:23.806Z",
-  "description": "Darkvision, Biomes: Grassland, Forest",
-  "size": 0,
-  "reach": 0
+  "updatedAt": "2026-07-22T01:17:47.561Z",
+  "description": "",
+  "size": 0.5,
+  "reach": 0,
+  "hasDarkvision": true,
+  "hasBlindsight": false,
+  "hasTremorsense": false,
+  "hasTruesight": false,
+  "burrowSpeed": 0,
+  "climbSpeed": 0,
+  "flySpeed": 0,
+  "swimSpeed": 0,
+  "biomeTagsAugment": [
+    "forest",
+    "plains",
+    "mountain",
+    "desert",
+    "wetland"
+  ],
+  "biomeTagsInhibit": [
+    "civilized"
+  ],
+  "beastTypeIds": [
+    "68d4459c-1c9f-4b98-b3be-d8d795a51372"
+  ]
 }
