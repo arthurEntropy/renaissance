@@ -13,8 +13,8 @@
                 <ActionButton v-if="!opponent" variant="neutral" size="large" text="Cancel" @click="closeModal" />
                 <div v-if="opponent" :style="{ visibility: shouldShowResolution ? 'visible' : 'hidden' }">
                     <RollResolution :user-accepted="userAccepted" :opponent-accepted="opponentAccepted"
-                        :can-accept="showResults" :character-name="character.name" :opponent-name="opponentName"
-                        @toggle-user-accept="toggleUserAccept" />
+                        :can-accept="showResults && !isAutoClosing" :character-name="character.name"
+                        :opponent-name="opponentName" @toggle-user-accept="toggleUserAccept" />
                 </div>
             </div>
         </template>
@@ -27,7 +27,7 @@ import BaseModal from '@/components/ui/modals/BaseModal.vue'
 import EngagementCharacterColumn from './EngagementCharacterColumn.vue'
 import ResultIndicators from './ResultIndicators.vue'
 import RollResolution from './RollResolution.vue'
-import { computed, onMounted, onBeforeUnmount } from 'vue'
+import { computed, onMounted, onBeforeUnmount, watch, ref } from 'vue'
 
 import { useEngagementSession } from '@/composables/useEngagementSession'
 import { useEngagementRoll } from '@/composables/useEngagementRoll'
@@ -46,7 +46,6 @@ const {
     shouldShowComparisons,
     shouldShowResolution,
     canEditResults,
-    shouldShowExitConfirmation,
     userAccepted,
     opponentAccepted,
     showResults,
@@ -57,21 +56,38 @@ const opponentName = computed(() =>
     opponent.value?.characterInfo?.name || 'Opponent'
 )
 
+// Track whether we are in the 2-second auto-close window after both accept
+const isAutoClosing = ref(false)
+let autoCloseTimer = null
+
 onMounted(() => {
     sessionManager.initialize(character.value, diceManager.committedDice.value)
 })
 
 onBeforeUnmount(() => {
+    clearTimeout(autoCloseTimer)
     sessionManager.cleanup()
 })
 
-const closeModal = () => {
-    if (shouldShowExitConfirmation.value) {
-        if (!confirm('Are you sure you want to leave this engagement?')) {
-            return
-        }
+// Auto-close after both sides have accepted (or one left and the other accepted)
+watch(bothUsersAccepted, (bothAccepted) => {
+    if (bothAccepted && !isAutoClosing.value) {
+        sessionManager.generateResultsOnAccept(character.value, opponent.value)
+        isAutoClosing.value = true
+        autoCloseTimer = setTimeout(() => {
+            emit('close')
+        }, 2000)
     }
-    sessionManager.cancelSession()
+})
+
+const closeModal = () => {
+    if (showResults.value && !userAccepted.value) {
+        // Treat closing after the roll as accepting the result
+        sessionManager.updateUserAcceptance(character.value.id, true)
+    }
+    if (!bothUsersAccepted.value) {
+        sessionManager.cancelSession()
+    }
     emit('close')
 }
 

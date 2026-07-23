@@ -77,6 +77,8 @@ const rollSelectedDice = () => {
 
   // Store dice in diceManager so modal can access them
   diceManager.committedDice.value = selectedDice
+  // Reset sort state so the new session's waiting-state dice are never stale
+  diceManager.resetSortingState()
   showEngagementRollModal.value = true
 }
 

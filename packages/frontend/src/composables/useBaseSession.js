@@ -37,9 +37,7 @@ export function useBaseSession(sessionService) {
     sessionStatus.value === SESSION_STATUS.COMPLETED
   )
 
-  const shouldShowExitConfirmation = computed(() => 
-    sessionStatus.value === SESSION_STATUS.COMPLETED && !bothUsersAccepted.value
-  )
+  const shouldShowExitConfirmation = computed(() => false)
 
   // Event handlers
   const eventHandlers = {}
@@ -78,29 +76,25 @@ export function useBaseSession(sessionService) {
 
     // Session cancelled handler
     eventHandlers.sessionCancelled = ({ message, characterName }) => {
-      const wasCompleted = bothUsersAccepted.value
-      const sessionType = callbacks.sessionType || 'session'
-      const alertMessage = characterName 
-        ? `${characterName} has exited the ${sessionType}.` 
-        : message
-      alert(alertMessage)
+      const rollWasMade = sessionStatus.value === SESSION_STATUS.COMPLETED
 
-      if (!wasCompleted) {
+      if (rollWasMade) {
+        // Treat the opponent leaving after a roll as accepting the result
+        opponentAccepted.value = true
+      } else {
+        // Roll hasn't happened yet — just clean up the session state
         sessionId.value = null
         sessionStatus.value = SESSION_STATUS.WAITING
         opponent.value = null
       }
 
       if (callbacks.onSessionCancelled) {
-        callbacks.onSessionCancelled({ message, characterName, wasCompleted })
+        callbacks.onSessionCancelled({ message, characterName, wasCompleted: rollWasMade })
       }
     }
 
     // Session expired handler
     eventHandlers.sessionExpired = ({ message, sessionId: expiredSessionId }) => {
-      const sessionType = callbacks.sessionType || 'session'
-      const alertMessage = message || `${sessionType.charAt(0).toUpperCase() + sessionType.slice(1)} expired due to inactivity`
-      alert(alertMessage)
       sessionId.value = null
       sessionStatus.value = SESSION_STATUS.WAITING
       opponent.value = null

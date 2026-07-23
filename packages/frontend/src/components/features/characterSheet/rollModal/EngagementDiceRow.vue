@@ -11,7 +11,7 @@
                         sources: assignedSuccess.sources
                     }" :removable="canEdit" @remove="handleRemoveSuccess" />
             </div>
-            <div v-else class="success-outline" :class="{ 'no-successes': hasNoSuccesses }"></div>
+            <div v-else-if="!hasNoSuccesses" class="success-outline"></div>
         </div>
 
         <!-- Die display -->
