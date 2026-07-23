@@ -53,7 +53,7 @@ function deactivateAbility(abilityId) {
     position: fixed;
     top: calc(var(--space-lg) + 3rem);
     right: var(--space-lg);
-    z-index: var(--z-badge);
+    z-index: var(--z-interactive);
     display: flex;
     flex-direction: column;
     gap: var(--space-md);
