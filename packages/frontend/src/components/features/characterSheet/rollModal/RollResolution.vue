@@ -42,15 +42,9 @@ import { WINNER } from '@shared/constants/winner.js'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import { useEngagementSession } from '@/composables/useEngagementSession'
 import { useEngagementRoll } from '@/composables/useEngagementRoll'
-import { useContestSession } from '@/composables/useContestSession'
 import { useCharactersStore } from '@/stores/charactersStore'
 
 const props = defineProps({
-    mode: {
-        type: String,
-        required: true,
-        validator: (value) => ['engagement', 'contest'].includes(value)
-    },
     userAccepted: {
         type: Boolean,
         default: false
@@ -77,21 +71,15 @@ const emit = defineEmits(['toggle-user-accept'])
 
 const sessionManager = useEngagementSession()
 const diceManager = useEngagementRoll()
-const contestSessionManager = useContestSession()
 const charactersStore = useCharactersStore()
 
-// Get winner from appropriate composable based on mode
+// Get winner from engagement composable
 const winner = computed(() => {
-    if (props.mode === 'engagement') {
-        return diceManager.getEngagementWinner(
-            sessionManager,
-            charactersStore.selectedCharacter,
-            diceManager.committedDice.value
-        )
-    } else {
-        // For contest, get winner from its session manager
-        return contestSessionManager.winner.value
-    }
+    return diceManager.getEngagementWinner(
+        sessionManager,
+        charactersStore.selectedCharacter,
+        diceManager.committedDice.value
+    )
 })
 
 const winnerText = computed(() => {

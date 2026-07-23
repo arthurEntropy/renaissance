@@ -493,9 +493,8 @@ const handleRollLink = (rollData) => {
 
   if (rollData.type === 'skill-check' || rollData.type === 'contest') {
     rollLinkSkill.value = rollData.skill
-    rollLinkRollType.value = rollData.type === 'contest'
-      ? RollTypes.CONTEST
-      : RollTypes.SKILL_CHECK
+    // Contest links open as unopposed (no difficulty)
+    rollLinkRollType.value = rollData.type === 'contest' ? 'unopposed' : RollTypes.SKILL_CHECK
     showSkillCheckModal.value = true
   } else if (rollData.type === 'damage-roll') {
     const initialDiceCounts = {}

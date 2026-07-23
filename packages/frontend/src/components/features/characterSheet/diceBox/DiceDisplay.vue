@@ -1,12 +1,8 @@
 <template>
     <div v-if="shouldShowDice" class="roll-dice">
-        <!-- Waiting/Rolling state -->
-        <WaitingDiceDisplay v-if="state === 'waiting' || state === 'rolling'" :waiting-dice="waitingDiceDisplay"
-            :state="state" />
-
-        <!-- Completed state -->
-        <CompletedDiceDisplay v-else :truncated-dice="truncatedDice" :dice-size="diceSize" :is-rolling="isRolling"
-            :is-custom-roll="isCustomRoll" :can-show-reroll="canReroll && !isOpponent && !isEngagementOrContestRoll"
+        <!-- Dice display -->
+        <CompletedDiceDisplay :truncated-dice="truncatedDice" :dice-size="diceSize" :is-rolling="isRolling"
+            :is-custom-roll="isCustomRoll" :can-show-reroll="canReroll && !isOpponent && !isEngagementRoll"
             @reroll-all="emit('reroll-all-dice')" @open-modal="openModal" />
 
         <!-- Modal for showing all dice -->
@@ -19,9 +15,8 @@
 <script setup>
 import { computed, watch, ref } from 'vue'
 import { RollTypes } from '@/constants/rollTypes'
-import { getDiceFontClass, getRandomDiceFontClass } from '@/utils/diceFontUtils'
+import { getRandomDiceFontClass } from '@/utils/diceFontUtils'
 import { DICE_ROLL_DURATION } from '@/constants/animationDurations'
-import WaitingDiceDisplay from './WaitingDiceDisplay.vue'
 import CompletedDiceDisplay from './CompletedDiceDisplay.vue'
 import AllDiceModal from './AllDiceModal.vue'
 
@@ -49,15 +44,6 @@ const props = defineProps({
     isOpponent: {
         type: Boolean,
         default: false,
-    },
-    state: {
-        type: String,
-        default: 'completed',
-        validator: (value) => ['waiting', 'rolling', 'completed'].includes(value)
-    },
-    waitingDice: {
-        type: Array,
-        default: () => []
     },
     containerWidth: {
         type: Number,
@@ -174,9 +160,8 @@ const isCustomRoll = computed(() => {
     return props.rollData?.type === RollTypes.CUSTOM_ROLL
 })
 
-const isEngagementOrContestRoll = computed(() => {
-    return props.rollData?.type === RollTypes.ENGAGEMENT ||
-        props.rollData?.type === RollTypes.CONTEST
+const isEngagementRoll = computed(() => {
+    return props.rollData?.type === RollTypes.ENGAGEMENT
 })
 
 const diceSize = computed(() => {
@@ -195,16 +180,6 @@ const maxDiceForTwoLines = computed(() => {
 
 const displayDice = computed(() => {
     return getDisplayDice(props.rollData?.diceResults)
-})
-
-const waitingDiceDisplay = computed(() => {
-    if (!props.waitingDice || props.waitingDice.length === 0) return []
-
-    return props.waitingDice.map((die, index) => ({
-        dieSize: die.dieSize,
-        cssClass: getDiceFontClass(die.dieSize, die.dieSize), // Use the die type as the value for consistent display
-        poolIndex: index
-    }))
 })
 
 const truncatedDice = computed(() => {

@@ -14,11 +14,6 @@
                                 : 'draws' }}
                     </span>
                 </span>
-                <span v-else-if="isContest" class="contest-score">
-                    <span class="roll-number user-total" :class="outcomeClass">{{ rollData.userTotal }}</span>
-                    <span class="score-separator">vs</span>
-                    <span class="roll-number opponent-total">{{ rollData.opponentTotal }}</span>
-                </span>
                 <span v-else-if="isCustomRoll || isDamage || isInitiative || isInjury">
                     <span class="roll-number roll-total custom-roll">{{ rollData.total }}</span>
                     <span v-if="rollData.modifier !== 0" class="roll-breakdown">
@@ -46,7 +41,6 @@
 <script setup>
 import { computed, onUnmounted, ref, watch } from 'vue'
 import { EngagementResultTypes } from '@/constants/engagementResultTypes'
-import { WINNER } from '@shared/constants/winner.js'
 
 const REVEAL_FALLBACK_DELAY = 75
 
@@ -56,10 +50,6 @@ const props = defineProps({
         required: true
     },
     isEngagement: {
-        type: Boolean,
-        required: true
-    },
-    isContest: {
         type: Boolean,
         required: true
     },
@@ -110,14 +100,6 @@ const outcomeClass = computed(() => {
             success: props.rollData.result === EngagementResultTypes.WIN,
             failure: props.rollData.result === EngagementResultTypes.LOSS,
             draw: props.rollData.result === EngagementResultTypes.DRAW
-        }
-    }
-
-    if (props.isContest) {
-        return {
-            success: props.rollData.winner === WINNER.USER,
-            failure: props.rollData.winner === WINNER.OPPONENT,
-            draw: props.rollData.winner === WINNER.TIE
         }
     }
 
@@ -210,8 +192,7 @@ onUnmounted(() => {
     margin-left: var(--space-xs);
 }
 
-.engagement-score,
-.contest-score {
+.engagement-score {
     display: flex;
     align-items: center;
     gap: var(--space-sm);
@@ -219,9 +200,7 @@ onUnmounted(() => {
 
 .user-wins,
 .opponent-wins,
-.draw-number,
-.user-total,
-.opponent-total {
+.draw-number {
     color: var(--color-white);
     transition: var(--transition-fast);
 }

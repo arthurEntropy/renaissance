@@ -1,6 +1,5 @@
 import { RollTypes } from '@/constants/rollTypes'
 import { EngagementResultTypes } from '@/constants/engagementResultTypes'
-import { WINNER } from '@shared/constants/winner.js'
 import { DIE_TYPE, SPECIAL_ROLLS } from '@shared/constants/dice.js'
 
 export function createEmptyRollStats() {
@@ -127,16 +126,6 @@ function updateEngagementStats(rollResult, stats) {
   }
 }
 
-function updateContestStats(rollResult, stats) {
-  if (rollResult.winner === WINNER.USER) {
-    stats.contests.contest.wins += 1
-  } else if (rollResult.winner === WINNER.OPPONENT) {
-    stats.contests.contest.losses += 1
-  } else if (rollResult.winner === WINNER.TIE) {
-    stats.contests.contest.draws += 1
-  }
-}
-
 export function applyRollToCharacterStats(character, rollResult) {
   if (!character || !rollResult?.type) {
     return
@@ -148,19 +137,16 @@ export function applyRollToCharacterStats(character, rollResult) {
     updateSkillCheckStats(rollResult, stats)
   } else if (rollResult.type === RollTypes.ENGAGEMENT) {
     updateEngagementStats(rollResult, stats)
-  } else if (rollResult.type === RollTypes.CONTEST) {
-    updateContestStats(rollResult, stats)
   }
 
   character.rollStats = stats
 }
 
 export function computeXpEarned(roll) {
-  if (roll.type !== RollTypes.SKILL_CHECK && roll.type !== RollTypes.CONTEST) return 0
+  if (roll.type !== RollTypes.SKILL_CHECK) return 0
 
   let xp = 0
-  if (roll.type === RollTypes.SKILL_CHECK && !roll.success) xp += 1
-  if (roll.type === RollTypes.CONTEST && roll.winner === WINNER.OPPONENT) xp += 1
+  if (!roll.success) xp += 1
   if (roll.diceResults?.some(d => d.die?.dieSize === DIE_TYPE.D12 && d.dieRollValue === SPECIAL_ROLLS.MORTE)) xp += 1
 
   return xp

@@ -85,7 +85,7 @@ class BaseRollService {
     return dicePool
   }
 
-  // Shared logic for skill checks and contests
+  // Shared logic for skill checks (used across all skill-based rolls)
   static performSkillCheckRoll(skill, character) {
     const dicePool = this.prepareDicePool(skill)
     let diceResults = this.rollDicePool(dicePool)

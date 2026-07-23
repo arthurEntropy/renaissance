@@ -83,7 +83,6 @@ export const ROLL_EVENTS = {
   CUSTOM_ROLL: 'roll:custom',
   DAMAGE_ROLL: 'roll:damage',
   ENGAGEMENT: 'roll:engagement',
-  CONTEST: 'roll:contest',
   INITIATIVE_ROLL: 'roll:initiative',
   INJURY_ROLL: 'roll:injury'
 }

@@ -22,9 +22,7 @@
         <!-- Roll modals spawned from preview roll-link clicks -->
         <SkillCheckModal v-if="showSkillCheckModal && previewCharacter" :selected-skill-key="rollLinkSkillKey"
             :character="previewCharacter" :default-roll-type="rollLinkRollType" :default-dice-mod="rollLinkDiceMod"
-            @close="showSkillCheckModal = false" @start-contest="handleStartContest" />
-        <ContestModal v-if="contestModalOpen" :initial-session-config="contestSessionConfig"
-            @close="contestModalOpen = false" />
+            @close="showSkillCheckModal = false" />
         <CustomRollModal v-if="showRollModal && rollModalConfig && previewCharacter" :title="rollModalConfig.title"
             :character="previewCharacter" :initial-dice-counts="rollModalConfig.initialDiceCounts"
             :initial-modifier="rollModalConfig.initialModifier" :roll-name="rollModalConfig.rollName"
@@ -38,7 +36,6 @@ import { ref, computed, watch, onUnmounted } from 'vue'
 import AbilityCard from '@/components/ui/cards/item/AbilityCard.vue'
 import EquipmentCard from '@/components/ui/cards/item/EquipmentCard.vue'
 import SkillCheckModal from '@/components/features/characterSheet/modals/SkillCheckModal.vue'
-import ContestModal from '@/components/features/characterSheet/rollModal/ContestModal.vue'
 import CustomRollModal from '@/components/features/characterSheet/customDiceRoller/CustomRollModal.vue'
 import { useCardPreview } from '@/composables/useCardPreview'
 import { useCharactersStore } from '@/stores/charactersStore'
@@ -67,8 +64,6 @@ const showSkillCheckModal = ref(false)
 const rollLinkSkillKey = ref(null)
 const rollLinkRollType = ref(null)
 const rollLinkDiceMod = ref(0)
-const contestModalOpen = ref(false)
-const contestSessionConfig = ref(null)
 const showRollModal = ref(false)
 const rollModalConfig = ref(null)
 
@@ -108,7 +103,8 @@ function handlePreviewRollLink(rollData) {
 
     if (rollData.type === 'skill-check' || rollData.type === 'contest') {
         rollLinkSkillKey.value = Object.values(SKILLS).find(s => s.label === rollData.skill)?.key ?? rollData.skill?.toLowerCase() ?? null
-        rollLinkRollType.value = rollData.type === 'contest' ? RollTypes.CONTEST : RollTypes.SKILL_CHECK
+        // Contest links open as unopposed (no difficulty)
+        rollLinkRollType.value = rollData.type === 'contest' ? 'unopposed' : RollTypes.SKILL_CHECK
         rollLinkDiceMod.value = rollData.biomeDiceMod ?? 0
         showSkillCheckModal.value = true
     } else if (rollData.type === 'damage-roll' || rollData.type === 'custom-roll') {
@@ -140,12 +136,6 @@ function handlePreviewRollLink(rollData) {
         }
         showRollModal.value = true
     }
-}
-
-function handleStartContest(config) {
-    showSkillCheckModal.value = false
-    contestSessionConfig.value = config
-    contestModalOpen.value = true
 }
 
 const overlayStyle = computed(() => {

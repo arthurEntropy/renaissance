@@ -9,7 +9,6 @@ class DiscordService {
     this.handleCustomRoll = this.sendCustomRoll.bind(this)
     this.handleDamageRoll = this.sendDamageRoll.bind(this)
     this.handleEngagement = this.sendEngagement.bind(this)
-    this.handleContest = this.sendContest.bind(this)
     this.handleInitiativeRoll = this.sendInitiativeRoll.bind(this)
     this.handleInjuryRoll = this.sendInjuryRoll.bind(this)
     this.init()
@@ -20,7 +19,6 @@ class DiscordService {
     eventBus.on(ROLL_EVENTS.CUSTOM_ROLL, this.handleCustomRoll)
     eventBus.on(ROLL_EVENTS.DAMAGE_ROLL, this.handleDamageRoll)
     eventBus.on(ROLL_EVENTS.ENGAGEMENT, this.handleEngagement)
-    eventBus.on(ROLL_EVENTS.CONTEST, this.handleContest)
     eventBus.on(ROLL_EVENTS.INITIATIVE_ROLL, this.handleInitiativeRoll)
     eventBus.on(ROLL_EVENTS.INJURY_ROLL, this.handleInjuryRoll)
   }
@@ -30,7 +28,6 @@ class DiscordService {
     eventBus.off(ROLL_EVENTS.CUSTOM_ROLL, this.handleCustomRoll)
     eventBus.off(ROLL_EVENTS.DAMAGE_ROLL, this.handleDamageRoll)
     eventBus.off(ROLL_EVENTS.ENGAGEMENT, this.handleEngagement)
-    eventBus.off(ROLL_EVENTS.CONTEST, this.handleContest)
     eventBus.off(ROLL_EVENTS.INITIATIVE_ROLL, this.handleInitiativeRoll)
     eventBus.off(ROLL_EVENTS.INJURY_ROLL, this.handleInjuryRoll)
   }
@@ -122,22 +119,6 @@ class DiscordService {
       await apiClient.post('/send-discord-message', payload)
     } catch (error) {
       console.warn('Discord notification failed for engagement:', error)
-    }
-  }
-
-  async sendContest({ contestResult, integrations }) {
-    if (!this.enabled) return
-    if (integrations?.discord === false) return
-
-    try {
-      const payload = {
-        type: RollTypes.CONTEST,
-        ...contestResult
-      }
-
-      await apiClient.post('/send-discord-message', payload)
-    } catch (error) {
-      console.warn('Discord notification failed for contest:', error)
     }
   }
 

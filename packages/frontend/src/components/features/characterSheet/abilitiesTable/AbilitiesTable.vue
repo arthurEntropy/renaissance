@@ -87,10 +87,7 @@
     <!-- Skill Check Modal -->
     <SkillCheckModal v-if="showSkillCheckModal" :selected-skill-key="rollLinkSkillKey" :character="selectedCharacter"
       :default-roll-type="rollLinkRollType" :default-dice-mod="rollLinkBiomeDiceMod"
-      @close="showSkillCheckModal = false" @start-contest="handleStartContest" />
-
-    <ContestModal v-if="contestModalOpen" :initial-session-config="contestSessionConfig"
-      @close="contestModalOpen = false" />
+      @close="showSkillCheckModal = false" />
 
     <!-- Damage/Custom Roll Modal -->
     <CustomRollModal v-if="showDamageRollModal && damageRollModalConfig && selectedCharacter"
@@ -120,7 +117,6 @@ import GroupedThreeColumnLayout from '@/components/ui/layouts/GroupedThreeColumn
 import SortingPicker from '@/components/ui/pickers/SortingPicker.vue'
 import SkillCheckModal from '@/components/features/characterSheet/modals/SkillCheckModal.vue'
 import ConfirmPurchaseModal from '@/components/ui/modals/ConfirmPurchaseModal.vue'
-import ContestModal from '@/components/features/characterSheet/rollModal/ContestModal.vue'
 import CharacterService from '@/services/entities/characterService'
 import { useCardCascadePicker } from '@/composables/useCardCascadePicker'
 import { anchorFromTriggerEvent } from '@/composables/useAnchoredPickerTrigger'
@@ -166,8 +162,6 @@ const showSkillCheckModal = ref(false)
 const rollLinkSkillKey = ref(null)
 const rollLinkRollType = ref(null)
 const rollLinkBiomeDiceMod = ref(0)
-const contestModalOpen = ref(false)
-const contestSessionConfig = ref(null)
 const showDamageRollModal = ref(false)
 const damageRollModalConfig = ref(null)
 
@@ -391,9 +385,8 @@ const handleRollLink = (rollData) => {
 
   if (rollData.type === 'skill-check' || rollData.type === 'contest') {
     rollLinkSkillKey.value = Object.values(SKILLS).find(s => s.label === rollData.skill)?.key ?? rollData.skill?.toLowerCase() ?? null
-    rollLinkRollType.value = rollData.type === 'contest'
-      ? RollTypes.CONTEST
-      : RollTypes.SKILL_CHECK
+    // Contest links open as unopposed (no difficulty)
+    rollLinkRollType.value = rollData.type === 'contest' ? 'unopposed' : RollTypes.SKILL_CHECK
     rollLinkBiomeDiceMod.value = rollData.biomeDiceMod ?? 0
     showSkillCheckModal.value = true
   } else if (rollData.type === 'damage-roll') {
@@ -457,12 +450,6 @@ const handleRollLink = (rollData) => {
     }
     showDamageRollModal.value = true
   }
-}
-
-const handleStartContest = (config) => {
-  showSkillCheckModal.value = false
-  contestSessionConfig.value = config
-  contestModalOpen.value = true
 }
 
 const allAbilitiesExpanded = computed(() =>

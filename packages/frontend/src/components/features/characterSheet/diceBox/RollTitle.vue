@@ -7,15 +7,6 @@
             <span class="skill-name">{{ rollData.opponentName }}</span>
         </span>
 
-        <span v-else-if="isContest">
-            Contest:
-            <span class="skill-name">{{ rollData.characterName }}</span>
-            ({{ rollData.skillName }})
-            vs
-            <span class="skill-name">{{ rollData.opponentName }}</span>
-            ({{ rollData.opponentSkillName }})
-        </span>
-
         <span v-else-if="isCustomRoll">
             {{ rollData.characterName }} rolled
             <span class="skill-name">{{ rollData.skillName }}</span>
@@ -57,10 +48,6 @@ defineProps({
         required: true
     },
     isEngagement: {
-        type: Boolean,
-        required: true
-    },
-    isContest: {
         type: Boolean,
         required: true
     },

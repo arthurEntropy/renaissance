@@ -12,9 +12,9 @@
             <div class="modal-actions">
                 <ActionButton v-if="!opponent" variant="neutral" size="large" text="Cancel" @click="closeModal" />
                 <div v-if="opponent" :style="{ visibility: shouldShowResolution ? 'visible' : 'hidden' }">
-                    <RollResolution mode="engagement" :user-accepted="userAccepted"
-                        :opponent-accepted="opponentAccepted" :can-accept="showResults" :character-name="character.name"
-                        :opponent-name="opponentName" @toggle-user-accept="toggleUserAccept" />
+                    <RollResolution :user-accepted="userAccepted" :opponent-accepted="opponentAccepted"
+                        :can-accept="showResults" :character-name="character.name" :opponent-name="opponentName"
+                        @toggle-user-accept="toggleUserAccept" />
                 </div>
             </div>
         </template>
