@@ -1,17 +1,17 @@
 {
-  "id": "16b72ab7-e855-420f-93f2-c94bce03f8b1",
+  "id": "cb66fcb1-7ffc-449a-a969-233cae93be32",
   "isDeleted": false,
-  "createdAt": "2026-07-21T13:45:12.139Z",
-  "lastModified": "2026-07-21T15:03:33.412Z",
+  "createdAt": "2026-07-21T13:01:53.858Z",
+  "lastModified": "2026-07-22T13:04:05.854Z",
   "characterType": "npc",
-  "name": "Jasz",
+  "name": "Farah",
   "featuredArtUrls": [
-    "https://cdn.midjourney.com/80c4260c-e4da-43ac-86cc-33d5b8fb473c/0_0.png"
+    "https://cdn.midjourney.com/39a95998-1f4a-4282-a955-4c4f19b4fb51/0_0.png"
   ],
-  "speed": 30,
+  "speed": 25,
   "notes": "",
   "body": 2,
-  "heart": 2,
+  "heart": 3,
   "wits": 2,
   "skills": [
     {
@@ -20,11 +20,11 @@
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "manualDiceMod": 1
+      "manualDiceMod": 0
     },
     {
       "key": "strength",
-      "ranks": 2,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -36,11 +36,11 @@
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "manualDiceMod": 1
+      "manualDiceMod": 0
     },
     {
       "key": "fortitude",
-      "ranks": 0,
+      "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -48,7 +48,7 @@
     },
     {
       "key": "craft",
-      "ranks": 0,
+      "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -64,7 +64,7 @@
     },
     {
       "key": "insight",
-      "ranks": 2,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -72,7 +72,7 @@
     },
     {
       "key": "courtesy",
-      "ranks": 0,
+      "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -80,7 +80,7 @@
     },
     {
       "key": "spirit",
-      "ranks": 0,
+      "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -96,7 +96,7 @@
     },
     {
       "key": "persuade",
-      "ranks": 0,
+      "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -120,7 +120,7 @@
     },
     {
       "key": "lore",
-      "ranks": 1,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -136,18 +136,18 @@
     }
   ],
   "endurance": {
-    "current": 4,
+    "current": 0,
     "base": 10
   },
   "hope": {
-    "current": 4,
-    "base": 4
+    "current": 6,
+    "base": 6
   },
   "defense": {
-    "current": 12,
-    "base": 12
+    "current": 6,
+    "base": 6
   },
-  "load": 4,
+  "load": 0,
   "shadow": 0,
   "injury": 0,
   "states": {
@@ -167,46 +167,47 @@
   },
   "engagementDice": [],
   "engagementSuccesses": [],
-  "engagementDiceStatuses": {
-    "mestiere_1": "expended",
-    "84239d55-a70b-463e-a8c7-f24d66332816_0": "expended"
-  },
+  "engagementDiceStatuses": {},
   "equipment": [
     {
-      "id": "84239d55-a70b-463e-a8c7-f24d66332816",
+      "id": "659dd472-b4bb-4cdd-8790-ac1d535a9295",
       "quantity": 1,
       "isCarried": true,
       "isWielding": true,
-      "collapsed": false,
-      "columnIndex": 0
+      "columnIndex": 0,
+      "collapsed": true
     },
     {
-      "id": "e86f121f-527e-46c3-878d-1b9bb79ce741",
-      "quantity": 1,
-      "isCarried": true,
-      "columnIndex": 1,
-      "isWielding": true
-    },
-    {
-      "id": "9a7fe5d8-027c-48d8-9610-d57ce08e1f09",
-      "quantity": 1,
-      "isCarried": true,
-      "columnIndex": 1,
-      "isWielding": true
-    },
-    {
-      "id": "ce7966c5-c074-4c31-87bc-3eff62a3b3c6",
-      "quantity": 1,
-      "isCarried": true,
-      "columnIndex": 1,
-      "isWielding": true
-    },
-    {
-      "id": "765ffc32-f419-428b-970a-255ac7709859",
+      "id": "3d63f295-8941-4ffe-8f4c-d4de52da87a4",
       "quantity": 1,
       "isCarried": true,
       "isWielding": true,
-      "columnIndex": 1
+      "columnIndex": 0,
+      "collapsed": true
+    },
+    {
+      "id": "6bd54a13-d544-4839-bb45-8a8a4c8f9c91",
+      "quantity": 1,
+      "isCarried": true,
+      "isWielding": true,
+      "columnIndex": 0,
+      "collapsed": true
+    },
+    {
+      "id": "d1c75d51-ae5b-496d-b25d-d44c5437d0d6",
+      "quantity": 1,
+      "isCarried": true,
+      "isWielding": true,
+      "columnIndex": 0,
+      "collapsed": true
+    },
+    {
+      "id": "084a8e36-537d-4489-bb25-23ba58c4e411",
+      "quantity": 1,
+      "isCarried": true,
+      "isWielding": false,
+      "columnIndex": 1,
+      "collapsed": true
     }
   ],
   "groupEquipmentBySource": false,
@@ -214,12 +215,12 @@
   "equipmentSortOption": "",
   "equipmentCustomGroups": [],
   "mp": {
-    "current": 0,
-    "base": 0
+    "current": 7,
+    "base": 10
   },
   "abilities": [
     {
-      "id": "759cd8bb-d3c3-43a8-a834-2669898d9882",
+      "id": "ad7f2d4c-75cc-4b7c-8066-57eb1ccaf54a",
       "collapsed": true,
       "showImprovements": false,
       "showSuccesses": false,
@@ -227,7 +228,7 @@
       "columnIndex": 0
     },
     {
-      "id": "400fe649-0b14-4a42-b79b-a95764f4bd26",
+      "id": "738255ac-87f1-45a5-91ff-c2144b92b5e3",
       "collapsed": true,
       "showImprovements": false,
       "showSuccesses": false,
@@ -235,7 +236,7 @@
       "columnIndex": 0
     },
     {
-      "id": "8c423192-b716-4cef-bfbb-c46405562fc3",
+      "id": "1325605b-d523-4ec2-b2a7-57a04dc55d91",
       "collapsed": true,
       "showImprovements": false,
       "showSuccesses": false,
@@ -243,7 +244,23 @@
       "columnIndex": 0
     },
     {
-      "id": "179fdf43-fee1-4755-af63-7c82ad30617f",
+      "id": "47d52f7a-294c-4658-9dbe-d065c115abf6",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false,
+      "columnIndex": 0
+    },
+    {
+      "id": "fa668bfa-4be1-4ee7-aa84-64051d70f686",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false,
+      "columnIndex": 0
+    },
+    {
+      "id": "b308ec76-149a-480c-a2f6-f8a98272e659",
       "collapsed": true,
       "showImprovements": false,
       "showSuccesses": false,
@@ -251,7 +268,7 @@
       "columnIndex": 1
     },
     {
-      "id": "901bee04-07ea-4bec-a2d1-30c2cca0096b",
+      "id": "e5f027b7-ef18-461e-9c0c-5b549df17af2",
       "collapsed": true,
       "showImprovements": false,
       "showSuccesses": false,
@@ -259,25 +276,33 @@
       "columnIndex": 1
     },
     {
-      "id": "d4c43cb4-a4d4-4f27-ae4a-6334bb84ea46",
+      "id": "0697db22-c8a1-4c8c-afb3-8b14a82b2c8d",
       "collapsed": true,
       "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false,
+      "columnIndex": 1
+    },
+    {
+      "id": "253c337d-f9e6-4f4e-a37c-88f87deb8d26",
+      "collapsed": false,
+      "showImprovements": false,
+      "showSuccesses": true,
+      "isActive": false,
+      "columnIndex": 2
+    },
+    {
+      "id": "8651d1f3-0c22-4d8a-8942-647630191628",
+      "collapsed": false,
+      "showImprovements": true,
       "showSuccesses": false,
       "isActive": false,
       "columnIndex": 2
     },
     {
-      "id": "79f7d0be-4052-45ae-9351-449cd4023bdf",
-      "collapsed": true,
-      "showImprovements": false,
-      "showSuccesses": false,
-      "isActive": false,
-      "columnIndex": 2
-    },
-    {
-      "id": "324647ca-8a6f-4e3c-8c44-a7bdb8fb837f",
-      "collapsed": true,
-      "showImprovements": false,
+      "id": "20ce2193-40ba-4b19-a995-bcd526a9adca",
+      "collapsed": false,
+      "showImprovements": true,
       "showSuccesses": false,
       "isActive": false,
       "columnIndex": 2
@@ -297,35 +322,36 @@
   },
   "rollStats": {
     "skillChecks": {
-      "attempts": 7,
-      "successes": 6,
-      "totalSum": 84,
+      "attempts": 16,
+      "successes": 14,
+      "totalSum": 158,
       "bestTotal": 16,
-      "hardestSuccess": null,
+      "hardestSuccess": 5,
       "bySkill": {
-        "Strength": 6,
-        "Fortitude": 1
+        "Fortitude": 1,
+        "Spirit": 1,
+        "Craft": 14
       },
       "solCount": 0,
-      "morteCount": 1,
-      "successCount": 0
+      "morteCount": 2,
+      "successCount": 5
     },
     "contests": {
       "engagement": {
-        "wins": 7,
-        "losses": 1,
-        "draws": 1
-      },
-      "contest": {
         "wins": 0,
         "losses": 0,
         "draws": 0
+      },
+      "contest": {
+        "wins": 0,
+        "losses": 1,
+        "draws": 0
       }
     },
-    "xpEarned": 2,
-    "xpSpent": 0,
-    "treasureEarned": 53,
-    "treasureSpent": 0
+    "xpEarned": 5,
+    "xpSpent": 2,
+    "treasureEarned": 45,
+    "treasureSpent": 2
   },
   "biomeTags": [],
   "biomeId": null,
@@ -341,38 +367,72 @@
     "green": [],
     "colorless": []
   },
-  "witchcraftTokens": [],
+  "witchcraftTokens": [
+    {
+      "id": "69e17e99-dce6-4bbe-a58a-df01ed7e57f4",
+      "imageUrl": "/assets/beads-BQhgmbgW.png",
+      "givenTo": "",
+      "notes": "",
+      "abilityId": "8651d1f3-0c22-4d8a-8942-647630191628",
+      "isTalisman": false
+    },
+    {
+      "id": "2ddf31f1-88c6-4df0-9f9f-1b24ccb608dc",
+      "imageUrl": "/assets/candle-C6pJW_uf.png",
+      "givenTo": "",
+      "notes": "",
+      "abilityId": "20ce2193-40ba-4b19-a995-bcd526a9adca",
+      "isTalisman": false
+    },
+    {
+      "id": "900cdeb5-08f0-4a44-85ac-11bc9e0a93f5",
+      "imageUrl": "/assets/jewelery-DEyyAV1b.png",
+      "givenTo": "",
+      "notes": "",
+      "abilityId": "253c337d-f9e6-4f4e-a37c-88f87deb8d26",
+      "isTalisman": false
+    },
+    {
+      "id": "78af48ef-e4e0-4734-98e7-a38eb0a596be",
+      "imageUrl": "/assets/olive-Pq2i8_8q.png",
+      "givenTo": "",
+      "notes": "",
+      "abilityId": "253c337d-f9e6-4f4e-a37c-88f87deb8d26",
+      "isTalisman": true
+    }
+  ],
   "summonerVessels": [],
   "hunterTraps": [],
   "campaignId": "c9ddeab9-d180-4fc5-869f-e64239bc3376",
   "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
   "isPublicPreview": false,
   "sectionOrder": [
+    "abilities",
+    "witchcraft",
     "engagement",
-    "equipment",
-    "abilities"
+    "equipment"
   ],
   "martialTrainingOverrides": {},
-  "pronouns": "she/her",
+  "pronouns": "they/them",
   "ancestryIds": [
-    "2e46823f-bec7-4d70-b323-dbc8b71c7739",
-    "b6f7cc3e-f689-4cd9-a8ed-73bf5e7f0fef"
+    "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+    "77e4f81a-728f-49a7-a013-4d6f666353e2"
   ],
   "cultureIds": [
-    "be62ac3d-7168-4779-8274-e60574a2fd27",
-    "352c844b-6d4f-4b61-b475-315421a453e7"
+    "61e2ce55-1954-4e8e-b1b3-b249ae915fa7",
+    "40086e18-eaba-411a-b4ec-7a0a7fd42d37"
   ],
-  "mestiereId": "d4dce5e2-e767-464d-91f0-c40b47f788b3",
-  "age": 184,
+  "mestiereId": "162ae4db-7a67-4770-8a2c-7e9883da14f6",
+  "age": 34,
   "heightFeet": 4,
-  "heightInches": 7,
-  "weight": 134,
+  "heightInches": 5,
+  "weight": 142,
   "keeping": "4d5e6f7a-8b9c-4d0e-1f2a-3b4c5d6e7f8a",
-  "treasure": 11,
-  "xp": 2,
-  "updatedAt": "2026-07-21T15:03:33.412Z",
+  "treasure": 10,
+  "xp": 4,
+  "updatedAt": "2026-07-22T13:04:05.854Z",
   "description": "",
   "size": 0,
   "reach": 0,
-  "featuredArtUrl": "https://cdn.midjourney.com/80c4260c-e4da-43ac-86cc-33d5b8fb473c/0_0.png"
+  "featuredArtUrl": "https://cdn.midjourney.com/39a95998-1f4a-4282-a955-4c4f19b4fb51/0_0.png"
 }

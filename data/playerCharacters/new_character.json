@@ -1,12 +1,12 @@
 {
-  "id": "f092dc0c-d07f-4861-9f70-6e6af65a0d15",
+  "id": "33b032fb-a135-43a7-a704-967f4eba5d82",
   "isDeleted": false,
-  "createdAt": "2026-07-22T14:43:30.834Z",
-  "lastModified": "2026-07-22T17:44:22.333Z",
+  "createdAt": "2026-07-22T13:08:23.406Z",
+  "lastModified": "2026-07-22T13:08:44.495Z",
   "characterType": "playerCharacter",
   "name": "New Character",
   "featuredArtUrls": [
-    "https://cdn.midjourney.com/1b1f840e-6bc2-456a-b7d0-976f4480c453/0_0.png"
+    "https://cdn.midjourney.com/6b5282ab-e572-4ad7-bed2-3cce785c9744/0_2.png"
   ],
   "speed": 0,
   "notes": "",
@@ -18,7 +18,7 @@
       "key": "awe",
       "ranks": 0,
       "isFavored": false,
-      "isIllFavored": true,
+      "isIllFavored": false,
       "diceMod": 0,
       "manualDiceMod": 0
     },
@@ -26,7 +26,7 @@
       "key": "strength",
       "ranks": 0,
       "isFavored": false,
-      "isIllFavored": true,
+      "isIllFavored": false,
       "diceMod": 0,
       "manualDiceMod": 0
     },
@@ -34,7 +34,7 @@
       "key": "dexterity",
       "ranks": 0,
       "isFavored": false,
-      "isIllFavored": true,
+      "isIllFavored": false,
       "diceMod": 0,
       "manualDiceMod": 0
     },
@@ -42,7 +42,7 @@
       "key": "fortitude",
       "ranks": 0,
       "isFavored": false,
-      "isIllFavored": true,
+      "isIllFavored": false,
       "diceMod": 0,
       "manualDiceMod": 0
     },
@@ -50,7 +50,7 @@
       "key": "craft",
       "ranks": 0,
       "isFavored": false,
-      "isIllFavored": true,
+      "isIllFavored": false,
       "diceMod": 0,
       "manualDiceMod": 0
     },
@@ -171,32 +171,17 @@
   "equipment": [],
   "groupEquipmentBySource": false,
   "groupEquipmentByCustom": false,
-  "equipmentSortOption": "",
+  "equipmentSortOption": "name-asc",
   "equipmentCustomGroups": [],
   "mp": {
     "current": 0,
     "base": 0
   },
-  "abilities": [
-    {
-      "id": "aef34ad0-19d9-4509-9cda-7e957955f580",
-      "collapsed": false,
-      "showImprovements": false,
-      "showSuccesses": false,
-      "isActive": false
-    },
-    {
-      "id": "0353aa97-c033-47ff-979e-5ed5a0b565c8",
-      "collapsed": false,
-      "showImprovements": false,
-      "showSuccesses": false,
-      "isActive": false
-    }
-  ],
+  "abilities": [],
   "groupAbilitiesBySource": false,
   "groupAbilitiesByManaColor": false,
   "groupAbilitiesByCustom": false,
-  "abilitySortOption": "",
+  "abilitySortOption": "name-asc",
   "abilityCustomGroups": [],
   "autoCalculations": {
     "load": true,
@@ -229,10 +214,10 @@
         "draws": 0
       }
     },
-    "xpEarned": 20,
-    "xpSpent": 10,
-    "treasureEarned": 6,
-    "treasureSpent": 2
+    "xpEarned": 0,
+    "xpSpent": 0,
+    "treasureEarned": 0,
+    "treasureSpent": 0
   },
   "biomeTags": [],
   "biomeId": null,
@@ -249,7 +234,6 @@
     "colorless": []
   },
   "witchcraftTokens": [],
-  "witchFamiliar": null,
   "summonerVessels": [],
   "hunterTraps": [],
   "campaignId": null,
@@ -266,7 +250,7 @@
   "heightInches": 0,
   "weight": 0,
   "keeping": null,
-  "treasure": 2,
+  "treasure": 0,
   "xp": 0,
-  "updatedAt": "2026-07-22T17:44:22.333Z"
+  "updatedAt": "2026-07-22T13:08:44.495Z"
 }

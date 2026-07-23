@@ -2,7 +2,7 @@
   "id": "f3c8c845-59f1-4481-bafb-2f1e0d5da452",
   "isDeleted": false,
   "createdAt": "2026-07-10T14:12:23.517Z",
-  "lastModified": "2026-07-21T16:02:28.878Z",
+  "lastModified": "2026-07-23T12:17:28.222Z",
   "campaignId": "c9ddeab9-d180-4fc5-869f-e64239bc3376",
   "name": "Night Swamp",
   "backgroundImage": {
@@ -42,7 +42,7 @@
       "size": 3,
       "x": 1980,
       "y": 900,
-      "zIndex": 21
+      "zIndex": 31
     }
   ],
   "transform": {

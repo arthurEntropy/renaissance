@@ -2,7 +2,7 @@
   "id": "c4995e1d-ce28-489e-937b-b48872f10b15",
   "isDeleted": false,
   "createdAt": "2026-07-21T13:24:01.786Z",
-  "lastModified": "2026-07-22T17:50:00.971Z",
+  "lastModified": "2026-07-22T13:03:44.211Z",
   "characterType": "npc",
   "name": "Futt",
   "featuredArtUrls": [
@@ -268,20 +268,6 @@
       "showSuccesses": false,
       "isActive": false,
       "columnIndex": 2
-    },
-    {
-      "id": "b9271b66-5772-4ec2-ba0c-5a8f4b6cc525",
-      "collapsed": true,
-      "showImprovements": false,
-      "showSuccesses": false,
-      "isActive": false
-    },
-    {
-      "id": "9a047b93-d2c2-4de0-ae7e-0fa06b459a29",
-      "collapsed": true,
-      "showImprovements": false,
-      "showSuccesses": false,
-      "isActive": false
     }
   ],
   "groupAbilitiesBySource": false,
@@ -298,18 +284,17 @@
   },
   "rollStats": {
     "skillChecks": {
-      "attempts": 2,
-      "successes": 1,
-      "totalSum": 31,
-      "bestTotal": 24,
+      "attempts": 1,
+      "successes": 0,
+      "totalSum": 7,
+      "bestTotal": 7,
       "hardestSuccess": null,
       "bySkill": {
-        "Fortitude": 1,
-        "Spirit": 1
+        "Fortitude": 1
       },
       "solCount": 0,
       "morteCount": 0,
-      "successCount": 3
+      "successCount": 0
     },
     "contests": {
       "engagement": {
@@ -375,7 +360,7 @@
   "keeping": "2b3c4d5e-6f7a-4b8c-9d0e-1f2a3b4c5d6e",
   "treasure": 2,
   "xp": 2,
-  "updatedAt": "2026-07-22T17:50:00.971Z",
+  "updatedAt": "2026-07-22T13:03:44.211Z",
   "description": "",
   "size": 0,
   "reach": 0,
