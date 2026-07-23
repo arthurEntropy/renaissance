@@ -35,7 +35,6 @@
                         :show-remove-fab="isGM" :disable-default-click="true" :draggable="canDragNpcs"
                         class="draggable-token" @dragstart="handleDragStart($event, npc.id)" @dragend="handleDragEnd"
                         @remove="isGM ? deleteNPC(npc) : undefined" @click="handleNpcTokenClick(npc)" />
-                    @click="handleNpcBadgeClick(npc)" />
                     <div v-if="showDropSlot('inactive')" class="status-drop-slot" aria-hidden="true">
                         <PlusIcon class="status-drop-slot-icon" />
                     </div>

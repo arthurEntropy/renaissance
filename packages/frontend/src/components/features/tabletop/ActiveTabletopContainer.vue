@@ -61,7 +61,7 @@ function openTabletop() {
     cursor: pointer;
     /* Let the token sit in a small panel */
     border-radius: var(--radius-10);
-    border: 1px solid var(--overlay-white-medium);
+    border: 2px solid var(--color-border-primary);
     background: var(--overlay-black-heavy);
     overflow: hidden;
     transition: border-color var(--transition-fast), transform var(--transition-fast);

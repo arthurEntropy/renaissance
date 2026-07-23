@@ -102,7 +102,7 @@ function deactivateAbility(abilityId) {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: var(--space-sm);
+    gap: var(--space-lg);
     margin-bottom: var(--space-sm);
 }
 
