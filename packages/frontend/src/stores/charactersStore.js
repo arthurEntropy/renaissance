@@ -67,13 +67,18 @@ export const useCharactersStore = defineStore('characters', () => {
     return base.items.value.filter((character) => isBeastTemplate(character))
   })
 
-  // The beast currently summoned by the selected character (if any)
+  const filteredBeastInstances = computed(() => {
+    return base.items.value.filter((character) => isBeastInstance(character))
+  })
+
+  // The beast currently summoned by the selected character (if any).
+  // vessel.beastId may reference a beastInstance (new) or a beast template (legacy).
   const summonedBeast = computed(() => {
     const vessels = selectedCharacter.value?.summonerVessels
     if (!vessels?.length) return null
     const summonedVessel = vessels.find((v) => v.isSummoned && v.beastId)
     if (!summonedVessel) return null
-    return filteredBeasts.value.find((b) => b.id === summonedVessel.beastId) ?? null
+    return base.getById(summonedVessel.beastId) ?? null
   })
 
   const hasSelectedCharacter = computed(() => {
@@ -87,9 +92,13 @@ export const useCharactersStore = defineStore('characters', () => {
     if (isBeastTemplate(selectedCharacter.value)) {
       return authStore.isAdmin && !campaignStore.isInCampaign
     }
-    // Beast instance: GM in the active campaign can edit
+    // Beast instance: GM in the active campaign can edit, or the player who owns it
     if (isBeastInstance(selectedCharacter.value)) {
-      return campaignStore.isGMInActiveCampaign
+      if (authStore.isAdmin) return true
+      if (campaignStore.isGMInActiveCampaign) return true
+      // Familiars and summoner vessel beasts carry an ownerId set to their creator
+      if (selectedCharacter.value.ownerId && selectedCharacter.value.ownerId === authStore.user?.uid) return true
+      return false
     }
     // Player characters and NPCs
     if (authStore.isAdmin) return true
@@ -97,14 +106,12 @@ export const useCharactersStore = defineStore('characters', () => {
     return selectedCharacter.value.ownerId === authStore.user?.uid
   })
 
-  // Wrap update to keep selectedCharacter in sync
+  // Wrap update to persist the entity.
+  // Deliberately does NOT overwrite selectedCharacter with the server response:
+  // the reactive proxy already has the user's latest mutations, and replacing it
+  // with the server payload would revert any changes made during the round-trip.
   const update = async (entity) => {
-    if (selectedCharacter.value?.id === entity?.id) selectedCharacter.value = entity
-
     const updatedEntity = await base.update(entity)
-
-    if (selectedCharacter.value?.id === updatedEntity?.id) selectedCharacter.value = updatedEntity
-
     return updatedEntity
   }
 
@@ -142,6 +149,7 @@ export const useCharactersStore = defineStore('characters', () => {
     getById: base.getById,
     filteredCharacters,
     filteredBeasts,
+    filteredBeastInstances,
     summonedBeast,
     hasSelectedCharacter,
     canEditSelectedCharacter,

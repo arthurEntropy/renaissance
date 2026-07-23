@@ -3,7 +3,7 @@ import * as CharacterUtils from '@shared/utils/characterUtils'
 import { useCharactersStore } from '@/stores/charactersStore'
 import { normalizeRollStats } from '@/services/rolls/rollStatsService'
 
-const SAVE_DEBOUNCE_MS = 500
+const SAVE_DEBOUNCE_MS = 1500
 
 // WeakMap for pending refunds so callers can pre-register refunds before the
 // reactive update triggers the watchers below.
@@ -28,26 +28,26 @@ export function scheduleStatsRefund(character, { xp = 0, treasure = 0 } = {}) {
 export function useCharacterStatWatchers(selectedCharacter, allEquipment) {
   const charactersStore = useCharactersStore()
 
-  // Main character save watcher with debouncing
+  // Main character save watcher with debouncing.
+  // Note: we intentionally do NOT guard against concurrent saves here. The
+  // characters store's update method does NOT overwrite selectedCharacter with
+  // the server response, so local mutations are never reverted by a slow save.
   let saveTimeout = null
-  let isSaving = false
   
   watch(selectedCharacter, (newCharacter) => {
-    if (!newCharacter || isSaving) return
+    if (!newCharacter) return
     
-    // Clear any existing timeout
+    // Debounce: reset timer on every change, fire 1500 ms after the last one.
     if (saveTimeout) {
       clearTimeout(saveTimeout)
     }
     
-    // Set new timeout for saving
     saveTimeout = setTimeout(async () => {
-      isSaving = true
+      saveTimeout = null
       try {
         await charactersStore.update(newCharacter)
-      } finally {
-        isSaving = false
-        saveTimeout = null
+      } catch (err) {
+        console.error('[CharacterWatcher] Failed to save character:', err)
       }
     }, SAVE_DEBOUNCE_MS)
   }, { 
@@ -55,7 +55,7 @@ export function useCharacterStatWatchers(selectedCharacter, allEquipment) {
     flush: 'post' // Run after component updates to batch changes
   })
 
-  // Cleanup on unmount
+  // Cleanup on unmount — cancel any pending save
   onUnmounted(() => {
     if (saveTimeout) {
       clearTimeout(saveTimeout)

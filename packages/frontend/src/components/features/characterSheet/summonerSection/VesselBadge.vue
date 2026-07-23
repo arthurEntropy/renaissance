@@ -21,7 +21,7 @@
         <!-- Art area — clickable to view beast sheet if beast is captured -->
         <div class="badge__art-area" :class="{ 'badge__art-area--clickable': !!beast }" :style="artAreaStyle"
             @click="handleArtClick">
-            <img v-if="vessel.imageUrl" :src="vessel.imageUrl" class="badge__art-img" alt="" />
+            <img v-if="resolvedVesselImageUrl" :src="resolvedVesselImageUrl" class="badge__art-img" alt="" />
             <div v-else class="badge__art-placeholder">
                 <SparklesIcon class="badge__art-placeholder-icon" />
             </div>
@@ -78,6 +78,37 @@ import { getOptimizedImageUrl } from '@/utils/imageOptimization'
 import { MIDJOURNEY_IMAGE_CONTEXTS } from '@shared/constants/artConstants.js'
 import { useKeepingStore } from '@/stores/keepingStore'
 
+// Static icon imports — must match VesselModal.vue so keys resolve correctly
+import ballGlowIcon from '@/assets/icons/summoner/ball-glow.png'
+import bambooIcon from '@/assets/icons/summoner/bamboo.png'
+import barrelIcon from '@/assets/icons/summoner/barrel.png'
+import boxIcon from '@/assets/icons/summoner/box.png'
+import chestIcon from '@/assets/icons/summoner/chest.png'
+import clothJarIcon from '@/assets/icons/summoner/cloth-jar.png'
+import coveredJarIcon from '@/assets/icons/summoner/covered-jar.png'
+import glassBallIcon from '@/assets/icons/summoner/glass-ball.png'
+import lockedHeartIcon from '@/assets/icons/summoner/locked-heart.png'
+import magicPotionIcon from '@/assets/icons/summoner/magic-potion.png'
+import masonJarIcon from '@/assets/icons/summoner/mason-jar.png'
+import potionIcon from '@/assets/icons/summoner/potion.png'
+import potteryIcon from '@/assets/icons/summoner/pottery.png'
+import perfumeBottleIcon from '@/assets/icons/summoner/perfume-bottle.png'
+import seashellIcon from '@/assets/icons/summoner/seashell.png'
+import spikedBallIcon from '@/assets/icons/summoner/spiked-ball.png'
+import tubeIcon from '@/assets/icons/summoner/tube.png'
+import walnutIcon from '@/assets/icons/summoner/walnut.png'
+import winkleIcon from '@/assets/icons/summoner/winkle.png'
+import wreckingBallIcon from '@/assets/icons/summoner/wrecking-ball.png'
+
+const ICON_URL_MAP = {
+    ballGlow: ballGlowIcon, bamboo: bambooIcon, barrel: barrelIcon, box: boxIcon, chest: chestIcon,
+    clothJar: clothJarIcon, coveredJar: coveredJarIcon, glassBall: glassBallIcon,
+    lockedHeart: lockedHeartIcon, magicPotion: magicPotionIcon, masonJar: masonJarIcon,
+    perfumeBottle: perfumeBottleIcon, potion: potionIcon, pottery: potteryIcon,
+    seashell: seashellIcon, spikedBall: spikedBallIcon, tube: tubeIcon,
+    walnut: walnutIcon, winkle: winkleIcon, wreckingBall: wreckingBallIcon,
+}
+
 const props = defineProps({
     vessel: {
         type: Object,
@@ -96,6 +127,14 @@ const props = defineProps({
 const emit = defineEmits(['add', 'edit', 'remove-beast', 'remove-vessel', 'toggle-state', 'open-sheet'])
 
 const keepingStore = useKeepingStore()
+
+// Resolve stored imageUrl: may be an icon KEY, legacy hashed asset path, or custom https:// URL
+const resolvedVesselImageUrl = computed(() => {
+    const v = props.vessel?.imageUrl
+    if (!v) return null
+    if (/^https?:\/\//i.test(v)) return v     // custom image URL
+    return ICON_URL_MAP[v] ?? null             // icon key → build-time URL
+})
 
 const beastArt = useOptimizedImage(() => props.beast?.featuredArtUrls?.[0], MIDJOURNEY_IMAGE_CONTEXTS.THUMBNAIL)
 

@@ -1023,17 +1023,26 @@ export function useTabletopCanvas(campaignId, tabletopId) {
         const tid = typeof tabletopId === 'object' ? tabletopId.value : tabletopId
         if (!cid || !tid) return
         if (_saveTimer) clearTimeout(_saveTimer)
+        // Snapshot current state immediately so that any resets that occur between
+        // this call and the timer firing do not corrupt the saved payload.
+        const snapshot = {
+            items: JSON.parse(JSON.stringify(canvasItems.value)),
+            transform: { ...transform.value },
+            backgroundImage: backgroundImage.value ? { ...backgroundImage.value } : null,
+            gridSize: gridSize.value,
+            gridColor: gridColor.value,
+            gridOpacity: gridOpacity.value,
+            showPaths: showPaths.value,
+            radiusAreas: JSON.parse(JSON.stringify(radiusAreas.value)),
+        }
         _saveTimer = setTimeout(() => {
-            campaignStore.updateTabletop(cid, tid, {
-                items: canvasItems.value,
-                transform: transform.value,
-                backgroundImage: backgroundImage.value,
-                gridSize: gridSize.value,
-                gridColor: gridColor.value,
-                gridOpacity: gridOpacity.value,
-                showPaths: showPaths.value,
-                radiusAreas: radiusAreas.value,
-            }).catch((err) => console.warn('[VTT] Failed to persist tabletop state:', err))
+            // Safety guard: abort if the active tabletop has changed since this
+            // save was scheduled (watch handler should have cancelled the timer,
+            // but this is defence-in-depth).
+            const currentTid = typeof tabletopId === 'object' ? tabletopId.value : tabletopId
+            if (currentTid !== tid) return
+            campaignStore.updateTabletop(cid, tid, snapshot)
+                .catch((err) => console.warn('[VTT] Failed to persist tabletop state:', err))
         }, 500)
     }
 

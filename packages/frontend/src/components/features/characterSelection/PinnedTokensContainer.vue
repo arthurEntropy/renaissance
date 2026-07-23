@@ -37,6 +37,19 @@
             </div>
         </div>
 
+        <div v-if="witchsFamiliar" class="token-group token-group--familiar">
+            <div class="token-group-header">
+                <span class="token-group-label token-group-label--familiar">Familiar</span>
+            </div>
+            <div class="token-group-members">
+                <div class="token-item draggable-token-wrapper" draggable="true"
+                    @dragstart="handleTokenDragStart($event, witchsFamiliar)" @dragend="handleTokenDragEnd">
+                    <BeastToken :beast="witchsFamiliar" :disableDefaultClick="true"
+                        @click="(beast) => openCharacterSheet(beast)" />
+                </div>
+            </div>
+        </div>
+
         <div v-for="group in resolvedPinnedGroups" :key="group.id" class="token-group token-group--pinned">
             <FloatingActionButton class="unpin-fab" :variant="FAB_TYPES.DELETE" :size="FAB_SIZES.SMALL"
                 :visibility="FAB_VISIBILITIES.ALWAYS" aria-label="Unpin group"
@@ -118,6 +131,13 @@ const summonersBeast = computed(() => {
     return getSummonedBeastForCharacterId(pinnedSummoner.value.id)
 })
 
+// The familiar of the pinned character (Witch's familiar beastInstance).
+const witchsFamiliar = computed(() => {
+    const familiarId = pinnedSummoner.value?.witchFamiliar?.characterId
+    if (!familiarId) return null
+    return charactersStore.getById(familiarId) ?? null
+})
+
 const pinnedGroups = computed(() => characterContextStore.pinnedGroups)
 const campaignCharactersById = computed(() => {
     const map = new Map()
@@ -152,7 +172,7 @@ const isViewingFocusedCharacterSheet = computed(() =>
     isCharacterSheetOpen.value && focusedCharacter.value?.id === visibleFocusedCharacter.value?.id
 )
 const hasAnyTokens = computed(() => {
-    return hasFocusedTokens.value || !!summonersBeast.value || resolvedPinnedGroups.value.length > 0
+    return hasFocusedTokens.value || !!summonersBeast.value || !!witchsFamiliar.value || resolvedPinnedGroups.value.length > 0
 })
 
 // Show treasure & XP on focused token hover on any page (for non-beast characters)
@@ -377,6 +397,10 @@ function getFocusedTokenProps(character) {
 
 .token-group-label--summoned {
     color: var(--color-accent-cyan) !important;
+}
+
+.token-group-label--familiar {
+    color: var(--color-accent-purple, #a855f7) !important;
 }
 
 .token-group--pinned {

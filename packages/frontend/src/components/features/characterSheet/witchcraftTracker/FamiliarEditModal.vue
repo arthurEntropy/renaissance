@@ -40,12 +40,14 @@ import BaseModal from '@/components/ui/modals/BaseModal.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import { useCharactersStore } from '@/stores/charactersStore'
 import { useAuthStore } from '@/stores/authStore'
-import { createDefaultPlayerCharacter } from '@shared/types/character'
+import { useCampaignStore } from '@/stores/campaignStore'
+import { createDefaultBeastInstance } from '@shared/types/character'
 
 const emit = defineEmits(['close', 'chosen'])
 
 const charactersStore = useCharactersStore()
 const authStore = useAuthStore()
+const campaignStore = useCampaignStore()
 
 const selectedBeastId = ref(null)
 const isSaving = ref(false)
@@ -66,11 +68,13 @@ async function handleChoose() {
 
     isSaving.value = true
     try {
-        // Build a playerCharacter copy from the beast template, copying over stats and appearance
+        // Build a beastInstance from the template, keeping all gameplay stats.
+        // Using beastInstance (not playerCharacter) keeps the familiar out of the
+        // regular characters list and ties it to the Witch who created it.
+        const campaignId = campaignStore.activeCampaign?.id ?? null
         const familiar = {
-            ...createDefaultPlayerCharacter(),
-            characterType: 'playerCharacter',
-            ownerId: authStore.user?.uid ?? null,
+            ...createDefaultBeastInstance(campaignId, beast.id),
+            // Copy all gameplay data from the template
             name: beast.name,
             featuredArtUrls: beast.featuredArtUrls ? [...beast.featuredArtUrls] : [],
             speed: beast.speed ?? 0,
@@ -83,6 +87,24 @@ async function handleChoose() {
             hope: beast.hope ? { ...beast.hope } : { current: 0, base: 0 },
             defense: beast.defense ? { ...beast.defense } : { current: 0, base: 0 },
             notes: beast.notes ?? '',
+            // Bitmask fields
+            size: beast.size ?? 1,
+            reach: beast.reach ?? 5,
+            challenge: beast.challenge ?? 0,
+            description: beast.description ?? '',
+            hasDarkvision: beast.hasDarkvision ?? false,
+            hasBlindsight: beast.hasBlindsight ?? false,
+            hasTremorsense: beast.hasTremorsense ?? false,
+            hasTruesight: beast.hasTruesight ?? false,
+            burrowSpeed: beast.burrowSpeed ?? 0,
+            climbSpeed: beast.climbSpeed ?? 0,
+            flySpeed: beast.flySpeed ?? 0,
+            swimSpeed: beast.swimSpeed ?? 0,
+            biomeTagsAugment: beast.biomeTagsAugment ? [...beast.biomeTagsAugment] : [],
+            biomeTagsInhibit: beast.biomeTagsInhibit ? [...beast.biomeTagsInhibit] : [],
+            beastTypeIds: beast.beastTypeIds ? [...beast.beastTypeIds] : [],
+            // Tag this instance as owned by the current user so the player can edit it
+            ownerId: authStore.user?.uid ?? null,
         }
 
         const created = await charactersStore.create(familiar)
