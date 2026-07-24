@@ -432,8 +432,10 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
             currentRawDy: 0,
         }
 
-        // Start measurement tracks for all dragged tokens
-        isMeasuring.value = true
+        // Prepare measurement tracks but don't show the overlay yet.
+        // isMeasuring is set to true in handleGlobalMousemove once the token
+        // has moved at least one grid square, preventing the brief flash that
+        // would appear on a plain click-without-drag.
         measureTracks.value = itemsToDrag.map(({ id, startX, startY }) => {
             const i = canvasItemsById.value.get(id)
             const halfPx = (i.size * gridSize.value) / 2
@@ -565,6 +567,12 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
             if (!ds.snapshotRecorded && (Math.abs(dx) > 2 || Math.abs(dy) > 2)) {
                 recordSnapshot()
                 ds.snapshotRecorded = true
+            }
+
+            // Enable measurement overlay once the token has moved at least one grid square,
+            // preventing the brief flash that would appear on a plain click.
+            if (!isMeasuring.value && (Math.abs(dx) >= gridSize.value || Math.abs(dy) >= gridSize.value)) {
+                isMeasuring.value = true
             }
 
             ds.currentRawDx = dx
@@ -1240,6 +1248,7 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
         selectedIds,
         isSelected,
         isDragging,
+        isDragActive: computed(() => dragState.value !== null),
         isPanning,
         isSelecting,
         selectionRectCanvas,

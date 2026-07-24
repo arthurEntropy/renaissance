@@ -9,7 +9,7 @@
                 <span v-if="compactEmoji" class="bubble-compact-emoji">{{ compactEmoji }}</span>
             </template>
 
-            <!-- Expanded state: full roll detail -->
+            <!-- Expanded state: full roll detail matching chatlog entry layout -->
             <template v-else>
                 <div class="bubble-expanded-header">
                     <span class="bubble-char-name" :style="{ color: borderColor }">{{ entry.characterName }}</span>
@@ -24,8 +24,8 @@
                     <span v-if="entry.diceResults.length > MAX_DICE" class="bubble-dice-overflow">
                         +{{ entry.diceResults.length - MAX_DICE }}
                     </span>
+                    <span class="bubble-result" :class="outcomeClass">{{ resultText }}</span>
                 </div>
-                <div class="bubble-result" :class="outcomeClass">{{ resultText }}</div>
                 <div v-if="entry.footer" class="bubble-footer">{{ entry.footer }}</div>
             </template>
         </div>
@@ -99,13 +99,13 @@ const rollTitle = computed(() => {
     const e = props.entry
     switch (e.type) {
         case RollTypes.ENGAGEMENT: return `vs ${e.opponentName || '?'}`
-        case RollTypes.INITIATIVE: return 'Initiative'
-        case RollTypes.INJURY: return 'Injury'
-        case RollTypes.CUSTOM_ROLL: return e.skillName || 'Custom Roll'
-        case RollTypes.DAMAGE: return `${e.skillName || 'Damage'}${e.sourceName ? ` (${e.sourceName})` : ''}`
+        case RollTypes.INITIATIVE: return 'rolled Initiative'
+        case RollTypes.INJURY: return 'rolled Injury'
+        case RollTypes.CUSTOM_ROLL: return `rolled ${e.skillName || 'Custom Roll'}`
+        case RollTypes.DAMAGE: return `rolled ${e.skillName || 'Damage'}${e.sourceName ? ` (${e.sourceName})` : ''}`
         default: {
             const fav = e.favoredStatus ? ` (${e.favoredStatus})` : ''
-            return `${e.skillName || '?'}${fav}`
+            return `rolled ${e.skillName || '?'}${fav}`
         }
     }
 })
@@ -187,14 +187,14 @@ const outcomeClass = computed(() => {
 /* ── Compact state ────────────────────────────────────────────────────────────── */
 .bubble-compact-total {
     font-family: var(--font-family-primary);
-    font-size: var(--font-size-40);
+    font-size: var(--font-size-24);
     font-weight: var(--font-weight-bold);
     color: var(--color-text-primary);
     line-height: 1;
 }
 
 .bubble-compact-emoji {
-    font-size: var(--font-size-24);
+    font-size: var(--font-size-14);
     line-height: 1;
 }
 
@@ -204,10 +204,10 @@ const outcomeClass = computed(() => {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: var(--space-2xs);
+    gap: var(--space-xs);
     padding: var(--space-xs) var(--space-sm);
     border-radius: var(--radius-10);
-    min-width: 160px;
+    min-width: 200px;
     max-width: 260px;
     white-space: normal;
     border-color: var(--overlay-white-heavy);
@@ -249,6 +249,7 @@ const outcomeClass = computed(() => {
 .bubble-roll-title {
     font-size: var(--font-size-11);
     color: var(--color-text-secondary);
+    margin-bottom: 2px;
 }
 
 .bubble-dice-row {
@@ -256,7 +257,7 @@ const outcomeClass = computed(() => {
     flex-wrap: wrap;
     gap: 3px;
     align-items: center;
-    font-size: var(--font-size-14);
+    font-size: calc(var(--font-size-14) * 2);
     font-family: var(--font-family-dice);
 }
 
@@ -291,9 +292,10 @@ const outcomeClass = computed(() => {
 
 .bubble-result {
     font-family: var(--font-family-primary);
-    font-size: var(--font-size-14);
+    font-size: calc(var(--font-size-12) * 2);
     font-weight: var(--font-weight-bold);
     color: var(--color-text-primary);
+    margin-left: var(--space-md);
 }
 
 .bubble-footer {
@@ -322,12 +324,12 @@ const outcomeClass = computed(() => {
     top: calc(-10px + 2px);
     /* aligns with the bottom of .roll-bubble */
     left: 50%;
-    transform: translateX(-50%) translateY(100%);
+    transform: translateX(-50%) translateY(-15%);
     width: 0;
     height: 0;
-    border-left: 7px solid transparent;
-    border-right: 7px solid transparent;
-    border-top: 8px solid var(--overlay-black-heavy);
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid var(--overlay-black-heavy);
     pointer-events: none;
     /* Offset for the border (tail outline) */
     filter: drop-shadow(0 1px 0 var(--overlay-white-heavy));
@@ -335,8 +337,8 @@ const outcomeClass = computed(() => {
 
 .bubble-tail--expanded {
     /* Slightly larger tail for expanded bubble */
-    border-left-width: 9px;
-    border-right-width: 9px;
+    border-left-width: 10px;
+    border-right-width: 10px;
     border-top-width: 10px;
 }
 </style>

@@ -2,7 +2,7 @@
   "id": "cb66fcb1-7ffc-449a-a969-233cae93be32",
   "isDeleted": false,
   "createdAt": "2026-07-21T13:01:53.858Z",
-  "lastModified": "2026-07-24T17:15:40.028Z",
+  "lastModified": "2026-07-24T17:57:48.384Z",
   "characterType": "npc",
   "name": "Farah",
   "featuredArtUrls": [
@@ -210,7 +210,7 @@
       "isCarried": true,
       "isWielding": false,
       "columnIndex": 1,
-      "collapsed": true
+      "collapsed": false
     }
   ],
   "groupEquipmentBySource": false,
@@ -325,15 +325,16 @@
   },
   "rollStats": {
     "skillChecks": {
-      "attempts": 16,
-      "successes": 14,
-      "totalSum": 158,
+      "attempts": 19,
+      "successes": 17,
+      "totalSum": 172,
       "bestTotal": 16,
       "hardestSuccess": 5,
       "bySkill": {
         "Fortitude": 1,
         "Spirit": 1,
-        "Craft": 14
+        "Craft": 14,
+        "Dexterity": 3
       },
       "solCount": 0,
       "morteCount": 2,
@@ -351,9 +352,9 @@
         "draws": 0
       }
     },
-    "xpEarned": 25,
+    "xpEarned": 45,
     "xpSpent": 2,
-    "treasureEarned": 95,
+    "treasureEarned": 145,
     "treasureSpent": 2
   },
   "biomeTags": [],
@@ -433,7 +434,7 @@
   "keeping": "4d5e6f7a-8b9c-4d0e-1f2a-3b4c5d6e7f8a",
   "treasure": 10,
   "xp": 4,
-  "updatedAt": "2026-07-24T17:15:40.028Z",
+  "updatedAt": "2026-07-24T17:57:48.384Z",
   "description": "",
   "size": 0,
   "reach": 0,

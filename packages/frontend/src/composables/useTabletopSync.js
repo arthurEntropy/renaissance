@@ -16,7 +16,7 @@ import { useCharactersStore } from '@/stores/charactersStore'
  * @param {import('vue').ComputedRef<string|null>} opts.campaignId
  * @param {Function} opts.applyExternalState - `(snapshot) => void` from useTabletopCanvas
  */
-export function useTabletopSync({ tabletopId, campaignId, applyExternalState }) {
+export function useTabletopSync({ tabletopId, campaignId, applyExternalState, onActiveTabletopChanged }) {
   const charactersStore = useCharactersStore()
 
   // ── Socket event handlers ────────────────────────────────────────────────
@@ -37,8 +37,13 @@ export function useTabletopSync({ tabletopId, campaignId, applyExternalState }) 
     charactersStore.updateFromSocket(character)
   }
 
+  function _onActiveTabletopChanged(data) {
+    onActiveTabletopChanged?.(data)
+  }
+
   tabletopSocketService.on(TABLETOP_EVENTS.STATE_UPDATED, _onStateUpdated)
   tabletopSocketService.on(TABLETOP_EVENTS.CHARACTER_SYNCED, _onCharacterSynced)
+  tabletopSocketService.on(TABLETOP_EVENTS.ACTIVE_TABLETOP_CHANGED, _onActiveTabletopChanged)
 
   // ── Join / leave lifecycle ───────────────────────────────────────────────
 
@@ -78,6 +83,7 @@ export function useTabletopSync({ tabletopId, campaignId, applyExternalState }) 
   onUnmounted(() => {
     tabletopSocketService.off(TABLETOP_EVENTS.STATE_UPDATED, _onStateUpdated)
     tabletopSocketService.off(TABLETOP_EVENTS.CHARACTER_SYNCED, _onCharacterSynced)
+    tabletopSocketService.off(TABLETOP_EVENTS.ACTIVE_TABLETOP_CHANGED, _onActiveTabletopChanged)
     _leaveRoom()
   })
 
@@ -108,5 +114,16 @@ export function useTabletopSync({ tabletopId, campaignId, applyExternalState }) 
     tabletopSocketService.broadcastCharacterUpdate(tid, character)
   }
 
-  return { broadcastStateUpdate, broadcastCharacterUpdate }
+  /**
+   * Announce to all campaign members that the GM has changed the active tabletop.
+   * Call this after the REST call to setActiveTabletop has succeeded.
+   *
+   * @param {string} campaignId
+   * @param {string|null} activeTabletopId
+   */
+  function announceActiveTabletopChanged(cid, activeTabletopId) {
+    tabletopSocketService.announceActiveTabletopChanged(cid, activeTabletopId)
+  }
+
+  return { broadcastStateUpdate, broadcastCharacterUpdate, announceActiveTabletopChanged }
 }

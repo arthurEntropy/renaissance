@@ -8,39 +8,44 @@
         <!-- Fade wrapper: applies gradient mask in collapsed state -->
         <div class="chatlog-fade-wrapper" :class="{ 'chatlog-fade-wrapper--no-mask': isExpanded }">
             <div ref="scrollRef" class="chatlog-scroll" @wheel.stop>
+                <!-- Spacer pushes entries to the bottom when content is short,
+                     without blocking upward scroll when content overflows -->
+                <div class="chatlog-spacer" />
                 <div v-if="!rollLog.length" class="chatlog-empty">
                     Roll results will appear here.
                 </div>
                 <template v-else>
-                    <div v-for="entry in rollLog" :key="entry.id" class="chatlog-entry">
-                        <!-- Portrait -->
-                        <div class="entry-portrait-wrap">
-                            <img v-if="entry.portraitUrl" :src="entry.portraitUrl" :alt="entry.characterName"
-                                class="entry-portrait" />
-                            <span v-else class="entry-portrait entry-portrait--initials"
-                                :style="{ color: tokenBorderColor(entry) }">
-                                {{ initials(entry.characterName) }}
-                            </span>
-                        </div>
-                        <!-- Roll info -->
-                        <div class="entry-body">
-                            <div class="entry-header-line">
-                                <span class="entry-name" :style="{ color: tokenBorderColor(entry) }">{{
-                                    entry.characterName }}</span>
-                                <span class="entry-title">{{ rollTitle(entry) }}:</span>
-                            </div>
-                            <div class="entry-dice-row">
-                                <span v-for="(die, i) in entry.diceResults" :key="i" class="entry-die"
-                                    :class="dieClass(die)">
-                                    <i :class="die.cssClass" />
-                                    <span v-if="die.emoji && die.emoji !== ''" class="entry-die-emoji">{{ die.emoji
-                                        }}</span>
+                    <TransitionGroup name="chatlog-entry" tag="div" class="chatlog-entries">
+                        <div v-for="entry in rollLog" :key="entry.id" class="chatlog-entry">
+                            <!-- Portrait -->
+                            <div class="entry-portrait-wrap">
+                                <img v-if="entry.portraitUrl" :src="entry.portraitUrl" :alt="entry.characterName"
+                                    class="entry-portrait" />
+                                <span v-else class="entry-portrait entry-portrait--initials"
+                                    :style="{ color: tokenBorderColor(entry) }">
+                                    {{ initials(entry.characterName) }}
                                 </span>
-                                <span class="entry-total" :class="outcomeClass(entry)">{{ rollTotal(entry) }}</span>
                             </div>
-                            <div v-if="entry.footer" class="entry-footer">{{ entry.footer }}</div>
+                            <!-- Roll info -->
+                            <div class="entry-body">
+                                <div class="entry-header-line">
+                                    <span class="entry-name" :style="{ color: tokenBorderColor(entry) }">{{
+                                        entry.characterName }}</span>
+                                    <span class="entry-title">{{ rollTitle(entry) }}:</span>
+                                </div>
+                                <div class="entry-dice-row">
+                                    <span v-for="(die, i) in entry.diceResults" :key="i" class="entry-die"
+                                        :class="dieClass(die)">
+                                        <i :class="die.cssClass" />
+                                        <span v-if="die.emoji && die.emoji !== ''" class="entry-die-emoji">{{ die.emoji
+                                            }}</span>
+                                    </span>
+                                    <span class="entry-total" :class="outcomeClass(entry)">{{ rollTotal(entry) }}</span>
+                                </div>
+                                <div v-if="entry.footer" class="entry-footer">{{ entry.footer }}</div>
+                            </div>
                         </div>
-                    </div>
+                    </TransitionGroup>
                 </template>
             </div>
         </div>
@@ -268,11 +273,17 @@ function dieClass(die) {
     padding: 0 var(--space-md) var(--space-md) var(--space-md);
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
     gap: var(--space-sm);
     background: linear-gradient(to top,
             var(--overlay-black-heavy) 0%,
             rgba(0, 0, 0, 0.75) 100%);
+}
+
+/* Spacer: grows to fill available space when entries are few,
+   so entries sit at the bottom. Doesn't block upward scroll when entries overflow. */
+.chatlog-spacer {
+    flex: 1;
+    min-height: 0;
 }
 
 .chatlog-scroll::-webkit-scrollbar {
@@ -304,12 +315,17 @@ function dieClass(die) {
 }
 
 /* ── Entry ───────────────────────────────────────────────────────────────────── */
+/* TransitionGroup renders this div as the container for animated entries */
+.chatlog-entries {
+    display: contents;
+}
+
 .chatlog-entry {
     display: flex;
     gap: var(--space-xs);
     align-items: flex-start;
-    padding-bottom: var(--space-md);
-    border-bottom: 1px solid var(--overlay-white-heavy);
+    padding: var(--space-md) 0 var(--space-xs) 0;
+    border-top: 1px solid var(--overlay-white-heavy);
 }
 
 /* Portrait */
@@ -448,5 +464,21 @@ function dieClass(die) {
     opacity: var(--fab-opacity);
     pointer-events: auto;
     transition: opacity var(--transition-normal);
+}
+
+/* ── Entry slide-up + fade-in animation ──────────────────────────────────────── */
+/* The TransitionGroup wraps entries; new entries slide up from below and fade in. */
+.chatlog-entry-enter-active {
+    transition: transform 200ms cubic-bezier(0.4, 0, 0.2, 1), opacity 200ms ease;
+}
+
+.chatlog-entry-enter-from {
+    transform: translateY(12px);
+    opacity: 0;
+}
+
+/* Moving entries slide smoothly when list reorders (e.g. on initial load) */
+.chatlog-entry-move {
+    transition: transform 200ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 </style>

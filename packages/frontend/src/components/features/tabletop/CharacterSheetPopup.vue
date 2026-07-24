@@ -45,7 +45,8 @@
                     <!-- Section tabs -->
                     <template v-else>
                         <div class="cs-popup__row">
-                            <EngagementTable v-if="activeTab === 'engagement'" :can-edit="canEdit" />
+                            <EngagementTable v-if="activeTab === 'engagement'" :can-edit="canEdit"
+                                @close-sheet="$emit('close')" />
                             <EquipmentTable v-else-if="activeTab === 'equipment'" :is-edit-mode="canEdit" />
                             <AbilitiesTable v-else-if="activeTab === 'abilities'" :canEdit="canEdit" />
                             <BiomeSection v-else-if="activeTab === 'biome'" />

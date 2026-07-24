@@ -30,11 +30,12 @@
                 <div v-for="item in canvasItems" :key="item.id" class="canvas-item edit-hover-area"
                     :ref="(el) => registerTokenRef(item.id, el)" :class="{ 'is-dragging': isDragging(item.id) }"
                     :style="{ transform: `translate(${item.x}px, ${item.y}px)`, zIndex: item.zIndex }"
-                    @mousedown="handleTokenMousedown(item, $event)">
+                    @mousedown="(e) => { dismissBubble(item.id); handleTokenMousedown(item, e) }">
                     <TabletopToken :name="item.name" :portrait-url="item.portraitUrl" :is-beast="item.isBeast"
                         :is-npc="item.isNpc" :size="item.size" :grid-size="gridSize" :is-selected="isSelected(item.id)"
                         :in-engagement="isCharacterInEngagement(item)" />
-                    <TabletopTokenInfoArea v-if="singleSelectedToken?.id === item.id && canViewTokenInfo"
+                    <TabletopTokenInfoArea
+                        v-if="singleSelectedToken?.id === item.id && canViewTokenInfo && !activeBubbles[item.id]"
                         :character="singleSelectedCharacter" :can-edit="canEditTokenInfo"
                         :is-in-engagement="canSpectateSelectedToken" @expand="openCharacterSheetPopup"
                         @spectate="openSpectatePopup" @character-saved="onCharacterSaved" />
@@ -174,6 +175,7 @@ const {
     selectedIds,
     isSelected,
     isDragging,
+    isDragActive,
     isPanning,
     isSelecting,
     selectionRectCanvas,
@@ -234,10 +236,24 @@ function broadcastStateUpdate(snapshot) {
     _broadcastStateUpdateRef?.(snapshot)
 }
 
-const { broadcastStateUpdate: _syncBroadcast, broadcastCharacterUpdate } = useTabletopSync({
+// When the GM changes the active tabletop, redirect all viewers to that tabletop.
+function handleActiveTabletopChanged({ campaignId: cid, activeTabletopId }) {
+    if (!activeTabletopId || !campaignSlug.value) return
+    // Don't redirect if we're already on the active tabletop
+    if (tabletopId.value === activeTabletopId) return
+    // Update local campaign store so the active badge reflects the change
+    const campaign = campaignStore.getBySlug(campaignSlug.value)
+    if (campaign) {
+        campaignStore.upsertCampaign({ ...campaign, activeTabletopId })
+    }
+    router.push(`/campaigns/${campaignSlug.value}/tabletop/${activeTabletopId}`)
+}
+
+const { broadcastStateUpdate: _syncBroadcast, broadcastCharacterUpdate, announceActiveTabletopChanged } = useTabletopSync({
     tabletopId,
     campaignId,
     applyExternalState,
+    onActiveTabletopChanged: handleActiveTabletopChanged,
 })
 _broadcastStateUpdateRef = _syncBroadcast
 
@@ -271,8 +287,9 @@ function handleCanvasContainerMousedown(e) {
 // Newer areas are later in the array = rendered on top (DOM order stacking)
 const radiusAreasWithZIndex = computed(() => radiusAreas.value)
 
-// Custom cursor: show ruler when shift held, radius when shift+cmd/ctrl held
+// Custom cursor: grabbing while dragging; ruler/radius when shift modifiers held
 const canvasCursorStyle = computed(() => {
+    if (isDragActive.value) return { cursor: 'grabbing' }
     if (isShiftHeld.value && isCmdHeld.value) return { cursor: `url('${radiusCursorUrl}') 8 8, crosshair` }
     if (isShiftHeld.value) return { cursor: `url('${rulerCursorUrl}') 8 8, crosshair` }
     return {}
@@ -338,6 +355,17 @@ function openCharacterSheetPopup() {
     charSheetPopupOpen.value = true
 }
 
+// Close the popup automatically when a roll bubble appears for the character it shows.
+// This covers all roll types (skill checks, damage, etc.) triggered from within the popup.
+watch(activeBubbles, (bubbles) => {
+    if (!charSheetPopupOpen.value || !charSheetPopupCharacter.value) return
+    const charId = charSheetPopupCharacter.value.id
+    const matchingItem = canvasItems.value.find(i => i.characterId === charId)
+    if (matchingItem && bubbles[matchingItem.id]) {
+        charSheetPopupOpen.value = false
+    }
+}, { deep: true })
+
 // ─── Engagement spectate ────────────────────────────────────────────────────
 const engagementSessionManager = useEngagementSession()
 const spectatePopupOpen = ref(false)
@@ -393,6 +421,10 @@ async function handleToggleActiveTabletop() {
     const newActiveId = tabletopId.value === currentActiveId ? null : tabletopId.value
     try {
         await campaignStore.setActiveTabletop(campaignId.value, newActiveId)
+        // Broadcast the change to all connected campaign members so they redirect
+        if (newActiveId) {
+            announceActiveTabletopChanged(campaignId.value, newActiveId)
+        }
     } catch (err) {
         console.error('Failed to toggle active tabletop:', err)
     }
@@ -465,7 +497,7 @@ watch(campaignId, async (id) => {
     position: absolute;
     inset: 0;
     pointer-events: none;
-    z-index: var(--z-floating);
+    z-index: 3;
 }
 
 /* The infinite/bounded transform plane */
@@ -496,7 +528,7 @@ watch(campaignId, async (id) => {
     position: absolute;
     left: 0;
     top: 0;
-    cursor: grab;
+    cursor: pointer;
     /* overflow: visible so the name label can spill below the token square */
     overflow: visible;
 }

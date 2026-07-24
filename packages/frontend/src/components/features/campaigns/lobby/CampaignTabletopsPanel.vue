@@ -76,6 +76,7 @@ import draggable from 'vuedraggable'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 import { useCampaignStore } from '@/stores/campaignStore'
+import tabletopSocketService from '@/services/sessions/tabletopSocketService'
 
 const router = useRouter()
 const campaignStore = useCampaignStore()
@@ -173,6 +174,11 @@ async function toggleActive(tabletopId) {
     const newActive = tabletopId === activeTabletopId.value ? null : tabletopId
     try {
         await campaignStore.setActiveTabletop(campaignId.value, newActive)
+        // Announce to all campaign members currently on a tabletop so they redirect
+        if (newActive) {
+            await tabletopSocketService.connect()
+            tabletopSocketService.announceActiveTabletopChanged(campaignId.value, newActive)
+        }
     } catch (err) {
         console.error('Failed to set active tabletop:', err)
     }

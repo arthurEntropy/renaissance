@@ -47,6 +47,8 @@ const props = defineProps({
   }
 })
 
+const emit = defineEmits(['close-sheet'])
+
 const internalEditMode = ref(false)
 const isCollapsed = ref(false)
 const toggleEditMode = () => { internalEditMode.value = !internalEditMode.value }
@@ -84,6 +86,7 @@ const rollSelectedDice = () => {
 
 const closeEngagementRollModal = () => {
   showEngagementRollModal.value = false
+  emit('close-sheet')
 }
 
 onMounted(async () => {

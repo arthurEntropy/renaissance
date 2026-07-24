@@ -73,6 +73,10 @@ class TabletopSocketService {
         this._notifyListeners(TABLETOP_EVENTS.CHARACTER_SYNCED, data)
       })
 
+      this.socket.on(TABLETOP_EVENTS.ACTIVE_TABLETOP_CHANGED, (data) => {
+        this._notifyListeners(TABLETOP_EVENTS.ACTIVE_TABLETOP_CHANGED, data)
+      })
+
       this.socket.on(TABLETOP_EVENTS.JOIN_ACK, (data) => {
         console.log(`[TabletopSocket] JOIN_ACK received:`, data)
         this._notifyListeners(TABLETOP_EVENTS.JOIN_ACK, data)
@@ -165,6 +169,18 @@ class TabletopSocketService {
   broadcastCharacterUpdate(tabletopId, character) {
     if (!this.socket?.connected || !tabletopId || !character) return
     this.socket.emit(TABLETOP_EVENTS.CHARACTER_UPDATED, { tabletopId, character })
+  }
+
+  /**
+   * Announce to all campaign members (via server) that the active tabletop has changed.
+   * Called by the GM after a successful REST call to set/clear the active tabletop.
+   *
+   * @param {string} campaignId
+   * @param {string|null} activeTabletopId - The new active tabletop ID, or null to deactivate
+   */
+  announceActiveTabletopChanged(campaignId, activeTabletopId) {
+    if (!this.socket?.connected || !campaignId) return
+    this.socket.emit(TABLETOP_EVENTS.ANNOUNCE_ACTIVE_TABLETOP, { campaignId, activeTabletopId })
   }
 
   // ── Listener management ───────────────────────────────────────────────────

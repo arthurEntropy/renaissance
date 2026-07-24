@@ -1,6 +1,6 @@
 import { TABLETOP_EVENTS } from '../../../shared/constants/tabletopSocketEvents.js'
 import { getCampaignById, getCampaignMembership } from '../utils/campaignUtils.js'
-import { CAMPAIGN_MEMBER_STATUS } from '../../../shared/constants/campaignConstants.js'
+import { CAMPAIGN_MEMBER_STATUS, CAMPAIGN_ROLE } from '../../../shared/constants/campaignConstants.js'
 import { getAllDataByDirectory, saveFile } from '../utils/fileService.js'
 import { socketAuthMiddleware, socketRequireApproved } from '../middleware/socketAuth.js'
 
@@ -143,6 +143,28 @@ export function setupTabletopSocketHandlers(io) {
 
       const roomId = `tabletop:${tabletopId}`
       socket.to(roomId).emit(TABLETOP_EVENTS.CHARACTER_SYNCED, { tabletopId, character })
+    })
+
+    // ── Announce active tabletop change to all campaign members ──────────────
+    // Emitted by the GM after successfully updating the active tabletop via REST.
+    // The server finds every connected socket in this campaign and notifies them,
+    // regardless of which tabletop room they are currently in.
+    socket.on(TABLETOP_EVENTS.ANNOUNCE_ACTIVE_TABLETOP, ({ campaignId, activeTabletopId }) => {
+      if (!campaignId) return
+
+      // Verify the sender is a GM of this campaign
+      const campaign = getCampaignById(campaignId)
+      if (!campaign) return
+      const member = getCampaignMembership(campaign, userId)
+      if (!member || member.role !== 'gm' || member.status !== CAMPAIGN_MEMBER_STATUS.ACCEPTED) return
+
+      // Broadcast to every socket in the namespace that belongs to this campaign
+      // (including the sender, so their own store updates consistently)
+      for (const [, s] of ns.sockets) {
+        if (s.data.campaignId === campaignId) {
+          s.emit(TABLETOP_EVENTS.ACTIVE_TABLETOP_CHANGED, { campaignId, activeTabletopId })
+        }
+      }
     })
   })
 }
