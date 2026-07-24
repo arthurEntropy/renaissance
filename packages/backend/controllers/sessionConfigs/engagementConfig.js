@@ -105,6 +105,25 @@ export const engagementConfig = {
           console.log('❌ Session not found:', sessionId)
         }
       })
+    },
+
+    // Spectator support: join a session room in read-only mode
+    (socket, { activeSessions }) => {
+      socket.on(SESSION_EVENTS.SPECTATE_SESSION, ({ sessionId }) => {
+        const session = activeSessions.get(sessionId)
+        if (!session) {
+          socket.emit(SESSION_EVENTS.ERROR, { error: 'Engagement session not found' })
+          return
+        }
+        // Add socket to the session room so it receives future broadcasts
+        socket.join(sessionId)
+        // Send current session state immediately
+        socket.emit(SESSION_EVENTS.SESSION_UPDATED, { session })
+        // If session is already completed, also send the final results
+        if (session.status === SESSION_STATUS.COMPLETED) {
+          socket.emit(SESSION_EVENTS.SESSION_COMPLETED, { session, timestamp: new Date() })
+        }
+      })
     }
   ]
 }

@@ -70,7 +70,8 @@ const character = computed(() => {
     if (props.isOpponent) {
         return sessionManager.opponent.value?.characterInfo || null
     }
-    return charactersStore.selectedCharacter
+    // When spectating, the modal is shown from the perspective of the spectated character
+    return sessionManager.overrideCharacter?.value ?? charactersStore.selectedCharacter
 })
 
 // Get dice for this side

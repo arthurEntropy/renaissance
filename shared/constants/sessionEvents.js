@@ -33,6 +33,9 @@ export const SESSION_EVENTS = {
   
   // Engagement-specific events (emit & broadcast use same name)
   SUCCESS_ASSIGNMENT_UPDATED: 'success-assignment-updated',  // Engagement success assigned to die
+
+  // Spectator events
+  SPECTATE_SESSION: 'spectate-session',           // Client→Server: join a session as read-only spectator
 }
 
 export default SESSION_EVENTS

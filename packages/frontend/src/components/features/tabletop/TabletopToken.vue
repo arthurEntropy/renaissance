@@ -5,6 +5,10 @@
         'vtt-token--ghost': isGhost,
         'vtt-token--selected': isSelected,
     }" :style="rootStyle">
+        <!-- Engagement spikes: rendered behind the portrait via z-index -->
+        <div v-if="inEngagement && !isGhost" class="vtt-token__spikes-pulse" :style="{ '--spikes-color': spikesColor }">
+            <SpikesIcon class="vtt-token__spikes-spin" />
+        </div>
         <div class="vtt-token__portrait-wrap">
             <img v-if="portraitUrl" :src="portraitUrl" :alt="name" class="vtt-token__portrait" />
             <span v-else class="vtt-token__initials" :style="initialsStyle">{{ initials }}</span>
@@ -15,6 +19,7 @@
 
 <script setup>
 import { computed } from 'vue'
+import SpikesIcon from '@/assets/icons/tabletop/spikes.svg?component'
 
 const props = defineProps({
     name: { type: String, required: true },
@@ -25,6 +30,7 @@ const props = defineProps({
     gridSize: { type: Number, default: 40 },
     isGhost: { type: Boolean, default: false },
     isSelected: { type: Boolean, default: false },
+    inEngagement: { type: Boolean, default: false },
 })
 
 const tokenPx = computed(() => props.size * props.gridSize)
@@ -45,6 +51,13 @@ const initials = computed(() =>
         .map(w => w[0]?.toUpperCase() ?? '')
         .join('')
 )
+
+// Spikes color matches the token border color
+const spikesColor = computed(() => {
+    if (props.isBeast) return 'var(--color-token-border-beast)'
+    if (props.isNpc) return 'var(--color-token-border-npc)'
+    return 'var(--color-token-border-pc)'
+})
 </script>
 
 <style scoped>
@@ -54,6 +67,55 @@ const initials = computed(() =>
     user-select: none;
     flex-shrink: 0;
 }
+
+/* === Engagement spikes === */
+.vtt-token__spikes-pulse {
+    position: absolute;
+    /* 50% bigger than the token on each side */
+    width: 150%;
+    height: 150%;
+    top: -25%;
+    left: -25%;
+    z-index: 0;
+    pointer-events: none;
+    animation: engagement-pulse 2s ease-in-out infinite;
+}
+
+.vtt-token__spikes-spin {
+    width: 100%;
+    height: 100%;
+    color: var(--spikes-color);
+    display: block;
+    animation: engagement-spin 10s linear infinite;
+}
+
+@keyframes engagement-spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes engagement-pulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+        filter:
+            drop-shadow(0 0 3px var(--spikes-color)) drop-shadow(0 0 6px var(--spikes-color));
+    }
+
+    50% {
+        transform: scale(1.15);
+        filter:
+            drop-shadow(0 0 6px var(--spikes-color)) drop-shadow(0 0 12px var(--spikes-color)) drop-shadow(0 0 18px var(--spikes-color));
+    }
+}
+
+/* === End engagement spikes === */
 
 .vtt-token--ghost {
     opacity: 1;
@@ -71,6 +133,7 @@ const initials = computed(() =>
     border: 3px solid var(--color-token-border-pc);
     box-shadow: 0 3px 12px rgba(0, 0, 0, 0.75);
     background: var(--overlay-black-heavy);
+    z-index: 1;
 }
 
 .vtt-token--npc .vtt-token__portrait-wrap {

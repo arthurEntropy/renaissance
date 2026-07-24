@@ -2,6 +2,7 @@ import { TABLETOP_EVENTS } from '../../../shared/constants/tabletopSocketEvents.
 import { getCampaignById, getCampaignMembership } from '../utils/campaignUtils.js'
 import { CAMPAIGN_MEMBER_STATUS } from '../../../shared/constants/campaignConstants.js'
 import { getAllDataByDirectory, saveFile } from '../utils/fileService.js'
+import { socketAuthMiddleware, socketRequireApproved } from '../middleware/socketAuth.js'
 
 const TABLETOPS_DIRECTORY = 'tabletops'
 const ROLL_LOG_CAPACITY = 100
@@ -28,25 +29,36 @@ function getTabletopById(tabletopId) {
 export function setupTabletopSocketHandlers(io) {
   const ns = io.of('/tabletop')
 
-  // socketAuthMiddleware + socketRequireApproved are already applied to the top-level `io`
-  // and propagate to namespaces automatically.
+  // In Socket.IO v4, middlewares registered on the root `io` instance are NOT
+  // automatically inherited by named namespaces.  Apply auth here explicitly.
+  ns.use(socketAuthMiddleware)
+  ns.use(socketRequireApproved)
 
   ns.on('connection', (socket) => {
     const userId = socket.user?.uid
+    console.log(`[TabletopSocket] New connection: socket=${socket.id}, userId=${userId ?? '(none)'}`)
 
-    // ── Join a tabletop room ─────────────────────────────────────────────────
+    socket.on('disconnect', (reason) => {
+      console.log(`[TabletopSocket] Disconnected: socket=${socket.id}, userId=${userId ?? '(none)'}, reason=${reason}`)
+    })
+
+    // ── Join a tabletop room ──────────────────────────────────────────────────────────────────────────
     socket.on(TABLETOP_EVENTS.JOIN, ({ tabletopId, campaignId }) => {
+      console.log(`[TabletopSocket] JOIN: tabletopId=${tabletopId}, campaignId=${campaignId}, userId=${userId ?? '(none)'}`)
       if (!tabletopId || !campaignId) {
+        console.warn('[TabletopSocket] JOIN rejected: missing tabletopId or campaignId')
         return socket.emit(TABLETOP_EVENTS.ERROR, { message: 'tabletopId and campaignId are required' })
       }
 
       // Verify campaign membership
       const campaign = getCampaignById(campaignId)
       if (!campaign) {
+        console.warn(`[TabletopSocket] JOIN rejected: campaign ${campaignId} not found`)
         return socket.emit(TABLETOP_EVENTS.ERROR, { message: 'Campaign not found' })
       }
       const member = getCampaignMembership(campaign, userId)
       if (!member || member.status !== CAMPAIGN_MEMBER_STATUS.ACCEPTED) {
+        console.warn(`[TabletopSocket] JOIN rejected: userId=${userId} not an accepted member (member=${JSON.stringify(member)})`)
         return socket.emit(TABLETOP_EVENTS.ERROR, { message: 'Not a campaign member' })
       }
 
@@ -62,6 +74,8 @@ export function setupTabletopSocketHandlers(io) {
       socket.data.tabletopId = tabletopId
       socket.data.campaignId = campaignId
 
+      const roomSize = ns.adapter.rooms.get(roomId)?.size ?? 0
+      console.log(`[TabletopSocket] JOIN success: socket=${socket.id} joined room=${roomId} (${roomSize} member(s) now)`)
       socket.emit(TABLETOP_EVENTS.JOIN_ACK, { tabletopId })
     })
 
@@ -83,6 +97,8 @@ export function setupTabletopSocketHandlers(io) {
       if (socket.data.tabletopId !== tabletopId) return
 
       const roomId = `tabletop:${tabletopId}`
+      const roomSize = ns.adapter.rooms.get(roomId)?.size ?? 0
+      console.log(`[TabletopSocket] STATE_PUSH from socket=${socket.id}: relaying to ${roomSize - 1} other member(s) in room=${roomId}`)
       // Broadcast to everyone in the room EXCEPT the sender
       socket.to(roomId).emit(TABLETOP_EVENTS.STATE_UPDATED, { tabletopId, snapshot })
     })
@@ -115,6 +131,18 @@ export function setupTabletopSocketHandlers(io) {
       // Relay to room (excluding sender – the sender already updated their own log)
       const roomId = `tabletop:${tabletopId}`
       socket.to(roomId).emit(TABLETOP_EVENTS.ROLL_RECEIVED, { tabletopId, entry })
+    })
+
+    // ── Relay character stat updates to other room members ───────────────────
+    // Emitted by the token info area when a player edits a character's HP or
+    // defense directly on the tabletop.  The server relays it without persisting
+    // (the sender already saved via REST).
+    socket.on(TABLETOP_EVENTS.CHARACTER_UPDATED, ({ tabletopId, character }) => {
+      if (!tabletopId || !character) return
+      if (socket.data.tabletopId !== tabletopId) return
+
+      const roomId = `tabletop:${tabletopId}`
+      socket.to(roomId).emit(TABLETOP_EVENTS.CHARACTER_SYNCED, { tabletopId, character })
     })
   })
 }

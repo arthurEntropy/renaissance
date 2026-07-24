@@ -1087,7 +1087,10 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
             const currentTid = typeof tabletopId === 'object' ? tabletopId.value : tabletopId
             if (currentTid !== tid) return
             campaignStore.updateTabletop(cid, tid, { ...snapshot, transform: { ...transform.value }, rollLogExpanded: rollLogExpanded.value })
-                .then(() => { onStateSaved?.(snapshot) })
+                .then(() => {
+                    console.log('[VTT] State persisted; calling onStateSaved to broadcast via socket')
+                    onStateSaved?.(snapshot)
+                })
                 .catch((err) => console.warn('[VTT] Failed to persist tabletop state:', err))
         }, 500)
     }

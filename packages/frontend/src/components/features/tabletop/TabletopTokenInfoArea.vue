@@ -5,8 +5,12 @@
             <input type="number" class="info-input" :value="character?.endurance?.current ?? 0" :disabled="!canEdit"
                 min="0" @change="onEnduranceChange" @focus="$event.target.select()" />
         </div>
-        <FloatingActionButton :variant="FAB_TYPES.EXPAND" :size="FAB_SIZES.SMALL" :visibility="FAB_VISIBILITIES.ALWAYS"
-            class="info-expand-btn" @click.stop="$emit('expand')" />
+        <div class="info-actions">
+            <FloatingActionButton v-if="isInEngagement" :variant="FAB_TYPES.SPECTATE" :size="FAB_SIZES.SMALL"
+                :visibility="FAB_VISIBILITIES.ALWAYS" class="info-spectate-btn" @click.stop="$emit('spectate')" />
+            <FloatingActionButton :variant="FAB_TYPES.EXPAND" :size="FAB_SIZES.SMALL"
+                :visibility="FAB_VISIBILITIES.ALWAYS" class="info-expand-btn" @click.stop="$emit('expand')" />
+        </div>
         <div class="info-stat">
             <ShieldIcon class="info-icon" />
             <input type="number" class="info-input" :value="character?.defense?.current ?? 0" :disabled="!canEdit"
@@ -32,9 +36,10 @@ import ShieldIcon from '@/assets/icons/tabletop/shield.svg?component'
 const props = defineProps({
     character: { type: Object, default: null },
     canEdit: { type: Boolean, default: false },
+    isInEngagement: { type: Boolean, default: false },
 })
 
-defineEmits(['expand'])
+const emit = defineEmits(['expand', 'spectate', 'character-saved'])
 
 const charactersStore = useCharactersStore()
 
@@ -42,9 +47,12 @@ const charactersStore = useCharactersStore()
 let saveTimer = null
 function scheduleSave() {
     if (saveTimer) clearTimeout(saveTimer)
-    saveTimer = setTimeout(() => {
+    saveTimer = setTimeout(async () => {
         saveTimer = null
-        if (props.character) charactersStore.update(props.character)
+        if (props.character) {
+            await charactersStore.update(props.character)
+            emit('character-saved', props.character)
+        }
     }, 1500)
 }
 
@@ -156,6 +164,18 @@ function onDefenseChange(e) {
 }
 
 .info-expand-btn {
+    flex-shrink: 0;
+}
+
+.info-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    flex-shrink: 0;
+}
+
+.info-spectate-btn {
     flex-shrink: 0;
 }
 </style>

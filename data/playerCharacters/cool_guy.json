@@ -1,12 +1,12 @@
 {
-  "id": "33b032fb-a135-43a7-a704-967f4eba5d82",
+  "id": "7e9a0db3-3532-4f6c-83eb-024e724a96ff",
   "isDeleted": false,
-  "createdAt": "2026-07-22T13:08:23.406Z",
-  "lastModified": "2026-07-24T15:39:42.001Z",
+  "createdAt": "2026-07-24T14:57:01.232Z",
+  "lastModified": "2026-07-24T14:57:54.016Z",
   "characterType": "playerCharacter",
-  "name": "New Character",
+  "name": "Cool Guy",
   "featuredArtUrls": [
-    "https://cdn.midjourney.com/6b5282ab-e572-4ad7-bed2-3cce785c9744/0_2.png"
+    "https://cdn.midjourney.com/afe2f988-0990-418f-8b54-5ebf57c70560/0_1.png"
   ],
   "speed": 0,
   "notes": "",
@@ -165,21 +165,13 @@
     "afraid": false,
     "troubled": false
   },
-  "engagementDice": [
-    4,
-    6,
-    8
-  ],
+  "engagementDice": [],
   "engagementSuccesses": [],
-  "engagementDiceStatuses": {
-    "user_added_2": "expended",
-    "user_added_1": "expended",
-    "user_added_0": "expended"
-  },
+  "engagementDiceStatuses": {},
   "equipment": [],
   "groupEquipmentBySource": false,
   "groupEquipmentByCustom": false,
-  "equipmentSortOption": "name-asc",
+  "equipmentSortOption": "",
   "equipmentCustomGroups": [],
   "mp": {
     "current": 0,
@@ -189,7 +181,7 @@
   "groupAbilitiesBySource": false,
   "groupAbilitiesByManaColor": false,
   "groupAbilitiesByCustom": false,
-  "abilitySortOption": "name-asc",
+  "abilitySortOption": "",
   "abilityCustomGroups": [],
   "autoCalculations": {
     "load": true,
@@ -212,8 +204,8 @@
     },
     "contests": {
       "engagement": {
-        "wins": 4,
-        "losses": 6,
+        "wins": 0,
+        "losses": 0,
         "draws": 0
       },
       "contest": {
@@ -225,7 +217,7 @@
     "xpEarned": 0,
     "xpSpent": 0,
     "treasureEarned": 0,
-    "treasureSpent": 71
+    "treasureSpent": 0
   },
   "biomeTags": [],
   "biomeId": null,
@@ -242,28 +234,18 @@
     "colorless": []
   },
   "witchcraftTokens": [],
-  "summonerVessels": [
-    {
-      "id": "81449992-7895-4246-bc62-908f7521e0ca",
-      "isActive": true,
-      "isSummoned": true,
-      "imageUrl": "spikedBall",
-      "keeping": "2b3c4d5e-6f7a-4b8c-9d0e-1f2a3b4c5d6e",
-      "vesselNote": "",
-      "beastId": "fc957c02-c6d4-48b2-9027-95e49d3e1b48",
-      "friendship": 1
-    }
-  ],
+  "witchFamiliar": null,
+  "summonerVessels": [],
   "hunterTraps": [],
   "campaignId": null,
-  "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
+  "ownerId": "yMwXRvIrCwWwG4NRC4HBjN2BrOM2",
   "isPublicPreview": false,
   "sectionOrder": [],
   "martialTrainingOverrides": {},
   "pronouns": "",
   "ancestryIds": [],
   "cultureIds": [],
-  "mestiereId": "558abd15-f90f-40d7-80d8-df73a37f977c",
+  "mestiereId": "",
   "age": 0,
   "heightFeet": 0,
   "heightInches": 0,
@@ -271,11 +253,11 @@
   "keeping": null,
   "treasure": 0,
   "xp": 0,
-  "updatedAt": "2026-07-24T15:39:42.001Z",
+  "updatedAt": "2026-07-24T14:57:54.016Z",
   "description": "",
   "size": 0,
   "reach": 0,
-  "featuredArtUrl": "https://cdn.midjourney.com/6b5282ab-e572-4ad7-bed2-3cce785c9744/0_2.png",
+  "featuredArtUrl": "https://cdn.midjourney.com/afe2f988-0990-418f-8b54-5ebf57c70560/0_1.png",
   "hasDarkvision": false,
   "hasBlindsight": false,
   "hasTremorsense": false,

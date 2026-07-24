@@ -1,6 +1,7 @@
 import { onMounted, onUnmounted, watch } from 'vue'
 import tabletopSocketService from '@/services/sessions/tabletopSocketService'
 import { TABLETOP_EVENTS } from '@shared/constants/tabletopSocketEvents.js'
+import { useCharactersStore } from '@/stores/charactersStore'
 
 /**
  * Bridges `useTabletopCanvas` with the tabletop socket service so that canvas
@@ -16,21 +17,35 @@ import { TABLETOP_EVENTS } from '@shared/constants/tabletopSocketEvents.js'
  * @param {Function} opts.applyExternalState - `(snapshot) => void` from useTabletopCanvas
  */
 export function useTabletopSync({ tabletopId, campaignId, applyExternalState }) {
+  const charactersStore = useCharactersStore()
+
   // ── Socket event handlers ────────────────────────────────────────────────
 
   function _onStateUpdated({ tabletopId: remoteTid, snapshot }) {
+    console.log(`[TabletopSync] STATE_UPDATED received: remoteTid=${remoteTid}, myTid=${tabletopId.value}`)
     // Only apply updates meant for the currently-open tabletop
-    if (remoteTid !== tabletopId.value) return
+    if (remoteTid !== tabletopId.value) {
+      console.log('[TabletopSync] STATE_UPDATED ignored (different tabletop)')
+      return
+    }
+    console.log('[TabletopSync] Applying external state')
     applyExternalState(snapshot)
   }
 
+  function _onCharacterSynced({ character }) {
+    if (!character?.id) return
+    charactersStore.updateFromSocket(character)
+  }
+
   tabletopSocketService.on(TABLETOP_EVENTS.STATE_UPDATED, _onStateUpdated)
+  tabletopSocketService.on(TABLETOP_EVENTS.CHARACTER_SYNCED, _onCharacterSynced)
 
   // ── Join / leave lifecycle ───────────────────────────────────────────────
 
   async function _joinRoom() {
     const tid = tabletopId.value
     const cid = campaignId.value
+    console.log(`[TabletopSync] _joinRoom called: tid=${tid}, cid=${cid}`)
     if (tid && cid) {
       await tabletopSocketService.join(tid, cid)
     }
@@ -48,12 +63,21 @@ export function useTabletopSync({ tabletopId, campaignId, applyExternalState }) 
     _joinRoom()
   })
 
+  // campaignId is often undefined on first mount because campaign data loads
+  // asynchronously after auth resolves.  Retry the join whenever it first
+  // becomes available (or changes, e.g. if the user switches campaigns).
+  watch(campaignId, (newCid) => {
+    if (!newCid) return
+    _joinRoom()
+  })
+
   onMounted(() => {
     _joinRoom()
   })
 
   onUnmounted(() => {
     tabletopSocketService.off(TABLETOP_EVENTS.STATE_UPDATED, _onStateUpdated)
+    tabletopSocketService.off(TABLETOP_EVENTS.CHARACTER_SYNCED, _onCharacterSynced)
     _leaveRoom()
   })
 
@@ -72,5 +96,17 @@ export function useTabletopSync({ tabletopId, campaignId, applyExternalState }) 
     tabletopSocketService.broadcastStateUpdate(tid, snapshot)
   }
 
-  return { broadcastStateUpdate }
+  /**
+   * Broadcast a character stat change (HP, defense, etc.) to other viewers of
+   * this tabletop.  Call this after the REST save has completed.
+   *
+   * @param {Object} character - The full updated character object
+   */
+  function broadcastCharacterUpdate(character) {
+    const tid = tabletopId.value
+    if (!tid || !character) return
+    tabletopSocketService.broadcastCharacterUpdate(tid, character)
+  }
+
+  return { broadcastStateUpdate, broadcastCharacterUpdate }
 }

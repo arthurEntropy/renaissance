@@ -41,6 +41,7 @@ class TabletopSocketService {
       })
 
       this.socket.on('connect', () => {
+        console.log(`[TabletopSocket] Connected: id=${this.socket.id}`)
         this._connectionInProgress = false
         // Re-join the tabletop room after reconnection
         if (this.currentTabletopId) {
@@ -48,7 +49,8 @@ class TabletopSocketService {
         }
       })
 
-      this.socket.on('disconnect', () => {
+      this.socket.on('disconnect', (reason) => {
+        console.log(`[TabletopSocket] Disconnected: reason=${reason}`)
         this._notifyListeners('disconnect', {})
       })
 
@@ -59,6 +61,7 @@ class TabletopSocketService {
 
       // Relay server → listeners
       this.socket.on(TABLETOP_EVENTS.STATE_UPDATED, (data) => {
+        console.log(`[TabletopSocket] STATE_UPDATED received for tabletop: ${data?.tabletopId}`)
         this._notifyListeners(TABLETOP_EVENTS.STATE_UPDATED, data)
       })
 
@@ -66,7 +69,12 @@ class TabletopSocketService {
         this._notifyListeners(TABLETOP_EVENTS.ROLL_RECEIVED, data)
       })
 
+      this.socket.on(TABLETOP_EVENTS.CHARACTER_SYNCED, (data) => {
+        this._notifyListeners(TABLETOP_EVENTS.CHARACTER_SYNCED, data)
+      })
+
       this.socket.on(TABLETOP_EVENTS.JOIN_ACK, (data) => {
+        console.log(`[TabletopSocket] JOIN_ACK received:`, data)
         this._notifyListeners(TABLETOP_EVENTS.JOIN_ACK, data)
       })
 
@@ -95,11 +103,14 @@ class TabletopSocketService {
 
   async join(tabletopId, campaignId) {
     if (!tabletopId || !campaignId) return
+    console.log(`[TabletopSocket] join() called: tabletopId=${tabletopId}, campaignId=${campaignId}`)
     this.currentTabletopId = tabletopId
     this._pendingCampaignId = campaignId
     await this.connect()
     if (this.socket?.connected) {
       this._emitJoin()
+    } else {
+      console.log(`[TabletopSocket] Socket not yet connected after connect(); waiting for 'connect' event to _emitJoin`)
     }
     // If not yet connected, the 'connect' handler will call _emitJoin automatically.
   }
@@ -122,7 +133,11 @@ class TabletopSocketService {
    * @param {Object} snapshot
    */
   broadcastStateUpdate(tabletopId, snapshot) {
-    if (!this.socket?.connected || !tabletopId) return
+    if (!this.socket?.connected || !tabletopId) {
+      console.warn(`[TabletopSocket] broadcastStateUpdate skipped: connected=${this.socket?.connected}, tabletopId=${tabletopId}`)
+      return
+    }
+    console.log(`[TabletopSocket] Emitting STATE_PUSH for tabletop: ${tabletopId}`)
     this.socket.emit(TABLETOP_EVENTS.STATE_PUSH, { tabletopId, snapshot })
   }
 
@@ -137,6 +152,19 @@ class TabletopSocketService {
   broadcastRollLogged(tabletopId, campaignId, entry) {
     if (!this.socket?.connected || !tabletopId || !entry) return
     this.socket.emit(TABLETOP_EVENTS.ROLL_LOGGED, { tabletopId, campaignId, entry })
+  }
+
+  /**
+   * Broadcast a character stat update (e.g. HP or defense edited via the
+   * token info area) to all other viewers of the same tabletop.
+   * The server relays this without persisting — the sender already saved via REST.
+   *
+   * @param {string} tabletopId
+   * @param {Object} character - The full updated character object
+   */
+  broadcastCharacterUpdate(tabletopId, character) {
+    if (!this.socket?.connected || !tabletopId || !character) return
+    this.socket.emit(TABLETOP_EVENTS.CHARACTER_UPDATED, { tabletopId, character })
   }
 
   // ── Listener management ───────────────────────────────────────────────────
@@ -157,6 +185,7 @@ class TabletopSocketService {
 
   _emitJoin() {
     if (!this.currentTabletopId) return
+    console.log(`[TabletopSocket] Emitting JOIN: tabletopId=${this.currentTabletopId}, campaignId=${this._pendingCampaignId}`)
     this.socket.emit(TABLETOP_EVENTS.JOIN, {
       tabletopId: this.currentTabletopId,
       campaignId: this._pendingCampaignId,

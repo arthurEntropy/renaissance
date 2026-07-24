@@ -12,11 +12,19 @@ import { useBaseSession } from './useBaseSession.js'
 import { useEngagementRoll } from './useEngagementRoll.js'
 import { useEngagementSuccesses } from './useEngagementSuccesses.js'
 import { useRollsStore } from '@/stores/rollsStore'
+import { useCharactersStore } from '@/stores/charactersStore'
+import tabletopSocketService from '@/services/sessions/tabletopSocketService'
 import { SESSION_STATUS } from '@shared/constants/sessionStatus.js'
 import { SESSION_EVENTS } from '@shared/constants/sessionEvents.js'
 
 // Singleton instance
 let engagementSessionInstance = null
+
+/**
+ * Module-level reactive set of character IDs currently in an active engagement
+ * session on this client. Accessible without requiring the singleton to exist.
+ */
+export const engagedCharacterIds = ref(new Set())
 
 export function useEngagementSession() {
   // Return existing instance if already created
@@ -31,9 +39,19 @@ export function useEngagementSession() {
   const diceManager = useEngagementRoll()
   const successManager = useEngagementSuccesses()
   const rollsStore = useRollsStore()
+  const charactersStore = useCharactersStore()
   
   // Store character for use in event handlers
   const currentCharacter = ref(null)
+
+  // Spectator-mode state
+  const isSpectating = ref(false)
+  /**
+   * When spectating, this overrides the "user" character shown in the modal.
+   * Components that need the perspective character (e.g. EngagementCharacterColumn)
+   * should prefer this over charactersStore.selectedCharacter.
+   */
+  const overrideCharacter = ref(null)
 
   // Computed properties for session-specific UI state
   const shouldShowComparisons = computed(() => {
@@ -168,6 +186,29 @@ export function useEngagementSession() {
     baseSession.initializeConnection(() => {
       engagementSessionService.autoJoinOrCreate(character, selectedDice, characterSuccessIds)
     })
+
+    // After the session ID becomes available, persist engagement presence to character data
+    // so that all clients (and the tabletop) can show the spikes indicator.
+    const stopSessionIdWatcher = watch(() => baseSession.sessionId.value, (newSessionId) => {
+      if (!newSessionId) return
+      // Save to the character object and persist
+      character.engagementSessionId = newSessionId
+      charactersStore.update(character).catch(() => {})
+      // Notify other tabletop clients so they can show the spikes indicator
+      tabletopSocketService.broadcastCharacterUpdate(tabletopSocketService.currentTabletopId, character)
+      // Update module-level set so the current client sees spikes immediately
+      const ids = new Set(engagedCharacterIds.value)
+      ids.add(character.id)
+      engagedCharacterIds.value = ids
+      stopSessionIdWatcher()
+    })
+
+    // When session data updates, also track the opponent in the presence set
+    watch(() => baseSession.sessionData.value?.users, (users) => {
+      if (!users?.length) return
+      const ids = new Set(users.map(u => u.characterInfo.id))
+      engagedCharacterIds.value = ids
+    }, { deep: true })
   }
 
   function setupEngagementSpecificHandlers(selectedDice, currentCharacter, _characterSuccessIds) {
@@ -288,6 +329,26 @@ export function useEngagementSession() {
   }
 
   function disconnect() {
+    // Clear engagement presence from character data (only for participants, not spectators)
+    if (!isSpectating.value && currentCharacter.value) {
+      const char = currentCharacter.value
+      if (char.engagementSessionId) {
+        delete char.engagementSessionId
+        // Best-effort update; ignore errors so disconnect always completes
+        charactersStore.update(char).catch(() => {})
+        // Notify other tabletop clients so they stop showing the spikes indicator
+        tabletopSocketService.broadcastCharacterUpdate(tabletopSocketService.currentTabletopId, char)
+      }
+    }
+
+    // Reset spectator state
+    isSpectating.value = false
+    overrideCharacter.value = null
+    currentCharacter.value = null
+
+    // Clear module-level engagement presence set
+    engagedCharacterIds.value = new Set()
+
     cleanupEventListeners()
     engagementSessionService.disconnect()
     // Reset singleton instance to null so a fresh instance is created next time
@@ -298,6 +359,44 @@ export function useEngagementSession() {
   function initialize(character, selectedDice) {
     const characterSuccessIds = successManager.allOwnedEngagementSuccesses.value.map(s => s.id)
     initializeSession(character, selectedDice, characterSuccessIds)
+  }
+
+  /**
+   * Join an existing engagement session as a read-only spectator.
+   * The UI shows the session from `character`'s perspective.
+   * Call cleanup() when the spectate modal closes.
+   */
+  function spectate(character, sessionId) {
+    isSpectating.value = true
+    overrideCharacter.value = character
+    currentCharacter.value = character
+    // Pre-seed the session ID so the store knows which session we're watching
+    baseSession.sessionId.value = sessionId
+
+    const callbacks = {
+      sessionType: 'engagement',
+      onSessionUpdated: ({ session }) => {
+        // Populate committedDice from the session data so dice display works for spectators
+        const userEntry = session.users?.find(u => u.characterInfo.id === character.id)
+        if (userEntry?.selectedDice) {
+          diceManager.committedDice.value = userEntry.selectedDice
+        }
+      },
+      onRollResults: ({ session }) => {
+        baseSession.rollResults.value = { session }
+        baseSession.sessionStatus.value = SESSION_STATUS.COMPLETED
+        // Do NOT mark dice as expended – spectators don't own these dice
+        diceManager.resetSortingState()
+        successManager.resetAssignments()
+      },
+    }
+
+    baseSession.setupBaseEventHandlers(character, callbacks)
+
+    // Connect and request to join the session room as a spectator
+    baseSession.initializeConnection(() => {
+      engagementSessionService.spectateSession(sessionId)
+    })
   }
   
   // Cleanup method (public API)
@@ -318,6 +417,10 @@ export function useEngagementSession() {
     
     // Engagement-specific state
     engagementDice,
+
+    // Spectator state
+    isSpectating,
+    overrideCharacter,
     
     // Result generation
     generateResultsOnAccept,
@@ -339,6 +442,7 @@ export function useEngagementSession() {
     
     // Public API methods
     initialize,
+    spectate,
     cleanup,
     
     // Legacy methods (for compatibility during transition)

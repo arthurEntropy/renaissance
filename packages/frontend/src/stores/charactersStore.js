@@ -133,6 +133,21 @@ export const useCharactersStore = defineStore('characters', () => {
     }
   }
 
+  /**
+   * Update a character in the local store from a socket event, without making
+   * an API call.  Used to apply character stat changes broadcast by other
+   * clients (e.g. HP or defense edited via the token info area on the tabletop).
+   *
+   * @param {Object} character - The full updated character object received from socket
+   */
+  const updateFromSocket = (character) => {
+    if (!character?.id) return
+    const idx = base.allItems.value.findIndex((c) => c.id === character.id)
+    if (idx !== -1) {
+      base.allItems.value.splice(idx, 1, character)
+    }
+  }
+
   return {
     characters: base.items,
     selectedCharacter,
@@ -153,5 +168,6 @@ export const useCharactersStore = defineStore('characters', () => {
     summonedBeast,
     hasSelectedCharacter,
     canEditSelectedCharacter,
+    updateFromSocket,
   }
 })

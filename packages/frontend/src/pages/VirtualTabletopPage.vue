@@ -32,11 +32,12 @@
                     :style="{ transform: `translate(${item.x}px, ${item.y}px)`, zIndex: item.zIndex }"
                     @mousedown="handleTokenMousedown(item, $event)">
                     <TabletopToken :name="item.name" :portrait-url="item.portraitUrl" :is-beast="item.isBeast"
-                        :is-npc="item.isNpc" :size="item.size" :grid-size="gridSize"
-                        :is-selected="isSelected(item.id)" />
+                        :is-npc="item.isNpc" :size="item.size" :grid-size="gridSize" :is-selected="isSelected(item.id)"
+                        :in-engagement="isCharacterInEngagement(item)" />
                     <TabletopTokenInfoArea v-if="singleSelectedToken?.id === item.id && canViewTokenInfo"
                         :character="singleSelectedCharacter" :can-edit="canEditTokenInfo"
-                        @expand="openCharacterSheetPopup" />
+                        :is-in-engagement="canSpectateSelectedToken" @expand="openCharacterSheetPopup"
+                        @spectate="openSpectatePopup" @character-saved="onCharacterSaved" />
                 </div>
 
                 <!-- Roll speech bubbles (one per canvas item that has an active roll) -->
@@ -104,6 +105,13 @@
             <CharacterSheetPopup v-if="charSheetPopupOpen && charSheetPopupCharacter"
                 :character="charSheetPopupCharacter" @close="charSheetPopupOpen = false" />
         </Teleport>
+
+        <!-- Engagement spectate popup (read-only view of another character's engagement) -->
+        <Teleport to="body">
+            <EngagementRollModal v-if="spectatePopupOpen && spectateCharacter && spectateSessionId"
+                :spectator-character="spectateCharacter" :spectator-session-id="spectateSessionId"
+                @close="closeSpectatePopup" />
+        </Teleport>
     </div>
 </template>
 
@@ -123,8 +131,10 @@ import TabletopTokenInfoArea from '@/components/features/tabletop/TabletopTokenI
 import CharacterSheetPopup from '@/components/features/tabletop/CharacterSheetPopup.vue'
 import TabletopChatlog from '@/components/features/tabletop/TabletopChatlog.vue'
 import TabletopRollBubble from '@/components/features/tabletop/TabletopRollBubble.vue'
+import EngagementRollModal from '@/components/features/characterSheet/rollModal/EngagementRollModal.vue'
 import { useTabletopRollLog } from '@/composables/useTabletopRollLog'
 import { useTabletopSync } from '@/composables/useTabletopSync'
+import { useEngagementSession, engagedCharacterIds } from '@/composables/useEngagementSession'
 import radiusCursorUrl from '@/assets/icons/cursor/radius.png'
 import rulerCursorUrl from '@/assets/icons/cursor/ruler.png'
 
@@ -224,7 +234,7 @@ function broadcastStateUpdate(snapshot) {
     _broadcastStateUpdateRef?.(snapshot)
 }
 
-const { broadcastStateUpdate: _syncBroadcast } = useTabletopSync({
+const { broadcastStateUpdate: _syncBroadcast, broadcastCharacterUpdate } = useTabletopSync({
     tabletopId,
     campaignId,
     applyExternalState,
@@ -326,6 +336,55 @@ function openCharacterSheetPopup() {
     if (!char) return
     charSheetPopupCharacter.value = char
     charSheetPopupOpen.value = true
+}
+
+// ─── Engagement spectate ────────────────────────────────────────────────────
+const engagementSessionManager = useEngagementSession()
+const spectatePopupOpen = ref(false)
+const spectateCharacter = ref(null)
+const spectateSessionId = ref(null)
+
+/**
+ * Whether a given canvas item's character is in an active engagement session.
+ * Checks both the module-level in-memory set (for the current client) and the
+ * character's persisted `engagementSessionId` field (for other clients).
+ */
+function isCharacterInEngagement(canvasItem) {
+    if (!canvasItem?.characterId) return false
+    if (engagedCharacterIds.value.has(canvasItem.characterId)) return true
+    const char = charactersStore.getById(canvasItem.characterId)
+    return !!char?.engagementSessionId
+}
+
+/**
+ * The single selected character is in engagement and the current user is not
+ * already an active participant (only then do we show the spectate button).
+ */
+const canSpectateSelectedToken = computed(() => {
+    if (!singleSelectedToken.value) return false
+    if (!isCharacterInEngagement(singleSelectedToken.value)) return false
+    // Don't offer spectate if the user is already an active participant
+    const sid = engagementSessionManager.sessionId?.value
+    const spectating = engagementSessionManager.isSpectating?.value
+    return !sid || spectating
+})
+
+function openSpectatePopup() {
+    const char = singleSelectedCharacter.value
+    if (!char?.engagementSessionId) return
+    spectateCharacter.value = char
+    spectateSessionId.value = char.engagementSessionId
+    spectatePopupOpen.value = true
+}
+
+function closeSpectatePopup() {
+    spectatePopupOpen.value = false
+    spectateCharacter.value = null
+    spectateSessionId.value = null
+}
+
+function onCharacterSaved(character) {
+    broadcastCharacterUpdate(character)
 }
 
 async function handleToggleActiveTabletop() {
