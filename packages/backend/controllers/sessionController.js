@@ -119,8 +119,13 @@ function createSessionController(config) {
           }
           
           // If no users remain, delete the session entirely
+          // (spectators may still be in the Socket.IO room — notify them first)
           // Otherwise, notify remaining user of cancellation
           if (session.users.length === 0) {
+            sessionIO.to(sessionId).emit(SESSION_EVENTS.SESSION_CANCELLED, {
+              message: `${sessionType.charAt(0).toUpperCase() + sessionType.slice(1)} ended`,
+              characterName,
+            })
             activeSessions.delete(sessionId)
           } else {
             sendCancellationMessage(sessionId, session, characterName)

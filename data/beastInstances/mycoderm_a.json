@@ -2,7 +2,7 @@
   "id": "6a9c30a0-25ce-4dcc-99bd-06d5c226d1c3",
   "isDeleted": false,
   "createdAt": "2026-07-08T16:01:23.094Z",
-  "lastModified": "2026-07-24T15:34:48.301Z",
+  "lastModified": "2026-07-24T17:15:39.150Z",
   "characterType": "beastInstance",
   "name": "Mycoderm A",
   "featuredArtUrls": [
@@ -171,8 +171,8 @@
   ],
   "engagementSuccesses": [],
   "engagementDiceStatuses": {
-    "user_added_0": "selected",
-    "user_added_1": "selected"
+    "user_added_1": "expended",
+    "user_added_0": "expended"
   },
   "equipment": [],
   "groupEquipmentBySource": false,
@@ -198,25 +198,25 @@
   },
   "rollStats": {
     "skillChecks": {
-      "attempts": 46,
-      "successes": 44,
-      "totalSum": 654,
+      "attempts": 47,
+      "successes": 45,
+      "totalSum": 665,
       "bestTotal": 23,
       "hardestSuccess": 13,
       "bySkill": {
         "Fortitude": 3,
         "Strength": 37,
         "Stealth": 1,
-        "Dexterity": 4,
+        "Dexterity": 5,
         "Courtesy": 1
       },
       "solCount": 5,
       "morteCount": 2,
-      "successCount": 18
+      "successCount": 19
     },
     "contests": {
       "engagement": {
-        "wins": 1,
+        "wins": 7,
         "losses": 4,
         "draws": 0
       },
@@ -264,10 +264,9 @@
   "description": "",
   "size": 3,
   "reach": 5,
-  "updatedAt": "2026-07-24T15:34:48.301Z",
+  "updatedAt": "2026-07-24T17:15:39.150Z",
   "challenge": 12,
   "templateId": "731421e9-f9cb-41c1-b902-76993e0bef6f",
   "sectionOrder": [],
-  "martialTrainingOverrides": {},
-  "engagementSessionId": "82d584af-d1ac-4e6c-a10f-efde5fd57696"
+  "martialTrainingOverrides": {}
 }

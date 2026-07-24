@@ -342,12 +342,19 @@ export function useEngagementSession() {
     }
 
     // Reset spectator state
+    const wasSpectating = isSpectating.value
     isSpectating.value = false
     overrideCharacter.value = null
     currentCharacter.value = null
 
-    // Clear module-level engagement presence set
-    engagedCharacterIds.value = new Set()
+    // Clear module-level engagement presence set only for participants;
+    // spectators never populated it, and the engagement is still happening on other clients.
+    if (!wasSpectating) {
+      engagedCharacterIds.value = new Set()
+    }
+
+    // Reset session ID so stale references in VirtualTabletopPage don't block future spectating
+    baseSession.sessionId.value = null
 
     cleanupEventListeners()
     engagementSessionService.disconnect()
@@ -392,6 +399,27 @@ export function useEngagementSession() {
     }
 
     baseSession.setupBaseEventHandlers(character, callbacks)
+
+    // Override the base acceptance handler so spectators track both participants' accepted states.
+    // The base handler skips updates where characterId === character.id (treating it as "our own"),
+    // which means userAccepted never becomes true for spectators and bothUsersAccepted stays false.
+    // We replace the handler to set userAccepted for the spectated character's acceptance and
+    // opponentAccepted for the other participant, so bothUsersAccepted fires correctly.
+    const baseAcceptanceHandler = baseSession.eventHandlers.acceptanceStateUpdated
+    engagementSessionService.off(SESSION_EVENTS.ACCEPTANCE_STATE_UPDATED, baseAcceptanceHandler)
+
+    const spectatorAcceptanceHandler = ({ characterId, accepted }) => {
+      if (characterId === character.id) {
+        // Spectated character accepted – treat as the "user" side
+        baseSession.userAccepted.value = accepted
+      } else {
+        // Other participant accepted – treat as the "opponent" side
+        baseSession.opponentAccepted.value = accepted
+      }
+    }
+
+    engagementSessionService.on(SESSION_EVENTS.ACCEPTANCE_STATE_UPDATED, spectatorAcceptanceHandler)
+    baseSession.eventHandlers.acceptanceStateUpdated = spectatorAcceptanceHandler
 
     // Connect and request to join the session room as a spectator
     baseSession.initializeConnection(() => {

@@ -2,7 +2,7 @@
   "id": "cb66fcb1-7ffc-449a-a969-233cae93be32",
   "isDeleted": false,
   "createdAt": "2026-07-21T13:01:53.858Z",
-  "lastModified": "2026-07-24T15:39:40.028Z",
+  "lastModified": "2026-07-24T17:15:40.028Z",
   "characterType": "npc",
   "name": "Farah",
   "featuredArtUrls": [
@@ -342,7 +342,7 @@
     "contests": {
       "engagement": {
         "wins": 0,
-        "losses": 0,
+        "losses": 6,
         "draws": 0
       },
       "contest": {
@@ -351,9 +351,9 @@
         "draws": 0
       }
     },
-    "xpEarned": 9,
+    "xpEarned": 25,
     "xpSpent": 2,
-    "treasureEarned": 55,
+    "treasureEarned": 95,
     "treasureSpent": 2
   },
   "biomeTags": [],
@@ -433,7 +433,7 @@
   "keeping": "4d5e6f7a-8b9c-4d0e-1f2a-3b4c5d6e7f8a",
   "treasure": 10,
   "xp": 4,
-  "updatedAt": "2026-07-24T15:39:40.028Z",
+  "updatedAt": "2026-07-24T17:15:40.028Z",
   "description": "",
   "size": 0,
   "reach": 0,

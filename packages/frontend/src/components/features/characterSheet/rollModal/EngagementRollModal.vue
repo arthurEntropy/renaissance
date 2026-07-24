@@ -1,11 +1,6 @@
 <template>
     <BaseModal title="Engagement" width="min(525px, 90vw)" @close="closeModal">
 
-        <!-- Spectator banner -->
-        <div v-if="isSpectatorMode" class="spectator-banner">
-            Spectating
-        </div>
-
         <!-- Main engagement display -->
         <ResultIndicators v-if="shouldShowComparisons" :can-edit="canEditResults" />
         <main class="engagement-columns">
@@ -15,8 +10,11 @@
 
         <template #actions>
             <div class="modal-actions">
-                <!-- Spectators only get a close button -->
-                <ActionButton v-if="isSpectatorMode" variant="neutral" size="large" text="Close" @click="closeModal" />
+                <!-- Spectators see a cyan icon + label instead of interactive buttons -->
+                <div v-if="isSpectatorMode" class="spectator-indicator">
+                    <SpectateIcon class="spectator-indicator__icon" />
+                    <span class="spectator-indicator__label">Spectating</span>
+                </div>
                 <template v-else>
                     <ActionButton v-if="!opponent" variant="neutral" size="large" text="Cancel" @click="closeModal" />
                     <div v-if="opponent" :style="{ visibility: shouldShowResolution ? 'visible' : 'hidden' }">
@@ -36,6 +34,7 @@ import BaseModal from '@/components/ui/modals/BaseModal.vue'
 import EngagementCharacterColumn from './EngagementCharacterColumn.vue'
 import ResultIndicators from './ResultIndicators.vue'
 import RollResolution from './RollResolution.vue'
+import SpectateIcon from '@/assets/icons/tabletop/spectate.svg?component'
 import { computed, onMounted, onBeforeUnmount, watch, ref } from 'vue'
 
 import { useEngagementSession } from '@/composables/useEngagementSession'
@@ -97,14 +96,24 @@ onBeforeUnmount(() => {
     sessionManager.cleanup()
 })
 
-// Auto-close after both sides have accepted (participant mode only)
+// Auto-close after both sides have accepted (participants and spectators)
 watch(bothUsersAccepted, (bothAccepted) => {
-    if (!isSpectatorMode.value && bothAccepted && !isAutoClosing.value) {
-        sessionManager.generateResultsOnAccept(character.value, opponent.value)
+    if (bothAccepted && !isAutoClosing.value) {
+        if (!isSpectatorMode.value) {
+            sessionManager.generateResultsOnAccept(character.value, opponent.value)
+        }
         isAutoClosing.value = true
         autoCloseTimer = setTimeout(() => {
             emit('close')
         }, 2000)
+    }
+})
+
+// Close spectator modal when the session is cancelled or expired
+// (sessionId is reset to null by the base session handlers in those cases)
+watch(() => sessionManager.sessionId.value, (newId, oldId) => {
+    if (isSpectatorMode.value && oldId !== null && newId === null) {
+        emit('close')
     }
 })
 
@@ -133,16 +142,23 @@ const toggleUserAccept = () => {
 </script>
 
 <style scoped>
-.spectator-banner {
-    text-align: center;
+.spectator-indicator {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    color: var(--color-accent-cyan);
+}
+
+.spectator-indicator__icon {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+}
+
+.spectator-indicator__label {
     font-size: var(--font-size-12);
-    color: var(--color-text-secondary);
     letter-spacing: 0.06em;
     text-transform: uppercase;
-    margin-bottom: var(--space-sm);
-    padding: var(--space-xs) var(--space-md);
-    border: 1px solid var(--overlay-white-medium);
-    border-radius: var(--radius-5);
 }
 
 .engagement-columns {
