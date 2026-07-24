@@ -2,7 +2,7 @@
   "id": "e0b22160-6efe-45f7-9360-8c20412e617e",
   "isDeleted": false,
   "createdAt": "2026-07-10T14:14:48.580Z",
-  "lastModified": "2026-07-24T12:04:19.796Z",
+  "lastModified": "2026-07-24T12:53:17.194Z",
   "campaignId": "c9ddeab9-d180-4fc5-869f-e64239bc3376",
   "name": "Ice Cave",
   "backgroundImage": {
@@ -10,72 +10,11 @@
     "naturalWidth": 1456,
     "naturalHeight": 816
   },
-  "items": [
-    {
-      "id": "47b884b5-8fe1-476e-9c58-2f533ffa465b",
-      "characterId": "6a9c30a0-25ce-4dcc-99bd-06d5c226d1c3",
-      "isBeast": true,
-      "isNpc": false,
-      "name": "Mycoderm A",
-      "portraitUrl": "https://cdn.midjourney.com/1981f3be-8de5-4457-9d0f-da52943eb68c/0_0.png",
-      "size": 3,
-      "x": 600,
-      "y": 210,
-      "zIndex": 59
-    },
-    {
-      "id": "0170fdb9-299b-48ed-874f-cbdb00cf1cd4",
-      "characterId": "a675e17d-bf53-4ff3-937a-242aea3d0e7a",
-      "isBeast": true,
-      "isNpc": false,
-      "name": "Spore Hound A",
-      "portraitUrl": "https://cdn.midjourney.com/39ad5992-8dc0-48f7-9e24-e9633e4377ae/0_1.png",
-      "size": 1,
-      "x": 750,
-      "y": 210,
-      "zIndex": 58
-    },
-    {
-      "id": "3bd89c3c-c77c-41df-9c13-94ef5386dd34",
-      "characterId": "b4417462-600b-4571-b2ad-a572ad01733f",
-      "isBeast": false,
-      "isNpc": true,
-      "name": "Damla",
-      "portraitUrl": "https://cdn.midjourney.com/2ef0de1a-3306-441c-9f5e-0899dcced474/0_0.png",
-      "size": 1,
-      "x": 570,
-      "y": 390,
-      "zIndex": 45
-    },
-    {
-      "id": "2ccad30a-b52b-48de-890f-a2ea0e712e66",
-      "characterId": "33b032fb-a135-43a7-a704-967f4eba5d82",
-      "isBeast": false,
-      "isNpc": false,
-      "name": "New Character",
-      "portraitUrl": "https://cdn.midjourney.com/6b5282ab-e572-4ad7-bed2-3cce785c9744/0_2.png",
-      "size": 1,
-      "x": 960,
-      "y": 240,
-      "zIndex": 50
-    },
-    {
-      "id": "a950ed02-59d8-4d6b-93a7-7cff89d9da79",
-      "characterId": "2fb7cd7a-91fc-4f2b-a4b4-8c815eddcea0",
-      "isBeast": false,
-      "isNpc": true,
-      "name": "Jøna",
-      "portraitUrl": "https://cdn.midjourney.com/4a189b12-7aac-4e8b-bc16-6d867629d244/0_0.png",
-      "size": 1,
-      "x": 930,
-      "y": 150,
-      "zIndex": 49
-    }
-  ],
+  "items": [],
   "transform": {
-    "scale": 1.3618441654526403,
-    "x": -118.64949209463339,
-    "y": 101.68419953724617
+    "scale": 1.588455034583959,
+    "x": -295.65951857975574,
+    "y": -102.22254552330776
   },
   "gridSize": 30,
   "gridColor": "#ffffff",

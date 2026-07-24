@@ -2,7 +2,7 @@
   "id": "c9ddeab9-d180-4fc5-869f-e64239bc3376",
   "isDeleted": false,
   "createdAt": "2026-05-18T17:56:57.471Z",
-  "lastModified": "2026-07-24T11:37:30.410Z",
+  "lastModified": "2026-07-24T12:51:01.786Z",
   "slug": "renaissance-playtest",
   "name": "Renaissance Playtest",
   "description": "<p>This is a test campaign that I'm using to playtest the game and app.</p>",
@@ -118,48 +118,47 @@
           "id": "beast:93866275-3365-4a80-9a11-b8185884faab",
           "type": "beast",
           "characterId": "93866275-3365-4a80-9a11-b8185884faab"
-        }
-      ]
-    },
-    {
-      "id": "group-1783532553201-zx2h3z",
-      "name": "Ragtaggers",
-      "combatants": [
-        {
-          "id": "npc:b4417462-600b-4571-b2ad-a572ad01733f",
-          "type": "npc",
-          "characterId": "b4417462-600b-4571-b2ad-a572ad01733f"
         },
         {
-          "id": "npc:2fb7cd7a-91fc-4f2b-a4b4-8c815eddcea0",
-          "type": "npc",
-          "characterId": "2fb7cd7a-91fc-4f2b-a4b4-8c815eddcea0"
+          "id": "beast:7d2b68f7-476b-4e29-bc21-a8402e07b9ac",
+          "type": "beast",
+          "characterId": "7d2b68f7-476b-4e29-bc21-a8402e07b9ac"
         },
         {
-          "id": "npc:b0dfc21f-b910-4a42-aca0-ad497a099139",
+          "id": "npc:c4995e1d-ce28-489e-937b-b48872f10b15",
           "type": "npc",
-          "characterId": "b0dfc21f-b910-4a42-aca0-ad497a099139"
+          "characterId": "c4995e1d-ce28-489e-937b-b48872f10b15"
         },
-        {
-          "id": "npc:dd4ad3a1-0d8b-4e05-8548-ee81bbb61c29",
-          "type": "npc",
-          "characterId": "dd4ad3a1-0d8b-4e05-8548-ee81bbb61c29"
-        }
-      ]
-    },
-    {
-      "id": "group-1784643249714-pp0y3y",
-      "name": "Jungle Crew",
-      "combatants": [
         {
           "id": "npc:cb66fcb1-7ffc-449a-a969-233cae93be32",
           "type": "npc",
           "characterId": "cb66fcb1-7ffc-449a-a969-233cae93be32"
         },
         {
-          "id": "npc:c4995e1d-ce28-489e-937b-b48872f10b15",
-          "type": "npc",
-          "characterId": "c4995e1d-ce28-489e-937b-b48872f10b15"
+          "id": "pc:33b032fb-a135-43a7-a704-967f4eba5d82",
+          "type": "pc",
+          "characterId": "33b032fb-a135-43a7-a704-967f4eba5d82"
+        }
+      ]
+    },
+    {
+      "id": "group-1784897417821-l8q2z6",
+      "name": "Animal Friends",
+      "combatants": [
+        {
+          "id": "beast:fb394999-d767-4484-b079-ea93737caaa2",
+          "type": "beast",
+          "characterId": "fb394999-d767-4484-b079-ea93737caaa2"
+        },
+        {
+          "id": "beast:2853a9bc-c5bc-4a71-a010-430d8c366924",
+          "type": "beast",
+          "characterId": "2853a9bc-c5bc-4a71-a010-430d8c366924"
+        },
+        {
+          "id": "beast:812ee043-35fa-41b5-9741-1b4a1b2619f6",
+          "type": "beast",
+          "characterId": "812ee043-35fa-41b5-9741-1b4a1b2619f6"
         },
         {
           "id": "npc:16b72ab7-e855-420f-93f2-c94bce03f8b1",
@@ -169,13 +168,18 @@
       ]
     },
     {
-      "id": "group-1784851662501-0eveg3",
-      "name": "Our Heroes",
+      "id": "group-1784897441763-5m11ne",
+      "name": "Punchy Bois",
       "combatants": [
         {
-          "id": "pc:33b032fb-a135-43a7-a704-967f4eba5d82",
-          "type": "pc",
-          "characterId": "33b032fb-a135-43a7-a704-967f4eba5d82"
+          "id": "npc:dd4ad3a1-0d8b-4e05-8548-ee81bbb61c29",
+          "type": "npc",
+          "characterId": "dd4ad3a1-0d8b-4e05-8548-ee81bbb61c29"
+        },
+        {
+          "id": "npc:b0dfc21f-b910-4a42-aca0-ad497a099139",
+          "type": "npc",
+          "characterId": "b0dfc21f-b910-4a42-aca0-ad497a099139"
         }
       ]
     }

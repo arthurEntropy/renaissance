@@ -68,47 +68,56 @@
             </div>
         </div>
 
-        <div v-for="group in resolvedPinnedGroups" :key="group.id" class="token-group token-group--pinned"
-            :class="{ 'token-group--initiative-active': isInitiativeActive && isGMOnTabletop && group.id === resolvedPinnedGroups[0]?.id }">
-            <FloatingActionButton class="unpin-fab" :variant="FAB_TYPES.DELETE" :size="FAB_SIZES.SMALL"
-                :visibility="FAB_VISIBILITIES.ALWAYS" aria-label="Unpin group"
-                @click="characterContextStore.unpinGroup(group.id)" />
-            <div class="token-group-header">
-                <span class="token-group-name">{{ group.name }}</span>
-                <span v-if="isGroupCollapsed(group.id)" class="token-group-members-count">Members: {{
-                    group.members.length }}</span>
-            </div>
-            <div v-if="!isGroupCollapsed(group.id)" class="token-group-members">
-                <div v-for="member in group.members" :key="member.id" class="token-item draggable-token-wrapper"
-                    :class="{ 'is-tabletop-selected': isTabletopSelected(member.id) }" draggable="true"
-                    @dragstart="handleTokenDragStart($event, member)" @dragend="handleTokenDragEnd">
-                    <component :is="getTokenComponent(member)" v-bind="getTokenProps(member, group.id)" />
+        <TransitionGroup tag="div" name="group-list" class="pinned-groups-list">
+            <div v-for="group in resolvedPinnedGroups" :key="group.id" :ref="(el) => setGroupEl(group.id, el)"
+                class="token-group token-group--pinned" :class="{
+                    'token-group--initiative-active': isInitiativeActive && isGMOnTabletop && group.id === resolvedPinnedGroups[0]?.id,
+                    'is-cycling-leaving': cyclingLeavingId === group.id,
+                    'is-collapsed': isGroupCollapsed(group.id)
+                }">
+                <FloatingActionButton class="unpin-fab" :variant="FAB_TYPES.DELETE" :size="FAB_SIZES.SMALL"
+                    :visibility="FAB_VISIBILITIES.ALWAYS" aria-label="Unpin group"
+                    @click="characterContextStore.unpinGroup(group.id)" />
+                <div class="token-group-header">
+                    <span class="token-group-name">{{ group.name }}</span>
+                    <div v-if="isGroupCollapsed(group.id)" class="token-group-member-dots">
+                        <span v-for="member in group.members" :key="member.id" class="member-dot"
+                            :style="{ backgroundColor: getMemberDotColor(member) }" />
+                    </div>
+                </div>
+                <div v-if="!isGroupCollapsed(group.id)" class="token-group-members">
+                    <div v-for="member in group.members" :key="member.id" class="token-item draggable-token-wrapper"
+                        :class="{ 'is-tabletop-selected': isTabletopSelected(member.id) }" draggable="true"
+                        @dragstart="handleTokenDragStart($event, member)" @dragend="handleTokenDragEnd">
+                        <component :is="getTokenComponent(member)" v-bind="getTokenProps(member, group.id)" />
+                    </div>
+                </div>
+                <button type="button" class="token-group-collapse-toggle" :aria-expanded="!isGroupCollapsed(group.id)"
+                    @click="toggleGroupCollapsed(group.id)">
+                    <component :is="isGroupCollapsed(group.id) ? ChevronDownIcon : ChevronUpIcon"
+                        class="token-group-chevron" />
+                </button>
+
+                <!-- Initiative badge: GM on tabletop only -->
+                <div v-if="isGMOnTabletop" class="initiative-badge"
+                    :class="{ 'initiative-badge--initiative-active': isInitiativeActive && group.id === resolvedPinnedGroups[0]?.id }"
+                    :style="isGroupCollapsed(group.id) ? { top: 'auto', bottom: '0px', transform: 'translate(calc(100% + var(--space-sm)), 0)' } : {}">
+                    <FloatingActionButton :variant="FAB_TYPES.INITIATIVE" :size="FAB_SIZES.SMALL"
+                        :visibility="FAB_VISIBILITIES.ALWAYS" aria-label="Roll group initiative"
+                        @click="rollGroupInitiative(group)" />
+                    <template v-if="editingInitiativeGroupId === group.id">
+                        <input type="number" class="initiative-input" v-model="editingInitiativeValue"
+                            @blur="saveInitiativeEdit(group.id)" @keydown.enter="saveInitiativeEdit(group.id)"
+                            @keydown.escape="cancelInitiativeEdit" />
+                    </template>
+                    <span v-else class="initiative-result-value"
+                        :class="{ 'initiative-result-value--empty': group.initiativeResults?.groupTotal == null }"
+                        @click="startEditingInitiative(group)">
+                        {{ group.initiativeResults?.groupTotal ?? '—' }}
+                    </span>
                 </div>
             </div>
-            <button type="button" class="token-group-collapse-toggle" :aria-expanded="!isGroupCollapsed(group.id)"
-                @click="toggleGroupCollapsed(group.id)">
-                <component :is="isGroupCollapsed(group.id) ? ChevronDownIcon : ChevronUpIcon"
-                    class="token-group-chevron" />
-            </button>
-
-            <!-- Initiative badge: GM on tabletop only -->
-            <div v-if="isGMOnTabletop" class="initiative-badge"
-                :class="{ 'initiative-badge--initiative-active': isInitiativeActive && group.id === resolvedPinnedGroups[0]?.id }">
-                <FloatingActionButton :variant="FAB_TYPES.INITIATIVE" :size="FAB_SIZES.SMALL"
-                    :visibility="FAB_VISIBILITIES.ALWAYS" aria-label="Roll group initiative"
-                    @click="rollGroupInitiative(group)" />
-                <template v-if="editingInitiativeGroupId === group.id">
-                    <input type="number" class="initiative-input" v-model="editingInitiativeValue"
-                        @blur="saveInitiativeEdit(group.id)" @keydown.enter="saveInitiativeEdit(group.id)"
-                        @keydown.escape="cancelInitiativeEdit" />
-                </template>
-                <span v-else class="initiative-result-value"
-                    :class="{ 'initiative-result-value--empty': group.initiativeResults?.groupTotal == null }"
-                    @click="startEditingInitiative(group)">
-                    {{ group.initiativeResults?.groupTotal ?? '—' }}
-                </span>
-            </div>
-        </div>
+        </TransitionGroup>
 
         <button v-if="resolvedPinnedGroups.length > 0" type="button" class="unpin-all-btn"
             @click="characterContextStore.clearPinnedGroups()">Unpin All</button>
@@ -144,6 +153,36 @@ const { selectedCharacterIds } = useTabletopSelectionState()
 const { getSummonedBeastForCharacterId } = useSummonedBeast()
 const { open: openCharacterSheet, close: closeCharacterSheet, isOpen: isCharacterSheetOpen } = useAppCharacterSheetModal()
 const collapsedGroupIds = ref(new Set())
+const cyclingLeavingId = ref(null)
+const isCycling = ref(false)
+
+// FLIP animation: track group DOM elements by id for manual position-based animation
+const groupElsMap = new Map()
+function setGroupEl(id, el) {
+    if (el) groupElsMap.set(id, el)
+    else groupElsMap.delete(id)
+}
+function captureGroupRects() {
+    const rects = new Map()
+    for (const [id, el] of groupElsMap) {
+        if (el) rects.set(id, el.getBoundingClientRect())
+    }
+    return rects
+}
+function animateGroupsFlip(oldRects) {
+    for (const [id, el] of groupElsMap) {
+        if (!el) continue
+        const old = oldRects.get(id)
+        if (!old) continue
+        const next = el.getBoundingClientRect()
+        const dy = old.top - next.top
+        if (Math.abs(dy) < 1) continue
+        el.animate(
+            [{ transform: `translateY(${dy}px)` }, { transform: 'translateY(0)' }],
+            { duration: 200, easing: 'cubic-bezier(0.4, 0, 0.2, 1)', fill: 'none' }
+        )
+    }
+}
 const focusedCharacter = computed(() => charactersStore.selectedCharacter)
 const isBeastCharacter = (character) => isBeastTemplate(character) || isBeastInstance(character)
 
@@ -248,6 +287,13 @@ const statsAlwaysVisible = computed(() => {
         path.startsWith('/mestieri') ||
         path.startsWith('/cultures')
 })
+
+function getMemberDotColor(member) {
+    if (!member) return 'var(--color-token-border-pc)'
+    if (isBeastCharacter(member)) return 'var(--color-token-border-beast)'
+    if (isNPC(member)) return 'var(--color-token-border-npc)'
+    return 'var(--color-token-border-pc)'
+}
 
 function getTokenComponent(character) {
     return isBeastCharacter(character) ? BeastToken : CharacterToken
@@ -363,22 +409,56 @@ function sortGroupsByInitiative() {
     isInitiativeActive.value = true
 }
 
-// Cycle to next group (rotate left: first → last)
-function cycleNextGroup() {
-    if (characterContextStore.pinnedGroupIds.length <= 1) return
+// Cycle to next group (rotate left: first → last) with a three-step animation
+async function cycleNextGroup() {
+    if (characterContextStore.pinnedGroupIds.length <= 1 || isCycling.value) return
+    isCycling.value = true
+
     const ids = [...characterContextStore.pinnedGroupIds]
+    const leavingId = ids[0]
+
+    // Step 1: fade out the current active group
+    cyclingLeavingId.value = leavingId
+    await new Promise(r => setTimeout(r, 120))
+
+    // Step 2: capture pre-reorder positions, reorder, then FLIP-animate the slide
+    const rects = captureGroupRects()
     ids.push(ids.shift())
     characterContextStore.reorderPinnedGroups(ids)
     isInitiativeActive.value = true
+    await nextTick()
+    animateGroupsFlip(rects)
+
+    // Step 3: after the slide, fade the moved group back in
+    await new Promise(r => setTimeout(r, 200))
+    cyclingLeavingId.value = null
+    isCycling.value = false
 }
 
-// Cycle to previous group (rotate right: last → first)
-function cyclePrevGroup() {
-    if (characterContextStore.pinnedGroupIds.length <= 1) return
+// Cycle to previous group (rotate right: last → first) with a three-step animation
+async function cyclePrevGroup() {
+    if (characterContextStore.pinnedGroupIds.length <= 1 || isCycling.value) return
+    isCycling.value = true
+
     const ids = [...characterContextStore.pinnedGroupIds]
+    const leavingId = ids[0]
+
+    // Step 1: fade out the current active group
+    cyclingLeavingId.value = leavingId
+    await new Promise(r => setTimeout(r, 120))
+
+    // Step 2: capture pre-reorder positions, reorder, then FLIP-animate the slide
+    const rects = captureGroupRects()
     ids.unshift(ids.pop())
     characterContextStore.reorderPinnedGroups(ids)
     isInitiativeActive.value = true
+    await nextTick()
+    animateGroupsFlip(rects)
+
+    // Step 3: after the slide, fade the moved group back in
+    await new Promise(r => setTimeout(r, 200))
+    cyclingLeavingId.value = null
+    isCycling.value = false
 }
 
 // Inline initiative editing
@@ -554,6 +634,13 @@ function getFocusedTokenProps(character) {
 
 .token-group--pinned {
     border-color: var(--overlay-white-medium);
+    /* Smooth opacity for cycling animation */
+    transition: opacity 140ms ease-in;
+}
+
+.token-group--pinned.is-cycling-leaving {
+    opacity: 0;
+    transition: opacity 120ms ease-out;
 }
 
 .token-group-header {
@@ -614,8 +701,8 @@ function getFocusedTokenProps(character) {
 
 .unpin-fab {
     position: absolute;
-    top: 12px;
-    right: 12px;
+    top: 0px;
+    right: 0px;
     transform: translate(40%, -40%);
     opacity: 0;
     pointer-events: none;
@@ -843,10 +930,36 @@ function getFocusedTokenProps(character) {
 /* Active initiative group highlight */
 .token-group--initiative-active {
     border-color: var(--color-primary) !important;
+    transition: opacity 140ms ease-in, border-color 200ms ease;
 }
 
 .initiative-badge--initiative-active {
     border-width: 2px;
     border-color: var(--color-primary) !important;
+}
+
+/* ─── TransitionGroup for pinned group list reordering ───────────────────────── */
+.pinned-groups-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+}
+
+/* ─── Member dots (collapsed state) ──────────────────────────────────────────── */
+.token-group-member-dots {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3px;
+    padding-top: var(--space-xs);
+    /* Must stretch to the full column-flex width so dot widths resolve correctly */
+    align-self: stretch;
+}
+
+.member-dot {
+    width: calc((100% - 12px) / 5);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    flex-shrink: 0;
+    opacity: 0.85;
 }
 </style>

@@ -283,11 +283,27 @@ function handleSwitchTabletop(targetTabletopId) {
 // mounts; the watch fires again once it becomes non-null.
 watch(campaignId, async (id) => {
     if (!id) return
+
+    const fetches = []
+
     // Fetch tabletops for this campaign if the current tabletop is not yet in the store.
     const tid = tabletopId.value
     if (tid && !campaignStore.tabletops.some((t) => t.id === tid)) {
-        await campaignStore.fetchTabletops(id)
+        fetches.push(campaignStore.fetchTabletops(id))
     }
+
+    // Ensure campaign characters (NPCs & beast instances) are loaded so that
+    // PinnedTokensContainer can resolve group members on a hard page refresh.
+    if (!campaignStore.campaignCharacters.length) {
+        fetches.push(campaignStore.fetchCampaignCharacters(id))
+    }
+
+    // Ensure player characters are loaded for the same reason.
+    if (!charactersStore.characters.length) {
+        fetches.push(charactersStore.fetch())
+    }
+
+    await Promise.all(fetches)
     loadState()
 }, { immediate: true })
 </script>

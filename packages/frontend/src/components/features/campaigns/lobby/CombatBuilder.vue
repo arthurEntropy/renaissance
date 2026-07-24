@@ -22,9 +22,6 @@
                             @click="togglePinGroup(group)">
                             <MapPinIcon class="combat-group-action-icon" />
                         </button>
-                        <FloatingActionButton class="initiative-btn" :variant="FAB_TYPES.INITIATIVE"
-                            :size="FAB_SIZES.SMALL" :visibility="FAB_VISIBILITIES.ALWAYS"
-                            :disabled="getGroupCharacters(group).length === 0" @click="rollGroupInitiative(group)" />
                         <button type="button" class="combat-group-delete" @click="deleteGroup(group.id)"
                             aria-label="Delete combat group">
                             <TrashIcon class="combat-group-delete-icon" />
@@ -52,27 +49,6 @@
                         </div>
                     </div>
 
-                    <!-- Batch initiative results for this group -->
-                    <div v-if="characterContextStore.pinnedGroupsById[group.id]?.initiativeResults"
-                        class="batch-initiative-results">
-                        <div class="batch-results-header">
-                            <span class="batch-results-group-total">Group Initiative: {{
-                                characterContextStore.pinnedGroupsById[group.id].initiativeResults.groupTotal ?? '—'
-                                }}</span>
-                            <button type="button" class="batch-results-clear"
-                                @click="clearBatchResults(group.id)">Clear</button>
-                        </div>
-                        <ol class="batch-results-list">
-                            <li v-for="entry in characterContextStore.pinnedGroupsById[group.id].initiativeResults.members"
-                                :key="entry.characterId" class="batch-results-entry"
-                                :class="{ 'batch-results-entry--middle': entry.role === 'middle' }">
-                                <span class="batch-results-name">{{ entry.name ?? entry.characterId }}</span>
-                                <span class="batch-results-total">{{ entry.individualTotal ?? '—' }}</span>
-                                <span v-if="entry.emoji" class="batch-results-emoji">{{ entry.emoji }}</span>
-                                <span v-if="entry.isCaughtOffGuard" class="batch-results-off-guard">(off guard)</span>
-                            </li>
-                        </ol>
-                    </div>
                 </div>
 
                 <!-- No longer needed: group creation moved to section header FAB -->
@@ -128,7 +104,6 @@ import { useCampaignStore } from '@/stores/campaignStore'
 import { useCharactersStore } from '@/stores/charactersStore'
 import { useCharacterContextStore } from '@/stores/characterContextStore'
 import { useAppCharacterSheetModal } from '@/composables/useAppCharacterSheetModal'
-import BatchRollOrchestrationService from '@/services/rolls/batchRollOrchestrationService'
 import { useCascadeColumnPositioning } from '@/composables/useCascadeColumnPositioning'
 import { toLetterSuffix } from '@shared/utils/letterSuffix'
 
@@ -681,13 +656,6 @@ const dropCombatantToGroup = (targetGroupId) => {
     handleDragEnd()
 }
 
-// Collect resolved character objects for all combatants in a group
-const getGroupCharacters = (group) => {
-    return (group.combatants || [])
-        .map((combatant) => findCharacter(combatant))
-        .filter(Boolean)
-}
-
 // Pin or unpin a group, syncing with characterContextStore
 const togglePinGroup = (group) => {
     if (characterContextStore.isPinned(group.id)) {
@@ -702,22 +670,6 @@ const togglePinGroup = (group) => {
         name: group.name,
         memberIds,
     })
-}
-
-// Execute batch initiative roll for all combatants in the group, persist results in store
-const rollGroupInitiative = (group) => {
-    const characters = getGroupCharacters(group)
-    if (characters.length === 0) return
-    if (!characterContextStore.isPinned(group.id)) {
-        // Auto-pin the group so results have a home in the store
-        togglePinGroup(group)
-    }
-    const { groupTotal, members } = BatchRollOrchestrationService.executeBatchInitiativeRoll(characters)
-    characterContextStore.updatePinnedGroup(group.id, { initiativeResults: { groupTotal, members } })
-}
-
-const clearBatchResults = (groupId) => {
-    characterContextStore.updatePinnedGroup(groupId, { initiativeResults: null })
 }
 
 // Guard flag to avoid feedback loop when syncing combatGroups from store changes
@@ -920,114 +872,6 @@ onUnmounted(() => {
 .combat-group-action-icon {
     width: 16px;
     height: 16px;
-}
-
-/* Override FAB initiative button to match the neutral action-btn style */
-.initiative-btn.fab {
-    background: transparent;
-    border: 1px solid var(--overlay-white-medium);
-    border-radius: 999px;
-    color: var(--color-text-secondary);
-    width: 30px;
-    height: 30px;
-}
-
-.initiative-btn.fab:not(:disabled):hover {
-    background: var(--overlay-white-subtle);
-    border-color: var(--color-primary);
-    color: var(--color-primary);
-}
-
-.initiative-btn.fab :deep(svg) {
-    color: inherit;
-}
-
-/* Batch initiative results list */
-.batch-initiative-results {
-    margin-top: var(--space-sm);
-    padding: var(--space-xs) var(--space-sm);
-    background: var(--overlay-white-subtle);
-    border-radius: var(--radius-6);
-    border: 1px solid var(--overlay-white-medium);
-    font-size: var(--font-size-sm, 0.8rem);
-}
-
-.batch-results-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-weight: 600;
-    color: var(--color-text-secondary);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    font-size: 0.7rem;
-    margin-bottom: var(--space-xs);
-}
-
-.batch-results-group-total {
-    color: var(--color-primary);
-    font-weight: 700;
-    font-size: 0.75rem;
-}
-
-.batch-results-clear {
-    background: transparent;
-    border: none;
-    color: var(--color-text-muted, #999);
-    font-size: 0.7rem;
-    cursor: pointer;
-    padding: 0;
-    text-transform: none;
-    font-weight: 400;
-}
-
-.batch-results-clear:hover {
-    color: var(--color-danger);
-}
-
-.batch-results-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-}
-
-.batch-results-entry {
-    display: flex;
-    align-items: center;
-    gap: var(--space-xs);
-    color: var(--color-text-primary);
-}
-
-.batch-results-entry--middle {
-    opacity: 0.5;
-}
-
-.batch-results-emoji {
-    font-size: 0.85rem;
-    line-height: 1;
-}
-
-.batch-results-off-guard {
-    font-size: 0.65rem;
-    color: var(--color-danger);
-    font-style: italic;
-    text-transform: none;
-}
-
-.batch-results-name {
-    flex: 1;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.batch-results-total {
-    font-variant-numeric: tabular-nums;
-    font-weight: 600;
-    color: var(--color-primary);
 }
 
 .status-drop-slot--interactive {
