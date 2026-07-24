@@ -3,7 +3,7 @@
 
         <!-- Canvas Container -->
         <div class="canvas-container" :class="{ 'is-panning': isPanning }" :style="canvasCursorStyle"
-            ref="canvasContainerRef" @mousedown="handleContainerMousedown" @dragover="handleDragOver"
+            ref="canvasContainerRef" @mousedown="handleCanvasContainerMousedown" @dragover="handleDragOver"
             @dragleave="handleDragLeave" @drop="handleDrop">
 
             <!-- Grid overlay (always visible, tracks canvas transform) -->
@@ -39,6 +39,15 @@
                         @expand="openCharacterSheetPopup" />
                 </div>
 
+                <!-- Roll speech bubbles (one per canvas item that has an active roll) -->
+                <TabletopRollBubble v-for="(bubble, itemId) in activeBubbles" :key="itemId" :entry="bubble.entry"
+                    :expanded="bubble.expanded" :canvas-item-x="canvasItemById(itemId)?.x ?? 0"
+                    :canvas-item-y="canvasItemById(itemId)?.y ?? 0"
+                    :token-px="(canvasItemById(itemId)?.size ?? 1) * gridSize"
+                    :is-beast="canvasItemById(itemId)?.isBeast ?? false"
+                    :is-npc="canvasItemById(itemId)?.isNpc ?? false" @toggle-expand="toggleBubbleExpanded(itemId)"
+                    @dismiss="dismissBubble(itemId)" />
+
                 <!-- Rubber-band selection rect -->
                 <div v-if="isSelecting && selectionRectCanvas" class="selection-rect" :style="{
                     left: `${Math.min(selectionRectCanvas.x1, selectionRectCanvas.x2)}px`,
@@ -70,6 +79,10 @@
             <TabletopRadiusMeasurementOverlay v-if="isRadiusMeasuring && radiusOrigin && radiusCurrent"
                 :origin="radiusOrigin" :current-point="radiusCurrent" :transform="transform" :grid-size="gridSize"
                 :snap-enabled="isShiftHeld" />
+
+            <!-- Roll chatlog (bottom-right corner, above toolbar) -->
+            <TabletopChatlog :roll-log="rollLog" :is-expanded="rollLogExpanded"
+                @update:is-expanded="setRollLogExpanded" />
         </div>
 
         <!-- Bottom Toolbar -->
@@ -108,6 +121,10 @@ import TabletopRadiusMeasurementOverlay from '@/components/features/tabletop/Tab
 import TabletopRadiusAreaOverlay from '@/components/features/tabletop/TabletopRadiusAreaOverlay.vue'
 import TabletopTokenInfoArea from '@/components/features/tabletop/TabletopTokenInfoArea.vue'
 import CharacterSheetPopup from '@/components/features/tabletop/CharacterSheetPopup.vue'
+import TabletopChatlog from '@/components/features/tabletop/TabletopChatlog.vue'
+import TabletopRollBubble from '@/components/features/tabletop/TabletopRollBubble.vue'
+import { useTabletopRollLog } from '@/composables/useTabletopRollLog'
+import { useTabletopSync } from '@/composables/useTabletopSync'
 import radiusCursorUrl from '@/assets/icons/cursor/radius.png'
 import rulerCursorUrl from '@/assets/icons/cursor/ruler.png'
 
@@ -188,7 +205,58 @@ const {
     bringRadiusAreaToFront,
     clearAll,
     loadState,
-} = useTabletopCanvas(campaignId, tabletopId)
+    saveState,
+    rollLog,
+    rollLogExpanded,
+    setRollLogExpanded,
+    applyExternalState,
+} = useTabletopCanvas(campaignId, tabletopId, {
+    onStateSaved: (snapshot) => broadcastStateUpdate(snapshot),
+})
+
+// ─── Real-time sync ──────────────────────────────────────────────────────────
+// broadcastStateUpdate is called by useTabletopCanvas after each successful save.
+// It must be defined before the canvas composable call above; here we provide a
+// stable reference via a forwarding wrapper so the closure is valid at call time.
+// (useTabletopSync sets up the socket join and returns the actual broadcast fn.)
+let _broadcastStateUpdateRef = null
+function broadcastStateUpdate(snapshot) {
+    _broadcastStateUpdateRef?.(snapshot)
+}
+
+const { broadcastStateUpdate: _syncBroadcast } = useTabletopSync({
+    tabletopId,
+    campaignId,
+    applyExternalState,
+})
+_broadcastStateUpdateRef = _syncBroadcast
+
+// ─── Roll log + speech bubbles ───────────────────────────────────────────────
+const {
+    activeBubbles,
+    clearBubbles,
+    toggleBubbleExpanded,
+    dismissBubble,
+} = useTabletopRollLog({
+    canvasItems,
+    rollLog,
+    saveStateFn: saveState,
+    tabletopId,
+    campaignId,
+})
+
+// Look up a canvas item by its canvas-item id (for bubble positioning)
+const canvasItemById = (id) => canvasItems.value.find((i) => i.id === id) ?? null
+
+// Wrap the canvas container mousedown to also clear bubbles on plain canvas clicks.
+// Speech bubble components call @mousedown.stop, so clicks on bubbles won't reach here.
+function handleCanvasContainerMousedown(e) {
+    handleContainerMousedown(e)
+    // Plain left-click on empty canvas (no modifier keys) → clear all speech bubbles
+    if (e.button === 0 && !e.shiftKey && !e.metaKey && !e.ctrlKey) {
+        clearBubbles()
+    }
+}
 
 // Newer areas are later in the array = rendered on top (DOM order stacking)
 const radiusAreasWithZIndex = computed(() => radiusAreas.value)

@@ -892,7 +892,7 @@ export const updateCampaignTabletop = (req, res) => {
       return res.status(403).json({ error: 'Tabletop does not belong to this campaign' })
     }
 
-    const allowedFields = ['name', 'backgroundImage', 'items', 'transform', 'gridSize', 'gridColor', 'gridOpacity', 'showPaths', 'radiusAreas']
+    const allowedFields = ['name', 'backgroundImage', 'items', 'transform', 'gridSize', 'gridColor', 'gridOpacity', 'showPaths', 'radiusAreas', 'rollLog']
     const updates = {}
     for (const field of allowedFields) {
       if (req.body[field] !== undefined) updates[field] = req.body[field]
