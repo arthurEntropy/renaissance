@@ -2,7 +2,7 @@
   "id": "16b72ab7-e855-420f-93f2-c94bce03f8b1",
   "isDeleted": false,
   "createdAt": "2026-07-21T13:45:12.139Z",
-  "lastModified": "2026-07-21T15:03:33.412Z",
+  "lastModified": "2026-07-23T19:22:53.267Z",
   "characterType": "npc",
   "name": "Jasz",
   "featuredArtUrls": [
@@ -168,8 +168,9 @@
   "engagementDice": [],
   "engagementSuccesses": [],
   "engagementDiceStatuses": {
-    "mestiere_1": "expended",
-    "84239d55-a70b-463e-a8c7-f24d66332816_0": "expended"
+    "mestiere_0": "selected",
+    "mestiere_1": "selected",
+    "84239d55-a70b-463e-a8c7-f24d66332816_0": "selected"
   },
   "equipment": [
     {
@@ -370,7 +371,7 @@
   "keeping": "4d5e6f7a-8b9c-4d0e-1f2a-3b4c5d6e7f8a",
   "treasure": 11,
   "xp": 2,
-  "updatedAt": "2026-07-21T15:03:33.412Z",
+  "updatedAt": "2026-07-23T19:22:53.267Z",
   "description": "",
   "size": 0,
   "reach": 0,

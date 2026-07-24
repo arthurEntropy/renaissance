@@ -35,7 +35,7 @@
                         <div class="char-token-grid"
                             :class="{ 'char-token-grid--empty': group.combatants.length === 0 && !isDragging }">
                             <component v-for="combatant in group.combatants" :key="combatant.id"
-                                :is="combatant.type === 'npc' ? CharacterToken : BeastToken"
+                                :is="combatant.type === 'beast' ? BeastToken : CharacterToken"
                                 v-bind="getTokenProps(combatant, group.id)" draggable="true" class="draggable-token"
                                 @dragstart="handleDragStart($event, group.id, combatant.id)" @dragend="handleDragEnd" />
 
@@ -58,7 +58,7 @@
                         <div class="batch-results-header">
                             <span class="batch-results-group-total">Group Initiative: {{
                                 characterContextStore.pinnedGroupsById[group.id].initiativeResults.groupTotal ?? '—'
-                            }}</span>
+                                }}</span>
                             <button type="button" class="batch-results-clear"
                                 @click="clearBatchResults(group.id)">Clear</button>
                         </div>
@@ -141,6 +141,13 @@ const campaign = computed(() => campaignStore.activeCampaign)
 const campaignId = computed(() => campaign.value?.id)
 const npcs = computed(() => campaignStore.campaignNPCs)
 const beasts = computed(() => campaignStore.campaignBeastInstances)
+
+const campaignPlayerCharacters = computed(() => {
+    const allCharIds = new Set(
+        (campaign.value?.members || []).flatMap((member) => member.characterIds || [])
+    )
+    return charactersStore.characters.filter((c) => allCharIds.has(c.id))
+})
 
 const isCollapsed = ref(false)
 const combatGroups = ref([])
@@ -226,17 +233,29 @@ const beastInstancesById = computed(() => {
 })
 
 const sourceTypeOptions = computed(() => [
+    { id: 'pcs', label: 'PCs', count: campaignPlayerCharacters.value.length },
     { id: 'npcs', label: 'NPCs', count: npcs.value.length },
     { id: 'beasts', label: 'Beasts', count: beastPickerTemplates.value.length },
 ])
 
 const pickerItems = computed(() => {
-    const sourceItems = pickerSelectedType.value === 'beasts' ? beastPickerTemplates.value : npcs.value
+    let sourceItems
+    let itemType
+    if (pickerSelectedType.value === 'beasts') {
+        sourceItems = beastPickerTemplates.value
+        itemType = 'beast'
+    } else if (pickerSelectedType.value === 'pcs') {
+        sourceItems = campaignPlayerCharacters.value
+        itemType = 'pc'
+    } else {
+        sourceItems = npcs.value
+        itemType = 'npc'
+    }
     const search = pickerSearch.value.trim().toLowerCase()
     const normalized = sourceItems.map((character) => ({
         id: character.id,
         name: character.name,
-        type: pickerSelectedType.value === 'beasts' ? 'beast' : 'npc',
+        type: itemType,
     }))
 
     if (!search) return normalized
@@ -295,16 +314,18 @@ watch(
 )
 
 watch(
-    () => [npcs.value, beasts.value],
+    () => [npcs.value, beasts.value, campaignPlayerCharacters.value],
     () => {
         const npcIds = new Set(npcs.value.map((npc) => npc.id))
         const beastIds = new Set(beasts.value.map((beast) => beast.id))
+        const pcIds = new Set(campaignPlayerCharacters.value.map((pc) => pc.id))
         combatGroups.value = combatGroups.value
             .map((group) => ({
                 ...group,
                 combatants: (group.combatants || []).filter((combatant) => {
                     if (combatant.type === 'npc') return npcIds.has(combatant.characterId)
                     if (combatant.type === 'beast') return beastIds.has(combatant.characterId)
+                    if (combatant.type === 'pc') return pcIds.has(combatant.characterId)
                     return false
                 }),
             }))
@@ -458,6 +479,9 @@ const findCharacter = (combatant) => {
     if (combatant.type === 'npc') {
         return npcs.value.find((npc) => npc.id === combatant.characterId) || null
     }
+    if (combatant.type === 'pc') {
+        return charactersStore.getById(combatant.characterId) || null
+    }
     return beastInstancesById.value.get(combatant.characterId) || null
 }
 
@@ -508,7 +532,7 @@ const openGroupPicker = (groupId, event) => {
 
     pickerGroupId.value = groupId
     pickerSearch.value = ''
-    pickerSelectedType.value = 'npcs'
+    pickerSelectedType.value = 'pcs'
     showPicker.value = true
 
     void positionColumnByCenter('sourceType', sourceTypeColRef, pickerAnchorCenterY.value)

@@ -2,7 +2,7 @@
   "id": "cb66fcb1-7ffc-449a-a969-233cae93be32",
   "isDeleted": false,
   "createdAt": "2026-07-21T13:01:53.858Z",
-  "lastModified": "2026-07-22T13:04:05.854Z",
+  "lastModified": "2026-07-24T00:52:37.718Z",
   "characterType": "npc",
   "name": "Farah",
   "featuredArtUrls": [
@@ -430,9 +430,12 @@
   "keeping": "4d5e6f7a-8b9c-4d0e-1f2a-3b4c5d6e7f8a",
   "treasure": 10,
   "xp": 4,
-  "updatedAt": "2026-07-22T13:04:05.854Z",
+  "updatedAt": "2026-07-24T00:52:37.718Z",
   "description": "",
   "size": 0,
   "reach": 0,
-  "featuredArtUrl": "https://cdn.midjourney.com/39a95998-1f4a-4282-a955-4c4f19b4fb51/0_0.png"
+  "featuredArtUrl": "https://cdn.midjourney.com/39a95998-1f4a-4282-a955-4c4f19b4fb51/0_0.png",
+  "witchFamiliar": {
+    "characterId": "2e1639a3-f70d-47b9-a64b-9d1f7fd515d9"
+  }
 }

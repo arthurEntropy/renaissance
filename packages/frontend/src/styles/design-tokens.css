@@ -79,6 +79,13 @@
   --color-type-maps: rgb(248, 113, 113);
   --color-type-maps-bg: rgba(239, 68, 68, 0.2);
 
+  /* Token Border Colors */
+  --color-token-border-pc: var(--color-primary);
+  --color-token-border-npc: var(--color-accent-cyan);
+  --color-token-border-beast: #ff7979;
+  --color-token-border-familiar: var(--color-accent-armor);
+  --color-token-border-summoned: #89c268;
+
 
   /* ===== BORDERS ===== */
   --color-border-primary: var(--color-gray-medium);

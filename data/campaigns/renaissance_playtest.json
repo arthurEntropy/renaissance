@@ -2,7 +2,7 @@
   "id": "c9ddeab9-d180-4fc5-869f-e64239bc3376",
   "isDeleted": false,
   "createdAt": "2026-05-18T17:56:57.471Z",
-  "lastModified": "2026-07-23T12:10:32.105Z",
+  "lastModified": "2026-07-24T00:10:22.297Z",
   "slug": "renaissance-playtest",
   "name": "Renaissance Playtest",
   "description": "<p>This is a test campaign that I'm using to playtest the game and app.</p>",
@@ -165,6 +165,17 @@
           "id": "npc:16b72ab7-e855-420f-93f2-c94bce03f8b1",
           "type": "npc",
           "characterId": "16b72ab7-e855-420f-93f2-c94bce03f8b1"
+        }
+      ]
+    },
+    {
+      "id": "group-1784851662501-0eveg3",
+      "name": "Our Heroes",
+      "combatants": [
+        {
+          "id": "pc:33b032fb-a135-43a7-a704-967f4eba5d82",
+          "type": "pc",
+          "characterId": "33b032fb-a135-43a7-a704-967f4eba5d82"
         }
       ]
     }

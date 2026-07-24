@@ -1,6 +1,7 @@
 <template>
     <div class="vtt-token" :class="{
         'vtt-token--beast': isBeast,
+        'vtt-token--npc': isNpc && !isBeast,
         'vtt-token--ghost': isGhost,
         'vtt-token--selected': isSelected,
     }" :style="rootStyle">
@@ -19,6 +20,7 @@ const props = defineProps({
     name: { type: String, required: true },
     portraitUrl: { type: String, default: null },
     isBeast: { type: Boolean, default: false },
+    isNpc: { type: Boolean, default: false },
     size: { type: Number, default: 1 },
     gridSize: { type: Number, default: 40 },
     isGhost: { type: Boolean, default: false },
@@ -66,13 +68,17 @@ const initials = computed(() =>
     inset: 0;
     border-radius: 50%;
     overflow: hidden;
-    border: 3px solid var(--color-primary);
+    border: 3px solid var(--color-token-border-pc);
     box-shadow: 0 3px 12px rgba(0, 0, 0, 0.75);
     background: var(--overlay-black-heavy);
 }
 
+.vtt-token--npc .vtt-token__portrait-wrap {
+    border-color: var(--color-token-border-npc);
+}
+
 .vtt-token--beast .vtt-token__portrait-wrap {
-    border-color: var(--color-accent-cyan);
+    border-color: var(--color-token-border-beast);
 }
 
 .vtt-token--selected .vtt-token__portrait-wrap {

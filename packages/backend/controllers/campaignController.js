@@ -760,10 +760,6 @@ export const updateCombatGroups = (req, res) => {
       const combatants = Array.isArray(group.combatants) ? group.combatants : []
       const normalizedCombatants = combatants.map((combatant, combatantIndex) => {
         const type = combatant?.type
-        if (type !== 'npc' && type !== 'beast') {
-          throw new Error(`combatGroups[${groupIndex}].combatants[${combatantIndex}].type must be npc or beast`)
-        }
-
         const characterId = String(combatant?.characterId || '').trim()
         if (!characterId) {
           throw new Error(`combatGroups[${groupIndex}].combatants[${combatantIndex}].characterId is required`)

@@ -2,7 +2,7 @@
   "id": "f3c8c845-59f1-4481-bafb-2f1e0d5da452",
   "isDeleted": false,
   "createdAt": "2026-07-10T14:12:23.517Z",
-  "lastModified": "2026-07-23T12:17:28.222Z",
+  "lastModified": "2026-07-24T01:01:47.885Z",
   "campaignId": "c9ddeab9-d180-4fc5-869f-e64239bc3376",
   "name": "Night Swamp",
   "backgroundImage": {
@@ -18,9 +18,9 @@
       "name": "Jasz",
       "portraitUrl": "https://cdn.midjourney.com/80c4260c-e4da-43ac-86cc-33d5b8fb473c/0_0.png",
       "size": 1,
-      "x": 2520,
-      "y": 1200,
-      "zIndex": 20
+      "x": 2460,
+      "y": 1080,
+      "zIndex": 46
     },
     {
       "id": "50be54e9-4a7a-4dfa-95f8-c69feb02bf9d",
@@ -40,15 +40,15 @@
       "name": "Mycoderm A",
       "portraitUrl": "https://cdn.midjourney.com/1981f3be-8de5-4457-9d0f-da52943eb68c/0_0.png",
       "size": 3,
-      "x": 1980,
-      "y": 900,
-      "zIndex": 31
+      "x": 1860,
+      "y": 960,
+      "zIndex": 43
     }
   ],
   "transform": {
-    "scale": 0.9276213873091768,
-    "x": -778.7730102069618,
-    "y": -485.6042973634562
+    "scale": 1.7169624494741464,
+    "x": -3063.7711461407207,
+    "y": -1311.530425941212
   },
   "gridSize": 60,
   "gridColor": "#ffffff",
@@ -57,8 +57,8 @@
   "radiusAreas": [
     {
       "id": "875efcdb-db28-45fc-8d59-18399c6b79ca",
-      "originX": 2070,
-      "originY": 990,
+      "originX": 1950,
+      "originY": 1050,
       "radiusFeet": 25,
       "color": "#bb00ff",
       "label": "Spore Cloud",

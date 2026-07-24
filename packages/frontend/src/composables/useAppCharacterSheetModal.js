@@ -20,9 +20,16 @@ export function useAppCharacterSheetModal() {
   const open = (character, { persistSelection = true } = {}) => {
     if (character) {
       charactersStore.selectCharacter(character)
-      const isBeast = isBeastTemplate(character) || isBeastInstance(character)
-      const basePath = isBeast ? '/bestiary' : '/characters'
-      router.push(`${basePath}/${createSlug(character.name)}`)
+      if (isBeastInstance(character)) {
+        // beastInstances are owned copies — route to /characters using the instance
+        // ID (not a name slug) so ConceptsLayout doesn't auto-select the template
+        // with the same name from the bestiary list.
+        router.push(`/characters/${character.id}`)
+      } else {
+        const isBeast = isBeastTemplate(character)
+        const basePath = isBeast ? '/bestiary' : '/characters'
+        router.push(`${basePath}/${createSlug(character.name)}`)
+      }
     }
     clearSelectionOnClose.value = !persistSelection
   }

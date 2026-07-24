@@ -1,5 +1,6 @@
 import { ref, shallowRef, computed, watch, onMounted, onUnmounted } from 'vue'
 import { useTabletopDragState } from './useTabletopDragState'
+import { useTabletopSelectionState } from './useTabletopSelectionState'
 import { useCampaignStore } from '@/stores/campaignStore'
 
 const MIN_SCALE = 0.1
@@ -10,6 +11,7 @@ const INTERACTIVE_TAGS = new Set(['button', 'a', 'input', 'select', 'textarea', 
 
 export function useTabletopCanvas(campaignId, tabletopId) {
     const { draggingCharacter, clearDraggingCharacter } = useTabletopDragState()
+    const { setSelectedCharacterIds, clearSelectedCharacterIds } = useTabletopSelectionState()
     const campaignStore = useCampaignStore()
 
     // Debounce timer for persisting canvas state to the backend
@@ -164,6 +166,16 @@ export function useTabletopCanvas(campaignId, tabletopId) {
     const selectedIds = ref(new Set())
     const isSelected = (id) => selectedIds.value.has(id) || _liveSelectionIds.value.has(id)
     const clearSelection = () => { selectedIds.value = new Set() }
+
+    // Sync committed selection to shared singleton so PinnedTokensContainer can
+    // highlight the corresponding tokens in the badge rail.
+    watch(selectedIds, (ids) => {
+        const charIds = new Set()
+        for (const item of canvasItems.value) {
+            if (ids.has(item.id) && item.characterId) charIds.add(item.characterId)
+        }
+        setSelectedCharacterIds(charIds)
+    }, { deep: true })
 
     // ─── Z-index stacking ────────────────────────────────────────────────────
     const topZIndex = ref(1)
@@ -561,6 +573,7 @@ export function useTabletopCanvas(campaignId, tabletopId) {
                     name: dragItem.name,
                     portraitUrl: dragItem.portraitUrl,
                     isBeast: dragItem.isBeast,
+                    isNpc: dragItem.isNpc ?? false,
                 })
                 if (isMeasuring.value && newTracks[idx]) {
                     const halfPx = (dragItem.size * gridSize.value) / 2
@@ -906,6 +919,7 @@ export function useTabletopCanvas(campaignId, tabletopId) {
             id: crypto.randomUUID(),
             characterId: snapshot.characterId,
             isBeast: snapshot.isBeast ?? false,
+            isNpc: snapshot.isNpc ?? false,
             name: snapshot.name ?? 'Unknown',
             portraitUrl: snapshot.portraitUrl ?? null,
             size: snapshot.size || 1,
@@ -1128,6 +1142,7 @@ export function useTabletopCanvas(campaignId, tabletopId) {
         window.removeEventListener('mouseup', handleGlobalMouseup)
         window.removeEventListener('keydown', handleGlobalKeydown)
         window.removeEventListener('keyup', handleGlobalKeyup)
+        clearSelectedCharacterIds()
     })
 
     return {

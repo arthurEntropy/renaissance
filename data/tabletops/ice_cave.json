@@ -2,7 +2,7 @@
   "id": "e0b22160-6efe-45f7-9360-8c20412e617e",
   "isDeleted": false,
   "createdAt": "2026-07-10T14:14:48.580Z",
-  "lastModified": "2026-07-20T17:58:03.782Z",
+  "lastModified": "2026-07-24T00:11:15.137Z",
   "campaignId": "c9ddeab9-d180-4fc5-869f-e64239bc3376",
   "name": "Ice Cave",
   "backgroundImage": {
@@ -10,34 +10,76 @@
     "naturalWidth": 1456,
     "naturalHeight": 816
   },
-  "items": [],
+  "items": [
+    {
+      "id": "47b884b5-8fe1-476e-9c58-2f533ffa465b",
+      "characterId": "6a9c30a0-25ce-4dcc-99bd-06d5c226d1c3",
+      "isBeast": true,
+      "isNpc": false,
+      "name": "Mycoderm A",
+      "portraitUrl": "https://cdn.midjourney.com/1981f3be-8de5-4457-9d0f-da52943eb68c/0_0.png",
+      "size": 3,
+      "x": 560,
+      "y": 160,
+      "zIndex": 7
+    },
+    {
+      "id": "0170fdb9-299b-48ed-874f-cbdb00cf1cd4",
+      "characterId": "a675e17d-bf53-4ff3-937a-242aea3d0e7a",
+      "isBeast": true,
+      "isNpc": false,
+      "name": "Spore Hound A",
+      "portraitUrl": "https://cdn.midjourney.com/39ad5992-8dc0-48f7-9e24-e9633e4377ae/0_1.png",
+      "size": 1,
+      "x": 760,
+      "y": 200,
+      "zIndex": 6
+    },
+    {
+      "id": "3bd89c3c-c77c-41df-9c13-94ef5386dd34",
+      "characterId": "b4417462-600b-4571-b2ad-a572ad01733f",
+      "isBeast": false,
+      "isNpc": true,
+      "name": "Damla",
+      "portraitUrl": "https://cdn.midjourney.com/2ef0de1a-3306-441c-9f5e-0899dcced474/0_0.png",
+      "size": 1,
+      "x": 560,
+      "y": 400,
+      "zIndex": 8
+    },
+    {
+      "id": "1fef9244-19a6-4b4a-a0a3-4efc617608b3",
+      "characterId": "2fb7cd7a-91fc-4f2b-a4b4-8c815eddcea0",
+      "isBeast": false,
+      "isNpc": true,
+      "name": "Jøna",
+      "portraitUrl": "https://cdn.midjourney.com/4a189b12-7aac-4e8b-bc16-6d867629d244/0_0.png",
+      "size": 1,
+      "x": 640,
+      "y": 440,
+      "zIndex": 9
+    },
+    {
+      "id": "2ccad30a-b52b-48de-890f-a2ea0e712e66",
+      "characterId": "33b032fb-a135-43a7-a704-967f4eba5d82",
+      "isBeast": false,
+      "isNpc": false,
+      "name": "New Character",
+      "portraitUrl": "https://cdn.midjourney.com/6b5282ab-e572-4ad7-bed2-3cce785c9744/0_2.png",
+      "size": 1,
+      "x": 960,
+      "y": 240,
+      "zIndex": 12
+    }
+  ],
   "transform": {
-    "scale": 0.9999999999999994,
-    "x": 213.59970919252157,
-    "y": 69.30519393255713
+    "scale": 1.1663999999999985,
+    "x": -173.37473718723857,
+    "y": 128.55378902515156
   },
-  "gridSize": 20,
+  "gridSize": 40,
   "gridColor": "#ffffff",
   "gridOpacity": 0.16,
   "showPaths": true,
-  "radiusAreas": [
-    {
-      "id": "ba38724f-fd43-4452-b9b5-94043acee25e",
-      "originX": 370,
-      "originY": 390,
-      "radiusFeet": 50,
-      "color": "#ffffff",
-      "label": "",
-      "tokenId": null
-    },
-    {
-      "id": "fca97239-57b5-478d-b924-392715b44766",
-      "originX": 870,
-      "originY": 370,
-      "radiusFeet": 50,
-      "color": "#ff0000",
-      "label": "RED ZONE",
-      "tokenId": null
-    }
-  ]
+  "radiusAreas": []
 }

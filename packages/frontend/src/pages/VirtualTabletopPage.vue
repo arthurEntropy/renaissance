@@ -32,7 +32,8 @@
                     :style="{ transform: `translate(${item.x}px, ${item.y}px)`, zIndex: item.zIndex }"
                     @mousedown="handleTokenMousedown(item, $event)">
                     <TabletopToken :name="item.name" :portrait-url="item.portraitUrl" :is-beast="item.isBeast"
-                        :size="item.size" :grid-size="gridSize" :is-selected="isSelected(item.id)" />
+                        :is-npc="item.isNpc" :size="item.size" :grid-size="gridSize"
+                        :is-selected="isSelected(item.id)" />
                 </div>
 
                 <!-- Rubber-band selection rect -->
@@ -48,7 +49,7 @@
                     class="canvas-item canvas-item--ghost"
                     :style="{ transform: `translate(${ghost.x}px, ${ghost.y}px)`, zIndex: 9999 }">
                     <TabletopToken :name="ghost.name" :portrait-url="ghost.portraitUrl" :is-beast="ghost.isBeast"
-                        :size="ghost.size" :grid-size="gridSize" :is-ghost="true" />
+                        :is-npc="ghost.isNpc" :size="ghost.size" :grid-size="gridSize" :is-ghost="true" />
                 </div>
             </div>
 

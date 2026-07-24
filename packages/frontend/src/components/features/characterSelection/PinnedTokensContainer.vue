@@ -1,6 +1,6 @@
 <template>
     <div v-if="hasAnyTokens" class="token-rail-container">
-        <div v-if="hasFocusedTokens" class="token-group token-group--focused"
+        <div v-if="hasFocusedTokens && !isGMOnTabletop" class="token-group token-group--focused"
             :class="{ 'is-active-view': isViewingFocusedCharacterSheet, 'token-group--has-stats': showFocusedCharacterStats, 'token-group--stats-always': statsAlwaysVisible && showFocusedCharacterStats }">
             <div class="token-group-header">
                 <span class="token-group-label">Selected</span>
@@ -24,27 +24,29 @@
             </div>
         </div>
 
-        <div v-if="summonersBeast" class="token-group token-group--summoned">
+        <div v-if="summonersBeast && !isGMOnTabletop" class="token-group token-group--summoned"
+            :class="{ 'is-active-view': isViewingSummonedBeastSheet }">
             <div class="token-group-header">
                 <span class="token-group-label token-group-label--summoned">Summoned</span>
             </div>
             <div class="token-group-members">
                 <div class="token-item draggable-token-wrapper" draggable="true"
                     @dragstart="handleTokenDragStart($event, summonersBeast)" @dragend="handleTokenDragEnd">
-                    <BeastToken :beast="summonersBeast" :disableDefaultClick="true"
+                    <BeastToken :beast="summonersBeast" variant="summoned" :disableDefaultClick="true"
                         @click="(beast) => openCharacterSheet(beast)" />
                 </div>
             </div>
         </div>
 
-        <div v-if="witchsFamiliar" class="token-group token-group--familiar">
+        <div v-if="witchsFamiliar && !isGMOnTabletop" class="token-group token-group--familiar"
+            :class="{ 'is-active-view': isViewingFamiliarSheet }">
             <div class="token-group-header">
                 <span class="token-group-label token-group-label--familiar">Familiar</span>
             </div>
             <div class="token-group-members">
                 <div class="token-item draggable-token-wrapper" draggable="true"
                     @dragstart="handleTokenDragStart($event, witchsFamiliar)" @dragend="handleTokenDragEnd">
-                    <BeastToken :beast="witchsFamiliar" :disableDefaultClick="true"
+                    <BeastToken :beast="witchsFamiliar" variant="familiar" :disableDefaultClick="true"
                         @click="(beast) => openCharacterSheet(beast)" />
                 </div>
             </div>
@@ -64,7 +66,8 @@
             </div>
             <div v-if="!isGroupCollapsed(group.id)" class="token-group-members">
                 <div v-for="member in group.members" :key="member.id" class="token-item draggable-token-wrapper"
-                    draggable="true" @dragstart="handleTokenDragStart($event, member)" @dragend="handleTokenDragEnd">
+                    :class="{ 'is-tabletop-selected': isTabletopSelected(member.id) }" draggable="true"
+                    @dragstart="handleTokenDragStart($event, member)" @dragend="handleTokenDragEnd">
                     <component :is="getTokenComponent(member)" v-bind="getTokenProps(member, group.id)" />
                 </div>
             </div>
@@ -93,15 +96,17 @@ import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.v
 import { useSummonedBeast } from '@/composables/useSummonedBeast'
 import { useAppCharacterSheetModal } from '@/composables/useAppCharacterSheetModal'
 import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
-import { isBeastTemplate, isBeastInstance } from '@/utils/characterTypeGuards'
+import { isBeastTemplate, isBeastInstance, isNPC } from '@/utils/characterTypeGuards'
 import keepingIcon from '@/assets/icons/keeping/keeping.png'
 import { useTabletopDragState } from '@/composables/useTabletopDragState'
+import { useTabletopSelectionState } from '@/composables/useTabletopSelectionState'
 
 const characterContextStore = useCharacterContextStore()
 const charactersStore = useCharactersStore()
 const campaignStore = useCampaignStore()
 const route = useRoute()
 const { setDraggingCharacter, clearDraggingCharacter } = useTabletopDragState()
+const { selectedCharacterIds } = useTabletopSelectionState()
 const { getSummonedBeastForCharacterId } = useSummonedBeast()
 const { open: openCharacterSheet, close: closeCharacterSheet, isOpen: isCharacterSheetOpen } = useAppCharacterSheetModal()
 const collapsedGroupIds = ref(new Set())
@@ -171,12 +176,32 @@ const hasFocusedTokens = computed(() => !!visibleFocusedCharacter.value)
 const isViewingFocusedCharacterSheet = computed(() =>
     isCharacterSheetOpen.value && focusedCharacter.value?.id === visibleFocusedCharacter.value?.id
 )
+
+// White border when the summoned beast's sheet is open.
+const isViewingSummonedBeastSheet = computed(() =>
+    isCharacterSheetOpen.value && focusedCharacter.value?.id === summonersBeast.value?.id
+)
+
+// White border when the familiar's sheet is open.
+const isViewingFamiliarSheet = computed(() =>
+    isCharacterSheetOpen.value && focusedCharacter.value?.id === witchsFamiliar.value?.id
+)
+
+// Hide focused/summoned/familiar sections when the GM is viewing the tabletop.
+const isGMOnTabletop = computed(() =>
+    campaignStore.isGMInActiveCampaign && route.path.includes('/tabletop/')
+)
 const hasAnyTokens = computed(() => {
-    return hasFocusedTokens.value || !!summonersBeast.value || !!witchsFamiliar.value || resolvedPinnedGroups.value.length > 0
+    if (!isGMOnTabletop.value) {
+        if (hasFocusedTokens.value || !!summonersBeast.value || !!witchsFamiliar.value) return true
+    }
+    return resolvedPinnedGroups.value.length > 0
 })
 
-// Show treasure & XP on focused token hover on any page (for non-beast characters)
+// Show treasure & XP on focused token hover on any page (for non-beast characters).
+// Suppressed entirely while any character sheet is open.
 const showFocusedCharacterStats = computed(() => {
+    if (isCharacterSheetOpen.value) return false
     if (!visibleFocusedCharacter.value || isBeastCharacter(visibleFocusedCharacter.value)) return false
     return true
 })
@@ -247,6 +272,7 @@ function buildDragSnapshot(character) {
     return {
         characterId: character.id,
         isBeast: isBeastCharacter(character),
+        isNpc: isNPC(character),
         name: character.name ?? 'Unknown',
         portraitUrl: character.featuredArtUrls?.[0] ?? null,
         size: character.size || 1,
@@ -269,6 +295,10 @@ function handleTokenDragStart(event, character) {
 
 function handleTokenDragEnd() {
     clearDraggingCharacter()
+}
+
+function isTabletopSelected(characterId) {
+    return selectedCharacterIds.value.has(characterId)
 }
 
 function getFocusedTokenProps(character) {
@@ -323,7 +353,7 @@ function getFocusedTokenProps(character) {
     pointer-events: auto;
     padding: var(--space-sm);
     border-radius: var(--radius-10);
-    border: 1px solid var(--overlay-white-medium);
+    border: 2px solid var(--overlay-white-medium);
     background: var(--overlay-black-heavy);
     width: var(--token-group-width);
 }
@@ -332,8 +362,8 @@ function getFocusedTokenProps(character) {
     border-color: var(--overlay-white-medium);
 }
 
-.token-group--focused.is-active-view {
-    border: 2px solid var(--color-white);
+.token-group.is-active-view {
+    border-color: var(--color-white);
 }
 
 /* Stats footer: hidden by default, revealed on hover */
@@ -396,7 +426,7 @@ function getFocusedTokenProps(character) {
 }
 
 .token-group-label--summoned {
-    color: var(--color-accent-cyan) !important;
+    color: var(--color-token-border-summoned) !important;
 }
 
 .token-group-label--familiar {
@@ -507,6 +537,11 @@ function getFocusedTokenProps(character) {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+/* Highlight a rail token when its character is selected on the tabletop canvas */
+.draggable-token-wrapper.is-tabletop-selected :deep(.token-portrait) {
+    box-shadow: 0 0 0 3px var(--color-white), var(--shadow-sm);
 }
 
 .unpin-all-btn {
