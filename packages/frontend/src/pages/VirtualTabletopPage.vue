@@ -34,6 +34,9 @@
                     <TabletopToken :name="item.name" :portrait-url="item.portraitUrl" :is-beast="item.isBeast"
                         :is-npc="item.isNpc" :size="item.size" :grid-size="gridSize"
                         :is-selected="isSelected(item.id)" />
+                    <TabletopTokenInfoArea v-if="singleSelectedToken?.id === item.id && canViewTokenInfo"
+                        :character="singleSelectedCharacter" :can-edit="canEditTokenInfo"
+                        @expand="openCharacterSheetPopup" />
                 </div>
 
                 <!-- Rubber-band selection rect -->
@@ -81,24 +84,34 @@
             @update-grid-color="setGridColor" @update-grid-opacity="setGridOpacity" @update-show-paths="setShowPaths"
             @toggle-active-tabletop="handleToggleActiveTabletop" @switch-tabletop="handleSwitchTabletop" />
     </div>
+
+    <!-- Character sheet popup (opened from token info area expand button) -->
+    <CharacterSheetPopup v-if="charSheetPopupOpen && charSheetPopupCharacter" :character="charSheetPopupCharacter"
+        @close="charSheetPopupOpen = false" />
 </template>
 
 <script setup>
-import { computed, onMounted } from 'vue'
+import { computed, ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useCampaignStore } from '@/stores/campaignStore'
+import { useAuthStore } from '@/stores/authStore'
+import { useCharactersStore } from '@/stores/charactersStore'
 import { useTabletopCanvas } from '@/composables/useTabletopCanvas'
 import TabletopToken from '@/components/features/tabletop/TabletopToken.vue'
 import TabletopToolbar from '@/components/features/tabletop/TabletopToolbar.vue'
 import TabletopMeasurementOverlay from '@/components/features/tabletop/TabletopMeasurementOverlay.vue'
 import TabletopRadiusMeasurementOverlay from '@/components/features/tabletop/TabletopRadiusMeasurementOverlay.vue'
 import TabletopRadiusAreaOverlay from '@/components/features/tabletop/TabletopRadiusAreaOverlay.vue'
+import TabletopTokenInfoArea from '@/components/features/tabletop/TabletopTokenInfoArea.vue'
+import CharacterSheetPopup from '@/components/features/tabletop/CharacterSheetPopup.vue'
 import radiusCursorUrl from '@/assets/icons/cursor/radius.png'
 import rulerCursorUrl from '@/assets/icons/cursor/ruler.png'
 
 const route = useRoute()
 const router = useRouter()
 const campaignStore = useCampaignStore()
+const authStore = useAuthStore()
+const charactersStore = useCharactersStore()
 
 const campaignSlug = computed(() => route.params.slug)
 const tabletopId = computed(() => route.params.tabletopId)
@@ -127,6 +140,7 @@ const {
     canRedo,
     undo,
     redo,
+    selectedIds,
     isSelected,
     isDragging,
     isPanning,
@@ -185,6 +199,61 @@ const canvasCursorStyle = computed(() => {
 const onRadiusAreaSelect = (id) => {
     selectedRadiusAreaId.value = id
     bringRadiusAreaToFront(id)
+}
+
+// ─── Token info area ────────────────────────────────────────────────────────
+
+// The single selected canvas token (only when exactly one is selected)
+const singleSelectedToken = computed(() => {
+    if (selectedIds.value.size !== 1) return null
+    const [id] = selectedIds.value
+    return canvasItems.value.find(item => item.id === id) ?? null
+})
+
+// The character object backing the single selected token
+const singleSelectedCharacter = computed(() => {
+    const token = singleSelectedToken.value
+    if (!token?.characterId) return null
+    return charactersStore.getById(token.characterId) ?? null
+})
+
+// Whether the current user may see the info area for the single selected token.
+// GMs see all tokens; other users see only their own character, their familiar,
+// and their summoned creature.
+const canViewTokenInfo = computed(() => {
+    if (!singleSelectedToken.value || !singleSelectedCharacter.value) return false
+    if (campaignStore.isGMInActiveCampaign || authStore.isAdmin) return true
+
+    const userId = authStore.user?.uid
+    if (!userId) return false
+
+    const charId = singleSelectedCharacter.value.id
+    for (const myChar of charactersStore.filteredCharacters) {
+        if (myChar.id === charId) return true
+        if (myChar.witchFamiliar?.characterId === charId) return true
+        if (myChar.summonerVessels?.some(v => v.isSummoned && v.beastId === charId)) return true
+    }
+    return false
+})
+
+// Whether the current user may edit stats in the info area
+const canEditTokenInfo = computed(() => {
+    const char = singleSelectedCharacter.value
+    if (!char) return false
+    if (campaignStore.isGMInActiveCampaign || authStore.isAdmin) return true
+    const userId = authStore.user?.uid
+    return !!userId && char.ownerId === userId
+})
+
+// ─── CharacterSheetPopup ────────────────────────────────────────────────────
+const charSheetPopupOpen = ref(false)
+const charSheetPopupCharacter = ref(null)
+
+function openCharacterSheetPopup() {
+    const char = singleSelectedCharacter.value
+    if (!char) return
+    charSheetPopupCharacter.value = char
+    charSheetPopupOpen.value = true
 }
 
 async function handleToggleActiveTabletop() {

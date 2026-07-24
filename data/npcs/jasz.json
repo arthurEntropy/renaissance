@@ -2,7 +2,7 @@
   "id": "16b72ab7-e855-420f-93f2-c94bce03f8b1",
   "isDeleted": false,
   "createdAt": "2026-07-21T13:45:12.139Z",
-  "lastModified": "2026-07-23T19:22:53.267Z",
+  "lastModified": "2026-07-24T02:22:54.714Z",
   "characterType": "npc",
   "name": "Jasz",
   "featuredArtUrls": [
@@ -136,7 +136,7 @@
     }
   ],
   "endurance": {
-    "current": 4,
+    "current": 20,
     "base": 10
   },
   "hope": {
@@ -147,7 +147,7 @@
     "current": 12,
     "base": 12
   },
-  "load": 4,
+  "load": 5,
   "shadow": 0,
   "injury": 0,
   "states": {
@@ -178,7 +178,7 @@
       "quantity": 1,
       "isCarried": true,
       "isWielding": true,
-      "collapsed": false,
+      "collapsed": true,
       "columnIndex": 0
     },
     {
@@ -186,28 +186,39 @@
       "quantity": 1,
       "isCarried": true,
       "columnIndex": 1,
-      "isWielding": true
+      "isWielding": true,
+      "collapsed": false
     },
     {
       "id": "9a7fe5d8-027c-48d8-9610-d57ce08e1f09",
       "quantity": 1,
       "isCarried": true,
       "columnIndex": 1,
-      "isWielding": true
+      "isWielding": true,
+      "collapsed": false
     },
     {
       "id": "ce7966c5-c074-4c31-87bc-3eff62a3b3c6",
       "quantity": 1,
       "isCarried": true,
       "columnIndex": 1,
-      "isWielding": true
+      "isWielding": true,
+      "collapsed": false
     },
     {
       "id": "765ffc32-f419-428b-970a-255ac7709859",
       "quantity": 1,
       "isCarried": true,
       "isWielding": true,
-      "columnIndex": 1
+      "columnIndex": 1,
+      "collapsed": false
+    },
+    {
+      "id": "a0f09d3f-3e9d-4116-8d12-3afc6af53663",
+      "quantity": 1,
+      "isCarried": true,
+      "isWielding": false,
+      "collapsed": true
     }
   ],
   "groupEquipmentBySource": false,
@@ -298,16 +309,16 @@
   },
   "rollStats": {
     "skillChecks": {
-      "attempts": 7,
-      "successes": 6,
-      "totalSum": 84,
+      "attempts": 8,
+      "successes": 7,
+      "totalSum": 99,
       "bestTotal": 16,
       "hardestSuccess": null,
       "bySkill": {
-        "Strength": 6,
+        "Strength": 7,
         "Fortitude": 1
       },
-      "solCount": 0,
+      "solCount": 1,
       "morteCount": 1,
       "successCount": 0
     },
@@ -323,9 +334,9 @@
         "draws": 0
       }
     },
-    "xpEarned": 2,
+    "xpEarned": 24,
     "xpSpent": 0,
-    "treasureEarned": 53,
+    "treasureEarned": 174,
     "treasureSpent": 0
   },
   "biomeTags": [],
@@ -371,7 +382,7 @@
   "keeping": "4d5e6f7a-8b9c-4d0e-1f2a-3b4c5d6e7f8a",
   "treasure": 11,
   "xp": 2,
-  "updatedAt": "2026-07-23T19:22:53.267Z",
+  "updatedAt": "2026-07-24T02:22:54.714Z",
   "description": "",
   "size": 0,
   "reach": 0,

@@ -2,7 +2,7 @@
   "id": "2fb7cd7a-91fc-4f2b-a4b4-8c815eddcea0",
   "isDeleted": false,
   "createdAt": "2026-07-08T13:13:42.439Z",
-  "lastModified": "2026-07-17T19:56:57.634Z",
+  "lastModified": "2026-07-24T03:14:21.573Z",
   "characterType": "npc",
   "name": "Jøna",
   "featuredArtUrls": [
@@ -203,14 +203,16 @@
       "quantity": 1,
       "isCarried": true,
       "isWielding": true,
-      "columnIndex": 2
+      "columnIndex": 2,
+      "collapsed": false
     },
     {
       "id": "a087770f-d423-46c5-b00d-f5a51c7df3d6",
       "quantity": 1,
       "isCarried": true,
       "isWielding": true,
-      "columnIndex": 2
+      "columnIndex": 2,
+      "collapsed": false
     },
     {
       "id": "91425463-5682-40a6-8569-6131e995b8a6",
@@ -341,7 +343,7 @@
     },
     "xpEarned": 0,
     "xpSpent": 0,
-    "treasureEarned": 0,
+    "treasureEarned": 52,
     "treasureSpent": 0
   },
   "biomeTags": [],
@@ -380,12 +382,23 @@
   "keeping": "5e6f7a8b-9c0d-4e1f-2a3b-4c5d6e7f8a9b",
   "treasure": 26,
   "xp": 0,
-  "updatedAt": "2026-07-17T19:56:57.634Z",
+  "updatedAt": "2026-07-24T03:14:21.573Z",
   "description": "",
   "size": 0,
   "reach": 0,
   "featuredArtUrl": "https://cdn.midjourney.com/4a189b12-7aac-4e8b-bc16-6d867629d244/0_0.png",
   "hunterTraps": [],
   "sectionOrder": [],
-  "martialTrainingOverrides": {}
+  "martialTrainingOverrides": {},
+  "hasDarkvision": false,
+  "hasBlindsight": false,
+  "hasTremorsense": false,
+  "hasTruesight": false,
+  "burrowSpeed": 0,
+  "climbSpeed": 0,
+  "flySpeed": 0,
+  "swimSpeed": 0,
+  "biomeTagsAugment": [],
+  "biomeTagsInhibit": [],
+  "beastTypeIds": []
 }

@@ -16,7 +16,7 @@
 <script setup>
 import { computed } from 'vue'
 // Heroicons
-import { PlusIcon, DocumentDuplicateIcon, PencilIcon, CheckIcon, XMarkIcon, TrashIcon, Bars3Icon, Cog6ToothIcon, ArrowPathIcon, BookOpenIcon, ChevronDoubleDownIcon, ChevronDoubleUpIcon, EyeIcon, EyeSlashIcon, ArrowUpIcon, ArrowDownIcon, BoltIcon, BoltSlashIcon, ArrowRightStartOnRectangleIcon } from '@heroicons/vue/24/outline'
+import { PlusIcon, DocumentDuplicateIcon, PencilIcon, CheckIcon, XMarkIcon, TrashIcon, Bars3Icon, Cog6ToothIcon, ArrowPathIcon, BookOpenIcon, ChevronDoubleDownIcon, ChevronDoubleUpIcon, EyeIcon, EyeSlashIcon, ArrowUpIcon, ArrowDownIcon, BoltIcon, BoltSlashIcon, ArrowRightStartOnRectangleIcon, ArrowTopRightOnSquareIcon } from '@heroicons/vue/24/outline'
 // Custom icons
 import CrossedSwordsIcon from '@/assets/icons/characterSheet/crossed_swords.svg?component'
 import DieIcon from '@/assets/icons/characterSheet/die.svg?component'
@@ -79,6 +79,7 @@ const FAB_TYPE_CONFIG = {
     [FAB_TYPES.TRANSFER]: { icon: ArrowRightStartOnRectangleIcon, tooltip: 'Transfer to another character' },
     [FAB_TYPES.TRAP_DROP]: { tooltip: 'Drop trap (difficulty set with Stealth)' },
     [FAB_TYPES.TRAP_THROW]: { tooltip: 'Throw trap (difficulty set with Craft)' },
+    [FAB_TYPES.EXPAND]: { icon: ArrowTopRightOnSquareIcon, tooltip: 'Open character sheet' },
 }
 
 const variantConfig = computed(() => {

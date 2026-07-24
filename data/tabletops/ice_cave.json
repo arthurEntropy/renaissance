@@ -2,7 +2,7 @@
   "id": "e0b22160-6efe-45f7-9360-8c20412e617e",
   "isDeleted": false,
   "createdAt": "2026-07-10T14:14:48.580Z",
-  "lastModified": "2026-07-24T00:11:15.137Z",
+  "lastModified": "2026-07-24T03:19:11.685Z",
   "campaignId": "c9ddeab9-d180-4fc5-869f-e64239bc3376",
   "name": "Ice Cave",
   "backgroundImage": {
@@ -21,7 +21,7 @@
       "size": 3,
       "x": 560,
       "y": 160,
-      "zIndex": 7
+      "zIndex": 35
     },
     {
       "id": "0170fdb9-299b-48ed-874f-cbdb00cf1cd4",
@@ -33,7 +33,7 @@
       "size": 1,
       "x": 760,
       "y": 200,
-      "zIndex": 6
+      "zIndex": 39
     },
     {
       "id": "3bd89c3c-c77c-41df-9c13-94ef5386dd34",
@@ -45,19 +45,7 @@
       "size": 1,
       "x": 560,
       "y": 400,
-      "zIndex": 8
-    },
-    {
-      "id": "1fef9244-19a6-4b4a-a0a3-4efc617608b3",
-      "characterId": "2fb7cd7a-91fc-4f2b-a4b4-8c815eddcea0",
-      "isBeast": false,
-      "isNpc": true,
-      "name": "Jøna",
-      "portraitUrl": "https://cdn.midjourney.com/4a189b12-7aac-4e8b-bc16-6d867629d244/0_0.png",
-      "size": 1,
-      "x": 640,
-      "y": 440,
-      "zIndex": 9
+      "zIndex": 45
     },
     {
       "id": "2ccad30a-b52b-48de-890f-a2ea0e712e66",
@@ -69,13 +57,25 @@
       "size": 1,
       "x": 960,
       "y": 240,
-      "zIndex": 12
+      "zIndex": 32
+    },
+    {
+      "id": "a950ed02-59d8-4d6b-93a7-7cff89d9da79",
+      "characterId": "2fb7cd7a-91fc-4f2b-a4b4-8c815eddcea0",
+      "isBeast": false,
+      "isNpc": true,
+      "name": "Jøna",
+      "portraitUrl": "https://cdn.midjourney.com/4a189b12-7aac-4e8b-bc16-6d867629d244/0_0.png",
+      "size": 1,
+      "x": 880,
+      "y": 160,
+      "zIndex": 42
     }
   ],
   "transform": {
-    "scale": 1.1663999999999985,
-    "x": -173.37473718723857,
-    "y": 128.55378902515156
+    "scale": 2.000995868525833,
+    "x": -471.0351565039191,
+    "y": -84.80101199916749
   },
   "gridSize": 40,
   "gridColor": "#ffffff",
