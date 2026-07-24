@@ -83,15 +83,19 @@
             @redo="redo" @set-background="setBackgroundImage" @clear-background="clearBackgroundImage"
             @update-grid-color="setGridColor" @update-grid-opacity="setGridOpacity" @update-show-paths="setShowPaths"
             @toggle-active-tabletop="handleToggleActiveTabletop" @switch-tabletop="handleSwitchTabletop" />
-    </div>
 
-    <!-- Character sheet popup (opened from token info area expand button) -->
-    <CharacterSheetPopup v-if="charSheetPopupOpen && charSheetPopupCharacter" :character="charSheetPopupCharacter"
-        @close="charSheetPopupOpen = false" />
+        <!-- Character sheet popup (opened from token info area expand button) -->
+        <!-- Teleport to body so this component never creates a second root node (fragment),
+             which would trigger Vue's "runtime directive on non-element root" warning. -->
+        <Teleport to="body">
+            <CharacterSheetPopup v-if="charSheetPopupOpen && charSheetPopupCharacter"
+                :character="charSheetPopupCharacter" @close="charSheetPopupOpen = false" />
+        </Teleport>
+    </div>
 </template>
 
 <script setup>
-import { computed, ref, onMounted } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useCampaignStore } from '@/stores/campaignStore'
 import { useAuthStore } from '@/stores/authStore'
@@ -272,13 +276,20 @@ function handleSwitchTabletop(targetTabletopId) {
     router.push(`/campaigns/${campaignSlug.value}/tabletop/${targetTabletopId}`)
 }
 
-onMounted(async () => {
-    // Ensure campaign and tabletop data are in the store before loading canvas state
-    if (campaignId.value && campaignStore.tabletops.length === 0) {
-        await campaignStore.fetchTabletops(campaignId.value)
+// Load state when campaign data becomes available.
+// A watch (rather than onMounted) is required because child onMounted hooks run
+// before the parent App.vue onMounted, which is where auth + campaigns are fetched.
+// On a hard page refresh campaignId may therefore be null when the component first
+// mounts; the watch fires again once it becomes non-null.
+watch(campaignId, async (id) => {
+    if (!id) return
+    // Fetch tabletops for this campaign if the current tabletop is not yet in the store.
+    const tid = tabletopId.value
+    if (tid && !campaignStore.tabletops.some((t) => t.id === tid)) {
+        await campaignStore.fetchTabletops(id)
     }
     loadState()
-})
+}, { immediate: true })
 </script>
 
 <style scoped>

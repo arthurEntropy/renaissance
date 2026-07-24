@@ -16,6 +16,11 @@ export function useTabletopCanvas(campaignId, tabletopId) {
 
     // Debounce timer for persisting canvas state to the backend
     let _saveTimer = null
+    // True only after loadState() has successfully populated canvas from the store.
+    // Prevents saveState() from overwriting real server data with the reset/default
+    // state that exists before the tabletop has been loaded (the primary cause of
+    // data corruption reported by users).
+    let _stateReady = false
 
     // ─── Canvas items (tokens) ───────────────────────────────────────────────
     const canvasItems = ref([])
@@ -1033,6 +1038,13 @@ export function useTabletopCanvas(campaignId, tabletopId) {
 
     // ─── Persistence ─────────────────────────────────────────────────────────
     const saveState = () => {
+        // Guard: never persist while the canvas is in its reset/default state.
+        // This prevents overwriting real tabletop data when loadState() hasn't
+        // been called yet (e.g. the user scrolls or zooms before auth completes).
+        if (!_stateReady) {
+            console.warn('[VTT] saveState blocked: state not yet loaded for this tabletop')
+            return
+        }
         const cid = typeof campaignId === 'object' ? campaignId.value : campaignId
         const tid = typeof tabletopId === 'object' ? tabletopId.value : tabletopId
         if (!cid || !tid) return
@@ -1061,9 +1073,14 @@ export function useTabletopCanvas(campaignId, tabletopId) {
     }
 
     const loadState = () => {
+        // Mark not-ready until we confirm the tabletop exists in the store.
+        _stateReady = false
         const tid = typeof tabletopId === 'object' ? tabletopId.value : tabletopId
         const tabletop = campaignStore.tabletops.find((t) => t.id === tid)
-        if (!tabletop) return
+        if (!tabletop) {
+            console.warn(`[VTT] loadState: tabletop "${tid}" not found in store (${campaignStore.tabletops.length} tabletop(s) available). State will not be saved until it is loaded.`)
+            return
+        }
         if (Array.isArray(tabletop.items)) {
             tabletop.items.forEach((item, i) => {
                 if (item.zIndex == null) item.zIndex = i + 1
@@ -1078,6 +1095,7 @@ export function useTabletopCanvas(campaignId, tabletopId) {
         if (tabletop.gridOpacity != null) gridOpacity.value = tabletop.gridOpacity
         if (tabletop.showPaths != null) showPaths.value = tabletop.showPaths
         if (Array.isArray(tabletop.radiusAreas)) radiusAreas.value = tabletop.radiusAreas
+        _stateReady = true
     }
 
     // ─── Tabletop switch (route param changes without component re-mount) ───────
@@ -1136,6 +1154,7 @@ export function useTabletopCanvas(campaignId, tabletopId) {
     })
 
     onUnmounted(() => {
+        _stateReady = false
         if (_saveTimer) clearTimeout(_saveTimer)
         window.removeEventListener('mousedown', handleGlobalMousedown, true)
         window.removeEventListener('mousemove', handleGlobalMousemove)

@@ -2,7 +2,7 @@
   "id": "e0b22160-6efe-45f7-9360-8c20412e617e",
   "isDeleted": false,
   "createdAt": "2026-07-10T14:14:48.580Z",
-  "lastModified": "2026-07-24T11:37:41.326Z",
+  "lastModified": "2026-07-24T12:04:19.796Z",
   "campaignId": "c9ddeab9-d180-4fc5-869f-e64239bc3376",
   "name": "Ice Cave",
   "backgroundImage": {
@@ -19,9 +19,9 @@
       "name": "Mycoderm A",
       "portraitUrl": "https://cdn.midjourney.com/1981f3be-8de5-4457-9d0f-da52943eb68c/0_0.png",
       "size": 3,
-      "x": 510,
-      "y": 150,
-      "zIndex": 57
+      "x": 600,
+      "y": 210,
+      "zIndex": 59
     },
     {
       "id": "0170fdb9-299b-48ed-874f-cbdb00cf1cd4",
@@ -73,9 +73,9 @@
     }
   ],
   "transform": {
-    "scale": 2.00099586852583,
-    "x": -550.8989811367048,
-    "y": -112.65663636179113
+    "scale": 1.3618441654526403,
+    "x": -118.64949209463339,
+    "y": 101.68419953724617
   },
   "gridSize": 30,
   "gridColor": "#ffffff",
