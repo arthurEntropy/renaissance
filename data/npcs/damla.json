@@ -2,7 +2,7 @@
   "id": "b4417462-600b-4571-b2ad-a572ad01733f",
   "isDeleted": false,
   "createdAt": "2026-07-08T12:49:04.391Z",
-  "lastModified": "2026-07-24T03:19:22.492Z",
+  "lastModified": "2026-07-24T11:34:18.607Z",
   "characterType": "npc",
   "name": "Damla",
   "featuredArtUrls": [
@@ -297,7 +297,7 @@
     },
     "xpEarned": 0,
     "xpSpent": 0,
-    "treasureEarned": 36,
+    "treasureEarned": 48,
     "treasureSpent": 0
   },
   "biomeTags": [],
@@ -336,7 +336,7 @@
   "keeping": "4d5e6f7a-8b9c-4d0e-1f2a-3b4c5d6e7f8a",
   "treasure": 12,
   "xp": 0,
-  "updatedAt": "2026-07-24T03:19:22.492Z",
+  "updatedAt": "2026-07-24T11:34:18.607Z",
   "description": "",
   "size": 0,
   "reach": 0,

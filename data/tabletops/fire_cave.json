@@ -2,7 +2,7 @@
   "id": "6ff2ebe8-6b65-40f0-850b-9845a9fd9a62",
   "isDeleted": false,
   "createdAt": "2026-07-10T14:10:28.345Z",
-  "lastModified": "2026-07-10T17:49:03.018Z",
+  "lastModified": "2026-07-24T11:34:08.899Z",
   "campaignId": "c9ddeab9-d180-4fc5-869f-e64239bc3376",
   "name": "Fire Cave",
   "backgroundImage": {
@@ -20,7 +20,7 @@
       "size": 1,
       "x": 760,
       "y": 560,
-      "zIndex": 21
+      "zIndex": 25
     },
     {
       "id": "41f9598c-08b7-422c-9e51-a37151546ec3",
@@ -31,16 +31,17 @@
       "size": 3,
       "x": 200,
       "y": 440,
-      "zIndex": 20
+      "zIndex": 24
     }
   ],
   "transform": {
-    "scale": 1.5868743229440005,
-    "x": -179.91832438374445,
-    "y": -164.83999297536013
+    "scale": 1.4693280768,
+    "x": -184.0962635282965,
+    "y": -208.80620619093327
   },
   "gridSize": 40,
   "gridColor": "#ffffff",
   "gridOpacity": 0.3,
-  "showPaths": false
+  "showPaths": false,
+  "radiusAreas": []
 }

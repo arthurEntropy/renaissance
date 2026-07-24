@@ -52,10 +52,17 @@ import { CAMPAIGN_ROLE, CAMPAIGN_MEMBER_STATUS } from '../constants/campaignCons
  */
 
 /**
+ * @typedef {Object} CombatGroupInitiativeResults
+ * @property {number|null} groupTotal - The group's initiative total (highest + lowest individual, or single result)
+ * @property {Array} members - Per-member roll details
+ */
+
+/**
  * @typedef {Object} CombatGroup
  * @property {UUID} id - Combat group ID
  * @property {string} name - Combat group name
  * @property {CombatCombatant[]} combatants - Ordered combatants in this group
+ * @property {CombatGroupInitiativeResults|null} [initiativeResults] - Persisted initiative roll results for this group
  */
 
 /**

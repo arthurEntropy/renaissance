@@ -52,7 +52,24 @@
             </div>
         </div>
 
-        <div v-for="group in resolvedPinnedGroups" :key="group.id" class="token-group token-group--pinned">
+        <!-- Initiative controls: GM on tabletop only, when there are pinned groups -->
+        <div v-if="isGMOnTabletop && resolvedPinnedGroups.length > 0" class="initiative-controls">
+            <button type="button" class="initiative-sort-btn" @click="sortGroupsByInitiative">
+                <CrossedSwordsIcon class="initiative-sort-icon" aria-hidden="true" />
+                <span>SORT</span>
+            </button>
+            <div class="initiative-cycle-row">
+                <button type="button" class="initiative-cycle-btn" aria-label="Previous group" @click="cyclePrevGroup">
+                    <ChevronLeftIcon class="initiative-cycle-icon" />
+                </button>
+                <button type="button" class="initiative-cycle-btn" aria-label="Next group" @click="cycleNextGroup">
+                    <ChevronRightIcon class="initiative-cycle-icon" />
+                </button>
+            </div>
+        </div>
+
+        <div v-for="group in resolvedPinnedGroups" :key="group.id" class="token-group token-group--pinned"
+            :class="{ 'token-group--initiative-active': isInitiativeActive && isGMOnTabletop && group.id === resolvedPinnedGroups[0]?.id }">
             <FloatingActionButton class="unpin-fab" :variant="FAB_TYPES.DELETE" :size="FAB_SIZES.SMALL"
                 :visibility="FAB_VISIBILITIES.ALWAYS" aria-label="Unpin group"
                 @click="characterContextStore.unpinGroup(group.id)" />
@@ -60,9 +77,6 @@
                 <span class="token-group-name">{{ group.name }}</span>
                 <span v-if="isGroupCollapsed(group.id)" class="token-group-members-count">Members: {{
                     group.members.length }}</span>
-                <span v-if="group.initiativeResults?.groupTotal != null" class="token-group-initiative">
-                    Initiative: {{ group.initiativeResults.groupTotal }}
-                </span>
             </div>
             <div v-if="!isGroupCollapsed(group.id)" class="token-group-members">
                 <div v-for="member in group.members" :key="member.id" class="token-item draggable-token-wrapper"
@@ -76,6 +90,24 @@
                 <component :is="isGroupCollapsed(group.id) ? ChevronDownIcon : ChevronUpIcon"
                     class="token-group-chevron" />
             </button>
+
+            <!-- Initiative badge: GM on tabletop only -->
+            <div v-if="isGMOnTabletop" class="initiative-badge"
+                :class="{ 'initiative-badge--initiative-active': isInitiativeActive && group.id === resolvedPinnedGroups[0]?.id }">
+                <FloatingActionButton :variant="FAB_TYPES.INITIATIVE" :size="FAB_SIZES.SMALL"
+                    :visibility="FAB_VISIBILITIES.ALWAYS" aria-label="Roll group initiative"
+                    @click="rollGroupInitiative(group)" />
+                <template v-if="editingInitiativeGroupId === group.id">
+                    <input type="number" class="initiative-input" v-model="editingInitiativeValue"
+                        @blur="saveInitiativeEdit(group.id)" @keydown.enter="saveInitiativeEdit(group.id)"
+                        @keydown.escape="cancelInitiativeEdit" />
+                </template>
+                <span v-else class="initiative-result-value"
+                    :class="{ 'initiative-result-value--empty': group.initiativeResults?.groupTotal == null }"
+                    @click="startEditingInitiative(group)">
+                    {{ group.initiativeResults?.groupTotal ?? '—' }}
+                </span>
+            </div>
         </div>
 
         <button v-if="resolvedPinnedGroups.length > 0" type="button" class="unpin-all-btn"
@@ -84,9 +116,9 @@
 </template>
 
 <script setup>
-import { computed, ref, watch } from 'vue'
+import { computed, ref, watch, nextTick } from 'vue'
 import { useRoute } from 'vue-router'
-import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/vue/24/outline'
+import { ChevronDownIcon, ChevronUpIcon, ChevronLeftIcon, ChevronRightIcon } from '@heroicons/vue/24/outline'
 import { useCharacterContextStore } from '@/stores/characterContextStore'
 import { useCharactersStore } from '@/stores/charactersStore'
 import { useCampaignStore } from '@/stores/campaignStore'
@@ -100,6 +132,8 @@ import { isBeastTemplate, isBeastInstance, isNPC } from '@/utils/characterTypeGu
 import keepingIcon from '@/assets/icons/keeping/keeping.png'
 import { useTabletopDragState } from '@/composables/useTabletopDragState'
 import { useTabletopSelectionState } from '@/composables/useTabletopSelectionState'
+import BatchRollOrchestrationService from '@/services/rolls/batchRollOrchestrationService'
+import CrossedSwordsIcon from '@/assets/icons/characterSheet/crossed_swords.svg?component'
 
 const characterContextStore = useCharacterContextStore()
 const charactersStore = useCharactersStore()
@@ -301,6 +335,91 @@ function isTabletopSelected(characterId) {
     return selectedCharacterIds.value.has(characterId)
 }
 
+// ─── Initiative controls (GM on tabletop only) ───────────────────────────────
+
+const isInitiativeActive = ref(false)
+
+// Roll initiative for all members of a resolved pinned group
+function rollGroupInitiative(group) {
+    const characters = (group.members || []).filter(Boolean)
+    if (characters.length === 0) return
+    const { groupTotal, members } = BatchRollOrchestrationService.executeBatchInitiativeRoll(characters)
+    characterContextStore.updatePinnedGroup(group.id, { initiativeResults: { groupTotal, members } })
+}
+
+// Sort pinned groups by initiative result: highest first, missing results last (then alphabetical)
+function sortGroupsByInitiative() {
+    const sorted = [...characterContextStore.pinnedGroupIds].sort((a, b) => {
+        const gA = characterContextStore.pinnedGroupsById[a]
+        const gB = characterContextStore.pinnedGroupsById[b]
+        const rA = gA?.initiativeResults?.groupTotal
+        const rB = gB?.initiativeResults?.groupTotal
+        if (rA == null && rB == null) return (gA?.name ?? '').localeCompare(gB?.name ?? '')
+        if (rA == null) return 1
+        if (rB == null) return -1
+        return rB - rA
+    })
+    characterContextStore.reorderPinnedGroups(sorted)
+    isInitiativeActive.value = true
+}
+
+// Cycle to next group (rotate left: first → last)
+function cycleNextGroup() {
+    if (characterContextStore.pinnedGroupIds.length <= 1) return
+    const ids = [...characterContextStore.pinnedGroupIds]
+    ids.push(ids.shift())
+    characterContextStore.reorderPinnedGroups(ids)
+    isInitiativeActive.value = true
+}
+
+// Cycle to previous group (rotate right: last → first)
+function cyclePrevGroup() {
+    if (characterContextStore.pinnedGroupIds.length <= 1) return
+    const ids = [...characterContextStore.pinnedGroupIds]
+    ids.unshift(ids.pop())
+    characterContextStore.reorderPinnedGroups(ids)
+    isInitiativeActive.value = true
+}
+
+// Inline initiative editing
+const editingInitiativeGroupId = ref(null)
+const editingInitiativeValue = ref('')
+
+function startEditingInitiative(group) {
+    editingInitiativeGroupId.value = group.id
+    editingInitiativeValue.value = group.initiativeResults?.groupTotal != null
+        ? String(group.initiativeResults.groupTotal)
+        : ''
+    nextTick(() => {
+        const input = document.querySelector('.initiative-input:not([data-saving])')
+        input?.focus()
+        input?.select()
+    })
+}
+
+function saveInitiativeEdit(groupId) {
+    const trimmed = editingInitiativeValue.value.trim()
+    if (trimmed !== '') {
+        const num = Number(trimmed)
+        if (!isNaN(num)) {
+            const existing = characterContextStore.pinnedGroupsById[groupId]
+            characterContextStore.updatePinnedGroup(groupId, {
+                initiativeResults: {
+                    ...(existing?.initiativeResults ?? {}),
+                    groupTotal: num,
+                },
+            })
+        }
+    }
+    editingInitiativeGroupId.value = null
+    editingInitiativeValue.value = ''
+}
+
+function cancelInitiativeEdit() {
+    editingInitiativeGroupId.value = null
+    editingInitiativeValue.value = ''
+}
+
 function getFocusedTokenProps(character) {
     if (!character) return {}
 
@@ -493,14 +612,6 @@ function getFocusedTokenProps(character) {
     letter-spacing: 0.04em;
 }
 
-.token-group-initiative {
-    font-size: var(--font-size-11);
-    font-weight: var(--font-weight-semibold);
-    color: var(--color-primary);
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-}
-
 .unpin-fab {
     position: absolute;
     top: 12px;
@@ -591,5 +702,151 @@ function getFocusedTokenProps(character) {
         flex-direction: row;
         gap: var(--space-xs);
     }
+}
+
+/* ─── Initiative controls ─────────────────────────────────────────────────── */
+.initiative-controls {
+    pointer-events: auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    width: var(--token-group-width, 90px);
+    background: var(--color-gray-dark);
+    gap: var(--space-sm);
+    padding: var(--space-sm);
+    border-radius: var(--radius-10);
+    border: 2px solid var(--overlay-white-medium);
+    width: var(--token-group-width);
+}
+
+.initiative-sort-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-xs);
+    width: 100%;
+    background: transparent;
+    border: 1px solid var(--overlay-white-medium);
+    border-radius: var(--radius-5);
+    color: var(--color-text-primary);
+    font-size: var(--font-size-11);
+    font-family: var(--font-family-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: var(--space-xs) var(--space-sm);
+    cursor: pointer;
+    transition: color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.initiative-sort-btn:hover {
+    color: var(--color-primary);
+    border-color: var(--color-primary);
+}
+
+.initiative-sort-icon {
+    width: 12px;
+    height: 12px;
+    flex-shrink: 0;
+}
+
+.initiative-cycle-row {
+    display: flex;
+    gap: var(--space-xs);
+}
+
+.initiative-cycle-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: 1px solid var(--overlay-white-medium);
+    border-radius: var(--radius-5);
+    color: var(--color-text-primary);
+    padding: var(--space-xs) 0;
+    cursor: pointer;
+    transition: color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.initiative-cycle-btn:hover {
+    color: var(--color-primary);
+    border-color: var(--color-primary);
+}
+
+.initiative-cycle-icon {
+    width: 14px;
+    height: 14px;
+}
+
+/* ─── Initiative badge (right edge of each pinned group) ─────────────────── */
+.initiative-badge {
+    position: absolute;
+    right: 28px;
+    top: 50%;
+    transform: translate(calc(100% + var(--space-sm)), -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-xs);
+    pointer-events: auto;
+    background: var(--color-gray-dark);
+    border: 1px solid var(--overlay-white-medium);
+    border-radius: var(--radius-10);
+    padding: var(--space-xs);
+}
+
+.initiative-result-value {
+    font-size: var(--font-size-13);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-white);
+    cursor: pointer;
+    min-width: 1.5em;
+    text-align: center;
+    border-radius: var(--radius-3);
+    padding: 1px var(--space-xs);
+    transition: background var(--transition-fast);
+    line-height: 1.2;
+}
+
+.initiative-result-value:hover {
+    background: var(--overlay-white-medium);
+}
+
+.initiative-result-value--empty {
+    color: var(--color-text-muted);
+    font-weight: var(--font-weight-normal);
+}
+
+.initiative-input {
+    width: 1.8em;
+    background: var(--overlay-black-heavy);
+    border: 1px solid var(--color-primary);
+    border-radius: var(--radius-3);
+    color: var(--color-white);
+    font-size: var(--font-size-13);
+    font-weight: var(--font-weight-bold);
+    font-family: var(--font-family-primary);
+    text-align: center;
+    padding: 0 2px;
+    outline: none;
+    /* Remove native number spinners */
+    appearance: textfield;
+    -moz-appearance: textfield;
+}
+
+.initiative-input::-webkit-outer-spin-button,
+.initiative-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Active initiative group highlight */
+.token-group--initiative-active {
+    border-color: var(--color-primary) !important;
+}
+
+.initiative-badge--initiative-active {
+    border-width: 2px;
+    border-color: var(--color-primary) !important;
 }
 </style>

@@ -73,6 +73,11 @@ export const useCharacterContextStore = defineStore('characterContext', () => {
     pinnedGroupsById.value = {}
   }
 
+  const reorderPinnedGroups = (orderedIds) => {
+    const currentSet = new Set(pinnedGroupIds.value)
+    pinnedGroupIds.value = orderedIds.filter((id) => currentSet.has(id))
+  }
+
   // Computed properties
   const pinnedGroups = computed(() => {
     return pinnedGroupIds.value.map((id) => pinnedGroupsById.value[id]).filter(Boolean)
@@ -97,5 +102,6 @@ export const useCharacterContextStore = defineStore('characterContext', () => {
     updatePinnedGroup,
     isPinned,
     clearPinnedGroups,
+    reorderPinnedGroups,
   }
 })
