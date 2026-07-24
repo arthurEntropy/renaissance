@@ -1,6 +1,6 @@
 <template>
     <BaseToken v-if="resolvedCharacter && !shouldHideBadge" v-bind="$attrs" :entity="resolvedCharacter"
-        :imageSrc="optimizedCharacterArt" variant="character" :alwaysShowName="alwaysShowName"
+        :imageSrc="optimizedCharacterArt" :variant="tokenVariant" :alwaysShowName="alwaysShowName"
         :showRemoveFab="showRemoveFab" :isInactive="isInactive" @click="handleClick" @remove="handleRemove"
         @mouseenter="isHovered = true" @mouseleave="isHovered = false">
         <FloatingActionButton v-if="characterMestiereNovizio && showMartialTrainingFab" class="martial-training-fab"
@@ -28,6 +28,7 @@ import { useOptimizedImage } from '@/composables/useOptimizedImage'
 import { createSlug } from '@/utils/urlHelpers'
 import { MIDJOURNEY_IMAGE_CONTEXTS } from '@shared/constants/artConstants.js'
 import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
+import { isNPC } from '@/utils/characterTypeGuards'
 
 const props = defineProps({
     // Override the character shown instead of the store's selectedCharacter
@@ -51,6 +52,8 @@ const conceptsStore = useConceptsStore()
 const equipmentGradesStore = useEquipmentGradesStore()
 
 const resolvedCharacter = computed(() => props.character ?? charactersStore.selectedCharacter)
+
+const tokenVariant = computed(() => isNPC(resolvedCharacter.value) ? 'npc' : 'character')
 
 const characterMestiere = computed(() => {
     if (!resolvedCharacter.value?.mestiereId) return null

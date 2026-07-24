@@ -86,6 +86,11 @@ import { createBaseEntity } from './baseEntity.js'
  */
 
 /**
+ * @typedef {Object} WitchFamiliar
+ * @property {UUID|null} characterId - ID of the familiar player character (a copy of a challenge-0 beast)
+ */
+
+/**
  * @typedef {Object} HunterTrap
  * @property {UUID} id - Local UUID
  * @property {string} imageUrl - Icon path or custom image URL
@@ -195,6 +200,7 @@ import { createBaseEntity } from './baseEntity.js'
  * @property {string} [swaggerColor] - Landsknecht swagger icon tint color
  * @property {Object} manaPool - Channeler: each key is a mana color, value is an array of booleans (true = tapped)
  * @property {WitchcraftToken[]} witchcraftTokens - Active witchcraft items (tokens and talismans) (Witch mestiere only)
+ * @property {WitchFamiliar|null} [witchFamiliar] - Witch's familiar data (Witch mestiere only)
  * @property {SummonerVessel[]} summonerVessels - Vessels carried by this Summoner character
  * @property {HunterTrap[]} hunterTraps - Trap slots for the Hunter mestiere
  * 
@@ -331,7 +337,7 @@ function createDefaultCharacterBase() {
     equipment: [],
     groupEquipmentBySource: false,
     groupEquipmentByCustom: false,
-    equipmentSortOption: 'name-asc',
+    equipmentSortOption: '',
     equipmentCustomGroups: [],
 
     // MP & Abilities
@@ -340,7 +346,7 @@ function createDefaultCharacterBase() {
     groupAbilitiesBySource: false,
     groupAbilitiesByManaColor: false,
     groupAbilitiesByCustom: false,
-    abilitySortOption: 'name-asc',
+    abilitySortOption: '',
     abilityCustomGroups: [],
 
     // Settings & Stats
@@ -382,6 +388,7 @@ function createDefaultCharacterBase() {
     swaggerColor: '#ffffff',
     manaPool: { white: [], blue: [], black: [], red: [], green: [], colorless: [] },
     witchcraftTokens: [],
+    witchFamiliar: null,
     summonerVessels: [],
     hunterTraps: [],
 

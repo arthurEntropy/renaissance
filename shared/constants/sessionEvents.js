@@ -33,10 +33,9 @@ export const SESSION_EVENTS = {
   
   // Engagement-specific events (emit & broadcast use same name)
   SUCCESS_ASSIGNMENT_UPDATED: 'success-assignment-updated',  // Engagement success assigned to die
-  
-  // Contest-specific events (different semantic meanings)
-  START_REROLL: 'start-reroll',                 // Server→Clients: reroll initiated (for animations)
-  REROLL_SKILL_CHECK: 'reroll-skill-check'      // Client→Server: request to reroll entire skill check
+
+  // Spectator events
+  SPECTATE_SESSION: 'spectate-session',           // Client→Server: join a session as read-only spectator
 }
 
 export default SESSION_EVENTS

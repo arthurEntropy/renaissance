@@ -77,14 +77,14 @@
 
       <!-- Successes section (✨/🌞/💀 style) -->
       <SuccessesSection v-if="equipment.successes" :successes="equipment.successes" :is-expanded="showSuccesses"
-        @update:isExpanded="toggleSuccesses" />
+        @update:isExpanded="toggleSuccesses" @roll-link="$emit('roll-link', $event)" />
     </template>
 
     <!-- Equipment improvements -->
     <template #mechanics>
       <ImprovementsSection v-if="hasImprovements" :item="equipment" :item-type="'equipment'" :character="character"
         :show-improvement-toggle="showImprovementToggle" :show-improvements="showImprovements"
-        @toggle-improvement="handleImprovementToggle" />
+        @toggle-improvement="handleImprovementToggle" @roll-link="$emit('roll-link', $event)" />
     </template>
 
     <!-- Action buttons -->
@@ -140,7 +140,7 @@
     <!-- Admin actions slot — transfer FAB and/or untrained indicator -->
     <template v-if="showTransferButton || lacksTraining" #admin-actions>
       <FloatingActionButton v-if="showTransferButton" :variant="FAB_TYPES.TRANSFER" :size="FAB_SIZES.SMALL"
-        :visibility="FAB_VISIBILITIES.ON_HOVER" @click.stop="$emit('transfer', equipment)" />
+        :visibility="FAB_VISIBILITIES.ALWAYS" @click.stop="$emit('transfer', equipment)" />
       <FloatingActionButton v-if="lacksTraining" :variant="FAB_TYPES.UNTRAINED" :size="FAB_SIZES.SMALL"
         :visibility="FAB_VISIBILITIES.ALWAYS" />
     </template>
@@ -148,9 +148,9 @@
   </base-card>
 
   <!-- Confirm Purchase modal: shown when adding equipment to a character -->
-  <ConfirmPurchaseModal v-if="showConfirmPurchaseModal" item-type="equipment" :cost="keepingCost"
-    :character-balance="character?.treasure ?? 0" currency-label="Treasure" @confirm-spend="confirmAddWithSpend"
-    @confirm-free="confirmAddFree" @close="showConfirmPurchaseModal = false" />
+  <ConfirmPurchaseModal v-if="showConfirmPurchaseModal" item-type="equipment" :item-name="equipment.name"
+    :cost="keepingCost" :character-balance="character?.treasure ?? 0" currency-label="Treasure"
+    @confirm-spend="confirmAddWithSpend" @confirm-free="confirmAddFree" @close="showConfirmPurchaseModal = false" />
 
   <!-- Confirm Removal modal: shown when removing equipment from a character -->
   <ConfirmRemovalModal v-if="showConfirmRemovalModal" :item-name="equipment.name" :cost="keepingCost"

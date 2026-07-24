@@ -75,6 +75,14 @@ class EngagementSessionService extends BaseSessionService {
       state
     })
   }
+
+  spectateSession(sessionId) {
+    if (!this.socket || !this.socket.connected) {
+      console.warn(`${this.constructor.name}: Cannot spectate – not connected`)
+      return
+    }
+    this.socket.emit(SESSION_EVENTS.SPECTATE_SESSION, { sessionId })
+  }
 }
 
 const engagementSessionService = new EngagementSessionService()

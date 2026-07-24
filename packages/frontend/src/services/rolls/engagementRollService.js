@@ -57,9 +57,27 @@ class EngagementRollService extends BaseRollService {
       // Case 3: Both players have dice - compare values (only if both are rolled)
       else if (userDie && opponentDie && !userDie.isRolling && !opponentDie.isRolling &&
                userDie.dieRollValue !== undefined && opponentDie.dieRollValue !== undefined) {
-        const userWins = userDie.dieRollValue > opponentDie.dieRollValue
-        const opponentWins = opponentDie.dieRollValue > userDie.dieRollValue
-        const tie = userDie.dieRollValue === opponentDie.dieRollValue
+        // Engagement success: rolling the maximum value on a die is a special result.
+        // A side that rolls a success beats a side that doesn't, regardless of numeric value.
+        // If both or neither roll a success, compare values normally.
+        const userIsSuccess = !!userDie.rolledMaxValue
+        const opponentIsSuccess = !!opponentDie.rolledMaxValue
+
+        let userWins, opponentWins, tie
+
+        if (userIsSuccess && !opponentIsSuccess) {
+          userWins = true
+          opponentWins = false
+          tie = false
+        } else if (opponentIsSuccess && !userIsSuccess) {
+          userWins = false
+          opponentWins = true
+          tie = false
+        } else {
+          userWins = userDie.dieRollValue > opponentDie.dieRollValue
+          opponentWins = opponentDie.dieRollValue > userDie.dieRollValue
+          tie = userDie.dieRollValue === opponentDie.dieRollValue
+        }
 
         // Determine which character won this comparison
         let winnerCharacterId = null

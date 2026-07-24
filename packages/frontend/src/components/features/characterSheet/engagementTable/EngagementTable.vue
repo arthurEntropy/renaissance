@@ -47,6 +47,8 @@ const props = defineProps({
   }
 })
 
+const emit = defineEmits(['close-sheet'])
+
 const internalEditMode = ref(false)
 const isCollapsed = ref(false)
 const toggleEditMode = () => { internalEditMode.value = !internalEditMode.value }
@@ -77,11 +79,14 @@ const rollSelectedDice = () => {
 
   // Store dice in diceManager so modal can access them
   diceManager.committedDice.value = selectedDice
+  // Reset sort state so the new session's waiting-state dice are never stale
+  diceManager.resetSortingState()
   showEngagementRollModal.value = true
 }
 
 const closeEngagementRollModal = () => {
   showEngagementRollModal.value = false
+  emit('close-sheet')
 }
 
 onMounted(async () => {

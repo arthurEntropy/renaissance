@@ -1,22 +1,22 @@
 {
-  "id": "3e1ff0fd-659b-43d7-94df-bd3269a60b36",
-  "isDeleted": false,
-  "createdAt": "2026-07-08T16:06:56.845Z",
-  "lastModified": "2026-07-21T14:30:01.868Z",
+  "id": "41792183-30e4-43a6-b8b4-99c3f41863c3",
+  "isDeleted": true,
+  "createdAt": "2026-07-23T19:23:36.077Z",
+  "lastModified": "2026-07-24T00:13:21.526Z",
   "characterType": "beastInstance",
-  "name": "Spore Hound B",
+  "name": "Mycoderm",
   "featuredArtUrls": [
-    "https://cdn.midjourney.com/39ad5992-8dc0-48f7-9e24-e9633e4377ae/0_1.png"
+    "https://cdn.midjourney.com/1981f3be-8de5-4457-9d0f-da52943eb68c/0_0.png"
   ],
   "speed": 30,
   "notes": "",
-  "body": 2,
-  "heart": 1,
-  "wits": 1,
+  "body": 6,
+  "heart": 3,
+  "wits": 2,
   "skills": [
     {
       "key": "awe",
-      "ranks": 0,
+      "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -24,7 +24,7 @@
     },
     {
       "key": "strength",
-      "ranks": 2,
+      "ranks": 3,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -40,7 +40,7 @@
     },
     {
       "key": "fortitude",
-      "ranks": 0,
+      "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -80,7 +80,7 @@
     },
     {
       "key": "spirit",
-      "ranks": 1,
+      "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -88,7 +88,7 @@
     },
     {
       "key": "aid",
-      "ranks": 0,
+      "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -104,7 +104,7 @@
     },
     {
       "key": "awareness",
-      "ranks": 1,
+      "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -112,7 +112,7 @@
     },
     {
       "key": "stealth",
-      "ranks": 1,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -136,16 +136,16 @@
     }
   ],
   "endurance": {
-    "current": 0,
-    "base": 10
+    "current": 30,
+    "base": 30
   },
   "hope": {
-    "current": 2,
-    "base": 2
-  },
-  "defense": {
     "current": 6,
     "base": 6
+  },
+  "defense": {
+    "current": 7,
+    "base": 2
   },
   "load": 0,
   "shadow": 0,
@@ -165,17 +165,13 @@
     "afraid": false,
     "troubled": false
   },
-  "engagementDice": [
-    6
-  ],
+  "engagementDice": [],
   "engagementSuccesses": [],
-  "engagementDiceStatuses": {
-    "user_added_0": "expended"
-  },
+  "engagementDiceStatuses": {},
   "equipment": [],
   "groupEquipmentBySource": false,
   "groupEquipmentByCustom": false,
-  "equipmentSortOption": "name-asc",
+  "equipmentSortOption": "",
   "equipmentCustomGroups": [],
   "mp": {
     "current": 0,
@@ -185,25 +181,23 @@
   "groupAbilitiesBySource": false,
   "groupAbilitiesByManaColor": false,
   "groupAbilitiesByCustom": false,
-  "abilitySortOption": "name-asc",
+  "abilitySortOption": "",
   "abilityCustomGroups": [],
   "autoCalculations": {
     "load": true,
     "states": true,
     "baseEndurance": true,
     "baseHope": true,
-    "baseDefense": false
+    "baseDefense": true
   },
   "rollStats": {
     "skillChecks": {
-      "attempts": 3,
-      "successes": 3,
-      "totalSum": 20,
-      "bestTotal": 9,
+      "attempts": 0,
+      "successes": 0,
+      "totalSum": 0,
+      "bestTotal": null,
       "hardestSuccess": null,
-      "bySkill": {
-        "Strength": 3
-      },
+      "bySkill": {},
       "solCount": 0,
       "morteCount": 0,
       "successCount": 0
@@ -211,8 +205,8 @@
     "contests": {
       "engagement": {
         "wins": 0,
-        "losses": 2,
-        "draws": 1
+        "losses": 0,
+        "draws": 0
       },
       "contest": {
         "wins": 0,
@@ -240,27 +234,39 @@
     "colorless": []
   },
   "witchcraftTokens": [],
+  "witchFamiliar": null,
   "summonerVessels": [],
+  "hunterTraps": [],
   "campaignId": "c9ddeab9-d180-4fc5-869f-e64239bc3376",
   "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
   "isPublicPreview": false,
-  "pronouns": "",
-  "ancestryIds": [],
-  "cultureIds": [],
-  "mestiereId": null,
-  "age": 0,
-  "heightFeet": 0,
-  "heightInches": 0,
-  "weight": 0,
-  "keeping": null,
-  "treasure": 0,
-  "xp": 0,
-  "updatedAt": "2026-07-21T14:30:01.868Z",
-  "description": "",
-  "size": 1,
-  "reach": 5,
-  "challenge": 5,
-  "templateId": "720bd912-d3a4-4096-9dfd-24d80508ef6e",
   "sectionOrder": [],
-  "martialTrainingOverrides": {}
+  "martialTrainingOverrides": {},
+  "challenge": 11,
+  "description": "",
+  "size": 3,
+  "reach": 5,
+  "hasDarkvision": true,
+  "hasBlindsight": false,
+  "hasTremorsense": false,
+  "hasTruesight": false,
+  "burrowSpeed": 0,
+  "climbSpeed": 0,
+  "flySpeed": 0,
+  "swimSpeed": 0,
+  "biomeTagsAugment": [
+    "forest",
+    "wetland",
+    "underground"
+  ],
+  "biomeTagsInhibit": [
+    "civilized",
+    "cold"
+  ],
+  "beastTypeIds": [
+    "b7e57001-0000-4000-a000-000000000002",
+    "b7e57001-0000-4000-a000-00000000000d"
+  ],
+  "templateId": "731421e9-f9cb-41c1-b902-76993e0bef6f",
+  "updatedAt": "2026-07-24T00:13:21.526Z"
 }

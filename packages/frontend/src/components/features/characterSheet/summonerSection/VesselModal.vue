@@ -179,17 +179,21 @@ const isCustomSelected = computed(() =>
 
 const friendshipDescription = computed(() => FRIENDSHIP_DESCRIPTIONS[form.value.friendship] ?? '')
 
-// Seed form from existing vessel when editing
+// Seed form from existing vessel when editing.
+// imageUrl stored in data is either an icon KEY or a custom https:// URL.
 watch(
     () => props.vessel,
     (vessel) => {
         if (!vessel) return
-        const isBuiltinIcon = Object.values(ICON_URL_MAP).includes(vessel.imageUrl)
-        form.value.imageUrl = vessel.imageUrl || ICON_LIST[0]?.url || ''
-        customUrl.value = (!isBuiltinIcon && vessel.imageUrl) ? vessel.imageUrl : ''
+        // Resolve a stored key to the current build-time URL for the picker
+        const resolvedUrl = ICON_URL_MAP[vessel.imageUrl]
+        const isBuiltinKey = !!resolvedUrl
+        form.value.imageUrl = isBuiltinKey ? resolvedUrl : (vessel.imageUrl || ICON_LIST[0]?.url || '')
+        customUrl.value = (!isBuiltinKey && vessel.imageUrl) ? vessel.imageUrl : ''
         form.value.keeping = vessel.keeping || ''
         form.value.vesselNote = vessel.vesselNote || ''
-        form.value.beastId = vessel.beastId || ''
+        // Use _resolvedBeastId (template ID) when present; fall back to raw beastId for legacy data
+        form.value.beastId = ('_resolvedBeastId' in vessel ? (vessel._resolvedBeastId ?? '') : (vessel.beastId ?? ''))
         form.value.friendship = vessel.friendship ?? 1
     },
     { immediate: true }
@@ -214,11 +218,12 @@ function onCustomUrlInput() {
     form.value.imageUrl = customUrl.value.trim() || ''
 }
 
-// Save
-
+// Save the icon KEY for built-in icons (stable across builds/environments),
+// or the raw URL for custom images.
 function handleSave() {
+    const keyForUrl = Object.entries(ICON_URL_MAP).find(([, v]) => v === form.value.imageUrl)?.[0]
     emit('save', {
-        imageUrl: form.value.imageUrl,
+        imageUrl: keyForUrl ?? form.value.imageUrl ?? '',
         keeping: form.value.keeping || null,
         vesselNote: form.value.vesselNote.trim(),
         beastId: form.value.beastId || null,

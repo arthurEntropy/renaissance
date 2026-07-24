@@ -1,5 +1,5 @@
 <template>
-    <BaseToken v-if="resolvedBeast" :entity="resolvedBeast" :imageSrc="optimizedBeastArt" variant="beast"
+    <BaseToken v-if="resolvedBeast" :entity="resolvedBeast" :imageSrc="optimizedBeastArt" :variant="variant"
         :alwaysShowName="alwaysShowName" :showRemoveFab="showRemoveFab" :isInactive="isInactive" @click="handleClick"
         @remove="handleRemove" />
 </template>
@@ -19,6 +19,7 @@ const props = defineProps({
     showRemoveFab: { type: Boolean, default: false },
     disableDefaultClick: { type: Boolean, default: false },
     isInactive: { type: Boolean, default: false },
+    variant: { type: String, default: 'beast' },
 })
 
 const emit = defineEmits(['remove', 'click'])

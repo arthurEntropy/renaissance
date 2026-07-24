@@ -2,67 +2,19 @@
   "id": "f3c8c845-59f1-4481-bafb-2f1e0d5da452",
   "isDeleted": false,
   "createdAt": "2026-07-10T14:12:23.517Z",
-  "lastModified": "2026-07-21T16:02:28.878Z",
+  "lastModified": "2026-07-24T02:47:32.504Z",
   "campaignId": "c9ddeab9-d180-4fc5-869f-e64239bc3376",
   "name": "Night Swamp",
-  "backgroundImage": {
-    "url": "https://cdn.midjourney.com/8b923175-b29b-44e8-8e7a-c137c893b579/0_0.png",
-    "naturalWidth": 2912,
-    "naturalHeight": 1632
-  },
-  "items": [
-    {
-      "id": "2a1e0939-9901-4dc8-9049-406dcaf05732",
-      "characterId": "16b72ab7-e855-420f-93f2-c94bce03f8b1",
-      "isBeast": false,
-      "name": "Jasz",
-      "portraitUrl": "https://cdn.midjourney.com/80c4260c-e4da-43ac-86cc-33d5b8fb473c/0_0.png",
-      "size": 1,
-      "x": 2520,
-      "y": 1200,
-      "zIndex": 20
-    },
-    {
-      "id": "50be54e9-4a7a-4dfa-95f8-c69feb02bf9d",
-      "characterId": "c4995e1d-ce28-489e-937b-b48872f10b15",
-      "isBeast": false,
-      "name": "Futt",
-      "portraitUrl": "https://cdn.midjourney.com/e216b4eb-7477-4c60-a113-ddf66def313d/0_2.png",
-      "size": 1,
-      "x": 2460,
-      "y": 1320,
-      "zIndex": 17
-    },
-    {
-      "id": "0044e250-8553-46f9-94af-bedde03b1224",
-      "characterId": "6a9c30a0-25ce-4dcc-99bd-06d5c226d1c3",
-      "isBeast": true,
-      "name": "Mycoderm A",
-      "portraitUrl": "https://cdn.midjourney.com/1981f3be-8de5-4457-9d0f-da52943eb68c/0_0.png",
-      "size": 3,
-      "x": 1980,
-      "y": 900,
-      "zIndex": 21
-    }
-  ],
+  "backgroundImage": null,
+  "items": [],
   "transform": {
-    "scale": 0.9276213873091768,
-    "x": -778.7730102069618,
-    "y": -485.6042973634562
+    "scale": 1.08,
+    "x": -74.16000000000008,
+    "y": -49.680000000000064
   },
-  "gridSize": 60,
+  "gridSize": 40,
   "gridColor": "#ffffff",
   "gridOpacity": 0.06,
   "showPaths": true,
-  "radiusAreas": [
-    {
-      "id": "875efcdb-db28-45fc-8d59-18399c6b79ca",
-      "originX": 2070,
-      "originY": 990,
-      "radiusFeet": 25,
-      "color": "#bb00ff",
-      "label": "Spore Cloud",
-      "tokenId": "6a9c30a0-25ce-4dcc-99bd-06d5c226d1c3"
-    }
-  ]
+  "radiusAreas": []
 }

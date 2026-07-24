@@ -412,10 +412,16 @@ export const useCampaignStore = defineStore('campaigns', () => {
     }
     try {
       const updated = await CampaignService.updateTabletop(campaignId, tabletopId, updates)
-      if (idx !== -1) tabletops.value[idx] = updated
+      // Re-find the index after the async call: a concurrent fetchTabletops may have
+      // replaced the array, making the original idx stale.
+      const freshIdx = tabletops.value.findIndex((t) => t.id === tabletopId)
+      if (freshIdx !== -1) tabletops.value[freshIdx] = updated
       return updated
     } catch (err) {
-      if (original && idx !== -1) tabletops.value[idx] = original
+      if (original) {
+        const rollbackIdx = tabletops.value.findIndex((t) => t.id === tabletopId)
+        if (rollbackIdx !== -1) tabletops.value[rollbackIdx] = original
+      }
       console.error('Error updating tabletop:', err)
       throw err
     }

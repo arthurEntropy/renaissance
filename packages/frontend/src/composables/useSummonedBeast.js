@@ -15,9 +15,8 @@ export function useSummonedBeast(characterId = null) {
     )
     if (!summonedVessel) return null
 
-    return charactersStore.filteredBeasts.find(
-      (b) => b.id === summonedVessel.beastId
-    ) ?? null
+    // beastId may reference a beastInstance (new) or a beast template (legacy)
+    return charactersStore.getById(summonedVessel.beastId) ?? null
   }
 
   const summonedBeast = computed(() => {

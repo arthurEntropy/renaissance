@@ -86,7 +86,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, nextTick } from 'vue'
 import { Bars3Icon } from '@heroicons/vue/24/outline'
 import draggable from 'vuedraggable'
 import { useCharactersStore } from '@/stores/charactersStore'
@@ -220,7 +220,7 @@ const closeModal = () => {
     emit('close')
 }
 
-const saveChanges = () => {
+const saveChanges = async () => {
     const char = charactersStore.selectedCharacter
     if (!char) return
 
@@ -247,6 +247,7 @@ const saveChanges = () => {
                 }
             }
         }
+        pendingConvertToPC.value = false
     } else if (pendingConvertToNPCCampaignId.value && isPlayerChar.value) {
         char.characterType = 'npc'
         char.campaignId = pendingConvertToNPCCampaignId.value
@@ -259,8 +260,11 @@ const saveChanges = () => {
                 }
             })
         })
+        pendingConvertToNPCCampaignId.value = ''
     }
 
+    // Allow reactivity to settle so the pending-conversion UI hides before modal closes
+    await nextTick()
     closeModal()
 }
 

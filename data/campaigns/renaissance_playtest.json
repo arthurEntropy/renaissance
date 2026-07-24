@@ -2,7 +2,7 @@
   "id": "c9ddeab9-d180-4fc5-869f-e64239bc3376",
   "isDeleted": false,
   "createdAt": "2026-05-18T17:56:57.471Z",
-  "lastModified": "2026-07-21T14:34:26.934Z",
+  "lastModified": "2026-07-24T18:28:53.998Z",
   "slug": "renaissance-playtest",
   "name": "Renaissance Playtest",
   "description": "<p>This is a test campaign that I'm using to playtest the game and app.</p>",
@@ -15,7 +15,16 @@
       "status": "accepted",
       "characterIds": [
         "224ddaf7-26fc-4344-b922-6fd3853435f1",
-        "b146fe7d-e513-4321-a466-0e785656725c"
+        "b146fe7d-e513-4321-a466-0e785656725c",
+        "33b032fb-a135-43a7-a704-967f4eba5d82"
+      ]
+    },
+    {
+      "userId": "yMwXRvIrCwWwG4NRC4HBjN2BrOM2",
+      "role": "player",
+      "status": "accepted",
+      "characterIds": [
+        "7e9a0db3-3532-4f6c-83eb-024e724a96ff"
       ]
     }
   ],
@@ -93,81 +102,7 @@
     "hiddenNpcIds": [],
     "inactivePlayerCharacterIds": []
   },
-  "combatGroups": [
-    {
-      "id": "group-1783526479296-r4csi9",
-      "name": "Spore Bois",
-      "combatants": [
-        {
-          "id": "beast:6a9c30a0-25ce-4dcc-99bd-06d5c226d1c3",
-          "type": "beast",
-          "characterId": "6a9c30a0-25ce-4dcc-99bd-06d5c226d1c3"
-        },
-        {
-          "id": "beast:a675e17d-bf53-4ff3-937a-242aea3d0e7a",
-          "type": "beast",
-          "characterId": "a675e17d-bf53-4ff3-937a-242aea3d0e7a"
-        },
-        {
-          "id": "beast:3e1ff0fd-659b-43d7-94df-bd3269a60b36",
-          "type": "beast",
-          "characterId": "3e1ff0fd-659b-43d7-94df-bd3269a60b36"
-        },
-        {
-          "id": "beast:93866275-3365-4a80-9a11-b8185884faab",
-          "type": "beast",
-          "characterId": "93866275-3365-4a80-9a11-b8185884faab"
-        }
-      ]
-    },
-    {
-      "id": "group-1783532553201-zx2h3z",
-      "name": "Ragtaggers",
-      "combatants": [
-        {
-          "id": "npc:b4417462-600b-4571-b2ad-a572ad01733f",
-          "type": "npc",
-          "characterId": "b4417462-600b-4571-b2ad-a572ad01733f"
-        },
-        {
-          "id": "npc:2fb7cd7a-91fc-4f2b-a4b4-8c815eddcea0",
-          "type": "npc",
-          "characterId": "2fb7cd7a-91fc-4f2b-a4b4-8c815eddcea0"
-        },
-        {
-          "id": "npc:b0dfc21f-b910-4a42-aca0-ad497a099139",
-          "type": "npc",
-          "characterId": "b0dfc21f-b910-4a42-aca0-ad497a099139"
-        },
-        {
-          "id": "npc:dd4ad3a1-0d8b-4e05-8548-ee81bbb61c29",
-          "type": "npc",
-          "characterId": "dd4ad3a1-0d8b-4e05-8548-ee81bbb61c29"
-        }
-      ]
-    },
-    {
-      "id": "group-1784643249714-pp0y3y",
-      "name": "Jungle Crew",
-      "combatants": [
-        {
-          "id": "npc:cb66fcb1-7ffc-449a-a969-233cae93be32",
-          "type": "npc",
-          "characterId": "cb66fcb1-7ffc-449a-a969-233cae93be32"
-        },
-        {
-          "id": "npc:c4995e1d-ce28-489e-937b-b48872f10b15",
-          "type": "npc",
-          "characterId": "c4995e1d-ce28-489e-937b-b48872f10b15"
-        },
-        {
-          "id": "npc:16b72ab7-e855-420f-93f2-c94bce03f8b1",
-          "type": "npc",
-          "characterId": "16b72ab7-e855-420f-93f2-c94bce03f8b1"
-        }
-      ]
-    }
-  ],
+  "combatGroups": [],
   "tabletopIds": [
     "6ff2ebe8-6b65-40f0-850b-9845a9fd9a62",
     "f3c8c845-59f1-4481-bafb-2f1e0d5da452",
@@ -175,5 +110,5 @@
     "e0b22160-6efe-45f7-9360-8c20412e617e",
     "72c67c75-1353-4abf-8177-968723206d18"
   ],
-  "activeTabletopId": "f3c8c845-59f1-4481-bafb-2f1e0d5da452"
+  "activeTabletopId": null
 }

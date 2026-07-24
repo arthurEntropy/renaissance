@@ -2,7 +2,7 @@
   "id": "b4417462-600b-4571-b2ad-a572ad01733f",
   "isDeleted": false,
   "createdAt": "2026-07-08T12:49:04.391Z",
-  "lastModified": "2026-07-17T21:20:43.491Z",
+  "lastModified": "2026-07-24T18:23:16.448Z",
   "characterType": "npc",
   "name": "Damla",
   "featuredArtUrls": [
@@ -269,19 +269,21 @@
   },
   "rollStats": {
     "skillChecks": {
-      "attempts": 47,
-      "successes": 39,
-      "totalSum": 733,
+      "attempts": 57,
+      "successes": 48,
+      "totalSum": 871,
       "bestTotal": 31,
-      "hardestSuccess": 11,
+      "hardestSuccess": 24,
       "bySkill": {
-        "Dexterity": 35,
+        "Dexterity": 42,
         "Fortitude": 2,
-        "Strength": 10
+        "Strength": 10,
+        "Courtesy": 2,
+        "Awareness": 1
       },
-      "solCount": 7,
+      "solCount": 8,
       "morteCount": 3,
-      "successCount": 14
+      "successCount": 17
     },
     "contests": {
       "engagement": {
@@ -297,7 +299,7 @@
     },
     "xpEarned": 0,
     "xpSpent": 0,
-    "treasureEarned": 0,
+    "treasureEarned": 120,
     "treasureSpent": 0
   },
   "biomeTags": [],
@@ -336,7 +338,7 @@
   "keeping": "4d5e6f7a-8b9c-4d0e-1f2a-3b4c5d6e7f8a",
   "treasure": 12,
   "xp": 0,
-  "updatedAt": "2026-07-17T21:20:43.490Z",
+  "updatedAt": "2026-07-24T18:23:16.448Z",
   "description": "",
   "size": 0,
   "reach": 0,

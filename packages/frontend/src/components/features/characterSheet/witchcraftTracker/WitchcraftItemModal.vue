@@ -155,15 +155,20 @@ const isCustomSelected = computed(() =>
     form.value.imageUrl === customUrl.value
 )
 
-// Seed form from existing item when editing
+// Seed form from existing item when editing.
+// imageUrl stored in data is either an icon KEY ("candle", "hat") or a custom https:// URL.
 watch(
     () => props.item,
     (item) => {
         if (!item) return
-        const isBuiltinIcon = Object.values(ICON_URL_MAP).includes(item.imageUrl)
-        form.value.imageUrl = item.imageUrl || ''
-        if (!isBuiltinIcon && item.imageUrl) {
+        // Resolve a stored key to the current build-time URL for the picker
+        const resolvedUrl = ICON_URL_MAP[item.imageUrl]
+        const isBuiltinKey = !!resolvedUrl
+        form.value.imageUrl = isBuiltinKey ? resolvedUrl : (item.imageUrl || '')
+        if (!isBuiltinKey && item.imageUrl) {
             customUrl.value = item.imageUrl
+        } else {
+            customUrl.value = ''
         }
         form.value.givenTo = item.givenTo || ''
         form.value.notes = item.notes || ''
@@ -187,9 +192,12 @@ function onCustomUrlInput() {
     }
 }
 
+// Save the icon KEY for built-in icons (stable across builds/environments),
+// or the raw URL for custom images.
 function handleSave() {
+    const keyForUrl = Object.entries(ICON_URL_MAP).find(([, v]) => v === form.value.imageUrl)?.[0]
     const base = {
-        imageUrl: form.value.imageUrl || '',
+        imageUrl: keyForUrl ?? form.value.imageUrl ?? '',
         givenTo: form.value.givenTo.trim(),
         notes: form.value.notes.trim(),
     }

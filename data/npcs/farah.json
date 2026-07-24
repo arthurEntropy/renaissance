@@ -2,7 +2,7 @@
   "id": "cb66fcb1-7ffc-449a-a969-233cae93be32",
   "isDeleted": false,
   "createdAt": "2026-07-21T13:01:53.858Z",
-  "lastModified": "2026-07-21T19:04:25.781Z",
+  "lastModified": "2026-07-24T17:57:48.384Z",
   "characterType": "npc",
   "name": "Farah",
   "featuredArtUrls": [
@@ -167,42 +167,55 @@
   },
   "engagementDice": [],
   "engagementSuccesses": [],
-  "engagementDiceStatuses": {},
+  "engagementDiceStatuses": {
+    "user_added_0": "expended",
+    "user_added_1": "expended"
+  },
   "equipment": [
     {
-      "id": "d1c75d51-ae5b-496d-b25d-d44c5437d0d6",
+      "id": "659dd472-b4bb-4cdd-8790-ac1d535a9295",
       "quantity": 1,
       "isCarried": true,
-      "isWielding": true
+      "isWielding": true,
+      "columnIndex": 0,
+      "collapsed": true
     },
     {
       "id": "3d63f295-8941-4ffe-8f4c-d4de52da87a4",
       "quantity": 1,
       "isCarried": true,
-      "isWielding": true
+      "isWielding": true,
+      "columnIndex": 0,
+      "collapsed": true
     },
     {
       "id": "6bd54a13-d544-4839-bb45-8a8a4c8f9c91",
       "quantity": 1,
       "isCarried": true,
-      "isWielding": true
+      "isWielding": true,
+      "columnIndex": 0,
+      "collapsed": true
+    },
+    {
+      "id": "d1c75d51-ae5b-496d-b25d-d44c5437d0d6",
+      "quantity": 1,
+      "isCarried": true,
+      "isWielding": true,
+      "columnIndex": 0,
+      "collapsed": true
     },
     {
       "id": "084a8e36-537d-4489-bb25-23ba58c4e411",
       "quantity": 1,
       "isCarried": true,
-      "isWielding": false
-    },
-    {
-      "id": "659dd472-b4bb-4cdd-8790-ac1d535a9295",
-      "quantity": 1,
-      "isCarried": true,
-      "isWielding": true
+      "isWielding": false,
+      "columnIndex": 1,
+      "collapsed": false
     }
   ],
   "groupEquipmentBySource": false,
   "groupEquipmentByCustom": false,
-  "equipmentSortOption": "name-asc",
+  "equipmentSortOption": "",
   "equipmentCustomGroups": [],
   "mp": {
     "current": 7,
@@ -275,24 +288,24 @@
     },
     {
       "id": "253c337d-f9e6-4f4e-a37c-88f87deb8d26",
-      "collapsed": true,
+      "collapsed": false,
       "showImprovements": false,
-      "showSuccesses": false,
+      "showSuccesses": true,
       "isActive": false,
       "columnIndex": 2
     },
     {
       "id": "8651d1f3-0c22-4d8a-8942-647630191628",
-      "collapsed": true,
-      "showImprovements": false,
+      "collapsed": false,
+      "showImprovements": true,
       "showSuccesses": false,
       "isActive": false,
       "columnIndex": 2
     },
     {
       "id": "20ce2193-40ba-4b19-a995-bcd526a9adca",
-      "collapsed": true,
-      "showImprovements": false,
+      "collapsed": false,
+      "showImprovements": true,
       "showSuccesses": false,
       "isActive": false,
       "columnIndex": 2
@@ -312,15 +325,16 @@
   },
   "rollStats": {
     "skillChecks": {
-      "attempts": 16,
-      "successes": 14,
-      "totalSum": 158,
+      "attempts": 19,
+      "successes": 17,
+      "totalSum": 172,
       "bestTotal": 16,
       "hardestSuccess": 5,
       "bySkill": {
         "Fortitude": 1,
         "Spirit": 1,
-        "Craft": 14
+        "Craft": 14,
+        "Dexterity": 3
       },
       "solCount": 0,
       "morteCount": 2,
@@ -329,7 +343,7 @@
     "contests": {
       "engagement": {
         "wins": 0,
-        "losses": 0,
+        "losses": 6,
         "draws": 0
       },
       "contest": {
@@ -338,9 +352,9 @@
         "draws": 0
       }
     },
-    "xpEarned": 5,
+    "xpEarned": 45,
     "xpSpent": 2,
-    "treasureEarned": 45,
+    "treasureEarned": 145,
     "treasureSpent": 2
   },
   "biomeTags": [],
@@ -381,6 +395,14 @@
       "notes": "",
       "abilityId": "253c337d-f9e6-4f4e-a37c-88f87deb8d26",
       "isTalisman": false
+    },
+    {
+      "id": "78af48ef-e4e0-4734-98e7-a38eb0a596be",
+      "imageUrl": "/assets/olive-Pq2i8_8q.png",
+      "givenTo": "",
+      "notes": "",
+      "abilityId": "253c337d-f9e6-4f4e-a37c-88f87deb8d26",
+      "isTalisman": true
     }
   ],
   "summonerVessels": [],
@@ -412,9 +434,12 @@
   "keeping": "4d5e6f7a-8b9c-4d0e-1f2a-3b4c5d6e7f8a",
   "treasure": 10,
   "xp": 4,
-  "updatedAt": "2026-07-21T19:04:25.781Z",
+  "updatedAt": "2026-07-24T17:57:48.384Z",
   "description": "",
   "size": 0,
   "reach": 0,
-  "featuredArtUrl": "https://cdn.midjourney.com/39a95998-1f4a-4282-a955-4c4f19b4fb51/0_0.png"
+  "featuredArtUrl": "https://cdn.midjourney.com/39a95998-1f4a-4282-a955-4c4f19b4fb51/0_0.png",
+  "witchFamiliar": {
+    "characterId": "2e1639a3-f70d-47b9-a64b-9d1f7fd515d9"
+  }
 }

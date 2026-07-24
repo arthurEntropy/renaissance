@@ -1,6 +1,9 @@
 <template>
     <div v-if="entity" class="character-token" :class="{
         'character-token--beast': variant === 'beast',
+        'character-token--npc': variant === 'npc',
+        'character-token--familiar': variant === 'familiar',
+        'character-token--summoned': variant === 'summoned',
         'character-token--inactive': isInactive,
         'name-always-visible': alwaysShowName,
         'character-token--square': square,
@@ -22,7 +25,7 @@ import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 defineProps({
     entity: { type: Object, required: true },
     imageSrc: { type: String, default: null },
-    /** 'character' uses --color-primary border; 'beast' uses --color-accent-cyan border */
+    /** 'character' (PC) uses --color-token-border-pc; 'npc' uses --color-token-border-npc; 'beast' uses --color-token-border-beast; 'familiar' uses --color-token-border-familiar; 'summoned' uses --color-token-border-summoned */
     variant: { type: String, default: 'character' },
     alwaysShowName: { type: Boolean, default: false },
     showRemoveFab: { type: Boolean, default: false },
@@ -58,13 +61,25 @@ defineEmits(['click', 'remove'])
     height: 50px;
     border-radius: 50%;
     overflow: hidden;
-    border: 3px solid var(--color-primary);
+    border: 3px solid var(--color-token-border-pc);
     box-shadow: var(--shadow-elevation-md);
     transition: box-shadow var(--transition-normal);
 }
 
+.character-token--npc .token-portrait {
+    border-color: var(--color-token-border-npc);
+}
+
 .character-token--beast .token-portrait {
-    border-color: var(--color-accent-cyan);
+    border-color: var(--color-token-border-beast);
+}
+
+.character-token--familiar .token-portrait {
+    border-color: var(--color-token-border-familiar);
+}
+
+.character-token--summoned .token-portrait {
+    border-color: var(--color-token-border-summoned);
 }
 
 .character-token--inactive .token-portrait {

@@ -274,6 +274,11 @@ onMounted(async () => {
       const conceptToOpen = findConceptBySlug(props.concepts, route.params.id)
       if (conceptToOpen) {
         openConceptDetail(conceptToOpen)
+      } else if (props.useExternalModal && props.selectedItem) {
+        // No matching concept in the list, but an external modal manages its own
+        // selection (e.g. a beastInstance opened from another sheet). Just reveal
+        // the panel so the external modal can render its pre-selected character.
+        showConceptDetail.value = true
       }
     }
     // If sticky selection is enabled and there's already a selected item,
@@ -299,6 +304,10 @@ watch(() => route.params.id, (newId, oldId) => {
       if (conceptToOpen) {
         emit('select', conceptToOpen)
         showConceptDetail.value = true
+      } else if (props.useExternalModal) {
+        // No matching concept — allow the external modal to show its
+        // pre-selected character (e.g. a beastInstance).
+        showConceptDetail.value = true
       }
     } else {
       // No ID in route, close the modal
@@ -315,7 +324,12 @@ watch(() => props.concepts, (newConcepts) => {
   if (newConcepts.length > 0 && !showConceptDetail.value) {
     if (route.params.id) {
       const conceptToOpen = findConceptBySlug(newConcepts, route.params.id)
-      if (conceptToOpen) openConceptDetail(conceptToOpen)
+      if (conceptToOpen) {
+        openConceptDetail(conceptToOpen)
+      } else if (props.useExternalModal && props.selectedItem) {
+        // External modal with a pre-selected character that isn't in the list.
+        showConceptDetail.value = true
+      }
     } else if (props.stickySelection && props.selectedItem && !props.useExternalModal) {
       const concept = newConcepts.find(c => c.id === props.selectedItem.id)
       if (concept) openConceptDetail(concept)

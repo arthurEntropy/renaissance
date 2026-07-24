@@ -6,14 +6,13 @@
                     Remove <strong>{{ itemName }}</strong>?
                 </p>
                 <p v-if="cost !== null && cost > 0" class="refund-line">
-                    <template v-if="currencyLabel === 'Treasure'">
-                        Regain <strong>{{ cost }} <img :src="keepingIcon" alt="treasure"
-                                class="currency-icon" /></strong>? (current: {{ characterBalance }} <img
-                            :src="keepingIcon" alt="treasure" class="currency-icon" />)
-                    </template>
-                    <template v-else>
-                        Regain <strong>{{ cost }} {{ currencyLabel }}</strong>? (current: {{ characterBalance }})
-                    </template>
+                    <strong>{{ characterBalance }}</strong><template v-if="currencyLabel === 'Treasure'"> <img
+                            :src="keepingIcon" alt="treasure" class="currency-icon" /></template><template v-else> {{
+                                currencyLabel }}</template>
+                    <ArrowLongRightIcon class="balance-arrow-icon" />
+                    <strong>{{ characterBalance + cost }}</strong><template v-if="currencyLabel === 'Treasure'"> <img
+                            :src="keepingIcon" alt="treasure" class="currency-icon" /></template><template v-else> {{
+                                currencyLabel }}</template>
                 </p>
             </div>
             <Transition name="fade">
@@ -40,6 +39,7 @@
 
 <script setup>
 import { ref } from 'vue'
+import { ArrowLongRightIcon } from '@heroicons/vue/24/outline'
 import BaseModal from './BaseModal.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import keepingIcon from '@/assets/icons/keeping/keeping.png'
@@ -112,6 +112,17 @@ function handleRemoveNoRefund() {
     font-size: var(--font-size-14);
     color: var(--color-text-secondary);
     margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-xs);
+    flex-wrap: wrap;
+}
+
+.balance-arrow-icon {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
 }
 
 .removed-confirmation {
@@ -150,6 +161,8 @@ function handleRemoveNoRefund() {
     vertical-align: middle;
     display: inline;
     margin-left: 1px;
+    position: relative;
+    top: -1px;
     filter: invert(1);
 }
 

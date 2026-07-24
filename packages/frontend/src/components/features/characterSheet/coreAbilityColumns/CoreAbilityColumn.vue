@@ -23,10 +23,7 @@
 
     <SkillCheckModal v-if="skillCheckModalOpen && character" :character="character" :selectedSkillKey="selectedSkillKey"
       :defaultDifficulty="rollsStore.lastDifficulty" @close="skillCheckModalOpen = false"
-      @update-difficulty="rollsStore.setLastDifficulty" @start-contest="handleStartContest" />
-
-    <ContestModal v-if="contestModalOpen && character" :character="character"
-      :initial-session-config="contestSessionConfig" @close="contestModalOpen = false" />
+      @update-difficulty="rollsStore.setLastDifficulty" />
   </CharacterSheetSection>
 </template>
 
@@ -46,7 +43,6 @@ import CoreAbilityHeader from './CoreAbilityHeader.vue'
 import SkillRow from './SkillRow.vue'
 import StatRow from './StatRow.vue'
 import SkillCheckModal from '@/components/features/characterSheet/modals/SkillCheckModal.vue'
-import ContestModal from '@/components/features/characterSheet/rollModal/ContestModal.vue'
 import { findSkillById, getSkillId } from '@/utils/characterKeyUtils'
 
 const props = defineProps({
@@ -248,19 +244,11 @@ const handleFavoredStatusUpdate = (skillKey, { isFavored, isIllFavored }) => {
 }
 
 const skillCheckModalOpen = ref(false)
-const contestModalOpen = ref(false)
 const selectedSkillKey = ref('')
-const contestSessionConfig = ref(null)
 
 const openSkillCheckModal = (skillKey) => {
   selectedSkillKey.value = skillKey
   skillCheckModalOpen.value = true
-}
-
-const handleStartContest = (config) => {
-  skillCheckModalOpen.value = false
-  contestSessionConfig.value = config
-  contestModalOpen.value = true
 }
 </script>
 

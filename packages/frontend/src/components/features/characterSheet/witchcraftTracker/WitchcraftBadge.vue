@@ -21,7 +21,7 @@
 
         <!-- Art area -->
         <div class="badge__art" :class="{ 'badge__art--custom': isCustomImage }">
-            <img v-if="item.imageUrl" :src="item.imageUrl" class="badge__art-img"
+            <img v-if="resolvedImageUrl" :src="resolvedImageUrl" class="badge__art-img"
                 :class="{ 'badge__art-img--custom': isCustomImage }" alt="" />
             <div v-else class="badge__art-placeholder">
                 <SparklesIcon class="badge__art-placeholder-icon" />
@@ -61,6 +61,36 @@ import { useSourcesStore } from '@/stores/sourcesStore'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 
+// Static icon imports — must match WitchcraftItemModal.vue so keys resolve correctly
+import beadsIcon from '@/assets/icons/witch/beads.png'
+import billiardIcon from '@/assets/icons/witch/billiard.png'
+import boneIcon from '@/assets/icons/witch/bone.png'
+import bookIcon from '@/assets/icons/witch/book.png'
+import bowIcon from '@/assets/icons/witch/bow.png'
+import braceletIcon from '@/assets/icons/witch/bracelet.png'
+import breadIcon from '@/assets/icons/witch/bread.png'
+import cakeIcon from '@/assets/icons/witch/cake.png'
+import candleIcon from '@/assets/icons/witch/candle.png'
+import carrotIcon from '@/assets/icons/witch/carrot.png'
+import dumplingIcon from '@/assets/icons/witch/dumpling.png'
+import hatIcon from '@/assets/icons/witch/hat.png'
+import jeweleryIcon from '@/assets/icons/witch/jewelery.png'
+import necklaceIcon from '@/assets/icons/witch/necklace.png'
+import oliveIcon from '@/assets/icons/witch/olive.png'
+import potionIcon from '@/assets/icons/witch/potion.png'
+import scarfIcon from '@/assets/icons/witch/scarf.png'
+import stoneIcon from '@/assets/icons/witch/stone.png'
+import winkleIcon from '@/assets/icons/witch/winkle.png'
+import woodIcon from '@/assets/icons/witch/wood.png'
+
+const ICON_URL_MAP = {
+    beads: beadsIcon, billiard: billiardIcon, bone: boneIcon, book: bookIcon, bow: bowIcon,
+    bracelet: braceletIcon, bread: breadIcon, cake: cakeIcon, candle: candleIcon,
+    carrot: carrotIcon, dumpling: dumplingIcon, hat: hatIcon, jewelery: jeweleryIcon,
+    necklace: necklaceIcon, olive: oliveIcon, potion: potionIcon, scarf: scarfIcon,
+    stone: stoneIcon, winkle: winkleIcon, wood: woodIcon,
+}
+
 const props = defineProps({
     type: {
         type: String,
@@ -87,7 +117,16 @@ const emit = defineEmits(['add', 'edit', 'remove'])
 const cardPreview = useCardPreview()
 const sourcesStore = useSourcesStore()
 
-// Built-in icons are Vite-resolved asset paths (no protocol). Custom URLs start with http(s)://
+// Resolve stored imageUrl: may be an icon KEY (stable), a legacy hashed asset path,
+// or a custom https:// URL.
+const resolvedImageUrl = computed(() => {
+    const v = props.item?.imageUrl
+    if (!v) return null
+    if (/^https?:\/\//i.test(v)) return v          // custom image URL
+    return ICON_URL_MAP[v] ?? null                  // icon key → build-time URL
+})
+
+// Custom image check uses the raw stored value (key = built-in, http = custom)
 const isCustomImage = computed(() => /^https?:\/\//i.test(props.item?.imageUrl ?? ''))
 
 function spellChipFontSize(name = '') {

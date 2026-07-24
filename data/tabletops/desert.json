@@ -2,7 +2,7 @@
   "id": "ac32f037-8649-4366-b4d0-72acba0d32df",
   "isDeleted": false,
   "createdAt": "2026-07-10T14:13:23.614Z",
-  "lastModified": "2026-07-21T12:49:21.375Z",
+  "lastModified": "2026-07-24T18:28:17.994Z",
   "campaignId": "c9ddeab9-d180-4fc5-869f-e64239bc3376",
   "name": "Desert",
   "backgroundImage": {
@@ -10,66 +10,125 @@
     "naturalWidth": 2912,
     "naturalHeight": 1632
   },
-  "items": [
-    {
-      "id": "b94bd90a-ce55-4331-ae29-0834ed09afa6",
-      "characterId": "b4417462-600b-4571-b2ad-a572ad01733f",
-      "isBeast": false,
-      "name": "Damla",
-      "portraitUrl": "https://cdn.midjourney.com/2ef0de1a-3306-441c-9f5e-0899dcced474/0_0.png",
-      "size": 1,
-      "x": 1200,
-      "y": 660,
-      "zIndex": 31
-    },
-    {
-      "id": "66f02f2c-76a8-4e1c-8ecf-5466a2489815",
-      "characterId": "93866275-3365-4a80-9a11-b8185884faab",
-      "isBeast": true,
-      "name": "Spore Hound C",
-      "portraitUrl": "https://cdn.midjourney.com/39ad5992-8dc0-48f7-9e24-e9633e4377ae/0_1.png",
-      "size": 1,
-      "x": 1560,
-      "y": 960,
-      "zIndex": 33
-    }
-  ],
+  "items": [],
   "transform": {
-    "scale": 0.43056895788811766,
-    "x": 313.03982469074646,
-    "y": 194.34255786359938
+    "scale": 0.6832588235294107,
+    "x": -103.76451154048618,
+    "y": -16.360310443508126
   },
   "gridSize": 60,
   "gridColor": "#000000",
   "gridOpacity": 0.2,
   "showPaths": true,
-  "radiusAreas": [
+  "radiusAreas": [],
+  "rollLog": [
     {
-      "id": "f85fe8b6-88e2-4de2-a0e9-04c4e4cd2a15",
-      "originX": 1230,
-      "originY": 690,
-      "radiusFeet": 50,
-      "color": "#ff0000",
-      "label": "",
-      "tokenId": "b4417462-600b-4571-b2ad-a572ad01733f"
+      "id": "b4417462-600b-4571-b2ad-a572ad01733f_1784917396181_j6vi",
+      "timestamp": 1784917396181,
+      "characterId": "b4417462-600b-4571-b2ad-a572ad01733f",
+      "characterName": "Damla",
+      "portraitUrl": "https://cdn.midjourney.com/2ef0de1a-3306-441c-9f5e-0899dcced474/0_0.png",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "skill_check",
+      "skillName": "Dexterity",
+      "total": 12,
+      "diceTotal": null,
+      "modifier": 0,
+      "success": true,
+      "difficulty": null,
+      "footer": "",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 1,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-1"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 6,
+          "emoji": "✨",
+          "isDropped": false,
+          "rolledMaxValue": true,
+          "cssClass": "df-d6-6"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 4,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-4"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 1,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-1"
+        }
+      ]
     },
     {
-      "id": "b71c4261-377a-4199-96f7-b4ec1f952e96",
-      "originX": 2010,
-      "originY": 990,
-      "radiusFeet": 35,
-      "color": "#0400ff",
-      "label": "",
-      "tokenId": null
-    },
-    {
-      "id": "be58a841-f0ea-491e-bd65-851eeee070c2",
-      "originX": 1590,
-      "originY": 990,
-      "radiusFeet": 25,
-      "color": "#ffffff",
-      "label": "",
-      "tokenId": "93866275-3365-4a80-9a11-b8185884faab"
+      "id": "93866275-3365-4a80-9a11-b8185884faab_1784917443104_rkws",
+      "timestamp": 1784917443104,
+      "characterId": "93866275-3365-4a80-9a11-b8185884faab",
+      "characterName": "Spore Hound C",
+      "portraitUrl": "https://cdn.midjourney.com/39ad5992-8dc0-48f7-9e24-e9633e4377ae/0_1.png",
+      "isNpc": false,
+      "isBeast": true,
+      "type": "skill_check",
+      "skillName": "Strength",
+      "total": 10,
+      "diceTotal": null,
+      "modifier": 0,
+      "success": true,
+      "difficulty": null,
+      "footer": "Troubled",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 1,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-1"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 6,
+          "emoji": "✨",
+          "isDropped": false,
+          "rolledMaxValue": true,
+          "cssClass": "df-d6-6"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 3,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-3"
+        }
+      ]
     }
   ]
 }

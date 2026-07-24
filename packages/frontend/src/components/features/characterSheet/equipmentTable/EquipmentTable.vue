@@ -96,9 +96,10 @@
 
     <!-- Confirm Purchase Modal (from FAB add) -->
     <ConfirmPurchaseModal v-if="showConfirmPurchaseModal && pendingEquipmentToAdd" item-type="equipment"
-      :cost="pendingEquipmentKeepingCost" :character-balance="selectedCharacter?.treasure ?? 0"
-      currency-label="Treasure" @confirm-spend="handleConfirmAddEquipmentWithSpend"
-      @confirm-free="handleConfirmAddEquipmentFree" @close="showConfirmPurchaseModal = false" />
+      :item-name="pendingEquipmentToAdd?.name" :cost="pendingEquipmentKeepingCost"
+      :character-balance="selectedCharacter?.treasure ?? 0" currency-label="Treasure"
+      @confirm-spend="handleConfirmAddEquipmentWithSpend" @confirm-free="handleConfirmAddEquipmentFree"
+      @close="showConfirmPurchaseModal = false" />
 
     <!-- Edit Equipment Modal -->
     <EditEquipmentModal v-if="showEditEquipmentModal" :equipment="equipmentToEdit" @update="saveEditedEquipment"
@@ -125,10 +126,13 @@
       @transferred="handleEquipmentTransferred" />
 
     <!-- Custom/Damage Roll Modal -->
-    <CustomRollModal v-if="showDamageRollModal && damageRollModalConfig && selectedCharacter" title="Damage Roll"
-      :character="selectedCharacter" :initial-dice-counts="damageRollModalConfig.initialDiceCounts"
+    <CustomRollModal v-if="showDamageRollModal && damageRollModalConfig && selectedCharacter"
+      :title="damageRollModalConfig.title ?? 'Damage Roll'" :character="selectedCharacter"
+      :initial-dice-counts="damageRollModalConfig.initialDiceCounts"
       :initial-modifier="damageRollModalConfig.initialModifier" :roll-name="damageRollModalConfig.rollName"
-      :source-name="damageRollModalConfig.sourceName" roll-mode="damage" @close="showDamageRollModal = false" />
+      :source-name="damageRollModalConfig.sourceName" :roll-mode="damageRollModalConfig.rollMode ?? 'damage'"
+      :initial-active-stat-key="damageRollModalConfig.initialActiveStatKey ?? null"
+      @close="showDamageRollModal = false" />
 
   </CharacterSheetSection>
 </template>
@@ -170,11 +174,9 @@ import { useKeepingStore } from '@/stores/keepingStore'
 import { useEquipmentSubtypesStore } from '@/stores/equipmentSubtypesStore'
 import { useEquipmentGradesStore } from '@/stores/equipmentGradesStore'
 import { useConceptsStore } from '@/stores/conceptsStore'
-import { useRollsStore } from '@/stores/rollsStore'
 import { useCampaignStore } from '@/stores/campaignStore'
 import { useAuthStore } from '@/stores/authStore'
 import EngagementSuccessService from '@/services/entities/engagementSuccessService'
-import CustomRollService from '@/services/rolls/customRollService'
 import { RollTypes } from '@/constants/rollTypes'
 import { MESMER_MASK_SUBTYPE_ID } from '@/constants/mesmerConstants'
 import { getModifierStatKey } from '@/utils/characterKeyUtils'
@@ -200,7 +202,6 @@ const equipmentSubtypesStore = useEquipmentSubtypesStore()
 const equipmentGradesStore = useEquipmentGradesStore()
 const keepingStore = useKeepingStore()
 const sourcesStore = useSourcesStore()
-const rollsStore = useRollsStore()
 const conceptsStore = useConceptsStore()
 const campaignStore = useCampaignStore()
 const authStore = useAuthStore()
@@ -480,6 +481,9 @@ const handleDamageRoll = (equipment) => {
     initialModifier: selectedCharacter.value.body || 0,
     rollName: equipment.name || 'Damage',
     sourceName: equipment.name || null,
+    rollMode: 'damage',
+    title: 'Damage Roll',
+    initialActiveStatKey: 'body',
   }
   showDamageRollModal.value = true
 }
@@ -489,22 +493,22 @@ const handleRollLink = (rollData) => {
 
   if (rollData.type === 'skill-check' || rollData.type === 'contest') {
     rollLinkSkill.value = rollData.skill
-    rollLinkRollType.value = rollData.type === 'contest'
-      ? RollTypes.CONTEST
-      : RollTypes.SKILL_CHECK
+    // Contest links open as unopposed (no difficulty)
+    rollLinkRollType.value = rollData.type === 'contest' ? 'unopposed' : RollTypes.SKILL_CHECK
     showSkillCheckModal.value = true
   } else if (rollData.type === 'damage-roll') {
-    // Build initial dice counts for CustomRollModal from the roll link data
     const initialDiceCounts = {}
     rollData.dice.forEach(die => {
       initialDiceCounts[die.sides] = (initialDiceCounts[die.sides] || 0) + die.count
     })
 
     let modifierValue = 0
+    let initialActiveStatKey = null
     if (rollData.modifier) {
       if (rollData.modifier.type === 'stat') {
         const statName = getModifierStatKey(rollData.modifier)
         modifierValue = selectedCharacter.value[statName] || 0
+        initialActiveStatKey = statName || null
       } else if (rollData.modifier.type === 'number') {
         modifierValue = rollData.modifier.value
       }
@@ -515,38 +519,39 @@ const handleRollLink = (rollData) => {
       initialModifier: modifierValue,
       rollName: rollData.linkText || 'Damage',
       sourceName: 'Description',
+      rollMode: 'damage',
+      title: 'Damage Roll',
+      initialActiveStatKey,
     }
     showDamageRollModal.value = true
   } else if (rollData.type === 'custom-roll') {
-    // Transform dice format from [{count, sides}] to [{dieSize}...]
-    const dicePool = []
+    const initialDiceCounts = {}
     rollData.dice.forEach(die => {
-      for (let i = 0; i < die.count; i++) {
-        dicePool.push({ dieSize: die.sides })
-      }
+      initialDiceCounts[die.sides] = (initialDiceCounts[die.sides] || 0) + die.count
     })
 
-    // Calculate modifier value
     let modifierValue = 0
-
+    let initialActiveStatKey = null
     if (rollData.modifier) {
       if (rollData.modifier.type === 'stat') {
         const statName = getModifierStatKey(rollData.modifier)
         modifierValue = selectedCharacter.value[statName] || 0
+        initialActiveStatKey = statName || null
       } else if (rollData.modifier.type === 'number') {
         modifierValue = rollData.modifier.value
       }
     }
 
-    const rollResult = CustomRollService.makeCustomRoll(
-      dicePool,
-      modifierValue,
-      selectedCharacter.value,
-      { label: rollData.linkText }
-    )
-    if (rollResult) {
-      rollsStore.setRoll(rollResult)
+    damageRollModalConfig.value = {
+      initialDiceCounts,
+      initialModifier: modifierValue,
+      rollName: rollData.linkText || 'Custom Roll',
+      sourceName: 'Description',
+      rollMode: 'custom',
+      title: 'Custom Roll',
+      initialActiveStatKey,
     }
+    showDamageRollModal.value = true
   }
 }
 

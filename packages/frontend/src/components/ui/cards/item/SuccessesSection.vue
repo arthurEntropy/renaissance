@@ -12,7 +12,8 @@
 
         <!-- Expandable successes content -->
         <transition name="expand-successes">
-            <div v-if="isExpanded" class="successes-content text-stroke" v-html="safeSuccesses"></div>
+            <div v-if="isExpanded" class="successes-content text-stroke" v-html="safeSuccesses"
+                @click.capture="handleSuccessClick"></div>
         </transition>
     </div>
 </template>
@@ -20,6 +21,7 @@
 <script setup>
 import { computed } from 'vue'
 import { sanitizeHtml } from '@/utils/sanitizeHtml'
+import { autoLinkifyRolls } from '@/utils/autoLinkifyRolls'
 
 const props = defineProps({
     successes: {
@@ -32,10 +34,24 @@ const props = defineProps({
     }
 })
 
-const emit = defineEmits(['update:isExpanded'])
+const emit = defineEmits(['update:isExpanded', 'roll-link'])
 
-// Sanitize successes HTML content
-const safeSuccesses = computed(() => sanitizeHtml(props.successes || ''))
+// Sanitize and linkify successes HTML content
+const safeSuccesses = computed(() => autoLinkifyRolls(sanitizeHtml(props.successes || '')))
+
+function handleSuccessClick(event) {
+    const target = event.target
+    if (target.tagName === 'A' && target.classList.contains('roll-link')) {
+        event.preventDefault()
+        event.stopPropagation()
+        try {
+            const rollData = JSON.parse(target.dataset.rollAction)
+            emit('roll-link', rollData)
+        } catch (err) {
+            console.error('Failed to parse roll action data:', err)
+        }
+    }
+}
 
 // Extract unique emoji from successes content
 const uniqueEmojis = computed(() => {
@@ -58,10 +74,6 @@ const toggleExpanded = () => {
 
 <style scoped>
 @import '@/styles/design-tokens.css';
-
-.successes-section {
-    /* No margin-top since we're inside CardDescription */
-}
 
 .divider-container {
     position: relative;
@@ -123,6 +135,16 @@ const toggleExpanded = () => {
 
 .successes-content :deep(p:first-child) {
     margin-top: 0;
+}
+
+/* Roll links inside successes */
+.successes-content :deep(.roll-link) {
+    color: var(--color-primary);
+    cursor: pointer;
+}
+
+.successes-content :deep(.roll-link:hover) {
+    color: var(--color-accent-gold);
 }
 
 /* Transition animations */

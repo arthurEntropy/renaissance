@@ -3,7 +3,7 @@
 
         <!-- Canvas Container -->
         <div class="canvas-container" :class="{ 'is-panning': isPanning }" :style="canvasCursorStyle"
-            ref="canvasContainerRef" @mousedown="handleContainerMousedown" @dragover="handleDragOver"
+            ref="canvasContainerRef" @mousedown="handleCanvasContainerMousedown" @dragover="handleDragOver"
             @dragleave="handleDragLeave" @drop="handleDrop">
 
             <!-- Grid overlay (always visible, tracks canvas transform) -->
@@ -30,10 +30,25 @@
                 <div v-for="item in canvasItems" :key="item.id" class="canvas-item edit-hover-area"
                     :ref="(el) => registerTokenRef(item.id, el)" :class="{ 'is-dragging': isDragging(item.id) }"
                     :style="{ transform: `translate(${item.x}px, ${item.y}px)`, zIndex: item.zIndex }"
-                    @mousedown="handleTokenMousedown(item, $event)">
+                    @mousedown="(e) => { dismissBubble(item.id); handleTokenMousedown(item, e) }">
                     <TabletopToken :name="item.name" :portrait-url="item.portraitUrl" :is-beast="item.isBeast"
-                        :size="item.size" :grid-size="gridSize" :is-selected="isSelected(item.id)" />
+                        :is-npc="item.isNpc" :size="item.size" :grid-size="gridSize" :is-selected="isSelected(item.id)"
+                        :in-engagement="isCharacterInEngagement(item)" />
+                    <TabletopTokenInfoArea
+                        v-if="singleSelectedToken?.id === item.id && canViewTokenInfo && !activeBubbles[item.id]"
+                        :character="singleSelectedCharacter" :can-edit="canEditTokenInfo"
+                        :is-in-engagement="canSpectateSelectedToken" @expand="openCharacterSheetPopup"
+                        @spectate="openSpectatePopup" @character-saved="onCharacterSaved" />
                 </div>
+
+                <!-- Roll speech bubbles (one per canvas item that has an active roll) -->
+                <TabletopRollBubble v-for="(bubble, itemId) in activeBubbles" :key="itemId" :entry="bubble.entry"
+                    :expanded="bubble.expanded" :canvas-item-x="canvasItemById(itemId)?.x ?? 0"
+                    :canvas-item-y="canvasItemById(itemId)?.y ?? 0"
+                    :token-px="(canvasItemById(itemId)?.size ?? 1) * gridSize"
+                    :is-beast="canvasItemById(itemId)?.isBeast ?? false"
+                    :is-npc="canvasItemById(itemId)?.isNpc ?? false" @toggle-expand="toggleBubbleExpanded(itemId)"
+                    @dismiss="dismissBubble(itemId)" />
 
                 <!-- Rubber-band selection rect -->
                 <div v-if="isSelecting && selectionRectCanvas" class="selection-rect" :style="{
@@ -48,7 +63,7 @@
                     class="canvas-item canvas-item--ghost"
                     :style="{ transform: `translate(${ghost.x}px, ${ghost.y}px)`, zIndex: 9999 }">
                     <TabletopToken :name="ghost.name" :portrait-url="ghost.portraitUrl" :is-beast="ghost.isBeast"
-                        :size="ghost.size" :grid-size="gridSize" :is-ghost="true" />
+                        :is-npc="ghost.isNpc" :size="ghost.size" :grid-size="gridSize" :is-ghost="true" />
                 </div>
             </div>
 
@@ -66,6 +81,10 @@
             <TabletopRadiusMeasurementOverlay v-if="isRadiusMeasuring && radiusOrigin && radiusCurrent"
                 :origin="radiusOrigin" :current-point="radiusCurrent" :transform="transform" :grid-size="gridSize"
                 :snap-enabled="isShiftHeld" />
+
+            <!-- Roll chatlog (bottom-right corner, above toolbar) -->
+            <TabletopChatlog :roll-log="rollLog" :is-expanded="rollLogExpanded"
+                @update:is-expanded="setRollLogExpanded" />
         </div>
 
         <!-- Bottom Toolbar -->
@@ -79,25 +98,52 @@
             @redo="redo" @set-background="setBackgroundImage" @clear-background="clearBackgroundImage"
             @update-grid-color="setGridColor" @update-grid-opacity="setGridOpacity" @update-show-paths="setShowPaths"
             @toggle-active-tabletop="handleToggleActiveTabletop" @switch-tabletop="handleSwitchTabletop" />
+
+        <!-- Character sheet popup (opened from token info area expand button) -->
+        <!-- Teleport to body so this component never creates a second root node (fragment),
+             which would trigger Vue's "runtime directive on non-element root" warning. -->
+        <Teleport to="body">
+            <CharacterSheetPopup v-if="charSheetPopupOpen && charSheetPopupCharacter"
+                :character="charSheetPopupCharacter" @close="charSheetPopupOpen = false" />
+        </Teleport>
+
+        <!-- Engagement spectate popup (read-only view of another character's engagement) -->
+        <Teleport to="body">
+            <EngagementRollModal v-if="spectatePopupOpen && spectateCharacter && spectateSessionId"
+                :spectator-character="spectateCharacter" :spectator-session-id="spectateSessionId"
+                @close="closeSpectatePopup" />
+        </Teleport>
     </div>
 </template>
 
 <script setup>
-import { computed, onMounted } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useCampaignStore } from '@/stores/campaignStore'
+import { useAuthStore } from '@/stores/authStore'
+import { useCharactersStore } from '@/stores/charactersStore'
 import { useTabletopCanvas } from '@/composables/useTabletopCanvas'
 import TabletopToken from '@/components/features/tabletop/TabletopToken.vue'
 import TabletopToolbar from '@/components/features/tabletop/TabletopToolbar.vue'
 import TabletopMeasurementOverlay from '@/components/features/tabletop/TabletopMeasurementOverlay.vue'
 import TabletopRadiusMeasurementOverlay from '@/components/features/tabletop/TabletopRadiusMeasurementOverlay.vue'
 import TabletopRadiusAreaOverlay from '@/components/features/tabletop/TabletopRadiusAreaOverlay.vue'
+import TabletopTokenInfoArea from '@/components/features/tabletop/TabletopTokenInfoArea.vue'
+import CharacterSheetPopup from '@/components/features/tabletop/CharacterSheetPopup.vue'
+import TabletopChatlog from '@/components/features/tabletop/TabletopChatlog.vue'
+import TabletopRollBubble from '@/components/features/tabletop/TabletopRollBubble.vue'
+import EngagementRollModal from '@/components/features/characterSheet/rollModal/EngagementRollModal.vue'
+import { useTabletopRollLog } from '@/composables/useTabletopRollLog'
+import { useTabletopSync } from '@/composables/useTabletopSync'
+import { useEngagementSession, engagedCharacterIds } from '@/composables/useEngagementSession'
 import radiusCursorUrl from '@/assets/icons/cursor/radius.png'
 import rulerCursorUrl from '@/assets/icons/cursor/ruler.png'
 
 const route = useRoute()
 const router = useRouter()
 const campaignStore = useCampaignStore()
+const authStore = useAuthStore()
+const charactersStore = useCharactersStore()
 
 const campaignSlug = computed(() => route.params.slug)
 const tabletopId = computed(() => route.params.tabletopId)
@@ -126,8 +172,10 @@ const {
     canRedo,
     undo,
     redo,
+    selectedIds,
     isSelected,
     isDragging,
+    isDragActive,
     isPanning,
     isSelecting,
     selectionRectCanvas,
@@ -169,13 +217,79 @@ const {
     bringRadiusAreaToFront,
     clearAll,
     loadState,
-} = useTabletopCanvas(campaignId, tabletopId)
+    saveState,
+    rollLog,
+    rollLogExpanded,
+    setRollLogExpanded,
+    applyExternalState,
+} = useTabletopCanvas(campaignId, tabletopId, {
+    onStateSaved: (snapshot) => broadcastStateUpdate(snapshot),
+})
+
+// ─── Real-time sync ──────────────────────────────────────────────────────────
+// broadcastStateUpdate is called by useTabletopCanvas after each successful save.
+// It must be defined before the canvas composable call above; here we provide a
+// stable reference via a forwarding wrapper so the closure is valid at call time.
+// (useTabletopSync sets up the socket join and returns the actual broadcast fn.)
+let _broadcastStateUpdateRef = null
+function broadcastStateUpdate(snapshot) {
+    _broadcastStateUpdateRef?.(snapshot)
+}
+
+// When the GM changes the active tabletop, redirect all viewers to that tabletop.
+function handleActiveTabletopChanged({ campaignId: cid, activeTabletopId }) {
+    if (!activeTabletopId || !campaignSlug.value) return
+    // Don't redirect if we're already on the active tabletop
+    if (tabletopId.value === activeTabletopId) return
+    // Update local campaign store so the active badge reflects the change
+    const campaign = campaignStore.getBySlug(campaignSlug.value)
+    if (campaign) {
+        campaignStore.upsertCampaign({ ...campaign, activeTabletopId })
+    }
+    router.push(`/campaigns/${campaignSlug.value}/tabletop/${activeTabletopId}`)
+}
+
+const { broadcastStateUpdate: _syncBroadcast, broadcastCharacterUpdate, announceActiveTabletopChanged } = useTabletopSync({
+    tabletopId,
+    campaignId,
+    applyExternalState,
+    onActiveTabletopChanged: handleActiveTabletopChanged,
+})
+_broadcastStateUpdateRef = _syncBroadcast
+
+// ─── Roll log + speech bubbles ───────────────────────────────────────────────
+const {
+    activeBubbles,
+    clearBubbles,
+    toggleBubbleExpanded,
+    dismissBubble,
+} = useTabletopRollLog({
+    canvasItems,
+    rollLog,
+    saveStateFn: saveState,
+    tabletopId,
+    campaignId,
+})
+
+// Look up a canvas item by its canvas-item id (for bubble positioning)
+const canvasItemById = (id) => canvasItems.value.find((i) => i.id === id) ?? null
+
+// Wrap the canvas container mousedown to also clear bubbles on plain canvas clicks.
+// Speech bubble components call @mousedown.stop, so clicks on bubbles won't reach here.
+function handleCanvasContainerMousedown(e) {
+    handleContainerMousedown(e)
+    // Plain left-click on empty canvas (no modifier keys) → clear all speech bubbles
+    if (e.button === 0 && !e.shiftKey && !e.metaKey && !e.ctrlKey) {
+        clearBubbles()
+    }
+}
 
 // Newer areas are later in the array = rendered on top (DOM order stacking)
 const radiusAreasWithZIndex = computed(() => radiusAreas.value)
 
-// Custom cursor: show ruler when shift held, radius when shift+cmd/ctrl held
+// Custom cursor: grabbing while dragging; ruler/radius when shift modifiers held
 const canvasCursorStyle = computed(() => {
+    if (isDragActive.value) return { cursor: 'grabbing' }
     if (isShiftHeld.value && isCmdHeld.value) return { cursor: `url('${radiusCursorUrl}') 8 8, crosshair` }
     if (isShiftHeld.value) return { cursor: `url('${rulerCursorUrl}') 8 8, crosshair` }
     return {}
@@ -186,12 +300,131 @@ const onRadiusAreaSelect = (id) => {
     bringRadiusAreaToFront(id)
 }
 
+// ─── Token info area ────────────────────────────────────────────────────────
+
+// The single selected canvas token (only when exactly one is selected)
+const singleSelectedToken = computed(() => {
+    if (selectedIds.value.size !== 1) return null
+    const [id] = selectedIds.value
+    return canvasItems.value.find(item => item.id === id) ?? null
+})
+
+// The character object backing the single selected token
+const singleSelectedCharacter = computed(() => {
+    const token = singleSelectedToken.value
+    if (!token?.characterId) return null
+    return charactersStore.getById(token.characterId) ?? null
+})
+
+// Whether the current user may see the info area for the single selected token.
+// GMs see all tokens; other users see only their own character, their familiar,
+// and their summoned creature.
+const canViewTokenInfo = computed(() => {
+    if (!singleSelectedToken.value || !singleSelectedCharacter.value) return false
+    if (campaignStore.isGMInActiveCampaign || authStore.isAdmin) return true
+
+    const userId = authStore.user?.uid
+    if (!userId) return false
+
+    const charId = singleSelectedCharacter.value.id
+    for (const myChar of charactersStore.filteredCharacters) {
+        if (myChar.id === charId) return true
+        if (myChar.witchFamiliar?.characterId === charId) return true
+        if (myChar.summonerVessels?.some(v => v.isSummoned && v.beastId === charId)) return true
+    }
+    return false
+})
+
+// Whether the current user may edit stats in the info area
+const canEditTokenInfo = computed(() => {
+    const char = singleSelectedCharacter.value
+    if (!char) return false
+    if (campaignStore.isGMInActiveCampaign || authStore.isAdmin) return true
+    const userId = authStore.user?.uid
+    return !!userId && char.ownerId === userId
+})
+
+// ─── CharacterSheetPopup ────────────────────────────────────────────────────
+const charSheetPopupOpen = ref(false)
+const charSheetPopupCharacter = ref(null)
+
+function openCharacterSheetPopup() {
+    const char = singleSelectedCharacter.value
+    if (!char) return
+    charSheetPopupCharacter.value = char
+    charSheetPopupOpen.value = true
+}
+
+// Close the popup automatically when a roll bubble appears for the character it shows.
+// This covers all roll types (skill checks, damage, etc.) triggered from within the popup.
+watch(activeBubbles, (bubbles) => {
+    if (!charSheetPopupOpen.value || !charSheetPopupCharacter.value) return
+    const charId = charSheetPopupCharacter.value.id
+    const matchingItem = canvasItems.value.find(i => i.characterId === charId)
+    if (matchingItem && bubbles[matchingItem.id]) {
+        charSheetPopupOpen.value = false
+    }
+}, { deep: true })
+
+// ─── Engagement spectate ────────────────────────────────────────────────────
+const engagementSessionManager = useEngagementSession()
+const spectatePopupOpen = ref(false)
+const spectateCharacter = ref(null)
+const spectateSessionId = ref(null)
+
+/**
+ * Whether a given canvas item's character is in an active engagement session.
+ * Checks both the module-level in-memory set (for the current client) and the
+ * character's persisted `engagementSessionId` field (for other clients).
+ */
+function isCharacterInEngagement(canvasItem) {
+    if (!canvasItem?.characterId) return false
+    if (engagedCharacterIds.value.has(canvasItem.characterId)) return true
+    const char = charactersStore.getById(canvasItem.characterId)
+    return !!char?.engagementSessionId
+}
+
+/**
+ * The single selected character is in engagement and the current user is not
+ * already an active participant (only then do we show the spectate button).
+ */
+const canSpectateSelectedToken = computed(() => {
+    if (!singleSelectedToken.value) return false
+    if (!isCharacterInEngagement(singleSelectedToken.value)) return false
+    // Don't offer spectate if the user is already an active participant
+    const sid = engagementSessionManager.sessionId?.value
+    const spectating = engagementSessionManager.isSpectating?.value
+    return !sid || spectating
+})
+
+function openSpectatePopup() {
+    const char = singleSelectedCharacter.value
+    if (!char?.engagementSessionId) return
+    spectateCharacter.value = char
+    spectateSessionId.value = char.engagementSessionId
+    spectatePopupOpen.value = true
+}
+
+function closeSpectatePopup() {
+    spectatePopupOpen.value = false
+    spectateCharacter.value = null
+    spectateSessionId.value = null
+}
+
+function onCharacterSaved(character) {
+    broadcastCharacterUpdate(character)
+}
+
 async function handleToggleActiveTabletop() {
     if (!campaignId.value || !tabletopId.value) return
     const currentActiveId = campaignStore.activeCampaign?.activeTabletopId ?? null
     const newActiveId = tabletopId.value === currentActiveId ? null : tabletopId.value
     try {
         await campaignStore.setActiveTabletop(campaignId.value, newActiveId)
+        // Broadcast the change to all connected campaign members so they redirect
+        if (newActiveId) {
+            announceActiveTabletopChanged(campaignId.value, newActiveId)
+        }
     } catch (err) {
         console.error('Failed to toggle active tabletop:', err)
     }
@@ -202,13 +435,36 @@ function handleSwitchTabletop(targetTabletopId) {
     router.push(`/campaigns/${campaignSlug.value}/tabletop/${targetTabletopId}`)
 }
 
-onMounted(async () => {
-    // Ensure campaign and tabletop data are in the store before loading canvas state
-    if (campaignId.value && campaignStore.tabletops.length === 0) {
-        await campaignStore.fetchTabletops(campaignId.value)
+// Load state when campaign data becomes available.
+// A watch (rather than onMounted) is required because child onMounted hooks run
+// before the parent App.vue onMounted, which is where auth + campaigns are fetched.
+// On a hard page refresh campaignId may therefore be null when the component first
+// mounts; the watch fires again once it becomes non-null.
+watch(campaignId, async (id) => {
+    if (!id) return
+
+    const fetches = []
+
+    // Fetch tabletops for this campaign if the current tabletop is not yet in the store.
+    const tid = tabletopId.value
+    if (tid && !campaignStore.tabletops.some((t) => t.id === tid)) {
+        fetches.push(campaignStore.fetchTabletops(id))
     }
+
+    // Ensure campaign characters (NPCs & beast instances) are loaded so that
+    // PinnedTokensContainer can resolve group members on a hard page refresh.
+    if (!campaignStore.campaignCharacters.length) {
+        fetches.push(campaignStore.fetchCampaignCharacters(id))
+    }
+
+    // Ensure player characters are loaded for the same reason.
+    if (!charactersStore.characters.length) {
+        fetches.push(charactersStore.fetch())
+    }
+
+    await Promise.all(fetches)
     loadState()
-})
+}, { immediate: true })
 </script>
 
 <style scoped>
@@ -241,7 +497,7 @@ onMounted(async () => {
     position: absolute;
     inset: 0;
     pointer-events: none;
-    z-index: var(--z-floating);
+    z-index: 3;
 }
 
 /* The infinite/bounded transform plane */
@@ -272,7 +528,7 @@ onMounted(async () => {
     position: absolute;
     left: 0;
     top: 0;
-    cursor: grab;
+    cursor: pointer;
     /* overflow: visible so the name label can spill below the token square */
     overflow: visible;
 }

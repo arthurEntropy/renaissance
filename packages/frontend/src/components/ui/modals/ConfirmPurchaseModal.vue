@@ -3,17 +3,20 @@
         <div class="confirm-purchase-body">
             <!-- Confirmation message shown briefly after adding -->
             <div v-show="!added" class="purchase-content">
-                <p class="spend-message">
-                    <template v-if="cost !== null && cost > 0">
-                        Spend <strong>{{ cost }}<template v-if="currencyLabel === 'Treasure'"> <img :src="keepingIcon"
-                                    alt="treasure" class="currency-icon" /></template><template v-else> {{ currencyLabel
-                                    }}</template></strong>?
-                    </template>
-                    <template v-else>
-                        Add this {{ itemTypeName }} for free?
-                    </template>
+                <p class="item-name-message">
+                    Purchase <strong>{{ itemName }}</strong>?
                 </p>
-                <p class="balance-line">
+                <p v-if="cost !== null && cost > 0" class="balance-line"
+                    :class="{ 'balance-line--danger': isInsufficientBalance }">
+                    <strong>{{ characterBalance }}</strong><template v-if="currencyLabel === 'Treasure'"> <img
+                            :src="keepingIcon" alt="treasure" class="currency-icon" /></template><template v-else> {{
+                                currencyLabel }}</template>
+                    <ArrowLongRightIcon class="balance-arrow-icon" />
+                    <strong>{{ Math.max(0, characterBalance - cost) }}</strong><template
+                        v-if="currencyLabel === 'Treasure'"> <img :src="keepingIcon" alt="treasure"
+                            class="currency-icon" /></template><template v-else> {{ currencyLabel }}</template>
+                </p>
+                <p v-else class="balance-line">
                     <template v-if="currencyLabel === 'Treasure'">
                         Current: <strong>{{ characterBalance }}</strong> <img :src="keepingIcon" alt="treasure"
                             class="currency-icon" />
@@ -34,7 +37,8 @@
             <div v-if="!added" class="confirm-purchase-actions">
                 <div class="primary-actions">
                     <ActionButton v-if="cost !== null && cost > 0" variant="primary" size="large"
-                        :text="`Spend ${cost} ${currencyLabel}`" @click="handleSpend" />
+                        :text="`Spend ${cost} ${currencyLabel}`" :disabled="isInsufficientBalance"
+                        @click="handleSpend" />
                     <ActionButton v-else variant="primary" size="large" text="Add" @click="handleSpend" />
                     <ActionButton variant="neutral" size="large" text="Cancel" @click="$emit('close')" />
                 </div>
@@ -45,12 +49,18 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
+import { ArrowLongRightIcon } from '@heroicons/vue/24/outline'
 import BaseModal from './BaseModal.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import keepingIcon from '@/assets/icons/keeping/keeping.png'
 
 const props = defineProps({
+    /** Display name of the item being purchased */
+    itemName: {
+        type: String,
+        default: 'this item',
+    },
     /** 'ability' or 'equipment' */
     itemType: {
         type: String,
@@ -76,7 +86,10 @@ const props = defineProps({
 const emit = defineEmits(['confirm-spend', 'confirm-free', 'close'])
 
 const added = ref(false)
-const itemTypeName = props.itemType === 'ability' ? 'ability' : 'item'
+
+const isInsufficientBalance = computed(() =>
+    props.cost !== null && props.cost > 0 && props.characterBalance < props.cost
+)
 
 async function showAddedAndClose() {
     added.value = true
@@ -110,7 +123,7 @@ function handleFree() {
     width: 100%;
 }
 
-.spend-message {
+.item-name-message {
     font-size: var(--font-size-16);
     margin: 0 0 var(--space-sm);
 }
@@ -119,6 +132,21 @@ function handleFree() {
     font-size: var(--font-size-14);
     color: var(--color-text-secondary);
     margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-xs);
+    flex-wrap: wrap;
+}
+
+.balance-line--danger {
+    color: var(--color-danger);
+}
+
+.balance-arrow-icon {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
 }
 
 .added-confirmation {
@@ -170,6 +198,8 @@ function handleFree() {
     vertical-align: middle;
     display: inline;
     margin-left: 1px;
+    position: relative;
+    top: -1px;
     filter: invert(1);
 }
 

@@ -3,7 +3,6 @@ import { readFileSync } from 'fs'
 import {
   createEngagementEmbed,
   createSkillCheckEmbed,
-  createContestEmbed,
   createCustomRollEmbed,
   createSimpleRollEmbed
 } from '../services/discordEmbedService.js'
@@ -43,9 +42,7 @@ const sendDiscordMessage = async (req, res) => {
     const { characterName, opponentName, skill, type } = req.body
     let embed
 
-    if (type === 'contest') {
-      embed = createContestEmbed(req.body)
-    } else if (type === 'injury' || type === 'initiative' || type === 'damage') {
+    if (type === 'injury' || type === 'initiative' || type === 'damage') {
       embed = createSimpleRollEmbed(req.body)
     } else if (characterName && opponentName) {
       embed = createEngagementEmbed(req.body)

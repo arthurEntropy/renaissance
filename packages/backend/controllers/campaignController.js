@@ -760,10 +760,6 @@ export const updateCombatGroups = (req, res) => {
       const combatants = Array.isArray(group.combatants) ? group.combatants : []
       const normalizedCombatants = combatants.map((combatant, combatantIndex) => {
         const type = combatant?.type
-        if (type !== 'npc' && type !== 'beast') {
-          throw new Error(`combatGroups[${groupIndex}].combatants[${combatantIndex}].type must be npc or beast`)
-        }
-
         const characterId = String(combatant?.characterId || '').trim()
         if (!characterId) {
           throw new Error(`combatGroups[${groupIndex}].combatants[${combatantIndex}].characterId is required`)
@@ -896,7 +892,7 @@ export const updateCampaignTabletop = (req, res) => {
       return res.status(403).json({ error: 'Tabletop does not belong to this campaign' })
     }
 
-    const allowedFields = ['name', 'backgroundImage', 'items', 'transform', 'gridSize', 'gridColor', 'gridOpacity', 'showPaths', 'radiusAreas']
+    const allowedFields = ['name', 'backgroundImage', 'items', 'transform', 'gridSize', 'gridColor', 'gridOpacity', 'showPaths', 'radiusAreas', 'rollLog']
     const updates = {}
     for (const field of allowedFields) {
       if (req.body[field] !== undefined) updates[field] = req.body[field]

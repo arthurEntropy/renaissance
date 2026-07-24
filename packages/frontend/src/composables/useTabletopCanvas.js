@@ -1,5 +1,6 @@
 import { ref, shallowRef, computed, watch, onMounted, onUnmounted } from 'vue'
 import { useTabletopDragState } from './useTabletopDragState'
+import { useTabletopSelectionState } from './useTabletopSelectionState'
 import { useCampaignStore } from '@/stores/campaignStore'
 
 const MIN_SCALE = 0.1
@@ -8,12 +9,32 @@ const MAX_HISTORY = 50
 // Tags whose presence in the event path should suppress token dragging
 const INTERACTIVE_TAGS = new Set(['button', 'a', 'input', 'select', 'textarea', 'label'])
 
-export function useTabletopCanvas(campaignId, tabletopId) {
+export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {}) {
     const { draggingCharacter, clearDraggingCharacter } = useTabletopDragState()
+    const { setSelectedCharacterIds, clearSelectedCharacterIds } = useTabletopSelectionState()
     const campaignStore = useCampaignStore()
 
     // Debounce timer for persisting canvas state to the backend
     let _saveTimer = null
+    // True only after loadState() has successfully populated canvas from the store.
+    // Prevents saveState() from overwriting real server data with the reset/default
+    // state that exists before the tabletop has been loaded (the primary cause of
+    // data corruption reported by users).
+    let _stateReady = false
+    // True while applyExternalState() is running so saveState() does not echo back.
+    let _applyingExternalState = false
+
+    // ─── Roll log (persisted) ────────────────────────────────────────────────
+    // This ref is owned here so it can be included in the persistence snapshot.
+    // All logic that populates it lives in useTabletopRollLog.
+    const rollLog = ref([])
+    // Per-user, per-tabletop expanded state for the roll log panel.
+    // Saved to REST (not broadcast via socket) so each user has their own preference.
+    const rollLogExpanded = ref(false)
+    const setRollLogExpanded = (val) => {
+        rollLogExpanded.value = val
+        saveState()
+    }
 
     // ─── Canvas items (tokens) ───────────────────────────────────────────────
     const canvasItems = ref([])
@@ -164,6 +185,16 @@ export function useTabletopCanvas(campaignId, tabletopId) {
     const selectedIds = ref(new Set())
     const isSelected = (id) => selectedIds.value.has(id) || _liveSelectionIds.value.has(id)
     const clearSelection = () => { selectedIds.value = new Set() }
+
+    // Sync committed selection to shared singleton so PinnedTokensContainer can
+    // highlight the corresponding tokens in the badge rail.
+    watch(selectedIds, (ids) => {
+        const charIds = new Set()
+        for (const item of canvasItems.value) {
+            if (ids.has(item.id) && item.characterId) charIds.add(item.characterId)
+        }
+        setSelectedCharacterIds(charIds)
+    }, { deep: true })
 
     // ─── Z-index stacking ────────────────────────────────────────────────────
     const topZIndex = ref(1)
@@ -401,8 +432,10 @@ export function useTabletopCanvas(campaignId, tabletopId) {
             currentRawDy: 0,
         }
 
-        // Start measurement tracks for all dragged tokens
-        isMeasuring.value = true
+        // Prepare measurement tracks but don't show the overlay yet.
+        // isMeasuring is set to true in handleGlobalMousemove once the token
+        // has moved at least one grid square, preventing the brief flash that
+        // would appear on a plain click-without-drag.
         measureTracks.value = itemsToDrag.map(({ id, startX, startY }) => {
             const i = canvasItemsById.value.get(id)
             const halfPx = (i.size * gridSize.value) / 2
@@ -536,6 +569,12 @@ export function useTabletopCanvas(campaignId, tabletopId) {
                 ds.snapshotRecorded = true
             }
 
+            // Enable measurement overlay once the token has moved at least one grid square,
+            // preventing the brief flash that would appear on a plain click.
+            if (!isMeasuring.value && (Math.abs(dx) >= gridSize.value || Math.abs(dy) >= gridSize.value)) {
+                isMeasuring.value = true
+            }
+
             ds.currentRawDx = dx
             ds.currentRawDy = dy
 
@@ -561,6 +600,7 @@ export function useTabletopCanvas(campaignId, tabletopId) {
                     name: dragItem.name,
                     portraitUrl: dragItem.portraitUrl,
                     isBeast: dragItem.isBeast,
+                    isNpc: dragItem.isNpc ?? false,
                 })
                 if (isMeasuring.value && newTracks[idx]) {
                     const halfPx = (dragItem.size * gridSize.value) / 2
@@ -906,6 +946,7 @@ export function useTabletopCanvas(campaignId, tabletopId) {
             id: crypto.randomUUID(),
             characterId: snapshot.characterId,
             isBeast: snapshot.isBeast ?? false,
+            isNpc: snapshot.isNpc ?? false,
             name: snapshot.name ?? 'Unknown',
             portraitUrl: snapshot.portraitUrl ?? null,
             size: snapshot.size || 1,
@@ -1019,28 +1060,88 @@ export function useTabletopCanvas(campaignId, tabletopId) {
 
     // ─── Persistence ─────────────────────────────────────────────────────────
     const saveState = () => {
+        // Guard: never persist while the canvas is in its reset/default state.
+        // This prevents overwriting real tabletop data when loadState() hasn't
+        // been called yet (e.g. the user scrolls or zooms before auth completes).
+        if (!_stateReady) {
+            console.warn('[VTT] saveState blocked: state not yet loaded for this tabletop')
+            return
+        }
+        // Guard: do not echo back state that was just applied from an external sync.
+        if (_applyingExternalState) return
+
         const cid = typeof campaignId === 'object' ? campaignId.value : campaignId
         const tid = typeof tabletopId === 'object' ? tabletopId.value : tabletopId
         if (!cid || !tid) return
         if (_saveTimer) clearTimeout(_saveTimer)
+        // Snapshot current state immediately so that any resets that occur between
+        // this call and the timer firing do not corrupt the saved payload.
+        // NOTE: transform is excluded from the sync snapshot (each user has their
+        // own viewport) but IS saved to the REST API for personal persistence.
+        const snapshot = {
+            items: JSON.parse(JSON.stringify(canvasItems.value)),
+            backgroundImage: backgroundImage.value ? { ...backgroundImage.value } : null,
+            gridSize: gridSize.value,
+            gridColor: gridColor.value,
+            gridOpacity: gridOpacity.value,
+            showPaths: showPaths.value,
+            radiusAreas: JSON.parse(JSON.stringify(radiusAreas.value)),
+            rollLog: JSON.parse(JSON.stringify(rollLog.value)),
+        }
         _saveTimer = setTimeout(() => {
-            campaignStore.updateTabletop(cid, tid, {
-                items: canvasItems.value,
-                transform: transform.value,
-                backgroundImage: backgroundImage.value,
-                gridSize: gridSize.value,
-                gridColor: gridColor.value,
-                gridOpacity: gridOpacity.value,
-                showPaths: showPaths.value,
-                radiusAreas: radiusAreas.value,
-            }).catch((err) => console.warn('[VTT] Failed to persist tabletop state:', err))
+            // Safety guard: abort if the active tabletop has changed since this
+            // save was scheduled (watch handler should have cancelled the timer,
+            // but this is defence-in-depth).
+            const currentTid = typeof tabletopId === 'object' ? tabletopId.value : tabletopId
+            if (currentTid !== tid) return
+            campaignStore.updateTabletop(cid, tid, { ...snapshot, transform: { ...transform.value }, rollLogExpanded: rollLogExpanded.value })
+                .then(() => {
+                    console.log('[VTT] State persisted; calling onStateSaved to broadcast via socket')
+                    onStateSaved?.(snapshot)
+                })
+                .catch((err) => console.warn('[VTT] Failed to persist tabletop state:', err))
         }, 500)
     }
 
+    /**
+     * Apply a canvas state snapshot received from another user via the socket.
+     * This updates all shared canvas state WITHOUT triggering another save/broadcast.
+     * The user's own transform (viewport) and any measurement state are NOT touched.
+     *
+     * @param {Object} snapshot - Partial canvas state (items, grid, background, etc.)
+     */
+    const applyExternalState = (snapshot) => {
+        if (!snapshot) return
+        _applyingExternalState = true
+        try {
+            if (Array.isArray(snapshot.items)) {
+                snapshot.items.forEach((item, i) => {
+                    if (item.zIndex == null) item.zIndex = i + 1
+                })
+                canvasItems.value = snapshot.items
+                topZIndex.value = Math.max(1, ...snapshot.items.map((i) => i.zIndex ?? 0))
+            }
+            if (snapshot.backgroundImage !== undefined) backgroundImage.value = snapshot.backgroundImage
+            if (snapshot.gridSize != null) gridSize.value = snapshot.gridSize
+            if (snapshot.gridColor) gridColor.value = snapshot.gridColor
+            if (snapshot.gridOpacity != null) gridOpacity.value = snapshot.gridOpacity
+            if (snapshot.showPaths != null) showPaths.value = snapshot.showPaths
+            if (Array.isArray(snapshot.radiusAreas)) radiusAreas.value = snapshot.radiusAreas
+            if (Array.isArray(snapshot.rollLog)) rollLog.value = snapshot.rollLog
+        } finally {
+            _applyingExternalState = false
+        }
+    }
+
     const loadState = () => {
+        // Mark not-ready until we confirm the tabletop exists in the store.
+        _stateReady = false
         const tid = typeof tabletopId === 'object' ? tabletopId.value : tabletopId
         const tabletop = campaignStore.tabletops.find((t) => t.id === tid)
-        if (!tabletop) return
+        if (!tabletop) {
+            console.warn(`[VTT] loadState: tabletop "${tid}" not found in store (${campaignStore.tabletops.length} tabletop(s) available). State will not be saved until it is loaded.`)
+            return
+        }
         if (Array.isArray(tabletop.items)) {
             tabletop.items.forEach((item, i) => {
                 if (item.zIndex == null) item.zIndex = i + 1
@@ -1055,6 +1156,9 @@ export function useTabletopCanvas(campaignId, tabletopId) {
         if (tabletop.gridOpacity != null) gridOpacity.value = tabletop.gridOpacity
         if (tabletop.showPaths != null) showPaths.value = tabletop.showPaths
         if (Array.isArray(tabletop.radiusAreas)) radiusAreas.value = tabletop.radiusAreas
+        if (Array.isArray(tabletop.rollLog)) rollLog.value = tabletop.rollLog
+        if (tabletop.rollLogExpanded != null) rollLogExpanded.value = tabletop.rollLogExpanded
+        _stateReady = true
     }
 
     // ─── Tabletop switch (route param changes without component re-mount) ───────
@@ -1091,6 +1195,8 @@ export function useTabletopCanvas(campaignId, tabletopId) {
             selectedRadiusAreaId.value = null
             hoveringRadiusAreaId.value = null
             hoveredCanvasPos.value = null
+            rollLog.value = []
+            rollLogExpanded.value = false
             loadState()
         }
     )
@@ -1113,12 +1219,14 @@ export function useTabletopCanvas(campaignId, tabletopId) {
     })
 
     onUnmounted(() => {
+        _stateReady = false
         if (_saveTimer) clearTimeout(_saveTimer)
         window.removeEventListener('mousedown', handleGlobalMousedown, true)
         window.removeEventListener('mousemove', handleGlobalMousemove)
         window.removeEventListener('mouseup', handleGlobalMouseup)
         window.removeEventListener('keydown', handleGlobalKeydown)
         window.removeEventListener('keyup', handleGlobalKeyup)
+        clearSelectedCharacterIds()
     })
 
     return {
@@ -1140,6 +1248,7 @@ export function useTabletopCanvas(campaignId, tabletopId) {
         selectedIds,
         isSelected,
         isDragging,
+        isDragActive: computed(() => dragState.value !== null),
         isPanning,
         isSelecting,
         selectionRectCanvas,
@@ -1183,5 +1292,10 @@ export function useTabletopCanvas(campaignId, tabletopId) {
         removeToken,
         clearAll,
         loadState,
+        saveState,
+        rollLog,
+        rollLogExpanded,
+        setRollLogExpanded,
+        applyExternalState,
     }
 }

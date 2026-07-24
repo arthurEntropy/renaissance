@@ -43,6 +43,43 @@ import { createBaseEntity } from './baseEntity.js'
  */
 
 /**
+ * @typedef {Object} RollLogDieResult
+ * @property {number} dieSize - The number of sides on the die (e.g. 6, 12, 20)
+ * @property {number} dieRollValue - The value rolled
+ * @property {string|null} emoji - Emoji annotation for this die result (🌞/💀/✨) or null
+ * @property {boolean} isDropped - Whether this die was dropped from the total
+ * @property {boolean} rolledMaxValue - Whether this die rolled its maximum value
+ * @property {string} cssClass - DiceFont CSS class string (e.g. 'df-d6-4')
+ */
+
+/**
+ * @typedef {Object} RollLogEntry
+ * @property {string} id - Unique identifier for this entry
+ * @property {number} timestamp - Unix timestamp in milliseconds
+ * @property {string} characterId - The character who made the roll
+ * @property {string} characterName - Display name of the rolling character
+ * @property {string|null} portraitUrl - Character portrait URL or null
+ * @property {boolean} isNpc - Whether the character is an NPC
+ * @property {boolean} isBeast - Whether the character is a beast
+ * @property {string} type - Roll type (from RollTypes constant)
+ * @property {string|null} skillName - The skill or roll name
+ * @property {number|null} total - Overall roll total
+ * @property {number|null} diceTotal - Dice-only total (before modifier)
+ * @property {number} modifier - Numeric modifier applied to the roll
+ * @property {boolean|null} success - Whether the roll succeeded (null if not applicable)
+ * @property {number|null} difficulty - Target difficulty (null if not applicable)
+ * @property {string|null} footer - Optional footer text
+ * @property {string|null} favoredStatus - 'favored' | 'ill-favored' | null
+ * @property {number|null} userWins - Engagement wins for user
+ * @property {number|null} opponentWins - Engagement wins for opponent
+ * @property {number|null} drawCount - Engagement draw count
+ * @property {string|null} result - Engagement result type
+ * @property {string|null} opponentName - Engagement opponent name
+ * @property {string|null} sourceName - Damage source name
+ * @property {RollLogDieResult[]} diceResults - Individual die results for display
+ */
+
+/**
  * @typedef {Object} TabletopFields
  * @property {string} campaignId - ID of the owning campaign
  * @property {string} name - Tabletop display name
@@ -54,6 +91,8 @@ import { createBaseEntity } from './baseEntity.js'
  * @property {number} gridOpacity - Grid line opacity between 0 and 1
  * @property {boolean} showPaths - Whether to show measurement paths while dragging tokens
  * @property {RadiusArea[]} radiusAreas - Persistent radius measurement areas placed on the canvas
+ * @property {RollLogEntry[]} rollLog - Persistent roll history for this tabletop, capped at 100 entries
+ * @property {boolean} [rollLogExpanded] - Whether the roll log panel is expanded (per-user, not synced)
  */
 
 /**
@@ -80,5 +119,6 @@ export function createDefaultTabletop(campaignId, name = 'New Tabletop') {
     gridOpacity: 0.06,
     showPaths: true,
     radiusAreas: [],
+    rollLog: [],
   }
 }

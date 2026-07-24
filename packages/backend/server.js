@@ -17,7 +17,8 @@ import {
 } from './controllers/adminCleanupController.js'
 import { exportData, importData } from './controllers/adminDataController.js'
 import { sendDiscordMessage } from './controllers/discordController.js'
-import { setupEngagementHandlers, setupContestHandlers } from './controllers/sessionController.js'
+import { setupEngagementHandlers } from './controllers/sessionController.js'
+import { setupTabletopSocketHandlers } from './controllers/tabletopSocketController.js'
 import { getEntityNames } from './utils/fileService.js'
 import { verifyToken, requireAuth, requireAdmin, requireApproved, optionalVerifyToken } from './middleware/auth.js'
 import { socketAuthMiddleware, socketRequireApproved } from './middleware/socketAuth.js'
@@ -260,7 +261,7 @@ app.post('/send-discord-message', verifyToken, requireAuth, requireApproved, sen
 
 // Set up Socket.io handlers
 setupEngagementHandlers(io)
-setupContestHandlers(io)
+setupTabletopSocketHandlers(io)
 
 // Start the server
 server.listen(PORT, () => {

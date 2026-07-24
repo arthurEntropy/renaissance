@@ -79,23 +79,24 @@
 
     <!-- Confirm Purchase Modal (from FAB add) -->
     <ConfirmPurchaseModal v-if="showConfirmPurchaseModal && pendingAbilityToAdd" item-type="ability"
-      :cost="pendingAbilityToAdd?.xpCost ?? null" :character-balance="selectedCharacter?.xp ?? 0" currency-label="XP"
+      :item-name="pendingAbilityToAdd?.name" :cost="pendingAbilityToAdd?.xpCost ?? null"
+      :character-balance="selectedCharacter?.xp ?? 0" currency-label="XP"
       @confirm-spend="handleConfirmAddAbilityWithSpend" @confirm-free="handleConfirmAddAbilityFree"
       @close="showConfirmPurchaseModal = false" />
 
     <!-- Skill Check Modal -->
     <SkillCheckModal v-if="showSkillCheckModal" :selected-skill-key="rollLinkSkillKey" :character="selectedCharacter"
       :default-roll-type="rollLinkRollType" :default-dice-mod="rollLinkBiomeDiceMod"
-      @close="showSkillCheckModal = false" @start-contest="handleStartContest" />
+      @close="showSkillCheckModal = false" />
 
-    <ContestModal v-if="contestModalOpen" :initial-session-config="contestSessionConfig"
-      @close="contestModalOpen = false" />
-
-    <!-- Damage Roll Modal -->
-    <CustomRollModal v-if="showDamageRollModal && damageRollModalConfig && selectedCharacter" title="Damage Roll"
-      :character="selectedCharacter" :initial-dice-counts="damageRollModalConfig.initialDiceCounts"
+    <!-- Damage/Custom Roll Modal -->
+    <CustomRollModal v-if="showDamageRollModal && damageRollModalConfig && selectedCharacter"
+      :title="damageRollModalConfig.title ?? 'Damage Roll'" :character="selectedCharacter"
+      :initial-dice-counts="damageRollModalConfig.initialDiceCounts"
       :initial-modifier="damageRollModalConfig.initialModifier" :roll-name="damageRollModalConfig.rollName"
-      :source-name="damageRollModalConfig.sourceName" roll-mode="damage" @close="showDamageRollModal = false" />
+      :source-name="damageRollModalConfig.sourceName" :roll-mode="damageRollModalConfig.rollMode ?? 'damage'"
+      :initial-active-stat-key="damageRollModalConfig.initialActiveStatKey ?? null"
+      @close="showDamageRollModal = false" />
 
   </CharacterSheetSection>
 </template>
@@ -116,7 +117,6 @@ import GroupedThreeColumnLayout from '@/components/ui/layouts/GroupedThreeColumn
 import SortingPicker from '@/components/ui/pickers/SortingPicker.vue'
 import SkillCheckModal from '@/components/features/characterSheet/modals/SkillCheckModal.vue'
 import ConfirmPurchaseModal from '@/components/ui/modals/ConfirmPurchaseModal.vue'
-import ContestModal from '@/components/features/characterSheet/rollModal/ContestModal.vue'
 import CharacterService from '@/services/entities/characterService'
 import { useCardCascadePicker } from '@/composables/useCardCascadePicker'
 import { anchorFromTriggerEvent } from '@/composables/useAnchoredPickerTrigger'
@@ -128,10 +128,8 @@ import { useCharactersStore } from '@/stores/charactersStore'
 import { useAbilitiesStore } from '@/stores/abilitiesStore'
 import { useSourcesStore } from '@/stores/sourcesStore'
 import { useConceptsStore } from '@/stores/conceptsStore'
-import { useRollsStore } from '@/stores/rollsStore'
 import { MANA_COLOR_ORDER } from '@/constants/manaColors'
 import CustomRollModal from '@/components/features/characterSheet/customDiceRoller/CustomRollModal.vue'
-import CustomRollService from '@/services/rolls/customRollService'
 import { RollTypes } from '@/constants/rollTypes'
 import { getModifierStatKey } from '@/utils/characterKeyUtils'
 import { SKILLS } from '@shared/constants/characterConstants'
@@ -159,15 +157,11 @@ const isChanneler = computed(() => {
   return mestiere?.name?.toLowerCase() === 'channeler'
 })
 
-const rollsStore = useRollsStore()
-
 // Roll link modal refs
 const showSkillCheckModal = ref(false)
 const rollLinkSkillKey = ref(null)
 const rollLinkRollType = ref(null)
 const rollLinkBiomeDiceMod = ref(0)
-const contestModalOpen = ref(false)
-const contestSessionConfig = ref(null)
 const showDamageRollModal = ref(false)
 const damageRollModalConfig = ref(null)
 
@@ -391,9 +385,8 @@ const handleRollLink = (rollData) => {
 
   if (rollData.type === 'skill-check' || rollData.type === 'contest') {
     rollLinkSkillKey.value = Object.values(SKILLS).find(s => s.label === rollData.skill)?.key ?? rollData.skill?.toLowerCase() ?? null
-    rollLinkRollType.value = rollData.type === 'contest'
-      ? RollTypes.CONTEST
-      : RollTypes.SKILL_CHECK
+    // Contest links open as unopposed (no difficulty)
+    rollLinkRollType.value = rollData.type === 'contest' ? 'unopposed' : RollTypes.SKILL_CHECK
     rollLinkBiomeDiceMod.value = rollData.biomeDiceMod ?? 0
     showSkillCheckModal.value = true
   } else if (rollData.type === 'damage-roll') {
@@ -403,28 +396,13 @@ const handleRollLink = (rollData) => {
       initialDiceCounts[die.sides] = (initialDiceCounts[die.sides] || 0) + die.count
     })
 
-    // Apply biome dice modifier by adding/removing dice of the last die type
-    const biomeMod = rollData.biomeDiceMod ?? 0
-    if (biomeMod !== 0 && rollData.dice.length > 0) {
-      const dicePool = []
-      rollData.dice.forEach(die => {
-        for (let i = 0; i < die.count; i++) dicePool.push(die.sides)
-      })
-      const adjusted = applyBiomeDiceMod(dicePool.map(s => ({ dieSize: s })), biomeMod)
-      const adjustedCounts = {}
-      adjusted.forEach(d => { adjustedCounts[d.dieSize] = (adjustedCounts[d.dieSize] || 0) + 1 })
-      Object.assign(initialDiceCounts, adjustedCounts)
-      // Zero out any sides that were fully removed
-      Object.keys(initialDiceCounts).forEach(side => {
-        if (!adjustedCounts[side]) delete initialDiceCounts[side]
-      })
-    }
-
     let modifierValue = 0
+    let initialActiveStatKey = null
     if (rollData.modifier) {
       if (rollData.modifier.type === 'stat') {
         const statName = getModifierStatKey(rollData.modifier)
         modifierValue = selectedCharacter.value[statName] || 0
+        initialActiveStatKey = statName || null
       } else if (rollData.modifier.type === 'number') {
         modifierValue = rollData.modifier.value
       }
@@ -435,48 +413,43 @@ const handleRollLink = (rollData) => {
       initialModifier: modifierValue,
       rollName: rollData.linkText || 'Damage',
       sourceName: 'Description',
+      rollMode: 'damage',
+      title: 'Damage Roll',
+      initialActiveStatKey,
     }
     showDamageRollModal.value = true
   } else if (rollData.type === 'custom-roll') {
-    // Transform dice format from [{count, sides}] to [{dieSize}...]
-    const dicePool = []
+    // Build initial dice counts for CustomRollModal
+    const initialDiceCounts = {}
     rollData.dice.forEach(die => {
-      for (let i = 0; i < die.count; i++) {
-        dicePool.push({ dieSize: die.sides })
-      }
+      initialDiceCounts[die.sides] = (initialDiceCounts[die.sides] || 0) + die.count
     })
-
-    // Apply biome dice modifier
-    const adjustedPool = applyBiomeDiceMod(dicePool, rollData.biomeDiceMod ?? 0)
 
     // Calculate modifier value
     let modifierValue = 0
+    let initialActiveStatKey = null
 
     if (rollData.modifier) {
       if (rollData.modifier.type === 'stat') {
         const statName = getModifierStatKey(rollData.modifier)
         modifierValue = selectedCharacter.value[statName] || 0
+        initialActiveStatKey = statName || null
       } else if (rollData.modifier.type === 'number') {
         modifierValue = rollData.modifier.value
       }
     }
 
-    const rollResult = CustomRollService.makeCustomRoll(
-      adjustedPool,
-      modifierValue,
-      selectedCharacter.value,
-      { label: rollData.linkText }
-    )
-    if (rollResult) {
-      rollsStore.setRoll(rollResult)
+    damageRollModalConfig.value = {
+      initialDiceCounts,
+      initialModifier: modifierValue,
+      rollName: rollData.linkText || 'Custom Roll',
+      sourceName: 'Description',
+      rollMode: 'custom',
+      title: 'Custom Roll',
+      initialActiveStatKey,
     }
+    showDamageRollModal.value = true
   }
-}
-
-const handleStartContest = (config) => {
-  showSkillCheckModal.value = false
-  contestSessionConfig.value = config
-  contestModalOpen.value = true
 }
 
 const allAbilitiesExpanded = computed(() =>
@@ -502,23 +475,6 @@ const resetMP = () => {
   } else if (selectedCharacter.value?.mp) {
     selectedCharacter.value.mp.current = selectedCharacter.value.mp.base
   }
-}
-
-// Positive mod: Add any number of dice of the same type as the last die in the pool.
-// Negative mod: Remove dice from the end of the pool, minimimum of 0 dice.
-function applyBiomeDiceMod(pool, mod) {
-  if (mod === 0 || pool.length === 0) return pool
-  const result = [...pool]
-  if (mod > 0) {
-    const templateDie = result[result.length - 1]
-    for (let i = 0; i < mod; i++) {
-      result.push({ dieSize: templateDie.dieSize })
-    }
-  } else {
-    const removeCount = Math.min(Math.abs(mod), result.length)
-    result.splice(result.length - removeCount, removeCount)
-  }
-  return result
 }
 </script>
 

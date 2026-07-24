@@ -18,5 +18,7 @@ export const auth = getAuth(app)
 
 // Initialize Google Auth Provider
 export const googleProvider = new GoogleAuthProvider()
+// Force the Google account-chooser prompt so a logged-out user can switch accounts
+googleProvider.setCustomParameters({ prompt: 'select_account' })
 
 export default app
