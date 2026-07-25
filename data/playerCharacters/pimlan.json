@@ -1,18 +1,18 @@
 {
-  "id": "33b032fb-a135-43a7-a704-967f4eba5d82",
-  "isDeleted": true,
-  "createdAt": "2026-07-22T13:08:23.406Z",
-  "lastModified": "2026-07-24T19:43:44.614Z",
+  "id": "decef988-2c77-4c84-9ee6-bb8198a6f3cb",
+  "isDeleted": false,
+  "createdAt": "2026-07-25T02:51:40.820Z",
+  "lastModified": "2026-07-25T18:45:09.221Z",
   "characterType": "playerCharacter",
-  "name": "New Character",
+  "name": "Pimlan",
   "featuredArtUrls": [
-    "https://cdn.midjourney.com/6b5282ab-e572-4ad7-bed2-3cce785c9744/0_2.png"
+    "https://cdn.midjourney.com/b5a43e5a-3fc5-4215-b969-c8d1f5392653/0_3.png"
   ],
-  "speed": 0,
+  "speed": 50,
   "notes": "",
-  "body": 0,
-  "heart": 0,
-  "wits": 0,
+  "body": 2,
+  "heart": 1,
+  "wits": 2,
   "skills": [
     {
       "key": "awe",
@@ -32,7 +32,7 @@
     },
     {
       "key": "dexterity",
-      "ranks": 0,
+      "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -64,7 +64,7 @@
     },
     {
       "key": "insight",
-      "ranks": 0,
+      "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -112,7 +112,7 @@
     },
     {
       "key": "stealth",
-      "ranks": 0,
+      "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -136,16 +136,16 @@
     }
   ],
   "endurance": {
-    "current": 0,
-    "base": 0
+    "current": 10,
+    "base": 10
   },
   "hope": {
-    "current": 0,
-    "base": 0
+    "current": 4,
+    "base": 4
   },
   "defense": {
-    "current": 0,
-    "base": 0
+    "current": 2,
+    "base": 2
   },
   "load": 0,
   "shadow": 0,
@@ -165,55 +165,120 @@
     "afraid": false,
     "troubled": false
   },
-  "engagementDice": [
-    4,
-    6,
-    8
-  ],
+  "engagementDice": [],
   "engagementSuccesses": [],
-  "engagementDiceStatuses": {
-    "user_added_2": "expended",
-    "user_added_1": "expended",
-    "user_added_0": "expended"
-  },
-  "equipment": [],
+  "engagementDiceStatuses": {},
+  "equipment": [
+    {
+      "id": "97b13566-174b-426e-a01c-ab45536f39b1",
+      "quantity": 1,
+      "isCarried": true,
+      "collapsed": false,
+      "isWielding": true
+    },
+    {
+      "id": "3210b28c-08d5-4a84-a41f-df90bfab07ab",
+      "quantity": 1,
+      "isCarried": true,
+      "collapsed": false
+    }
+  ],
   "groupEquipmentBySource": false,
   "groupEquipmentByCustom": false,
-  "equipmentSortOption": "name-asc",
+  "equipmentSortOption": "",
   "equipmentCustomGroups": [],
   "mp": {
     "current": 0,
     "base": 0
   },
-  "abilities": [],
+  "abilities": [
+    {
+      "id": "738255ac-87f1-45a5-91ff-c2144b92b5e3",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false,
+      "columnIndex": 0
+    },
+    {
+      "id": "1325605b-d523-4ec2-b2a7-57a04dc55d91",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false,
+      "columnIndex": 0
+    },
+    {
+      "id": "9f21adf6-85f2-482b-a13c-29b4c53487bd",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false,
+      "columnIndex": 0
+    },
+    {
+      "id": "3d107bc4-32e5-4b57-ab06-bef473eb0995",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false,
+      "columnIndex": 0
+    },
+    {
+      "id": "d035339b-c4fa-47fa-9e43-990ced7117a9",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false,
+      "columnIndex": 0
+    },
+    {
+      "id": "8e346eb3-1e72-4b3f-971c-497eac98a06c",
+      "collapsed": false,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false,
+      "columnIndex": 1
+    },
+    {
+      "id": "bd3fe860-81bc-45cb-9f01-a2ac4efca67e",
+      "collapsed": false,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false,
+      "columnIndex": 2
+    }
+  ],
   "groupAbilitiesBySource": false,
   "groupAbilitiesByManaColor": false,
   "groupAbilitiesByCustom": false,
-  "abilitySortOption": "name-asc",
+  "abilitySortOption": "",
   "abilityCustomGroups": [],
   "autoCalculations": {
     "load": true,
     "states": true,
     "baseEndurance": true,
-    "baseHope": true,
+    "baseHope": false,
     "baseDefense": true
   },
   "rollStats": {
     "skillChecks": {
-      "attempts": 0,
-      "successes": 0,
-      "totalSum": 0,
-      "bestTotal": null,
+      "attempts": 6,
+      "successes": 6,
+      "totalSum": 60,
+      "bestTotal": 13,
       "hardestSuccess": null,
-      "bySkill": {},
+      "bySkill": {
+        "Dexterity": 6
+      },
       "solCount": 0,
       "morteCount": 0,
-      "successCount": 0
+      "successCount": 1
     },
     "contests": {
       "engagement": {
-        "wins": 4,
-        "losses": 6,
+        "wins": 0,
+        "losses": 0,
         "draws": 0
       },
       "contest": {
@@ -224,12 +289,12 @@
     },
     "xpEarned": 0,
     "xpSpent": 0,
-    "treasureEarned": 0,
-    "treasureSpent": 71
+    "treasureEarned": 52,
+    "treasureSpent": 18
   },
   "biomeTags": [],
   "biomeId": null,
-  "nimbleStep": 0,
+  "nimbleStep": 5,
   "swagger": 0,
   "swaggerIconIndex": 0,
   "swaggerColor": "#ffffff",
@@ -242,40 +307,38 @@
     "colorless": []
   },
   "witchcraftTokens": [],
-  "summonerVessels": [
-    {
-      "id": "81449992-7895-4246-bc62-908f7521e0ca",
-      "isActive": true,
-      "isSummoned": true,
-      "imageUrl": "spikedBall",
-      "keeping": "2b3c4d5e-6f7a-4b8c-9d0e-1f2a3b4c5d6e",
-      "vesselNote": "",
-      "beastId": "fc957c02-c6d4-48b2-9027-95e49d3e1b48",
-      "friendship": 1
-    }
-  ],
+  "witchFamiliar": null,
+  "summonerVessels": [],
   "hunterTraps": [],
   "campaignId": null,
   "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
   "isPublicPreview": false,
-  "sectionOrder": [],
+  "sectionOrder": [
+    "acrobat",
+    "engagement",
+    "equipment",
+    "abilities"
+  ],
   "martialTrainingOverrides": {},
-  "pronouns": "",
-  "ancestryIds": [],
-  "cultureIds": [],
-  "mestiereId": "558abd15-f90f-40d7-80d8-df73a37f977c",
-  "age": 0,
-  "heightFeet": 0,
-  "heightInches": 0,
-  "weight": 0,
-  "keeping": null,
-  "treasure": 0,
+  "pronouns": "he/him",
+  "ancestryIds": [
+    "77e4f81a-728f-49a7-a013-4d6f666353e2"
+  ],
+  "cultureIds": [
+    "352c844b-6d4f-4b61-b475-315421a453e7"
+  ],
+  "mestiereId": "e10d7d9f-9d93-46b0-9846-d60241031644",
+  "age": 30,
+  "heightFeet": 3,
+  "heightInches": 11,
+  "weight": 115,
+  "keeping": "2b3c4d5e-6f7a-4b8c-9d0e-1f2a3b4c5d6e",
+  "treasure": 7,
   "xp": 0,
-  "updatedAt": "2026-07-24T19:43:44.614Z",
   "description": "",
   "size": 0,
   "reach": 0,
-  "featuredArtUrl": "https://cdn.midjourney.com/6b5282ab-e572-4ad7-bed2-3cce785c9744/0_2.png",
+  "featuredArtUrl": "https://cdn.midjourney.com/b5a43e5a-3fc5-4215-b969-c8d1f5392653/0_3.png",
   "hasDarkvision": false,
   "hasBlindsight": false,
   "hasTremorsense": false,
@@ -286,5 +349,6 @@
   "swimSpeed": 0,
   "biomeTagsAugment": [],
   "biomeTagsInhibit": [],
-  "beastTypeIds": []
+  "beastTypeIds": [],
+  "updatedAt": "2026-07-25T18:45:09.221Z"
 }

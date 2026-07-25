@@ -21,15 +21,16 @@
     },
     "martialTrainingNotes": "",
     "engagementDice": [],
-    "engagementDiceNotes": "",
     "engagementSuccesses": [],
+    "engagementDiceNotes": "",
     "engagementSuccessNotes": "",
     "baseMP": 0,
     "baseMpNotes": "<p>You can gain MP (mana) through your <em>Channel</em> ability, among others.</p>",
-    "abilities": "<p><em>Channel</em>, plus one ability of your choosing of each mana color.</p>",
+    "abilities": "<p><em>Channel</em>, <em>Mana From Within, </em>and one ability of your choosing of each mana color.</p>",
+    "spellcasting": "",
     "gratuiti": ""
   },
-  "lastModified": "2026-04-15T18:37:49.711Z",
+  "lastModified": "2026-07-24T22:36:53.574Z",
   "hooks": [],
   "playlists": []
 }

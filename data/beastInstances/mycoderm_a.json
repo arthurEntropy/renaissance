@@ -1,22 +1,22 @@
 {
-  "id": "33b032fb-a135-43a7-a704-967f4eba5d82",
-  "isDeleted": true,
-  "createdAt": "2026-07-22T13:08:23.406Z",
-  "lastModified": "2026-07-24T19:43:44.614Z",
-  "characterType": "playerCharacter",
-  "name": "New Character",
+  "id": "2d4e6250-2db8-4f5a-9456-c6a5c7fbc551",
+  "isDeleted": false,
+  "createdAt": "2026-07-25T03:05:16.503Z",
+  "lastModified": "2026-07-25T18:53:03.466Z",
+  "characterType": "beastInstance",
+  "name": "Mycoderm A",
   "featuredArtUrls": [
-    "https://cdn.midjourney.com/6b5282ab-e572-4ad7-bed2-3cce785c9744/0_2.png"
+    "https://cdn.midjourney.com/1981f3be-8de5-4457-9d0f-da52943eb68c/0_0.png"
   ],
-  "speed": 0,
+  "speed": 30,
   "notes": "",
-  "body": 0,
-  "heart": 0,
-  "wits": 0,
+  "body": 6,
+  "heart": 3,
+  "wits": 2,
   "skills": [
     {
       "key": "awe",
-      "ranks": 0,
+      "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -24,7 +24,7 @@
     },
     {
       "key": "strength",
-      "ranks": 0,
+      "ranks": 3,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -40,7 +40,7 @@
     },
     {
       "key": "fortitude",
-      "ranks": 0,
+      "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -80,7 +80,7 @@
     },
     {
       "key": "spirit",
-      "ranks": 0,
+      "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -88,7 +88,7 @@
     },
     {
       "key": "aid",
-      "ranks": 0,
+      "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -104,7 +104,7 @@
     },
     {
       "key": "awareness",
-      "ranks": 0,
+      "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -136,16 +136,16 @@
     }
   ],
   "endurance": {
-    "current": 0,
-    "base": 0
+    "current": 5,
+    "base": 30
   },
   "hope": {
-    "current": 0,
-    "base": 0
+    "current": 6,
+    "base": 6
   },
   "defense": {
-    "current": 0,
-    "base": 0
+    "current": 10,
+    "base": 7
   },
   "load": 0,
   "shadow": 0,
@@ -165,18 +165,28 @@
     "afraid": false,
     "troubled": false
   },
-  "engagementDice": [
-    4,
-    6,
-    8
-  ],
+  "engagementDice": [],
   "engagementSuccesses": [],
   "engagementDiceStatuses": {
-    "user_added_2": "expended",
-    "user_added_1": "expended",
-    "user_added_0": "expended"
+    "4d9fd1b5-b468-431c-961f-82a84c91de39_0": "expended",
+    "db418790-1337-43d4-8d92-53a29b16a240_0": "expended"
   },
-  "equipment": [],
+  "equipment": [
+    {
+      "id": "db418790-1337-43d4-8d92-53a29b16a240",
+      "quantity": 1,
+      "isCarried": true,
+      "isWielding": true,
+      "collapsed": false
+    },
+    {
+      "id": "4d9fd1b5-b468-431c-961f-82a84c91de39",
+      "quantity": 1,
+      "isCarried": true,
+      "isWielding": true,
+      "collapsed": false
+    }
+  ],
   "groupEquipmentBySource": false,
   "groupEquipmentByCustom": false,
   "equipmentSortOption": "name-asc",
@@ -200,20 +210,22 @@
   },
   "rollStats": {
     "skillChecks": {
-      "attempts": 0,
-      "successes": 0,
-      "totalSum": 0,
-      "bestTotal": null,
+      "attempts": 1,
+      "successes": 1,
+      "totalSum": 6,
+      "bestTotal": 6,
       "hardestSuccess": null,
-      "bySkill": {},
+      "bySkill": {
+        "Dexterity": 1
+      },
       "solCount": 0,
       "morteCount": 0,
       "successCount": 0
     },
     "contests": {
       "engagement": {
-        "wins": 4,
-        "losses": 6,
+        "wins": 6,
+        "losses": 2,
         "draws": 0
       },
       "contest": {
@@ -225,7 +237,7 @@
     "xpEarned": 0,
     "xpSpent": 0,
     "treasureEarned": 0,
-    "treasureSpent": 71
+    "treasureSpent": 0
   },
   "biomeTags": [],
   "biomeId": null,
@@ -242,28 +254,14 @@
     "colorless": []
   },
   "witchcraftTokens": [],
-  "summonerVessels": [
-    {
-      "id": "81449992-7895-4246-bc62-908f7521e0ca",
-      "isActive": true,
-      "isSummoned": true,
-      "imageUrl": "spikedBall",
-      "keeping": "2b3c4d5e-6f7a-4b8c-9d0e-1f2a3b4c5d6e",
-      "vesselNote": "",
-      "beastId": "fc957c02-c6d4-48b2-9027-95e49d3e1b48",
-      "friendship": 1
-    }
-  ],
-  "hunterTraps": [],
-  "campaignId": null,
+  "summonerVessels": [],
+  "campaignId": "c9ddeab9-d180-4fc5-869f-e64239bc3376",
   "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
   "isPublicPreview": false,
-  "sectionOrder": [],
-  "martialTrainingOverrides": {},
   "pronouns": "",
   "ancestryIds": [],
   "cultureIds": [],
-  "mestiereId": "558abd15-f90f-40d7-80d8-df73a37f977c",
+  "mestiereId": null,
   "age": 0,
   "heightFeet": 0,
   "heightInches": 0,
@@ -271,12 +269,14 @@
   "keeping": null,
   "treasure": 0,
   "xp": 0,
-  "updatedAt": "2026-07-24T19:43:44.614Z",
   "description": "",
-  "size": 0,
-  "reach": 0,
-  "featuredArtUrl": "https://cdn.midjourney.com/6b5282ab-e572-4ad7-bed2-3cce785c9744/0_2.png",
-  "hasDarkvision": false,
+  "size": 3,
+  "reach": 5,
+  "updatedAt": "2026-07-25T18:53:03.466Z",
+  "challenge": 11,
+  "sectionOrder": [],
+  "martialTrainingOverrides": {},
+  "hasDarkvision": true,
   "hasBlindsight": false,
   "hasTremorsense": false,
   "hasTruesight": false,
@@ -284,7 +284,18 @@
   "climbSpeed": 0,
   "flySpeed": 0,
   "swimSpeed": 0,
-  "biomeTagsAugment": [],
-  "biomeTagsInhibit": [],
-  "beastTypeIds": []
+  "biomeTagsAugment": [
+    "forest",
+    "wetland",
+    "underground"
+  ],
+  "biomeTagsInhibit": [
+    "civilized",
+    "cold"
+  ],
+  "beastTypeIds": [
+    "b7e57001-0000-4000-a000-000000000002",
+    "b7e57001-0000-4000-a000-00000000000d"
+  ],
+  "templateId": "731421e9-f9cb-41c1-b902-76993e0bef6f"
 }

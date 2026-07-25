@@ -5,14 +5,14 @@
   "status": "approved",
   "needsUsername": false,
   "createdAt": "2025-10-24T18:03:45.214Z",
-  "lastLoginAt": "2026-07-24T18:29:21.207Z",
+  "lastLoginAt": "2026-07-25T18:02:12.635Z",
   "isDeleted": false,
   "preferences": {
     "backgroundImageId": "1cf1ac16-e262-4739-823f-70d3352cf74f",
     "showCardArtwork": true
   },
   "characters": [],
-  "lastUpdatedAt": "2026-07-24T18:28:49.948Z",
-  "lastModified": "2026-07-24T18:29:21.743Z",
+  "lastUpdatedAt": "2026-07-25T19:25:45.845Z",
+  "lastModified": "2026-07-25T19:25:45.845Z",
   "activeCampaignId": "c9ddeab9-d180-4fc5-869f-e64239bc3376"
 }
