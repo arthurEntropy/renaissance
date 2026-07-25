@@ -1058,6 +1058,19 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
         if (e.key === 'Shift') isShiftHeld.value = false
     }
 
+    // Reset modifier keys when the window loses focus or the tab is hidden.
+    // Without this, pressing Shift on another tab leaves isShiftHeld stuck true,
+    // causing the cursor to appear in ruler mode when returning to the tabletop.
+    const handleWindowBlur = () => {
+        isShiftHeld.value = false
+        isCmdHeld.value = false
+    }
+    const handleVisibilityChange = () => {
+        if (document.visibilityState !== 'visible') return
+        isShiftHeld.value = false
+        isCmdHeld.value = false
+    }
+
     // ─── Persistence ─────────────────────────────────────────────────────────
     const saveState = () => {
         // Guard: never persist while the canvas is in its reset/default state.
@@ -1216,6 +1229,8 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
         window.addEventListener('mouseup', handleGlobalMouseup)
         window.addEventListener('keydown', handleGlobalKeydown)
         window.addEventListener('keyup', handleGlobalKeyup)
+        window.addEventListener('blur', handleWindowBlur)
+        document.addEventListener('visibilitychange', handleVisibilityChange)
     })
 
     onUnmounted(() => {
@@ -1226,6 +1241,8 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
         window.removeEventListener('mouseup', handleGlobalMouseup)
         window.removeEventListener('keydown', handleGlobalKeydown)
         window.removeEventListener('keyup', handleGlobalKeyup)
+        window.removeEventListener('blur', handleWindowBlur)
+        document.removeEventListener('visibilitychange', handleVisibilityChange)
         clearSelectedCharacterIds()
     })
 

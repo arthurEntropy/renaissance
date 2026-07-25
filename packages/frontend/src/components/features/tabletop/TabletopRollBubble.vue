@@ -80,18 +80,20 @@ const borderColor = computed(() => {
 const compactTotal = computed(() => {
     const e = props.entry
     if (e.type === RollTypes.ENGAGEMENT) return `${e.userWins ?? 0}–${e.opponentWins ?? 0}`
+    // For injury rolls, show the die result rather than the calculated injury applied
+    if (e.type === RollTypes.INJURY) return e.diceTotal != null ? String(e.diceTotal) : '—'
     return e.total != null ? String(e.total) : '—'
 })
 
+// Only show emoji annotations for skill checks. Damage and custom rolls produce
+// noisy ✨ on every max d6, which isn't meaningful outside the skill-check context.
+// Concatenate ALL emoji from non-dropped dice (e.g. "🌞✨") rather than picking one.
 const compactEmoji = computed(() => {
-    const dice = props.entry.diceResults || []
-    if (dice.some((d) => d.emoji === '🌞')) return '🌞'
-    if (dice.some((d) => d.emoji === '💀')) return '💀'
-    if (props.entry.type === RollTypes.SKILL_CHECK && props.entry.success !== null) {
-        return props.entry.success ? '🌞' : '💀'
-    }
-    if (dice.some((d) => d.emoji === '✨')) return '✨'
-    return null
+    if (props.entry.type !== RollTypes.SKILL_CHECK) return null
+    const emojis = (props.entry.diceResults || [])
+        .filter((d) => !d.isDropped && d.emoji)
+        .map((d) => d.emoji)
+    return emojis.length > 0 ? emojis.join('') : null
 })
 
 // ── Expanded detail ───────────────────────────────────────────────────────────

@@ -3,7 +3,8 @@
         <div class="info-stat">
             <HeartIcon class="info-icon" />
             <input type="number" class="info-input" :value="character?.endurance?.current ?? 0" :disabled="!canEdit"
-                min="0" @change="onEnduranceChange" @focus="$event.target.select()" />
+                min="0" @change="onEnduranceChange" @focus="$event.target.select()"
+                @keydown.enter.prevent="$event.target.blur()" />
         </div>
         <div class="info-actions">
             <FloatingActionButton v-if="isInEngagement" :variant="FAB_TYPES.SPECTATE" :size="FAB_SIZES.SMALL"
@@ -14,7 +15,8 @@
         <div class="info-stat">
             <ShieldIcon class="info-icon" />
             <input type="number" class="info-input" :value="character?.defense?.current ?? 0" :disabled="!canEdit"
-                min="0" @change="onDefenseChange" @focus="$event.target.select()" />
+                min="0" @change="onDefenseChange" @focus="$event.target.select()"
+                @keydown.enter.prevent="$event.target.blur()" />
         </div>
     </div>
 </template>

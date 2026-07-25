@@ -2,7 +2,7 @@
   "id": "0f6f7b18-4fa1-4a7c-993b-173437f1cd79",
   "isDeleted": false,
   "createdAt": "2026-07-25T00:22:58.175Z",
-  "lastModified": "2026-07-25T20:29:32.853Z",
+  "lastModified": "2026-07-25T21:03:43.498Z",
   "characterType": "playerCharacter",
   "name": "Himo",
   "featuredArtUrls": [
@@ -136,7 +136,7 @@
     }
   ],
   "endurance": {
-    "current": 20,
+    "current": 18,
     "base": 20
   },
   "hope": {
@@ -308,20 +308,20 @@
   },
   "rollStats": {
     "skillChecks": {
-      "attempts": 5,
-      "successes": 5,
-      "totalSum": 61,
-      "bestTotal": 17,
+      "attempts": 7,
+      "successes": 7,
+      "totalSum": 114,
+      "bestTotal": 28,
       "hardestSuccess": null,
       "bySkill": {
         "Awareness": 1,
         "Stealth": 1,
-        "Dexterity": 2,
+        "Dexterity": 4,
         "Craft": 1
       },
-      "solCount": 1,
+      "solCount": 2,
       "morteCount": 1,
-      "successCount": 0
+      "successCount": 3
     },
     "contests": {
       "engagement": {
@@ -409,5 +409,5 @@
   "biomeTagsAugment": [],
   "biomeTagsInhibit": [],
   "beastTypeIds": [],
-  "updatedAt": "2026-07-25T20:29:32.853Z"
+  "updatedAt": "2026-07-25T21:03:43.498Z"
 }

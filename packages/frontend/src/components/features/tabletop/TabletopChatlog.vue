@@ -37,8 +37,11 @@
                                     <span v-for="(die, i) in entry.diceResults" :key="i" class="entry-die"
                                         :class="dieClass(die)">
                                         <i :class="die.cssClass" />
-                                        <span v-if="die.emoji && die.emoji !== ''" class="entry-die-emoji">{{ die.emoji
-                                            }}</span>
+                                        <!-- Only show emoji annotations for skill checks; other roll types
+                                             (damage, custom, initiative, etc.) would show noisy ✨ on every max die -->
+                                        <span
+                                            v-if="die.emoji && die.emoji !== '' && entry.type === RollTypes.SKILL_CHECK"
+                                            class="entry-die-emoji">{{ die.emoji }}</span>
                                     </span>
                                     <span class="entry-total" :class="outcomeClass(entry)">{{ rollTotal(entry) }}</span>
                                 </div>
@@ -177,6 +180,11 @@ function rollTotal(entry) {
     if (entry.type === RollTypes.ENGAGEMENT) {
         return `${entry.userWins ?? 0} – ${entry.opponentWins ?? 0}`
     }
+    // For injury rolls the "total" is the injury-applied calculation; display the
+    // actual die result (diceTotal) instead so it matches the die icon shown.
+    if (entry.type === RollTypes.INJURY) {
+        return entry.diceTotal != null ? String(entry.diceTotal) : '—'
+    }
     if (entry.total == null) return '—'
     if (entry.modifier && entry.modifier !== 0 && entry.diceTotal != null) {
         const sign = entry.modifier >= 0 ? '+' : ''
@@ -192,8 +200,11 @@ function outcomeClass(entry) {
         if (entry.result === EngagementResultTypes.LOSS) return 'outcome--failure'
         return 'outcome--draw'
     }
-    if (entry.success === true) return 'outcome--success'
-    if (entry.success === false) return 'outcome--failure'
+    // Only colour with success/failure when the roll has a difficulty threshold
+    if (entry.difficulty != null) {
+        if (entry.success === true) return 'outcome--success'
+        if (entry.success === false) return 'outcome--failure'
+    }
     return ''
 }
 
@@ -211,8 +222,9 @@ function dieClass(die) {
 .chatlog-wrapper {
     position: absolute;
     right: 0;
-    bottom: 0;
-    /* Normal: bottom half of canvas-container */
+    /* Sit above the teleported toolbar; falls back to 0 on non-tabletop pages */
+    bottom: var(--vtt-toolbar-height, 0px);
+    /* Normal: bottom half of canvas-container, minus toolbar */
     height: 50%;
     display: flex;
     flex-direction: column;
@@ -227,7 +239,8 @@ function dieClass(die) {
 }
 
 .chatlog-wrapper--expanded {
-    height: 100%;
+    /* Full height minus toolbar so we don't overflow at the top */
+    height: calc(100% - var(--vtt-toolbar-height, 0px));
     --fab-opacity: 1;
 }
 

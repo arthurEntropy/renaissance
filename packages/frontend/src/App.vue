@@ -268,4 +268,16 @@ watch(
     }
   }
 )
+
+// Ensure tabletops are loaded whenever the active campaign changes, so that
+// ActiveTabletopContainer can display the active tabletop button on any page.
+watch(
+  () => campaignStore.activeCampaign?.id,
+  async (id) => {
+    if (id && !campaignStore.tabletops.length) {
+      await campaignStore.fetchTabletops(id)
+    }
+  },
+  { immediate: true }
+)
 </script>

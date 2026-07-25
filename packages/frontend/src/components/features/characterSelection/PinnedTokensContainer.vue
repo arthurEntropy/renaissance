@@ -526,15 +526,16 @@ function getFocusedTokenProps(character) {
 <style scoped>
 .token-rail-container {
     position: fixed;
-    top: calc(var(--space-lg) + 3rem);
+    top: var(--nav-height);
     left: var(--space-lg);
     z-index: var(--z-badge);
     display: flex;
     flex-direction: column;
     gap: var(--space-md);
-    max-height: calc(100vh - (calc(var(--space-lg) + 3rem)) - var(--space-lg));
+    max-height: calc(100vh - (calc(var(--space-lg) + 3rem)));
     overflow-y: auto;
     overflow-x: visible;
+    padding-top: var(--space-md);
     /* Provide right-side paint room for token tooltips without changing token placement. */
     padding-right: 12rem;
     margin-right: -12rem;

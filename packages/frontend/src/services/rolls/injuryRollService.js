@@ -22,7 +22,9 @@ class InjuryRollService extends BaseRollService {
     } else if (featDieResult === SPECIAL_ROLLS.MORTE) {
       resultingInjury = Math.max(currentInjury, baseDefense)
       injuryApplied = resultingInjury - currentInjury
-      footer = 'Injury increases to your base Defense.'
+      footer = injuryApplied > 0
+        ? `Injury increases to your base Defense. (+${injuryApplied} applied)`
+        : 'No additional injury (already at base Defense).'
     } else {
       injuryApplied = featDieResult
       resultingInjury = currentInjury + injuryApplied

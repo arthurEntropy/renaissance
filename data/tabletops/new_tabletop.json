@@ -2,7 +2,7 @@
   "id": "6ae64a86-7abd-4a96-9c73-3c0c5e02959c",
   "isDeleted": false,
   "createdAt": "2026-07-25T03:06:14.328Z",
-  "lastModified": "2026-07-25T20:28:58.728Z",
+  "lastModified": "2026-07-25T21:06:54.224Z",
   "campaignId": "c9ddeab9-d180-4fc5-869f-e64239bc3376",
   "name": "New Tabletop",
   "backgroundImage": {
@@ -19,9 +19,9 @@
       "name": "Himo",
       "portraitUrl": "https://cdn.midjourney.com/d540e4e9-8b5c-4fd1-b7ab-41ee29f97979/0_2.jpeg",
       "size": 1,
-      "x": 1360,
-      "y": 520,
-      "zIndex": 8
+      "x": 1400,
+      "y": 560,
+      "zIndex": 17
     },
     {
       "id": "8d465f4b-8166-4aa6-97a6-5249faef7861",
@@ -31,15 +31,15 @@
       "name": "Jebeddo",
       "portraitUrl": "https://cdn.midjourney.com/ef8f7b85-a18f-49a1-8a2d-238a3eb1cb5a/0_1_640_N.webp",
       "size": 1,
-      "x": 1560,
-      "y": 480,
-      "zIndex": 5
+      "x": 1520,
+      "y": 560,
+      "zIndex": 16
     }
   ],
   "transform": {
-    "scale": 0.9276213873091763,
-    "x": -554.6728925166199,
-    "y": -7.730195764205746
+    "scale": 0.5412581699346398,
+    "x": -168.39343551572904,
+    "y": 160.24404511973216
   },
   "gridSize": 40,
   "gridColor": "#050505",
@@ -1926,6 +1926,190 @@
           "isDropped": false,
           "rolledMaxValue": false,
           "cssClass": "df-d12-4"
+        }
+      ]
+    },
+    {
+      "id": "0f6f7b18-4fa1-4a7c-993b-173437f1cd79_1785013324733_v8hj",
+      "timestamp": 1785013324733,
+      "characterId": "0f6f7b18-4fa1-4a7c-993b-173437f1cd79",
+      "characterName": "Himo",
+      "portraitUrl": "https://cdn.midjourney.com/d540e4e9-8b5c-4fd1-b7ab-41ee29f97979/0_2.jpeg",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "skill_check",
+      "skillName": "Dexterity",
+      "total": 25,
+      "diceTotal": null,
+      "modifier": 0,
+      "success": true,
+      "difficulty": null,
+      "footer": "",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 9,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-9"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 6,
+          "emoji": "✨",
+          "isDropped": false,
+          "rolledMaxValue": true,
+          "cssClass": "df-d6-6"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 5,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-5"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 5,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-5"
+        }
+      ]
+    },
+    {
+      "id": "0f6f7b18-4fa1-4a7c-993b-173437f1cd79_1785013338715_e64v",
+      "timestamp": 1785013338715,
+      "characterId": "0f6f7b18-4fa1-4a7c-993b-173437f1cd79",
+      "characterName": "Himo",
+      "portraitUrl": "https://cdn.midjourney.com/d540e4e9-8b5c-4fd1-b7ab-41ee29f97979/0_2.jpeg",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "skill_check",
+      "skillName": "Dexterity",
+      "total": 28,
+      "diceTotal": null,
+      "modifier": 0,
+      "success": true,
+      "difficulty": null,
+      "footer": "",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 12,
+          "emoji": "🌞",
+          "isDropped": false,
+          "rolledMaxValue": true,
+          "cssClass": "df-d12-12"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 6,
+          "emoji": "✨",
+          "isDropped": false,
+          "rolledMaxValue": true,
+          "cssClass": "df-d6-6"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 6,
+          "emoji": "✨",
+          "isDropped": false,
+          "rolledMaxValue": true,
+          "cssClass": "df-d6-6"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 4,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-4"
+        }
+      ]
+    },
+    {
+      "id": "0f6f7b18-4fa1-4a7c-993b-173437f1cd79_1785013400068_rsz7",
+      "timestamp": 1785013400068,
+      "characterId": "0f6f7b18-4fa1-4a7c-993b-173437f1cd79",
+      "characterName": "Himo",
+      "portraitUrl": "https://cdn.midjourney.com/d540e4e9-8b5c-4fd1-b7ab-41ee29f97979/0_2.jpeg",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "injury",
+      "skillName": "Injury",
+      "total": 7,
+      "diceTotal": 7,
+      "modifier": 0,
+      "success": null,
+      "difficulty": null,
+      "footer": "+7 Injury.",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 7,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-7"
+        }
+      ]
+    },
+    {
+      "id": "0f6f7b18-4fa1-4a7c-993b-173437f1cd79_1785013404821_zvt5",
+      "timestamp": 1785013404821,
+      "characterId": "0f6f7b18-4fa1-4a7c-993b-173437f1cd79",
+      "characterName": "Himo",
+      "portraitUrl": "https://cdn.midjourney.com/d540e4e9-8b5c-4fd1-b7ab-41ee29f97979/0_2.jpeg",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "injury",
+      "skillName": "Injury",
+      "total": 2,
+      "diceTotal": 2,
+      "modifier": 0,
+      "success": null,
+      "difficulty": null,
+      "footer": "+2 Injury.",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 2,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-2"
         }
       ]
     }

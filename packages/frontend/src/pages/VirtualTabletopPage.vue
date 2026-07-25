@@ -87,17 +87,22 @@
                 @update:is-expanded="setRollLogExpanded" />
         </div>
 
-        <!-- Bottom Toolbar -->
-        <TabletopToolbar :scale="transform.scale" :grid-size="gridSize" :item-count="canvasItems.length"
-            :can-undo="canUndo" :can-redo="canRedo" :has-background="!!backgroundImage" :grid-color="gridColor"
-            :grid-opacity="gridOpacity" :show-paths="showPaths" :is-g-m="campaignStore.isGMInActiveCampaign"
-            :tabletops="campaignStore.tabletops" :current-tabletop-id="tabletopId"
-            :active-tabletop-id="campaignStore.activeCampaign?.activeTabletopId ?? null"
-            :current-tabletop-name="currentTabletopName" @zoom-in="adjustZoom(1.2)" @zoom-out="adjustZoom(1 / 1.2)"
-            @increase-grid="increaseGridSize" @decrease-grid="decreaseGridSize" @clear-all="clearAll" @undo="undo"
-            @redo="redo" @set-background="setBackgroundImage" @clear-background="clearBackgroundImage"
-            @update-grid-color="setGridColor" @update-grid-opacity="setGridOpacity" @update-show-paths="setShowPaths"
-            @toggle-active-tabletop="handleToggleActiveTabletop" @switch-tabletop="handleSwitchTabletop" />
+        <!-- Bottom Toolbar – teleported to body so it stacks above PinnedTokensContainer (z-badge) -->
+        <Teleport to="body">
+            <div class="tabletop-toolbar-portal">
+                <TabletopToolbar :scale="transform.scale" :grid-size="gridSize" :item-count="canvasItems.length"
+                    :can-undo="canUndo" :can-redo="canRedo" :has-background="!!backgroundImage" :grid-color="gridColor"
+                    :grid-opacity="gridOpacity" :show-paths="showPaths" :is-g-m="campaignStore.isGMInActiveCampaign"
+                    :tabletops="campaignStore.tabletops" :current-tabletop-id="tabletopId"
+                    :active-tabletop-id="campaignStore.activeCampaign?.activeTabletopId ?? null"
+                    :current-tabletop-name="currentTabletopName" @zoom-in="adjustZoom(1.2)"
+                    @zoom-out="adjustZoom(1 / 1.2)" @increase-grid="increaseGridSize" @decrease-grid="decreaseGridSize"
+                    @clear-all="clearAll" @undo="undo" @redo="redo" @set-background="setBackgroundImage"
+                    @clear-background="clearBackgroundImage" @update-grid-color="setGridColor"
+                    @update-grid-opacity="setGridOpacity" @update-show-paths="setShowPaths"
+                    @toggle-active-tabletop="handleToggleActiveTabletop" @switch-tabletop="handleSwitchTabletop" />
+            </div>
+        </Teleport>
 
         <!-- Character sheet popup (opened from token info area expand button) -->
         <!-- Teleport to body so this component never creates a second root node (fragment),
@@ -237,7 +242,7 @@ function broadcastStateUpdate(snapshot) {
 }
 
 // When the GM changes the active tabletop, redirect all viewers to that tabletop.
-function handleActiveTabletopChanged({ campaignId: cid, activeTabletopId }) {
+function handleActiveTabletopChanged({ activeTabletopId }) {
     if (!activeTabletopId || !campaignSlug.value) return
     // Don't redirect if we're already on the active tabletop
     if (tabletopId.value === activeTabletopId) return
@@ -485,6 +490,8 @@ watch(campaignId, async (id) => {
     flex: 1;
     position: relative;
     overflow: hidden;
+    /* Expose the toolbar height so the chatlog can position itself above the toolbar */
+    --vtt-toolbar-height: 38px;
 }
 
 .canvas-container.is-panning,
@@ -549,5 +556,14 @@ watch(campaignId, async (id) => {
     background: rgba(255, 255, 255, 0.1);
     pointer-events: none;
     z-index: 9998;
+}
+
+/* Teleported toolbar portal – sits above PinnedTokensContainer (z-badge = 1200) */
+.tabletop-toolbar-portal {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: calc(var(--z-badge) + 1);
 }
 </style>
