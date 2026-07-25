@@ -484,6 +484,15 @@ const getTokenProps = (combatant, groupId) => {
         }
     }
 
+    if (combatant.type === 'pc') {
+        return {
+            ...baseProps,
+            character,
+            showRemoveFab: true,
+            disableDefaultClick: true,
+        }
+    }
+
     return {
         ...baseProps,
         beast: character,

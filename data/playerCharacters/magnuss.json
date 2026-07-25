@@ -2,7 +2,7 @@
   "id": "917e904f-d97e-4033-a498-8391260f3752",
   "isDeleted": false,
   "createdAt": "2026-07-24T22:34:07.812Z",
-  "lastModified": "2026-07-25T18:51:02.890Z",
+  "lastModified": "2026-07-25T20:16:03.686Z",
   "characterType": "playerCharacter",
   "name": "Magnuss",
   "featuredArtUrls": [
@@ -341,14 +341,14 @@
     "white": [],
     "blue": [],
     "black": [
-      true,
-      true,
-      true,
-      true
+      false,
+      false,
+      false,
+      false
     ],
     "red": [
-      true,
-      true
+      false,
+      false
     ],
     "green": [],
     "colorless": []
@@ -397,5 +397,5 @@
   "biomeTagsAugment": [],
   "biomeTagsInhibit": [],
   "beastTypeIds": [],
-  "updatedAt": "2026-07-25T18:51:02.890Z"
+  "updatedAt": "2026-07-25T20:16:03.685Z"
 }

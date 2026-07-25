@@ -2,7 +2,7 @@
   "id": "6ae64a86-7abd-4a96-9c73-3c0c5e02959c",
   "isDeleted": false,
   "createdAt": "2026-07-25T03:06:14.328Z",
-  "lastModified": "2026-07-25T19:29:51.167Z",
+  "lastModified": "2026-07-25T20:28:58.728Z",
   "campaignId": "c9ddeab9-d180-4fc5-869f-e64239bc3376",
   "name": "New Tabletop",
   "backgroundImage": {
@@ -21,7 +21,7 @@
       "size": 1,
       "x": 1360,
       "y": 520,
-      "zIndex": 6
+      "zIndex": 8
     },
     {
       "id": "8d465f4b-8166-4aa6-97a6-5249faef7861",

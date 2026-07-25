@@ -120,6 +120,17 @@ onUnmounted(() => {
     }
 })
 
+// Defensive guard: if Vue reuses this component instance (e.g. because the v-if
+// condition stays truthy while charSheetPopupCharacter changes), onMounted won't
+// re-fire. Watch props.character so selectedCharacter is always updated even in
+// that case, preventing the popup from showing data for the previous character.
+watch(() => props.character, (newChar) => {
+    if (newChar && newChar !== charactersStore.selectedCharacter) {
+        prevSelectedCharacter = charactersStore.selectedCharacter
+        charactersStore.selectCharacter(newChar)
+    }
+})
+
 // Wire up auto-save watchers (same as CharacterSheet)
 const selectedCharacter = computed(() => charactersStore.selectedCharacter)
 useCharacterStatWatchers(selectedCharacter, computed(() => equipmentStore.equipment || []))

@@ -2,7 +2,7 @@
   "id": "a8cb69a9-0146-4aee-bcc1-24b591fe2458",
   "isDeleted": false,
   "createdAt": "2026-07-25T02:30:19.653Z",
-  "lastModified": "2026-07-25T19:29:47.302Z",
+  "lastModified": "2026-07-25T20:29:20.288Z",
   "characterType": "playerCharacter",
   "name": "Jebeddo",
   "featuredArtUrls": [
@@ -175,10 +175,7 @@
   ],
   "engagementSuccesses": [],
   "engagementDiceStatuses": {
-    "user_added_0": "expended",
-    "user_added_1": "expended",
-    "user_added_2": "expended",
-    "user_added_3": "expended"
+    "mestiere_0": "expended"
   },
   "equipment": [
     {
@@ -343,7 +340,7 @@
     "xpEarned": 0,
     "xpSpent": 0,
     "treasureEarned": 25,
-    "treasureSpent": 26
+    "treasureSpent": 36
   },
   "biomeTags": [],
   "biomeId": null,
@@ -399,5 +396,5 @@
   "biomeTagsAugment": [],
   "biomeTagsInhibit": [],
   "beastTypeIds": [],
-  "updatedAt": "2026-07-25T19:29:47.302Z"
+  "updatedAt": "2026-07-25T20:29:20.288Z"
 }

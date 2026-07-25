@@ -453,7 +453,11 @@ const updateEquipmentShowSuccesses = (equipmentId, showSuccesses) => {
 
 const handleCharacterUpdate = async (updatedCharacter) => {
     if (updatedCharacter && selectedCharacter.value) {
-        await charactersStore.update(updatedCharacter)
+        // Merge changes into selectedCharacter.value in place so the store reference
+        // stays connected to allItems, preventing stale auto-saves from overwriting
+        // the change after the server round-trip.
+        Object.assign(selectedCharacter.value, updatedCharacter)
+        await charactersStore.update(selectedCharacter.value)
     }
 }
 

@@ -2,7 +2,7 @@
   "id": "c9ddeab9-d180-4fc5-869f-e64239bc3376",
   "isDeleted": false,
   "createdAt": "2026-05-18T17:56:57.471Z",
-  "lastModified": "2026-07-25T19:29:30.350Z",
+  "lastModified": "2026-07-25T20:14:32.089Z",
   "slug": "vengeance",
   "name": "Vengeance",
   "description": "<p>Long ago, the Ascendant visited our world and unlocked a hidden power. For many long years the Chthonic Subcommittee greedily hoarded that power away while the people learned magic in secret and at risk of death. Then came the rising of the bards, stirring the people into revolution. The Subcommittee was overthrown and an age of free magic began. It is in this happy time that our heroes meet and discover that all is not well. Will they rise to defend their world against a growing threat? Or will they mostly focus on root vegetables and magic cows?</p>",
@@ -22,7 +22,8 @@
         "0f6f7b18-4fa1-4a7c-993b-173437f1cd79",
         "decef988-2c77-4c84-9ee6-bb8198a6f3cb",
         "bc4960b8-28d0-4d2c-9f7f-99f6cef68706",
-        "a8cb69a9-0146-4aee-bcc1-24b591fe2458"
+        "a8cb69a9-0146-4aee-bcc1-24b591fe2458",
+        "a442f42a-3fb2-463d-ad3b-b2196ae63e24"
       ]
     },
     {
@@ -149,6 +150,11 @@
           "id": "pc:1af228fc-7b3c-4fe6-8c0c-cd028bc850e2",
           "type": "pc",
           "characterId": "1af228fc-7b3c-4fe6-8c0c-cd028bc850e2"
+        },
+        {
+          "id": "pc:a442f42a-3fb2-463d-ad3b-b2196ae63e24",
+          "type": "pc",
+          "characterId": "a442f42a-3fb2-463d-ad3b-b2196ae63e24"
         }
       ]
     }
