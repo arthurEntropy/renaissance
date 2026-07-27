@@ -141,12 +141,14 @@ import { isBeastTemplate, isBeastInstance, isNPC } from '@/utils/characterTypeGu
 import keepingIcon from '@/assets/icons/keeping/keeping.png'
 import { useTabletopDragState } from '@/composables/useTabletopDragState'
 import { useTabletopSelectionState } from '@/composables/useTabletopSelectionState'
+import { useRollsStore } from '@/stores/rollsStore'
 import BatchRollOrchestrationService from '@/services/rolls/batchRollOrchestrationService'
 import CrossedSwordsIcon from '@/assets/icons/characterSheet/crossed_swords.svg?component'
 
 const characterContextStore = useCharacterContextStore()
 const charactersStore = useCharactersStore()
 const campaignStore = useCampaignStore()
+const rollsStore = useRollsStore()
 const route = useRoute()
 const { setDraggingCharacter, clearDraggingCharacter } = useTabletopDragState()
 const { selectedCharacterIds } = useTabletopSelectionState()
@@ -389,7 +391,15 @@ const isInitiativeActive = ref(false)
 function rollGroupInitiative(group) {
     const characters = (group.members || []).filter(Boolean)
     if (characters.length === 0) return
-    const { groupTotal, members } = BatchRollOrchestrationService.executeBatchInitiativeRoll(characters)
+    const { groupTotal, members, rollsByCharacterId } = BatchRollOrchestrationService.executeBatchInitiativeRoll(characters)
+    // Register each individual roll in the store so the tabletop chatlog and
+    // speech bubbles pick them up (useTabletopRollLog watches rollsStore.rollsById).
+    characters.forEach((character) => {
+        const rollResult = rollsByCharacterId[character.id]
+        if (rollResult) {
+            rollsStore.setRollForCharacter(rollResult, character.id)
+        }
+    })
     characterContextStore.updatePinnedGroup(group.id, { initiativeResults: { groupTotal, members } })
 }
 

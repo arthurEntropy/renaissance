@@ -2,7 +2,7 @@
   "id": "1af228fc-7b3c-4fe6-8c0c-cd028bc850e2",
   "isDeleted": false,
   "createdAt": "2026-07-24T19:44:15.780Z",
-  "lastModified": "2026-07-25T18:38:20.616Z",
+  "lastModified": "2026-07-27T12:39:59.000Z",
   "characterType": "playerCharacter",
   "name": "Palfrey",
   "featuredArtUrls": [
@@ -387,5 +387,5 @@
   "biomeTagsAugment": [],
   "biomeTagsInhibit": [],
   "beastTypeIds": [],
-  "updatedAt": "2026-07-25T18:38:20.616Z"
+  "updatedAt": "2026-07-27T12:39:59.000Z"
 }

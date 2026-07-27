@@ -2,8 +2,8 @@
   "id": "a442f42a-3fb2-463d-ad3b-b2196ae63e24",
   "isDeleted": false,
   "createdAt": "2026-07-25T20:13:28.796Z",
-  "lastModified": "2026-07-25T20:14:18.436Z",
-  "characterType": "playerCharacter",
+  "lastModified": "2026-07-27T12:31:12.633Z",
+  "characterType": "npc",
   "name": "New Character",
   "featuredArtUrls": [
     "https://cdn.midjourney.com/afe2f988-0990-418f-8b54-5ebf57c70560/0_1.png"
@@ -18,41 +18,46 @@
       "key": "awe",
       "ranks": 0,
       "isFavored": false,
-      "isIllFavored": true,
-      "diceMod": -1,
-      "manualDiceMod": 0
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0,
+      "isIllFavoredAutocalc": false
     },
     {
       "key": "strength",
       "ranks": 0,
-      "isFavored": false,
-      "isIllFavored": true,
-      "diceMod": -1,
-      "manualDiceMod": 0
+      "isFavored": true,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0,
+      "isIllFavoredAutocalc": false
     },
     {
       "key": "dexterity",
       "ranks": 0,
       "isFavored": false,
-      "isIllFavored": true,
-      "diceMod": -1,
-      "manualDiceMod": 0
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0,
+      "isIllFavoredAutocalc": false
     },
     {
       "key": "fortitude",
       "ranks": 0,
       "isFavored": false,
-      "isIllFavored": true,
-      "diceMod": -1,
-      "manualDiceMod": 0
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0,
+      "isIllFavoredAutocalc": false
     },
     {
       "key": "craft",
       "ranks": 0,
       "isFavored": false,
-      "isIllFavored": true,
-      "diceMod": -1,
-      "manualDiceMod": 0
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0,
+      "isIllFavoredAutocalc": false
     },
     {
       "key": "perform",
@@ -60,7 +65,8 @@
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "manualDiceMod": 0
+      "manualDiceMod": 0,
+      "isIllFavoredAutocalc": false
     },
     {
       "key": "insight",
@@ -68,7 +74,8 @@
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "manualDiceMod": 0
+      "manualDiceMod": 0,
+      "isIllFavoredAutocalc": false
     },
     {
       "key": "courtesy",
@@ -76,7 +83,8 @@
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "manualDiceMod": 0
+      "manualDiceMod": 0,
+      "isIllFavoredAutocalc": false
     },
     {
       "key": "spirit",
@@ -84,7 +92,8 @@
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "manualDiceMod": 0
+      "manualDiceMod": 0,
+      "isIllFavoredAutocalc": false
     },
     {
       "key": "aid",
@@ -92,7 +101,8 @@
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "manualDiceMod": 0
+      "manualDiceMod": 0,
+      "isIllFavoredAutocalc": false
     },
     {
       "key": "persuade",
@@ -100,7 +110,8 @@
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "manualDiceMod": 0
+      "manualDiceMod": 0,
+      "isIllFavoredAutocalc": false
     },
     {
       "key": "awareness",
@@ -108,7 +119,8 @@
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "manualDiceMod": 0
+      "manualDiceMod": 0,
+      "isIllFavoredAutocalc": false
     },
     {
       "key": "stealth",
@@ -116,7 +128,8 @@
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "manualDiceMod": 0
+      "manualDiceMod": 0,
+      "isIllFavoredAutocalc": false
     },
     {
       "key": "lore",
@@ -124,7 +137,8 @@
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "manualDiceMod": 0
+      "manualDiceMod": 0,
+      "isIllFavoredAutocalc": false
     },
     {
       "key": "riddle",
@@ -132,7 +146,8 @@
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "manualDiceMod": 0
+      "manualDiceMod": 0,
+      "isIllFavoredAutocalc": false
     }
   ],
   "endurance": {
@@ -147,12 +162,12 @@
     "current": 0,
     "base": 0
   },
-  "load": 1,
+  "load": 0,
   "shadow": 0,
   "injury": 0,
   "states": {
-    "weary": true,
-    "twiceWeary": true,
+    "weary": false,
+    "twiceWeary": false,
     "miserable": false,
     "twiceMiserable": false,
     "helpless": false,
@@ -172,7 +187,8 @@
     {
       "id": "82df1f6d-707f-42fc-801d-ab1b9c61940f",
       "quantity": 1,
-      "isCarried": true
+      "isCarried": false,
+      "isWielding": false
     }
   ],
   "groupEquipmentBySource": false,
@@ -258,10 +274,14 @@
   "witchFamiliar": null,
   "summonerVessels": [],
   "hunterTraps": [],
-  "campaignId": null,
+  "campaignId": "c9ddeab9-d180-4fc5-869f-e64239bc3376",
   "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
   "isPublicPreview": false,
-  "sectionOrder": [],
+  "sectionOrder": [
+    "engagement",
+    "equipment",
+    "abilities"
+  ],
   "martialTrainingOverrides": {},
   "pronouns": "",
   "ancestryIds": [],
@@ -274,5 +294,5 @@
   "keeping": null,
   "treasure": 0,
   "xp": 0,
-  "updatedAt": "2026-07-25T20:14:18.436Z"
+  "updatedAt": "2026-07-27T12:31:12.633Z"
 }

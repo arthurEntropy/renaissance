@@ -3,6 +3,11 @@
     <TableHeader title="Equipment" :is-edit-mode="internalEditMode" :show-edit-button="canEdit" collapsible
       :is-collapsed="isCollapsed" @toggle-collapse="isCollapsed = !isCollapsed" @toggle-edit="toggleEditMode">
       <template #header-left>
+        <!-- Expand/collapse FAB sits between the edit button (rendered by TableHeader) and the add FAB -->
+        <FloatingActionButton v-if="!isCollapsed && characterEquipment.length > 0" class="expand-collapse-btn"
+          :variant="allEquipmentExpanded ? FAB_TYPES.COLLAPSE_ALL : FAB_TYPES.EXPAND_ALL" :size="FAB_SIZES.SMALL"
+          :visibility="internalEditMode ? FAB_VISIBILITIES.ALWAYS : FAB_VISIBILITIES.ON_HOVER"
+          @click="toggleAllEquipment" />
         <FloatingActionButton v-if="internalEditMode" :variant="FAB_TYPES.ADD" :size="FAB_SIZES.SMALL"
           :visibility="FAB_VISIBILITIES.ALWAYS" @click="openEquipmentSelectorFromButton" />
         <ActionButton v-if="internalEditMode && groupingOption === 'custom'" variant="outline" size="small"
@@ -14,9 +19,6 @@
             placeholder="Ungrouped" />
           <SortingPicker v-model="equipmentSortOption" :options="sortOptions" label="Order by:" placeholder="Custom" />
         </div>
-        <FloatingActionButton v-else-if="!isCollapsed && characterEquipment.length > 0" class="expand-collapse-btn"
-          :variant="allEquipmentExpanded ? FAB_TYPES.COLLAPSE_ALL : FAB_TYPES.EXPAND_ALL" :size="FAB_SIZES.SMALL"
-          :visibility="FAB_VISIBILITIES.ON_HOVER" @click="toggleAllEquipment" />
       </template>
       <template #header-right>
         <div class="header-right-controls">

@@ -252,11 +252,12 @@ const biomeLinkClass = computed(() => {
   return null
 })
 
-// Intercept roll-link events and enrich with biome dice modifier
+// Intercept roll-link events and enrich with biome dice modifier and ability name
 function handleRollLinkWithBiome(rollData) {
   emit('roll-link', {
     ...rollData,
     biomeDiceMod: biomeDiceMod.value,
+    abilityName: props.ability.name,
   })
 }
 

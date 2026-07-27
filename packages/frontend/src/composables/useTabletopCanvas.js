@@ -100,13 +100,16 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
     // { url, naturalWidth, naturalHeight } or null for an unbounded canvas
     const backgroundImage = ref(null)
 
+    // Scale applied to the background map image (20%–400%, snaps to 10% increments).
+    const mapScale = ref(1)
+
     // When a background image is set, the canvas div gets a fixed size so that
     // tokens are bounded to the map area.
     const canvasSizeStyle = computed(() => {
         if (!backgroundImage.value) return {}
         return {
-            width: `${backgroundImage.value.naturalWidth}px`,
-            height: `${backgroundImage.value.naturalHeight}px`,
+            width: `${Math.round(backgroundImage.value.naturalWidth * mapScale.value)}px`,
+            height: `${Math.round(backgroundImage.value.naturalHeight * mapScale.value)}px`,
         }
     })
 
@@ -124,6 +127,15 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
 
     const clearBackgroundImage = () => {
         backgroundImage.value = null
+        saveState()
+    }
+
+    const increaseMapScale = () => {
+        mapScale.value = Math.min(4, Math.round((mapScale.value + 0.1) * 10) / 10)
+        saveState()
+    }
+    const decreaseMapScale = () => {
+        mapScale.value = Math.max(0.2, Math.round((mapScale.value - 0.1) * 10) / 10)
         saveState()
     }
 
@@ -1094,6 +1106,7 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
         const snapshot = {
             items: JSON.parse(JSON.stringify(canvasItems.value)),
             backgroundImage: backgroundImage.value ? { ...backgroundImage.value } : null,
+            mapScale: mapScale.value,
             gridSize: gridSize.value,
             gridColor: gridColor.value,
             gridOpacity: gridOpacity.value,
@@ -1110,7 +1123,12 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
             campaignStore.updateTabletop(cid, tid, { ...snapshot, transform: { ...transform.value }, rollLogExpanded: rollLogExpanded.value })
                 .then(() => {
                     console.log('[VTT] State persisted; calling onStateSaved to broadcast via socket')
-                    onStateSaved?.(snapshot)
+                    // Exclude rollLog from the socket broadcast: roll entries are synced
+                    // independently via ROLL_RECEIVED events (useTabletopRollLog).
+                    // Broadcasting rollLog via state sync would overwrite other clients'
+                    // locally-assembled chat logs with stale data.
+                    const { rollLog: _excludedRollLog, ...broadcastSnapshot } = snapshot
+                    onStateSaved?.(broadcastSnapshot)
                 })
                 .catch((err) => console.warn('[VTT] Failed to persist tabletop state:', err))
         }, 500)
@@ -1135,6 +1153,7 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
                 topZIndex.value = Math.max(1, ...snapshot.items.map((i) => i.zIndex ?? 0))
             }
             if (snapshot.backgroundImage !== undefined) backgroundImage.value = snapshot.backgroundImage
+            if (snapshot.mapScale != null) mapScale.value = snapshot.mapScale
             if (snapshot.gridSize != null) gridSize.value = snapshot.gridSize
             if (snapshot.gridColor) gridColor.value = snapshot.gridColor
             if (snapshot.gridOpacity != null) gridOpacity.value = snapshot.gridOpacity
@@ -1164,6 +1183,7 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
         }
         if (tabletop.transform) transform.value = tabletop.transform
         if (tabletop.backgroundImage) backgroundImage.value = tabletop.backgroundImage
+        if (tabletop.mapScale != null) mapScale.value = tabletop.mapScale
         if (tabletop.gridSize) gridSize.value = tabletop.gridSize
         if (tabletop.gridColor) gridColor.value = tabletop.gridColor
         if (tabletop.gridOpacity != null) gridOpacity.value = tabletop.gridOpacity
@@ -1186,6 +1206,7 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
             canvasItems.value = []
             transform.value = { x: 0, y: 0, scale: 1 }
             backgroundImage.value = null
+            mapScale.value = 1
             gridSize.value = 40
             gridColor.value = '#ffffff'
             gridOpacity.value = 0.06
@@ -1288,6 +1309,9 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
         adjustZoom,
         increaseGridSize,
         decreaseGridSize,
+        mapScale,
+        increaseMapScale,
+        decreaseMapScale,
         setBackgroundImage,
         clearBackgroundImage,
         setGridColor,

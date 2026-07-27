@@ -2,7 +2,7 @@
   "id": "9225611b-fdc0-426c-9e4c-70da673d5e0d",
   "isDeleted": false,
   "createdAt": "2026-07-25T03:05:26.206Z",
-  "lastModified": "2026-07-25T18:50:11.948Z",
+  "lastModified": "2026-07-27T12:40:49.737Z",
   "characterType": "beastInstance",
   "name": "Spore Hound C",
   "featuredArtUrls": [
@@ -167,7 +167,10 @@
   },
   "engagementDice": [],
   "engagementSuccesses": [],
-  "engagementDiceStatuses": {},
+  "engagementDiceStatuses": {
+    "a77e5e36-1c1d-4a15-865f-da6748d815b7_0": "expended",
+    "3a61c9aa-09ba-4b44-9efb-529795835e69_0": "expended"
+  },
   "equipment": [
     {
       "id": "3a61c9aa-09ba-4b44-9efb-529795835e69",
@@ -221,7 +224,7 @@
     },
     "contests": {
       "engagement": {
-        "wins": 0,
+        "wins": 1,
         "losses": 0,
         "draws": 0
       },
@@ -266,7 +269,7 @@
   "keeping": null,
   "treasure": 0,
   "xp": 0,
-  "updatedAt": "2026-07-25T18:50:11.948Z",
+  "updatedAt": "2026-07-27T12:40:49.737Z",
   "description": "",
   "size": 1,
   "reach": 5,

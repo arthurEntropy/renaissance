@@ -103,6 +103,11 @@ const props = defineProps({
     type: Number,
     default: 0,
   },
+  // Optional context name (e.g. ability name) included in the roll log entry
+  sourceName: {
+    type: String,
+    default: null,
+  },
 })
 
 const emit = defineEmits(['close', 'update-difficulty'])
@@ -239,7 +244,7 @@ function rollSkillCheck() {
     effectiveRollParameters.value,
     props.character,
     difficulty,
-    { sendToDiscord: sendToDiscord.value }
+    { sendToDiscord: sendToDiscord.value, sourceName: props.sourceName || undefined }
   )
   rollsStore.setRoll(rollResult)
   emit('update-difficulty', difficulty)

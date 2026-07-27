@@ -2,7 +2,7 @@
   "id": "0f6f7b18-4fa1-4a7c-993b-173437f1cd79",
   "isDeleted": false,
   "createdAt": "2026-07-25T00:22:58.175Z",
-  "lastModified": "2026-07-25T21:03:43.498Z",
+  "lastModified": "2026-07-27T12:40:48.861Z",
   "characterType": "playerCharacter",
   "name": "Himo",
   "featuredArtUrls": [
@@ -33,7 +33,7 @@
     {
       "key": "dexterity",
       "ranks": 3,
-      "isFavored": false,
+      "isFavored": true,
       "isIllFavored": false,
       "diceMod": 0,
       "manualDiceMod": 0
@@ -145,7 +145,7 @@
   },
   "defense": {
     "current": 3,
-    "base": 11
+    "base": 3
   },
   "load": 0,
   "shadow": 0,
@@ -168,7 +168,8 @@
   "engagementDice": [],
   "engagementSuccesses": [],
   "engagementDiceStatuses": {
-    "mestiere_0": "selected"
+    "mestiere_0": "expended",
+    "mestiere_1": "expended"
   },
   "equipment": [
     {
@@ -308,25 +309,25 @@
   },
   "rollStats": {
     "skillChecks": {
-      "attempts": 7,
-      "successes": 7,
-      "totalSum": 114,
+      "attempts": 14,
+      "successes": 14,
+      "totalSum": 236,
       "bestTotal": 28,
       "hardestSuccess": null,
       "bySkill": {
         "Awareness": 1,
-        "Stealth": 1,
-        "Dexterity": 4,
+        "Stealth": 3,
+        "Dexterity": 9,
         "Craft": 1
       },
       "solCount": 2,
-      "morteCount": 1,
-      "successCount": 3
+      "morteCount": 2,
+      "successCount": 9
     },
     "contests": {
       "engagement": {
-        "wins": 0,
-        "losses": 0,
+        "wins": 2,
+        "losses": 4,
         "draws": 0
       },
       "contest": {
@@ -338,7 +339,7 @@
     "xpEarned": 0,
     "xpSpent": 0,
     "treasureEarned": 24,
-    "treasureSpent": 134
+    "treasureSpent": 154
   },
   "biomeTags": [],
   "biomeId": null,
@@ -409,5 +410,5 @@
   "biomeTagsAugment": [],
   "biomeTagsInhibit": [],
   "beastTypeIds": [],
-  "updatedAt": "2026-07-25T21:03:43.498Z"
+  "updatedAt": "2026-07-27T12:40:48.861Z"
 }

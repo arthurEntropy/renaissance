@@ -5,7 +5,8 @@
 
             <!-- Compact state: total + emoji pill -->
             <template v-if="!expanded">
-                <span class="bubble-compact-total">{{ compactTotal }}</span>
+                <span class="bubble-compact-total" :class="entry.type === RollTypes.ENGAGEMENT ? outcomeClass : null">{{
+                    compactTotal }}</span>
                 <span v-if="compactEmoji" class="bubble-compact-emoji">{{ compactEmoji }}</span>
             </template>
 
@@ -24,9 +25,15 @@
                     <span v-if="entry.diceResults.length > MAX_DICE" class="bubble-dice-overflow">
                         +{{ entry.diceResults.length - MAX_DICE }}
                     </span>
+                    <!-- Inline modifier note for damage rolls -->
+                    <span v-if="entry.type === RollTypes.DAMAGE && entry.modifier !== 0 && entry.diceTotal != null"
+                        class="bubble-modifier-note">{{ entry.modifier >= 0 ? '+' : '' }}{{ entry.modifier }}{{
+                            entry.modifierLabel ? ` (${entry.modifierLabel})` : '' }}</span>
                     <span class="bubble-result" :class="outcomeClass">{{ resultText }}</span>
                 </div>
-                <div v-if="entry.footer" class="bubble-footer">{{ entry.footer }}</div>
+                <!-- Footer: suppress for damage (modifier shown inline) -->
+                <div v-if="entry.footer && entry.type !== RollTypes.DAMAGE" class="bubble-footer">{{ entry.footer }}
+                </div>
             </template>
         </div>
 
@@ -103,7 +110,7 @@ const rollTitle = computed(() => {
         case RollTypes.ENGAGEMENT: return `vs ${e.opponentName || '?'}`
         case RollTypes.INITIATIVE: return 'rolled Initiative'
         case RollTypes.INJURY: return 'rolled Injury'
-        case RollTypes.CUSTOM_ROLL: return `rolled ${e.skillName || 'Custom Roll'}`
+        case RollTypes.CUSTOM_ROLL: return `rolled:`
         case RollTypes.DAMAGE: return `rolled ${e.skillName || 'Damage'}${e.sourceName ? ` (${e.sourceName})` : ''}`
         default: {
             const fav = e.favoredStatus ? ` (${e.favoredStatus})` : ''
@@ -133,7 +140,8 @@ const resultText = computed(() => {
     }
     if (e.total == null) return '—'
     if (e.difficulty != null) return `${e.total} / ${e.difficulty}`
-    if (e.modifier && e.modifier !== 0 && e.diceTotal != null) {
+    // For damage rolls the modifier is shown inline; return just the total.
+    if (e.type !== RollTypes.DAMAGE && e.modifier && e.modifier !== 0 && e.diceTotal != null) {
         const sign = e.modifier >= 0 ? '+' : ''
         return `${e.total} (${e.diceTotal}${sign}${e.modifier})`
     }
@@ -304,6 +312,15 @@ const outcomeClass = computed(() => {
     font-size: var(--font-size-11);
     color: var(--color-text-secondary);
     font-style: italic;
+}
+
+/* Inline modifier note for damage rolls */
+.bubble-modifier-note {
+    font-family: var(--font-family-primary);
+    font-size: var(--font-size-11);
+    font-style: italic;
+    color: var(--color-text-secondary);
+    line-height: 1;
 }
 
 /* Outcome colours */

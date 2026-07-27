@@ -1,5 +1,6 @@
 <template>
-    <BaseModal title="Remove Item" width="360px" @close="$emit('close')">
+    <BaseModal :title="cost !== null && cost > 0 ? 'Remove Item' : 'Confirm Remove'" width="360px"
+        @close="$emit('close')">
         <div class="confirm-removal-body">
             <div v-show="!removed" class="removal-content">
                 <p class="removal-message">

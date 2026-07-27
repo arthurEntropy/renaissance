@@ -2,7 +2,7 @@
   "id": "917e904f-d97e-4033-a498-8391260f3752",
   "isDeleted": false,
   "createdAt": "2026-07-24T22:34:07.812Z",
-  "lastModified": "2026-07-25T20:16:03.686Z",
+  "lastModified": "2026-07-27T12:39:58.980Z",
   "characterType": "playerCharacter",
   "name": "Magnuss",
   "featuredArtUrls": [
@@ -20,7 +20,8 @@
       "isFavored": false,
       "isIllFavored": true,
       "diceMod": -1,
-      "manualDiceMod": 0
+      "manualDiceMod": 0,
+      "isIllFavoredAutocalc": true
     },
     {
       "key": "strength",
@@ -36,7 +37,8 @@
       "isFavored": false,
       "isIllFavored": true,
       "diceMod": -1,
-      "manualDiceMod": 0
+      "manualDiceMod": 0,
+      "isIllFavoredAutocalc": true
     },
     {
       "key": "fortitude",
@@ -52,7 +54,8 @@
       "isFavored": false,
       "isIllFavored": true,
       "diceMod": -1,
-      "manualDiceMod": 0
+      "manualDiceMod": 0,
+      "isIllFavoredAutocalc": true
     },
     {
       "key": "perform",
@@ -60,7 +63,8 @@
       "isFavored": false,
       "isIllFavored": true,
       "diceMod": -1,
-      "manualDiceMod": 0
+      "manualDiceMod": 0,
+      "isIllFavoredAutocalc": true
     },
     {
       "key": "insight",
@@ -76,7 +80,8 @@
       "isFavored": false,
       "isIllFavored": true,
       "diceMod": -1,
-      "manualDiceMod": 0
+      "manualDiceMod": 0,
+      "isIllFavoredAutocalc": true
     },
     {
       "key": "spirit",
@@ -92,7 +97,8 @@
       "isFavored": false,
       "isIllFavored": true,
       "diceMod": -1,
-      "manualDiceMod": 0
+      "manualDiceMod": 0,
+      "isIllFavoredAutocalc": true
     },
     {
       "key": "persuade",
@@ -100,7 +106,8 @@
       "isFavored": false,
       "isIllFavored": true,
       "diceMod": -1,
-      "manualDiceMod": 0
+      "manualDiceMod": 0,
+      "isIllFavoredAutocalc": true
     },
     {
       "key": "awareness",
@@ -116,7 +123,8 @@
       "isFavored": false,
       "isIllFavored": true,
       "diceMod": -1,
-      "manualDiceMod": 0
+      "manualDiceMod": 0,
+      "isIllFavoredAutocalc": true
     },
     {
       "key": "lore",
@@ -241,7 +249,7 @@
     },
     {
       "id": "b20b4f5e-7c7c-4b43-b180-991cf07d0712",
-      "collapsed": false,
+      "collapsed": true,
       "showImprovements": false,
       "showSuccesses": false,
       "isActive": false,
@@ -273,7 +281,7 @@
     },
     {
       "id": "92417d74-0eb3-45f3-8b15-5d68cec4ad7f",
-      "collapsed": false,
+      "collapsed": true,
       "showImprovements": false,
       "showSuccesses": false,
       "isActive": false,
@@ -397,5 +405,5 @@
   "biomeTagsAugment": [],
   "biomeTagsInhibit": [],
   "beastTypeIds": [],
-  "updatedAt": "2026-07-25T20:16:03.685Z"
+  "updatedAt": "2026-07-27T12:39:58.980Z"
 }

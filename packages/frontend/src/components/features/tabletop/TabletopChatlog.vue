@@ -26,26 +26,52 @@
                                     {{ initials(entry.characterName) }}
                                 </span>
                             </div>
-                            <!-- Roll info -->
-                            <div class="entry-body">
+
+                            <!-- Combined engagement entry: single row showing both characters -->
+                            <div v-if="entry.type === RollTypes.ENGAGEMENT && entry.combined" class="entry-body">
+                                <div class="entry-header-line">
+                                    <span class="entry-name">Engagement—</span><span class="entry-name"
+                                        :style="{ color: engagementCharColor(entry, true) }">{{ entry.characterName
+                                        }}</span><span class="entry-title"> vs </span><span class="entry-name"
+                                        :style="{ color: engagementCharColor(entry, false) }">{{ entry.opponentName
+                                        }}</span><span class="entry-title">:</span>
+                                </div>
+                                <div class="entry-dice-row entry-dice-row--engagement">
+                                    <span class="entry-total" :style="{ color: engagementCharColor(entry, true) }">{{
+                                        entry.userWins }}</span>
+                                    <span class="entry-total entry-engagement-dash">–</span>
+                                    <span class="entry-total" :style="{ color: engagementCharColor(entry, false) }">{{
+                                        entry.opponentWins }}</span>
+                                </div>
+                            </div>
+
+                            <!-- Regular roll entry -->
+                            <div v-else class="entry-body">
                                 <div class="entry-header-line">
                                     <span class="entry-name" :style="{ color: tokenBorderColor(entry) }">{{
-                                        entry.characterName }}</span>
-                                    <span class="entry-title">{{ rollTitle(entry) }}:</span>
+                                        entry.characterName }}</span><span class="entry-title"> {{ rollTitle(entry)
+                                        }}:</span>
                                 </div>
                                 <div class="entry-dice-row">
                                     <span v-for="(die, i) in entry.diceResults" :key="i" class="entry-die"
                                         :class="dieClass(die)">
                                         <i :class="die.cssClass" />
-                                        <!-- Only show emoji annotations for skill checks; other roll types
-                                             (damage, custom, initiative, etc.) would show noisy ✨ on every max die -->
+                                        <!-- Only show emoji annotations for skill checks -->
                                         <span
                                             v-if="die.emoji && die.emoji !== '' && entry.type === RollTypes.SKILL_CHECK"
                                             class="entry-die-emoji">{{ die.emoji }}</span>
                                     </span>
+                                    <!-- Inline modifier note for damage rolls -->
+                                    <span
+                                        v-if="entry.type === RollTypes.DAMAGE && entry.modifier !== 0 && entry.diceTotal != null"
+                                        class="entry-modifier-note">{{ entry.modifier >= 0 ? '+' : '' }}{{
+                                            entry.modifier }}{{ entry.modifierLabel ? ` (${entry.modifierLabel})` : ''
+                                        }}</span>
                                     <span class="entry-total" :class="outcomeClass(entry)">{{ rollTotal(entry) }}</span>
                                 </div>
-                                <div v-if="entry.footer" class="entry-footer">{{ entry.footer }}</div>
+                                <!-- Footer: suppress for damage (modifier is shown inline) -->
+                                <div v-if="entry.footer && entry.type !== RollTypes.DAMAGE" class="entry-footer">{{
+                                    entry.footer }}</div>
                             </div>
                         </div>
                     </TransitionGroup>
@@ -166,12 +192,15 @@ function rollTitle(entry) {
         case RollTypes.INJURY:
             return 'rolled Injury'
         case RollTypes.CUSTOM_ROLL:
-            return `rolled ${entry.skillName || 'Custom'}`
+            return 'rolled'
         case RollTypes.DAMAGE:
-            return `rolled ${entry.skillName || 'Damage'}${entry.sourceName ? ` (${entry.sourceName})` : ''}`
+            // Always show 'damage' as the verb; sourceName provides context (equipment/ability name)
+            return `rolled damage${entry.sourceName ? ` (${entry.sourceName})` : ''}`
         default: { // SKILL_CHECK + anything else
+            // skillName is now the base name (no favored suffix); favoredStatus is separate
             const fav = entry.favoredStatus ? ` (${entry.favoredStatus})` : ''
-            return `rolled ${entry.skillName || '?'}${fav}`
+            const src = entry.sourceName ? ` (${entry.sourceName})` : ''
+            return `rolled ${entry.skillName || '?'}${fav}${src}`
         }
     }
 }
@@ -180,13 +209,12 @@ function rollTotal(entry) {
     if (entry.type === RollTypes.ENGAGEMENT) {
         return `${entry.userWins ?? 0} – ${entry.opponentWins ?? 0}`
     }
-    // For injury rolls the "total" is the injury-applied calculation; display the
-    // actual die result (diceTotal) instead so it matches the die icon shown.
     if (entry.type === RollTypes.INJURY) {
         return entry.diceTotal != null ? String(entry.diceTotal) : '—'
     }
     if (entry.total == null) return '—'
-    if (entry.modifier && entry.modifier !== 0 && entry.diceTotal != null) {
+    // For damage rolls the modifier is shown inline; return just the total.
+    if (entry.type !== RollTypes.DAMAGE && entry.modifier && entry.modifier !== 0 && entry.diceTotal != null) {
         const sign = entry.modifier >= 0 ? '+' : ''
         return `${entry.total} (${entry.diceTotal}${sign}${entry.modifier})`
     }
@@ -200,12 +228,20 @@ function outcomeClass(entry) {
         if (entry.result === EngagementResultTypes.LOSS) return 'outcome--failure'
         return 'outcome--draw'
     }
-    // Only colour with success/failure when the roll has a difficulty threshold
     if (entry.difficulty != null) {
         if (entry.success === true) return 'outcome--success'
         if (entry.success === false) return 'outcome--failure'
     }
     return ''
+}
+
+// Returns the color for a combined engagement participant.
+// isFirst=true → the entry's own character; isFirst=false → the opponent.
+function engagementCharColor(entry, isFirst) {
+    if (entry.result === EngagementResultTypes.DRAW) return 'var(--color-primary)'
+    const firstWon = entry.result === EngagementResultTypes.WIN
+    if (isFirst) return firstWon ? 'var(--color-success)' : 'var(--color-danger)'
+    return firstWon ? 'var(--color-danger)' : 'var(--color-success)'
 }
 
 function dieClass(die) {
@@ -375,25 +411,24 @@ function dieClass(die) {
 }
 
 .entry-header-line {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    gap: 0 var(--space-2xs);
+    display: block;
     margin-bottom: 2px;
+    line-height: 1.4;
 }
 
 .entry-name {
+    display: inline;
     font-size: var(--font-size-12);
     font-weight: var(--font-weight-bold);
-    line-height: 1.3;
-    flex-shrink: 0;
-    padding-right: 3px;
+    line-height: 1.4;
+    padding-right: 2px;
 }
 
 .entry-title {
+    display: inline;
     font-size: var(--font-size-11);
     color: var(--color-text-secondary);
-    line-height: 1.3;
+    line-height: 1.4;
 }
 
 /* Dice row */
@@ -441,6 +476,27 @@ function dieClass(die) {
     font-size: var(--font-size-11);
     color: var(--color-text-secondary);
     font-style: italic;
+}
+
+/* Inline modifier note for damage rolls (replaces the separate footer row) */
+.entry-modifier-note {
+    font-family: var(--font-family-primary);
+    font-size: var(--font-size-11);
+    font-style: italic;
+    color: var(--color-text-secondary);
+    line-height: 1;
+}
+
+/* Engagement result row (compact – just the win counts) */
+.entry-dice-row--engagement {
+    font-family: var(--font-family-primary);
+    font-size: var(--font-size-24);
+    gap: var(--space-xs);
+}
+
+.entry-engagement-dash {
+    color: var(--color-text-secondary) !important;
+    font-weight: var(--font-weight-normal) !important;
 }
 
 /* Outcome colours */

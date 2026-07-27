@@ -95,9 +95,10 @@
                     :grid-opacity="gridOpacity" :show-paths="showPaths" :is-g-m="campaignStore.isGMInActiveCampaign"
                     :tabletops="campaignStore.tabletops" :current-tabletop-id="tabletopId"
                     :active-tabletop-id="campaignStore.activeCampaign?.activeTabletopId ?? null"
-                    :current-tabletop-name="currentTabletopName" @zoom-in="adjustZoom(1.2)"
+                    :current-tabletop-name="currentTabletopName" :map-scale="mapScale" @zoom-in="adjustZoom(1.2)"
                     @zoom-out="adjustZoom(1 / 1.2)" @increase-grid="increaseGridSize" @decrease-grid="decreaseGridSize"
-                    @clear-all="clearAll" @undo="undo" @redo="redo" @set-background="setBackgroundImage"
+                    @increase-map-scale="increaseMapScale" @decrease-map-scale="decreaseMapScale" @clear-all="clearAll"
+                    @undo="undo" @redo="redo" @set-background="setBackgroundImage"
                     @clear-background="clearBackgroundImage" @update-grid-color="setGridColor"
                     @update-grid-opacity="setGridOpacity" @update-show-paths="setShowPaths"
                     @toggle-active-tabletop="handleToggleActiveTabletop" @switch-tabletop="handleSwitchTabletop" />
@@ -203,6 +204,9 @@ const {
     adjustZoom,
     increaseGridSize,
     decreaseGridSize,
+    mapScale,
+    increaseMapScale,
+    decreaseMapScale,
     setBackgroundImage,
     clearBackgroundImage,
     setGridColor,
@@ -362,8 +366,10 @@ function openCharacterSheetPopup() {
 
 // Close the popup automatically when a roll bubble appears for the character it shows.
 // This covers all roll types (skill checks, damage, etc.) triggered from within the popup.
+// If the user holds Shift when triggering the roll, the popup stays open.
 watch(activeBubbles, (bubbles) => {
     if (!charSheetPopupOpen.value || !charSheetPopupCharacter.value) return
+    if (isShiftHeld.value) return
     const charId = charSheetPopupCharacter.value.id
     const matchingItem = canvasItems.value.find(i => i.characterId === charId)
     if (matchingItem && bubbles[matchingItem.id]) {

@@ -142,11 +142,19 @@ export function updateFavoredStatus(character) {
   character.skills.forEach((skill) => {
     const totalDiceMod = (skill.diceMod || 0) + (skill.manualDiceMod || 0)
     const effectiveRanks = (skill.ranks || 0) + totalDiceMod
-    // Only auto-set ill-favored when effective ranks go negative; never auto-reset
-    // to false — that is handled exclusively by the manual d12 toggle.
+
     if (effectiveRanks < 0) {
+      // Auto-set ill-favored due to state/condition penalty, and flag it as autocalc-set
+      // so we can reverse it when the penalty is removed.
       skill.isIllFavored = true
+      skill.isIllFavoredAutocalc = true
+    } else if (skill.isIllFavoredAutocalc) {
+      // The autocalc-set penalty is gone — reset only if ill-favored was set by autocalc
+      // (not by the player manually via the d12 toggle).
+      skill.isIllFavored = false
+      skill.isIllFavoredAutocalc = false
     }
+
     // Auto-favor when dice modifier pushes effective ranks beyond the maximum
     if (effectiveRanks > MAX_SKILL_RANKS) {
       skill.isFavored = true

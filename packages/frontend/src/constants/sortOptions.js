@@ -63,6 +63,7 @@ export const EQUIPMENT_GROUP_BY_OPTIONS = [
   { value: 'type', label: 'Type' },
   { value: 'subtype', label: 'Subtype' },
   { value: 'grade', label: 'Grade' },
+  { value: 'keeping', label: 'Keeping' },
 ]
 
 // Canonical display order for equipment grades: Light → Common → Martial → Heavy → Great.
