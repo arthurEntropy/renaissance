@@ -32,7 +32,7 @@
                                 <div class="entry-header-line">
                                     <span class="entry-name" :style="{ color: engagementCharColor(entry, true) }">{{
                                         entry.characterName
-                                        }}</span><span class="entry-title"> vs </span><span class="entry-name"
+                                    }}</span><span class="entry-title"> vs </span><span class="entry-name"
                                         :style="{ color: engagementCharColor(entry, false) }">{{ entry.opponentName
                                         }}</span><span class="entry-title">:</span>
                                 </div>
@@ -49,8 +49,11 @@
                             <div v-else class="entry-body">
                                 <div class="entry-header-line">
                                     <span class="entry-name" :style="{ color: tokenBorderColor(entry) }">{{
-                                        entry.characterName }}</span><span class="entry-title"> {{ rollTitle(entry)
-                                        }}:</span>
+                                        entry.characterName }}</span><span class="entry-title"> {{ rollTitleBase(entry)
+                                        }}</span><span v-if="entry.sourceName" class="entry-source"
+                                        @mouseenter="handleSourceHoverEnter(entry, $event)"
+                                        @mouseleave="handleSourceHoverLeave()"> ({{ entry.sourceName }})</span><span
+                                        class="entry-title">:</span>
                                 </div>
                                 <div class="entry-dice-row">
                                     <span v-for="(die, i) in entry.diceResults" :key="i" class="entry-die"
@@ -97,6 +100,11 @@ import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.v
 import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 import { RollTypes } from '@/constants/rollTypes'
 import { EngagementResultTypes } from '@/constants/engagementResultTypes'
+import { useCardPreview } from '@/composables/useCardPreview'
+import { useAbilitiesStore } from '@/stores/abilitiesStore'
+import { useEquipmentStore } from '@/stores/equipmentStore'
+import { useConceptsStore } from '@/stores/conceptsStore'
+import { useCharactersStore } from '@/stores/charactersStore'
 
 const props = defineProps({
     rollLog: {
@@ -110,6 +118,35 @@ const props = defineProps({
 })
 
 const emit = defineEmits(['update:isExpanded'])
+
+// ── Card preview for source name hover ───────────────────────────────────────
+
+const { showAbilityPreview, showEquipmentPreview, scheduleHide } = useCardPreview()
+const abilitiesStore = useAbilitiesStore()
+const equipmentStore = useEquipmentStore()
+const conceptsStore = useConceptsStore()
+const charactersStore = useCharactersStore()
+
+function handleSourceHoverEnter(entry, event) {
+    if (!entry.sourceName) return
+    const el = event.currentTarget
+    // Resolve the character that made this roll so the preview card shows ownership
+    // state correctly. Falls back to null for NPCs/beasts not in the PC store.
+    const character = entry.characterId ? charactersStore.getById(entry.characterId) : null
+    const ability = abilitiesStore.abilities?.find(a => a.name === entry.sourceName)
+    if (ability) {
+        showAbilityPreview(ability, el, undefined, character)
+        return
+    }
+    const equipment = equipmentStore.equipment?.find(e => e.name === entry.sourceName)
+    if (equipment) {
+        showEquipmentPreview(equipment, el, character)
+    }
+}
+
+function handleSourceHoverLeave() {
+    scheduleHide()
+}
 
 // ── Expand / collapse ────────────────────────────────────────────────────────
 
@@ -154,6 +191,23 @@ onMounted(async () => {
     await nextTick()
     const el = scrollRef.value
     if (el) el.scrollTop = el.scrollHeight
+
+    // Pre-fetch data needed to resolve source-name hover previews. Checks guard
+    // against empty collections to avoid redundant network requests when these
+    // stores were already populated by another page in the same session.
+    const fetches = []
+    if (!abilitiesStore.abilities?.length) {
+        fetches.push(abilitiesStore.fetch())
+    }
+    if (!equipmentStore.equipment?.length) {
+        fetches.push(equipmentStore.fetch())
+    }
+    // Concepts (ancestries, cultures, mestieri, etc.) supply source card
+    // backgrounds via sourcesStore.getSourceById; fetch only when empty.
+    if (!conceptsStore.ancestries?.length) {
+        fetches.push(conceptsStore.fetch())
+    }
+    if (fetches.length) await Promise.all(fetches)
 })
 
 watch(() => props.rollLog.length, async () => {
@@ -183,7 +237,7 @@ function initials(name) {
         .join('')
 }
 
-function rollTitle(entry) {
+function rollTitleBase(entry) {
     switch (entry.type) {
         case RollTypes.ENGAGEMENT:
             return `vs ${entry.opponentName || '?'}`
@@ -194,13 +248,10 @@ function rollTitle(entry) {
         case RollTypes.CUSTOM_ROLL:
             return 'rolled'
         case RollTypes.DAMAGE:
-            // Always show 'damage' as the verb; sourceName provides context (equipment/ability name)
-            return `rolled damage${entry.sourceName ? ` (${entry.sourceName})` : ''}`
+            return 'rolled damage'
         default: { // SKILL_CHECK + anything else
-            // skillName is now the base name (no favored suffix); favoredStatus is separate
-            const fav = entry.favoredStatus ? ` (${entry.favoredStatus})` : ''
-            const src = entry.sourceName ? ` (${entry.sourceName})` : ''
-            return `rolled ${entry.skillName || '?'}${fav}${src}`
+            const fav = entry.favoredStatus ? `, ${entry.favoredStatus}` : ''
+            return `rolled ${entry.skillName || '?'}${fav}`
         }
     }
 }
@@ -490,7 +541,7 @@ function dieClass(die) {
 /* Engagement result row (compact – just the win counts) */
 .entry-dice-row--engagement {
     font-family: var(--font-family-primary);
-    font-size: var(--font-size-24);
+    font-size: var(--font-size-20);
     gap: var(--space-xs);
 }
 
@@ -510,6 +561,13 @@ function dieClass(die) {
 
 .outcome--draw {
     color: var(--color-warning);
+}
+
+/* Source name (ability/equipment origin) — cyan and hoverable */
+.entry-source {
+    font-size: var(--font-size-10);
+    color: var(--color-accent-cyan);
+    cursor: pointer;
 }
 
 /* ── FAB area ─────────────────────────────────────────────────────────────────── */

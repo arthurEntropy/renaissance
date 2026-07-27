@@ -108,8 +108,8 @@
       @close="closeEditEquipmentModal" @delete="deleteEquipment" />
 
     <!-- Skill Check Modal -->
-    <SkillCheckModal v-if="showSkillCheckModal" :selected-skill-name="rollLinkSkill" :character="selectedCharacter"
-      :default-roll-type="rollLinkRollType" @close="showSkillCheckModal = false" />
+    <SkillCheckModal v-if="showSkillCheckModal" :selected-skill-key="rollLinkSkillKey" :character="selectedCharacter"
+      :default-roll-type="rollLinkRollType" :source-name="rollLinkSourceName" @close="showSkillCheckModal = false" />
 
     <!-- Gratuiti Popup -->
     <GratuitiPopup v-if="showGratuitiPopup" :mestiere-gratuiti="characterMestiereNovizio?.gratuiti"
@@ -180,6 +180,7 @@ import { useCampaignStore } from '@/stores/campaignStore'
 import { useAuthStore } from '@/stores/authStore'
 import EngagementSuccessService from '@/services/entities/engagementSuccessService'
 import { RollTypes } from '@/constants/rollTypes'
+import { SKILLS } from '@shared/constants/characterConstants'
 import { MESMER_MASK_SUBTYPE_ID } from '@/constants/mesmerConstants'
 import { getModifierStatKey } from '@/utils/characterKeyUtils'
 
@@ -250,8 +251,9 @@ const isCollapsed = ref(false)
 
 // Roll link modal refs
 const showSkillCheckModal = ref(false)
-const rollLinkSkill = ref(null)
+const rollLinkSkillKey = ref(null)
 const rollLinkRollType = ref(null)
+const rollLinkSourceName = ref(null)
 
 // Damage roll modal refs
 const showDamageRollModal = ref(false)
@@ -494,7 +496,8 @@ const handleRollLink = (rollData) => {
   if (!selectedCharacter.value) return
 
   if (rollData.type === 'skill-check' || rollData.type === 'contest') {
-    rollLinkSkill.value = rollData.skill
+    rollLinkSkillKey.value = Object.values(SKILLS).find(s => s.label === rollData.skill)?.key ?? rollData.skill?.toLowerCase() ?? null
+    rollLinkSourceName.value = rollData.sourceName ?? null
     // Contest links open as unopposed (no difficulty)
     rollLinkRollType.value = rollData.type === 'contest' ? 'unopposed' : RollTypes.SKILL_CHECK
     showSkillCheckModal.value = true

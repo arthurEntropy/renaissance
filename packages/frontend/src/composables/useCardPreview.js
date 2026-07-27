@@ -6,6 +6,10 @@ const HIDE_DELAY_MS = 120
 // Module-level singleton so any card and the overlay share the same state.
 const previewAbility = ref(null)
 const previewEquipment = ref(null)
+// Overrides the default selectedCharacter in CardPreviewOverlay — used when a
+// preview is triggered from the chatlog so the card is shown in the context of
+// the character that made the roll rather than the currently selected character.
+const previewCharacterOverride = ref(null)
 // DOMRect of the collapsed card that triggered the preview (viewport-relative).
 const anchorRect = ref(null)
 // Suppresses all previews while a drag is in progress.
@@ -19,7 +23,7 @@ let officialDragActive = false
 let pendingMouseUpListener = null
 
 export function useCardPreview() {
-  function showAbilityPreview(ability, element, delay = SHOW_DELAY_MS) {
+  function showAbilityPreview(ability, element, delay = SHOW_DELAY_MS, character = null) {
     if (isDragging.value) return
     clearTimeout(hideTimer)
     clearTimeout(showTimer)
@@ -28,11 +32,12 @@ export function useCardPreview() {
       if (isDragging.value) return
       previewEquipment.value = null
       previewAbility.value = ability
+      previewCharacterOverride.value = character
       anchorRect.value = element.getBoundingClientRect()
     }, delay)
   }
 
-  function showEquipmentPreview(equipment, element) {
+  function showEquipmentPreview(equipment, element, character = null) {
     if (isDragging.value) return
     clearTimeout(hideTimer)
     clearTimeout(showTimer)
@@ -40,6 +45,7 @@ export function useCardPreview() {
       if (isDragging.value) return
       previewAbility.value = null
       previewEquipment.value = equipment
+      previewCharacterOverride.value = character
       anchorRect.value = element.getBoundingClientRect()
     }, SHOW_DELAY_MS)
   }
@@ -52,6 +58,7 @@ export function useCardPreview() {
     hideTimer = setTimeout(() => {
       previewAbility.value = null
       previewEquipment.value = null
+      previewCharacterOverride.value = null
       anchorRect.value = null
     }, HIDE_DELAY_MS)
   }
@@ -68,6 +75,7 @@ export function useCardPreview() {
       clearTimeout(hideTimer)
       previewAbility.value = null
       previewEquipment.value = null
+      previewCharacterOverride.value = null
       anchorRect.value = null
     } else {
       if (pendingMouseUpListener) {
@@ -90,6 +98,7 @@ export function useCardPreview() {
     clearTimeout(hideTimer)
     previewAbility.value = null
     previewEquipment.value = null
+    previewCharacterOverride.value = null
     anchorRect.value = null
     isDragging.value = true
     officialDragActive = false
@@ -110,6 +119,7 @@ export function useCardPreview() {
   return {
     previewAbility,
     previewEquipment,
+    previewCharacterOverride,
     anchorRect,
     isDragging,
     showAbilityPreview,

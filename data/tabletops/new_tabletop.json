@@ -2,7 +2,7 @@
   "id": "6ae64a86-7abd-4a96-9c73-3c0c5e02959c",
   "isDeleted": false,
   "createdAt": "2026-07-25T03:06:14.328Z",
-  "lastModified": "2026-07-27T14:54:34.729Z",
+  "lastModified": "2026-07-27T17:40:50.879Z",
   "campaignId": "c9ddeab9-d180-4fc5-869f-e64239bc3376",
   "name": "New Tabletop",
   "backgroundImage": {
@@ -33,7 +33,7 @@
       "size": 1,
       "x": 1560,
       "y": 560,
-      "zIndex": 86
+      "zIndex": 99
     },
     {
       "id": "25770422-4e80-44d8-b252-865dcaf7502d",
@@ -81,7 +81,7 @@
       "size": 1,
       "x": 1760,
       "y": 680,
-      "zIndex": 72
+      "zIndex": 96
     },
     {
       "id": "dfbcaa5c-5426-420b-bce4-b60e3e17fdb8",
@@ -129,7 +129,7 @@
       "size": 1,
       "x": 1640,
       "y": 520,
-      "zIndex": 91
+      "zIndex": 100
     },
     {
       "id": "1e5db72b-e5ce-4deb-b564-44553336f6df",
@@ -141,13 +141,13 @@
       "size": 1,
       "x": 1720,
       "y": 560,
-      "zIndex": 87
+      "zIndex": 101
     }
   ],
   "transform": {
-    "scale": 0.5007472733638996,
-    "x": -11.652723631552362,
-    "y": 141.61546353828965
+    "scale": 0.7357620281346225,
+    "x": -562.6396308158314,
+    "y": -120.38193171734446
   },
   "gridSize": 40,
   "gridColor": "#050505",
@@ -155,390 +155,6 @@
   "showPaths": true,
   "radiusAreas": [],
   "rollLog": [
-    {
-      "id": "decef988-2c77-4c84-9ee6-bb8198a6f3cb_1785003079961_y42h",
-      "timestamp": 1785003079961,
-      "characterId": "decef988-2c77-4c84-9ee6-bb8198a6f3cb",
-      "characterName": "Pimlan",
-      "portraitUrl": "https://cdn.midjourney.com/b5a43e5a-3fc5-4215-b969-c8d1f5392653/0_3.png",
-      "isNpc": false,
-      "isBeast": false,
-      "type": "skill_check",
-      "skillName": "Dexterity",
-      "total": 10,
-      "diceTotal": null,
-      "modifier": 0,
-      "success": true,
-      "difficulty": null,
-      "footer": "",
-      "favoredStatus": null,
-      "userWins": null,
-      "opponentWins": null,
-      "drawCount": null,
-      "result": null,
-      "opponentName": null,
-      "sourceName": null,
-      "diceResults": [
-        {
-          "dieSize": 12,
-          "dieRollValue": 7,
-          "emoji": null,
-          "isDropped": false,
-          "rolledMaxValue": false,
-          "cssClass": "df-d12-7"
-        },
-        {
-          "dieSize": 6,
-          "dieRollValue": 2,
-          "emoji": null,
-          "isDropped": false,
-          "rolledMaxValue": false,
-          "cssClass": "df-d6-2"
-        },
-        {
-          "dieSize": 6,
-          "dieRollValue": 1,
-          "emoji": null,
-          "isDropped": false,
-          "rolledMaxValue": false,
-          "cssClass": "df-d6-1"
-        }
-      ]
-    },
-    {
-      "id": "decef988-2c77-4c84-9ee6-bb8198a6f3cb_1785003157708_raif",
-      "timestamp": 1785003157708,
-      "characterId": "decef988-2c77-4c84-9ee6-bb8198a6f3cb",
-      "characterName": "Pimlan",
-      "portraitUrl": "https://cdn.midjourney.com/b5a43e5a-3fc5-4215-b969-c8d1f5392653/0_3.png",
-      "isNpc": false,
-      "isBeast": false,
-      "type": "damage",
-      "skillName": "Shuriken",
-      "total": 6,
-      "diceTotal": 4,
-      "modifier": 2,
-      "success": null,
-      "difficulty": null,
-      "footer": "+ BODY",
-      "favoredStatus": null,
-      "userWins": null,
-      "opponentWins": null,
-      "drawCount": null,
-      "result": null,
-      "opponentName": null,
-      "sourceName": "Shuriken",
-      "diceResults": [
-        {
-          "dieSize": 4,
-          "dieRollValue": 4,
-          "emoji": "✨",
-          "isDropped": false,
-          "rolledMaxValue": true,
-          "cssClass": "df-d4-4"
-        }
-      ]
-    },
-    {
-      "id": "0f6f7b18-4fa1-4a7c-993b-173437f1cd79_1785003304011_50of",
-      "timestamp": 1785003304011,
-      "characterId": "0f6f7b18-4fa1-4a7c-993b-173437f1cd79",
-      "characterName": "Himo",
-      "portraitUrl": "https://cdn.midjourney.com/d540e4e9-8b5c-4fd1-b7ab-41ee29f97979/0_2.jpeg",
-      "isNpc": false,
-      "isBeast": false,
-      "type": "skill_check",
-      "skillName": "Awareness (favored)",
-      "total": 12,
-      "diceTotal": null,
-      "modifier": 0,
-      "success": true,
-      "difficulty": null,
-      "footer": "",
-      "favoredStatus": "favored",
-      "userWins": null,
-      "opponentWins": null,
-      "drawCount": null,
-      "result": null,
-      "opponentName": null,
-      "sourceName": null,
-      "diceResults": [
-        {
-          "dieSize": 12,
-          "dieRollValue": 12,
-          "emoji": "🌞",
-          "isDropped": false,
-          "rolledMaxValue": true,
-          "cssClass": "df-d12-12"
-        },
-        {
-          "dieSize": 12,
-          "dieRollValue": 0,
-          "emoji": null,
-          "isDropped": true,
-          "rolledMaxValue": false,
-          "cssClass": "df-d12-10"
-        }
-      ]
-    },
-    {
-      "id": "0f6f7b18-4fa1-4a7c-993b-173437f1cd79_1785003482849_nf2p",
-      "timestamp": 1785003482849,
-      "characterId": "0f6f7b18-4fa1-4a7c-993b-173437f1cd79",
-      "characterName": "Himo",
-      "portraitUrl": "https://cdn.midjourney.com/d540e4e9-8b5c-4fd1-b7ab-41ee29f97979/0_2.jpeg",
-      "isNpc": false,
-      "isBeast": false,
-      "type": "skill_check",
-      "skillName": "Stealth",
-      "total": 16,
-      "diceTotal": null,
-      "modifier": 0,
-      "success": true,
-      "difficulty": null,
-      "footer": "",
-      "favoredStatus": null,
-      "userWins": null,
-      "opponentWins": null,
-      "drawCount": null,
-      "result": null,
-      "opponentName": null,
-      "sourceName": null,
-      "diceResults": [
-        {
-          "dieSize": 12,
-          "dieRollValue": 4,
-          "emoji": null,
-          "isDropped": false,
-          "rolledMaxValue": false,
-          "cssClass": "df-d12-4"
-        },
-        {
-          "dieSize": 6,
-          "dieRollValue": 5,
-          "emoji": null,
-          "isDropped": false,
-          "rolledMaxValue": false,
-          "cssClass": "df-d6-5"
-        },
-        {
-          "dieSize": 6,
-          "dieRollValue": 4,
-          "emoji": null,
-          "isDropped": false,
-          "rolledMaxValue": false,
-          "cssClass": "df-d6-4"
-        },
-        {
-          "dieSize": 6,
-          "dieRollValue": 3,
-          "emoji": null,
-          "isDropped": false,
-          "rolledMaxValue": false,
-          "cssClass": "df-d6-3"
-        }
-      ]
-    },
-    {
-      "id": "f97877c1-f985-4268-b168-753d01cd07e9_1785003488628_h5mi",
-      "timestamp": 1785003488628,
-      "characterId": "f97877c1-f985-4268-b168-753d01cd07e9",
-      "characterName": "Spore Hound E",
-      "portraitUrl": "https://cdn.midjourney.com/39ad5992-8dc0-48f7-9e24-e9633e4377ae/0_1.png",
-      "isNpc": false,
-      "isBeast": true,
-      "type": "skill_check",
-      "skillName": "Awareness",
-      "total": 6,
-      "diceTotal": null,
-      "modifier": 0,
-      "success": true,
-      "difficulty": null,
-      "footer": "",
-      "favoredStatus": null,
-      "userWins": null,
-      "opponentWins": null,
-      "drawCount": null,
-      "result": null,
-      "opponentName": null,
-      "sourceName": null,
-      "diceResults": [
-        {
-          "dieSize": 12,
-          "dieRollValue": 5,
-          "emoji": null,
-          "isDropped": false,
-          "rolledMaxValue": false,
-          "cssClass": "df-d12-5"
-        },
-        {
-          "dieSize": 6,
-          "dieRollValue": 1,
-          "emoji": null,
-          "isDropped": false,
-          "rolledMaxValue": false,
-          "cssClass": "df-d6-1"
-        }
-      ]
-    },
-    {
-      "id": "0f6f7b18-4fa1-4a7c-993b-173437f1cd79_1785003567834_opir",
-      "timestamp": 1785003567834,
-      "characterId": "0f6f7b18-4fa1-4a7c-993b-173437f1cd79",
-      "characterName": "Himo",
-      "portraitUrl": "https://cdn.midjourney.com/d540e4e9-8b5c-4fd1-b7ab-41ee29f97979/0_2.jpeg",
-      "isNpc": false,
-      "isBeast": false,
-      "type": "skill_check",
-      "skillName": "Dexterity",
-      "total": 17,
-      "diceTotal": null,
-      "modifier": 0,
-      "success": true,
-      "difficulty": null,
-      "footer": "",
-      "favoredStatus": null,
-      "userWins": null,
-      "opponentWins": null,
-      "drawCount": null,
-      "result": null,
-      "opponentName": null,
-      "sourceName": null,
-      "diceResults": [
-        {
-          "dieSize": 12,
-          "dieRollValue": 10,
-          "emoji": null,
-          "isDropped": false,
-          "rolledMaxValue": false,
-          "cssClass": "df-d12-10"
-        },
-        {
-          "dieSize": 6,
-          "dieRollValue": 3,
-          "emoji": null,
-          "isDropped": false,
-          "rolledMaxValue": false,
-          "cssClass": "df-d6-3"
-        },
-        {
-          "dieSize": 6,
-          "dieRollValue": 2,
-          "emoji": null,
-          "isDropped": false,
-          "rolledMaxValue": false,
-          "cssClass": "df-d6-2"
-        },
-        {
-          "dieSize": 6,
-          "dieRollValue": 2,
-          "emoji": null,
-          "isDropped": false,
-          "rolledMaxValue": false,
-          "cssClass": "df-d6-2"
-        }
-      ]
-    },
-    {
-      "id": "0f6f7b18-4fa1-4a7c-993b-173437f1cd79_1785003634477_o07w",
-      "timestamp": 1785003634477,
-      "characterId": "0f6f7b18-4fa1-4a7c-993b-173437f1cd79",
-      "characterName": "Himo",
-      "portraitUrl": "https://cdn.midjourney.com/d540e4e9-8b5c-4fd1-b7ab-41ee29f97979/0_2.jpeg",
-      "isNpc": false,
-      "isBeast": false,
-      "type": "damage",
-      "skillName": "Longbow",
-      "total": 8,
-      "diceTotal": 4,
-      "modifier": 4,
-      "success": null,
-      "difficulty": null,
-      "footer": "+ BODY",
-      "favoredStatus": null,
-      "userWins": null,
-      "opponentWins": null,
-      "drawCount": null,
-      "result": null,
-      "opponentName": null,
-      "sourceName": "Longbow",
-      "diceResults": [
-        {
-          "dieSize": 12,
-          "dieRollValue": 4,
-          "emoji": null,
-          "isDropped": false,
-          "rolledMaxValue": false,
-          "cssClass": "df-d12-4"
-        }
-      ]
-    },
-    {
-      "id": "bc4960b8-28d0-4d2c-9f7f-99f6cef68706_1785003797995_uwtx",
-      "timestamp": 1785003797995,
-      "characterId": "bc4960b8-28d0-4d2c-9f7f-99f6cef68706",
-      "characterName": "Sergio",
-      "portraitUrl": "https://cdn.midjourney.com/1d600001-fa0c-4cd7-8d15-151ac4fcfe3c/0_3_640_N.webp",
-      "isNpc": false,
-      "isBeast": false,
-      "type": "skill_check",
-      "skillName": "Lore",
-      "total": 18,
-      "diceTotal": null,
-      "modifier": 0,
-      "success": true,
-      "difficulty": null,
-      "footer": "",
-      "favoredStatus": null,
-      "userWins": null,
-      "opponentWins": null,
-      "drawCount": null,
-      "result": null,
-      "opponentName": null,
-      "sourceName": null,
-      "diceResults": [
-        {
-          "dieSize": 12,
-          "dieRollValue": 4,
-          "emoji": null,
-          "isDropped": false,
-          "rolledMaxValue": false,
-          "cssClass": "df-d12-4"
-        },
-        {
-          "dieSize": 6,
-          "dieRollValue": 5,
-          "emoji": null,
-          "isDropped": false,
-          "rolledMaxValue": false,
-          "cssClass": "df-d6-5"
-        },
-        {
-          "dieSize": 6,
-          "dieRollValue": 4,
-          "emoji": null,
-          "isDropped": false,
-          "rolledMaxValue": false,
-          "cssClass": "df-d6-4"
-        },
-        {
-          "dieSize": 6,
-          "dieRollValue": 3,
-          "emoji": null,
-          "isDropped": false,
-          "rolledMaxValue": false,
-          "cssClass": "df-d6-3"
-        },
-        {
-          "dieSize": 6,
-          "dieRollValue": 2,
-          "emoji": null,
-          "isDropped": false,
-          "rolledMaxValue": false,
-          "cssClass": "df-d6-2"
-        }
-      ]
-    },
     {
       "id": "f97877c1-f985-4268-b168-753d01cd07e9_1785003803245_0f5z",
       "timestamp": 1785003803245,
@@ -4431,6 +4047,374 @@
           "isDropped": false,
           "rolledMaxValue": false,
           "cssClass": "df-d6-5"
+        }
+      ]
+    },
+    {
+      "id": "917e904f-d97e-4033-a498-8391260f3752_1785169297116_i0d1",
+      "timestamp": 1785169297116,
+      "characterId": "917e904f-d97e-4033-a498-8391260f3752",
+      "characterName": "Magnuss",
+      "portraitUrl": "https://cdn.midjourney.com/9d007aef-e372-4e42-9581-a2703cfe7018/0_2.jpeg",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "skill_check",
+      "skillName": "Dexterity",
+      "total": 2,
+      "diceTotal": null,
+      "modifier": 0,
+      "modifierLabel": null,
+      "success": true,
+      "difficulty": null,
+      "footer": "Insecure, Angry, Troubled",
+      "favoredStatus": "ill-favored",
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 2,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-2"
+        },
+        {
+          "dieSize": 12,
+          "dieRollValue": 0,
+          "emoji": null,
+          "isDropped": true,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-6"
+        }
+      ]
+    },
+    {
+      "id": "a8cb69a9-0146-4aee-bcc1-24b591fe2458_1785169393751_12ym",
+      "timestamp": 1785169393751,
+      "characterId": "a8cb69a9-0146-4aee-bcc1-24b591fe2458",
+      "characterName": "Jebeddo",
+      "portraitUrl": "https://cdn.midjourney.com/ef8f7b85-a18f-49a1-8a2d-238a3eb1cb5a/0_1_640_N.webp",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "skill_check",
+      "skillName": "Strength",
+      "total": 20,
+      "diceTotal": null,
+      "modifier": 0,
+      "modifierLabel": null,
+      "success": true,
+      "difficulty": null,
+      "footer": "",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 9,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-9"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 4,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-4"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 4,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-4"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 3,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-3"
+        }
+      ]
+    },
+    {
+      "id": "917e904f-d97e-4033-a498-8391260f3752_1785169502215_6w2w",
+      "timestamp": 1785169502215,
+      "characterId": "917e904f-d97e-4033-a498-8391260f3752",
+      "characterName": "Magnuss",
+      "portraitUrl": "https://cdn.midjourney.com/9d007aef-e372-4e42-9581-a2703cfe7018/0_2.jpeg",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "skill_check",
+      "skillName": "Spirit",
+      "total": 13,
+      "diceTotal": null,
+      "modifier": 0,
+      "modifierLabel": null,
+      "success": true,
+      "difficulty": null,
+      "footer": "Insecure, Angry, Troubled",
+      "favoredStatus": "favored",
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": "Fireball",
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 3,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-3"
+        },
+        {
+          "dieSize": 12,
+          "dieRollValue": 0,
+          "emoji": "💀",
+          "isDropped": true,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-11"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 6,
+          "emoji": "✨",
+          "isDropped": false,
+          "rolledMaxValue": true,
+          "cssClass": "df-d6-6"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 3,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-3"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 1,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-1"
+        }
+      ]
+    },
+    {
+      "id": "1af228fc-7b3c-4fe6-8c0c-cd028bc850e2_1785173570223_3cx6",
+      "timestamp": 1785173570223,
+      "characterId": "1af228fc-7b3c-4fe6-8c0c-cd028bc850e2",
+      "characterName": "Palfrey",
+      "portraitUrl": "https://cdn.midjourney.com/2916e967-136f-4900-8d0b-5dd0ec354e19/0_1_640_N.webp",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "damage",
+      "skillName": "Dueling Shield",
+      "total": 11,
+      "diceTotal": 7,
+      "modifier": 4,
+      "modifierLabel": "BODY",
+      "success": null,
+      "difficulty": null,
+      "footer": "+ BODY",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": "Dueling Shield",
+      "diceResults": [
+        {
+          "dieSize": 8,
+          "dieRollValue": 7,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d8-7"
+        }
+      ]
+    },
+    {
+      "id": "a8cb69a9-0146-4aee-bcc1-24b591fe2458_1785173811055_jqvv",
+      "timestamp": 1785173811055,
+      "characterId": "a8cb69a9-0146-4aee-bcc1-24b591fe2458",
+      "characterName": "Jebeddo",
+      "portraitUrl": "https://cdn.midjourney.com/ef8f7b85-a18f-49a1-8a2d-238a3eb1cb5a/0_1_640_N.webp",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "damage",
+      "skillName": "Broadsword",
+      "total": 11,
+      "diceTotal": 7,
+      "modifier": 4,
+      "modifierLabel": "BODY",
+      "success": null,
+      "difficulty": null,
+      "footer": "+ BODY",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": "Broadsword",
+      "diceResults": [
+        {
+          "dieSize": 10,
+          "dieRollValue": 7,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d10-7"
+        }
+      ]
+    },
+    {
+      "id": "a8cb69a9-0146-4aee-bcc1-24b591fe2458_1785173899383_szt6",
+      "timestamp": 1785173899383,
+      "characterId": "a8cb69a9-0146-4aee-bcc1-24b591fe2458",
+      "characterName": "Jebeddo",
+      "portraitUrl": "https://cdn.midjourney.com/ef8f7b85-a18f-49a1-8a2d-238a3eb1cb5a/0_1_640_N.webp",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "damage",
+      "skillName": "Pistol",
+      "total": 9,
+      "diceTotal": 5,
+      "modifier": 4,
+      "modifierLabel": "BODY",
+      "success": null,
+      "difficulty": null,
+      "footer": "+ BODY",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": "Pistol",
+      "diceResults": [
+        {
+          "dieSize": 6,
+          "dieRollValue": 5,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-5"
+        }
+      ]
+    },
+    {
+      "id": "917e904f-d97e-4033-a498-8391260f3752_1785173918631_zsev",
+      "timestamp": 1785173918631,
+      "characterId": "917e904f-d97e-4033-a498-8391260f3752",
+      "characterName": "Magnuss",
+      "portraitUrl": "https://cdn.midjourney.com/9d007aef-e372-4e42-9581-a2703cfe7018/0_2.jpeg",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "skill_check",
+      "skillName": "Spirit",
+      "total": 10,
+      "diceTotal": null,
+      "modifier": 0,
+      "modifierLabel": null,
+      "success": true,
+      "difficulty": null,
+      "footer": "Insecure, Angry, Troubled",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": "Fireball",
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 11,
+          "emoji": "💀",
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-11"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 4,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-4"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 3,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-3"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 3,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-3"
+        }
+      ]
+    },
+    {
+      "id": "1af228fc-7b3c-4fe6-8c0c-cd028bc850e2_1785174050356_ep5g",
+      "timestamp": 1785174050356,
+      "characterId": "1af228fc-7b3c-4fe6-8c0c-cd028bc850e2",
+      "characterName": "Palfrey",
+      "portraitUrl": "https://cdn.midjourney.com/2916e967-136f-4900-8d0b-5dd0ec354e19/0_1_640_N.webp",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "damage",
+      "skillName": "Bastard Sword",
+      "total": 6,
+      "diceTotal": 2,
+      "modifier": 4,
+      "modifierLabel": "BODY",
+      "success": null,
+      "difficulty": null,
+      "footer": "+ BODY",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": "Bastard Sword",
+      "diceResults": [
+        {
+          "dieSize": 10,
+          "dieRollValue": 2,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d10-2"
         }
       ]
     }

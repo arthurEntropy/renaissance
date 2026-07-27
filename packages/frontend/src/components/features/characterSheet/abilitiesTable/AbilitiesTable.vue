@@ -8,7 +8,8 @@
         <!-- Expand/collapse FAB sits between the edit button (rendered by TableHeader) and the add FAB -->
         <FloatingActionButton v-if="!isCollapsed && characterAbilities.length > 0" class="expand-collapse-btn"
           :variant="allAbilitiesExpanded ? FAB_TYPES.COLLAPSE_ALL : FAB_TYPES.EXPAND_ALL" :size="FAB_SIZES.SMALL"
-          :visibility="isEditMode ? FAB_VISIBILITIES.ALWAYS : FAB_VISIBILITIES.ON_HOVER" @click="toggleAllAbilities" />
+          :visibility="internalEditMode ? FAB_VISIBILITIES.ALWAYS : FAB_VISIBILITIES.ON_HOVER"
+          @click="toggleAllAbilities" />
         <FloatingActionButton v-if="internalEditMode" :variant="FAB_TYPES.ADD" :size="FAB_SIZES.SMALL"
           :visibility="FAB_VISIBILITIES.ALWAYS" @click="openAbilitySelectorFromButton" />
         <ActionButton v-if="internalEditMode && groupingOption === 'custom'" variant="outline" size="small"

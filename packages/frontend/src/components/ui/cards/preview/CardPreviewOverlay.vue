@@ -7,13 +7,14 @@
                 <AbilityCard v-if="previewAbility" :ability="previewAbility" :collapsed="false" :collapsible="false"
                     :editable="false" :show-xp-badge="true" :show-action-buttons="false" :character="previewCharacter"
                     :show-improvement-toggle="false" :show-improvements="previewShowImprovements"
-                    :show-successes="previewShowSuccesses" @update:showImprovements="previewShowImprovements = $event"
+                    :show-successes="previewShowSuccesses" :readonly-badge="true"
+                    @update:showImprovements="previewShowImprovements = $event"
                     @update:showSuccesses="previewShowSuccesses = $event" @roll-link="handlePreviewRollLink" />
                 <EquipmentCard v-else-if="previewEquipment" :equipment="previewEquipment" :collapsed="false"
                     :collapsible="false" :editable="false" :duplicatable="false" :show-keeping-badge="true"
                     :character="previewCharacter" :show-improvement-toggle="false"
                     :show-improvements="previewShowImprovements" :engagement-success-options="[]"
-                    :enable-damage-roll="false" :show-successes="previewShowSuccesses"
+                    :enable-damage-roll="false" :show-successes="previewShowSuccesses" :readonly-badge="true"
                     @update:showImprovements="previewShowImprovements = $event"
                     @update:showSuccesses="previewShowSuccesses = $event" @roll-link="handlePreviewRollLink" />
             </div>
@@ -22,7 +23,7 @@
         <!-- Roll modals spawned from preview roll-link clicks -->
         <SkillCheckModal v-if="showSkillCheckModal && previewCharacter" :selected-skill-key="rollLinkSkillKey"
             :character="previewCharacter" :default-roll-type="rollLinkRollType" :default-dice-mod="rollLinkDiceMod"
-            @close="showSkillCheckModal = false" />
+            :source-name="rollLinkSourceName" @close="showSkillCheckModal = false" />
         <CustomRollModal v-if="showRollModal && rollModalConfig && previewCharacter" :title="rollModalConfig.title"
             :character="previewCharacter" :initial-dice-counts="rollModalConfig.initialDiceCounts"
             :initial-modifier="rollModalConfig.initialModifier" :roll-name="rollModalConfig.rollName"
@@ -47,9 +48,9 @@ const PREVIEW_WIDTH = 350
 const GAP = 12
 const VIEWPORT_MARGIN = 8
 
-const { previewAbility, previewEquipment, anchorRect, scheduleHide, cancelHide } = useCardPreview()
+const { previewAbility, previewEquipment, previewCharacterOverride, anchorRect, scheduleHide, cancelHide } = useCardPreview()
 const charactersStore = useCharactersStore()
-const previewCharacter = computed(() => charactersStore.selectedCharacter)
+const previewCharacter = computed(() => previewCharacterOverride.value ?? charactersStore.selectedCharacter)
 
 const overlayEl = ref(null)
 // Tracks the rendered height of the overlay so we can clamp it to the viewport.
@@ -64,6 +65,7 @@ const showSkillCheckModal = ref(false)
 const rollLinkSkillKey = ref(null)
 const rollLinkRollType = ref(null)
 const rollLinkDiceMod = ref(0)
+const rollLinkSourceName = ref(null)
 const showRollModal = ref(false)
 const rollModalConfig = ref(null)
 
@@ -106,6 +108,7 @@ function handlePreviewRollLink(rollData) {
         // Contest links open as unopposed (no difficulty)
         rollLinkRollType.value = rollData.type === 'contest' ? 'unopposed' : RollTypes.SKILL_CHECK
         rollLinkDiceMod.value = rollData.biomeDiceMod ?? 0
+        rollLinkSourceName.value = rollData.sourceName ?? null
         showSkillCheckModal.value = true
     } else if (rollData.type === 'damage-roll' || rollData.type === 'custom-roll') {
         const initialDiceCounts = {}

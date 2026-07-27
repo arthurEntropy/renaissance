@@ -24,6 +24,7 @@ import InjuryIcon from '@/assets/icons/characterSheet/injury.svg?component'
 import MartialTrainingIcon from '@/assets/icons/characterSheet/martial_training.svg?component'
 import GratuitiIcon from '@/assets/icons/characterSheet/gratuiti.svg?component'
 import SpectateIcon from '@/assets/icons/tabletop/spectate.svg?component'
+import AttackIcon from '@/assets/icons/equipment/attack.svg?component'
 // Constants
 import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 
@@ -82,6 +83,7 @@ const FAB_TYPE_CONFIG = {
     [FAB_TYPES.TRAP_THROW]: { tooltip: 'Throw trap (difficulty set with Craft)' },
     [FAB_TYPES.EXPAND]: { icon: ArrowTopRightOnSquareIcon, tooltip: 'Open character sheet' },
     [FAB_TYPES.SPECTATE]: { icon: SpectateIcon, tooltip: 'Spectate engagement' },
+    [FAB_TYPES.ATTACK]: { icon: AttackIcon, tooltip: 'Roll Attack' },
 }
 
 const variantConfig = computed(() => {
@@ -283,6 +285,21 @@ const variantConfig = computed(() => {
 .fab--transfer .fab__icon--small,
 .fab--transfer .fab__icon--large {
     color: var(--color-white);
+}
+
+.fab--attack {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+}
+
+.fab--attack:hover {
+    background: var(--color-primary-hover);
+    border-color: var(--color-primary-hover);
+}
+
+.fab--attack .fab__icon--small,
+.fab--attack .fab__icon--large {
+    color: var(--color-black);
 }
 
 

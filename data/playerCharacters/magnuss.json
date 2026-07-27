@@ -2,7 +2,7 @@
   "id": "917e904f-d97e-4033-a498-8391260f3752",
   "isDeleted": false,
   "createdAt": "2026-07-24T22:34:07.812Z",
-  "lastModified": "2026-07-27T14:54:34.291Z",
+  "lastModified": "2026-07-27T17:38:38.899Z",
   "characterType": "playerCharacter",
   "name": "Magnuss",
   "featuredArtUrls": [
@@ -310,17 +310,18 @@
   },
   "rollStats": {
     "skillChecks": {
-      "attempts": 1,
-      "successes": 1,
-      "totalSum": 16,
+      "attempts": 4,
+      "successes": 4,
+      "totalSum": 41,
       "bestTotal": 16,
       "hardestSuccess": null,
       "bySkill": {
-        "Spirit": 1
+        "Spirit": 3,
+        "Dexterity": 1
       },
       "solCount": 0,
-      "morteCount": 0,
-      "successCount": 0
+      "morteCount": 2,
+      "successCount": 1
     },
     "contests": {
       "engagement": {
@@ -336,7 +337,7 @@
     },
     "xpEarned": 0,
     "xpSpent": 0,
-    "treasureEarned": 73,
+    "treasureEarned": 103,
     "treasureSpent": 2
   },
   "biomeTags": [],
@@ -405,5 +406,5 @@
   "biomeTagsAugment": [],
   "biomeTagsInhibit": [],
   "beastTypeIds": [],
-  "updatedAt": "2026-07-27T14:54:34.291Z"
+  "updatedAt": "2026-07-27T17:38:38.899Z"
 }

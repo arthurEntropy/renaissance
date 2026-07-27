@@ -2,7 +2,7 @@
   "id": "a8cb69a9-0146-4aee-bcc1-24b591fe2458",
   "isDeleted": false,
   "createdAt": "2026-07-25T02:30:19.653Z",
-  "lastModified": "2026-07-27T14:36:26.217Z",
+  "lastModified": "2026-07-27T17:38:19.647Z",
   "characterType": "playerCharacter",
   "name": "Jebeddo",
   "featuredArtUrls": [
@@ -318,13 +318,14 @@
   },
   "rollStats": {
     "skillChecks": {
-      "attempts": 1,
-      "successes": 1,
-      "totalSum": 10,
-      "bestTotal": 10,
+      "attempts": 2,
+      "successes": 2,
+      "totalSum": 30,
+      "bestTotal": 20,
       "hardestSuccess": null,
       "bySkill": {
-        "Courtesy": 1
+        "Courtesy": 1,
+        "Strength": 1
       },
       "solCount": 0,
       "morteCount": 0,
@@ -401,5 +402,5 @@
   "biomeTagsAugment": [],
   "biomeTagsInhibit": [],
   "beastTypeIds": [],
-  "updatedAt": "2026-07-27T14:36:26.217Z"
+  "updatedAt": "2026-07-27T17:38:19.647Z"
 }

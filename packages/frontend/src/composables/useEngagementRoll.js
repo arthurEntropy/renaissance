@@ -73,7 +73,7 @@ function createSharedState() {
     if (Array.isArray(mestiereDice)) {
       mestiereDice.forEach((die, dieIndex) => {
         const dieSide = typeof die === 'number' ? die : Number(die?.dieSize)
-        if (STANDARD_DIE_SIZES.has(dieSide)) {
+        if (STANDARD_DIE_SIZES.includes(dieSide)) {
           keys.add(`mestiere_${dieIndex}`)
         }
       })
@@ -195,7 +195,7 @@ export function useEngagementRoll() {
     const result = []
     mestiere.novizio.engagementDice.forEach((die, dieIndex) => {
       const dieSide = typeof die === 'number' ? die : Number(die?.dieSize)
-      if (!STANDARD_DIE_SIZES.has(dieSide)) {
+      if (!STANDARD_DIE_SIZES.includes(dieSide)) {
         return
       }
 
