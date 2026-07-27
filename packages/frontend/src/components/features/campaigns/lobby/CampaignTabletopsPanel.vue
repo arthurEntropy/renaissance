@@ -77,6 +77,8 @@ import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.v
 import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 import { useCampaignStore } from '@/stores/campaignStore'
 import tabletopSocketService from '@/services/sessions/tabletopSocketService'
+import { getOptimizedImageUrl } from '@/utils/imageOptimization'
+import { MIDJOURNEY_IMAGE_CONTEXTS } from '@shared/constants/artConstants.js'
 
 const router = useRouter()
 const campaignStore = useCampaignStore()
@@ -119,8 +121,9 @@ watch(isCollapsed, (value) => {
 
 function getPreviewStyle(tabletop) {
     if (!tabletop.backgroundImage?.url) return {}
+    const optimizedUrl = getOptimizedImageUrl(tabletop.backgroundImage.url, MIDJOURNEY_IMAGE_CONTEXTS.SMALL)
     return {
-        backgroundImage: `url(${tabletop.backgroundImage.url})`,
+        backgroundImage: `url(${optimizedUrl})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
     }

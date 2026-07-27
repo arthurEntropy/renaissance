@@ -30,8 +30,8 @@
                             <!-- Combined engagement entry: single row showing both characters -->
                             <div v-if="entry.type === RollTypes.ENGAGEMENT && entry.combined" class="entry-body">
                                 <div class="entry-header-line">
-                                    <span class="entry-name">Engagement—</span><span class="entry-name"
-                                        :style="{ color: engagementCharColor(entry, true) }">{{ entry.characterName
+                                    <span class="entry-name" :style="{ color: engagementCharColor(entry, true) }">{{
+                                        entry.characterName
                                         }}</span><span class="entry-title"> vs </span><span class="entry-name"
                                         :style="{ color: engagementCharColor(entry, false) }">{{ entry.opponentName
                                         }}</span><span class="entry-title">:</span>

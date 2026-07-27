@@ -10,8 +10,8 @@ import { getDiceFontClass, getDiceFontMaxClass } from '@/utils/diceFontUtils'
 import { useCharactersStore } from '@/stores/charactersStore'
 import { useEquipmentStore } from '@/stores/equipmentStore'
 import { useConceptsStore } from '@/stores/conceptsStore'
+import { STANDARD_DIE_SIZES } from '@shared/constants/dice'
 
-const VALID_DIE_SIZES = new Set([4, 6, 8, 10, 12, 20])
 
 // Singleton state - shared across all instances
 let sharedState = null
@@ -73,7 +73,7 @@ function createSharedState() {
     if (Array.isArray(mestiereDice)) {
       mestiereDice.forEach((die, dieIndex) => {
         const dieSide = typeof die === 'number' ? die : Number(die?.dieSize)
-        if (VALID_DIE_SIZES.has(dieSide)) {
+        if (STANDARD_DIE_SIZES.has(dieSide)) {
           keys.add(`mestiere_${dieIndex}`)
         }
       })
@@ -195,7 +195,7 @@ export function useEngagementRoll() {
     const result = []
     mestiere.novizio.engagementDice.forEach((die, dieIndex) => {
       const dieSide = typeof die === 'number' ? die : Number(die?.dieSize)
-      if (!VALID_DIE_SIZES.has(dieSide)) {
+      if (!STANDARD_DIE_SIZES.has(dieSide)) {
         return
       }
 

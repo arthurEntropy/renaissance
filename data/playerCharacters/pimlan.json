@@ -2,7 +2,7 @@
   "id": "decef988-2c77-4c84-9ee6-bb8198a6f3cb",
   "isDeleted": false,
   "createdAt": "2026-07-25T02:51:40.820Z",
-  "lastModified": "2026-07-25T18:45:09.221Z",
+  "lastModified": "2026-07-27T15:03:42.786Z",
   "characterType": "playerCharacter",
   "name": "Pimlan",
   "featuredArtUrls": [
@@ -350,5 +350,5 @@
   "biomeTagsAugment": [],
   "biomeTagsInhibit": [],
   "beastTypeIds": [],
-  "updatedAt": "2026-07-25T18:45:09.221Z"
+  "updatedAt": "2026-07-27T15:03:42.786Z"
 }

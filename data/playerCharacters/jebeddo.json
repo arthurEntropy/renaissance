@@ -2,7 +2,7 @@
   "id": "a8cb69a9-0146-4aee-bcc1-24b591fe2458",
   "isDeleted": false,
   "createdAt": "2026-07-25T02:30:19.653Z",
-  "lastModified": "2026-07-27T12:39:58.970Z",
+  "lastModified": "2026-07-27T14:36:26.217Z",
   "characterType": "playerCharacter",
   "name": "Jebeddo",
   "featuredArtUrls": [
@@ -401,5 +401,5 @@
   "biomeTagsAugment": [],
   "biomeTagsInhibit": [],
   "beastTypeIds": [],
-  "updatedAt": "2026-07-27T12:39:58.970Z"
+  "updatedAt": "2026-07-27T14:36:26.217Z"
 }

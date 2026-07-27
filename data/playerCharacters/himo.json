@@ -2,7 +2,7 @@
   "id": "0f6f7b18-4fa1-4a7c-993b-173437f1cd79",
   "isDeleted": false,
   "createdAt": "2026-07-25T00:22:58.175Z",
-  "lastModified": "2026-07-27T12:40:48.861Z",
+  "lastModified": "2026-07-27T15:03:20.900Z",
   "characterType": "playerCharacter",
   "name": "Himo",
   "featuredArtUrls": [
@@ -410,5 +410,5 @@
   "biomeTagsAugment": [],
   "biomeTagsInhibit": [],
   "beastTypeIds": [],
-  "updatedAt": "2026-07-27T12:40:48.861Z"
+  "updatedAt": "2026-07-27T15:03:20.900Z"
 }

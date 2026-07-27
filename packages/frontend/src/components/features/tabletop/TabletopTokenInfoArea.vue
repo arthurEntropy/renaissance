@@ -154,7 +154,7 @@ function onDefenseChange(e) {
 }
 
 .info-input:disabled {
-    opacity: 0.7;
+    opacity: 0.5;
     cursor: default;
     border-color: transparent;
     background: transparent;
@@ -179,5 +179,9 @@ function onDefenseChange(e) {
 
 .info-spectate-btn {
     flex-shrink: 0;
+}
+
+.fab--always {
+    opacity: 1;
 }
 </style>

@@ -3,7 +3,7 @@ export const DIE_TYPE = {
   D6: 6
 }
 
-export const STANDARD_DIE_SIZES = [4, 6, 8, 10, 12, 20]
+export const STANDARD_DIE_SIZES = [2, 4, 6, 8, 10, 12, 20]
 
 export const SPECIAL_ROLLS = {
   SOL: 12,

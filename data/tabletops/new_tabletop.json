@@ -2,7 +2,7 @@
   "id": "6ae64a86-7abd-4a96-9c73-3c0c5e02959c",
   "isDeleted": false,
   "createdAt": "2026-07-25T03:06:14.328Z",
-  "lastModified": "2026-07-27T12:40:49.746Z",
+  "lastModified": "2026-07-27T14:54:34.729Z",
   "campaignId": "c9ddeab9-d180-4fc5-869f-e64239bc3376",
   "name": "New Tabletop",
   "backgroundImage": {
@@ -21,7 +21,7 @@
       "size": 1,
       "x": 1520,
       "y": 560,
-      "zIndex": 44
+      "zIndex": 85
     },
     {
       "id": "8d465f4b-8166-4aa6-97a6-5249faef7861",
@@ -33,7 +33,7 @@
       "size": 1,
       "x": 1560,
       "y": 560,
-      "zIndex": 45
+      "zIndex": 86
     },
     {
       "id": "25770422-4e80-44d8-b252-865dcaf7502d",
@@ -45,7 +45,7 @@
       "size": 3,
       "x": 800,
       "y": 840,
-      "zIndex": 46
+      "zIndex": 67
     },
     {
       "id": "57dd1150-2490-4464-bf28-bde94a8bc02b",
@@ -57,7 +57,7 @@
       "size": 1,
       "x": 840,
       "y": 440,
-      "zIndex": 47
+      "zIndex": 65
     },
     {
       "id": "5b004911-daaa-4abc-9ee6-9934ccb01ff8",
@@ -81,7 +81,7 @@
       "size": 1,
       "x": 1760,
       "y": 680,
-      "zIndex": 55
+      "zIndex": 72
     },
     {
       "id": "dfbcaa5c-5426-420b-bce4-b60e3e17fdb8",
@@ -129,7 +129,7 @@
       "size": 1,
       "x": 1640,
       "y": 520,
-      "zIndex": 53
+      "zIndex": 91
     },
     {
       "id": "1e5db72b-e5ce-4deb-b564-44553336f6df",
@@ -141,13 +141,13 @@
       "size": 1,
       "x": 1720,
       "y": 560,
-      "zIndex": 54
+      "zIndex": 87
     }
   ],
   "transform": {
-    "scale": 0.6307973492237849,
-    "x": -127.90480379135056,
-    "y": 75.11137080474569
+    "scale": 0.5007472733638996,
+    "x": -11.652723631552362,
+    "y": 141.61546353828965
   },
   "gridSize": 40,
   "gridColor": "#050505",
@@ -4301,19 +4301,43 @@
       ]
     },
     {
-      "id": "combined_9225611b-fdc0-426c-9e4c-70da673d5e0d_1785156048583_1trp",
-      "timestamp": 1785156048583,
+      "id": "combined_0f6f7b18-4fa1-4a7c-993b-173437f1cd79_1785156048581_5i0r",
+      "timestamp": 1785156048581,
       "type": "engagement",
       "combined": true,
-      "characterId": "9225611b-fdc0-426c-9e4c-70da673d5e0d",
-      "characterName": "Spore Hound C",
-      "portraitUrl": "https://cdn.midjourney.com/39ad5992-8dc0-48f7-9e24-e9633e4377ae/0_1.png",
+      "characterId": "0f6f7b18-4fa1-4a7c-993b-173437f1cd79",
+      "characterName": "Himo",
+      "portraitUrl": "https://cdn.midjourney.com/d540e4e9-8b5c-4fd1-b7ab-41ee29f97979/0_2.jpeg",
       "isNpc": false,
-      "isBeast": true,
-      "result": "win",
-      "userWins": 1,
-      "opponentWins": 0,
+      "isBeast": false,
+      "result": "loss",
+      "userWins": 0,
+      "opponentWins": 1,
       "diceResults": [
+        {
+          "dieSize": 6,
+          "dieRollValue": 1,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-1"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 3,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-3"
+        }
+      ],
+      "opponentCharacterId": "9225611b-fdc0-426c-9e4c-70da673d5e0d",
+      "opponentName": "Spore Hound C",
+      "opponentPortraitUrl": "https://cdn.midjourney.com/39ad5992-8dc0-48f7-9e24-e9633e4377ae/0_1.png",
+      "opponentIsNpc": false,
+      "opponentIsBeast": true,
+      "opponentResult": "win",
+      "opponentDiceResults": [
         {
           "dieSize": 4,
           "dieRollValue": 1,
@@ -4330,29 +4354,83 @@
           "rolledMaxValue": false,
           "cssClass": "df-d10-4"
         }
-      ],
-      "opponentCharacterId": "0f6f7b18-4fa1-4a7c-993b-173437f1cd79",
-      "opponentName": "Himo",
-      "opponentPortraitUrl": "https://cdn.midjourney.com/d540e4e9-8b5c-4fd1-b7ab-41ee29f97979/0_2.jpeg",
-      "opponentIsNpc": false,
-      "opponentIsBeast": false,
-      "opponentResult": "loss",
-      "opponentDiceResults": [
+      ]
+    },
+    {
+      "id": "917e904f-d97e-4033-a498-8391260f3752_1785163988952_nhw5",
+      "timestamp": 1785163988952,
+      "characterId": "917e904f-d97e-4033-a498-8391260f3752",
+      "characterName": "Magnuss",
+      "portraitUrl": "https://cdn.midjourney.com/9d007aef-e372-4e42-9581-a2703cfe7018/0_2.jpeg",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "damage",
+      "skillName": "Dagger",
+      "total": 5,
+      "diceTotal": 2,
+      "modifier": 3,
+      "modifierLabel": "BODY",
+      "success": null,
+      "difficulty": null,
+      "footer": "+ BODY",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": "Dagger",
+      "diceResults": [
         {
-          "dieSize": 6,
-          "dieRollValue": 1,
+          "dieSize": 4,
+          "dieRollValue": 2,
           "emoji": null,
           "isDropped": false,
           "rolledMaxValue": false,
-          "cssClass": "df-d6-1"
+          "cssClass": "df-d4-2"
+        }
+      ]
+    },
+    {
+      "id": "917e904f-d97e-4033-a498-8391260f3752_1785164074018_68q7",
+      "timestamp": 1785164074018,
+      "characterId": "917e904f-d97e-4033-a498-8391260f3752",
+      "characterName": "Magnuss",
+      "portraitUrl": "https://cdn.midjourney.com/9d007aef-e372-4e42-9581-a2703cfe7018/0_2.jpeg",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "damage",
+      "skillName": "2d6 damage",
+      "total": 7,
+      "diceTotal": 7,
+      "modifier": 0,
+      "modifierLabel": "BODY",
+      "success": null,
+      "difficulty": null,
+      "footer": "+ BODY",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": "Fireball",
+      "diceResults": [
+        {
+          "dieSize": 6,
+          "dieRollValue": 2,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-2"
         },
         {
           "dieSize": 6,
-          "dieRollValue": 3,
+          "dieRollValue": 5,
           "emoji": null,
           "isDropped": false,
           "rolledMaxValue": false,
-          "cssClass": "df-d6-3"
+          "cssClass": "df-d6-5"
         }
       ]
     }

@@ -257,8 +257,8 @@ onMounted(async () => {
     }
 
     if (campaign.value) {
-        await campaignStore.enterCampaign(campaign.value.id)
         await Promise.all([
+            campaignStore.enterCampaign(campaign.value.id),
             charactersStore.fetch(),
             conceptsStore.fetch(),
             keepingStore.fetch(),

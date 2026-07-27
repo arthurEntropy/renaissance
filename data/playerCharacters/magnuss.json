@@ -2,7 +2,7 @@
   "id": "917e904f-d97e-4033-a498-8391260f3752",
   "isDeleted": false,
   "createdAt": "2026-07-24T22:34:07.812Z",
-  "lastModified": "2026-07-27T12:39:58.980Z",
+  "lastModified": "2026-07-27T14:54:34.291Z",
   "characterType": "playerCharacter",
   "name": "Magnuss",
   "featuredArtUrls": [
@@ -187,7 +187,7 @@
       "quantity": 1,
       "isCarried": true,
       "isWielding": false,
-      "collapsed": true
+      "collapsed": false
     }
   ],
   "groupEquipmentBySource": false,
@@ -281,7 +281,7 @@
     },
     {
       "id": "92417d74-0eb3-45f3-8b15-5d68cec4ad7f",
-      "collapsed": true,
+      "collapsed": false,
       "showImprovements": false,
       "showSuccesses": false,
       "isActive": false,
@@ -336,7 +336,7 @@
     },
     "xpEarned": 0,
     "xpSpent": 0,
-    "treasureEarned": 43,
+    "treasureEarned": 73,
     "treasureSpent": 2
   },
   "biomeTags": [],
@@ -405,5 +405,5 @@
   "biomeTagsAugment": [],
   "biomeTagsInhibit": [],
   "beastTypeIds": [],
-  "updatedAt": "2026-07-27T12:39:58.980Z"
+  "updatedAt": "2026-07-27T14:54:34.291Z"
 }
