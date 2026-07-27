@@ -2,7 +2,7 @@
   "id": "34920c64-763c-40ef-b5a6-9f593829c443",
   "isDeleted": false,
   "createdAt": "2026-07-27T18:32:43.731Z",
-  "lastModified": "2026-07-27T18:34:39.781Z",
+  "lastModified": "2026-07-27T19:44:12.595Z",
   "characterType": "playerCharacter",
   "name": "New Character",
   "featuredArtUrls": [
@@ -217,13 +217,13 @@
   },
   "rollStats": {
     "skillChecks": {
-      "attempts": 1,
-      "successes": 1,
-      "totalSum": 18,
+      "attempts": 2,
+      "successes": 2,
+      "totalSum": 22,
       "bestTotal": 18,
       "hardestSuccess": null,
       "bySkill": {
-        "Strength": 1
+        "Strength": 2
       },
       "solCount": 0,
       "morteCount": 0,
@@ -284,5 +284,5 @@
   "treasure": 0,
   "xp": 0,
   "description": "",
-  "updatedAt": "2026-07-27T18:34:39.781Z"
+  "updatedAt": "2026-07-27T19:44:12.595Z"
 }

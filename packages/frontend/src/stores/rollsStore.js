@@ -203,13 +203,14 @@ export const useRollsStore = defineStore('rolls', () => {
       const rollResult = module.default.makeCustomRoll(dicePool, modifier, character)
       setRoll(rollResult)
     } else if (currentRoll.type === 'damage') {
-      const { dicePool, modifier, character, rollName, baseSkillName, sourceName, modifierLabel } = currentRoll._rerollData
+      const { dicePool, modifier, character, rollName, baseSkillName, sourceName, modifierLabel, illFavored } = currentRoll._rerollData
       const module = await import('@/services/rolls/damageRollService')
       const rollResult = module.default.makeDamageRoll(dicePool, modifier, character, {
         rollName,
         baseSkillName,
         sourceName,
-        modifierLabel
+        modifierLabel,
+        illFavored,
       })
       setRoll(rollResult)
     } else if (currentRoll.type === 'initiative') {

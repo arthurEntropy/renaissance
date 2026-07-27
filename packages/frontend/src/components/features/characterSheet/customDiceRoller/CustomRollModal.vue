@@ -48,6 +48,14 @@
                     :text="'+' + CORE_ABILITIES.WITS.label" @click="clickStatButton('wits')" />
             </div>
 
+            <!-- Ill-favored toggle: only relevant for damage rolls -->
+            <div v-if="rollMode === 'damage'" class="ill-favored-toggle">
+                <button type="button" class="ill-favored-btn" :class="{ 'ill-favored-btn--active': illFavored }"
+                    @click="illFavored = !illFavored">
+                    <span class="ill-favored-label">Ill-favored</span>
+                </button>
+            </div>
+
         </div>
 
         <template #actions>
@@ -91,6 +99,9 @@ const props = defineProps({
     sourceName: { type: String, default: '' },
     // When set, pre-highlights the matching stat button (e.g. 'body', 'heart', 'wits')
     initialActiveStatKey: { type: String, default: null },
+    // When true, the damage roll is pre-set to ill-favored (drops the lowest die).
+    // Only applied when rollMode === 'damage'. Can be toggled by the user.
+    initialIllFavored: { type: Boolean, default: false },
 })
 
 const emit = defineEmits(['close'])
@@ -126,6 +137,7 @@ const dicePool = ref(initPool())
 const modifier = ref(props.initialModifier)
 const isRolling = ref(false)
 const sendToDiscord = ref(true)
+const illFavored = ref(props.rollMode === 'damage' && props.initialIllFavored)
 
 // Stat button active tracking
 const activeStatButton = ref(null) // 'body' | 'heart' | 'wits' | null
@@ -234,6 +246,7 @@ const handleRoll = async () => {
                     modifierLabel: CORE_ABILITIES.BODY.label,
                     footer: `+ ${CORE_ABILITIES.BODY.label}`,
                     sendToDiscord: sendToDiscord.value,
+                    illFavored: illFavored.value,
                 }
             )
         } else {
@@ -410,6 +423,41 @@ function handleClose() {
     gap: var(--space-sm);
     justify-content: center;
     margin-top: var(--space-xs);
+}
+
+/* Ill-favored toggle (damage rolls only) */
+.ill-favored-toggle {
+    display: flex;
+    justify-content: center;
+    margin-top: var(--space-xs);
+}
+
+.ill-favored-btn {
+    padding: var(--space-xs) var(--space-md);
+    border-radius: var(--radius-full);
+    border: 1px solid var(--color-gray-medium);
+    background: transparent;
+    color: var(--color-text-muted);
+    font-size: var(--font-size-12);
+    font-family: var(--font-family-primary);
+    cursor: pointer;
+    transition: background var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.ill-favored-btn:hover {
+    border-color: var(--color-danger);
+    color: var(--color-danger);
+}
+
+.ill-favored-btn--active {
+    background: var(--color-danger);
+    border-color: var(--color-danger);
+    color: var(--color-white);
+}
+
+.ill-favored-btn--active:hover {
+    background: var(--color-danger);
+    color: var(--color-white);
 }
 
 .footer-layout {

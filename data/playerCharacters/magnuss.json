@@ -2,7 +2,7 @@
   "id": "917e904f-d97e-4033-a498-8391260f3752",
   "isDeleted": false,
   "createdAt": "2026-07-24T22:34:07.812Z",
-  "lastModified": "2026-07-27T18:39:26.385Z",
+  "lastModified": "2026-07-27T19:48:36.926Z",
   "characterType": "playerCharacter",
   "name": "Magnuss",
   "featuredArtUrls": [
@@ -313,17 +313,18 @@
   },
   "rollStats": {
     "skillChecks": {
-      "attempts": 4,
-      "successes": 4,
-      "totalSum": 41,
+      "attempts": 5,
+      "successes": 5,
+      "totalSum": 49,
       "bestTotal": 16,
       "hardestSuccess": null,
       "bySkill": {
         "Spirit": 3,
-        "Dexterity": 1
+        "Dexterity": 1,
+        "Strength": 1
       },
       "solCount": 0,
-      "morteCount": 2,
+      "morteCount": 3,
       "successCount": 1
     },
     "contests": {
@@ -340,7 +341,7 @@
     },
     "xpEarned": 0,
     "xpSpent": 0,
-    "treasureEarned": 103,
+    "treasureEarned": 113,
     "treasureSpent": 2
   },
   "biomeTags": [],
@@ -400,5 +401,5 @@
   "xp": 0,
   "description": "",
   "featuredArtUrl": "https://cdn.midjourney.com/9d007aef-e372-4e42-9581-a2703cfe7018/0_2.jpeg",
-  "updatedAt": "2026-07-27T18:39:26.385Z"
+  "updatedAt": "2026-07-27T19:48:36.926Z"
 }

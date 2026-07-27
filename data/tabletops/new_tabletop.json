@@ -2,7 +2,7 @@
   "id": "6ae64a86-7abd-4a96-9c73-3c0c5e02959c",
   "isDeleted": false,
   "createdAt": "2026-07-25T03:06:14.328Z",
-  "lastModified": "2026-07-27T18:34:40.035Z",
+  "lastModified": "2026-07-27T19:48:37.184Z",
   "campaignId": "c9ddeab9-d180-4fc5-869f-e64239bc3376",
   "name": "New Tabletop",
   "backgroundImage": {
@@ -60,18 +60,6 @@
       "zIndex": 65
     },
     {
-      "id": "5b004911-daaa-4abc-9ee6-9934ccb01ff8",
-      "characterId": "782eb653-7dad-4ec0-be7b-8c3841969a78",
-      "isBeast": true,
-      "isNpc": false,
-      "name": "Spore Hound B",
-      "portraitUrl": "https://cdn.midjourney.com/39ad5992-8dc0-48f7-9e24-e9633e4377ae/0_1.png",
-      "size": 1,
-      "x": 1720,
-      "y": 280,
-      "zIndex": 48
-    },
-    {
       "id": "e3cb247a-8a89-4fb7-940c-98135ca6e689",
       "characterId": "9225611b-fdc0-426c-9e4c-70da673d5e0d",
       "isBeast": true,
@@ -93,7 +81,7 @@
       "size": 1,
       "x": 2040,
       "y": 760,
-      "zIndex": 50
+      "zIndex": 105
     },
     {
       "id": "f7e382a1-eb22-44b8-8127-4959cac82990",
@@ -129,7 +117,7 @@
       "size": 1,
       "x": 1640,
       "y": 520,
-      "zIndex": 100
+      "zIndex": 107
     },
     {
       "id": "1e5db72b-e5ce-4deb-b564-44553336f6df",
@@ -141,13 +129,13 @@
       "size": 1,
       "x": 1720,
       "y": 560,
-      "zIndex": 101
+      "zIndex": 106
     }
   ],
   "transform": {
-    "scale": 0.7357620281346225,
-    "x": -562.6396308158314,
-    "y": -120.38193171734446
+    "scale": 1.167561870244034,
+    "x": -1369.0639845926876,
+    "y": -384.6456876511163
   },
   "gridSize": 40,
   "gridColor": "#050505",
@@ -155,450 +143,6 @@
   "showPaths": true,
   "radiusAreas": [],
   "rollLog": [
-    {
-      "id": "0f6f7b18-4fa1-4a7c-993b-173437f1cd79_1785003931583_lnpz",
-      "timestamp": 1785003931583,
-      "characterId": "0f6f7b18-4fa1-4a7c-993b-173437f1cd79",
-      "characterName": "Himo",
-      "portraitUrl": "https://cdn.midjourney.com/d540e4e9-8b5c-4fd1-b7ab-41ee29f97979/0_2.jpeg",
-      "isNpc": false,
-      "isBeast": false,
-      "type": "skill_check",
-      "skillName": "Craft",
-      "total": 7,
-      "diceTotal": null,
-      "modifier": 0,
-      "success": true,
-      "difficulty": null,
-      "footer": "",
-      "favoredStatus": null,
-      "userWins": null,
-      "opponentWins": null,
-      "drawCount": null,
-      "result": null,
-      "opponentName": null,
-      "sourceName": null,
-      "diceResults": [
-        {
-          "dieSize": 12,
-          "dieRollValue": 6,
-          "emoji": null,
-          "isDropped": false,
-          "rolledMaxValue": false,
-          "cssClass": "df-d12-6"
-        },
-        {
-          "dieSize": 6,
-          "dieRollValue": 1,
-          "emoji": null,
-          "isDropped": false,
-          "rolledMaxValue": false,
-          "cssClass": "df-d6-1"
-        }
-      ]
-    },
-    {
-      "id": "f97877c1-f985-4268-b168-753d01cd07e9_1785003949701_hfq2",
-      "timestamp": 1785003949701,
-      "characterId": "f97877c1-f985-4268-b168-753d01cd07e9",
-      "characterName": "Spore Hound E",
-      "portraitUrl": "https://cdn.midjourney.com/39ad5992-8dc0-48f7-9e24-e9633e4377ae/0_1.png",
-      "isNpc": false,
-      "isBeast": true,
-      "type": "skill_check",
-      "skillName": "Awareness",
-      "total": 7,
-      "diceTotal": null,
-      "modifier": 0,
-      "success": true,
-      "difficulty": null,
-      "footer": "",
-      "favoredStatus": null,
-      "userWins": null,
-      "opponentWins": null,
-      "drawCount": null,
-      "result": null,
-      "opponentName": null,
-      "sourceName": null,
-      "diceResults": [
-        {
-          "dieSize": 12,
-          "dieRollValue": 3,
-          "emoji": null,
-          "isDropped": false,
-          "rolledMaxValue": false,
-          "cssClass": "df-d12-3"
-        },
-        {
-          "dieSize": 6,
-          "dieRollValue": 4,
-          "emoji": null,
-          "isDropped": false,
-          "rolledMaxValue": false,
-          "cssClass": "df-d6-4"
-        }
-      ]
-    },
-    {
-      "id": "0f6f7b18-4fa1-4a7c-993b-173437f1cd79_1785003963773_ade2",
-      "timestamp": 1785003963773,
-      "characterId": "0f6f7b18-4fa1-4a7c-993b-173437f1cd79",
-      "characterName": "Himo",
-      "portraitUrl": "https://cdn.midjourney.com/d540e4e9-8b5c-4fd1-b7ab-41ee29f97979/0_2.jpeg",
-      "isNpc": false,
-      "isBeast": false,
-      "type": "damage",
-      "skillName": "3d4 damage",
-      "total": 9,
-      "diceTotal": 9,
-      "modifier": 0,
-      "success": null,
-      "difficulty": null,
-      "footer": "+ BODY",
-      "favoredStatus": null,
-      "userWins": null,
-      "opponentWins": null,
-      "drawCount": null,
-      "result": null,
-      "opponentName": null,
-      "sourceName": "Description",
-      "diceResults": [
-        {
-          "dieSize": 4,
-          "dieRollValue": 2,
-          "emoji": null,
-          "isDropped": false,
-          "rolledMaxValue": false,
-          "cssClass": "df-d4-2"
-        },
-        {
-          "dieSize": 4,
-          "dieRollValue": 3,
-          "emoji": null,
-          "isDropped": false,
-          "rolledMaxValue": false,
-          "cssClass": "df-d4-3"
-        },
-        {
-          "dieSize": 4,
-          "dieRollValue": 4,
-          "emoji": "✨",
-          "isDropped": false,
-          "rolledMaxValue": true,
-          "cssClass": "df-d4-4"
-        }
-      ]
-    },
-    {
-      "id": "a8cb69a9-0146-4aee-bcc1-24b591fe2458_1785004030400_qscl",
-      "timestamp": 1785004030400,
-      "characterId": "a8cb69a9-0146-4aee-bcc1-24b591fe2458",
-      "characterName": "Jebeddo",
-      "portraitUrl": "https://cdn.midjourney.com/ef8f7b85-a18f-49a1-8a2d-238a3eb1cb5a/0_1_640_N.webp",
-      "isNpc": false,
-      "isBeast": false,
-      "type": "skill_check",
-      "skillName": "Courtesy",
-      "total": 10,
-      "diceTotal": null,
-      "modifier": 0,
-      "success": true,
-      "difficulty": null,
-      "footer": "",
-      "favoredStatus": null,
-      "userWins": null,
-      "opponentWins": null,
-      "drawCount": null,
-      "result": null,
-      "opponentName": null,
-      "sourceName": null,
-      "diceResults": [
-        {
-          "dieSize": 12,
-          "dieRollValue": 5,
-          "emoji": null,
-          "isDropped": false,
-          "rolledMaxValue": false,
-          "cssClass": "df-d12-5"
-        },
-        {
-          "dieSize": 6,
-          "dieRollValue": 4,
-          "emoji": null,
-          "isDropped": false,
-          "rolledMaxValue": false,
-          "cssClass": "df-d6-4"
-        },
-        {
-          "dieSize": 6,
-          "dieRollValue": 1,
-          "emoji": null,
-          "isDropped": false,
-          "rolledMaxValue": false,
-          "cssClass": "df-d6-1"
-        }
-      ]
-    },
-    {
-      "id": "b8928e57-3348-4178-b8ad-4eafb947dfef_1785004069895_iarg",
-      "timestamp": 1785004069895,
-      "characterId": "b8928e57-3348-4178-b8ad-4eafb947dfef",
-      "characterName": "Spore Hound D",
-      "portraitUrl": "https://cdn.midjourney.com/39ad5992-8dc0-48f7-9e24-e9633e4377ae/0_1.png",
-      "isNpc": false,
-      "isBeast": true,
-      "type": "skill_check",
-      "skillName": "Courtesy",
-      "total": 5,
-      "diceTotal": null,
-      "modifier": 0,
-      "success": true,
-      "difficulty": null,
-      "footer": "",
-      "favoredStatus": null,
-      "userWins": null,
-      "opponentWins": null,
-      "drawCount": null,
-      "result": null,
-      "opponentName": null,
-      "sourceName": null,
-      "diceResults": [
-        {
-          "dieSize": 12,
-          "dieRollValue": 5,
-          "emoji": null,
-          "isDropped": false,
-          "rolledMaxValue": false,
-          "cssClass": "df-d12-5"
-        }
-      ]
-    },
-    {
-      "id": "b8928e57-3348-4178-b8ad-4eafb947dfef_1785004236204_7gh8",
-      "timestamp": 1785004236204,
-      "characterId": "b8928e57-3348-4178-b8ad-4eafb947dfef",
-      "characterName": "Spore Hound D",
-      "portraitUrl": "https://cdn.midjourney.com/39ad5992-8dc0-48f7-9e24-e9633e4377ae/0_1.png",
-      "isNpc": false,
-      "isBeast": true,
-      "type": "engagement",
-      "skillName": null,
-      "total": null,
-      "diceTotal": null,
-      "modifier": 0,
-      "success": null,
-      "difficulty": null,
-      "footer": null,
-      "favoredStatus": null,
-      "userWins": 0,
-      "opponentWins": 2,
-      "drawCount": 1,
-      "result": "loss",
-      "opponentName": "Jebeddo",
-      "sourceName": null,
-      "diceResults": [
-        {
-          "dieSize": 4,
-          "dieRollValue": 3,
-          "emoji": null,
-          "isDropped": false,
-          "rolledMaxValue": false,
-          "cssClass": "df-d4-3"
-        },
-        {
-          "dieSize": 10,
-          "dieRollValue": 2,
-          "emoji": null,
-          "isDropped": false,
-          "rolledMaxValue": false,
-          "cssClass": "df-d10-2"
-        }
-      ]
-    },
-    {
-      "id": "a8cb69a9-0146-4aee-bcc1-24b591fe2458_1785004236384_o9rm",
-      "timestamp": 1785004236384,
-      "characterId": "a8cb69a9-0146-4aee-bcc1-24b591fe2458",
-      "characterName": "Jebeddo",
-      "portraitUrl": "https://cdn.midjourney.com/ef8f7b85-a18f-49a1-8a2d-238a3eb1cb5a/0_1_640_N.webp",
-      "isNpc": false,
-      "isBeast": false,
-      "type": "engagement",
-      "skillName": null,
-      "total": null,
-      "diceTotal": null,
-      "modifier": 0,
-      "success": null,
-      "difficulty": null,
-      "footer": null,
-      "favoredStatus": null,
-      "userWins": 2,
-      "opponentWins": 0,
-      "drawCount": 1,
-      "result": "win",
-      "opponentName": "Spore Hound D",
-      "sourceName": null,
-      "diceResults": [
-        {
-          "dieSize": 4,
-          "dieRollValue": 3,
-          "emoji": null,
-          "isDropped": false,
-          "rolledMaxValue": false,
-          "cssClass": "df-d4-3"
-        },
-        {
-          "dieSize": 4,
-          "dieRollValue": 4,
-          "emoji": "✨",
-          "isDropped": false,
-          "rolledMaxValue": true,
-          "cssClass": "df-d4-4"
-        },
-        {
-          "dieSize": 4,
-          "dieRollValue": 3,
-          "emoji": null,
-          "isDropped": false,
-          "rolledMaxValue": false,
-          "cssClass": "df-d4-3"
-        }
-      ]
-    },
-    {
-      "id": "a8cb69a9-0146-4aee-bcc1-24b591fe2458_1785004322922_56kz",
-      "timestamp": 1785004322922,
-      "characterId": "a8cb69a9-0146-4aee-bcc1-24b591fe2458",
-      "characterName": "Jebeddo",
-      "portraitUrl": "https://cdn.midjourney.com/ef8f7b85-a18f-49a1-8a2d-238a3eb1cb5a/0_1_640_N.webp",
-      "isNpc": false,
-      "isBeast": false,
-      "type": "skill_check",
-      "skillName": "Strength (favored)",
-      "total": 27,
-      "diceTotal": null,
-      "modifier": 0,
-      "success": true,
-      "difficulty": null,
-      "footer": "",
-      "favoredStatus": "favored",
-      "userWins": null,
-      "opponentWins": null,
-      "drawCount": null,
-      "result": null,
-      "opponentName": null,
-      "sourceName": null,
-      "diceResults": [
-        {
-          "dieSize": 12,
-          "dieRollValue": 12,
-          "emoji": "🌞",
-          "isDropped": false,
-          "rolledMaxValue": true,
-          "cssClass": "df-d12-12"
-        },
-        {
-          "dieSize": 12,
-          "dieRollValue": 0,
-          "emoji": null,
-          "isDropped": true,
-          "rolledMaxValue": false,
-          "cssClass": "df-d12-7"
-        },
-        {
-          "dieSize": 6,
-          "dieRollValue": 6,
-          "emoji": "✨",
-          "isDropped": false,
-          "rolledMaxValue": true,
-          "cssClass": "df-d6-6"
-        },
-        {
-          "dieSize": 6,
-          "dieRollValue": 5,
-          "emoji": null,
-          "isDropped": false,
-          "rolledMaxValue": false,
-          "cssClass": "df-d6-5"
-        },
-        {
-          "dieSize": 6,
-          "dieRollValue": 4,
-          "emoji": null,
-          "isDropped": false,
-          "rolledMaxValue": false,
-          "cssClass": "df-d6-4"
-        }
-      ]
-    },
-    {
-      "id": "a8cb69a9-0146-4aee-bcc1-24b591fe2458_1785004341011_t9py",
-      "timestamp": 1785004341011,
-      "characterId": "a8cb69a9-0146-4aee-bcc1-24b591fe2458",
-      "characterName": "Jebeddo",
-      "portraitUrl": "https://cdn.midjourney.com/ef8f7b85-a18f-49a1-8a2d-238a3eb1cb5a/0_1_640_N.webp",
-      "isNpc": false,
-      "isBeast": false,
-      "type": "damage",
-      "skillName": "Broadsword",
-      "total": 6,
-      "diceTotal": 2,
-      "modifier": 4,
-      "success": null,
-      "difficulty": null,
-      "footer": "+ BODY",
-      "favoredStatus": null,
-      "userWins": null,
-      "opponentWins": null,
-      "drawCount": null,
-      "result": null,
-      "opponentName": null,
-      "sourceName": "Broadsword",
-      "diceResults": [
-        {
-          "dieSize": 10,
-          "dieRollValue": 2,
-          "emoji": null,
-          "isDropped": false,
-          "rolledMaxValue": false,
-          "cssClass": "df-d10-2"
-        }
-      ]
-    },
-    {
-      "id": "b8928e57-3348-4178-b8ad-4eafb947dfef_1785004358271_pi6k",
-      "timestamp": 1785004358271,
-      "characterId": "b8928e57-3348-4178-b8ad-4eafb947dfef",
-      "characterName": "Spore Hound D",
-      "portraitUrl": "https://cdn.midjourney.com/39ad5992-8dc0-48f7-9e24-e9633e4377ae/0_1.png",
-      "isNpc": false,
-      "isBeast": true,
-      "type": "injury",
-      "skillName": "Injury",
-      "total": 3,
-      "diceTotal": 11,
-      "modifier": 0,
-      "success": null,
-      "difficulty": null,
-      "footer": "Injury increases to your base Defense.",
-      "favoredStatus": null,
-      "userWins": null,
-      "opponentWins": null,
-      "drawCount": null,
-      "result": null,
-      "opponentName": null,
-      "sourceName": null,
-      "diceResults": [
-        {
-          "dieSize": 12,
-          "dieRollValue": 11,
-          "emoji": "💀",
-          "isDropped": false,
-          "rolledMaxValue": false,
-          "cssClass": "df-d12-11"
-        }
-      ]
-    },
     {
       "id": "a8cb69a9-0146-4aee-bcc1-24b591fe2458_1785004528596_xq3x",
       "timestamp": 1785004528596,
@@ -4432,6 +3976,508 @@
           "isDropped": false,
           "rolledMaxValue": false,
           "cssClass": "df-d6-4"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 2,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-2"
+        }
+      ]
+    },
+    {
+      "id": "2d4e6250-2db8-4f5a-9456-c6a5c7fbc551_1785181258600_uzmz",
+      "timestamp": 1785181258600,
+      "characterId": "2d4e6250-2db8-4f5a-9456-c6a5c7fbc551",
+      "characterName": "Mycoderm A",
+      "portraitUrl": "https://cdn.midjourney.com/1981f3be-8de5-4457-9d0f-da52943eb68c/0_0.png",
+      "isNpc": false,
+      "isBeast": true,
+      "type": "skill_check",
+      "skillName": "Strength",
+      "total": 21,
+      "diceTotal": null,
+      "modifier": 0,
+      "modifierLabel": null,
+      "success": true,
+      "difficulty": null,
+      "footer": "",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": "Bastard Sword",
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 9,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-9"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 6,
+          "emoji": "✨",
+          "isDropped": false,
+          "rolledMaxValue": true,
+          "cssClass": "df-d6-6"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 4,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-4"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 2,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-2"
+        }
+      ]
+    },
+    {
+      "id": "1af228fc-7b3c-4fe6-8c0c-cd028bc850e2_1785181263713_syfb",
+      "timestamp": 1785181263713,
+      "characterId": "1af228fc-7b3c-4fe6-8c0c-cd028bc850e2",
+      "characterName": "Palfrey",
+      "portraitUrl": "https://cdn.midjourney.com/2916e967-136f-4900-8d0b-5dd0ec354e19/0_1_640_N.webp",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "damage",
+      "skillName": "Bastard Sword",
+      "total": 12,
+      "diceTotal": 8,
+      "modifier": 4,
+      "modifierLabel": "BODY",
+      "success": null,
+      "difficulty": null,
+      "footer": "+BODY",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": "Bastard Sword",
+      "diceResults": [
+        {
+          "dieSize": 10,
+          "dieRollValue": 8,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d10-8"
+        }
+      ]
+    },
+    {
+      "id": "2d4e6250-2db8-4f5a-9456-c6a5c7fbc551_1785181276731_f2wp",
+      "timestamp": 1785181276731,
+      "characterId": "2d4e6250-2db8-4f5a-9456-c6a5c7fbc551",
+      "characterName": "Mycoderm A",
+      "portraitUrl": "https://cdn.midjourney.com/1981f3be-8de5-4457-9d0f-da52943eb68c/0_0.png",
+      "isNpc": false,
+      "isBeast": true,
+      "type": "skill_check",
+      "skillName": "Strength",
+      "total": 10,
+      "diceTotal": null,
+      "modifier": 0,
+      "modifierLabel": null,
+      "success": true,
+      "difficulty": null,
+      "footer": "",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": "Bastard Sword",
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 1,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-1"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 4,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-4"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 3,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-3"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 2,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-2"
+        }
+      ]
+    },
+    {
+      "id": "34920c64-763c-40ef-b5a6-9f593829c443_1785181452318_8zlb",
+      "timestamp": 1785181452318,
+      "characterId": "34920c64-763c-40ef-b5a6-9f593829c443",
+      "characterName": "New Character",
+      "portraitUrl": null,
+      "isNpc": false,
+      "isBeast": false,
+      "type": "skill_check",
+      "skillName": "Strength",
+      "total": 4,
+      "diceTotal": null,
+      "modifier": 0,
+      "modifierLabel": null,
+      "success": true,
+      "difficulty": null,
+      "footer": "",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 4,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-4"
+        }
+      ]
+    },
+    {
+      "id": "2d4e6250-2db8-4f5a-9456-c6a5c7fbc551_1785181455121_a3ol",
+      "timestamp": 1785181455121,
+      "characterId": "2d4e6250-2db8-4f5a-9456-c6a5c7fbc551",
+      "characterName": "Mycoderm A",
+      "portraitUrl": "https://cdn.midjourney.com/1981f3be-8de5-4457-9d0f-da52943eb68c/0_0.png",
+      "isNpc": false,
+      "isBeast": true,
+      "type": "skill_check",
+      "skillName": "Strength",
+      "total": 18,
+      "diceTotal": null,
+      "modifier": 0,
+      "modifierLabel": null,
+      "success": true,
+      "difficulty": null,
+      "footer": "",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 8,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-8"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 5,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-5"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 3,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-3"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 2,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-2"
+        }
+      ]
+    },
+    {
+      "id": "2d4e6250-2db8-4f5a-9456-c6a5c7fbc551_1785181494452_g685",
+      "timestamp": 1785181494452,
+      "characterId": "2d4e6250-2db8-4f5a-9456-c6a5c7fbc551",
+      "characterName": "Mycoderm A",
+      "portraitUrl": "https://cdn.midjourney.com/1981f3be-8de5-4457-9d0f-da52943eb68c/0_0.png",
+      "isNpc": false,
+      "isBeast": true,
+      "type": "skill_check",
+      "skillName": "Strength",
+      "total": 8,
+      "diceTotal": null,
+      "modifier": 0,
+      "modifierLabel": null,
+      "success": true,
+      "difficulty": null,
+      "footer": "",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 2,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-2"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 3,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-3"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 2,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-2"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 1,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-1"
+        }
+      ]
+    },
+    {
+      "id": "1af228fc-7b3c-4fe6-8c0c-cd028bc850e2_1785181505749_08ni",
+      "timestamp": 1785181505749,
+      "characterId": "1af228fc-7b3c-4fe6-8c0c-cd028bc850e2",
+      "characterName": "Palfrey",
+      "portraitUrl": "https://cdn.midjourney.com/2916e967-136f-4900-8d0b-5dd0ec354e19/0_1_640_N.webp",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "damage",
+      "skillName": "Bastard Sword",
+      "total": 11,
+      "diceTotal": 7,
+      "modifier": 4,
+      "modifierLabel": "BODY",
+      "success": null,
+      "difficulty": null,
+      "footer": "+BODY",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": "Bastard Sword",
+      "diceResults": [
+        {
+          "dieSize": 10,
+          "dieRollValue": 7,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d10-7"
+        }
+      ]
+    },
+    {
+      "id": "1af228fc-7b3c-4fe6-8c0c-cd028bc850e2_1785181507733_mv37",
+      "timestamp": 1785181507733,
+      "characterId": "1af228fc-7b3c-4fe6-8c0c-cd028bc850e2",
+      "characterName": "Palfrey",
+      "portraitUrl": "https://cdn.midjourney.com/2916e967-136f-4900-8d0b-5dd0ec354e19/0_1_640_N.webp",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "damage",
+      "skillName": "Bastard Sword",
+      "total": 6,
+      "diceTotal": 2,
+      "modifier": 4,
+      "modifierLabel": "BODY",
+      "success": null,
+      "difficulty": null,
+      "footer": "+BODY",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": "Bastard Sword",
+      "diceResults": [
+        {
+          "dieSize": 10,
+          "dieRollValue": 2,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d10-2"
+        }
+      ]
+    },
+    {
+      "id": "2d4e6250-2db8-4f5a-9456-c6a5c7fbc551_1785181575570_qyij",
+      "timestamp": 1785181575570,
+      "characterId": "2d4e6250-2db8-4f5a-9456-c6a5c7fbc551",
+      "characterName": "Mycoderm A",
+      "portraitUrl": "https://cdn.midjourney.com/1981f3be-8de5-4457-9d0f-da52943eb68c/0_0.png",
+      "isNpc": false,
+      "isBeast": true,
+      "type": "skill_check",
+      "skillName": "Spirit",
+      "total": 10,
+      "diceTotal": null,
+      "modifier": 0,
+      "modifierLabel": null,
+      "success": true,
+      "difficulty": null,
+      "footer": "",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 4,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-4"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 3,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-3"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 2,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-2"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 1,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-1"
+        }
+      ]
+    },
+    {
+      "id": "917e904f-d97e-4033-a498-8391260f3752_1785181716645_j2ac",
+      "timestamp": 1785181716645,
+      "characterId": "917e904f-d97e-4033-a498-8391260f3752",
+      "characterName": "Magnuss",
+      "portraitUrl": "https://cdn.midjourney.com/9d007aef-e372-4e42-9581-a2703cfe7018/0_2.jpeg",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "skill_check",
+      "skillName": "Strength",
+      "total": 8,
+      "diceTotal": null,
+      "modifier": 0,
+      "modifierLabel": null,
+      "success": true,
+      "difficulty": null,
+      "footer": "Insecure, Angry, Troubled",
+      "favoredStatus": "ill-favored",
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": "Dagger",
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 11,
+          "emoji": "💀",
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-11"
+        },
+        {
+          "dieSize": 12,
+          "dieRollValue": 0,
+          "emoji": null,
+          "isDropped": true,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-4"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 3,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-3"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 3,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-3"
         },
         {
           "dieSize": 6,

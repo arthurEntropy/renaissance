@@ -134,7 +134,7 @@
       :initial-modifier="damageRollModalConfig.initialModifier" :roll-name="damageRollModalConfig.rollName"
       :source-name="damageRollModalConfig.sourceName" :roll-mode="damageRollModalConfig.rollMode ?? 'damage'"
       :initial-active-stat-key="damageRollModalConfig.initialActiveStatKey ?? null"
-      @close="showDamageRollModal = false" />
+      :initial-ill-favored="damageRollModalConfig.initialIllFavored ?? false" @close="showDamageRollModal = false" />
 
   </CharacterSheetSection>
 </template>
@@ -470,7 +470,7 @@ const handleCharacterUpdate = (updatedCharacter) => {
   }
 }
 
-const handleDamageRoll = (equipment) => {
+const handleDamageRoll = ({ equipment, lacksTraining } = {}) => {
   if (!equipment || !selectedCharacter.value) return
 
   // Build initial dice counts from equipment's damage dice
@@ -488,6 +488,8 @@ const handleDamageRoll = (equipment) => {
     rollMode: 'damage',
     title: 'Damage Roll',
     initialActiveStatKey: 'body',
+    // Pre-set ill-favored when the character lacks martial training for this item
+    initialIllFavored: !!lacksTraining,
   }
   showDamageRollModal.value = true
 }

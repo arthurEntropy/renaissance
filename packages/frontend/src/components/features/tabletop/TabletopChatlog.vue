@@ -32,7 +32,7 @@
                                 <div class="entry-header-line">
                                     <span class="entry-name" :style="{ color: engagementCharColor(entry, true) }">{{
                                         entry.characterName
-                                        }}</span><span class="entry-title"> vs </span><span class="entry-name"
+                                    }}</span><span class="entry-title"> vs </span><span class="entry-name"
                                         :style="{ color: engagementCharColor(entry, false) }">{{ entry.opponentName
                                         }}</span><span class="entry-title">:</span>
                                 </div>
@@ -55,22 +55,33 @@
                                         @mouseleave="handleSourceHoverLeave()"> ({{ entry.sourceName }})</span><span
                                         class="entry-title">:</span>
                                 </div>
-                                <div class="entry-dice-row">
-                                    <span v-for="(die, i) in entry.diceResults" :key="i" class="entry-die"
-                                        :class="dieClass(die)">
-                                        <i :class="die.cssClass" />
-                                        <!-- Only show emoji annotations for skill checks -->
+                                <!-- Dice row wrapper: tracks hover to show the centered reroll button -->
+                                <div class="entry-dice-row-wrap"
+                                    @mouseenter="canRerollEntry(entry) ? hoveredRerollEntryId = entry.id : null"
+                                    @mouseleave="hoveredRerollEntryId = null">
+                                    <div class="entry-dice-row">
+                                        <span v-for="(die, i) in entry.diceResults" :key="i" class="entry-die"
+                                            :class="dieClass(die)">
+                                            <i :class="die.cssClass" />
+                                            <!-- Only show emoji annotations for skill checks -->
+                                            <span
+                                                v-if="die.emoji && die.emoji !== '' && entry.type === RollTypes.SKILL_CHECK"
+                                                class="entry-die-emoji">{{ die.emoji }}</span>
+                                        </span>
+                                        <!-- Inline modifier note for damage rolls -->
                                         <span
-                                            v-if="die.emoji && die.emoji !== '' && entry.type === RollTypes.SKILL_CHECK"
-                                            class="entry-die-emoji">{{ die.emoji }}</span>
-                                    </span>
-                                    <!-- Inline modifier note for damage rolls -->
-                                    <span
-                                        v-if="entry.type === RollTypes.DAMAGE && entry.modifier !== 0 && entry.diceTotal != null"
-                                        class="entry-modifier-note">{{ entry.modifier >= 0 ? '+' : '' }}{{
-                                            entry.modifier }}{{ entry.modifierLabel ? ` (${entry.modifierLabel})` : ''
-                                        }}</span>
-                                    <span class="entry-total" :class="outcomeClass(entry)">{{ rollTotal(entry) }}</span>
+                                            v-if="entry.type === RollTypes.DAMAGE && entry.modifier !== 0 && entry.diceTotal != null"
+                                            class="entry-modifier-note">{{ entry.modifier >= 0 ? '+' : '' }}{{
+                                                entry.modifier }}{{ entry.modifierLabel ? ` (${entry.modifierLabel})` : ''
+                                            }}</span>
+                                        <span class="entry-total" :class="outcomeClass(entry)">{{ rollTotal(entry)
+                                            }}</span>
+                                    </div>
+                                    <!-- Reroll button: centered over the full result row on hover -->
+                                    <button v-if="hoveredRerollEntryId === entry.id" type="button"
+                                        class="entry-reroll-button" @click.stop="handleRerollEntry(entry)">
+                                        Reroll
+                                    </button>
                                 </div>
                                 <!-- Footer: suppress for damage (modifier is shown inline) -->
                                 <div v-if="entry.footer && entry.type !== RollTypes.DAMAGE" class="entry-footer">{{
@@ -106,6 +117,16 @@ import { useEquipmentStore } from '@/stores/equipmentStore'
 import { useConceptsStore } from '@/stores/conceptsStore'
 import { useCharactersStore } from '@/stores/charactersStore'
 import { useKeepingStore } from '@/stores/keepingStore'
+import { useAuthStore } from '@/stores/authStore'
+import { useCampaignStore } from '@/stores/campaignStore'
+import { useRollsStore } from '@/stores/rollsStore'
+import { SKILLS } from '@shared/constants/characterConstants'
+import { findSkillById } from '@/utils/characterKeyUtils'
+import SkillCheckService from '@/services/rolls/skillCheckService'
+import DamageRollService from '@/services/rolls/damageRollService'
+import CustomRollService from '@/services/rolls/customRollService'
+import InitiativeRollService from '@/services/rolls/initiativeRollService'
+import InjuryRollService from '@/services/rolls/injuryRollService'
 
 const props = defineProps({
     rollLog: {
@@ -128,6 +149,84 @@ const equipmentStore = useEquipmentStore()
 const conceptsStore = useConceptsStore()
 const charactersStore = useCharactersStore()
 const keepingStore = useKeepingStore()
+const authStore = useAuthStore()
+const campaignStore = useCampaignStore()
+const rollsStore = useRollsStore()
+
+// ── Reroll ─────────────────────────────────────────────────────────────────────
+
+/** ID of the chatlog entry whose dice row is currently hovered for reroll. */
+const hoveredRerollEntryId = ref(null)
+
+/**
+ * Resolves a character by ID from either the main characters store (PCs) or
+ * the campaign's NPC/beast instance list.
+ */
+function resolveCharacterById(id) {
+    if (!id) return null
+    return charactersStore.getById(id)
+        ?? campaignStore.campaignCharacters.find(c => c.id === id)
+        ?? null
+}
+
+/**
+ * Returns true when the current user is allowed to reroll the given chatlog
+ * entry (character owner or GM; engagement results are never rerollable).
+ */
+function canRerollEntry(entry) {
+    if (entry.type === RollTypes.ENGAGEMENT) return false
+    if (campaignStore.isGMInActiveCampaign) return true
+    const uid = authStore.user?.uid
+    if (!uid || !entry.characterId) return false
+    const character = resolveCharacterById(entry.characterId)
+    return character?.ownerId === uid
+}
+
+/**
+ * Re-executes the roll that produced the given chatlog entry and stores the
+ * result so it appears in the DiceBox and as a new chatlog entry.
+ */
+async function handleRerollEntry(entry) {
+    const character = resolveCharacterById(entry.characterId)
+    if (!character) return
+
+    let rollResult = null
+
+    if (entry.type === RollTypes.SKILL_CHECK) {
+        const skillConstant = Object.values(SKILLS).find(s => s.label === entry.skillName)
+        if (!skillConstant) return
+        const skill = findSkillById(character.skills, skillConstant.key)
+        if (!skill) return
+        rollResult = SkillCheckService.makeSkillCheck(skill, character, entry.difficulty ?? null)
+    } else if (entry.type === RollTypes.DAMAGE) {
+        // Reconstruct full original dice pool (including any that were dropped by ill-favored).
+        const dicePool = (entry.diceResults || []).map(d => ({ dieSize: d.dieSize }))
+        if (!dicePool.length) return
+        rollResult = DamageRollService.makeDamageRoll(
+            dicePool,
+            entry.modifier ?? 0,
+            character,
+            {
+                rollName: entry.skillName || 'Damage Roll',
+                baseSkillName: entry.skillName || 'Damage Roll',
+                sourceName: entry.sourceName ?? null,
+                modifierLabel: entry.modifierLabel ?? 'Modifier',
+            }
+        )
+    } else if (entry.type === RollTypes.CUSTOM_ROLL) {
+        const dicePool = (entry.diceResults || []).map(d => ({ dieSize: d.dieSize }))
+        if (!dicePool.length) return
+        rollResult = CustomRollService.makeCustomRoll(dicePool, entry.modifier ?? 0, character)
+    } else if (entry.type === RollTypes.INITIATIVE) {
+        rollResult = InitiativeRollService.makeInitiativeRoll(character)
+    } else if (entry.type === RollTypes.INJURY) {
+        rollResult = InjuryRollService.makeInjuryRoll(character)
+    }
+
+    if (rollResult) {
+        rollsStore.setRollForCharacter(rollResult, character.id)
+    }
+}
 
 function handleSourceHoverEnter(entry, event) {
     if (!entry.sourceName) return
@@ -453,7 +552,7 @@ function dieClass(die) {
     flex-shrink: 0;
     width: 50px;
     height: 50px;
-    padding-right: var(--space-xs);
+    margin-right: var(--space-xs);
     border-radius: var(--radius-5);
     overflow: hidden;
     background: var(--overlay-black-heavy);
@@ -502,6 +601,11 @@ function dieClass(die) {
     line-height: 1.4;
 }
 
+/* Dice row wrapper: provides a positioning context for the reroll button overlay */
+.entry-dice-row-wrap {
+    position: relative;
+}
+
 /* Dice row */
 .entry-dice-row {
     display: flex;
@@ -510,6 +614,31 @@ function dieClass(die) {
     align-items: center;
     font-size: calc(var(--font-size-14) * 2);
     font-family: var(--font-family-dice);
+}
+
+/* Reroll button: overlaid, centered across the full dice + total row */
+.entry-reroll-button {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-bg-primary);
+    border: 1px solid var(--color-gray-medium);
+    border-radius: var(--radius-5);
+    color: var(--color-text-primary);
+    font-size: var(--font-size-12);
+    font-family: var(--font-family-primary);
+    cursor: pointer;
+    transition: background var(--transition-fast), border-color var(--transition-fast);
+    z-index: var(--z-raised);
+    width: 30%;
+
+}
+
+.entry-reroll-button:hover {
+    background: var(--color-bg-secondary);
+    border-color: var(--color-text-secondary);
 }
 
 .entry-die {

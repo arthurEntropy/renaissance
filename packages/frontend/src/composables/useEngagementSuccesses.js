@@ -3,7 +3,11 @@ import EngagementSuccessService from '@/services/entities/engagementSuccessServi
 import engagementSessionService from '@/services/sessions/engagementSessionService'
 import { useCharactersStore } from '@/stores/charactersStore'
 import { useEquipmentStore } from '@/stores/equipmentStore'
+import { useEquipmentTypesStore } from '@/stores/equipmentTypesStore'
+import { useEquipmentSubtypesStore } from '@/stores/equipmentSubtypesStore'
 import { useConceptsStore } from '@/stores/conceptsStore'
+import { getMartialTrainingKey, characterLacksTraining } from '@/utils/martialTrainingUtils'
+import { ARMOR_TYPE_ID } from '@/constants/armorConstants'
 
 // Singleton state - shared across all instances
 let sharedState = null
@@ -11,6 +15,8 @@ let sharedState = null
 function createSharedState() {
   const charactersStore = useCharactersStore()
   const equipmentStore = useEquipmentStore()
+  const equipmentTypesStore = useEquipmentTypesStore()
+  const equipmentSubtypesStore = useEquipmentSubtypesStore()
   const conceptsStore = useConceptsStore()
 
   const character = computed(() => charactersStore.selectedCharacter)
@@ -23,6 +29,8 @@ function createSharedState() {
     character,
     allEquipment,
     characterMestiere,
+    equipmentTypesStore,
+    equipmentSubtypesStore,
     allEngagementSuccesses,
     assignedSuccesses
   }
@@ -34,11 +42,11 @@ export function useEngagementSuccesses() {
     sharedState = createSharedState()
   }
 
-  const { character, allEquipment, characterMestiere, allEngagementSuccesses, assignedSuccesses } = sharedState
-  return buildComposable({ character, allEquipment, characterMestiere, allEngagementSuccesses, assignedSuccesses })
+  const { character, allEquipment, characterMestiere, equipmentTypesStore, equipmentSubtypesStore, allEngagementSuccesses, assignedSuccesses } = sharedState
+  return buildComposable({ character, allEquipment, characterMestiere, equipmentTypesStore, equipmentSubtypesStore, allEngagementSuccesses, assignedSuccesses })
 }
 
-function buildComposable({ character, allEquipment, characterMestiere, allEngagementSuccesses, assignedSuccesses }) {
+function buildComposable({ character, allEquipment, characterMestiere, equipmentTypesStore, equipmentSubtypesStore, allEngagementSuccesses, assignedSuccesses }) {
   // Computed properties for success data processing
   const mestiereEngagementSuccesses = computed(() => {
     const mestiere = characterMestiere.value
@@ -52,6 +60,9 @@ function buildComposable({ character, allEquipment, characterMestiere, allEngage
       .filter(Boolean)
   })
 
+  // Engagement successes provided by the character's equipment.
+  // Items for which the character lacks martial training are excluded per game rules:
+  // "A character does not gain engagement success options from equipment they are not trained to use."
   const equipmentEngagementSuccesses = computed(() => {
     const result = []
 
@@ -63,6 +74,23 @@ function buildComposable({ character, allEquipment, characterMestiere, allEngage
       const equipment = allEquipment.value.find(eq => eq.id === characterEquip.id)
 
       if (characterEquip.isWielding && equipment?.engagementSuccesses?.length > 0) {
+        // Skip items for which the character lacks martial training
+        const typeObj = equipmentTypesStore.getById(equipment.type)
+        const subtypeObj = equipmentSubtypesStore.getById(equipment.subtype)
+        const trainingKey = getMartialTrainingKey({
+          equipmentTypeId: equipment.type,
+          equipmentTypeName: typeObj?.name,
+          equipmentSubtypeName: subtypeObj?.name,
+          armorTypeId: ARMOR_TYPE_ID,
+        })
+        const lacksTraining = characterLacksTraining({
+          character: character.value,
+          trainingKey,
+          equipmentGradeId: equipment.grade,
+          mestiere: characterMestiere.value,
+        })
+        if (lacksTraining) return
+
         equipment.engagementSuccesses.forEach(successId => {
           const success = allEngagementSuccesses.value.find(s => s.id === successId)
           if (success) {

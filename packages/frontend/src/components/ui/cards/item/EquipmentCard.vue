@@ -26,8 +26,10 @@
         :is-interactive="!!character && !readonlyBadge"
         :hidden-by-default="keepingBadgeHiddenByDefault || (keepingCost === null && !characterHasBaseEquipment)"
         @toggle="handleBaseEquipmentToggle" />
-      <!-- Attack roll FAB — shown for weapon-type items when a character context is present -->
-      <div v-if="isWeapon && character" class="attack-roll-fab-host">
+      <!-- Attack roll FAB — shown for weapon-type items when a character context is present.
+           showAttackFab can be set to false by card-preview overlays when the viewer
+           is not the character owner and not a GM. -->
+      <div v-if="isWeapon && character && showAttackFab" class="attack-roll-fab-host">
         <FloatingActionButton :variant="FAB_TYPES.ATTACK" :size="FAB_SIZES.SMALL"
           :visibility="FAB_VISIBILITIES.ON_HOVER" @click.stop="handleAttackButtonClick" />
       </div>
@@ -328,6 +330,12 @@ const props = defineProps({
   readonlyBadge: {
     type: Boolean,
     default: false
+  },
+  // When false, the attack roll FAB is hidden regardless of character context.
+  // Used by CardPreviewOverlay when the viewer is not the character owner or GM.
+  showAttackFab: {
+    type: Boolean,
+    default: true
   }
 })
 
@@ -661,7 +669,9 @@ const handleDamageRoll = () => {
     return
   }
 
-  emit('roll-damage', props.equipment)
+  // Pass lacksTraining so parent components (EquipmentTable, CardPreviewOverlay)
+  // can pre-set the damage roll modal to ill-favored when the character is untrained.
+  emit('roll-damage', { equipment: props.equipment, lacksTraining: lacksTraining.value })
 }
 
 const handleImprovementToggle = (improvementId) => {
