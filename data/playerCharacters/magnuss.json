@@ -2,13 +2,16 @@
   "id": "917e904f-d97e-4033-a498-8391260f3752",
   "isDeleted": false,
   "createdAt": "2026-07-24T22:34:07.812Z",
-  "lastModified": "2026-07-27T17:38:38.899Z",
+  "lastModified": "2026-07-27T18:39:26.385Z",
   "characterType": "playerCharacter",
   "name": "Magnuss",
   "featuredArtUrls": [
     "https://cdn.midjourney.com/9d007aef-e372-4e42-9581-a2703cfe7018/0_2.jpeg"
   ],
-  "speed": 30,
+  "speed": {
+    "current": 30,
+    "base": 30
+  },
   "notes": "",
   "body": 3,
   "heart": 3,
@@ -347,20 +350,24 @@
   "swaggerIconIndex": 0,
   "swaggerColor": "#ffffff",
   "manaPool": {
-    "white": [],
-    "blue": [],
+    "white": [
+      false
+    ],
+    "blue": [
+      false
+    ],
     "black": [
-      false,
-      false,
-      false,
       false
     ],
     "red": [
-      false,
       false
     ],
-    "green": [],
-    "colorless": []
+    "green": [
+      false
+    ],
+    "colorless": [
+      false
+    ]
   },
   "witchcraftTokens": [],
   "witchFamiliar": null,
@@ -392,19 +399,6 @@
   "treasure": 10,
   "xp": 0,
   "description": "",
-  "size": 0,
-  "reach": 0,
   "featuredArtUrl": "https://cdn.midjourney.com/9d007aef-e372-4e42-9581-a2703cfe7018/0_2.jpeg",
-  "hasDarkvision": false,
-  "hasBlindsight": false,
-  "hasTremorsense": false,
-  "hasTruesight": false,
-  "burrowSpeed": 0,
-  "climbSpeed": 0,
-  "flySpeed": 0,
-  "swimSpeed": 0,
-  "biomeTagsAugment": [],
-  "biomeTagsInhibit": [],
-  "beastTypeIds": [],
-  "updatedAt": "2026-07-27T17:38:38.899Z"
+  "updatedAt": "2026-07-27T18:39:26.385Z"
 }

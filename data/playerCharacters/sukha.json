@@ -8,7 +8,10 @@
   "featuredArtUrls": [
     "https://cdn.midjourney.com/770da9b9-1295-4027-87aa-64363df253e6/0_2.jpeg"
   ],
-  "speed": 30,
+  "speed": {
+    "current": 30,
+    "base": 30
+  },
   "notes": "",
   "body": 3,
   "heart": 3,
@@ -335,19 +338,6 @@
   "treasure": 0,
   "xp": 0,
   "description": "",
-  "size": 0,
-  "reach": 0,
   "featuredArtUrl": "https://cdn.midjourney.com/770da9b9-1295-4027-87aa-64363df253e6/0_2.jpeg",
-  "hasDarkvision": false,
-  "hasBlindsight": false,
-  "hasTremorsense": false,
-  "hasTruesight": false,
-  "burrowSpeed": 0,
-  "climbSpeed": 0,
-  "flySpeed": 0,
-  "swimSpeed": 0,
-  "biomeTagsAugment": [],
-  "biomeTagsInhibit": [],
-  "beastTypeIds": [],
   "updatedAt": "2026-07-25T18:42:41.872Z"
 }

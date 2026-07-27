@@ -8,7 +8,10 @@
   "featuredArtUrls": [
     "https://cdn.midjourney.com/e216b4eb-7477-4c60-a113-ddf66def313d/0_2.png"
   ],
-  "speed": 25,
+  "speed": {
+    "current": 25,
+    "base": 25
+  },
   "notes": "",
   "body": 2,
   "heart": 3,
@@ -368,7 +371,5 @@
   "xp": 2,
   "updatedAt": "2026-07-24T22:29:10.492Z",
   "description": "",
-  "size": 0,
-  "reach": 0,
   "featuredArtUrl": "https://cdn.midjourney.com/e216b4eb-7477-4c60-a113-ddf66def313d/0_2.png"
 }

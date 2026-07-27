@@ -32,7 +32,7 @@
                                 <div class="entry-header-line">
                                     <span class="entry-name" :style="{ color: engagementCharColor(entry, true) }">{{
                                         entry.characterName
-                                    }}</span><span class="entry-title"> vs </span><span class="entry-name"
+                                        }}</span><span class="entry-title"> vs </span><span class="entry-name"
                                         :style="{ color: engagementCharColor(entry, false) }">{{ entry.opponentName
                                         }}</span><span class="entry-title">:</span>
                                 </div>
@@ -105,6 +105,7 @@ import { useAbilitiesStore } from '@/stores/abilitiesStore'
 import { useEquipmentStore } from '@/stores/equipmentStore'
 import { useConceptsStore } from '@/stores/conceptsStore'
 import { useCharactersStore } from '@/stores/charactersStore'
+import { useKeepingStore } from '@/stores/keepingStore'
 
 const props = defineProps({
     rollLog: {
@@ -126,6 +127,7 @@ const abilitiesStore = useAbilitiesStore()
 const equipmentStore = useEquipmentStore()
 const conceptsStore = useConceptsStore()
 const charactersStore = useCharactersStore()
+const keepingStore = useKeepingStore()
 
 function handleSourceHoverEnter(entry, event) {
     if (!entry.sourceName) return
@@ -138,7 +140,20 @@ function handleSourceHoverEnter(entry, event) {
         showAbilityPreview(ability, el, undefined, character)
         return
     }
-    const equipment = equipmentStore.equipment?.find(e => e.name === entry.sourceName)
+    // Prefer resolving equipment by the character's inventory entry (by ID) so that
+    // the improved variant with art/keeping is shown rather than the base-grade version
+    // that shares the same name.
+    let equipment = null
+    if (character?.equipment?.length) {
+        const charEquipEntry = character.equipment.find(ce => {
+            const eq = equipmentStore.getById(ce.id)
+            return eq?.name === entry.sourceName
+        })
+        if (charEquipEntry) equipment = equipmentStore.getById(charEquipEntry.id)
+    }
+    if (!equipment) {
+        equipment = equipmentStore.equipment?.find(e => e.name === entry.sourceName)
+    }
     if (equipment) {
         showEquipmentPreview(equipment, el, character)
     }
@@ -206,6 +221,11 @@ onMounted(async () => {
     // backgrounds via sourcesStore.getSourceById; fetch only when empty.
     if (!conceptsStore.ancestries?.length) {
         fetches.push(conceptsStore.fetch())
+    }
+    // Keeping data is needed to resolve the background image and badge cost
+    // for equipment preview cards (equipment with a keeping level but no source).
+    if (!keepingStore.items?.length) {
+        fetches.push(keepingStore.fetch())
     }
     if (fetches.length) await Promise.all(fetches)
 })

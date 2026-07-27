@@ -2,7 +2,7 @@
   "id": "6ae64a86-7abd-4a96-9c73-3c0c5e02959c",
   "isDeleted": false,
   "createdAt": "2026-07-25T03:06:14.328Z",
-  "lastModified": "2026-07-27T17:40:50.879Z",
+  "lastModified": "2026-07-27T18:34:40.035Z",
   "campaignId": "c9ddeab9-d180-4fc5-869f-e64239bc3376",
   "name": "New Tabletop",
   "backgroundImage": {
@@ -155,40 +155,6 @@
   "showPaths": true,
   "radiusAreas": [],
   "rollLog": [
-    {
-      "id": "f97877c1-f985-4268-b168-753d01cd07e9_1785003803245_0f5z",
-      "timestamp": 1785003803245,
-      "characterId": "f97877c1-f985-4268-b168-753d01cd07e9",
-      "characterName": "Spore Hound E",
-      "portraitUrl": "https://cdn.midjourney.com/39ad5992-8dc0-48f7-9e24-e9633e4377ae/0_1.png",
-      "isNpc": false,
-      "isBeast": true,
-      "type": "skill_check",
-      "skillName": "Fortitude",
-      "total": 1,
-      "diceTotal": null,
-      "modifier": 0,
-      "success": true,
-      "difficulty": null,
-      "footer": "",
-      "favoredStatus": null,
-      "userWins": null,
-      "opponentWins": null,
-      "drawCount": null,
-      "result": null,
-      "opponentName": null,
-      "sourceName": null,
-      "diceResults": [
-        {
-          "dieSize": 12,
-          "dieRollValue": 1,
-          "emoji": null,
-          "isDropped": false,
-          "rolledMaxValue": false,
-          "cssClass": "df-d12-1"
-        }
-      ]
-    },
     {
       "id": "0f6f7b18-4fa1-4a7c-993b-173437f1cd79_1785003931583_lnpz",
       "timestamp": 1785003931583,
@@ -4415,6 +4381,65 @@
           "isDropped": false,
           "rolledMaxValue": false,
           "cssClass": "df-d10-2"
+        }
+      ]
+    },
+    {
+      "id": "34920c64-763c-40ef-b5a6-9f593829c443_1785177279508_bjwh",
+      "timestamp": 1785177279508,
+      "characterId": "34920c64-763c-40ef-b5a6-9f593829c443",
+      "characterName": "New Character",
+      "portraitUrl": null,
+      "isNpc": false,
+      "isBeast": false,
+      "type": "skill_check",
+      "skillName": "Strength",
+      "total": 18,
+      "diceTotal": null,
+      "modifier": 0,
+      "modifierLabel": null,
+      "success": true,
+      "difficulty": null,
+      "footer": "",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": "Bastard Sword",
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 6,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-6"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 6,
+          "emoji": "✨",
+          "isDropped": false,
+          "rolledMaxValue": true,
+          "cssClass": "df-d6-6"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 4,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-4"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 2,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-2"
         }
       ]
     }

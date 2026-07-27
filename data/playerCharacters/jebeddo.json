@@ -2,13 +2,16 @@
   "id": "a8cb69a9-0146-4aee-bcc1-24b591fe2458",
   "isDeleted": false,
   "createdAt": "2026-07-25T02:30:19.653Z",
-  "lastModified": "2026-07-27T17:38:19.647Z",
+  "lastModified": "2026-07-27T18:32:40.802Z",
   "characterType": "playerCharacter",
   "name": "Jebeddo",
   "featuredArtUrls": [
     "https://cdn.midjourney.com/ef8f7b85-a18f-49a1-8a2d-238a3eb1cb5a/0_1_640_N.webp"
   ],
-  "speed": 20,
+  "speed": {
+    "current": 20,
+    "base": 20
+  },
   "notes": "",
   "body": 4,
   "heart": 3,
@@ -145,7 +148,7 @@
   },
   "defense": {
     "current": 4,
-    "base": 4
+    "base": 8
   },
   "load": 0,
   "shadow": 0,
@@ -388,19 +391,6 @@
   "treasure": 0,
   "xp": 0,
   "description": "",
-  "size": 0,
-  "reach": 0,
   "featuredArtUrl": "https://cdn.midjourney.com/ef8f7b85-a18f-49a1-8a2d-238a3eb1cb5a/0_1_640_N.webp",
-  "hasDarkvision": false,
-  "hasBlindsight": false,
-  "hasTremorsense": false,
-  "hasTruesight": false,
-  "burrowSpeed": 0,
-  "climbSpeed": 0,
-  "flySpeed": 0,
-  "swimSpeed": 0,
-  "biomeTagsAugment": [],
-  "biomeTagsInhibit": [],
-  "beastTypeIds": [],
-  "updatedAt": "2026-07-27T17:38:19.647Z"
+  "updatedAt": "2026-07-27T18:32:40.802Z"
 }

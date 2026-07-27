@@ -152,7 +152,7 @@ function buildBeastInstance(template, campaignId) {
         ...createDefaultBeastInstance(campaignId, template.id),
         name: template.name,
         featuredArtUrls: template.featuredArtUrls ? [...template.featuredArtUrls] : [],
-        speed: template.speed ?? 0,
+        speed: template.speed ? { ...template.speed } : { current: 0, base: 0 },
         body: template.body ?? 0,
         heart: template.heart ?? 0,
         wits: template.wits ?? 0,

@@ -37,7 +37,7 @@ import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 const charactersStore = useCharactersStore()
 const selectedCharacter = computed(() => charactersStore.selectedCharacter)
 
-const speed = computed(() => selectedCharacter.value?.speed ?? 0)
+const speed = computed(() => selectedCharacter.value?.speed?.current ?? 0)
 const segmentCount = computed(() => Math.floor(speed.value / 10))
 
 const nimbleStep = computed({

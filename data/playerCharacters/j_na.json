@@ -8,7 +8,10 @@
   "featuredArtUrls": [
     "https://cdn.midjourney.com/4a189b12-7aac-4e8b-bc16-6d867629d244/0_0.png"
   ],
-  "speed": 30,
+  "speed": {
+    "current": 30,
+    "base": 30
+  },
   "notes": "",
   "body": 4,
   "heart": 3,
@@ -384,8 +387,6 @@
   "xp": 0,
   "updatedAt": "2026-07-24T22:29:21.697Z",
   "description": "",
-  "size": 0,
-  "reach": 0,
   "featuredArtUrl": "https://cdn.midjourney.com/4a189b12-7aac-4e8b-bc16-6d867629d244/0_0.png",
   "hunterTraps": [],
   "sectionOrder": [
@@ -393,16 +394,5 @@
     "equipment",
     "abilities"
   ],
-  "martialTrainingOverrides": {},
-  "hasDarkvision": false,
-  "hasBlindsight": false,
-  "hasTremorsense": false,
-  "hasTruesight": false,
-  "burrowSpeed": 0,
-  "climbSpeed": 0,
-  "flySpeed": 0,
-  "swimSpeed": 0,
-  "biomeTagsAugment": [],
-  "biomeTagsInhibit": [],
-  "beastTypeIds": []
+  "martialTrainingOverrides": {}
 }

@@ -423,8 +423,14 @@ const saveChanges = () => {
         const filteredAncestryIds = formData.value.ancestryIds.filter(id => id !== '')
         const filteredCultureIds = formData.value.cultureIds.filter(id => id !== '')
 
+        // Destructure to exclude beast-exclusive fields and the form-only featuredArtUrl
+        // key (art is written via char.featuredArtUrls[0] below).
+        const { size, reach, hasDarkvision, hasBlindsight, hasTremorsense, hasTruesight,
+            burrowSpeed, climbSpeed, flySpeed, swimSpeed, biomeTagsAugment, biomeTagsInhibit,
+            beastTypeIds, featuredArtUrl: _artUrl, ...pcFields } = formData.value
+
         Object.assign(char, {
-            ...formData.value,
+            ...pcFields,
             ancestryIds: filteredAncestryIds,
             cultureIds: filteredCultureIds
         })

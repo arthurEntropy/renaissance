@@ -192,10 +192,16 @@ const applyAll = () => {
     const char = charactersStore.selectedCharacter
     if (!char) return
 
-    // Speed
+    // Speed — sets the base speed (and syncs current if not already overridden)
     const speedChoice = stepSelections.value[0]
     if (speedChoice !== null) {
-        char.speed = speedChoice === 'a' ? ancestryASpeed.value : ancestryBSpeed.value
+        const chosenSpeed = speedChoice === 'a' ? ancestryASpeed.value : ancestryBSpeed.value
+        if (!char.speed || typeof char.speed !== 'object') {
+            char.speed = { current: chosenSpeed, base: chosenSpeed }
+        } else {
+            char.speed.base = chosenSpeed
+            char.speed.current = chosenSpeed
+        }
     }
 
     // Abilities (3 pairs)

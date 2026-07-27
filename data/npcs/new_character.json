@@ -8,7 +8,10 @@
   "featuredArtUrls": [
     "https://cdn.midjourney.com/afe2f988-0990-418f-8b54-5ebf57c70560/0_1.png"
   ],
-  "speed": 0,
+  "speed": {
+    "current": 0,
+    "base": 0
+  },
   "notes": "",
   "body": 0,
   "heart": 0,

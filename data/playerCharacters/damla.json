@@ -8,7 +8,10 @@
   "featuredArtUrls": [
     "https://cdn.midjourney.com/2ef0de1a-3306-441c-9f5e-0899dcced474/0_0.png"
   ],
-  "speed": 60,
+  "speed": {
+    "current": 60,
+    "base": 60
+  },
   "notes": "",
   "body": 4,
   "heart": 1,
@@ -340,8 +343,6 @@
   "xp": 0,
   "updatedAt": "2026-07-24T22:28:54.973Z",
   "description": "",
-  "size": 0,
-  "reach": 0,
   "featuredArtUrl": "https://cdn.midjourney.com/2ef0de1a-3306-441c-9f5e-0899dcced474/0_0.png",
   "hunterTraps": [],
   "sectionOrder": [

@@ -77,7 +77,7 @@ async function handleChoose() {
             // Copy all gameplay data from the template
             name: beast.name,
             featuredArtUrls: beast.featuredArtUrls ? [...beast.featuredArtUrls] : [],
-            speed: beast.speed ?? 0,
+            speed: beast.speed ? { ...beast.speed } : { current: 0, base: 0 },
             body: beast.body ?? 0,
             heart: beast.heart ?? 0,
             wits: beast.wits ?? 0,
