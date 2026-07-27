@@ -27,8 +27,9 @@
                     @remove-area="_removeRadiusArea($event)" />
 
                 <!-- Canvas tokens -->
-                <div v-for="item in canvasItems" :key="item.id" class="canvas-item edit-hover-area"
-                    :ref="(el) => registerTokenRef(item.id, el)" :class="{ 'is-dragging': isDragging(item.id) }"
+                <div v-for="item in displayCanvasItems" :key="item.id" class="canvas-item edit-hover-area"
+                    :ref="(el) => registerTokenRef(item.id, el)"
+                    :class="{ 'is-dragging': isDragging(item.id), 'is-hidden-token': item.isHidden }"
                     :style="{ transform: `translate(${item.x}px, ${item.y}px)`, zIndex: item.zIndex }"
                     @mousedown="(e) => { dismissBubble(item.id); handleTokenMousedown(item, e) }">
                     <TabletopToken :name="item.name" :portrait-url="item.portraitUrl" :is-beast="item.isBeast"
@@ -37,8 +38,10 @@
                     <TabletopTokenInfoArea
                         v-if="singleSelectedToken?.id === item.id && canViewTokenInfo && !activeBubbles[item.id]"
                         :character="singleSelectedCharacter" :can-edit="canEditTokenInfo"
-                        :is-in-engagement="canSpectateSelectedToken" @expand="openCharacterSheetPopup"
-                        @spectate="openSpectatePopup" @character-saved="onCharacterSaved" />
+                        :is-in-engagement="canSpectateSelectedToken" :can-toggle-visibility="isGM"
+                        :is-hidden="item.isHidden ?? false" @expand="openCharacterSheetPopup"
+                        @spectate="openSpectatePopup" @character-saved="onCharacterSaved"
+                        @toggle-visibility="toggleTokenVisibility" />
                 </div>
 
                 <!-- Roll speech bubbles (one per canvas item that has an active roll) -->
@@ -141,7 +144,9 @@ import TabletopRollBubble from '@/components/features/tabletop/TabletopRollBubbl
 import EngagementRollModal from '@/components/features/characterSheet/rollModal/EngagementRollModal.vue'
 import { useTabletopRollLog } from '@/composables/useTabletopRollLog'
 import { useTabletopSync } from '@/composables/useTabletopSync'
+import { useTabletopSharedCanvas } from '@/composables/useTabletopSharedCanvas'
 import { useEngagementSession, engagedCharacterIds } from '@/composables/useEngagementSession'
+import { useCharacterContextStore } from '@/stores/characterContextStore'
 import radiusCursorUrl from '@/assets/icons/cursor/radius.png'
 import rulerCursorUrl from '@/assets/icons/cursor/ruler.png'
 
@@ -150,6 +155,7 @@ const router = useRouter()
 const campaignStore = useCampaignStore()
 const authStore = useAuthStore()
 const charactersStore = useCharactersStore()
+const characterContextStore = useCharacterContextStore()
 
 const campaignSlug = computed(() => route.params.slug)
 const tabletopId = computed(() => route.params.tabletopId)
@@ -224,9 +230,11 @@ const {
     beginRadiusResize,
     beginAreaMove,
     bringRadiusAreaToFront,
+    setTokenVisibility,
     clearAll,
     loadState,
     saveState,
+    recordSnapshot,
     rollLog,
     rollLogExpanded,
     setRollLogExpanded,
@@ -265,6 +273,16 @@ const { broadcastStateUpdate: _syncBroadcast, broadcastCharacterUpdate, announce
     onActiveTabletopChanged: handleActiveTabletopChanged,
 })
 _broadcastStateUpdateRef = _syncBroadcast
+
+// ─── Shared canvas bridge (features: visibility, group sync, placement) ───────
+const sharedCanvas = useTabletopSharedCanvas()
+sharedCanvas.init(canvasItems, saveState, recordSnapshot)
+watch(canvasItems, (items) => {
+    const { removedCharacterIds } = sharedCanvas.syncFromCanvas(items)
+    for (const charId of removedCharacterIds) {
+        characterContextStore.removeCharacterFromPinnedGroups(charId)
+    }
+}, { immediate: true })
 
 // ─── Roll log + speech bubbles ───────────────────────────────────────────────
 const {
@@ -309,7 +327,15 @@ const onRadiusAreaSelect = (id) => {
     bringRadiusAreaToFront(id)
 }
 
-// ─── Token info area ────────────────────────────────────────────────────────
+// Whether the current user is GM or admin
+const isGM = computed(() => campaignStore.isGMInActiveCampaign || authStore.isAdmin)
+
+// Tokens visible to the current user: GMs see all tokens (hidden ones dimmed),
+// players only see tokens that are not hidden.
+const displayCanvasItems = computed(() => {
+    if (isGM.value) return canvasItems.value
+    return canvasItems.value.filter(item => !item.isHidden)
+})
 
 // The single selected canvas token (only when exactly one is selected)
 const singleSelectedToken = computed(() => {
@@ -352,6 +378,12 @@ const canEditTokenInfo = computed(() => {
     const userId = authStore.user?.uid
     return !!userId && char.ownerId === userId
 })
+
+function toggleTokenVisibility() {
+    const token = singleSelectedToken.value
+    if (!token) return
+    setTokenVisibility(token.id, !token.isHidden)
+}
 
 // ─── CharacterSheetPopup ────────────────────────────────────────────────────
 const charSheetPopupOpen = ref(false)
@@ -548,6 +580,11 @@ watch(campaignId, async (id) => {
 
 .canvas-item.is-dragging {
     cursor: grabbing;
+    opacity: 0.6;
+}
+
+/* GMs see hidden tokens at reduced opacity with a dashed outline */
+.canvas-item.is-hidden-token {
     opacity: 0.6;
 }
 

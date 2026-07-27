@@ -1,14 +1,15 @@
 <template>
     <button type="button"
         :class="['fab', `fab--${props.variant}`, `fab--${props.size}`, `fab--${props.visibility}`, props.variant === FAB_TYPES.VISIBILITY && !props.isActive ? 'fab--visibility-off' : '', (props.variant === FAB_TYPES.TRAP_DROP || props.variant === FAB_TYPES.TRAP_THROW) && props.isActive ? 'fab--trap-active' : '']"
-        :title="variantConfig.tooltip">
+        :title="props.title ?? variantConfig?.tooltip">
         <!-- Auto-calc variants: always show text instead of icon -->
         <span v-if="props.variant === FAB_TYPES.AUTO_CALC_ON" class="auto-text">AUTO</span>
         <span v-else-if="props.variant === FAB_TYPES.AUTO_CALC" class="auto-text auto-text--off">AUTO</span>
         <!-- Trap state variants: text labels, styling driven by isActive prop -->
         <span v-else-if="props.variant === FAB_TYPES.TRAP_DROP" class="trap-text">DROP</span>
         <span v-else-if="props.variant === FAB_TYPES.TRAP_THROW" class="trap-text">THROW</span>
-        <component v-else :is="variantConfig.icon"
+        <component v-else
+            :is="props.variant === FAB_TYPES.VISIBILITY && !props.isActive ? EyeSlashIcon : variantConfig.icon"
             :class="props.size === FAB_SIZES.SMALL ? 'fab__icon--small' : 'fab__icon--large'" />
     </button>
 </template>
@@ -50,6 +51,10 @@ const props = defineProps({
     isActive: {
         type: Boolean,
         default: true
+    },
+    title: {
+        type: String,
+        default: null
     }
 })
 
@@ -84,18 +89,10 @@ const FAB_TYPE_CONFIG = {
     [FAB_TYPES.EXPAND]: { icon: ArrowTopRightOnSquareIcon, tooltip: 'Open character sheet' },
     [FAB_TYPES.SPECTATE]: { icon: SpectateIcon, tooltip: 'Spectate engagement' },
     [FAB_TYPES.ATTACK]: { icon: AttackIcon, tooltip: 'Roll Attack' },
+    [FAB_TYPES.VISIBILITY]: { icon: EyeIcon, tooltip: 'Toggle visibility' },
 }
 
-const variantConfig = computed(() => {
-    if (props.variant === FAB_TYPES.VISIBILITY) {
-        return {
-            icon: props.isActive ? EyeIcon : EyeSlashIcon,
-            tooltip: props.isActive ? 'Visible to players' : 'Hidden from players',
-        }
-    }
-
-    return FAB_TYPE_CONFIG[props.variant]
-})
+const variantConfig = computed(() => FAB_TYPE_CONFIG[props.variant])
 </script>
 
 <style scoped>

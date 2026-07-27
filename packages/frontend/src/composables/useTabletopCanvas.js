@@ -10,7 +10,7 @@ const MAX_HISTORY = 50
 const INTERACTIVE_TAGS = new Set(['button', 'a', 'input', 'select', 'textarea', 'label'])
 
 export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {}) {
-    const { draggingCharacter, clearDraggingCharacter } = useTabletopDragState()
+    const { draggingCharacter, clearDraggingCharacter, draggingGroup, clearDraggingGroup } = useTabletopDragState()
     const { setSelectedCharacterIds, clearSelectedCharacterIds } = useTabletopSelectionState()
     const campaignStore = useCampaignStore()
 
@@ -219,12 +219,15 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
     // ─── Ghost overlay ────────────────────────────────────────────────────────
     // tokenGhosts: array of ghost objects shown while dragging tokens on the canvas
     const tokenGhosts = ref([])
-    // dropGhost: shown while dragging a character from PinnedTokensContainer over the canvas
+    // dropGhost: shown while dragging a single character from PinnedTokensContainer over the canvas
     const dropGhost = ref(null)
-    // All active ghosts: dragged token ghosts plus the optional drop ghost
+    // dropGhosts: shown while dragging a whole group from PinnedTokensContainer over the canvas
+    const dropGhosts = ref([])
+    // All active ghosts: dragged token ghosts plus the optional drop ghost(s)
     const activeGhosts = computed(() => {
         const ghosts = [...tokenGhosts.value]
         if (dropGhost.value) ghosts.push(dropGhost.value)
+        ghosts.push(...dropGhosts.value)
         return ghosts
     })
 
@@ -473,10 +476,24 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
     const handleDragOver = (e) => {
         e.preventDefault()
         e.dataTransfer.dropEffect = 'copy'
-        const dc = draggingCharacter.value
-        if (!dc) return
         const pos = _containerPos(e)
         if (!pos) return
+        // Group drag: show one ghost per unplaced member
+        const dg = draggingGroup.value
+        if (dg && dg.length > 0) {
+            const startX = snap(pos.canvasX - gridSize.value / 2)
+            const startY = snap(pos.canvasY - gridSize.value / 2)
+            dropGhosts.value = dg.map((snapshot, i) => ({
+                ...snapshot,
+                x: startX + i * (snapshot.size || 1) * gridSize.value,
+                y: startY,
+            }))
+            dropGhost.value = null
+            return
+        }
+        // Single character drag
+        const dc = draggingCharacter.value
+        if (!dc) return
         const halfPx = ((dc.size || 1) * gridSize.value) / 2
         dropGhost.value = {
             ...dc,
@@ -489,17 +506,42 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
         // Only clear ghost when the pointer leaves the canvas container entirely
         if (!canvasContainerRef.value?.contains(e.relatedTarget)) {
             dropGhost.value = null
+            dropGhosts.value = []
         }
     }
 
     const handleDrop = (e) => {
         e.preventDefault()
+        const pos = _containerPos(e)
+        if (!pos) return
+
+        // ── Group drop: place all unplaced members in a row ────────────────
+        const rawGroup = e.dataTransfer.getData('application/vtt-group')
+        if (rawGroup) {
+            let snapshots
+            try { snapshots = JSON.parse(rawGroup) } catch { return }
+            const placedCharIds = new Set(canvasItems.value.map(i => i.characterId).filter(Boolean))
+            const unplaced = snapshots.filter(s => !placedCharIds.has(s.characterId))
+            if (unplaced.length > 0) {
+                const startX = snap(pos.canvasX - gridSize.value / 2)
+                const startY = snap(pos.canvasY - gridSize.value / 2)
+                recordSnapshot()
+                unplaced.forEach((snapshot, i) => {
+                    const x = startX + i * (snapshot.size || 1) * gridSize.value
+                    _placeToken(snapshot, x, startY)
+                })
+                saveState()
+            }
+            dropGhosts.value = []
+            clearDraggingGroup()
+            return
+        }
+
+        // ── Single character drop ──────────────────────────────────────────
         const raw = e.dataTransfer.getData('application/vtt-character')
         if (!raw) return
         let snapshot
         try { snapshot = JSON.parse(raw) } catch { return }
-        const pos = _containerPos(e)
-        if (!pos) return
         const halfPx = ((snapshot.size || 1) * gridSize.value) / 2
         const x = snap(pos.canvasX - halfPx)
         const y = snap(pos.canvasY - halfPx)
@@ -977,6 +1019,21 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
         saveState()
     }
 
+    const setTokenVisibility = (canvasItemId, isHidden) => {
+        const item = canvasItemsById.value.get(canvasItemId)
+        if (!item) return
+        recordSnapshot()
+        item.isHidden = isHidden
+        saveState()
+    }
+
+    const removeTokenByCharacterId = (characterId) => {
+        if (!characterId) return
+        recordSnapshot()
+        canvasItems.value = canvasItems.value.filter(i => i.characterId !== characterId)
+        saveState()
+    }
+
     const clearAll = () => {
         if (!window.confirm('Remove all tokens from the tabletop?')) return
         recordSnapshot()
@@ -1331,6 +1388,9 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
         beginAreaMove,
         bringRadiusAreaToFront,
         removeToken,
+        setTokenVisibility,
+        removeTokenByCharacterId,
+        recordSnapshot,
         clearAll,
         loadState,
         saveState,

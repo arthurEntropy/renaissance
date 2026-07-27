@@ -1,0 +1,98 @@
+import { ref } from 'vue'
+
+// Module-level singleton – bridges VirtualTabletopPage's canvas state with
+// PinnedTokensContainer so it can read/mutate tokens without prop drilling.
+
+const _placedCharacterIds = ref(new Set())
+const _hiddenCharacterIds = ref(new Set())
+
+let _canvasItemsRef = null
+let _saveStateFn = null
+let _recordSnapshotFn = null
+
+export function useTabletopSharedCanvas() {
+    /**
+     * Called once by VirtualTabletopPage after canvas setup to register
+     * the mutable refs and persistence callbacks.
+     */
+    function init(canvasItemsRef, saveState, recordSnapshot) {
+        _canvasItemsRef = canvasItemsRef
+        _saveStateFn = saveState
+        _recordSnapshotFn = recordSnapshot
+    }
+
+    /**
+     * Called by VirtualTabletopPage whenever canvasItems changes.
+     * Updates the reactive placement/visibility sets and returns the list
+     * of characterIds that were removed since the previous sync (for
+     * PinnedTokensContainer group cleanup).
+     * @returns {{ removedCharacterIds: string[] }}
+     */
+    function syncFromCanvas(items) {
+        const prevPlaced = _placedCharacterIds.value
+        const placed = new Set()
+        const hidden = new Set()
+        for (const item of items) {
+            if (item.characterId) {
+                placed.add(item.characterId)
+                if (item.isHidden) hidden.add(item.characterId)
+            }
+        }
+        const removed = []
+        for (const charId of prevPlaced) {
+            if (!placed.has(charId)) removed.push(charId)
+        }
+        _placedCharacterIds.value = placed
+        _hiddenCharacterIds.value = hidden
+        return { removedCharacterIds: removed }
+    }
+
+    /**
+     * Toggle isHidden on canvas items matching the given characterIds,
+     * then persist.
+     */
+    function setCharactersVisibility(characterIds, isHidden) {
+        if (!_canvasItemsRef) return
+        _recordSnapshotFn?.()
+        for (const charId of characterIds) {
+            const item = _canvasItemsRef.value.find(i => i.characterId === charId)
+            if (item) item.isHidden = isHidden
+        }
+        const newHidden = new Set(_hiddenCharacterIds.value)
+        for (const charId of characterIds) {
+            if (isHidden) newHidden.add(charId)
+            else newHidden.delete(charId)
+        }
+        _hiddenCharacterIds.value = newHidden
+        _saveStateFn?.()
+    }
+
+    /**
+     * Remove canvas tokens whose characterId is in the provided Set and persist.
+     */
+    function removeTokensByCharacterIds(charIdSet) {
+        if (!_canvasItemsRef) return
+        _recordSnapshotFn?.()
+        _canvasItemsRef.value = _canvasItemsRef.value.filter(
+            i => !charIdSet.has(i.characterId)
+        )
+        const newPlaced = new Set(_placedCharacterIds.value)
+        const newHidden = new Set(_hiddenCharacterIds.value)
+        for (const charId of charIdSet) {
+            newPlaced.delete(charId)
+            newHidden.delete(charId)
+        }
+        _placedCharacterIds.value = newPlaced
+        _hiddenCharacterIds.value = newHidden
+        _saveStateFn?.()
+    }
+
+    return {
+        placedCharacterIds: _placedCharacterIds,
+        hiddenCharacterIds: _hiddenCharacterIds,
+        init,
+        syncFromCanvas,
+        setCharactersVisibility,
+        removeTokensByCharacterIds,
+    }
+}

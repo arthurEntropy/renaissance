@@ -73,6 +73,25 @@ export const useCharacterContextStore = defineStore('characterContext', () => {
     pinnedGroupsById.value = {}
   }
 
+  /**
+   * Remove a character from every pinned group it belongs to.
+   * Groups that become empty are unpinned entirely.
+   */
+  const removeCharacterFromPinnedGroups = (characterId) => {
+    for (const groupId of [...pinnedGroupIds.value]) {
+      const group = pinnedGroupsById.value[groupId]
+      if (!group) continue
+      const memberIds = (group.memberIds || []).filter(id => id !== characterId)
+      if (memberIds.length !== (group.memberIds || []).length) {
+        if (memberIds.length === 0) {
+          unpinGroup(groupId)
+        } else {
+          updatePinnedGroup(groupId, { memberIds })
+        }
+      }
+    }
+  }
+
   const reorderPinnedGroups = (orderedIds) => {
     const currentSet = new Set(pinnedGroupIds.value)
     pinnedGroupIds.value = orderedIds.filter((id) => currentSet.has(id))
@@ -102,6 +121,7 @@ export const useCharacterContextStore = defineStore('characterContext', () => {
     updatePinnedGroup,
     isPinned,
     clearPinnedGroups,
+    removeCharacterFromPinnedGroups,
     reorderPinnedGroups,
   }
 })
