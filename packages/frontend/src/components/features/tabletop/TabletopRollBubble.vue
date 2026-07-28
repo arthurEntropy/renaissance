@@ -92,11 +92,11 @@ const compactTotal = computed(() => {
     return e.total != null ? String(e.total) : '—'
 })
 
-// Only show emoji annotations for skill checks. Damage and custom rolls produce
+// Only show emoji annotations for skill checks and initiative. Damage and custom rolls produce
 // noisy ✨ on every max d6, which isn't meaningful outside the skill-check context.
 // Concatenate ALL emoji from non-dropped dice (e.g. "🌞✨") rather than picking one.
 const compactEmoji = computed(() => {
-    if (props.entry.type !== RollTypes.SKILL_CHECK) return null
+    if (props.entry.type !== RollTypes.SKILL_CHECK && props.entry.type !== RollTypes.INITIATIVE) return null
     const emojis = (props.entry.diceResults || [])
         .filter((d) => !d.isDropped && d.emoji)
         .map((d) => d.emoji)

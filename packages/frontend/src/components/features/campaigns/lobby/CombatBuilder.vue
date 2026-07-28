@@ -1,119 +1,104 @@
 <template>
-    <div class="section-card full-width-section edit-hover-area">
-        <div class="section-header">
-            <div class="section-title-row" @click="isCollapsed = !isCollapsed">
-                <component :is="isCollapsed ? ChevronRightIcon : ChevronDownIcon" class="section-chevron" />
-                <h2 class="section-title">Combat Builder</h2>
-            </div>
-            <FloatingActionButton v-if="!isCollapsed" :variant="FAB_TYPES.ADD" :size="FAB_SIZES.SMALL"
-                :visibility="FAB_VISIBILITIES.ON_HOVER" title="Create group" @click="createGroup" />
-        </div>
+    <div class="combat-builder-body">
+        <div class="combat-groups-grid">
+            <div v-for="group in combatGroups" :key="group.id" class="combat-group">
+                <div class="combat-group-header">
+                    <input class="combat-group-name-input" :value="group.name"
+                        @change="renameGroup(group.id, $event.target.value)" @click.stop
+                        aria-label="Combat group name" />
+                    <button type="button" class="combat-group-delete" @click="deleteGroup(group.id)"
+                        aria-label="Delete combat group">
+                        <TrashIcon class="combat-group-delete-icon" />
+                    </button>
+                </div>
 
-        <div v-show="!isCollapsed">
-            <div class="combat-groups-grid">
-                <div v-for="group in combatGroups" :key="group.id" class="combat-group">
-                    <div class="combat-group-header">
-                        <input class="combat-group-name-input" :value="group.name"
-                            @change="renameGroup(group.id, $event.target.value)" @click.stop
-                            aria-label="Combat group name" />
-                        <button type="button" class="combat-group-action-btn"
-                            :class="{ 'is-pinned': characterContextStore.isPinned(group.id) }"
-                            :title="characterContextStore.isPinned(group.id) ? 'Unpin group' : 'Pin group'"
-                            @click="togglePinGroup(group)">
-                            <MapPinIcon class="combat-group-action-icon" />
-                        </button>
-                        <button type="button" class="combat-group-delete" @click="deleteGroup(group.id)"
-                            aria-label="Delete combat group">
-                            <TrashIcon class="combat-group-delete-icon" />
+                <div class="combat-group-body" @dragover.prevent @drop="dropCombatantToGroup(group.id)">
+                    <div class="char-token-grid"
+                        :class="{ 'char-token-grid--empty': group.combatants.length === 0 && !isDragging }">
+                        <component v-for="combatant in group.combatants" :key="combatant.id"
+                            :is="combatant.type === 'beast' ? BeastToken : CharacterToken"
+                            v-bind="getTokenProps(combatant, group.id)" draggable="true" class="draggable-token"
+                            @dragstart="handleDragStart($event, group.id, combatant.id)" @dragend="handleDragEnd" />
+
+                        <button type="button" :class="[
+                            'status-drop-slot',
+                            'status-drop-slot--interactive',
+                            { 'is-drag-over': isDragging && dragOverAddSlotGroupId === group.id },
+                        ]" @click="openGroupPicker(group.id, $event)"
+                            @dragover.prevent="handleAddSlotDragOver(group.id)"
+                            @dragleave="handleAddSlotDragLeave(group.id)"
+                            @drop.stop.prevent="dropCombatantToGroup(group.id)" aria-label="Add combatant">
+                            <PlusIcon class="status-drop-slot-icon" />
                         </button>
                     </div>
+                </div>
+            </div>
 
-                    <div class="combat-group-body" @dragover.prevent @drop="dropCombatantToGroup(group.id)">
-                        <div class="char-token-grid"
-                            :class="{ 'char-token-grid--empty': group.combatants.length === 0 && !isDragging }">
-                            <component v-for="combatant in group.combatants" :key="combatant.id"
-                                :is="combatant.type === 'beast' ? BeastToken : CharacterToken"
-                                v-bind="getTokenProps(combatant, group.id)" draggable="true" class="draggable-token"
-                                @dragstart="handleDragStart($event, group.id, combatant.id)" @dragend="handleDragEnd" />
+            <!-- Add-group button lives at the end of the grid -->
+            <button type="button" class="group-create-placeholder" @click="createGroup">
+                <PlusIcon class="group-create-placeholder-icon" />
+                <span>New Group</span>
+            </button>
+        </div>
 
-                            <button type="button" :class="[
-                                'status-drop-slot',
-                                'status-drop-slot--interactive',
-                                { 'is-drag-over': isDragging && dragOverAddSlotGroupId === group.id },
-                            ]" @click="openGroupPicker(group.id, $event)"
-                                @dragover.prevent="handleAddSlotDragOver(group.id)"
-                                @dragleave="handleAddSlotDragLeave(group.id)"
-                                @drop.stop.prevent="dropCombatantToGroup(group.id)" aria-label="Add combatant">
-                                <PlusIcon class="status-drop-slot-icon" />
+        <CascadeMenuFrame v-if="showPicker" :overlay="false" :anchor-position="anchorPosition"
+            :close-on-outside-click="true" anchor-mode="anchorY" @close="closePicker">
+            <div class="combat-picker-menu">
+                <div ref="sourceTypeColRef" class="cascade-col combat-picker-type-col"
+                    :style="[getColumnStyle('sourceType'), pickerColumnStyle]">
+                    <div class="cascade-item-wrap" v-for="option in sourceTypeOptions" :key="option.id"
+                        :class="{ active: pickerSelectedType === option.id }"
+                        @mouseenter="handleHoverSourceType(option, $event)">
+                        <button class="cascade-btn" tabindex="-1" type="button">
+                            <span class="cascade-btn-label">{{ option.label }}</span>
+                            <span class="cascade-chevron">›</span>
+                            <span class="cascade-count">{{ option.count }}</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div ref="itemsColRef" class="cascade-col combat-picker-item-col"
+                    :style="[getColumnStyle('items'), pickerColumnStyle]">
+                    <input v-model="pickerSearch" class="cascade-search" placeholder="Search combatants…"
+                        @keydown.escape="closePicker" />
+                    <div class="cascade-items-list" v-if="pickerItems.length > 0">
+                        <div class="cascade-item-wrap cascade-item-wrap--leaf" v-for="item in pickerItems"
+                            :key="item.id" @click="addCombatantToActiveGroup(item)">
+                            <button class="cascade-btn cascade-btn--leaf" tabindex="-1" type="button">
+                                <span class="cascade-btn-label">{{ item.name }}</span>
                             </button>
                         </div>
                     </div>
-
+                    <div class="cascade-empty" v-else>
+                        <span>No matching combatants.</span>
+                    </div>
                 </div>
-
-                <!-- No longer needed: group creation moved to section header FAB -->
             </div>
-
-            <CascadeMenuFrame v-if="showPicker" :overlay="false" :anchor-position="anchorPosition"
-                :close-on-outside-click="true" anchor-mode="anchorY" @close="closePicker">
-                <div class="combat-picker-menu">
-                    <div ref="sourceTypeColRef" class="cascade-col combat-picker-type-col"
-                        :style="[getColumnStyle('sourceType'), pickerColumnStyle]">
-                        <div class="cascade-item-wrap" v-for="option in sourceTypeOptions" :key="option.id"
-                            :class="{ active: pickerSelectedType === option.id }"
-                            @mouseenter="handleHoverSourceType(option, $event)">
-                            <button class="cascade-btn" tabindex="-1" type="button">
-                                <span class="cascade-btn-label">{{ option.label }}</span>
-                                <span class="cascade-chevron">›</span>
-                                <span class="cascade-count">{{ option.count }}</span>
-                            </button>
-                        </div>
-                    </div>
-
-                    <div ref="itemsColRef" class="cascade-col combat-picker-item-col"
-                        :style="[getColumnStyle('items'), pickerColumnStyle]">
-                        <input v-model="pickerSearch" class="cascade-search" placeholder="Search combatants…"
-                            @keydown.escape="closePicker" />
-                        <div class="cascade-items-list" v-if="pickerItems.length > 0">
-                            <div class="cascade-item-wrap cascade-item-wrap--leaf" v-for="item in pickerItems"
-                                :key="item.id" @click="addCombatantToActiveGroup(item)">
-                                <button class="cascade-btn cascade-btn--leaf" tabindex="-1" type="button">
-                                    <span class="cascade-btn-label">{{ item.name }}</span>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="cascade-empty" v-else>
-                            <span>No matching combatants.</span>
-                        </div>
-                    </div>
-                </div>
-            </CascadeMenuFrame>
-        </div>
+        </CascadeMenuFrame>
     </div>
 </template>
 
 <script setup>
 import { computed, onUnmounted, ref, watch, nextTick } from 'vue'
-import { ChevronDownIcon, ChevronRightIcon, PlusIcon, TrashIcon, MapPinIcon } from '@heroicons/vue/24/outline'
-import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
-import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
+import { PlusIcon, TrashIcon } from '@heroicons/vue/24/outline'
 import BeastToken from '@/components/features/characterSelection/BeastToken.vue'
 import CharacterToken from '@/components/features/characterSelection/CharacterToken.vue'
 import CascadeMenuFrame from '@/components/ui/pickers/CascadeMenuFrame.vue'
 import { useCampaignStore } from '@/stores/campaignStore'
 import { useCharactersStore } from '@/stores/charactersStore'
-import { useCharacterContextStore } from '@/stores/characterContextStore'
 import { useAppCharacterSheetModal } from '@/composables/useAppCharacterSheetModal'
 import { useCascadeColumnPositioning } from '@/composables/useCascadeColumnPositioning'
 import { toLetterSuffix } from '@shared/utils/letterSuffix'
 
+const props = defineProps({
+    tabletop: { type: Object, required: true },
+})
+
 const campaignStore = useCampaignStore()
 const charactersStore = useCharactersStore()
-const characterContextStore = useCharacterContextStore()
 const { open: openCharacterSheet } = useAppCharacterSheetModal()
 
 const campaign = computed(() => campaignStore.activeCampaign)
-const campaignId = computed(() => campaign.value?.id)
 const npcs = computed(() => campaignStore.campaignNPCs)
 const beasts = computed(() => campaignStore.campaignBeastInstances)
 
@@ -124,7 +109,6 @@ const campaignPlayerCharacters = computed(() => {
     return charactersStore.characters.filter((c) => allCharIds.has(c.id))
 })
 
-const isCollapsed = ref(false)
 const combatGroups = ref([])
 const dragPreviewEl = ref(null)
 const draggedCombatant = ref(null)
@@ -132,7 +116,7 @@ const dragOverAddSlotGroupId = ref(null)
 
 const showPicker = ref(false)
 const pickerGroupId = ref(null)
-const pickerSelectedType = ref('npcs')
+const pickerSelectedType = ref('pcs')
 const pickerSearch = ref('')
 const anchorPosition = ref(null)
 const creatingBeastTemplateIdSet = ref(new Set())
@@ -168,32 +152,26 @@ const cloneCombatGroups = (groups) => {
     }))
 }
 
-const campaignCombatGroups = computed(() =>
-    Array.isArray(campaign.value?.combatGroups) ? campaign.value.combatGroups : []
-)
-
 let persistTimeoutId = null
-let isSyncingFromCampaign = false
+let isSyncingFromTabletop = false
 
-const persistCombatGroupsToCampaign = (groups) => {
-    if (!campaignId.value) return
+const persistToTabletop = (groups) => {
+    const campaignId = props.tabletop?.campaignId
+    const tabletopId = props.tabletop?.id
+    if (!campaignId || !tabletopId) return
 
-    if (persistTimeoutId) {
-        clearTimeout(persistTimeoutId)
-    }
+    if (persistTimeoutId) clearTimeout(persistTimeoutId)
 
     persistTimeoutId = setTimeout(async () => {
         try {
-            await campaignStore.updateCombatGroups(campaignId.value, cloneCombatGroups(groups))
+            await campaignStore.updateTabletop(campaignId, tabletopId, {
+                combatGroups: cloneCombatGroups(groups),
+            })
         } catch (error) {
             console.error('Failed to persist combat groups:', error)
         }
     }, 250)
 }
-
-const collapseStateKey = computed(() =>
-    campaignId.value ? `campaign-lobby:section:combat-builder:${campaignId.value}` : null
-)
 
 const beastPickerTemplates = computed(() =>
     (charactersStore.filteredBeasts || []).filter((beast) => beast?.id)
@@ -232,7 +210,6 @@ const pickerItems = computed(() => {
         name: character.name,
         type: itemType,
     }))
-
     if (!search) return normalized
     return normalized.filter((item) => item.name?.toLowerCase().includes(search))
 })
@@ -240,18 +217,11 @@ const pickerItems = computed(() => {
 const isDragging = computed(() => draggedCombatant.value !== null)
 
 const getViewportBounds = () => {
-    if (typeof window === 'undefined') {
-        return { top: 8, bottom: 0 }
-    }
-
+    if (typeof window === 'undefined') return { top: 8, bottom: 0 }
     const navHeightValue = getComputedStyle(document.documentElement).getPropertyValue('--nav-height')
     const navHeight = Number.parseFloat(navHeightValue)
     const top = (Number.isFinite(navHeight) ? navHeight : 0) + 10
-
-    return {
-        top,
-        bottom: window.innerHeight - 8,
-    }
+    return { top, bottom: window.innerHeight - 8 }
 }
 
 const {
@@ -260,7 +230,6 @@ const {
 } = useCascadeColumnPositioning({
     columnKeys: ['sourceType', 'items'],
     getViewportBounds,
-    // Columns are translated inside a menu already anchored at anchorPosition.y.
     getBaselineTop: () => anchorPosition.value?.y ?? getViewportBounds().top,
 })
 
@@ -276,18 +245,18 @@ const pickerAnchorCenterY = computed(() => {
     return bounds.top + 40
 })
 
+// ─── Sync from tabletop prop ──────────────────────────────────────────────────
 watch(
-    campaignCombatGroups,
+    () => props.tabletop?.combatGroups,
     (groups) => {
-        isSyncingFromCampaign = true
-        combatGroups.value = cloneCombatGroups(groups)
-        nextTick(() => {
-            isSyncingFromCampaign = false
-        })
+        isSyncingFromTabletop = true
+        combatGroups.value = cloneCombatGroups(groups ?? [])
+        nextTick(() => { isSyncingFromTabletop = false })
     },
     { immediate: true }
 )
 
+// Filter out combatants whose characters no longer exist
 watch(
     () => [npcs.value, beasts.value, campaignPlayerCharacters.value],
     () => {
@@ -310,29 +279,10 @@ watch(
 )
 
 watch(combatGroups, (value) => {
-    if (!isSyncingFromCampaign) {
-        persistCombatGroupsToCampaign(value)
-    }
-
-    // Keep pinned rail groups in sync with the latest builder group state.
-    if (!isSyncingFromStore) {
-        syncPinnedGroupsFromCombatGroups(value)
+    if (!isSyncingFromTabletop) {
+        persistToTabletop(value)
     }
 }, { deep: true })
-
-watch(
-    collapseStateKey,
-    (key) => {
-        if (!key) return
-        isCollapsed.value = localStorage.getItem(key) === '1'
-    },
-    { immediate: true }
-)
-
-watch(isCollapsed, (value) => {
-    if (!collapseStateKey.value) return
-    localStorage.setItem(collapseStateKey.value, value ? '1' : '0')
-})
 
 watch(
     () => showPicker.value,
@@ -344,18 +294,17 @@ watch(
             void positionColumnByCenter('items', itemsColRef, pickerAnchorCenterY.value)
             return
         }
-
         window.removeEventListener('scroll', handleAnyScrollWhileOpen, true)
         window.removeEventListener('pointerdown', handleOutsidePointerDownWhileOpen, true)
     }
 )
 
+// ─── Group management ─────────────────────────────────────────────────────────
+
 const getNextGroupName = () => {
     const existingNames = new Set(combatGroups.value.map((group) => group.name?.trim()).filter(Boolean))
     let index = 1
-    while (existingNames.has(`Group ${index}`)) {
-        index += 1
-    }
+    while (existingNames.has(`Group ${index}`)) index += 1
     return `Group ${index}`
 }
 
@@ -363,22 +312,15 @@ const getNextBeastInstanceName = (baseName) => {
     const escaped = String(baseName || '').replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
     const suffixPattern = new RegExp(`^${escaped}\\s+([A-Z]+)$`)
     const usedSuffixes = new Set()
-
     for (const beast of beasts.value || []) {
         if (!beast?.name) continue
         const match = beast.name.match(suffixPattern)
-        if (match?.[1]) {
-            usedSuffixes.add(match[1])
-        }
+        if (match?.[1]) usedSuffixes.add(match[1])
     }
-
     for (let index = 0; index < 702; index += 1) {
         const suffix = toLetterSuffix(index)
-        if (!usedSuffixes.has(suffix)) {
-            return `${baseName} ${suffix}`
-        }
+        if (!usedSuffixes.has(suffix)) return `${baseName} ${suffix}`
     }
-
     return `${baseName} ${Date.now()}`
 }
 
@@ -397,18 +339,15 @@ const renameGroup = (groupId, rawName) => {
     const name = String(rawName || '').trim()
     combatGroups.value = combatGroups.value.map((group) => {
         if (group.id !== groupId) return group
-        return {
-            ...group,
-            name: name || group.name,
-        }
+        return { ...group, name: name || group.name }
     })
 }
 
 const deleteBeastInstance = async (characterId) => {
-    if (!campaignId.value || !characterId) return false
-
+    const campaignId = props.tabletop?.campaignId
+    if (!campaignId || !characterId) return false
     try {
-        await campaignStore.deleteCampaignBeastInstance(campaignId.value, characterId)
+        await campaignStore.deleteCampaignBeastInstance(campaignId, characterId)
         return true
     } catch (error) {
         console.error('Failed to delete beast instance:', error)
@@ -424,39 +363,27 @@ const deleteGroup = async (groupId) => {
             .map((combatant) => deleteBeastInstance(combatant.characterId))
         await Promise.all(beastDeletes)
     }
-
     combatGroups.value = combatGroups.value.filter((entry) => entry.id !== groupId)
-    if (pickerGroupId.value === groupId) {
-        closePicker()
-    }
+    if (pickerGroupId.value === groupId) closePicker()
 }
 
 const removeCombatant = async (groupId, combatantId) => {
     const group = combatGroups.value.find((entry) => entry.id === groupId)
     const combatant = group?.combatants.find((entry) => entry.id === combatantId)
     if (!combatant) return
-
     if (combatant.type === 'beast') {
         const deleted = await deleteBeastInstance(combatant.characterId)
         if (!deleted) return
     }
-
     combatGroups.value = combatGroups.value.map((groupEntry) => {
         if (groupEntry.id !== groupId) return groupEntry
-        return {
-            ...groupEntry,
-            combatants: groupEntry.combatants.filter((entry) => entry.id !== combatantId),
-        }
+        return { ...groupEntry, combatants: groupEntry.combatants.filter((entry) => entry.id !== combatantId) }
     })
 }
 
 const findCharacter = (combatant) => {
-    if (combatant.type === 'npc') {
-        return npcs.value.find((npc) => npc.id === combatant.characterId) || null
-    }
-    if (combatant.type === 'pc') {
-        return charactersStore.getById(combatant.characterId) || null
-    }
+    if (combatant.type === 'npc') return npcs.value.find((npc) => npc.id === combatant.characterId) || null
+    if (combatant.type === 'pc') return charactersStore.getById(combatant.characterId) || null
     return beastInstancesById.value.get(combatant.characterId) || null
 }
 
@@ -469,42 +396,19 @@ const onCombatantClick = (combatant) => {
 const getTokenProps = (combatant, groupId) => {
     const character = findCharacter(combatant)
     if (!character) return {}
-
     const baseProps = {
         onRemove: () => removeCombatant(groupId, combatant.id),
         onClick: () => onCombatantClick(combatant),
     }
-
-    if (combatant.type === 'npc') {
-        return {
-            ...baseProps,
-            character,
-            showRemoveFab: true,
-            disableDefaultClick: true,
-        }
+    if (combatant.type === 'beast') {
+        return { ...baseProps, beast: character, showRemoveFab: true, disableDefaultClick: true }
     }
-
-    if (combatant.type === 'pc') {
-        return {
-            ...baseProps,
-            character,
-            showRemoveFab: true,
-            disableDefaultClick: true,
-        }
-    }
-
-    return {
-        ...baseProps,
-        beast: character,
-        showRemoveFab: true,
-        disableDefaultClick: true,
-    }
+    return { ...baseProps, character, showRemoveFab: true, disableDefaultClick: true }
 }
 
 const openGroupPicker = (groupId, event) => {
     const trigger = event?.currentTarget
     if (!(trigger instanceof HTMLElement)) return
-
     const rect = trigger.getBoundingClientRect()
     const bounds = getViewportBounds()
     const estimatedMenuHeight = Math.min(460, Math.max(260, bounds.bottom - bounds.top - 24))
@@ -513,12 +417,10 @@ const openGroupPicker = (groupId, event) => {
         y: Math.max(bounds.top, Math.round(rect.top - estimatedMenuHeight - 8)),
     }
     pickerTriggerTop.value = rect.top
-
     pickerGroupId.value = groupId
     pickerSearch.value = ''
     pickerSelectedType.value = 'pcs'
     showPicker.value = true
-
     void positionColumnByCenter('sourceType', sourceTypeColRef, pickerAnchorCenterY.value)
     void positionColumnByCenter('items', itemsColRef, pickerAnchorCenterY.value)
 }
@@ -537,8 +439,7 @@ const getEventCenterY = (event, fallbackY = pickerAnchorCenterY.value) => {
 
 const handleHoverSourceType = (option, event) => {
     pickerSelectedType.value = option.id
-    const centerY = getEventCenterY(event)
-    void positionColumnByCenter('items', itemsColRef, centerY)
+    void positionColumnByCenter('items', itemsColRef, getEventCenterY(event))
 }
 
 const upsertCombatantIntoGroup = (groupId, combatant) => {
@@ -546,25 +447,19 @@ const upsertCombatantIntoGroup = (groupId, combatant) => {
         ...group,
         combatants: group.combatants.filter((existing) => existing.id !== combatant.id),
     }))
-
     combatGroups.value = groupsWithoutCombatant.map((group) => {
         if (group.id !== groupId) return group
-        return {
-            ...group,
-            combatants: [...group.combatants, combatant],
-        }
+        return { ...group, combatants: [...group.combatants, combatant] }
     })
 }
 
 const createBeastInstanceFromTemplate = async (templateId) => {
-    if (!campaignId.value) return null
+    const campaignId = props.tabletop?.campaignId
+    if (!campaignId) return null
     if (creatingBeastTemplateIdSet.value.has(templateId)) return null
-
     const template = beastPickerTemplates.value.find((beast) => beast.id === templateId)
     if (!template) return null
-
     creatingBeastTemplateIdSet.value.add(templateId)
-
     try {
         const instance = {
             ...template,
@@ -572,12 +467,11 @@ const createBeastInstanceFromTemplate = async (templateId) => {
             name: getNextBeastInstanceName(template.name),
             characterType: 'beastInstance',
             templateId: template.id,
-            campaignId: campaignId.value,
+            campaignId,
             createdAt: new Date().toISOString(),
             lastModified: new Date().toISOString(),
         }
-
-        const created = await campaignStore.createCampaignCharacter(campaignId.value, instance)
+        const created = await campaignStore.createCampaignCharacter(campaignId, instance)
         return created
     } catch (error) {
         console.error('Failed to create beast instance:', error)
@@ -589,11 +483,9 @@ const createBeastInstanceFromTemplate = async (templateId) => {
 
 const addCombatantToActiveGroup = async (item) => {
     if (!pickerGroupId.value) return
-
     if (item.type === 'beast') {
         const created = await createBeastInstanceFromTemplate(item.id)
         if (!created?.id) return
-
         upsertCombatantIntoGroup(pickerGroupId.value, {
             id: `beast:${created.id}`,
             type: 'beast',
@@ -602,24 +494,12 @@ const addCombatantToActiveGroup = async (item) => {
         closePicker()
         return
     }
-
     upsertCombatantIntoGroup(pickerGroupId.value, {
         id: `${item.type}:${item.id}`,
         type: item.type,
         characterId: item.id,
     })
     closePicker()
-}
-
-const createDragPreview = (event) => {
-    if (!event?.dataTransfer) return
-
-    const badge = event.currentTarget
-    if (!(badge instanceof HTMLElement)) return
-
-    const rect = badge.getBoundingClientRect()
-    event.dataTransfer.setDragImage(badge, rect.width / 2, rect.height / 2)
-    event.dataTransfer.effectAllowed = 'move'
 }
 
 const clearDragPreview = () => {
@@ -630,7 +510,13 @@ const clearDragPreview = () => {
 }
 
 const handleDragStart = (event, groupId, combatantId) => {
-    createDragPreview(event)
+    if (!event?.dataTransfer) return
+    const badge = event.currentTarget
+    if (badge instanceof HTMLElement) {
+        const rect = badge.getBoundingClientRect()
+        event.dataTransfer.setDragImage(badge, rect.width / 2, rect.height / 2)
+        event.dataTransfer.effectAllowed = 'move'
+    }
     draggedCombatant.value = { groupId, combatantId }
 }
 
@@ -652,78 +538,12 @@ const handleAddSlotDragLeave = (groupId) => {
 
 const dropCombatantToGroup = (targetGroupId) => {
     if (!draggedCombatant.value) return
-
     const sourceGroup = combatGroups.value.find((group) => group.id === draggedCombatant.value.groupId)
     const dragged = sourceGroup?.combatants.find((combatant) => combatant.id === draggedCombatant.value.combatantId)
-    if (!dragged) {
-        handleDragEnd()
-        return
-    }
-
+    if (!dragged) { handleDragEnd(); return }
     upsertCombatantIntoGroup(targetGroupId, dragged)
     dragOverAddSlotGroupId.value = null
     handleDragEnd()
-}
-
-// Pin or unpin a group, syncing with characterContextStore
-const togglePinGroup = (group) => {
-    if (characterContextStore.isPinned(group.id)) {
-        characterContextStore.unpinGroup(group.id)
-        return
-    }
-    const memberIds = (group.combatants || [])
-        .map((c) => c.characterId)
-        .filter(Boolean)
-    characterContextStore.pinGroup(group.id, {
-        id: group.id,
-        name: group.name,
-        memberIds,
-    })
-}
-
-// Guard flag to avoid feedback loop when syncing combatGroups from store changes
-let isSyncingFromStore = false
-
-// Watch pinnedGroupsById for member removals triggered from the badge rail
-watch(
-    () => characterContextStore.pinnedGroupsById,
-    (newById) => {
-        isSyncingFromStore = true
-        combatGroups.value = combatGroups.value.map((group) => {
-            const pinnedData = newById[group.id]
-            if (!pinnedData?.memberIds) return group
-            const allowedIds = new Set(pinnedData.memberIds)
-            const filtered = (group.combatants || []).filter((c) => allowedIds.has(c.characterId))
-            if (filtered.length === (group.combatants || []).length) return group
-            return { ...group, combatants: filtered }
-        })
-        nextTick(() => {
-            isSyncingFromStore = false
-        })
-    },
-    { deep: true }
-)
-
-const syncPinnedGroupsFromCombatGroups = (groups) => {
-    const pinnedIds = [...characterContextStore.pinnedGroupIds]
-    const groupsById = new Map((groups || []).map((group) => [group.id, group]))
-
-    for (const pinnedId of pinnedIds) {
-        const group = groupsById.get(pinnedId)
-        if (!group) {
-            characterContextStore.unpinGroup(pinnedId)
-            continue
-        }
-
-        const memberIds = (group.combatants || [])
-            .map((combatant) => combatant.characterId)
-            .filter(Boolean)
-
-        characterContextStore.updatePinnedGroup(pinnedId, {
-            name: group.name,
-            memberIds,
-        })
-    }
 }
 
 onUnmounted(() => {
@@ -844,43 +664,6 @@ onUnmounted(() => {
     width: 30px;
     height: 30px;
     stroke-width: 2.2;
-}
-
-/* Action buttons (pin, initiative, delete) in group header */
-.combat-group-action-btn {
-    border: 1px solid var(--overlay-white-medium);
-    background: transparent;
-    color: var(--color-text-secondary);
-    width: 30px;
-    height: 30px;
-    border-radius: 999px;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    transition: color var(--transition-fast), border-color var(--transition-fast), background var(--transition-fast);
-    flex-shrink: 0;
-}
-
-.combat-group-action-btn:disabled {
-    opacity: 0.35;
-    cursor: not-allowed;
-}
-
-.combat-group-action-btn:not(:disabled):hover {
-    color: var(--color-primary);
-    border-color: var(--color-primary);
-    background: var(--overlay-white-subtle);
-}
-
-.combat-group-action-btn.is-pinned {
-    color: var(--color-primary);
-    border-color: var(--color-primary);
-}
-
-.combat-group-action-icon {
-    width: 16px;
-    height: 16px;
 }
 
 .status-drop-slot--interactive {

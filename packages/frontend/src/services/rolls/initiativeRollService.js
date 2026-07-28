@@ -30,6 +30,7 @@ class InitiativeRollService extends BaseRollService {
       total: finalTotal,
       diceTotal: diceTotal,
       modifier: modifier,
+      modifierLabel: 'WITS',
       difficulty: null,
       success: null,
       diceResults: formattedDiceResults,

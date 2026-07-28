@@ -59,14 +59,14 @@ import { computed } from 'vue'
 import CascadeMenuFrame from '@/components/ui/pickers/CascadeMenuFrame.vue'
 import { SKILLS, CORE_ABILITIES } from '@shared/constants/characterConstants'
 
-const props = defineProps({
+const emit = defineEmits(['roll', 'close'])
+
+defineProps({
     anchorPosition: {
         type: Object,
         required: true,
     },
 })
-
-const emit = defineEmits(['roll', 'close'])
 
 const bodySkills = computed(() =>
     Object.values(SKILLS).filter(s => s.coreAbility.key === CORE_ABILITIES.BODY.key)

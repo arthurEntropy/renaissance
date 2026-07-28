@@ -1,50 +1,35 @@
 import { defineStore } from 'pinia'
-import { ref, computed, watch } from 'vue'
-
-const PINNED_GROUPS_KEY = 'characterContext:pinnedGroups'
-
-function loadPersistedGroups() {
-  try {
-    const raw = localStorage.getItem(PINNED_GROUPS_KEY)
-    if (!raw) return null
-    const parsed = JSON.parse(raw)
-    if (Array.isArray(parsed.ids) && parsed.byId && typeof parsed.byId === 'object') {
-      return parsed
-    }
-  } catch {
-    // ignore parse errors
-  }
-  return null
-}
+import { ref, computed } from 'vue'
 
 export const useCharacterContextStore = defineStore('characterContext', () => {
-  const persisted = loadPersistedGroups()
+  // Runtime-only state – populated from the active tabletop's combatGroups when
+  // a tabletop is opened, and cleared when it is closed. No longer persisted to
+  // localStorage (groups now live on the Tabletop document).
+  const pinnedGroupIds = ref([])
+  const pinnedGroupsById = ref({})
 
-  // State
-  const pinnedGroupIds = ref(persisted?.ids ?? [])
-  const pinnedGroupsById = ref(persisted?.byId ?? {})
-  // Persist pinned groups to localStorage on change
-  watch(
-    [pinnedGroupIds, pinnedGroupsById],
-    () => {
-      try {
-        localStorage.setItem(PINNED_GROUPS_KEY, JSON.stringify({
-          ids: pinnedGroupIds.value,
-          byId: pinnedGroupsById.value,
-        }))
-      } catch {
-        // ignore storage errors
+  // ─── Actions ─────────────────────────────────────────────────────────────
+
+  /**
+   * Populate groups from a tabletop's persisted combatGroups array.
+   * Replaces any previously loaded groups.
+   */
+  const setGroupsFromTabletop = (combatGroups) => {
+    const ids = []
+    const byId = {}
+    for (const group of (combatGroups || [])) {
+      if (!group?.id) continue
+      ids.push(group.id)
+      const combatants = (group.combatants || []).filter(c => c?.characterId)
+      byId[group.id] = {
+        id: group.id,
+        name: group.name ?? '',
+        memberIds: combatants.map(c => c.characterId),
+        combatants,
       }
-    },
-    { deep: true }
-  )
-
-  // Actions
-  const pinGroup = (groupId, groupData) => {
-    if (!pinnedGroupIds.value.includes(groupId)) {
-      pinnedGroupIds.value.push(groupId)
     }
-    pinnedGroupsById.value[groupId] = groupData
+    pinnedGroupIds.value = ids
+    pinnedGroupsById.value = byId
   }
 
   const unpinGroup = (groupId) => {
@@ -55,13 +40,56 @@ export const useCharacterContextStore = defineStore('characterContext', () => {
     delete pinnedGroupsById.value[groupId]
   }
 
+  const addPinnedGroup = (group) => {
+    if (!group?.id) return
+    pinnedGroupIds.value = [...pinnedGroupIds.value, group.id]
+    pinnedGroupsById.value = {
+      ...pinnedGroupsById.value,
+      [group.id]: {
+        id: group.id,
+        name: group.name ?? '',
+        memberIds: [],
+        combatants: [],
+      },
+    }
+  }
+
   const updatePinnedGroup = (groupId, groupData) => {
     if (pinnedGroupsById.value[groupId]) {
       pinnedGroupsById.value[groupId] = {
         ...pinnedGroupsById.value[groupId],
-        ...groupData
+        ...groupData,
       }
     }
+  }
+
+  /**
+   * Replace the full combatants array for a group, keeping memberIds in sync.
+   */
+  const updateGroupCombatants = (groupId, combatants) => {
+    if (pinnedGroupsById.value[groupId]) {
+      pinnedGroupsById.value[groupId] = {
+        ...pinnedGroupsById.value[groupId],
+        combatants,
+        memberIds: combatants.map(c => c.characterId),
+      }
+    }
+  }
+
+  /**
+   * Convert current in-memory groups back to the tabletop combatGroups format
+   * (suitable for persisting to the REST API).
+   */
+  const toCombatGroupsFormat = () => {
+    return pinnedGroupIds.value.map(id => {
+      const group = pinnedGroupsById.value[id]
+      if (!group) return null
+      return {
+        id: group.id,
+        name: group.name,
+        combatants: group.combatants || [],
+      }
+    }).filter(Boolean)
   }
 
   const isPinned = (groupId) => {
@@ -74,8 +102,8 @@ export const useCharacterContextStore = defineStore('characterContext', () => {
   }
 
   /**
-   * Remove a character from every pinned group it belongs to.
-   * Groups that become empty are unpinned entirely.
+   * Remove a character from every group it belongs to.
+   * Groups that become empty are removed.
    */
   const removeCharacterFromPinnedGroups = (characterId) => {
     for (const groupId of [...pinnedGroupIds.value]) {
@@ -97,7 +125,8 @@ export const useCharacterContextStore = defineStore('characterContext', () => {
     pinnedGroupIds.value = orderedIds.filter((id) => currentSet.has(id))
   }
 
-  // Computed properties
+  // ─── Computed ─────────────────────────────────────────────────────────────
+
   const pinnedGroups = computed(() => {
     return pinnedGroupIds.value.map((id) => pinnedGroupsById.value[id]).filter(Boolean)
   })
@@ -107,7 +136,7 @@ export const useCharacterContextStore = defineStore('characterContext', () => {
   })
 
   return {
-    // State (read-only references)
+    // State
     pinnedGroupIds,
     pinnedGroupsById,
 
@@ -116,9 +145,12 @@ export const useCharacterContextStore = defineStore('characterContext', () => {
     pinnedGroupCount,
 
     // Actions
-    pinGroup,
+    setGroupsFromTabletop,
+    addPinnedGroup,
     unpinGroup,
     updatePinnedGroup,
+    updateGroupCombatants,
+    toCombatGroupsFormat,
     isPinned,
     clearPinnedGroups,
     removeCharacterFromPinnedGroups,

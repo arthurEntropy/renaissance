@@ -2,7 +2,7 @@
   "id": "bc4960b8-28d0-4d2c-9f7f-99f6cef68706",
   "isDeleted": false,
   "createdAt": "2026-07-25T02:13:15.929Z",
-  "lastModified": "2026-07-25T18:23:30.513Z",
+  "lastModified": "2026-07-28T13:10:03.354Z",
   "characterType": "playerCharacter",
   "name": "Sergio",
   "featuredArtUrls": [
@@ -339,13 +339,13 @@
   },
   "rollStats": {
     "skillChecks": {
-      "attempts": 1,
-      "successes": 1,
-      "totalSum": 18,
+      "attempts": 2,
+      "successes": 2,
+      "totalSum": 35,
       "bestTotal": 18,
       "hardestSuccess": null,
       "bySkill": {
-        "Lore": 1
+        "Lore": 2
       },
       "solCount": 0,
       "morteCount": 0,
@@ -365,7 +365,7 @@
     },
     "xpEarned": 0,
     "xpSpent": 0,
-    "treasureEarned": 178,
+    "treasureEarned": 216,
     "treasureSpent": 46
   },
   "biomeTags": [],
@@ -412,5 +412,5 @@
   "xp": 0,
   "description": "",
   "featuredArtUrl": "https://cdn.midjourney.com/1d600001-fa0c-4cd7-8d15-151ac4fcfe3c/0_3_640_N.webp",
-  "updatedAt": "2026-07-25T18:23:30.513Z"
+  "updatedAt": "2026-07-28T13:10:03.354Z"
 }

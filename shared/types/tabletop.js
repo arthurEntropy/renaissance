@@ -94,6 +94,7 @@ import { createBaseEntity } from './baseEntity.js'
  * @property {RadiusArea[]} radiusAreas - Persistent radius measurement areas placed on the canvas
  * @property {RollLogEntry[]} rollLog - Persistent roll history for this tabletop, capped at 100 entries
  * @property {boolean} [rollLogExpanded] - Whether the roll log panel is expanded (per-user, not synced)
+ * @property {CombatGroup[]} combatGroups - Combat groups (token groupings) for this tabletop
  */
 
 /**
@@ -122,5 +123,6 @@ export function createDefaultTabletop(campaignId, name = 'New Tabletop') {
     showPaths: true,
     radiusAreas: [],
     rollLog: [],
+    combatGroups: [],
   }
 }

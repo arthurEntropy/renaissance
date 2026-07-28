@@ -23,13 +23,11 @@ export function useTabletopSharedCanvas() {
 
     /**
      * Called by VirtualTabletopPage whenever canvasItems changes.
-     * Updates the reactive placement/visibility sets and returns the list
-     * of characterIds that were removed since the previous sync (for
-     * PinnedTokensContainer group cleanup).
-     * @returns {{ removedCharacterIds: string[] }}
+     * Updates the reactive placement/visibility sets.
+     * Removing a token from the canvas no longer cascades to group membership –
+     * that relationship is managed exclusively through PinnedTokensContainer.
      */
     function syncFromCanvas(items) {
-        const prevPlaced = _placedCharacterIds.value
         const placed = new Set()
         const hidden = new Set()
         for (const item of items) {
@@ -38,13 +36,8 @@ export function useTabletopSharedCanvas() {
                 if (item.isHidden) hidden.add(item.characterId)
             }
         }
-        const removed = []
-        for (const charId of prevPlaced) {
-            if (!placed.has(charId)) removed.push(charId)
-        }
         _placedCharacterIds.value = placed
         _hiddenCharacterIds.value = hidden
-        return { removedCharacterIds: removed }
     }
 
     /**

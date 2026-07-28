@@ -1,16 +1,16 @@
 {
-  "id": "7e9a0db3-3532-4f6c-83eb-024e724a96ff",
+  "id": "0a15ef97-9803-4a16-80f7-6aa87b7ec9a4",
   "isDeleted": false,
-  "createdAt": "2026-07-24T14:57:01.232Z",
-  "lastModified": "2026-07-28T13:06:11.408Z",
-  "characterType": "playerCharacter",
-  "name": "Cool Guy",
+  "createdAt": "2026-07-28T13:09:43.276Z",
+  "lastModified": "2026-07-28T13:09:43.289Z",
+  "characterType": "beastInstance",
+  "name": "Owl A",
   "featuredArtUrls": [
-    "https://cdn.midjourney.com/afe2f988-0990-418f-8b54-5ebf57c70560/0_1.png"
+    "https://cdn.midjourney.com/23ac3e2d-5e41-466e-b8b5-1d14a7093858/0_0.png"
   ],
   "speed": {
-    "current": 0,
-    "base": 0
+    "current": 5,
+    "base": 5
   },
   "notes": "",
   "body": 0,
@@ -139,8 +139,8 @@
     }
   ],
   "endurance": {
-    "current": 0,
-    "base": 0
+    "current": 1,
+    "base": 1
   },
   "hope": {
     "current": 0,
@@ -174,7 +174,7 @@
   "equipment": [],
   "groupEquipmentBySource": false,
   "groupEquipmentByCustom": false,
-  "equipmentSortOption": "",
+  "equipmentSortOption": "name-asc",
   "equipmentCustomGroups": [],
   "mp": {
     "current": 0,
@@ -182,29 +182,36 @@
   },
   "abilities": [
     {
-      "id": "6546f1dc-6604-4f1d-8717-6b44353b6d10",
+      "id": "2b1f3cf5-5d30-4234-8328-40bf9f4680be",
       "collapsed": false,
       "showImprovements": false,
       "showSuccesses": false,
       "isActive": false
     },
     {
-      "id": "ec5cca33-66bb-4976-b205-877ba1b01a4b",
+      "id": "b62162c2-751b-49f0-a602-db5da4d388da",
       "collapsed": false,
       "showImprovements": false,
       "showSuccesses": false,
-      "isActive": true
+      "isActive": false
+    },
+    {
+      "id": "f46f015e-f4c6-4032-8ded-3f100fc43d8d",
+      "collapsed": false,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false
     }
   ],
   "groupAbilitiesBySource": false,
   "groupAbilitiesByManaColor": false,
   "groupAbilitiesByCustom": false,
-  "abilitySortOption": "",
+  "abilitySortOption": "name-asc",
   "abilityCustomGroups": [],
   "autoCalculations": {
     "load": true,
     "states": true,
-    "baseEndurance": true,
+    "baseEndurance": false,
     "baseHope": true,
     "baseDefense": true
   },
@@ -252,18 +259,21 @@
     "colorless": []
   },
   "witchcraftTokens": [],
-  "witchFamiliar": null,
   "summonerVessels": [],
   "hunterTraps": [],
-  "campaignId": null,
-  "ownerId": "yMwXRvIrCwWwG4NRC4HBjN2BrOM2",
+  "campaignId": "c9ddeab9-d180-4fc5-869f-e64239bc3376",
+  "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
   "isPublicPreview": false,
-  "sectionOrder": [],
+  "sectionOrder": [
+    "engagement",
+    "equipment",
+    "abilities"
+  ],
   "martialTrainingOverrides": {},
   "pronouns": "",
   "ancestryIds": [],
   "cultureIds": [],
-  "mestiereId": "",
+  "mestiereId": null,
   "age": 0,
   "heightFeet": 0,
   "heightInches": 0,
@@ -271,7 +281,31 @@
   "keeping": null,
   "treasure": 0,
   "xp": 0,
-  "updatedAt": "2026-07-28T13:06:11.408Z",
+  "updatedAt": "2026-07-22T02:21:12.960Z",
   "description": "",
-  "featuredArtUrl": "https://cdn.midjourney.com/afe2f988-0990-418f-8b54-5ebf57c70560/0_1.png"
+  "size": 0.25,
+  "reach": 5,
+  "challenge": 0,
+  "hasDarkvision": true,
+  "hasBlindsight": false,
+  "hasTremorsense": false,
+  "hasTruesight": false,
+  "burrowSpeed": 0,
+  "climbSpeed": 0,
+  "flySpeed": 25,
+  "swimSpeed": 0,
+  "biomeTagsAugment": [
+    "forest",
+    "plains",
+    "mountain",
+    "desert",
+    "wetland"
+  ],
+  "biomeTagsInhibit": [
+    "civilized"
+  ],
+  "beastTypeIds": [
+    "68d4459c-1c9f-4b98-b3be-d8d795a51372"
+  ],
+  "templateId": "5c062e5a-f179-4326-b956-d3a39031e5cb"
 }

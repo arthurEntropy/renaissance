@@ -45,7 +45,7 @@
                 </div>
 
                 <!-- Roll speech bubbles (one per canvas item that has an active roll) -->
-                <TabletopRollBubble v-for="(bubble, itemId) in activeBubbles" :key="itemId" :entry="bubble.entry"
+                <TabletopRollBubble v-for="(bubble, itemId) in visibleActiveBubbles" :key="itemId" :entry="bubble.entry"
                     :expanded="bubble.expanded" :canvas-item-x="canvasItemById(itemId)?.x ?? 0"
                     :canvas-item-y="canvasItemById(itemId)?.y ?? 0"
                     :token-px="(canvasItemById(itemId)?.size ?? 1) * gridSize"
@@ -131,7 +131,7 @@
 </template>
 
 <script setup>
-import { computed, ref, watch } from 'vue'
+import { computed, ref, watch, onUnmounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useCampaignStore } from '@/stores/campaignStore'
 import { useAuthStore } from '@/stores/authStore'
@@ -154,6 +154,7 @@ import { useTabletopSharedCanvas } from '@/composables/useTabletopSharedCanvas'
 import { useEngagementSession, engagedCharacterIds } from '@/composables/useEngagementSession'
 import { useCharacterContextStore } from '@/stores/characterContextStore'
 import { useRollsStore } from '@/stores/rollsStore'
+import { isBeastInstance } from '@/utils/characterTypeGuards'
 import InitiativeRollService from '@/services/rolls/initiativeRollService'
 import InjuryRollService from '@/services/rolls/injuryRollService'
 import SkillCheckService from '@/services/rolls/skillCheckService'
@@ -291,10 +292,8 @@ _broadcastStateUpdateRef = _syncBroadcast
 const sharedCanvas = useTabletopSharedCanvas()
 sharedCanvas.init(canvasItems, saveState, recordSnapshot)
 watch(canvasItems, (items) => {
-    const { removedCharacterIds } = sharedCanvas.syncFromCanvas(items)
-    for (const charId of removedCharacterIds) {
-        characterContextStore.removeCharacterFromPinnedGroups(charId)
-    }
+    // Removing a token from the canvas no longer cascades to group membership.
+    sharedCanvas.syncFromCanvas(items)
 }, { immediate: true, deep: true })
 
 // ─── Roll log + speech bubbles ───────────────────────────────────────────────
@@ -313,6 +312,18 @@ const {
 
 // Look up a canvas item by its canvas-item id (for bubble positioning)
 const canvasItemById = (id) => canvasItems.value.find((i) => i.id === id) ?? null
+
+// Only show speech bubbles for tokens the current user can actually see.
+// GMs see all bubbles; non-GM players see only bubbles for non-hidden tokens.
+const visibleActiveBubbles = computed(() => {
+    if (isGM.value) return activeBubbles.value
+    const result = {}
+    for (const [itemId, bubble] of Object.entries(activeBubbles.value)) {
+        const item = canvasItems.value.find((i) => i.id === itemId)
+        if (!item?.isHidden) result[itemId] = bubble
+    }
+    return result
+})
 
 // Wrap the canvas container mousedown to also clear bubbles on plain canvas clicks.
 // Speech bubble components call @mousedown.stop, so clicks on bubbles won't reach here.
@@ -580,7 +591,52 @@ watch(campaignId, async (id) => {
 
     await Promise.all(fetches)
     loadState()
+
+    // GM-only: populate the combat groups rail from the tabletop data.
+    if (isGM.value) {
+        const tabletop = campaignStore.tabletops.find((t) => t.id === tabletopId.value)
+        characterContextStore.setGroupsFromTabletop(tabletop?.combatGroups ?? [])
+    }
 }, { immediate: true })
+
+// ─── Persist combat-group changes from the rail back to the tabletop ─────────
+// When the GM renames, reorders, or sets initiative results for a group in
+// PinnedTokensContainer, we reconstruct the combatGroups and save to the tabletop.
+let _combatGroupsSaveTimer = null
+
+function reconstructCombatGroups(pinnedGroups) {
+    return pinnedGroups.map((group) => ({
+        id: group.id,
+        name: group.name,
+        combatants: (group.memberIds || []).map((charId) => {
+            const campaignChar = campaignStore.campaignCharacters.find((c) => c.id === charId)
+            let type = 'pc'
+            if (campaignChar) {
+                type = isBeastInstance(campaignChar) ? 'beast' : 'npc'
+            }
+            return { id: `${type}:${charId}`, type, characterId: charId }
+        }),
+    }))
+}
+
+watch(
+    () => characterContextStore.pinnedGroups,
+    (groups) => {
+        if (!isGM.value || !campaignId.value || !tabletopId.value) return
+        if (_combatGroupsSaveTimer) clearTimeout(_combatGroupsSaveTimer)
+        _combatGroupsSaveTimer = setTimeout(() => {
+            campaignStore.updateTabletop(campaignId.value, tabletopId.value, {
+                combatGroups: reconstructCombatGroups(groups),
+            })
+        }, 400)
+    },
+    { deep: true }
+)
+
+onUnmounted(() => {
+    if (_combatGroupsSaveTimer) clearTimeout(_combatGroupsSaveTimer)
+    characterContextStore.clearPinnedGroups()
+})
 </script>
 
 <style scoped>

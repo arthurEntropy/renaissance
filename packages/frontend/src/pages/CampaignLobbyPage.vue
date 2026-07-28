@@ -59,8 +59,6 @@
                     <CampaignNpcsPanel />
                 </div>
 
-                <CombatBuilder v-if="isGM" />
-
                 <CampaignTabletopsPanel />
 
                 <CampaignShopsPanel />
@@ -112,9 +110,6 @@ import CampaignPlayerCharactersPanel from '@/components/features/campaigns/lobby
 import CampaignNpcsPanel from '@/components/features/campaigns/lobby/CampaignNpcsPanel.vue'
 import CampaignShopsPanel from '@/components/features/campaigns/lobby/CampaignShopsPanel.vue'
 import CampaignTabletopsPanel from '@/components/features/campaigns/lobby/CampaignTabletopsPanel.vue'
-import CampaignCurationPanel from '@/components/features/campaigns/lobby/CampaignCurationPanel.vue'
-import CombatBuilder from '@/components/features/campaigns/lobby/CombatBuilder.vue'
-import TextEditor from '@/components/ui/textEditor/TextEditor.vue'
 import { sanitizeHtml } from '@/utils/sanitizeHtml'
 import CampaignService from '@/services/entities/campaignService'
 import { CAMPAIGN_ROLE } from '@shared/constants/campaignConstants'
