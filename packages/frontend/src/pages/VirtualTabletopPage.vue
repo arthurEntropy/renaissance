@@ -31,7 +31,7 @@
                     :ref="(el) => registerTokenRef(item.id, el)"
                     :class="{ 'is-dragging': isDragging(item.id), 'is-hidden-token': item.isHidden }"
                     :style="{ transform: `translate(${item.x}px, ${item.y}px)`, zIndex: item.zIndex }"
-                    @mousedown="(e) => { dismissBubble(item.id); handleTokenMousedown(item, e) }">
+                    @mousedown="(e) => { dismissBubble(item.id); handleTokenMousedown(item, e); handleTokenRightClick(item, e) }">
                     <TabletopToken :name="item.name" :portrait-url="item.portraitUrl" :is-beast="item.isBeast"
                         :is-npc="item.isNpc" :size="item.size" :grid-size="gridSize" :is-selected="isSelected(item.id)"
                         :in-engagement="isCharacterInEngagement(item)" />
@@ -88,6 +88,10 @@
             <!-- Roll chatlog (bottom-right corner, above toolbar) -->
             <TabletopChatlog :roll-log="rollLog" :is-expanded="rollLogExpanded"
                 @update:is-expanded="setRollLogExpanded" />
+
+            <!-- Multi-token roll context menu (GM only, shown on right-click with multiple tokens selected) -->
+            <TabletopTokenContextMenu v-if="tokenContextMenuVisible" :anchor-position="tokenContextMenuPosition"
+                @roll="executeMultiRoll" @close="tokenContextMenuVisible = false" />
         </div>
 
         <!-- Bottom Toolbar – teleported to body so it stacks above PinnedTokensContainer (z-badge) -->
@@ -141,12 +145,18 @@ import TabletopTokenInfoArea from '@/components/features/tabletop/TabletopTokenI
 import CharacterSheetPopup from '@/components/features/tabletop/CharacterSheetPopup.vue'
 import TabletopChatlog from '@/components/features/tabletop/TabletopChatlog.vue'
 import TabletopRollBubble from '@/components/features/tabletop/TabletopRollBubble.vue'
+import TabletopTokenContextMenu from '@/components/features/tabletop/TabletopTokenContextMenu.vue'
 import EngagementRollModal from '@/components/features/characterSheet/rollModal/EngagementRollModal.vue'
 import { useTabletopRollLog } from '@/composables/useTabletopRollLog'
 import { useTabletopSync } from '@/composables/useTabletopSync'
 import { useTabletopSharedCanvas } from '@/composables/useTabletopSharedCanvas'
 import { useEngagementSession, engagedCharacterIds } from '@/composables/useEngagementSession'
 import { useCharacterContextStore } from '@/stores/characterContextStore'
+import { useRollsStore } from '@/stores/rollsStore'
+import InitiativeRollService from '@/services/rolls/initiativeRollService'
+import InjuryRollService from '@/services/rolls/injuryRollService'
+import SkillCheckService from '@/services/rolls/skillCheckService'
+import { findSkillById } from '@/utils/characterKeyUtils'
 import radiusCursorUrl from '@/assets/icons/cursor/radius.png'
 import rulerCursorUrl from '@/assets/icons/cursor/ruler.png'
 
@@ -197,6 +207,7 @@ const {
     measureCurrent,
     isCmdHeld,
     isShiftHeld,
+    isAltHeld,
     isRadiusMeasuring,
     radiusOrigin,
     radiusCurrent,
@@ -314,11 +325,13 @@ function handleCanvasContainerMousedown(e) {
 // Newer areas are later in the array = rendered on top (DOM order stacking)
 const radiusAreasWithZIndex = computed(() => radiusAreas.value)
 
-// Custom cursor: grabbing while dragging; ruler/radius when shift modifiers held
+// Custom cursor: grabbing while dragging; ruler/radius when shift modifiers held;
+// copy (+) cursor when Alt is held during radius measurement to indicate commit-on-release
 const canvasCursorStyle = computed(() => {
     if (isDragActive.value) return { cursor: 'grabbing' }
     if (isShiftHeld.value && isCmdHeld.value) return { cursor: `url('${radiusCursorUrl}') 8 8, crosshair` }
     if (isShiftHeld.value) return { cursor: `url('${rulerCursorUrl}') 8 8, crosshair` }
+    if (isAltHeld.value && isRadiusMeasuring.value) return { cursor: 'copy' }
     return {}
 })
 
@@ -329,6 +342,51 @@ const onRadiusAreaSelect = (id) => {
 
 // Whether the current user is GM or admin
 const isGM = computed(() => campaignStore.isGMInActiveCampaign || authStore.isAdmin)
+
+// ─── Multi-token roll context menu (GM only) ─────────────────────────────────
+const rollsStore = useRollsStore()
+const tokenContextMenuVisible = ref(false)
+const tokenContextMenuPosition = ref({ x: 0, y: 0 })
+
+function resolveCharacterById(id) {
+    if (!id) return null
+    return charactersStore.getById(id)
+        ?? campaignStore.campaignCharacters.find(c => c.id === id)
+        ?? null
+}
+
+function handleTokenRightClick(item, e) {
+    if (e.button !== 2) return
+    if (!isGM.value) return
+    if (selectedIds.value.size < 2 || !isSelected(item.id)) return
+    // Prevent the right-click from reaching the canvas container (which would start panning)
+    e.stopPropagation()
+    tokenContextMenuPosition.value = { x: e.clientX, y: e.clientY }
+    tokenContextMenuVisible.value = true
+}
+
+function executeMultiRoll({ type, skillKey }) {
+    tokenContextMenuVisible.value = false
+    for (const itemId of selectedIds.value) {
+        const item = canvasItems.value.find(i => i.id === itemId)
+        if (!item?.characterId) continue
+        const character = resolveCharacterById(item.characterId)
+        if (!character) continue
+        let rollResult = null
+        if (type === 'initiative') {
+            rollResult = InitiativeRollService.makeInitiativeRoll(character)
+        } else if (type === 'injury') {
+            rollResult = InjuryRollService.makeInjuryRoll(character)
+        } else if (type === 'skill' && skillKey) {
+            const skill = findSkillById(character.skills, skillKey)
+            if (!skill) continue
+            rollResult = SkillCheckService.makeSkillCheck(skill, character, null)
+        }
+        if (rollResult) {
+            rollsStore.setRollForCharacter(rollResult, character.id)
+        }
+    }
+}
 
 // Tokens visible to the current user: GMs see all tokens (hidden ones dimmed),
 // players only see tokens that are not hidden.

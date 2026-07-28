@@ -32,7 +32,7 @@
                                 <div class="entry-header-line">
                                     <span class="entry-name" :style="{ color: engagementCharColor(entry, true) }">{{
                                         entry.characterName
-                                    }}</span><span class="entry-title"> vs </span><span class="entry-name"
+                                        }}</span><span class="entry-title"> vs </span><span class="entry-name"
                                         :style="{ color: engagementCharColor(entry, false) }">{{ entry.opponentName
                                         }}</span><span class="entry-title">:</span>
                                 </div>
@@ -75,7 +75,7 @@
                                                 entry.modifier }}{{ entry.modifierLabel ? ` (${entry.modifierLabel})` : ''
                                             }}</span>
                                         <span class="entry-total" :class="outcomeClass(entry)">{{ rollTotal(entry)
-                                            }}</span>
+                                        }}</span>
                                     </div>
                                     <!-- Reroll button: centered over the full result row on hover -->
                                     <button v-if="hoveredRerollEntryId === entry.id" type="button"
@@ -332,12 +332,8 @@ onMounted(async () => {
 watch(() => props.rollLog.length, async () => {
     const el = scrollRef.value
     if (!el) return
-    // Only auto-scroll if the user is near the bottom (within 80px)
-    const nearBottom = el.scrollHeight - el.scrollTop - el.clientHeight < 80
-    if (nearBottom) {
-        await nextTick()
-        el.scrollTop = el.scrollHeight
-    }
+    await nextTick()
+    el.scrollTop = el.scrollHeight
 })
 
 // ── Display helpers ───────────────────────────────────────────────────────────

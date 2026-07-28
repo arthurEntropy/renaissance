@@ -2,7 +2,7 @@
   "id": "2207bbc0-55e1-49d8-86e5-8453aa0b3a97",
   "isDeleted": false,
   "createdAt": "2026-07-25T03:05:19.789Z",
-  "lastModified": "2026-07-27T23:57:48.441Z",
+  "lastModified": "2026-07-28T01:44:56.527Z",
   "characterType": "beastInstance",
   "name": "Spore Hound A",
   "featuredArtUrls": [
@@ -210,13 +210,14 @@
   },
   "rollStats": {
     "skillChecks": {
-      "attempts": 1,
-      "successes": 1,
-      "totalSum": 7,
-      "bestTotal": 7,
+      "attempts": 2,
+      "successes": 2,
+      "totalSum": 16,
+      "bestTotal": 9,
       "hardestSuccess": null,
       "bySkill": {
-        "Dexterity": 1
+        "Dexterity": 1,
+        "Awe": 1
       },
       "solCount": 0,
       "morteCount": 0,
@@ -269,7 +270,7 @@
   "keeping": null,
   "treasure": 0,
   "xp": 0,
-  "updatedAt": "2026-07-27T23:57:48.441Z",
+  "updatedAt": "2026-07-28T01:44:56.527Z",
   "description": "",
   "size": 1,
   "reach": 5,

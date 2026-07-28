@@ -244,6 +244,7 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
     const measureCurrent = ref(null)
     const isCmdHeld = ref(false)
     const isShiftHeld = ref(false)
+    const isAltHeld = ref(false)
 
     // ─── Radius measurement ───────────────────────────────────────────────────
     // { x, y } canvas-space origin (center of square or token)
@@ -281,11 +282,6 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
 
     const handleContainerMousedown = (e) => {
         if (e.button === 2) {
-            // Right-click during radius measurement: persist the area
-            if (isRadiusMeasuring.value && radiusOrigin.value && radiusCurrent.value) {
-                _commitRadiusArea()
-                return
-            }
             // Right-click: start pan, cancel any active canvas measurement
             isPanning.value = true
             _panStart.x = e.clientX
@@ -854,12 +850,17 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
             return
         }
 
-        // Stop radius measurement on any other mouseup
+        // Stop radius measurement on any other mouseup;
+        // if Alt is held, commit as a persistent area instead.
         if (isRadiusMeasuring.value && !isPanning.value) {
-            isRadiusMeasuring.value = false
-            radiusOrigin.value = null
-            radiusCurrent.value = null
-            _radiusSourceTokenId = null
+            if (isAltHeld.value && radiusOrigin.value && radiusCurrent.value) {
+                _commitRadiusArea()
+            } else {
+                isRadiusMeasuring.value = false
+                radiusOrigin.value = null
+                radiusCurrent.value = null
+                _radiusSourceTokenId = null
+            }
         }
 
         if (isPanning.value) {
@@ -1050,6 +1051,7 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
         // Track modifier keys for measurement modes
         if (e.key === 'Meta' || e.key === 'Control') isCmdHeld.value = true
         if (e.key === 'Shift') isShiftHeld.value = true
+        if (e.key === 'Alt') isAltHeld.value = true
 
         const ctrlOrCmd = e.metaKey || e.ctrlKey
 
@@ -1125,6 +1127,7 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
     const handleGlobalKeyup = (e) => {
         if (e.key === 'Meta' || e.key === 'Control') isCmdHeld.value = false
         if (e.key === 'Shift') isShiftHeld.value = false
+        if (e.key === 'Alt') isAltHeld.value = false
     }
 
     // Reset modifier keys when the window loses focus or the tab is hidden.
@@ -1133,11 +1136,13 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
     const handleWindowBlur = () => {
         isShiftHeld.value = false
         isCmdHeld.value = false
+        isAltHeld.value = false
     }
     const handleVisibilityChange = () => {
         if (document.visibilityState !== 'visible') return
         isShiftHeld.value = false
         isCmdHeld.value = false
+        isAltHeld.value = false
     }
 
     // ─── Persistence ─────────────────────────────────────────────────────────
@@ -1282,6 +1287,7 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
             _isResizeDrag = false
             _areaMoveState = null
             isShiftHeld.value = false
+            isAltHeld.value = false
             radiusAreas.value = []
             selectedRadiusAreaId.value = null
             hoveringRadiusAreaId.value = null
@@ -1292,17 +1298,8 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
         }
     )
 
-    // ─── Global right-click → commit radius area ──────────────────────────────
-    const handleGlobalMousedown = (e) => {
-        if (e.button === 2 && isRadiusMeasuring.value) {
-            e.preventDefault()
-            _commitRadiusArea()
-        }
-    }
-
     // ─── Lifecycle ────────────────────────────────────────────────────────────
     onMounted(() => {
-        window.addEventListener('mousedown', handleGlobalMousedown, true)
         window.addEventListener('mousemove', handleGlobalMousemove)
         window.addEventListener('mouseup', handleGlobalMouseup)
         window.addEventListener('keydown', handleGlobalKeydown)
@@ -1314,7 +1311,6 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
     onUnmounted(() => {
         _stateReady = false
         if (_saveTimer) clearTimeout(_saveTimer)
-        window.removeEventListener('mousedown', handleGlobalMousedown, true)
         window.removeEventListener('mousemove', handleGlobalMousemove)
         window.removeEventListener('mouseup', handleGlobalMouseup)
         window.removeEventListener('keydown', handleGlobalKeydown)
@@ -1353,6 +1349,7 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
         measureCurrent,
         isCmdHeld,
         isShiftHeld,
+        isAltHeld,
         isRadiusMeasuring,
         radiusOrigin,
         radiusCurrent,

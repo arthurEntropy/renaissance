@@ -2,7 +2,7 @@
   "id": "917e904f-d97e-4033-a498-8391260f3752",
   "isDeleted": false,
   "createdAt": "2026-07-24T22:34:07.812Z",
-  "lastModified": "2026-07-27T23:57:23.597Z",
+  "lastModified": "2026-07-28T01:37:27.851Z",
   "characterType": "playerCharacter",
   "name": "Magnuss",
   "featuredArtUrls": [
@@ -401,5 +401,5 @@
   "xp": 0,
   "description": "",
   "featuredArtUrl": "https://cdn.midjourney.com/9d007aef-e372-4e42-9581-a2703cfe7018/0_2.jpeg",
-  "updatedAt": "2026-07-27T23:57:23.597Z"
+  "updatedAt": "2026-07-28T01:37:27.851Z"
 }
