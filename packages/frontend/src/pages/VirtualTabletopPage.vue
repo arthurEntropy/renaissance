@@ -127,6 +127,12 @@
                 :spectator-character="spectateCharacter" :spectator-session-id="spectateSessionId"
                 @close="closeSpectatePopup" />
         </Teleport>
+
+        <!-- GM active-abilities bar: one container per character with active abilities,
+             stacked right-to-left across the top of the canvas. -->
+        <Teleport to="body">
+            <TabletopActiveAbilitiesBar v-if="isGM" :canvas-items="canvasItems" />
+        </Teleport>
     </div>
 </template>
 
@@ -148,6 +154,7 @@ import TabletopChatlog from '@/components/features/tabletop/TabletopChatlog.vue'
 import TabletopRollBubble from '@/components/features/tabletop/TabletopRollBubble.vue'
 import TabletopTokenContextMenu from '@/components/features/tabletop/TabletopTokenContextMenu.vue'
 import EngagementRollModal from '@/components/features/characterSheet/rollModal/EngagementRollModal.vue'
+import TabletopActiveAbilitiesBar from '@/components/features/tabletop/TabletopActiveAbilitiesBar.vue'
 import { useTabletopRollLog } from '@/composables/useTabletopRollLog'
 import { useTabletopSync } from '@/composables/useTabletopSync'
 import { useTabletopSharedCanvas } from '@/composables/useTabletopSharedCanvas'

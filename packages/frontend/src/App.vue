@@ -40,8 +40,10 @@
     <!-- Token rail: focused character/beast + pinned combat groups -->
     <PinnedTokensContainer v-if="authStore.isAuthenticated" />
 
-    <!-- Active abilities token rail (right edge) -->
-    <ActiveAbilitiesContainer v-if="authStore.isAuthenticated && isCharacterSheetOpen" />
+    <!-- Active abilities token rail (right edge): GM-only on non-tabletop pages.
+         Players see their abilities under their token in PinnedTokensContainer.
+         GMs on the tabletop see TabletopActiveAbilitiesBar instead. -->
+    <ActiveAbilitiesContainer v-if="authStore.isAuthenticated && isCharacterSheetOpen && isGM && !isOnTabletopPage" />
 
     <!-- Active tabletop button (bottom-right, hidden on home and tabletop pages) -->
     <ActiveTabletopContainer v-if="showActiveTabletop" />
@@ -114,6 +116,8 @@ const characterContextStore = useCharacterContextStore()
 const campaignStore = useCampaignStore()
 const shouldShowOverlay = computed(() => route.meta?.overlay === true)
 const isActiveSection = (path) => route.path === path || route.path.startsWith(path + '/')
+const isOnTabletopPage = computed(() => route.path.includes('/tabletop/'))
+const isGM = computed(() => campaignStore.isGMInActiveCampaign || authStore.isAdmin)
 
 // The active-tabletop button is suppressed on the home page and on the tabletop canvas itself
 const showActiveTabletop = computed(() => {

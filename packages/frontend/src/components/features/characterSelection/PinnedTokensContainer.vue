@@ -52,6 +52,19 @@
             </div>
         </div>
 
+        <!-- Player's active abilities: shown below focused/summoned/familiar for non-GM users -->
+        <div v-if="!campaignStore.isGMInActiveCampaign && focusedCharacterActiveAbilities.length > 0"
+            class="token-group token-group--active-abilities">
+            <div class="token-group-header">
+                <span class="token-group-label">Active Abilities</span>
+            </div>
+            <div class="token-group-members token-group-members--abilities">
+                <AbilityToken v-for="entry in focusedCharacterActiveAbilities" :key="entry.id" class="token-item"
+                    :ability="entry" :isActive="true" :showRemoveFab="true"
+                    @remove="deactivateFocusedAbility(entry.id)" />
+            </div>
+        </div>
+
         <!-- Multi-select visibility: GM on tabletop with ≥2 canvas tokens selected, cmd/ctrl held -->
         <div v-if="isGMOnTabletop && multiSelectVisibilityState && isCmdHeld" class="multi-select-visibility">
             <span class="multi-visibility-label">{{ multiSelectVisibilityLabel }}</span>
@@ -175,6 +188,8 @@ import { useAppCharacterSheetModal } from '@/composables/useAppCharacterSheetMod
 import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 import { isBeastTemplate, isBeastInstance, isNPC } from '@/utils/characterTypeGuards'
 import keepingIcon from '@/assets/icons/keeping/keeping.png'
+import AbilityToken from '@/components/features/characterSelection/AbilityToken.vue'
+import { useAbilitiesStore } from '@/stores/abilitiesStore'
 import { useTabletopDragState } from '@/composables/useTabletopDragState'
 import { useTabletopSelectionState } from '@/composables/useTabletopSelectionState'
 import { useTabletopSharedCanvas } from '@/composables/useTabletopSharedCanvas'
@@ -186,6 +201,7 @@ const characterContextStore = useCharacterContextStore()
 const charactersStore = useCharactersStore()
 const campaignStore = useCampaignStore()
 const rollsStore = useRollsStore()
+const abilitiesStore = useAbilitiesStore()
 const route = useRoute()
 const router = useRouter()
 
@@ -263,6 +279,28 @@ const witchsFamiliar = computed(() => {
     if (!familiarId) return null
     return charactersStore.getById(familiarId) ?? null
 })
+
+// Active abilities for the focused character — shown in the left rail for non-GM users
+// so their abilities are always visible under their token rather than on the right side.
+const focusedCharacterActiveAbilities = computed(() => {
+    if (!visibleFocusedCharacter.value?.abilities) return []
+    const allAbilitiesMap = new Map((abilitiesStore.abilities || []).map(a => [a.id, a]))
+    return visibleFocusedCharacter.value.abilities
+        .filter(ca => ca.isActive)
+        .map(ca => {
+            const def = allAbilitiesMap.get(ca.id)
+            return def ? { ...def } : null
+        })
+        .filter(Boolean)
+})
+
+function deactivateFocusedAbility(abilityId) {
+    if (!visibleFocusedCharacter.value?.abilities) return
+    const index = visibleFocusedCharacter.value.abilities.findIndex(a => a.id === abilityId)
+    if (index !== -1) {
+        visibleFocusedCharacter.value.abilities[index].isActive = false
+    }
+}
 
 const pinnedGroups = computed(() => characterContextStore.pinnedGroups)
 const campaignCharactersById = computed(() => {
@@ -898,6 +936,7 @@ function getFocusedTokenProps(character) {
     letter-spacing: 0.08em;
     color: var(--color-primary);
     opacity: 0.9;
+    text-align: center;
 }
 
 .token-group-collapse-toggle {
@@ -1258,5 +1297,11 @@ function getFocusedTokenProps(character) {
 .add-group-icon {
     width: 14px;
     height: 14px;
+}
+
+/* ─── Player active-abilities sub-group ─────────────────────────────────────── */
+/* Uses a slightly tighter token gap than pinned character groups */
+.token-group-members--abilities {
+    gap: var(--space-lg);
 }
 </style>

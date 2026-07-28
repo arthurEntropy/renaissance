@@ -2,7 +2,7 @@
   "id": "8167b174-0177-47a3-9cd2-5904707463ba",
   "isDeleted": false,
   "createdAt": "2026-07-28T11:47:21.442Z",
-  "lastModified": "2026-07-28T13:11:34.884Z",
+  "lastModified": "2026-07-28T13:37:53.613Z",
   "campaignId": "c9ddeab9-d180-4fc5-869f-e64239bc3376",
   "name": "Tree Temple",
   "backgroundImage": {
@@ -34,7 +34,7 @@
       "size": 1,
       "x": 1320,
       "y": 880,
-      "zIndex": 6,
+      "zIndex": 20,
       "isHidden": false
     },
     {
@@ -47,7 +47,7 @@
       "size": 1,
       "x": 1280,
       "y": 880,
-      "zIndex": 14,
+      "zIndex": 21,
       "isHidden": false
     },
     {
@@ -60,7 +60,7 @@
       "size": 3,
       "x": 1280,
       "y": 480,
-      "zIndex": 18,
+      "zIndex": 22,
       "isHidden": true
     },
     {
@@ -99,7 +99,7 @@
       "size": 1,
       "x": 1040,
       "y": 720,
-      "zIndex": 15
+      "zIndex": 19
     },
     {
       "id": "874a9db1-7b90-42e3-9fa4-242a04e2e1a4",
@@ -111,13 +111,13 @@
       "size": 0.25,
       "x": 1040,
       "y": 680,
-      "zIndex": 17
+      "zIndex": 23
     }
   ],
   "transform": {
     "scale": 1.1663999999999999,
-    "x": -606.9086564227783,
-    "y": -287.46127166834333
+    "x": -895.9086564227783,
+    "y": -363.46127166834333
   },
   "gridSize": 40,
   "gridColor": "#ffffff",

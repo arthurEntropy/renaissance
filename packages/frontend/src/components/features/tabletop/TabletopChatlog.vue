@@ -32,7 +32,7 @@
                                 <div class="entry-header-line">
                                     <span class="entry-name" :style="{ color: engagementCharColor(entry, true) }">{{
                                         entry.characterName
-                                        }}</span><span class="entry-title"> vs </span><span class="entry-name"
+                                    }}</span><span class="entry-title"> vs </span><span class="entry-name"
                                         :style="{ color: engagementCharColor(entry, false) }">{{ entry.opponentName
                                         }}</span><span class="entry-title">:</span>
                                 </div>
@@ -75,7 +75,7 @@
                                                 entry.modifier }}{{ entry.modifierLabel ? ` (${entry.modifierLabel})` : ''
                                             }}</span>
                                         <span class="entry-total" :class="outcomeClass(entry)">{{ rollTotal(entry)
-                                        }}</span>
+                                            }}</span>
                                     </div>
                                     <!-- Reroll button: centered over the full result row on hover -->
                                     <button v-if="hoveredRerollEntryId === entry.id" type="button"
@@ -109,6 +109,7 @@
 <script setup>
 import { ref, nextTick, watch, onMounted, onUnmounted } from 'vue'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
+import { useTabletopChatlogState } from '@/composables/useTabletopChatlogState'
 import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 import { RollTypes } from '@/constants/rollTypes'
 import { EngagementResultTypes } from '@/constants/engagementResultTypes'
@@ -274,6 +275,11 @@ const MIN_WIDTH = 200
 const MAX_WIDTH = 560
 
 const chatlogWidth = ref(DEFAULT_WIDTH)
+
+// Keep shared state in sync so TabletopActiveAbilitiesBar can position itself
+const { chatlogWidth: _sharedChatlogWidth, chatlogExpanded: _sharedChatlogExpanded } = useTabletopChatlogState()
+watch(chatlogWidth, (w) => { _sharedChatlogWidth.value = w }, { immediate: true })
+watch(() => props.isExpanded, (v) => { _sharedChatlogExpanded.value = v }, { immediate: true })
 
 let _resizeStartX = 0
 let _resizeStartWidth = 0
