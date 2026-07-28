@@ -7,7 +7,8 @@ class DiceFormatter {
   static getDiceEmoji(dieSize, dieRollValue, rolledMaxValue = false, rollType = null) {
     // Check for Sol/Morte on d12s for feat-die based roll types
     const isFeatDieType = rollType === RollTypes.SKILL_CHECK ||
-      rollType === RollTypes.INJURY
+      rollType === RollTypes.INJURY ||
+      rollType === RollTypes.INITIATIVE
     
     if (dieSize === DIE_TYPE.D12 && isFeatDieType) {
       if (dieRollValue === SPECIAL_ROLLS.SOL) return EMOJI.SOL

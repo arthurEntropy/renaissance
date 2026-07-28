@@ -35,6 +35,10 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
         rollLogExpanded.value = val
         saveState()
     }
+    const clearRollLog = () => {
+        rollLog.value = []
+        saveState()
+    }
 
     // ─── Canvas items (tokens) ───────────────────────────────────────────────
     const canvasItems = ref([])
@@ -1393,6 +1397,7 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
         rollLog,
         rollLogExpanded,
         setRollLogExpanded,
+        clearRollLog,
         applyExternalState,
     }
 }

@@ -11,8 +11,8 @@
                 :visibility="FAB_VISIBILITIES.ALWAYS" class="info-spectate-btn" @click.stop="$emit('spectate')" />
             <FloatingActionButton :variant="FAB_TYPES.EXPAND" :size="FAB_SIZES.SMALL"
                 :visibility="FAB_VISIBILITIES.ALWAYS" class="info-expand-btn" @click.stop="$emit('expand')" />
-            <FloatingActionButton v-if="canToggleVisibility" :variant="FAB_TYPES.VISIBILITY" :size="FAB_SIZES.SMALL"
-                :visibility="FAB_VISIBILITIES.ALWAYS" :is-active="!isHidden"
+            <FloatingActionButton v-if="canToggleVisibility && cmdHeld" :variant="FAB_TYPES.VISIBILITY"
+                :size="FAB_SIZES.SMALL" :visibility="FAB_VISIBILITIES.ALWAYS" :is-active="!isHidden"
                 :title="isHidden ? 'Hidden from players (click to show)' : 'Visible to players (click to hide)'"
                 class="info-visibility-btn" @click.stop="$emit('toggle-visibility')" />
         </div>
@@ -45,6 +45,7 @@ const props = defineProps({
     isInEngagement: { type: Boolean, default: false },
     canToggleVisibility: { type: Boolean, default: false },
     isHidden: { type: Boolean, default: false },
+    cmdHeld: { type: Boolean, default: false },
 })
 
 const emit = defineEmits(['expand', 'spectate', 'character-saved', 'toggle-visibility'])

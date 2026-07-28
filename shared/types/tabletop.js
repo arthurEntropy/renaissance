@@ -89,6 +89,7 @@ import { createBaseEntity } from './baseEntity.js'
  * @property {number} gridSize - Grid cell size in pixels
  * @property {string} gridColor - Grid line colour as a CSS hex string
  * @property {number} gridOpacity - Grid line opacity between 0 and 1
+ * @property {number} mapScale - Scale factor applied to the background map image (1 = 100%)
  * @property {boolean} showPaths - Whether to show measurement paths while dragging tokens
  * @property {RadiusArea[]} radiusAreas - Persistent radius measurement areas placed on the canvas
  * @property {RollLogEntry[]} rollLog - Persistent roll history for this tabletop, capped at 100 entries
@@ -117,6 +118,7 @@ export function createDefaultTabletop(campaignId, name = 'New Tabletop') {
     gridSize: 40,
     gridColor: '#ffffff',
     gridOpacity: 0.06,
+    mapScale: 1,
     showPaths: true,
     radiusAreas: [],
     rollLog: [],

@@ -52,8 +52,8 @@
             </div>
         </div>
 
-        <!-- Multi-select visibility: GM on tabletop with ≥2 canvas tokens selected -->
-        <div v-if="isGMOnTabletop && multiSelectVisibilityState" class="multi-select-visibility">
+        <!-- Multi-select visibility: GM on tabletop with ≥2 canvas tokens selected, cmd/ctrl held -->
+        <div v-if="isGMOnTabletop && multiSelectVisibilityState && isCmdHeld" class="multi-select-visibility">
             <span class="multi-visibility-label">{{ multiSelectVisibilityLabel }}</span>
             <FloatingActionButton :variant="FAB_TYPES.VISIBILITY" :size="FAB_SIZES.SMALL"
                 :visibility="FAB_VISIBILITIES.ALWAYS" :is-active="multiSelectVisibilityState !== 'hidden'"
@@ -89,11 +89,13 @@
                     @click="characterContextStore.unpinGroup(group.id)" />
                 <FloatingActionButton v-if="isGMOnTabletop" class="visibility-fab" :variant="FAB_TYPES.VISIBILITY"
                     :size="FAB_SIZES.SMALL" :visibility="FAB_VISIBILITIES.ALWAYS"
+                    :class="{ 'visibility-fab--cmd-held': isCmdHeld }"
                     :is-active="getGroupVisibilityState(group) !== 'hidden'"
                     :title="getGroupVisibilityState(group) === 'hidden' ? 'Show group' : getGroupVisibilityState(group) === 'visible' ? 'Hide group' : 'Toggle group visibility'"
                     aria-label="Toggle group visibility" @click.stop="toggleGroupVisibility(group)" />
                 <div class="token-group-header">
-                    <input class="token-group-name" :value="group.name" :title="group.name"
+                    <textarea class="token-group-name" :value="group.name" :title="group.name" rows="1"
+                        @input="e => { e.target.style.height = 'auto'; e.target.style.height = e.target.scrollHeight + 'px' }"
                         @blur="e => saveGroupName(group.id, e.target.value)"
                         @keydown.enter.prevent="e => e.target.blur()"
                         @keydown.escape="e => { e.target.value = group.name; e.target.blur() }" @click.stop
@@ -147,7 +149,7 @@
 </template>
 
 <script setup>
-import { computed, ref, watch, nextTick } from 'vue'
+import { computed, ref, watch, nextTick, onMounted, onUnmounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { ChevronDownIcon, ChevronUpIcon, ChevronLeftIcon, ChevronRightIcon } from '@heroicons/vue/24/outline'
 import { useCharacterContextStore } from '@/stores/characterContextStore'
@@ -521,6 +523,23 @@ function handleGroupDragEnd() {
     clearDraggingGroup()
 }
 
+// ─── Cmd/Ctrl key tracking (for visibility FAB gate) ─────────────────────────
+
+const isCmdHeld = ref(false)
+function _onKeydown(e) { if (e.metaKey || e.ctrlKey) isCmdHeld.value = true }
+function _onKeyup(e) { if (e.key === 'Meta' || e.key === 'Control') isCmdHeld.value = false }
+function _onBlur() { isCmdHeld.value = false }
+onMounted(() => {
+    window.addEventListener('keydown', _onKeydown)
+    window.addEventListener('keyup', _onKeyup)
+    window.addEventListener('blur', _onBlur)
+})
+onUnmounted(() => {
+    window.removeEventListener('keydown', _onKeydown)
+    window.removeEventListener('keyup', _onKeyup)
+    window.removeEventListener('blur', _onBlur)
+})
+
 // ─── Initiative controls (GM on tabletop only) ───────────────────────────────
 
 const isInitiativeActive = ref(false)
@@ -854,10 +873,13 @@ function getFocusedTokenProps(character) {
     transition: opacity var(--transition-fast);
 }
 
+.visibility-fab--cmd-held {
+    opacity: 1;
+    pointer-events: auto;
+}
+
 .token-group--pinned:hover .unpin-fab,
-.token-group--pinned:focus-within .unpin-fab,
-.token-group--pinned:hover .visibility-fab,
-.token-group--pinned:focus-within .visibility-fab {
+.token-group--pinned:focus-within .unpin-fab {
     opacity: 1;
     pointer-events: auto;
 }
@@ -1123,7 +1145,7 @@ function getFocusedTokenProps(character) {
     color: var(--color-text-secondary);
 }
 
-/* ─── Inline-editable group name (feature 7) ────────────────────────────── */
+/* ─── Inline-editable group name ────────────────────────────────────────── */
 .token-group-name {
     font-family: var(--font-family-primary);
     font-size: var(--font-size-11);
@@ -1132,10 +1154,10 @@ function getFocusedTokenProps(character) {
     text-transform: uppercase;
     text-align: center;
     color: var(--color-text-secondary);
-    overflow-wrap: anywhere;
+    overflow-wrap: break-word;
     word-break: break-word;
     hyphens: auto;
-    /* editable input resets */
+    /* editable textarea resets */
     background: transparent;
     border: none;
     border-bottom: 1px solid transparent;
@@ -1143,6 +1165,10 @@ function getFocusedTokenProps(character) {
     width: 100%;
     cursor: text;
     outline: none;
+    resize: none;
+    overflow: hidden;
+    min-height: 0;
+    line-height: 1.4;
     transition: border-color var(--transition-fast);
 }
 

@@ -32,7 +32,7 @@
                                 <div class="entry-header-line">
                                     <span class="entry-name" :style="{ color: engagementCharColor(entry, true) }">{{
                                         entry.characterName
-                                        }}</span><span class="entry-title"> vs </span><span class="entry-name"
+                                    }}</span><span class="entry-title"> vs </span><span class="entry-name"
                                         :style="{ color: engagementCharColor(entry, false) }">{{ entry.opponentName
                                         }}</span><span class="entry-title">:</span>
                                 </div>
@@ -63,19 +63,19 @@
                                         <span v-for="(die, i) in entry.diceResults" :key="i" class="entry-die"
                                             :class="dieClass(die)">
                                             <i :class="die.cssClass" />
-                                            <!-- Only show emoji annotations for skill checks -->
+                                            <!-- Only show emoji annotations for skill checks and initiative -->
                                             <span
-                                                v-if="die.emoji && die.emoji !== '' && entry.type === RollTypes.SKILL_CHECK"
+                                                v-if="die.emoji && die.emoji !== '' && (entry.type === RollTypes.SKILL_CHECK || entry.type === RollTypes.INITIATIVE)"
                                                 class="entry-die-emoji">{{ die.emoji }}</span>
                                         </span>
-                                        <!-- Inline modifier note for damage rolls -->
+                                        <!-- Inline modifier note for damage and initiative rolls -->
                                         <span
-                                            v-if="entry.type === RollTypes.DAMAGE && entry.modifier !== 0 && entry.diceTotal != null"
+                                            v-if="(entry.type === RollTypes.DAMAGE || entry.type === RollTypes.INITIATIVE) && entry.modifier !== 0 && entry.diceTotal != null"
                                             class="entry-modifier-note">{{ entry.modifier >= 0 ? '+' : '' }}{{
                                                 entry.modifier }}{{ entry.modifierLabel ? ` (${entry.modifierLabel})` : ''
                                             }}</span>
                                         <span class="entry-total" :class="outcomeClass(entry)">{{ rollTotal(entry)
-                                        }}</span>
+                                            }}</span>
                                     </div>
                                     <!-- Reroll button: centered over the full result row on hover -->
                                     <button v-if="hoveredRerollEntryId === entry.id" type="button"
@@ -83,9 +83,10 @@
                                         Reroll
                                     </button>
                                 </div>
-                                <!-- Footer: suppress for damage (modifier is shown inline) -->
-                                <div v-if="entry.footer && entry.type !== RollTypes.DAMAGE" class="entry-footer">{{
-                                    entry.footer }}</div>
+                                <!-- Footer: suppress for damage and initiative (modifier shown inline) -->
+                                <div v-if="entry.footer && entry.type !== RollTypes.DAMAGE && entry.type !== RollTypes.INITIATIVE"
+                                    class="entry-footer">{{
+                                        entry.footer }}</div>
                             </div>
                         </div>
                     </TransitionGroup>
@@ -379,8 +380,8 @@ function rollTotal(entry) {
         return entry.diceTotal != null ? String(entry.diceTotal) : '—'
     }
     if (entry.total == null) return '—'
-    // For damage rolls the modifier is shown inline; return just the total.
-    if (entry.type !== RollTypes.DAMAGE && entry.modifier && entry.modifier !== 0 && entry.diceTotal != null) {
+    // For damage and initiative rolls the modifier is shown inline; return just the total.
+    if (entry.type !== RollTypes.DAMAGE && entry.type !== RollTypes.INITIATIVE && entry.modifier && entry.modifier !== 0 && entry.diceTotal != null) {
         const sign = entry.modifier >= 0 ? '+' : ''
         return `${entry.total} (${entry.diceTotal}${sign}${entry.modifier})`
     }

@@ -63,6 +63,10 @@
             Clear All Tokens
         </button>
 
+        <button v-if="isGM" class="tool-btn danger-btn" @click="$emit('clear-log')">
+            Clear Log
+        </button>
+
         <!-- Measurement path display toggle -->
         <label class="toolbar-checkbox">
             <input type="checkbox" :checked="showPaths" @change="$emit('update-show-paths', $event.target.checked)" />
@@ -118,7 +122,7 @@ const props = defineProps({
     currentTabletopName: { type: String, default: '' },
 })
 
-const emit = defineEmits(['zoom-in', 'zoom-out', 'increase-grid', 'decrease-grid', 'increase-map-scale', 'decrease-map-scale', 'clear-all', 'undo', 'redo', 'set-background', 'clear-background', 'update-grid-color', 'update-grid-opacity', 'update-show-paths', 'toggle-active-tabletop', 'switch-tabletop'])
+const emit = defineEmits(['zoom-in', 'zoom-out', 'increase-grid', 'decrease-grid', 'increase-map-scale', 'decrease-map-scale', 'clear-all', 'undo', 'redo', 'set-background', 'clear-background', 'update-grid-color', 'update-grid-opacity', 'update-show-paths', 'toggle-active-tabletop', 'switch-tabletop', 'clear-log'])
 
 const showBgInput = ref(false)
 const bgUrlDraft = ref('')

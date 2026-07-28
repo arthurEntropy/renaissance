@@ -31,14 +31,14 @@
                     :ref="(el) => registerTokenRef(item.id, el)"
                     :class="{ 'is-dragging': isDragging(item.id), 'is-hidden-token': item.isHidden }"
                     :style="{ transform: `translate(${item.x}px, ${item.y}px)`, zIndex: item.zIndex }"
-                    @mousedown="(e) => { dismissBubble(item.id); handleTokenMousedown(item, e); handleTokenRightClick(item, e) }">
+                    @mousedown="(e) => { dismissBubble(item.id); handleTokenMousedown(item, e); handleTokenRightClick(item, e); handleTokenCmdClick(item, e) }">
                     <TabletopToken :name="item.name" :portrait-url="item.portraitUrl" :is-beast="item.isBeast"
                         :is-npc="item.isNpc" :size="item.size" :grid-size="gridSize" :is-selected="isSelected(item.id)"
                         :in-engagement="isCharacterInEngagement(item)" />
                     <TabletopTokenInfoArea
                         v-if="singleSelectedToken?.id === item.id && canViewTokenInfo && !activeBubbles[item.id]"
                         :character="singleSelectedCharacter" :can-edit="canEditTokenInfo"
-                        :is-in-engagement="canSpectateSelectedToken" :can-toggle-visibility="isGM"
+                        :is-in-engagement="canSpectateSelectedToken" :can-toggle-visibility="isGM" :cmd-held="isCmdHeld"
                         :is-hidden="item.isHidden ?? false" @expand="openCharacterSheetPopup"
                         @spectate="openSpectatePopup" @character-saved="onCharacterSaved"
                         @toggle-visibility="toggleTokenVisibility" />
@@ -108,7 +108,8 @@
                     @undo="undo" @redo="redo" @set-background="setBackgroundImage"
                     @clear-background="clearBackgroundImage" @update-grid-color="setGridColor"
                     @update-grid-opacity="setGridOpacity" @update-show-paths="setShowPaths"
-                    @toggle-active-tabletop="handleToggleActiveTabletop" @switch-tabletop="handleSwitchTabletop" />
+                    @toggle-active-tabletop="handleToggleActiveTabletop" @switch-tabletop="handleSwitchTabletop"
+                    @clear-log="clearRollLog" />
             </div>
         </Teleport>
 
@@ -249,6 +250,7 @@ const {
     rollLog,
     rollLogExpanded,
     setRollLogExpanded,
+    clearRollLog,
     applyExternalState,
 } = useTabletopCanvas(campaignId, tabletopId, {
     onStateSaved: (snapshot) => broadcastStateUpdate(snapshot),
@@ -293,7 +295,7 @@ watch(canvasItems, (items) => {
     for (const charId of removedCharacterIds) {
         characterContextStore.removeCharacterFromPinnedGroups(charId)
     }
-}, { immediate: true })
+}, { immediate: true, deep: true })
 
 // ─── Roll log + speech bubbles ───────────────────────────────────────────────
 const {
@@ -449,6 +451,19 @@ const charSheetPopupCharacter = ref(null)
 
 function openCharacterSheetPopup() {
     const char = singleSelectedCharacter.value
+    if (!char) return
+    charSheetPopupCharacter.value = char
+    charSheetPopupOpen.value = true
+}
+
+/**
+ * Cmd/Ctrl+left-click a token to immediately open its CharacterSheetPopup
+ * in addition to the normal selection behaviour (handled by handleTokenMousedown).
+ */
+function handleTokenCmdClick(item, e) {
+    if (e.button !== 0 || (!e.metaKey && !e.ctrlKey) || e.shiftKey) return
+    if (!item.characterId) return
+    const char = resolveCharacterById(item.characterId)
     if (!char) return
     charSheetPopupCharacter.value = char
     charSheetPopupOpen.value = true
