@@ -117,6 +117,7 @@ const selectOption = (value) => {
     font-size: var(--font-size-13);
     font-weight: var(--font-weight-normal);
     color: var(--color-text-secondary);
+    text-wrap: nowrap;
 }
 
 .sort-select {

@@ -31,26 +31,12 @@
             <div class="settings-divider"></div>
             <div class="settings-actions-content">
                 <!-- PC → NPC conversion -->
-                <template v-if="showConvertToNPCButton">
-                    <div v-if="pendingConvertToNPCCampaignId" class="pending-conversion">
-                        <span class="pending-label">Converting to NPC</span>
-                        <ActionButton variant="neutral" size="small" text="Cancel"
-                            @click="pendingConvertToNPCCampaignId = ''" />
-                    </div>
-                    <ActionButton v-else variant="outline" size="small" text="Convert to NPC"
-                        @click="showConvertToNpcModal = true" />
-                </template>
+                <ActionButton v-if="showConvertToNPCButton" variant="outline" size="small" text="Convert to NPC"
+                    @click="showConvertToNpcModal = true" />
 
                 <!-- NPC → PC conversion -->
-                <template v-if="showConvertToPCButton">
-                    <div v-if="pendingConvertToPC" class="pending-conversion">
-                        <span class="pending-label">Converting to Player Character</span>
-                        <ActionButton variant="neutral" size="small" text="Cancel"
-                            @click="pendingConvertToPC = false" />
-                    </div>
-                    <ActionButton v-else variant="outline" size="small" text="Convert to Player Character"
-                        @click="showConvertToPcModal = true" />
-                </template>
+                <ActionButton v-if="showConvertToPCButton" variant="outline" size="small"
+                    text="Convert to Player Character" @click="showConvertToPcModal = true" />
 
                 <!-- Transfer Ownership -->
                 <ActionButton v-if="showTransferOwnershipButton" variant="outline" size="small"
@@ -86,7 +72,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, nextTick } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { Bars3Icon } from '@heroicons/vue/24/outline'
 import draggable from 'vuedraggable'
 import { useCharactersStore } from '@/stores/charactersStore'
@@ -200,17 +186,40 @@ const showConvertToPcModal = ref(false)
 const showTransferModal = ref(false)
 const showDeleteModal = ref(false)
 
-// Type conversion pending state
-const pendingConvertToNPCCampaignId = ref('')
-const pendingConvertToPC = ref(false)
-
 const onConvertToNpcConfirm = (campaignId) => {
-    pendingConvertToNPCCampaignId.value = campaignId
     showConvertToNpcModal.value = false
+    const char = charactersStore.selectedCharacter
+    if (!char || !campaignId) return
+    char.characterType = 'npc'
+    char.campaignId = campaignId
+    const charId = char.id
+    campaignStore.campaigns.forEach(campaign => {
+        campaign.members?.forEach(member => {
+            if (member.characterIds?.includes(charId)) {
+                const updatedIds = member.characterIds.filter(id => id !== charId)
+                campaignStore.updateMemberCharacters(campaign.id, member.userId, updatedIds)
+            }
+        })
+    })
 }
+
 const onConvertToPcConfirm = () => {
-    pendingConvertToPC.value = true
     showConvertToPcModal.value = false
+    const char = charactersStore.selectedCharacter
+    if (!char) return
+    char.characterType = 'playerCharacter'
+    const campaignId = char.campaignId
+    const ownerId = char.ownerId
+    if (campaignId && ownerId) {
+        const campaign = campaignStore.getById(campaignId)
+        const member = campaign?.members?.find(m => m.userId === ownerId)
+        if (member) {
+            const currentIds = member.characterIds || []
+            if (!currentIds.includes(char.id)) {
+                campaignStore.updateMemberCharacters(campaignId, ownerId, [...currentIds, char.id])
+            }
+        }
+    }
 }
 
 // Form data for settings that need explicit save
@@ -220,7 +229,7 @@ const closeModal = () => {
     emit('close')
 }
 
-const saveChanges = async () => {
+const saveChanges = () => {
     const char = charactersStore.selectedCharacter
     if (!char) return
 
@@ -232,39 +241,6 @@ const saveChanges = async () => {
         char.isPublicPreview = formData.value.isPublicPreview
     }
 
-    // Apply type conversions
-    if (pendingConvertToPC.value && isNPCChar.value) {
-        char.characterType = 'playerCharacter'
-        const campaignId = char.campaignId
-        const ownerId = char.ownerId
-        if (campaignId && ownerId) {
-            const campaign = campaignStore.getById(campaignId)
-            const member = campaign?.members?.find(m => m.userId === ownerId)
-            if (member) {
-                const currentIds = member.characterIds || []
-                if (!currentIds.includes(char.id)) {
-                    campaignStore.updateMemberCharacters(campaignId, ownerId, [...currentIds, char.id])
-                }
-            }
-        }
-        pendingConvertToPC.value = false
-    } else if (pendingConvertToNPCCampaignId.value && isPlayerChar.value) {
-        char.characterType = 'npc'
-        char.campaignId = pendingConvertToNPCCampaignId.value
-        const charId = char.id
-        campaignStore.campaigns.forEach(campaign => {
-            campaign.members?.forEach(member => {
-                if (member.characterIds?.includes(charId)) {
-                    const updatedIds = member.characterIds.filter(id => id !== charId)
-                    campaignStore.updateMemberCharacters(campaign.id, member.userId, updatedIds)
-                }
-            })
-        })
-        pendingConvertToNPCCampaignId.value = ''
-    }
-
-    // Allow reactivity to settle so the pending-conversion UI hides before modal closes
-    await nextTick()
     closeModal()
 }
 

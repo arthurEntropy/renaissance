@@ -3,18 +3,24 @@
         <div class="info-stat">
             <HeartIcon class="info-icon" />
             <input type="number" class="info-input" :value="character?.endurance?.current ?? 0" :disabled="!canEdit"
-                min="0" @change="onEnduranceChange" @focus="$event.target.select()" />
+                min="0" @change="onEnduranceChange" @focus="$event.target.select()"
+                @keydown.enter.prevent="$event.target.blur()" />
         </div>
         <div class="info-actions">
             <FloatingActionButton v-if="isInEngagement" :variant="FAB_TYPES.SPECTATE" :size="FAB_SIZES.SMALL"
                 :visibility="FAB_VISIBILITIES.ALWAYS" class="info-spectate-btn" @click.stop="$emit('spectate')" />
             <FloatingActionButton :variant="FAB_TYPES.EXPAND" :size="FAB_SIZES.SMALL"
                 :visibility="FAB_VISIBILITIES.ALWAYS" class="info-expand-btn" @click.stop="$emit('expand')" />
+            <FloatingActionButton v-if="canToggleVisibility && cmdHeld" :variant="FAB_TYPES.VISIBILITY"
+                :size="FAB_SIZES.SMALL" :visibility="FAB_VISIBILITIES.ALWAYS" :is-active="!isHidden"
+                :title="isHidden ? 'Hidden from players (click to show)' : 'Visible to players (click to hide)'"
+                class="info-visibility-btn" @click.stop="$emit('toggle-visibility')" />
         </div>
         <div class="info-stat">
             <ShieldIcon class="info-icon" />
             <input type="number" class="info-input" :value="character?.defense?.current ?? 0" :disabled="!canEdit"
-                min="0" @change="onDefenseChange" @focus="$event.target.select()" />
+                min="0" @change="onDefenseChange" @focus="$event.target.select()"
+                @keydown.enter.prevent="$event.target.blur()" />
         </div>
     </div>
 </template>
@@ -37,9 +43,12 @@ const props = defineProps({
     character: { type: Object, default: null },
     canEdit: { type: Boolean, default: false },
     isInEngagement: { type: Boolean, default: false },
+    canToggleVisibility: { type: Boolean, default: false },
+    isHidden: { type: Boolean, default: false },
+    cmdHeld: { type: Boolean, default: false },
 })
 
-const emit = defineEmits(['expand', 'spectate', 'character-saved'])
+const emit = defineEmits(['expand', 'spectate', 'character-saved', 'toggle-visibility'])
 
 const charactersStore = useCharactersStore()
 
@@ -152,7 +161,7 @@ function onDefenseChange(e) {
 }
 
 .info-input:disabled {
-    opacity: 0.7;
+    opacity: 0.5;
     cursor: default;
     border-color: transparent;
     background: transparent;
@@ -177,5 +186,9 @@ function onDefenseChange(e) {
 
 .info-spectate-btn {
     flex-shrink: 0;
+}
+
+.fab--always {
+    opacity: 1;
 }
 </style>

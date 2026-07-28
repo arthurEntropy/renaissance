@@ -85,13 +85,15 @@ export const useRollsStore = defineStore('rolls', () => {
 
   // Set a roll for a specific character (multi-character aware)
   function setRollForCharacter(rollResult, characterId, batchId = null) {
+    // Always add to rollsById so chatlog/bubbles pick it up even for characters
+    // not in the main store (e.g. NPCs only in campaignStore).
+    const rollId = addRoll(rollResult, characterId, batchId)
+
     const character = charactersStore.getById(characterId)
     if (!character) {
-      console.warn(`Character not found: ${characterId}`)
-      return
+      // Character not in main store – log the roll for display but skip stats tracking.
+      return rollId
     }
-    
-    const rollId = addRoll(rollResult, characterId, batchId)
     
     // Apply stats and schedule persist
     applyRollToCharacterStats(character, rollResult)
@@ -201,13 +203,14 @@ export const useRollsStore = defineStore('rolls', () => {
       const rollResult = module.default.makeCustomRoll(dicePool, modifier, character)
       setRoll(rollResult)
     } else if (currentRoll.type === 'damage') {
-      const { dicePool, modifier, character, rollName, baseSkillName, sourceName, modifierLabel } = currentRoll._rerollData
+      const { dicePool, modifier, character, rollName, baseSkillName, sourceName, modifierLabel, illFavored } = currentRoll._rerollData
       const module = await import('@/services/rolls/damageRollService')
       const rollResult = module.default.makeDamageRoll(dicePool, modifier, character, {
         rollName,
         baseSkillName,
         sourceName,
-        modifierLabel
+        modifierLabel,
+        illFavored,
       })
       setRoll(rollResult)
     } else if (currentRoll.type === 'initiative') {

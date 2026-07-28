@@ -5,6 +5,11 @@
     <TableHeader title="Abilities" :is-edit-mode="internalEditMode" :show-edit-button="canEdit" collapsible
       :is-collapsed="isCollapsed" @toggle-collapse="isCollapsed = !isCollapsed" @toggle-edit="toggleEditMode">
       <template #header-left>
+        <!-- Expand/collapse FAB sits between the edit button (rendered by TableHeader) and the add FAB -->
+        <FloatingActionButton v-if="!isCollapsed && characterAbilities.length > 0" class="expand-collapse-btn"
+          :variant="allAbilitiesExpanded ? FAB_TYPES.COLLAPSE_ALL : FAB_TYPES.EXPAND_ALL" :size="FAB_SIZES.SMALL"
+          :visibility="internalEditMode ? FAB_VISIBILITIES.ALWAYS : FAB_VISIBILITIES.ON_HOVER"
+          @click="toggleAllAbilities" />
         <FloatingActionButton v-if="internalEditMode" :variant="FAB_TYPES.ADD" :size="FAB_SIZES.SMALL"
           :visibility="FAB_VISIBILITIES.ALWAYS" @click="openAbilitySelectorFromButton" />
         <ActionButton v-if="internalEditMode && groupingOption === 'custom'" variant="outline" size="small"
@@ -16,9 +21,6 @@
             placeholder="Ungrouped" />
           <SortingPicker v-model="abilitySortOption" :options="sortOptions" label="Order by:" placeholder="Custom" />
         </div>
-        <FloatingActionButton v-else-if="!isCollapsed && characterAbilities.length > 0" class="expand-collapse-btn"
-          :variant="allAbilitiesExpanded ? FAB_TYPES.COLLAPSE_ALL : FAB_TYPES.EXPAND_ALL" :size="FAB_SIZES.SMALL"
-          :visibility="FAB_VISIBILITIES.ON_HOVER" @click="toggleAllAbilities" />
       </template>
       <template #header-right>
         <div class="mp-display-container">
@@ -86,7 +88,7 @@
 
     <!-- Skill Check Modal -->
     <SkillCheckModal v-if="showSkillCheckModal" :selected-skill-key="rollLinkSkillKey" :character="selectedCharacter"
-      :default-roll-type="rollLinkRollType" :default-dice-mod="rollLinkBiomeDiceMod"
+      :default-roll-type="rollLinkRollType" :default-dice-mod="rollLinkBiomeDiceMod" :source-name="rollLinkSourceName"
       @close="showSkillCheckModal = false" />
 
     <!-- Damage/Custom Roll Modal -->
@@ -162,6 +164,7 @@ const showSkillCheckModal = ref(false)
 const rollLinkSkillKey = ref(null)
 const rollLinkRollType = ref(null)
 const rollLinkBiomeDiceMod = ref(0)
+const rollLinkSourceName = ref(null)
 const showDamageRollModal = ref(false)
 const damageRollModalConfig = ref(null)
 
@@ -388,6 +391,7 @@ const handleRollLink = (rollData) => {
     // Contest links open as unopposed (no difficulty)
     rollLinkRollType.value = rollData.type === 'contest' ? 'unopposed' : RollTypes.SKILL_CHECK
     rollLinkBiomeDiceMod.value = rollData.biomeDiceMod ?? 0
+    rollLinkSourceName.value = rollData.abilityName || null
     showSkillCheckModal.value = true
   } else if (rollData.type === 'damage-roll') {
     // Build initial dice counts for CustomRollModal
@@ -412,7 +416,7 @@ const handleRollLink = (rollData) => {
       initialDiceCounts,
       initialModifier: modifierValue,
       rollName: rollData.linkText || 'Damage',
-      sourceName: 'Description',
+      sourceName: rollData.abilityName || null,
       rollMode: 'damage',
       title: 'Damage Roll',
       initialActiveStatKey,
@@ -443,7 +447,7 @@ const handleRollLink = (rollData) => {
       initialDiceCounts,
       initialModifier: modifierValue,
       rollName: rollData.linkText || 'Custom Roll',
-      sourceName: 'Description',
+      sourceName: rollData.abilityName || null,
       rollMode: 'custom',
       title: 'Custom Roll',
       initialActiveStatKey,

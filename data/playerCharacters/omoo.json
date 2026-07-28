@@ -8,7 +8,10 @@
   "featuredArtUrls": [
     "https://cdn.midjourney.com/afe2f988-0990-418f-8b54-5ebf57c70560/0_1.png"
   ],
-  "speed": 60,
+  "speed": {
+    "current": 60,
+    "base": 60
+  },
   "notes": "",
   "body": 0,
   "heart": 4,
@@ -347,8 +350,6 @@
   "xp": 3,
   "updatedAt": "2026-07-21T12:54:29.777Z",
   "description": "",
-  "size": 0,
-  "reach": 0,
   "featuredArtUrl": "https://cdn.midjourney.com/afe2f988-0990-418f-8b54-5ebf57c70560/0_1.png",
   "manualSpeedMod": -10,
   "sectionOrder": [

@@ -23,9 +23,16 @@
       <BadgeDisplay
         v-if="showKeepingBadge && (keepingCost !== null || !!character) && (characterOwnsAnyImprovements || showImprovements)"
         type="keeping" :value="keepingCost" :is-owned="characterHasBaseEquipment" :asImprovementBadge="true"
-        :is-interactive="!!character"
+        :is-interactive="!!character && !readonlyBadge"
         :hidden-by-default="keepingBadgeHiddenByDefault || (keepingCost === null && !characterHasBaseEquipment)"
         @toggle="handleBaseEquipmentToggle" />
+      <!-- Attack roll FAB — shown for weapon-type items when a character context is present.
+           showAttackFab can be set to false by card-preview overlays when the viewer
+           is not the character owner and not a GM. -->
+      <div v-if="isWeapon && character && showAttackFab" class="attack-roll-fab-host">
+        <FloatingActionButton :variant="FAB_TYPES.ATTACK" :size="FAB_SIZES.SMALL"
+          :visibility="FAB_VISIBILITIES.ON_HOVER" @click.stop="handleAttackButtonClick" />
+      </div>
     </template>
 
     <template #after-description>
@@ -102,7 +109,8 @@
     <template #badges>
       <BadgeDisplay
         v-if="!collapsed && showKeepingBadge && (keepingCost !== null || !!character) && !characterOwnsAnyImprovements && !showImprovements"
-        type="keeping" :value="keepingCost" :is-owned="characterHasBaseEquipment" :is-interactive="!!character"
+        type="keeping" :value="keepingCost" :is-owned="characterHasBaseEquipment"
+        :is-interactive="!!character && !readonlyBadge"
         :hidden-by-default="keepingBadgeHiddenByDefault || (keepingCost === null && !characterHasBaseEquipment)"
         @toggle="handleBaseEquipmentToggle" />
 
@@ -130,6 +138,23 @@
       <!-- Difficulty badge for Hunter's Traps and other difficulty-setting equipment -->
       <DifficultyBadge v-if="showDifficultyBadge && hasDifficultyBadge" :value="trapDifficulty" :readonly="!character"
         @update:value="handleTrapDifficultyUpdate" />
+
+      <!-- Skill selection menu for weapons that can use Strength or Dexterity -->
+      <CascadeMenuFrame v-if="showAttackSkillMenu" :overlay="false" :anchor-position="attackMenuPosition"
+        anchor-mode="anchorY" :close-on-outside-click="true" @close="showAttackSkillMenu = false">
+        <div class="cascade-col attack-skill-col">
+          <div class="cascade-item-wrap cascade-item-wrap--leaf" @click="selectAttackSkill('Strength')">
+            <button class="cascade-btn cascade-btn--leaf" tabindex="-1">
+              <span class="cascade-btn-label">Strength</span>
+            </button>
+          </div>
+          <div class="cascade-item-wrap cascade-item-wrap--leaf" @click="selectAttackSkill('Dexterity')">
+            <button class="cascade-btn cascade-btn--leaf" tabindex="-1">
+              <span class="cascade-btn-label">Dexterity</span>
+            </button>
+          </div>
+        </div>
+      </CascadeMenuFrame>
 
       <!-- Discovery modal for Mesmer's Masks -->
       <MesmerDiscoverModal v-if="showDiscoverModal && equipment.school && character" :school="equipment.school"
@@ -192,6 +217,7 @@ import ImprovementsSection from '@/components/ui/cards/item/ImprovementsSection.
 import SuccessesSection from '@/components/ui/cards/item/SuccessesSection.vue'
 import ConfirmPurchaseModal from '@/components/ui/modals/ConfirmPurchaseModal.vue'
 import ConfirmRemovalModal from '@/components/ui/modals/ConfirmRemovalModal.vue'
+import CascadeMenuFrame from '@/components/ui/pickers/CascadeMenuFrame.vue'
 import CharacterService from '@/services/entities/characterService'
 import { scheduleStatsRefund } from '@/composables/useCharacterStatWatchers'
 import { getDiceFontMaxClass } from '@/utils/diceFontUtils'
@@ -298,6 +324,18 @@ const props = defineProps({
   showTransferButton: {
     type: Boolean,
     default: false
+  },
+  // When true, the keeping badge always shows its cost/owned state but is never
+  // interactive (no +Add / -Remove on hover). Used in preview overlays.
+  readonlyBadge: {
+    type: Boolean,
+    default: false
+  },
+  // When false, the attack roll FAB is hidden regardless of character context.
+  // Used by CardPreviewOverlay when the viewer is not the character owner or GM.
+  showAttackFab: {
+    type: Boolean,
+    default: true
   }
 })
 
@@ -444,6 +482,45 @@ const isWeapon = computed(() => {
   const type = equipmentTypesStore.getById(props.equipment.type)
   return type?.name === 'Weapon' // TODO: Figure out a way to avoid using string comparison here
 })
+
+// Which skill(s) are appropriate for an attack roll with this weapon:
+// - Ranged/Firearm subtype → always Dexterity
+// - Other weapons with Thrown or Finesse → player chooses Strength or Dexterity
+// - All other weapons → always Strength
+const attackSkillOptions = computed(() => {
+  if (!isWeapon.value) return []
+  const subtype = equipmentSubtypesStore.getById(props.equipment.subtype)
+  const subtypeName = subtype?.name?.toLowerCase()
+  if (subtypeName === 'ranged' || subtypeName === 'firearm') {
+    return ['Dexterity']
+  }
+  if (props.equipment.thrown || props.equipment.finesse) {
+    return ['Strength', 'Dexterity']
+  }
+  return ['Strength']
+})
+
+const showAttackSkillMenu = ref(false)
+const attackMenuPosition = ref({ x: 0, y: 0 })
+
+function handleAttackButtonClick(event) {
+  const options = attackSkillOptions.value
+  if (options.length === 1) {
+    emit('roll-link', { type: 'skill-check', skill: options[0], sourceName: props.equipment.name })
+    return
+  }
+  const rect = event.currentTarget.getBoundingClientRect()
+  attackMenuPosition.value = {
+    x: Math.max(4, rect.right - 200),
+    y: rect.bottom + 4,
+  }
+  showAttackSkillMenu.value = true
+}
+
+function selectAttackSkill(skillLabel) {
+  showAttackSkillMenu.value = false
+  emit('roll-link', { type: 'skill-check', skill: skillLabel, sourceName: props.equipment.name })
+}
 
 const hasDiceSection = computed(() =>
   (props.equipment.engagementDice?.length > 0) || (props.equipment.damageDice?.length > 0)
@@ -592,7 +669,9 @@ const handleDamageRoll = () => {
     return
   }
 
-  emit('roll-damage', props.equipment)
+  // Pass lacksTraining so parent components (EquipmentTable, CardPreviewOverlay)
+  // can pre-set the damage roll modal to ill-favored when the character is untrained.
+  emit('roll-damage', { equipment: props.equipment, lacksTraining: lacksTraining.value })
 }
 
 const handleImprovementToggle = (improvementId) => {
@@ -691,6 +770,7 @@ onMounted(async () => {
 
 <style scoped>
 @import '@/styles/design-tokens.css';
+@import '@/styles/cascade-picker.css';
 
 /* Defense Bonus Display */
 .defense-bonus-display {
@@ -800,9 +880,16 @@ onMounted(async () => {
   font-size: var(--font-size-12);
 }
 
+/* Attack Roll FAB host — positioned at the top-right of the description area */
+.attack-roll-fab-host {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: var(--z-interactive);
+}
+
 /* Bottom Buttons */
 .bottom-buttons {
-  position: absolute;
   bottom: -10px;
   background: none;
   border: none;

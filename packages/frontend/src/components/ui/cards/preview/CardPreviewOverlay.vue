@@ -7,27 +7,31 @@
                 <AbilityCard v-if="previewAbility" :ability="previewAbility" :collapsed="false" :collapsible="false"
                     :editable="false" :show-xp-badge="true" :show-action-buttons="false" :character="previewCharacter"
                     :show-improvement-toggle="false" :show-improvements="previewShowImprovements"
-                    :show-successes="previewShowSuccesses" @update:showImprovements="previewShowImprovements = $event"
+                    :show-successes="previewShowSuccesses" :readonly-badge="true"
+                    @update:showImprovements="previewShowImprovements = $event"
                     @update:showSuccesses="previewShowSuccesses = $event" @roll-link="handlePreviewRollLink" />
                 <EquipmentCard v-else-if="previewEquipment" :equipment="previewEquipment" :collapsed="false"
                     :collapsible="false" :editable="false" :duplicatable="false" :show-keeping-badge="true"
                     :character="previewCharacter" :show-improvement-toggle="false"
                     :show-improvements="previewShowImprovements" :engagement-success-options="[]"
-                    :enable-damage-roll="false" :show-successes="previewShowSuccesses"
+                    :enable-damage-roll="canRollFromPreview" :show-attack-fab="canRollFromPreview"
+                    :show-successes="previewShowSuccesses" :readonly-badge="true"
                     @update:showImprovements="previewShowImprovements = $event"
-                    @update:showSuccesses="previewShowSuccesses = $event" @roll-link="handlePreviewRollLink" />
+                    @update:showSuccesses="previewShowSuccesses = $event" @roll-link="handlePreviewRollLink"
+                    @roll-damage="handlePreviewRollDamage" />
             </div>
         </Transition>
 
         <!-- Roll modals spawned from preview roll-link clicks -->
         <SkillCheckModal v-if="showSkillCheckModal && previewCharacter" :selected-skill-key="rollLinkSkillKey"
             :character="previewCharacter" :default-roll-type="rollLinkRollType" :default-dice-mod="rollLinkDiceMod"
-            @close="showSkillCheckModal = false" />
+            :source-name="rollLinkSourceName" @close="showSkillCheckModal = false" />
         <CustomRollModal v-if="showRollModal && rollModalConfig && previewCharacter" :title="rollModalConfig.title"
             :character="previewCharacter" :initial-dice-counts="rollModalConfig.initialDiceCounts"
             :initial-modifier="rollModalConfig.initialModifier" :roll-name="rollModalConfig.rollName"
             :source-name="rollModalConfig.sourceName" :roll-mode="rollModalConfig.rollMode"
-            :initial-active-stat-key="rollModalConfig.initialActiveStatKey" @close="showRollModal = false" />
+            :initial-active-stat-key="rollModalConfig.initialActiveStatKey"
+            :initial-ill-favored="rollModalConfig.initialIllFavored ?? false" @close="showRollModal = false" />
     </Teleport>
 </template>
 
@@ -39,6 +43,8 @@ import SkillCheckModal from '@/components/features/characterSheet/modals/SkillCh
 import CustomRollModal from '@/components/features/characterSheet/customDiceRoller/CustomRollModal.vue'
 import { useCardPreview } from '@/composables/useCardPreview'
 import { useCharactersStore } from '@/stores/charactersStore'
+import { useAuthStore } from '@/stores/authStore'
+import { useCampaignStore } from '@/stores/campaignStore'
 import { RollTypes } from '@/constants/rollTypes'
 import { getModifierStatKey } from '@/utils/characterKeyUtils'
 import { SKILLS } from '@shared/constants/characterConstants'
@@ -47,9 +53,22 @@ const PREVIEW_WIDTH = 350
 const GAP = 12
 const VIEWPORT_MARGIN = 8
 
-const { previewAbility, previewEquipment, anchorRect, scheduleHide, cancelHide } = useCardPreview()
+const { previewAbility, previewEquipment, previewCharacterOverride, anchorRect, scheduleHide, cancelHide } = useCardPreview()
 const charactersStore = useCharactersStore()
-const previewCharacter = computed(() => charactersStore.selectedCharacter)
+const authStore = useAuthStore()
+const campaignStore = useCampaignStore()
+const previewCharacter = computed(() => previewCharacterOverride.value ?? charactersStore.selectedCharacter)
+
+// When there is a character override (preview triggered from chatlog hover), restrict
+// rolling to the character owner and the GM.  If no override is set the preview was
+// triggered by hovering a collapsed card in the character sheet – the user is already
+// viewing their own character so rolling is always permitted.
+const canRollFromPreview = computed(() => {
+    if (!previewCharacterOverride.value) return true
+    if (campaignStore.isGMInActiveCampaign) return true
+    const uid = authStore.user?.uid
+    return !!uid && previewCharacterOverride.value.ownerId === uid
+})
 
 const overlayEl = ref(null)
 // Tracks the rendered height of the overlay so we can clamp it to the viewport.
@@ -64,6 +83,7 @@ const showSkillCheckModal = ref(false)
 const rollLinkSkillKey = ref(null)
 const rollLinkRollType = ref(null)
 const rollLinkDiceMod = ref(0)
+const rollLinkSourceName = ref(null)
 const showRollModal = ref(false)
 const rollModalConfig = ref(null)
 
@@ -96,7 +116,7 @@ watch(
 )
 
 function handlePreviewRollLink(rollData) {
-    if (!previewCharacter.value) return
+    if (!previewCharacter.value || !canRollFromPreview.value) return
 
     // Dismiss the preview overlay when a roll modal is about to open
     scheduleHide()
@@ -106,6 +126,7 @@ function handlePreviewRollLink(rollData) {
         // Contest links open as unopposed (no difficulty)
         rollLinkRollType.value = rollData.type === 'contest' ? 'unopposed' : RollTypes.SKILL_CHECK
         rollLinkDiceMod.value = rollData.biomeDiceMod ?? 0
+        rollLinkSourceName.value = rollData.sourceName ?? null
         showSkillCheckModal.value = true
     } else if (rollData.type === 'damage-roll' || rollData.type === 'custom-roll') {
         const initialDiceCounts = {}
@@ -136,6 +157,33 @@ function handlePreviewRollLink(rollData) {
         }
         showRollModal.value = true
     }
+}
+
+// Handles the roll-damage event emitted by EquipmentCard when the damage dice
+// icons are clicked.  The payload includes the equipment and whether the
+// character lacks martial training (so we can pre-set ill-favored).
+function handlePreviewRollDamage({ equipment, lacksTraining }) {
+    if (!previewCharacter.value || !canRollFromPreview.value) return
+
+    scheduleHide()
+
+    const damageDice = Array.isArray(equipment?.damageDice) ? equipment.damageDice : []
+    const initialDiceCounts = {}
+    damageDice.forEach(size => {
+        initialDiceCounts[size] = (initialDiceCounts[size] || 0) + 1
+    })
+
+    rollModalConfig.value = {
+        initialDiceCounts,
+        initialModifier: previewCharacter.value.body || 0,
+        rollName: equipment?.name || 'Damage',
+        sourceName: equipment?.name || null,
+        rollMode: 'damage',
+        title: 'Damage Roll',
+        initialActiveStatKey: 'body',
+        initialIllFavored: !!lacksTraining,
+    }
+    showRollModal.value = true
 }
 
 const overlayStyle = computed(() => {

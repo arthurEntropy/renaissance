@@ -573,8 +573,14 @@ const createAbility = async () => {
 const handleUpdate = async (data) => {
   // Handle both ability updates (from toggleActive) and character updates (from improvement toggles)
   if (data.abilities || data.equipment) {
-    // This is a character update
-    await charactersStore.update(data)
+    // This is a character update. Merge into selectedCharacter.value in place so the
+    // store reference stays connected to allItems, preventing stale auto-saves from
+    // overwriting the change after the server round-trip.
+    const sc = selectedCharacter.value
+    if (sc) {
+      Object.assign(sc, data)
+      await charactersStore.update(sc)
+    }
   } else {
     // This is an ability update
     await abilitiesStore.update(data)

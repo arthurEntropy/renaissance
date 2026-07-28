@@ -7,6 +7,10 @@
                 <SortingPicker v-model="groupingOption" :options="groupingOptions" label="Group by:"
                     placeholder="None" />
                 <SortingPicker v-model="sortOption" :options="sortOptions" label="Order by:" />
+                <label v-if="character" class="hide-untrained-toggle">
+                    <input type="checkbox" v-model="hideUntrained" />
+                    <span>Hide Untrained</span>
+                </label>
             </template>
 
             <template v-if="isEditMode" #header-right>
@@ -52,6 +56,7 @@ import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.v
 import { FAB_TYPES, FAB_VISIBILITIES } from '@/constants/fab'
 import { sortItems } from '@/utils/sortItems'
 import { EQUIPMENT_SORT_OPTIONS, EQUIPMENT_GROUP_BY_OPTIONS, filterAdminSortOptions } from '@/constants/sortOptions'
+import { ARMOR_TYPE_ID } from '@/constants/armorConstants'
 import { useFilterPersistence } from '@/composables/useFilterPersistence'
 import { useCharactersStore } from '@/stores/charactersStore'
 import { useEquipmentStore } from '@/stores/equipmentStore'
@@ -96,8 +101,9 @@ const groupingOptions = EQUIPMENT_GROUP_BY_OPTIONS.filter(o => o.value !== 'sour
 
 const sortOption = ref('keeping-asc')
 const groupingOption = ref('')
+const hideUntrained = ref(false)
 
-useFilterPersistence('concept-equipment', { sortOption, groupingOption })
+useFilterPersistence('concept-equipment', { sortOption, groupingOption, hideUntrained })
 
 const isGrouped = computed(() => !!groupingOption.value)
 
@@ -122,6 +128,11 @@ const groupedEquipment = computed(() => {
             const grade = equipmentGradesStore.getById(item.grade)
             groupName = grade?.name || 'Unknown Grade'
             groupIndex = grade?.index ?? 999
+        } else if (groupingOption.value === 'keeping') {
+            const keeping = keepingStore.getById(item.keeping)
+            groupId = item.keeping || '__unknown-keeping__'
+            groupName = keeping ? keeping.name : 'Unknown Keeping'
+            groupIndex = keeping?.cost ?? 999
         }
         if (!groups[groupId]) {
             groups[groupId] = { id: groupId, name: groupName, index: groupIndex, collapsed: false, items: [] }
@@ -130,6 +141,7 @@ const groupedEquipment = computed(() => {
     })
     return Object.values(groups).sort((a, b) => {
         if (groupingOption.value === 'grade') return a.index - b.index
+        if (groupingOption.value === 'keeping') return a.index - b.index
         return a.name.localeCompare(b.name)
     })
 })
@@ -138,16 +150,48 @@ const equipment = computed(() =>
     equipmentStore.equipment.filter(e => e.source === concept.value?.id)
 )
 
+/**
+ * Returns true if the selected character lacks martial training for the given equipment item.
+ */
+const itemLacksTrainingForChar = (item) => {
+    const char = character.value
+    if (!char) return false
+    let key = null
+    if (item.type === ARMOR_TYPE_ID) {
+        key = 'armorGrades'
+    } else {
+        const typeObj = equipmentTypesStore.getById(item.type)
+        if (typeObj?.name === 'Weapon') {
+            const subtype = equipmentSubtypesStore.getById(item.subtype)
+            const subtypeName = subtype?.name?.toLowerCase()
+            if (['melee', 'polearm', 'ranged', 'firearm'].includes(subtypeName)) {
+                key = `${subtypeName}Grades`
+            }
+        }
+    }
+    if (!key) return false
+    if (!item.grade) return false
+    const mestiere = conceptsStore.mestieri.find(m => m.id === char.mestiereId)
+    const mestiereGrades = mestiere?.novizio?.martialTraining?.[key] ?? []
+    const manualGrades = char.martialTrainingOverrides?.[key] ?? []
+    const trainedGrades = [...new Set([...mestiereGrades, ...manualGrades])]
+    return !trainedGrades.includes(item.grade)
+}
+
 const sortedEquipment = computed(() => {
+    let items = equipment.value
+    if (hideUntrained.value && character.value) {
+        items = items.filter(item => !itemLacksTrainingForChar(item))
+    }
     if (sortOption.value === 'keeping-asc' || sortOption.value === 'keeping-desc') {
         const dir = sortOption.value === 'keeping-asc' ? 1 : -1
-        return [...equipment.value].sort((a, b) => {
+        return [...items].sort((a, b) => {
             const aCost = keepingStore.getById(a.keeping)?.cost ?? 0
             const bCost = keepingStore.getById(b.keeping)?.cost ?? 0
             return dir * (aCost - bCost)
         })
     }
-    return sortItems(equipment.value, sortOption.value)
+    return sortItems(items, sortOption.value)
 })
 
 const hasEquipment = computed(() => equipment.value.length > 0)
@@ -165,7 +209,11 @@ const updateEquipmentShowImprovements = (equipmentId, showImprovements) => {
 
 const handleCharacterUpdate = async (updatedCharacter) => {
     if (updatedCharacter && character.value) {
-        await charactersStore.update(updatedCharacter)
+        // Merge changes into selectedCharacter.value in place so the store reference
+        // stays connected to allItems, preventing stale auto-saves from overwriting
+        // the addition after the server round-trip.
+        Object.assign(character.value, updatedCharacter)
+        await charactersStore.update(character.value)
     }
 }
 
@@ -181,5 +229,21 @@ onMounted(async () => {
     background: var(--overlay-black-medium);
     border-radius: var(--radius-10);
     padding: var(--space-lg);
+}
+
+.hide-untrained-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    font-size: var(--font-size-12);
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    user-select: none;
+    white-space: nowrap;
+}
+
+.hide-untrained-toggle input[type="checkbox"] {
+    cursor: pointer;
+    accent-color: var(--color-primary);
 }
 </style>

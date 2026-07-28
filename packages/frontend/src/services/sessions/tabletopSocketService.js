@@ -41,7 +41,6 @@ class TabletopSocketService {
       })
 
       this.socket.on('connect', () => {
-        console.log(`[TabletopSocket] Connected: id=${this.socket.id}`)
         this._connectionInProgress = false
         // Re-join the tabletop room after reconnection
         if (this.currentTabletopId) {
@@ -49,8 +48,7 @@ class TabletopSocketService {
         }
       })
 
-      this.socket.on('disconnect', (reason) => {
-        console.log(`[TabletopSocket] Disconnected: reason=${reason}`)
+      this.socket.on('disconnect', () => {
         this._notifyListeners('disconnect', {})
       })
 
@@ -61,7 +59,6 @@ class TabletopSocketService {
 
       // Relay server → listeners
       this.socket.on(TABLETOP_EVENTS.STATE_UPDATED, (data) => {
-        console.log(`[TabletopSocket] STATE_UPDATED received for tabletop: ${data?.tabletopId}`)
         this._notifyListeners(TABLETOP_EVENTS.STATE_UPDATED, data)
       })
 
@@ -78,7 +75,6 @@ class TabletopSocketService {
       })
 
       this.socket.on(TABLETOP_EVENTS.JOIN_ACK, (data) => {
-        console.log(`[TabletopSocket] JOIN_ACK received:`, data)
         this._notifyListeners(TABLETOP_EVENTS.JOIN_ACK, data)
       })
 
@@ -107,7 +103,6 @@ class TabletopSocketService {
 
   async join(tabletopId, campaignId) {
     if (!tabletopId || !campaignId) return
-    console.log(`[TabletopSocket] join() called: tabletopId=${tabletopId}, campaignId=${campaignId}`)
     this.currentTabletopId = tabletopId
     this._pendingCampaignId = campaignId
     await this.connect()
@@ -141,7 +136,6 @@ class TabletopSocketService {
       console.warn(`[TabletopSocket] broadcastStateUpdate skipped: connected=${this.socket?.connected}, tabletopId=${tabletopId}`)
       return
     }
-    console.log(`[TabletopSocket] Emitting STATE_PUSH for tabletop: ${tabletopId}`)
     this.socket.emit(TABLETOP_EVENTS.STATE_PUSH, { tabletopId, snapshot })
   }
 
@@ -201,7 +195,6 @@ class TabletopSocketService {
 
   _emitJoin() {
     if (!this.currentTabletopId) return
-    console.log(`[TabletopSocket] Emitting JOIN: tabletopId=${this.currentTabletopId}, campaignId=${this._pendingCampaignId}`)
     this.socket.emit(TABLETOP_EVENTS.JOIN, {
       tabletopId: this.currentTabletopId,
       campaignId: this._pendingCampaignId,

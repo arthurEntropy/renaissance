@@ -52,6 +52,28 @@
             </div>
         </div>
 
+        <!-- Player's active abilities: shown below focused/summoned/familiar for non-GM users -->
+        <div v-if="!campaignStore.isGMInActiveCampaign && focusedCharacterActiveAbilities.length > 0"
+            class="token-group token-group--active-abilities">
+            <div class="token-group-header">
+                <span class="token-group-label">Active Abilities</span>
+            </div>
+            <div class="token-group-members token-group-members--abilities">
+                <AbilityToken v-for="entry in focusedCharacterActiveAbilities" :key="entry.id" class="token-item"
+                    :ability="entry" :isActive="true" :showRemoveFab="true"
+                    @remove="deactivateFocusedAbility(entry.id)" />
+            </div>
+        </div>
+
+        <!-- Multi-select visibility: GM on tabletop with ≥2 canvas tokens selected, cmd/ctrl held -->
+        <div v-if="isGMOnTabletop && multiSelectVisibilityState && isCmdHeld" class="multi-select-visibility">
+            <span class="multi-visibility-label">{{ multiSelectVisibilityLabel }}</span>
+            <FloatingActionButton :variant="FAB_TYPES.VISIBILITY" :size="FAB_SIZES.SMALL"
+                :visibility="FAB_VISIBILITIES.ALWAYS" :is-active="multiSelectVisibilityState !== 'hidden'"
+                :title="multiSelectVisibilityState === 'hidden' ? 'Show all selected' : multiSelectVisibilityState === 'visible' ? 'Hide all selected' : 'Set visibility for selected'"
+                @click="toggleMultiSelectVisibility" />
+        </div>
+
         <!-- Initiative controls: GM on tabletop only, when there are pinned groups -->
         <div v-if="isGMOnTabletop && resolvedPinnedGroups.length > 0" class="initiative-controls">
             <button type="button" class="initiative-sort-btn" @click="sortGroupsByInitiative">
@@ -70,25 +92,43 @@
 
         <TransitionGroup tag="div" name="group-list" class="pinned-groups-list">
             <div v-for="group in resolvedPinnedGroups" :key="group.id" :ref="(el) => setGroupEl(group.id, el)"
-                class="token-group token-group--pinned" :class="{
+                class="token-group token-group--pinned" draggable="true" :class="{
                     'token-group--initiative-active': isInitiativeActive && isGMOnTabletop && group.id === resolvedPinnedGroups[0]?.id,
                     'is-cycling-leaving': cyclingLeavingId === group.id,
                     'is-collapsed': isGroupCollapsed(group.id)
-                }">
-                <FloatingActionButton class="unpin-fab" :variant="FAB_TYPES.DELETE" :size="FAB_SIZES.SMALL"
-                    :visibility="FAB_VISIBILITIES.ALWAYS" aria-label="Unpin group"
-                    @click="characterContextStore.unpinGroup(group.id)" />
+                }" @dragstart.self="handleGroupDragStart($event, group)" @dragend.self="handleGroupDragEnd">
                 <div class="token-group-header">
-                    <span class="token-group-name">{{ group.name }}</span>
+                    <textarea class="token-group-name" :value="group.name" :title="group.name" rows="1"
+                        @input="e => { e.target.style.height = 'auto'; e.target.style.height = e.target.scrollHeight + 'px' }"
+                        @blur="e => saveGroupName(group.id, e.target.value)"
+                        @keydown.enter.prevent="e => e.target.blur()"
+                        @keydown.escape="e => { e.target.value = group.name; e.target.blur() }" @click.stop
+                        @mousedown.stop />
                     <div v-if="isGroupCollapsed(group.id)" class="token-group-member-dots">
                         <span v-for="member in group.members" :key="member.id" class="member-dot"
                             :style="{ backgroundColor: getMemberDotColor(member) }" />
                     </div>
                 </div>
+                <!-- GM group controls: edit, visibility, trash — visible when cmd/ctrl held -->
+                <div v-if="isGMOnTabletop && isCmdHeld" class="group-gm-controls">
+                    <FloatingActionButton :variant="FAB_TYPES.EDIT" :size="FAB_SIZES.SMALL"
+                        :visibility="FAB_VISIBILITIES.ALWAYS" title="Edit group"
+                        @click.stop="openGroupEditModal(group.id)" />
+                    <FloatingActionButton :variant="FAB_TYPES.VISIBILITY" :size="FAB_SIZES.SMALL"
+                        :visibility="FAB_VISIBILITIES.ALWAYS" :is-active="getGroupVisibilityState(group) !== 'hidden'"
+                        :title="getGroupVisibilityState(group) === 'hidden' ? 'Show group' : 'Hide group'"
+                        @click.stop="toggleGroupVisibility(group)" />
+                    <FloatingActionButton :variant="FAB_TYPES.TRASH" :size="FAB_SIZES.SMALL"
+                        :visibility="FAB_VISIBILITIES.ALWAYS" title="Delete group"
+                        @click.stop="deleteGroupWithConfirm(group)" />
+                </div>
                 <div v-if="!isGroupCollapsed(group.id)" class="token-group-members">
                     <div v-for="member in group.members" :key="member.id" class="token-item draggable-token-wrapper"
-                        :class="{ 'is-tabletop-selected': isTabletopSelected(member.id) }" draggable="true"
-                        @dragstart="handleTokenDragStart($event, member)" @dragend="handleTokenDragEnd">
+                        :class="{
+                            'is-tabletop-selected': isTabletopSelected(member.id),
+                            'is-unplaced': isGMOnTabletop && !isPlaced(member.id)
+                        }" draggable="true" @dragstart="handleTokenDragStart($event, member)"
+                        @dragend="handleTokenDragEnd">
                         <component :is="getTokenComponent(member)" v-bind="getTokenProps(member, group.id)" />
                     </div>
                 </div>
@@ -103,8 +143,9 @@
                     :class="{ 'initiative-badge--initiative-active': isInitiativeActive && group.id === resolvedPinnedGroups[0]?.id }"
                     :style="isGroupCollapsed(group.id) ? { top: 'auto', bottom: '0px', transform: 'translate(calc(100% + var(--space-sm)), 0)' } : {}">
                     <FloatingActionButton :variant="FAB_TYPES.INITIATIVE" :size="FAB_SIZES.SMALL"
-                        :visibility="FAB_VISIBILITIES.ALWAYS" aria-label="Roll group initiative"
-                        @click="rollGroupInitiative(group)" />
+                        :visibility="FAB_VISIBILITIES.ALWAYS" :disabled="!isGroupFullyPlaced(group)"
+                        :title="isGroupFullyPlaced(group) ? 'Roll group initiative' : 'Place all group tokens on the tabletop first'"
+                        aria-label="Roll group initiative" @click="rollGroupInitiative(group)" />
                     <template v-if="editingInitiativeGroupId === group.id">
                         <input type="number" class="initiative-input" v-model="editingInitiativeValue"
                             @blur="saveInitiativeEdit(group.id)" @keydown.enter="saveInitiativeEdit(group.id)"
@@ -119,18 +160,26 @@
             </div>
         </TransitionGroup>
 
-        <button v-if="resolvedPinnedGroups.length > 0" type="button" class="unpin-all-btn"
-            @click="characterContextStore.clearPinnedGroups()">Unpin All</button>
+        <!-- ADD GROUP button: GM on tabletop, cmd/ctrl held -->
+        <button v-if="isGMOnTabletop && isCmdHeld" type="button" class="add-group-btn" @click="createAndOpenGroup">
+            <PlusIcon class="add-group-icon" />
+            <span>Add Group</span>
+        </button>
+
+        <!-- Token group edit modal -->
+        <TokenGroupEditModal v-if="editingGroupId" :group-id="editingGroupId" @close="editingGroupId = null" />
+
     </div>
 </template>
 
 <script setup>
-import { computed, ref, watch, nextTick } from 'vue'
-import { useRoute } from 'vue-router'
-import { ChevronDownIcon, ChevronUpIcon, ChevronLeftIcon, ChevronRightIcon } from '@heroicons/vue/24/outline'
+import { computed, ref, watch, nextTick, onMounted, onUnmounted } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import { ChevronDownIcon, ChevronUpIcon, ChevronLeftIcon, ChevronRightIcon, PlusIcon } from '@heroicons/vue/24/outline'
 import { useCharacterContextStore } from '@/stores/characterContextStore'
 import { useCharactersStore } from '@/stores/charactersStore'
 import { useCampaignStore } from '@/stores/campaignStore'
+import TokenGroupEditModal from '@/components/features/characterSelection/TokenGroupEditModal.vue'
 import CharacterToken from '@/components/features/characterSelection/CharacterToken.vue'
 import BeastToken from '@/components/features/characterSelection/BeastToken.vue'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
@@ -139,17 +188,32 @@ import { useAppCharacterSheetModal } from '@/composables/useAppCharacterSheetMod
 import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 import { isBeastTemplate, isBeastInstance, isNPC } from '@/utils/characterTypeGuards'
 import keepingIcon from '@/assets/icons/keeping/keeping.png'
+import AbilityToken from '@/components/features/characterSelection/AbilityToken.vue'
+import { useAbilitiesStore } from '@/stores/abilitiesStore'
 import { useTabletopDragState } from '@/composables/useTabletopDragState'
 import { useTabletopSelectionState } from '@/composables/useTabletopSelectionState'
+import { useTabletopSharedCanvas } from '@/composables/useTabletopSharedCanvas'
+import { useRollsStore } from '@/stores/rollsStore'
 import BatchRollOrchestrationService from '@/services/rolls/batchRollOrchestrationService'
 import CrossedSwordsIcon from '@/assets/icons/characterSheet/crossed_swords.svg?component'
 
 const characterContextStore = useCharacterContextStore()
 const charactersStore = useCharactersStore()
 const campaignStore = useCampaignStore()
+const rollsStore = useRollsStore()
+const abilitiesStore = useAbilitiesStore()
 const route = useRoute()
-const { setDraggingCharacter, clearDraggingCharacter } = useTabletopDragState()
+const router = useRouter()
+
+// Eagerly updated via router.beforeEach so the UI switches the moment navigation
+// starts, rather than waiting for the new route component to mount/unmount.
+const isOnTabletopPage = ref(route.path.includes('/tabletop/'))
+const _unregisterGuard = router.beforeEach((to) => {
+    isOnTabletopPage.value = to.path.includes('/tabletop/')
+})
+const { setDraggingCharacter, clearDraggingCharacter, setDraggingGroup, clearDraggingGroup } = useTabletopDragState()
 const { selectedCharacterIds } = useTabletopSelectionState()
+const { placedCharacterIds, hiddenCharacterIds, setCharactersVisibility, removeTokensByCharacterIds } = useTabletopSharedCanvas()
 const { getSummonedBeastForCharacterId } = useSummonedBeast()
 const { open: openCharacterSheet, close: closeCharacterSheet, isOpen: isCharacterSheetOpen } = useAppCharacterSheetModal()
 const collapsedGroupIds = ref(new Set())
@@ -216,6 +280,28 @@ const witchsFamiliar = computed(() => {
     return charactersStore.getById(familiarId) ?? null
 })
 
+// Active abilities for the focused character — shown in the left rail for non-GM users
+// so their abilities are always visible under their token rather than on the right side.
+const focusedCharacterActiveAbilities = computed(() => {
+    if (!visibleFocusedCharacter.value?.abilities) return []
+    const allAbilitiesMap = new Map((abilitiesStore.abilities || []).map(a => [a.id, a]))
+    return visibleFocusedCharacter.value.abilities
+        .filter(ca => ca.isActive)
+        .map(ca => {
+            const def = allAbilitiesMap.get(ca.id)
+            return def ? { ...def } : null
+        })
+        .filter(Boolean)
+})
+
+function deactivateFocusedAbility(abilityId) {
+    if (!visibleFocusedCharacter.value?.abilities) return
+    const index = visibleFocusedCharacter.value.abilities.findIndex(a => a.id === abilityId)
+    if (index !== -1) {
+        visibleFocusedCharacter.value.abilities[index].isActive = false
+    }
+}
+
 const pinnedGroups = computed(() => characterContextStore.pinnedGroups)
 const campaignCharactersById = computed(() => {
     const map = new Map()
@@ -262,7 +348,7 @@ const isViewingFamiliarSheet = computed(() =>
 
 // Hide focused/summoned/familiar sections when the GM is viewing the tabletop.
 const isGMOnTabletop = computed(() =>
-    campaignStore.isGMInActiveCampaign && route.path.includes('/tabletop/')
+    campaignStore.isGMInActiveCampaign && isOnTabletopPage.value
 )
 const hasAnyTokens = computed(() => {
     if (!isGMOnTabletop.value) {
@@ -324,6 +410,15 @@ function removeMemberFromPinnedGroup(groupId, memberId) {
 
     const memberIds = (existing.memberIds || []).filter((id) => id !== memberId)
     characterContextStore.updatePinnedGroup(groupId, { memberIds })
+    // Remove the token from the tabletop canvas (it is no longer in any group).
+    removeTokensByCharacterIds(new Set([memberId]))
+    // If the removed member is a beast instance it was created specifically for this
+    // group – delete it so the campaign isn't cluttered with orphaned instances.
+    const char = resolveCharacterById(memberId)
+    if (char && isBeastInstance(char)) {
+        const cid = campaignStore.activeCampaign?.id
+        if (cid) campaignStore.deleteCampaignBeastInstance(cid, memberId)
+    }
 }
 
 function getTokenProps(character, groupId = null) {
@@ -381,6 +476,181 @@ function isTabletopSelected(characterId) {
     return selectedCharacterIds.value.has(characterId)
 }
 
+function isPlaced(characterId) {
+    return placedCharacterIds.value.has(characterId)
+}
+
+// ─── Group visibility (feature 4) ────────────────────────────────────────────
+
+/**
+ * Returns 'visible', 'hidden', or 'mixed' for the placed members of a group.
+ * Unplaced members are excluded from the calculation.
+ */
+function getGroupVisibilityState(group) {
+    const placed = group.members.filter(m => placedCharacterIds.value.has(m.id))
+    if (placed.length === 0) return 'visible' // no placed members → nothing to hide
+    let anyHidden = false
+    let anyVisible = false
+    for (const m of placed) {
+        if (hiddenCharacterIds.value.has(m.id)) anyHidden = true
+        else anyVisible = true
+    }
+    if (anyHidden && anyVisible) return 'mixed'
+    if (anyHidden) return 'hidden'
+    return 'visible'
+}
+
+/**
+ * Cycle group visibility: mixed → all hidden → all visible → ...
+ */
+function toggleGroupVisibility(group) {
+    const state = getGroupVisibilityState(group)
+    const newHidden = state !== 'hidden' // mixed/visible → hidden; hidden → visible
+    const charIds = group.members.map(m => m.id)
+    setCharactersVisibility(charIds, newHidden)
+}
+
+// ─── Multi-select visibility (feature 3) ─────────────────────────────────────
+
+const multiSelectVisibilityState = computed(() => {
+    if (!isGMOnTabletop.value) return null
+    const selIds = selectedCharacterIds.value
+    // Only show when multiple canvas tokens are selected
+    if (selIds.size < 2) return null
+    let anyHidden = false
+    let anyVisible = false
+    for (const charId of selIds) {
+        if (hiddenCharacterIds.value.has(charId)) anyHidden = true
+        else anyVisible = true
+    }
+    if (anyHidden && anyVisible) return 'mixed'
+    if (anyHidden) return 'hidden'
+    return 'visible'
+})
+
+const multiSelectVisibilityLabel = computed(() => {
+    switch (multiSelectVisibilityState.value) {
+        case 'hidden': return 'HIDDEN'
+        case 'visible': return 'VISIBLE'
+        case 'mixed': return 'MIXED'
+        default: return ''
+    }
+})
+
+function toggleMultiSelectVisibility() {
+    const state = multiSelectVisibilityState.value
+    if (!state) return
+    const newHidden = state !== 'hidden' // mixed/visible → hidden; hidden → visible
+    setCharactersVisibility([...selectedCharacterIds.value], newHidden)
+}
+
+// ─── Initiative placement guard (feature 5) ──────────────────────────────────
+
+function isGroupFullyPlaced(group) {
+    return group.members.length > 0 &&
+        group.members.every(m => placedCharacterIds.value.has(m.id))
+}
+
+// ─── Inline group name editing (feature 7) ───────────────────────────────────
+
+function saveGroupName(groupId, name) {
+    const trimmed = name.trim()
+    if (!trimmed) return
+    characterContextStore.updatePinnedGroup(groupId, { name: trimmed })
+    persistGroupsToTabletop()
+}
+
+// ─── Group persistence ────────────────────────────────────────────────────────
+
+function persistGroupsToTabletop() {
+    const tabletopId = route.params.tabletopId
+    const cid = campaignStore.activeCampaign?.id
+    if (!tabletopId || !cid) return
+    const combatGroups = characterContextStore.toCombatGroupsFormat()
+    campaignStore.updateTabletop(cid, tabletopId, { combatGroups })
+        .catch(err => console.error('[PinnedTokensContainer] Failed to persist groups:', err))
+}
+
+// ─── Group edit modal ─────────────────────────────────────────────────────────
+
+const editingGroupId = ref(null)
+
+function openGroupEditModal(groupId) {
+    editingGroupId.value = groupId
+}
+
+function createAndOpenGroup() {
+    const id = `group-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`
+    const existingNames = new Set(characterContextStore.pinnedGroups.map(g => g.name))
+    let index = 1
+    while (existingNames.has(`Group ${index}`)) index++
+    characterContextStore.addPinnedGroup({ id, name: `Group ${index}` })
+    editingGroupId.value = id
+}
+
+// ─── Delete group with confirmation ──────────────────────────────────────────
+
+async function deleteGroupWithConfirm(group) {
+    if (!confirm(`Delete group "${group.name}"? This cannot be undone.`)) return
+    const cid = campaignStore.activeCampaign?.id
+    if (cid) {
+        const beastDeletes = group.members
+            .filter(m => isBeastInstance(m))
+            .map(m => campaignStore.deleteCampaignBeastInstance(cid, m.id).catch(() => { }))
+        await Promise.all(beastDeletes)
+    }
+    removeTokensByCharacterIds(new Set(group.members.map(m => m.id)))
+    characterContextStore.unpinGroup(group.id)
+    persistGroupsToTabletop()
+}
+
+// ─── Group drag (feature 8) ───────────────────────────────────────────────────
+
+/**
+ * Start a group-level drag. Fires only when the drag originates on the group
+ * card background (.self modifier in template) – not on tokens/buttons inside.
+ * Builds snapshots for any group members not yet placed on the tabletop.
+ */
+function handleGroupDragStart(event, group) {
+    const unplaced = group.members.filter(m => !placedCharacterIds.value.has(m.id))
+    if (unplaced.length === 0) {
+        event.preventDefault()
+        return
+    }
+    const snapshots = unplaced.map(m => buildDragSnapshot(m))
+    setDraggingGroup(snapshots)
+    event.dataTransfer.setData('application/vtt-group', JSON.stringify(snapshots))
+    event.dataTransfer.effectAllowed = 'copy'
+    // Suppress browser drag image so only canvas ghost tokens are shown
+    const phantom = document.createElement('div')
+    phantom.style.cssText = 'position:fixed;left:-9999px;top:-9999px;width:1px;height:1px;'
+    document.body.appendChild(phantom)
+    event.dataTransfer.setDragImage(phantom, 0, 0)
+    requestAnimationFrame(() => phantom.remove())
+}
+
+function handleGroupDragEnd() {
+    clearDraggingGroup()
+}
+
+// ─── Cmd/Ctrl key tracking (for visibility FAB gate) ─────────────────────────
+
+const isCmdHeld = ref(false)
+function _onKeydown(e) { if (e.metaKey || e.ctrlKey) isCmdHeld.value = true }
+function _onKeyup(e) { if (e.key === 'Meta' || e.key === 'Control') isCmdHeld.value = false }
+function _onBlur() { isCmdHeld.value = false }
+onMounted(() => {
+    window.addEventListener('keydown', _onKeydown)
+    window.addEventListener('keyup', _onKeyup)
+    window.addEventListener('blur', _onBlur)
+})
+onUnmounted(() => {
+    window.removeEventListener('keydown', _onKeydown)
+    window.removeEventListener('keyup', _onKeyup)
+    window.removeEventListener('blur', _onBlur)
+    _unregisterGuard()
+})
+
 // ─── Initiative controls (GM on tabletop only) ───────────────────────────────
 
 const isInitiativeActive = ref(false)
@@ -389,7 +659,15 @@ const isInitiativeActive = ref(false)
 function rollGroupInitiative(group) {
     const characters = (group.members || []).filter(Boolean)
     if (characters.length === 0) return
-    const { groupTotal, members } = BatchRollOrchestrationService.executeBatchInitiativeRoll(characters)
+    const { groupTotal, members, rollsByCharacterId } = BatchRollOrchestrationService.executeBatchInitiativeRoll(characters)
+    // Register each individual roll in the store so the tabletop chatlog and
+    // speech bubbles pick them up (useTabletopRollLog watches rollsStore.rollsById).
+    characters.forEach((character) => {
+        const rollResult = rollsByCharacterId[character.id]
+        if (rollResult) {
+            rollsStore.setRollForCharacter(rollResult, character.id)
+        }
+    })
     characterContextStore.updatePinnedGroup(group.id, { initiativeResults: { groupTotal, members } })
 }
 
@@ -526,15 +804,16 @@ function getFocusedTokenProps(character) {
 <style scoped>
 .token-rail-container {
     position: fixed;
-    top: calc(var(--space-lg) + 3rem);
+    top: var(--nav-height);
     left: var(--space-lg);
     z-index: var(--z-badge);
     display: flex;
     flex-direction: column;
     gap: var(--space-md);
-    max-height: calc(100vh - (calc(var(--space-lg) + 3rem)) - var(--space-lg));
+    max-height: calc(100vh - (calc(var(--space-lg) + 3rem)));
     overflow-y: auto;
     overflow-x: visible;
+    padding-top: var(--space-md);
     /* Provide right-side paint room for token tooltips without changing token placement. */
     padding-right: 12rem;
     margin-right: -12rem;
@@ -657,6 +936,7 @@ function getFocusedTokenProps(character) {
     letter-spacing: 0.08em;
     color: var(--color-primary);
     opacity: 0.9;
+    text-align: center;
 }
 
 .token-group-collapse-toggle {
@@ -679,19 +959,6 @@ function getFocusedTokenProps(character) {
     color: var(--color-text-secondary);
 }
 
-.token-group-name {
-    font-family: var(--font-family-primary);
-    font-size: var(--font-size-11);
-    font-weight: var(--font-weight-semibold);
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    text-align: center;
-    color: var(--color-text-secondary);
-    overflow-wrap: anywhere;
-    word-break: break-word;
-    hyphens: auto;
-}
-
 .token-group-members-count {
     font-size: var(--font-size-11);
     color: var(--color-text-muted);
@@ -699,20 +966,16 @@ function getFocusedTokenProps(character) {
     letter-spacing: 0.04em;
 }
 
-.unpin-fab {
-    position: absolute;
-    top: 0px;
-    right: 0px;
-    transform: translate(40%, -40%);
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity var(--transition-fast);
+.visibility-fab {
+    display: none;
 }
 
-.token-group--pinned:hover .unpin-fab,
-.token-group--pinned:focus-within .unpin-fab {
-    opacity: 1;
-    pointer-events: auto;
+/* ─── GM group controls strip (cmd-held) ─────────────────────────────────── */
+.group-gm-controls {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-sm);
+    padding: var(--space-xs) 0;
 }
 
 .token-group-members {
@@ -742,25 +1005,13 @@ function getFocusedTokenProps(character) {
     box-shadow: 0 0 0 3px var(--color-white), var(--shadow-sm);
 }
 
-.unpin-all-btn {
-    pointer-events: auto;
-    background: transparent;
-    border: 1px solid var(--overlay-white-medium);
-    border-radius: var(--radius-5);
-    color: var(--color-text-muted);
-    font-size: var(--font-size-11);
-    font-family: var(--font-family-primary);
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    padding: var(--space-xs) var(--space-sm);
-    cursor: pointer;
-    transition: color var(--transition-fast), border-color var(--transition-fast);
-    align-self: center;
+/* Unplaced tokens shown with muted border and reduced opacity */
+.draggable-token-wrapper.is-unplaced :deep(.token-portrait) {
+    border-color: var(--color-gray-medium) !important;
 }
 
-.unpin-all-btn:hover {
-    color: var(--color-danger);
-    border-color: var(--color-danger);
+.draggable-token-wrapper.is-unplaced {
+    opacity: 0.7;
 }
 
 /* Mobile: horizontal condensed row */
@@ -945,6 +1196,59 @@ function getFocusedTokenProps(character) {
     gap: var(--space-md);
 }
 
+/* ─── Multi-select visibility controls (feature 3) ────────────────────────── */
+.multi-select-visibility {
+    pointer-events: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-sm);
+    width: var(--token-group-width);
+    background: var(--color-gray-dark);
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-10);
+    border: 2px solid var(--overlay-white-medium);
+}
+
+.multi-visibility-label {
+    font-size: var(--font-size-11);
+    font-weight: var(--font-weight-semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-text-secondary);
+}
+
+/* ─── Inline-editable group name ────────────────────────────────────────── */
+.token-group-name {
+    font-family: var(--font-family-primary);
+    font-size: var(--font-size-11);
+    font-weight: var(--font-weight-semibold);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-align: center;
+    color: var(--color-text-secondary);
+    overflow-wrap: break-word;
+    word-break: break-word;
+    hyphens: auto;
+    /* editable textarea resets */
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid transparent;
+    padding: 0;
+    width: 100%;
+    cursor: text;
+    outline: none;
+    resize: none;
+    overflow: hidden;
+    min-height: 0;
+    line-height: 1.4;
+    transition: border-color var(--transition-fast);
+}
+
+.token-group-name:focus {
+    border-bottom-color: var(--color-primary);
+}
+
 /* ─── Member dots (collapsed state) ──────────────────────────────────────────── */
 .token-group-member-dots {
     display: flex;
@@ -961,5 +1265,43 @@ function getFocusedTokenProps(character) {
     border-radius: 50%;
     flex-shrink: 0;
     opacity: 0.85;
+}
+
+/* ─── Add Group button (GM + cmd held) ───────────────────────────────────────── */
+.add-group-btn {
+    pointer-events: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-xs);
+    width: 100%;
+    background: transparent;
+    border: 2px dotted var(--overlay-white-heavy);
+    border-radius: var(--radius-10);
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-11);
+    font-family: var(--font-family-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: var(--space-sm) 0;
+    cursor: pointer;
+    transition: color var(--transition-fast), border-color var(--transition-fast), background var(--transition-fast);
+}
+
+.add-group-btn:hover {
+    color: var(--color-primary);
+    border-color: var(--color-primary);
+    background: var(--overlay-white-subtle);
+}
+
+.add-group-icon {
+    width: 14px;
+    height: 14px;
+}
+
+/* ─── Player active-abilities sub-group ─────────────────────────────────────── */
+/* Uses a slightly tighter token gap than pinned character groups */
+.token-group-members--abilities {
+    gap: var(--space-lg);
 }
 </style>

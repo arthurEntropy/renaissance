@@ -18,8 +18,40 @@ class DamageRollService extends BaseRollService {
     const baseSkillName = options.baseSkillName || rollName
     const sourceName = options.sourceName || null
     const modifierLabel = options.modifierLabel || 'Modifier'
+    const illFavored = !!options.illFavored
 
-    let diceResults = this.rollDicePool(sanitizedDicePool)
+    // When ill-favored, add one extra die of the most common size in the pool and
+    // then drop the single lowest-valued die from the result set.
+    let poolToRoll = sanitizedDicePool
+    if (illFavored && sanitizedDicePool.length > 0) {
+      // Pick the most common die size; tie-break by smallest size.
+      const sizeFreq = sanitizedDicePool.reduce((acc, { dieSize }) => {
+        acc[dieSize] = (acc[dieSize] || 0) + 1
+        return acc
+      }, {})
+      const extraSize = Object.entries(sizeFreq)
+        .sort(([a, fa], [b, fb]) => fb - fa || Number(a) - Number(b))[0][0]
+      poolToRoll = [...sanitizedDicePool, { dieSize: Number(extraSize) }]
+    }
+
+    let diceResults = this.rollDicePool(poolToRoll)
+
+    // Apply ill-favored penalty: mark the die with the lowest value as dropped.
+    if (illFavored && diceResults.length > 0) {
+      let lowestIndex = 0
+      let lowestValue = diceResults[0].dieRollValue
+      diceResults.forEach((result, i) => {
+        if (result.dieRollValue < lowestValue) {
+          lowestValue = result.dieRollValue
+          lowestIndex = i
+        }
+      })
+      const dropped = diceResults[lowestIndex]
+      if (!dropped.originalDieRollValue) dropped.originalDieRollValue = dropped.dieRollValue
+      dropped.dieRollValue = 0
+      dropped.isDropped = true
+    }
+
     const diceTotal = this.calculateTotal(diceResults)
     const finalTotal = diceTotal + modifier
 
@@ -37,7 +69,7 @@ class DamageRollService extends BaseRollService {
       difficulty: null,
       success: null,
       diceResults: formattedDiceResults,
-      favoredStatus: null,
+      favoredStatus: illFavored ? 'ill-favored' : null,
       footer,
       sourceName,
       modifierLabel,
@@ -48,7 +80,8 @@ class DamageRollService extends BaseRollService {
         rollName,
         baseSkillName,
         sourceName,
-        modifierLabel
+        modifierLabel,
+        illFavored,
       }
     })
 

@@ -1,10 +1,11 @@
 <template>
-    <BaseModal title="Confirm Purchase" width="360px" @close="$emit('close')">
+    <BaseModal :title="cost !== null && cost > 0 ? 'Confirm Purchase' : 'Confirm Add'" width="360px"
+        @close="$emit('close')">
         <div class="confirm-purchase-body">
             <!-- Confirmation message shown briefly after adding -->
             <div v-show="!added" class="purchase-content">
                 <p class="item-name-message">
-                    Purchase <strong>{{ itemName }}</strong>?
+                    {{ cost !== null && cost > 0 ? 'Purchase' : 'Add' }} <strong>{{ itemName }}</strong>?
                 </p>
                 <p v-if="cost !== null && cost > 0" class="balance-line"
                     :class="{ 'balance-line--danger': isInsufficientBalance }">
@@ -15,15 +16,6 @@
                     <strong>{{ Math.max(0, characterBalance - cost) }}</strong><template
                         v-if="currencyLabel === 'Treasure'"> <img :src="keepingIcon" alt="treasure"
                             class="currency-icon" /></template><template v-else> {{ currencyLabel }}</template>
-                </p>
-                <p v-else class="balance-line">
-                    <template v-if="currencyLabel === 'Treasure'">
-                        Current: <strong>{{ characterBalance }}</strong> <img :src="keepingIcon" alt="treasure"
-                            class="currency-icon" />
-                    </template>
-                    <template v-else>
-                        Current {{ currencyLabel }}: <strong>{{ characterBalance }}</strong>
-                    </template>
                 </p>
             </div>
             <Transition name="fade">
@@ -42,7 +34,8 @@
                     <ActionButton v-else variant="primary" size="large" text="Add" @click="handleSpend" />
                     <ActionButton variant="neutral" size="large" text="Cancel" @click="$emit('close')" />
                 </div>
-                <a href="#" class="add-free-link" @click.prevent="handleFree">Add Without Spending</a>
+                <a v-if="cost !== null && cost > 0" href="#" class="add-free-link" @click.prevent="handleFree">Add
+                    Without Spending</a>
             </div>
         </template>
     </BaseModal>

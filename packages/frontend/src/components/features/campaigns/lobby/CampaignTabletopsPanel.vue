@@ -42,22 +42,18 @@
                                 <input v-if="renamingId === tabletop.id" ref="renameInputRef" v-model="renameValue"
                                     class="tabletop-rename-input" @blur="commitRename(tabletop)"
                                     @keyup.enter="commitRename(tabletop)" @keyup.escape="cancelRename" />
-                                <span v-else class="tabletop-name">{{ tabletop.name }}</span>
+                                <span v-else class="tabletop-name" :class="{ 'tabletop-name--editable': isGM }"
+                                    @click="isGM && startRename(tabletop)">{{ tabletop.name }}</span>
 
                                 <div v-if="isGM" class="tabletop-actions">
-                                    <button class="tabletop-action-btn" title="Rename" @click="startRename(tabletop)">
-                                        <PencilIcon class="tabletop-action-icon" />
-                                    </button>
-                                    <button class="tabletop-action-btn"
-                                        :class="{ 'is-active-btn': tabletop.id === activeTabletopId }"
+                                    <FloatingActionButton
+                                        :variant="tabletop.id === activeTabletopId ? FAB_TYPES.DEACTIVATE : FAB_TYPES.ACTIVATE"
+                                        :size="FAB_SIZES.SMALL" :visibility="FAB_VISIBILITIES.ALWAYS"
                                         :title="tabletop.id === activeTabletopId ? 'Deactivate' : 'Set as active'"
-                                        @click="toggleActive(tabletop.id)">
-                                        <BoltIcon class="tabletop-action-icon" />
-                                    </button>
-                                    <button class="tabletop-action-btn tabletop-action-btn--danger" title="Delete"
-                                        @click="confirmDelete(tabletop)">
-                                        <TrashIcon class="tabletop-action-icon" />
-                                    </button>
+                                        @click="toggleActive(tabletop.id)" />
+                                    <FloatingActionButton :variant="FAB_TYPES.TRASH" :size="FAB_SIZES.SMALL"
+                                        :visibility="FAB_VISIBILITIES.ALWAYS" title="Delete"
+                                        @click="confirmDelete(tabletop)" />
                                 </div>
                             </div>
                         </div>
@@ -71,12 +67,14 @@
 <script setup>
 import { computed, ref, watch, nextTick } from 'vue'
 import { useRouter } from 'vue-router'
-import { ChevronDownIcon, ChevronRightIcon, MapIcon, PencilIcon, BoltIcon, TrashIcon } from '@heroicons/vue/24/outline'
+import { ChevronDownIcon, ChevronRightIcon, MapIcon } from '@heroicons/vue/24/outline'
 import draggable from 'vuedraggable'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 import { useCampaignStore } from '@/stores/campaignStore'
 import tabletopSocketService from '@/services/sessions/tabletopSocketService'
+import { getOptimizedImageUrl } from '@/utils/imageOptimization'
+import { MIDJOURNEY_IMAGE_CONTEXTS } from '@shared/constants/artConstants.js'
 
 const router = useRouter()
 const campaignStore = useCampaignStore()
@@ -119,8 +117,9 @@ watch(isCollapsed, (value) => {
 
 function getPreviewStyle(tabletop) {
     if (!tabletop.backgroundImage?.url) return {}
+    const optimizedUrl = getOptimizedImageUrl(tabletop.backgroundImage.url, MIDJOURNEY_IMAGE_CONTEXTS.SMALL)
     return {
-        backgroundImage: `url(${tabletop.backgroundImage.url})`,
+        backgroundImage: `url(${optimizedUrl})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
     }
@@ -237,7 +236,7 @@ async function handleDragEnd() {
 .tabletop-drag-handle {
     position: absolute;
     top: var(--space-xs);
-    left: var(--space-xs);
+    right: var(--space-xs);
     z-index: var(--z-raised);
     cursor: grab;
 }
@@ -335,6 +334,16 @@ async function handleDragEnd() {
     white-space: nowrap;
 }
 
+.tabletop-name--editable {
+    cursor: text;
+    border-radius: var(--radius-3);
+    transition: background var(--transition-fast);
+}
+
+.tabletop-name--editable:hover {
+    background: var(--overlay-white-subtle);
+}
+
 .tabletop-rename-input {
     flex: 1;
     background: var(--overlay-white-subtle);
@@ -351,41 +360,5 @@ async function handleDragEnd() {
     display: flex;
     gap: var(--space-xs);
     flex-shrink: 0;
-}
-
-.tabletop-action-btn {
-    border: 1px solid var(--overlay-white-medium);
-    background: transparent;
-    color: var(--color-text-secondary);
-    width: 26px;
-    height: 26px;
-    border-radius: 999px;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    transition: color var(--transition-fast), border-color var(--transition-fast), background var(--transition-fast);
-    flex-shrink: 0;
-}
-
-.tabletop-action-btn:hover {
-    color: var(--color-primary);
-    border-color: var(--color-primary);
-    background: var(--overlay-white-subtle);
-}
-
-.tabletop-action-btn.is-active-btn {
-    color: var(--color-primary);
-    border-color: var(--color-primary);
-}
-
-.tabletop-action-btn--danger:hover {
-    color: var(--color-danger);
-    border-color: var(--color-danger);
-}
-
-.tabletop-action-icon {
-    width: 14px;
-    height: 14px;
 }
 </style>

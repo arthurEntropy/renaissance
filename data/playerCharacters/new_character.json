@@ -1,14 +1,17 @@
 {
   "id": "33b032fb-a135-43a7-a704-967f4eba5d82",
-  "isDeleted": false,
+  "isDeleted": true,
   "createdAt": "2026-07-22T13:08:23.406Z",
-  "lastModified": "2026-07-24T15:57:32.001Z",
+  "lastModified": "2026-07-24T19:43:44.614Z",
   "characterType": "playerCharacter",
   "name": "New Character",
   "featuredArtUrls": [
     "https://cdn.midjourney.com/6b5282ab-e572-4ad7-bed2-3cce785c9744/0_2.png"
   ],
-  "speed": 0,
+  "speed": {
+    "current": 0,
+    "base": 0
+  },
   "notes": "",
   "body": 0,
   "heart": 0,
@@ -271,20 +274,7 @@
   "keeping": null,
   "treasure": 0,
   "xp": 0,
-  "updatedAt": "2026-07-24T15:57:32.000Z",
+  "updatedAt": "2026-07-24T19:43:44.614Z",
   "description": "",
-  "size": 0,
-  "reach": 0,
-  "featuredArtUrl": "https://cdn.midjourney.com/6b5282ab-e572-4ad7-bed2-3cce785c9744/0_2.png",
-  "hasDarkvision": false,
-  "hasBlindsight": false,
-  "hasTremorsense": false,
-  "hasTruesight": false,
-  "burrowSpeed": 0,
-  "climbSpeed": 0,
-  "flySpeed": 0,
-  "swimSpeed": 0,
-  "biomeTagsAugment": [],
-  "biomeTagsInhibit": [],
-  "beastTypeIds": []
+  "featuredArtUrl": "https://cdn.midjourney.com/6b5282ab-e572-4ad7-bed2-3cce785c9744/0_2.png"
 }

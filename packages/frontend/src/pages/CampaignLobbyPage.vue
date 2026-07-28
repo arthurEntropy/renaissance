@@ -59,8 +59,6 @@
                     <CampaignNpcsPanel />
                 </div>
 
-                <CombatBuilder v-if="isGM" />
-
                 <CampaignTabletopsPanel />
 
                 <CampaignShopsPanel />
@@ -112,9 +110,6 @@ import CampaignPlayerCharactersPanel from '@/components/features/campaigns/lobby
 import CampaignNpcsPanel from '@/components/features/campaigns/lobby/CampaignNpcsPanel.vue'
 import CampaignShopsPanel from '@/components/features/campaigns/lobby/CampaignShopsPanel.vue'
 import CampaignTabletopsPanel from '@/components/features/campaigns/lobby/CampaignTabletopsPanel.vue'
-import CampaignCurationPanel from '@/components/features/campaigns/lobby/CampaignCurationPanel.vue'
-import CombatBuilder from '@/components/features/campaigns/lobby/CombatBuilder.vue'
-import TextEditor from '@/components/ui/textEditor/TextEditor.vue'
 import { sanitizeHtml } from '@/utils/sanitizeHtml'
 import CampaignService from '@/services/entities/campaignService'
 import { CAMPAIGN_ROLE } from '@shared/constants/campaignConstants'
@@ -183,7 +178,14 @@ const startNameEdit = async () => {
 const saveName = async () => {
     if (!campaign.value) return
     const trimmed = localName.value.trim()
-    if (trimmed) await campaignStore.update(campaignId.value, { name: trimmed })
+    if (trimmed) {
+        const updated = await campaignStore.update(campaignId.value, { name: trimmed })
+        // If the backend generated a new slug, navigate to it so the page doesn't
+        // lose its campaign reference (getBySlug would return null on the old slug).
+        if (updated?.slug && updated.slug !== slug.value) {
+            router.replace(`/campaigns/${updated.slug}`)
+        }
+    }
     isEditingName.value = false
 }
 
@@ -250,8 +252,8 @@ onMounted(async () => {
     }
 
     if (campaign.value) {
-        await campaignStore.enterCampaign(campaign.value.id)
         await Promise.all([
+            campaignStore.enterCampaign(campaign.value.id),
             charactersStore.fetch(),
             conceptsStore.fetch(),
             keepingStore.fetch(),
@@ -364,7 +366,7 @@ onMounted(async () => {
     padding: 0;
     width: 100%;
     outline: none;
-    font-family: var(--font-family-title, var(--font-family-primary));
+    font-family: var(--font-family-primary);
 }
 
 .desc-display {

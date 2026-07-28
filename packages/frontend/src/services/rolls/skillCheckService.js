@@ -20,6 +20,11 @@ class SkillCheckService extends BaseRollService {
     // Build result
     const rollResult = this._buildSkillCheckResult(skill, character, difficulty, diceResults, total, isSuccess)
     
+    // Attach optional source context (e.g. ability name) for chatlog display
+    if (options.sourceName) {
+      rollResult.sourceName = options.sourceName
+    }
+    
     // Emit event for external integrations (Discord, analytics, etc.)
     eventBus.emit(ROLL_EVENTS.SKILL_CHECK, {
       rollResult,

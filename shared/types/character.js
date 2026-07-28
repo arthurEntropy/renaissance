@@ -149,7 +149,7 @@ import { createBaseEntity } from './baseEntity.js'
  * // Character Profile
  * @property {string} name - Character name
  * @property {string[]} featuredArtUrls - Character art URLs
- * @property {number} speed - Movement speed
+ * @property {{current: number, base: number}} speed - Movement speed
  * @property {string} notes - Character notes
  * 
  * // Core abilities and derived stats
@@ -298,7 +298,7 @@ function createDefaultCharacterBase() {
     // Character Profile
     name: 'New Character',
     featuredArtUrls: ['https://cdn.midjourney.com/a8a36740-b7d3-4aef-bea3-a95039bec06f/0_2.png'],
-    speed: 0,
+    speed: { current: 0, base: 0 },
     notes: '',
 
     // Core abilities and derived stats

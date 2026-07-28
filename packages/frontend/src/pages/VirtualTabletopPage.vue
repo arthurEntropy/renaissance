@@ -27,22 +27,25 @@
                     @remove-area="_removeRadiusArea($event)" />
 
                 <!-- Canvas tokens -->
-                <div v-for="item in canvasItems" :key="item.id" class="canvas-item edit-hover-area"
-                    :ref="(el) => registerTokenRef(item.id, el)" :class="{ 'is-dragging': isDragging(item.id) }"
+                <div v-for="item in displayCanvasItems" :key="item.id" class="canvas-item edit-hover-area"
+                    :ref="(el) => registerTokenRef(item.id, el)"
+                    :class="{ 'is-dragging': isDragging(item.id), 'is-hidden-token': item.isHidden }"
                     :style="{ transform: `translate(${item.x}px, ${item.y}px)`, zIndex: item.zIndex }"
-                    @mousedown="(e) => { dismissBubble(item.id); handleTokenMousedown(item, e) }">
+                    @mousedown="(e) => { dismissBubble(item.id); handleTokenMousedown(item, e); handleTokenRightClick(item, e); handleTokenCmdClick(item, e) }">
                     <TabletopToken :name="item.name" :portrait-url="item.portraitUrl" :is-beast="item.isBeast"
                         :is-npc="item.isNpc" :size="item.size" :grid-size="gridSize" :is-selected="isSelected(item.id)"
                         :in-engagement="isCharacterInEngagement(item)" />
                     <TabletopTokenInfoArea
                         v-if="singleSelectedToken?.id === item.id && canViewTokenInfo && !activeBubbles[item.id]"
                         :character="singleSelectedCharacter" :can-edit="canEditTokenInfo"
-                        :is-in-engagement="canSpectateSelectedToken" @expand="openCharacterSheetPopup"
-                        @spectate="openSpectatePopup" @character-saved="onCharacterSaved" />
+                        :is-in-engagement="canSpectateSelectedToken" :can-toggle-visibility="isGM" :cmd-held="isCmdHeld"
+                        :is-hidden="item.isHidden ?? false" @expand="openCharacterSheetPopup"
+                        @spectate="openSpectatePopup" @character-saved="onCharacterSaved"
+                        @toggle-visibility="toggleTokenVisibility" />
                 </div>
 
                 <!-- Roll speech bubbles (one per canvas item that has an active roll) -->
-                <TabletopRollBubble v-for="(bubble, itemId) in activeBubbles" :key="itemId" :entry="bubble.entry"
+                <TabletopRollBubble v-for="(bubble, itemId) in visibleActiveBubbles" :key="itemId" :entry="bubble.entry"
                     :expanded="bubble.expanded" :canvas-item-x="canvasItemById(itemId)?.x ?? 0"
                     :canvas-item-y="canvasItemById(itemId)?.y ?? 0"
                     :token-px="(canvasItemById(itemId)?.size ?? 1) * gridSize"
@@ -85,19 +88,30 @@
             <!-- Roll chatlog (bottom-right corner, above toolbar) -->
             <TabletopChatlog :roll-log="rollLog" :is-expanded="rollLogExpanded"
                 @update:is-expanded="setRollLogExpanded" />
+
+            <!-- Multi-token roll context menu (GM only, shown on right-click with multiple tokens selected) -->
+            <TabletopTokenContextMenu v-if="tokenContextMenuVisible" :anchor-position="tokenContextMenuPosition"
+                @roll="executeMultiRoll" @close="tokenContextMenuVisible = false" />
         </div>
 
-        <!-- Bottom Toolbar -->
-        <TabletopToolbar :scale="transform.scale" :grid-size="gridSize" :item-count="canvasItems.length"
-            :can-undo="canUndo" :can-redo="canRedo" :has-background="!!backgroundImage" :grid-color="gridColor"
-            :grid-opacity="gridOpacity" :show-paths="showPaths" :is-g-m="campaignStore.isGMInActiveCampaign"
-            :tabletops="campaignStore.tabletops" :current-tabletop-id="tabletopId"
-            :active-tabletop-id="campaignStore.activeCampaign?.activeTabletopId ?? null"
-            :current-tabletop-name="currentTabletopName" @zoom-in="adjustZoom(1.2)" @zoom-out="adjustZoom(1 / 1.2)"
-            @increase-grid="increaseGridSize" @decrease-grid="decreaseGridSize" @clear-all="clearAll" @undo="undo"
-            @redo="redo" @set-background="setBackgroundImage" @clear-background="clearBackgroundImage"
-            @update-grid-color="setGridColor" @update-grid-opacity="setGridOpacity" @update-show-paths="setShowPaths"
-            @toggle-active-tabletop="handleToggleActiveTabletop" @switch-tabletop="handleSwitchTabletop" />
+        <!-- Bottom Toolbar – teleported to body so it stacks above PinnedTokensContainer (z-badge) -->
+        <Teleport to="body">
+            <div class="tabletop-toolbar-portal">
+                <TabletopToolbar :scale="transform.scale" :grid-size="gridSize" :item-count="canvasItems.length"
+                    :can-undo="canUndo" :can-redo="canRedo" :has-background="!!backgroundImage" :grid-color="gridColor"
+                    :grid-opacity="gridOpacity" :show-paths="showPaths" :is-g-m="campaignStore.isGMInActiveCampaign"
+                    :tabletops="campaignStore.tabletops" :current-tabletop-id="tabletopId"
+                    :active-tabletop-id="campaignStore.activeCampaign?.activeTabletopId ?? null"
+                    :current-tabletop-name="currentTabletopName" :map-scale="mapScale" @zoom-in="adjustZoom(1.2)"
+                    @zoom-out="adjustZoom(1 / 1.2)" @increase-grid="increaseGridSize" @decrease-grid="decreaseGridSize"
+                    @increase-map-scale="increaseMapScale" @decrease-map-scale="decreaseMapScale" @clear-all="clearAll"
+                    @undo="undo" @redo="redo" @set-background="setBackgroundImage"
+                    @clear-background="clearBackgroundImage" @update-grid-color="setGridColor"
+                    @update-grid-opacity="setGridOpacity" @update-show-paths="setShowPaths"
+                    @toggle-active-tabletop="handleToggleActiveTabletop" @switch-tabletop="handleSwitchTabletop"
+                    @clear-log="clearRollLog" />
+            </div>
+        </Teleport>
 
         <!-- Character sheet popup (opened from token info area expand button) -->
         <!-- Teleport to body so this component never creates a second root node (fragment),
@@ -113,11 +127,17 @@
                 :spectator-character="spectateCharacter" :spectator-session-id="spectateSessionId"
                 @close="closeSpectatePopup" />
         </Teleport>
+
+        <!-- GM active-abilities bar: one container per character with active abilities,
+             stacked right-to-left across the top of the canvas. -->
+        <Teleport to="body">
+            <TabletopActiveAbilitiesBar v-if="isGM" :canvas-items="canvasItems" />
+        </Teleport>
     </div>
 </template>
 
 <script setup>
-import { computed, ref, watch } from 'vue'
+import { computed, ref, watch, onUnmounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useCampaignStore } from '@/stores/campaignStore'
 import { useAuthStore } from '@/stores/authStore'
@@ -132,10 +152,20 @@ import TabletopTokenInfoArea from '@/components/features/tabletop/TabletopTokenI
 import CharacterSheetPopup from '@/components/features/tabletop/CharacterSheetPopup.vue'
 import TabletopChatlog from '@/components/features/tabletop/TabletopChatlog.vue'
 import TabletopRollBubble from '@/components/features/tabletop/TabletopRollBubble.vue'
+import TabletopTokenContextMenu from '@/components/features/tabletop/TabletopTokenContextMenu.vue'
 import EngagementRollModal from '@/components/features/characterSheet/rollModal/EngagementRollModal.vue'
+import TabletopActiveAbilitiesBar from '@/components/features/tabletop/TabletopActiveAbilitiesBar.vue'
 import { useTabletopRollLog } from '@/composables/useTabletopRollLog'
 import { useTabletopSync } from '@/composables/useTabletopSync'
+import { useTabletopSharedCanvas } from '@/composables/useTabletopSharedCanvas'
 import { useEngagementSession, engagedCharacterIds } from '@/composables/useEngagementSession'
+import { useCharacterContextStore } from '@/stores/characterContextStore'
+import { useRollsStore } from '@/stores/rollsStore'
+import { isBeastInstance } from '@/utils/characterTypeGuards'
+import InitiativeRollService from '@/services/rolls/initiativeRollService'
+import InjuryRollService from '@/services/rolls/injuryRollService'
+import SkillCheckService from '@/services/rolls/skillCheckService'
+import { findSkillById } from '@/utils/characterKeyUtils'
 import radiusCursorUrl from '@/assets/icons/cursor/radius.png'
 import rulerCursorUrl from '@/assets/icons/cursor/ruler.png'
 
@@ -144,6 +174,7 @@ const router = useRouter()
 const campaignStore = useCampaignStore()
 const authStore = useAuthStore()
 const charactersStore = useCharactersStore()
+const characterContextStore = useCharacterContextStore()
 
 const campaignSlug = computed(() => route.params.slug)
 const tabletopId = computed(() => route.params.tabletopId)
@@ -185,6 +216,7 @@ const {
     measureCurrent,
     isCmdHeld,
     isShiftHeld,
+    isAltHeld,
     isRadiusMeasuring,
     radiusOrigin,
     radiusCurrent,
@@ -198,6 +230,9 @@ const {
     adjustZoom,
     increaseGridSize,
     decreaseGridSize,
+    mapScale,
+    increaseMapScale,
+    decreaseMapScale,
     setBackgroundImage,
     clearBackgroundImage,
     setGridColor,
@@ -215,12 +250,15 @@ const {
     beginRadiusResize,
     beginAreaMove,
     bringRadiusAreaToFront,
+    setTokenVisibility,
     clearAll,
     loadState,
     saveState,
+    recordSnapshot,
     rollLog,
     rollLogExpanded,
     setRollLogExpanded,
+    clearRollLog,
     applyExternalState,
 } = useTabletopCanvas(campaignId, tabletopId, {
     onStateSaved: (snapshot) => broadcastStateUpdate(snapshot),
@@ -237,7 +275,7 @@ function broadcastStateUpdate(snapshot) {
 }
 
 // When the GM changes the active tabletop, redirect all viewers to that tabletop.
-function handleActiveTabletopChanged({ campaignId: cid, activeTabletopId }) {
+function handleActiveTabletopChanged({ activeTabletopId }) {
     if (!activeTabletopId || !campaignSlug.value) return
     // Don't redirect if we're already on the active tabletop
     if (tabletopId.value === activeTabletopId) return
@@ -257,6 +295,14 @@ const { broadcastStateUpdate: _syncBroadcast, broadcastCharacterUpdate, announce
 })
 _broadcastStateUpdateRef = _syncBroadcast
 
+// ─── Shared canvas bridge (features: visibility, group sync, placement) ───────
+const sharedCanvas = useTabletopSharedCanvas()
+sharedCanvas.init(canvasItems, saveState, recordSnapshot)
+watch(canvasItems, (items) => {
+    // Removing a token from the canvas no longer cascades to group membership.
+    sharedCanvas.syncFromCanvas(items)
+}, { immediate: true, deep: true })
+
 // ─── Roll log + speech bubbles ───────────────────────────────────────────────
 const {
     activeBubbles,
@@ -274,6 +320,18 @@ const {
 // Look up a canvas item by its canvas-item id (for bubble positioning)
 const canvasItemById = (id) => canvasItems.value.find((i) => i.id === id) ?? null
 
+// Only show speech bubbles for tokens the current user can actually see.
+// GMs see all bubbles; non-GM players see only bubbles for non-hidden tokens.
+const visibleActiveBubbles = computed(() => {
+    if (isGM.value) return activeBubbles.value
+    const result = {}
+    for (const [itemId, bubble] of Object.entries(activeBubbles.value)) {
+        const item = canvasItems.value.find((i) => i.id === itemId)
+        if (!item?.isHidden) result[itemId] = bubble
+    }
+    return result
+})
+
 // Wrap the canvas container mousedown to also clear bubbles on plain canvas clicks.
 // Speech bubble components call @mousedown.stop, so clicks on bubbles won't reach here.
 function handleCanvasContainerMousedown(e) {
@@ -287,11 +345,13 @@ function handleCanvasContainerMousedown(e) {
 // Newer areas are later in the array = rendered on top (DOM order stacking)
 const radiusAreasWithZIndex = computed(() => radiusAreas.value)
 
-// Custom cursor: grabbing while dragging; ruler/radius when shift modifiers held
+// Custom cursor: grabbing while dragging; ruler/radius when shift modifiers held;
+// copy (+) cursor when Alt is held during radius measurement to indicate commit-on-release
 const canvasCursorStyle = computed(() => {
     if (isDragActive.value) return { cursor: 'grabbing' }
     if (isShiftHeld.value && isCmdHeld.value) return { cursor: `url('${radiusCursorUrl}') 8 8, crosshair` }
     if (isShiftHeld.value) return { cursor: `url('${rulerCursorUrl}') 8 8, crosshair` }
+    if (isAltHeld.value && isRadiusMeasuring.value) return { cursor: 'copy' }
     return {}
 })
 
@@ -300,7 +360,60 @@ const onRadiusAreaSelect = (id) => {
     bringRadiusAreaToFront(id)
 }
 
-// ─── Token info area ────────────────────────────────────────────────────────
+// Whether the current user is GM or admin
+const isGM = computed(() => campaignStore.isGMInActiveCampaign || authStore.isAdmin)
+
+// ─── Multi-token roll context menu (GM only) ─────────────────────────────────
+const rollsStore = useRollsStore()
+const tokenContextMenuVisible = ref(false)
+const tokenContextMenuPosition = ref({ x: 0, y: 0 })
+
+function resolveCharacterById(id) {
+    if (!id) return null
+    return charactersStore.getById(id)
+        ?? campaignStore.campaignCharacters.find(c => c.id === id)
+        ?? null
+}
+
+function handleTokenRightClick(item, e) {
+    if (e.button !== 2) return
+    if (!isGM.value) return
+    if (selectedIds.value.size < 2 || !isSelected(item.id)) return
+    // Prevent the right-click from reaching the canvas container (which would start panning)
+    e.stopPropagation()
+    tokenContextMenuPosition.value = { x: e.clientX, y: e.clientY }
+    tokenContextMenuVisible.value = true
+}
+
+function executeMultiRoll({ type, skillKey }) {
+    tokenContextMenuVisible.value = false
+    for (const itemId of selectedIds.value) {
+        const item = canvasItems.value.find(i => i.id === itemId)
+        if (!item?.characterId) continue
+        const character = resolveCharacterById(item.characterId)
+        if (!character) continue
+        let rollResult = null
+        if (type === 'initiative') {
+            rollResult = InitiativeRollService.makeInitiativeRoll(character)
+        } else if (type === 'injury') {
+            rollResult = InjuryRollService.makeInjuryRoll(character)
+        } else if (type === 'skill' && skillKey) {
+            const skill = findSkillById(character.skills, skillKey)
+            if (!skill) continue
+            rollResult = SkillCheckService.makeSkillCheck(skill, character, null)
+        }
+        if (rollResult) {
+            rollsStore.setRollForCharacter(rollResult, character.id)
+        }
+    }
+}
+
+// Tokens visible to the current user: GMs see all tokens (hidden ones dimmed),
+// players only see tokens that are not hidden.
+const displayCanvasItems = computed(() => {
+    if (isGM.value) return canvasItems.value
+    return canvasItems.value.filter(item => !item.isHidden)
+})
 
 // The single selected canvas token (only when exactly one is selected)
 const singleSelectedToken = computed(() => {
@@ -344,6 +457,12 @@ const canEditTokenInfo = computed(() => {
     return !!userId && char.ownerId === userId
 })
 
+function toggleTokenVisibility() {
+    const token = singleSelectedToken.value
+    if (!token) return
+    setTokenVisibility(token.id, !token.isHidden)
+}
+
 // ─── CharacterSheetPopup ────────────────────────────────────────────────────
 const charSheetPopupOpen = ref(false)
 const charSheetPopupCharacter = ref(null)
@@ -355,10 +474,25 @@ function openCharacterSheetPopup() {
     charSheetPopupOpen.value = true
 }
 
+/**
+ * Cmd/Ctrl+left-click a token to immediately open its CharacterSheetPopup
+ * in addition to the normal selection behaviour (handled by handleTokenMousedown).
+ */
+function handleTokenCmdClick(item, e) {
+    if (e.button !== 0 || (!e.metaKey && !e.ctrlKey) || e.shiftKey) return
+    if (!item.characterId) return
+    const char = resolveCharacterById(item.characterId)
+    if (!char) return
+    charSheetPopupCharacter.value = char
+    charSheetPopupOpen.value = true
+}
+
 // Close the popup automatically when a roll bubble appears for the character it shows.
 // This covers all roll types (skill checks, damage, etc.) triggered from within the popup.
+// If the user holds Shift when triggering the roll, the popup stays open.
 watch(activeBubbles, (bubbles) => {
     if (!charSheetPopupOpen.value || !charSheetPopupCharacter.value) return
+    if (isShiftHeld.value) return
     const charId = charSheetPopupCharacter.value.id
     const matchingItem = canvasItems.value.find(i => i.characterId === charId)
     if (matchingItem && bubbles[matchingItem.id]) {
@@ -464,7 +598,52 @@ watch(campaignId, async (id) => {
 
     await Promise.all(fetches)
     loadState()
+
+    // GM-only: populate the combat groups rail from the tabletop data.
+    if (isGM.value) {
+        const tabletop = campaignStore.tabletops.find((t) => t.id === tabletopId.value)
+        characterContextStore.setGroupsFromTabletop(tabletop?.combatGroups ?? [])
+    }
 }, { immediate: true })
+
+// ─── Persist combat-group changes from the rail back to the tabletop ─────────
+// When the GM renames, reorders, or sets initiative results for a group in
+// PinnedTokensContainer, we reconstruct the combatGroups and save to the tabletop.
+let _combatGroupsSaveTimer = null
+
+function reconstructCombatGroups(pinnedGroups) {
+    return pinnedGroups.map((group) => ({
+        id: group.id,
+        name: group.name,
+        combatants: (group.memberIds || []).map((charId) => {
+            const campaignChar = campaignStore.campaignCharacters.find((c) => c.id === charId)
+            let type = 'pc'
+            if (campaignChar) {
+                type = isBeastInstance(campaignChar) ? 'beast' : 'npc'
+            }
+            return { id: `${type}:${charId}`, type, characterId: charId }
+        }),
+    }))
+}
+
+watch(
+    () => characterContextStore.pinnedGroups,
+    (groups) => {
+        if (!isGM.value || !campaignId.value || !tabletopId.value) return
+        if (_combatGroupsSaveTimer) clearTimeout(_combatGroupsSaveTimer)
+        _combatGroupsSaveTimer = setTimeout(() => {
+            campaignStore.updateTabletop(campaignId.value, tabletopId.value, {
+                combatGroups: reconstructCombatGroups(groups),
+            })
+        }, 400)
+    },
+    { deep: true }
+)
+
+onUnmounted(() => {
+    if (_combatGroupsSaveTimer) clearTimeout(_combatGroupsSaveTimer)
+    characterContextStore.clearPinnedGroups()
+})
 </script>
 
 <style scoped>
@@ -485,6 +664,8 @@ watch(campaignId, async (id) => {
     flex: 1;
     position: relative;
     overflow: hidden;
+    /* Expose the toolbar height so the chatlog can position itself above the toolbar */
+    --vtt-toolbar-height: 38px;
 }
 
 .canvas-container.is-panning,
@@ -538,6 +719,11 @@ watch(campaignId, async (id) => {
     opacity: 0.6;
 }
 
+/* GMs see hidden tokens at reduced opacity with a dashed outline */
+.canvas-item.is-hidden-token {
+    opacity: 0.6;
+}
+
 .canvas-item--ghost {
     pointer-events: none;
 }
@@ -549,5 +735,14 @@ watch(campaignId, async (id) => {
     background: rgba(255, 255, 255, 0.1);
     pointer-events: none;
     z-index: 9998;
+}
+
+/* Teleported toolbar portal – sits above PinnedTokensContainer (z-badge = 1200) */
+.tabletop-toolbar-portal {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: calc(var(--z-badge) + 1);
 }
 </style>

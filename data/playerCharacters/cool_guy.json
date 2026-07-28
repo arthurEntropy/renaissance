@@ -2,13 +2,16 @@
   "id": "7e9a0db3-3532-4f6c-83eb-024e724a96ff",
   "isDeleted": false,
   "createdAt": "2026-07-24T14:57:01.232Z",
-  "lastModified": "2026-07-24T14:57:54.016Z",
+  "lastModified": "2026-07-28T13:06:11.408Z",
   "characterType": "playerCharacter",
   "name": "Cool Guy",
   "featuredArtUrls": [
     "https://cdn.midjourney.com/afe2f988-0990-418f-8b54-5ebf57c70560/0_1.png"
   ],
-  "speed": 0,
+  "speed": {
+    "current": 0,
+    "base": 0
+  },
   "notes": "",
   "body": 0,
   "heart": 0,
@@ -177,7 +180,22 @@
     "current": 0,
     "base": 0
   },
-  "abilities": [],
+  "abilities": [
+    {
+      "id": "6546f1dc-6604-4f1d-8717-6b44353b6d10",
+      "collapsed": false,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false
+    },
+    {
+      "id": "ec5cca33-66bb-4976-b205-877ba1b01a4b",
+      "collapsed": false,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": true
+    }
+  ],
   "groupAbilitiesBySource": false,
   "groupAbilitiesByManaColor": false,
   "groupAbilitiesByCustom": false,
@@ -253,20 +271,7 @@
   "keeping": null,
   "treasure": 0,
   "xp": 0,
-  "updatedAt": "2026-07-24T14:57:54.016Z",
+  "updatedAt": "2026-07-28T13:06:11.408Z",
   "description": "",
-  "size": 0,
-  "reach": 0,
-  "featuredArtUrl": "https://cdn.midjourney.com/afe2f988-0990-418f-8b54-5ebf57c70560/0_1.png",
-  "hasDarkvision": false,
-  "hasBlindsight": false,
-  "hasTremorsense": false,
-  "hasTruesight": false,
-  "burrowSpeed": 0,
-  "climbSpeed": 0,
-  "flySpeed": 0,
-  "swimSpeed": 0,
-  "biomeTagsAugment": [],
-  "biomeTagsInhibit": [],
-  "beastTypeIds": []
+  "featuredArtUrl": "https://cdn.midjourney.com/afe2f988-0990-418f-8b54-5ebf57c70560/0_1.png"
 }

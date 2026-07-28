@@ -1,7 +1,7 @@
 <template>
     <BaseModal title="Convert to Player Character" :open="true" @close="emit('close')">
         <div class="convert-body">
-            <p class="convert-description">This character will become a Player Character after saving.</p>
+            <p class="convert-description">This character will become a Player Character.</p>
         </div>
         <template #actions>
             <ActionButton variant="neutral" size="large" text="Cancel" @click="emit('close')" />

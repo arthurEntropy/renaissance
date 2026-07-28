@@ -47,6 +47,8 @@ import { ref, computed, watch, onUnmounted, nextTick } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useCampaignStore } from '@/stores/campaignStore'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
+import { getOptimizedImageUrl } from '@/utils/imageOptimization'
+import { MIDJOURNEY_IMAGE_CONTEXTS } from '@shared/constants/artConstants.js'
 
 const router = useRouter()
 const route = useRoute()
@@ -85,7 +87,7 @@ const btnLabel = computed(() => {
 const btnStyle = computed(() => {
     if (campaignStore.isInCampaign && campaign.value?.coverImageUrl) {
         return {
-            backgroundImage: `linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)), url(${campaign.value.coverImageUrl})`,
+            backgroundImage: `linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)), url(${getOptimizedImageUrl(campaign.value.coverImageUrl, MIDJOURNEY_IMAGE_CONTEXTS.THUMBNAIL)})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             border: '1px solid var(--color-border-secondary)',

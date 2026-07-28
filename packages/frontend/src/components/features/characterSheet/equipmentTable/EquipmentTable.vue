@@ -3,6 +3,11 @@
     <TableHeader title="Equipment" :is-edit-mode="internalEditMode" :show-edit-button="canEdit" collapsible
       :is-collapsed="isCollapsed" @toggle-collapse="isCollapsed = !isCollapsed" @toggle-edit="toggleEditMode">
       <template #header-left>
+        <!-- Expand/collapse FAB sits between the edit button (rendered by TableHeader) and the add FAB -->
+        <FloatingActionButton v-if="!isCollapsed && characterEquipment.length > 0" class="expand-collapse-btn"
+          :variant="allEquipmentExpanded ? FAB_TYPES.COLLAPSE_ALL : FAB_TYPES.EXPAND_ALL" :size="FAB_SIZES.SMALL"
+          :visibility="internalEditMode ? FAB_VISIBILITIES.ALWAYS : FAB_VISIBILITIES.ON_HOVER"
+          @click="toggleAllEquipment" />
         <FloatingActionButton v-if="internalEditMode" :variant="FAB_TYPES.ADD" :size="FAB_SIZES.SMALL"
           :visibility="FAB_VISIBILITIES.ALWAYS" @click="openEquipmentSelectorFromButton" />
         <ActionButton v-if="internalEditMode && groupingOption === 'custom'" variant="outline" size="small"
@@ -14,9 +19,6 @@
             placeholder="Ungrouped" />
           <SortingPicker v-model="equipmentSortOption" :options="sortOptions" label="Order by:" placeholder="Custom" />
         </div>
-        <FloatingActionButton v-else-if="!isCollapsed && characterEquipment.length > 0" class="expand-collapse-btn"
-          :variant="allEquipmentExpanded ? FAB_TYPES.COLLAPSE_ALL : FAB_TYPES.EXPAND_ALL" :size="FAB_SIZES.SMALL"
-          :visibility="FAB_VISIBILITIES.ON_HOVER" @click="toggleAllEquipment" />
       </template>
       <template #header-right>
         <div class="header-right-controls">
@@ -106,8 +108,8 @@
       @close="closeEditEquipmentModal" @delete="deleteEquipment" />
 
     <!-- Skill Check Modal -->
-    <SkillCheckModal v-if="showSkillCheckModal" :selected-skill-name="rollLinkSkill" :character="selectedCharacter"
-      :default-roll-type="rollLinkRollType" @close="showSkillCheckModal = false" />
+    <SkillCheckModal v-if="showSkillCheckModal" :selected-skill-key="rollLinkSkillKey" :character="selectedCharacter"
+      :default-roll-type="rollLinkRollType" :source-name="rollLinkSourceName" @close="showSkillCheckModal = false" />
 
     <!-- Gratuiti Popup -->
     <GratuitiPopup v-if="showGratuitiPopup" :mestiere-gratuiti="characterMestiereNovizio?.gratuiti"
@@ -132,7 +134,7 @@
       :initial-modifier="damageRollModalConfig.initialModifier" :roll-name="damageRollModalConfig.rollName"
       :source-name="damageRollModalConfig.sourceName" :roll-mode="damageRollModalConfig.rollMode ?? 'damage'"
       :initial-active-stat-key="damageRollModalConfig.initialActiveStatKey ?? null"
-      @close="showDamageRollModal = false" />
+      :initial-ill-favored="damageRollModalConfig.initialIllFavored ?? false" @close="showDamageRollModal = false" />
 
   </CharacterSheetSection>
 </template>
@@ -178,6 +180,7 @@ import { useCampaignStore } from '@/stores/campaignStore'
 import { useAuthStore } from '@/stores/authStore'
 import EngagementSuccessService from '@/services/entities/engagementSuccessService'
 import { RollTypes } from '@/constants/rollTypes'
+import { SKILLS } from '@shared/constants/characterConstants'
 import { MESMER_MASK_SUBTYPE_ID } from '@/constants/mesmerConstants'
 import { getModifierStatKey } from '@/utils/characterKeyUtils'
 
@@ -248,8 +251,9 @@ const isCollapsed = ref(false)
 
 // Roll link modal refs
 const showSkillCheckModal = ref(false)
-const rollLinkSkill = ref(null)
+const rollLinkSkillKey = ref(null)
 const rollLinkRollType = ref(null)
+const rollLinkSourceName = ref(null)
 
 // Damage roll modal refs
 const showDamageRollModal = ref(false)
@@ -466,7 +470,7 @@ const handleCharacterUpdate = (updatedCharacter) => {
   }
 }
 
-const handleDamageRoll = (equipment) => {
+const handleDamageRoll = ({ equipment, lacksTraining } = {}) => {
   if (!equipment || !selectedCharacter.value) return
 
   // Build initial dice counts from equipment's damage dice
@@ -484,6 +488,8 @@ const handleDamageRoll = (equipment) => {
     rollMode: 'damage',
     title: 'Damage Roll',
     initialActiveStatKey: 'body',
+    // Pre-set ill-favored when the character lacks martial training for this item
+    initialIllFavored: !!lacksTraining,
   }
   showDamageRollModal.value = true
 }
@@ -492,7 +498,8 @@ const handleRollLink = (rollData) => {
   if (!selectedCharacter.value) return
 
   if (rollData.type === 'skill-check' || rollData.type === 'contest') {
-    rollLinkSkill.value = rollData.skill
+    rollLinkSkillKey.value = Object.values(SKILLS).find(s => s.label === rollData.skill)?.key ?? rollData.skill?.toLowerCase() ?? null
+    rollLinkSourceName.value = rollData.sourceName ?? null
     // Contest links open as unopposed (no difficulty)
     rollLinkRollType.value = rollData.type === 'contest' ? 'unopposed' : RollTypes.SKILL_CHECK
     showSkillCheckModal.value = true

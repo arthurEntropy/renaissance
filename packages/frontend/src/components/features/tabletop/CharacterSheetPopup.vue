@@ -8,8 +8,8 @@
             <!-- Popup card -->
             <div class="cs-popup" ref="popupEl" @click.stop>
 
-                <!-- Character token -->
-                <div class="cs-popup-token" @click.stop>
+                <!-- Character token (click to navigate to full character sheet) -->
+                <div class="cs-popup-token" @click.stop="router.push(`/characters/${character.id}`)">
                     <CharacterToken :character="character" :disableDefaultClick="true" :showRemoveFab="false" />
                 </div>
 
@@ -64,12 +64,14 @@
 
 <script setup>
 import { ref, computed, watch, nextTick, onMounted, onUnmounted } from 'vue'
+import { useRouter } from 'vue-router'
 import { useCharactersStore } from '@/stores/charactersStore'
 import CharacterToken from '@/components/features/characterSelection/CharacterToken.vue'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 import { useConceptsStore } from '@/stores/conceptsStore'
 import { useEquipmentStore } from '@/stores/equipmentStore'
+import { useAbilitiesStore } from '@/stores/abilitiesStore'
 import { useCharacterStatWatchers } from '@/composables/useCharacterStatWatchers'
 import { CORE_ABILITIES } from '@shared/constants/characterConstants'
 import { BIOME_MESTIERI } from '@shared/constants/biomeTags'
@@ -102,21 +104,43 @@ const props = defineProps({
 
 defineEmits(['close'])
 
+const router = useRouter()
+
 const charactersStore = useCharactersStore()
 const conceptsStore = useConceptsStore()
 const equipmentStore = useEquipmentStore()
+const abilitiesStore = useAbilitiesStore()
 
 // Save / restore selectedCharacter around the popup's lifetime
 let prevSelectedCharacter = null
 onMounted(() => {
     prevSelectedCharacter = charactersStore.selectedCharacter
     charactersStore.selectCharacter(props.character)
+    const saved = localStorage.getItem(_tabKey(props.character.id))
+    if (saved) activeTab.value = saved
+    // Ensure abilities, equipment, and concepts (mestiere data for engagement dice)
+    // are populated for their respective tabs. These may not have been fetched if
+    // the user navigated directly to the tabletop.
+    abilitiesStore.fetch()
+    equipmentStore.fetch()
+    conceptsStore.fetch()
 })
 onUnmounted(() => {
     if (prevSelectedCharacter) {
         charactersStore.selectCharacter(prevSelectedCharacter)
     } else {
         charactersStore.deselectCharacter()
+    }
+})
+
+// Defensive guard: if Vue reuses this component instance (e.g. because the v-if
+// condition stays truthy while charSheetPopupCharacter changes), onMounted won't
+// re-fire. Watch props.character so selectedCharacter is always updated even in
+// that case, preventing the popup from showing data for the previous character.
+watch(() => props.character, (newChar) => {
+    if (newChar && newChar !== charactersStore.selectedCharacter) {
+        prevSelectedCharacter = charactersStore.selectedCharacter
+        charactersStore.selectCharacter(newChar)
     }
 })
 
@@ -170,12 +194,18 @@ const tabs = computed(() => [
     ...orderedSectionKeys.value.map(k => ({ key: k, label: SECTION_LABELS[k] })),
 ])
 
-// Default to Core tab
+// Default to Core tab, restoring the last tab the user was viewing for this character
 const activeTab = ref('core')
+
+function _tabKey(characterId) {
+    return `cs-popup-tab-${characterId}`
+}
 
 // Animate popup height when switching tabs
 const popupEl = ref(null)
-watch(activeTab, async () => {
+watch(activeTab, async (newTab) => {
+    // Persist the selected tab for this character
+    localStorage.setItem(_tabKey(props.character.id), newTab)
     const el = popupEl.value
     if (!el) return
     const from = el.getBoundingClientRect().height

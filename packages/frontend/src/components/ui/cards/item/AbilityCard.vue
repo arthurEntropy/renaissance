@@ -143,6 +143,12 @@ const props = defineProps({
   editMode: {
     default: null
   },
+  // When true, the badge always shows its cost/owned state but is never
+  // interactive (no +Add / -Remove on hover). Used in preview overlays.
+  readonlyBadge: {
+    type: Boolean,
+    default: false
+  },
 })
 
 const emit = defineEmits(['edit', 'update', 'update:collapsed', 'update:showImprovements', 'update:showSuccesses', 'height-changed', 'roll-link', 'activate', 'deactivate'])
@@ -226,6 +232,7 @@ const xpBadgeVisible = computed(() =>
 // In uncontrolled mode (editMode===null) preserve original behaviour: interactive whenever a
 // character is present. In controlled mode: interactive only when in edit mode.
 const badgeIsInteractive = computed(() => {
+  if (props.readonlyBadge) return false
   if (props.editMode === null) return !!props.character
   return props.editMode && !!props.character
 })
@@ -252,11 +259,12 @@ const biomeLinkClass = computed(() => {
   return null
 })
 
-// Intercept roll-link events and enrich with biome dice modifier
+// Intercept roll-link events and enrich with biome dice modifier and ability name
 function handleRollLinkWithBiome(rollData) {
   emit('roll-link', {
     ...rollData,
     biomeDiceMod: biomeDiceMod.value,
+    abilityName: props.ability.name,
   })
 }
 

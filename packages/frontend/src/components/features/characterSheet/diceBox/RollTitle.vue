@@ -9,7 +9,6 @@
 
         <span v-else-if="isCustomRoll">
             {{ rollData.characterName }} rolled
-            <span class="skill-name">{{ rollData.skillName }}</span>
         </span>
 
         <span v-else-if="isDamage">

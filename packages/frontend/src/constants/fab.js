@@ -29,6 +29,7 @@ export const FAB_TYPES = {
     TRAP_THROW: 'trap-throw',
     EXPAND: 'expand',
     SPECTATE: 'spectate',
+    ATTACK: 'attack',
 }
 
 export const FAB_SIZES = {

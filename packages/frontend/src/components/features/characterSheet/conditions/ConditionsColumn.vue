@@ -14,11 +14,19 @@
 
         <!-- Speed -->
         <CharacterSheetSection custom-class="speed-column">
-            <div class="speed-row">
+            <div class="speed-header edit-hover-area">
+                <FloatingActionButton v-if="isEditMode" :variant="FAB_TYPES.REFRESH" :size="FAB_SIZES.SMALL"
+                    :visibility="FAB_VISIBILITIES.ON_HOVER" @click="resetSpeed" title="Reset current speed to base" />
                 <span class="speed-name">Speed</span>
-                <NumberInput :model-value="selectedCharacter?.speed || 0" :disabled="!isEditMode"
-                    @update:model-value="updateSpeed" :min="0" :step="5" :size="NUMBER_INPUT_SIZES.MEDIUM"
-                    aria-label="Character speed" />
+            </div>
+            <div class="speed-inputs-row">
+                <NumberInput :model-value="selectedCharacter?.speed?.current ?? 0" :disabled="!isEditMode"
+                    @update:model-value="updateCurrentSpeed" :min="0" :step="5" :size="NUMBER_INPUT_SIZES.MEDIUM"
+                    aria-label="Current speed" />
+                <span class="speed-separator">/</span>
+                <NumberInput :model-value="selectedCharacter?.speed?.base ?? 0" :disabled="!isEditMode"
+                    @update:model-value="updateBaseSpeed" :min="0" :step="5" :size="NUMBER_INPUT_SIZES.MEDIUM"
+                    aria-label="Base speed" />
             </div>
         </CharacterSheetSection>
     </div>
@@ -28,7 +36,9 @@
 import { computed } from 'vue'
 import CharacterSheetSection from '@/components/ui/containers/CharacterSheetSection.vue'
 import NumberInput from '@/components/ui/forms/NumberInput.vue'
+import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import { NUMBER_INPUT_SIZES } from '@/constants/numberInput'
+import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 import { useCharactersStore } from '@/stores/charactersStore'
 import * as CharacterUtils from '@shared/utils/characterUtils'
 
@@ -54,9 +64,21 @@ const updateCondition = (conditionKey, value) => {
     CharacterUtils.updateFavoredStatus(selectedCharacter.value)
 }
 
-const updateSpeed = (value) => {
+const updateCurrentSpeed = (value) => {
     if (!selectedCharacter.value) return
-    selectedCharacter.value.speed = value
+    if (!selectedCharacter.value.speed) selectedCharacter.value.speed = { current: 0, base: 0 }
+    selectedCharacter.value.speed.current = value
+}
+
+const updateBaseSpeed = (value) => {
+    if (!selectedCharacter.value) return
+    if (!selectedCharacter.value.speed) selectedCharacter.value.speed = { current: 0, base: 0 }
+    selectedCharacter.value.speed.base = value
+}
+
+const resetSpeed = () => {
+    if (!selectedCharacter.value?.speed) return
+    selectedCharacter.value.speed.current = selectedCharacter.value.speed.base
 }
 </script>
 
@@ -69,9 +91,9 @@ const updateSpeed = (value) => {
 }
 
 .conditions-column {
-    align-items: center;
+    align-items: flex-end;
     width: 100px;
-    padding-bottom: 43px;
+    padding-bottom: 15px;
 }
 
 .speed-column {
@@ -108,16 +130,33 @@ const updateSpeed = (value) => {
     border-bottom: 1px solid var(--color-gray-dark);
 }
 
-.speed-row {
+.speed-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: 100%;
+    margin: 4px 0 15px 0;
+    height: 10px;
+}
+
+.speed-inputs-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-xs);
+    width: 100%;
     height: 25px;
+}
+
+.speed-separator {
+    font-size: var(--font-size-14);
+    color: var(--color-text-secondary);
+    flex-shrink: 0;
 }
 
 .speed-name {
     font-size: var(--font-size-14);
+    font-style: italic;
 }
 
 .condition-active {

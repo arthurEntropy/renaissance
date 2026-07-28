@@ -5,6 +5,10 @@
         @load-more="loadMore">
 
         <template #additional-filters>
+            <label v-if="selectedCharacter" class="template-toggle">
+                <input type="checkbox" v-model="hideUntrained" />
+                <span>Hide Untrained</span>
+            </label>
             <div v-if="isAdmin" class="top-row-actions">
                 <div class="toggle-column">
                     <label class="template-toggle">
@@ -65,6 +69,10 @@
             :tag-search-placeholder="'Filter by tags...'" :stats="stats" :hide-to-top-button="showEditEquipmentModal"
             @add="createEquipment">
             <template #additional-filters>
+                <label v-if="selectedCharacter" class="template-toggle">
+                    <input type="checkbox" v-model="hideUntrained" />
+                    <span>Hide Untrained</span>
+                </label>
                 <div v-if="isAdmin" class="top-row-actions">
                     <div class="toggle-column">
                         <label class="template-toggle">
@@ -122,12 +130,14 @@ import { useAuthStore } from '@/stores/authStore'
 import { useSourcesStore } from '@/stores/sourcesStore'
 import { useCampaignStore } from '@/stores/campaignStore'
 import { useCharactersStore } from '@/stores/charactersStore'
+import { useConceptsStore } from '@/stores/conceptsStore'
 import { useEditModal } from '@/composables/useEditModal'
 import { useInfiniteScroll } from '@/composables/useInfiniteScroll'
 import { useInfiniteScrollObserver } from '@/composables/useInfiniteScrollObserver'
 import { useFilterPersistence } from '@/composables/useFilterPersistence'
 import { sortItems } from '@/utils/sortItems'
 import { EQUIPMENT_SORT_OPTIONS, EQUIPMENT_GROUP_BY_OPTIONS, filterAdminSortOptions } from '@/constants/sortOptions'
+import { ARMOR_TYPE_ID } from '@/constants/armorConstants'
 import { SOURCE_COLLECTION_TYPES } from '@/constants/sourceTypes'
 import { FILTER_TAG_PREFIXES } from '@/constants/filterTagPrefixes'
 import { FILTER_SPECIAL_TAG_GROUP_LABEL } from '@/constants/filterBar'
@@ -148,6 +158,7 @@ const engagementSuccessesStore = useEngagementSuccessesStore()
 const authStore = useAuthStore()
 const sourcesStore = useSourcesStore()
 const charactersStore = useCharactersStore()
+const conceptsStore = useConceptsStore()
 
 const equipment = computed(() => equipmentStore.visibleEquipment)
 const selectedCharacter = computed(() => charactersStore.selectedCharacter)
@@ -169,6 +180,7 @@ const showTemplates = ref(false)
 const templatesOnly = ref(false)
 const showBeastEquipment = ref(false)
 const beastEquipmentOnly = ref(false)
+const hideUntrained = ref(false)
 const engagementSuccessOptions = computed(() => engagementSuccessesStore.items)
 const isLoadingMore = ref(false)
 const improvementVisibility = ref(new Map())
@@ -268,6 +280,36 @@ const parsedTagFilters = computed(() => {
     }
 })
 
+/**
+ * Returns true if the selected character lacks martial training for the given equipment item.
+ * Mirrors the lacksTraining logic in EquipmentCard.vue.
+ */
+const itemLacksTrainingForSelectedChar = (item) => {
+    const char = selectedCharacter.value
+    if (!char) return false
+    // Determine the training key
+    let key = null
+    if (item.type === ARMOR_TYPE_ID) {
+        key = 'armorGrades'
+    } else {
+        const typeObj = equipmentTypesStore.getById(item.type)
+        if (typeObj?.name === 'Weapon') {
+            const subtype = equipmentSubtypesStore.getById(item.subtype)
+            const subtypeName = subtype?.name?.toLowerCase()
+            if (['melee', 'polearm', 'ranged', 'firearm'].includes(subtypeName)) {
+                key = `${subtypeName}Grades`
+            }
+        }
+    }
+    if (!key) return false
+    if (!item.grade) return false
+    const mestiere = conceptsStore.mestieri.find(m => m.id === char.mestiereId)
+    const mestiereGrades = mestiere?.novizio?.martialTraining?.[key] ?? []
+    const manualGrades = char.martialTrainingOverrides?.[key] ?? []
+    const trainedGrades = [...new Set([...mestiereGrades, ...manualGrades])]
+    return !trainedGrades.includes(item.grade)
+}
+
 const compareEquipmentGroups = (left, right) => {
     if (groupByOption.value === 'source') {
         const leftSourceName = sourcesStore.getSourceName(left.source) || 'Unknown Source'
@@ -291,6 +333,12 @@ const compareEquipmentGroups = (left, right) => {
         const leftIndex = equipmentGradesStore.getById(left.grade)?.index ?? 999
         const rightIndex = equipmentGradesStore.getById(right.grade)?.index ?? 999
         return leftIndex - rightIndex
+    }
+
+    if (groupByOption.value === 'keeping') {
+        const leftCost = keepingStore.getById(left.keeping)?.cost ?? 999
+        const rightCost = keepingStore.getById(right.keeping)?.cost ?? 999
+        return leftCost - rightCost
     }
 
     return 0
@@ -348,6 +396,10 @@ const allFilteredEquipment = computed(() => {
         filtered = filtered.filter((item) => gradeIds.includes(item.grade))
     }
 
+    if (hideUntrained.value && selectedCharacter.value) {
+        filtered = filtered.filter((item) => !itemLacksTrainingForSelectedChar(item))
+    }
+
     if (query) {
         filtered = filtered.filter((item) => {
             const name = (item.name || '').toLowerCase()
@@ -388,6 +440,10 @@ const groupedEquipment = computed(() => {
         } else if (groupByOption.value === 'grade') {
             groupId = item.grade || '__unknown-grade__'
             groupName = equipmentGradesStore.getById(item.grade)?.name || 'Unknown Grade'
+        } else if (groupByOption.value === 'keeping') {
+            const keeping = keepingStore.getById(item.keeping)
+            groupId = item.keeping || '__unknown-keeping__'
+            groupName = keeping ? `${keeping.name}` : 'Unknown Keeping'
         }
 
         if (!groups[groupId]) {
@@ -401,6 +457,11 @@ const groupedEquipment = computed(() => {
             const aIndex = equipmentGradesStore.getById(a.id)?.index ?? 999
             const bIndex = equipmentGradesStore.getById(b.id)?.index ?? 999
             return aIndex - bIndex
+        }
+        if (groupByOption.value === 'keeping') {
+            const aCost = keepingStore.getById(a.id)?.cost ?? 999
+            const bCost = keepingStore.getById(b.id)?.cost ?? 999
+            return aCost - bCost
         }
         return a.name.localeCompare(b.name)
     })
@@ -431,6 +492,7 @@ useFilterPersistence('equipment', {
     templatesOnly,
     showBeastEquipment,
     beastEquipmentOnly,
+    hideUntrained,
 })
 
 // Improvement visibility methods
@@ -453,7 +515,11 @@ const updateEquipmentShowSuccesses = (equipmentId, showSuccesses) => {
 
 const handleCharacterUpdate = async (updatedCharacter) => {
     if (updatedCharacter && selectedCharacter.value) {
-        await charactersStore.update(updatedCharacter)
+        // Merge changes into selectedCharacter.value in place so the store reference
+        // stays connected to allItems, preventing stale auto-saves from overwriting
+        // the change after the server round-trip.
+        Object.assign(selectedCharacter.value, updatedCharacter)
+        await charactersStore.update(selectedCharacter.value)
     }
 }
 
@@ -539,7 +605,7 @@ const refreshData = async () => {
 }
 
 // Watchers
-watch([searchQuery, equipmentTagFilters, sortOption, showTemplates, templatesOnly, showBeastEquipment, beastEquipmentOnly, groupByOption], () => {
+watch([searchQuery, equipmentTagFilters, sortOption, showTemplates, templatesOnly, showBeastEquipment, beastEquipmentOnly, groupByOption, hideUntrained], () => {
     reset()
 })
 

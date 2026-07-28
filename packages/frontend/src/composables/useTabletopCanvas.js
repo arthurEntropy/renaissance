@@ -10,7 +10,7 @@ const MAX_HISTORY = 50
 const INTERACTIVE_TAGS = new Set(['button', 'a', 'input', 'select', 'textarea', 'label'])
 
 export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {}) {
-    const { draggingCharacter, clearDraggingCharacter } = useTabletopDragState()
+    const { draggingCharacter, clearDraggingCharacter, draggingGroup, clearDraggingGroup } = useTabletopDragState()
     const { setSelectedCharacterIds, clearSelectedCharacterIds } = useTabletopSelectionState()
     const campaignStore = useCampaignStore()
 
@@ -33,6 +33,10 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
     const rollLogExpanded = ref(false)
     const setRollLogExpanded = (val) => {
         rollLogExpanded.value = val
+        saveState()
+    }
+    const clearRollLog = () => {
+        rollLog.value = []
         saveState()
     }
 
@@ -100,13 +104,16 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
     // { url, naturalWidth, naturalHeight } or null for an unbounded canvas
     const backgroundImage = ref(null)
 
+    // Scale applied to the background map image (20%–400%, snaps to 10% increments).
+    const mapScale = ref(1)
+
     // When a background image is set, the canvas div gets a fixed size so that
     // tokens are bounded to the map area.
     const canvasSizeStyle = computed(() => {
         if (!backgroundImage.value) return {}
         return {
-            width: `${backgroundImage.value.naturalWidth}px`,
-            height: `${backgroundImage.value.naturalHeight}px`,
+            width: `${Math.round(backgroundImage.value.naturalWidth * mapScale.value)}px`,
+            height: `${Math.round(backgroundImage.value.naturalHeight * mapScale.value)}px`,
         }
     })
 
@@ -124,6 +131,15 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
 
     const clearBackgroundImage = () => {
         backgroundImage.value = null
+        saveState()
+    }
+
+    const increaseMapScale = () => {
+        mapScale.value = Math.min(4, Math.round((mapScale.value + 0.1) * 10) / 10)
+        saveState()
+    }
+    const decreaseMapScale = () => {
+        mapScale.value = Math.max(0.2, Math.round((mapScale.value - 0.1) * 10) / 10)
         saveState()
     }
 
@@ -207,12 +223,15 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
     // ─── Ghost overlay ────────────────────────────────────────────────────────
     // tokenGhosts: array of ghost objects shown while dragging tokens on the canvas
     const tokenGhosts = ref([])
-    // dropGhost: shown while dragging a character from PinnedTokensContainer over the canvas
+    // dropGhost: shown while dragging a single character from PinnedTokensContainer over the canvas
     const dropGhost = ref(null)
-    // All active ghosts: dragged token ghosts plus the optional drop ghost
+    // dropGhosts: shown while dragging a whole group from PinnedTokensContainer over the canvas
+    const dropGhosts = ref([])
+    // All active ghosts: dragged token ghosts plus the optional drop ghost(s)
     const activeGhosts = computed(() => {
         const ghosts = [...tokenGhosts.value]
         if (dropGhost.value) ghosts.push(dropGhost.value)
+        ghosts.push(...dropGhosts.value)
         return ghosts
     })
 
@@ -229,6 +248,7 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
     const measureCurrent = ref(null)
     const isCmdHeld = ref(false)
     const isShiftHeld = ref(false)
+    const isAltHeld = ref(false)
 
     // ─── Radius measurement ───────────────────────────────────────────────────
     // { x, y } canvas-space origin (center of square or token)
@@ -266,11 +286,6 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
 
     const handleContainerMousedown = (e) => {
         if (e.button === 2) {
-            // Right-click during radius measurement: persist the area
-            if (isRadiusMeasuring.value && radiusOrigin.value && radiusCurrent.value) {
-                _commitRadiusArea()
-                return
-            }
             // Right-click: start pan, cancel any active canvas measurement
             isPanning.value = true
             _panStart.x = e.clientX
@@ -461,10 +476,24 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
     const handleDragOver = (e) => {
         e.preventDefault()
         e.dataTransfer.dropEffect = 'copy'
-        const dc = draggingCharacter.value
-        if (!dc) return
         const pos = _containerPos(e)
         if (!pos) return
+        // Group drag: show one ghost per unplaced member
+        const dg = draggingGroup.value
+        if (dg && dg.length > 0) {
+            const startX = snap(pos.canvasX - gridSize.value / 2)
+            const startY = snap(pos.canvasY - gridSize.value / 2)
+            dropGhosts.value = dg.map((snapshot, i) => ({
+                ...snapshot,
+                x: startX + i * (snapshot.size || 1) * gridSize.value,
+                y: startY,
+            }))
+            dropGhost.value = null
+            return
+        }
+        // Single character drag
+        const dc = draggingCharacter.value
+        if (!dc) return
         const halfPx = ((dc.size || 1) * gridSize.value) / 2
         dropGhost.value = {
             ...dc,
@@ -477,17 +506,42 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
         // Only clear ghost when the pointer leaves the canvas container entirely
         if (!canvasContainerRef.value?.contains(e.relatedTarget)) {
             dropGhost.value = null
+            dropGhosts.value = []
         }
     }
 
     const handleDrop = (e) => {
         e.preventDefault()
+        const pos = _containerPos(e)
+        if (!pos) return
+
+        // ── Group drop: place all unplaced members in a row ────────────────
+        const rawGroup = e.dataTransfer.getData('application/vtt-group')
+        if (rawGroup) {
+            let snapshots
+            try { snapshots = JSON.parse(rawGroup) } catch { return }
+            const placedCharIds = new Set(canvasItems.value.map(i => i.characterId).filter(Boolean))
+            const unplaced = snapshots.filter(s => !placedCharIds.has(s.characterId))
+            if (unplaced.length > 0) {
+                const startX = snap(pos.canvasX - gridSize.value / 2)
+                const startY = snap(pos.canvasY - gridSize.value / 2)
+                recordSnapshot()
+                unplaced.forEach((snapshot, i) => {
+                    const x = startX + i * (snapshot.size || 1) * gridSize.value
+                    _placeToken(snapshot, x, startY)
+                })
+                saveState()
+            }
+            dropGhosts.value = []
+            clearDraggingGroup()
+            return
+        }
+
+        // ── Single character drop ──────────────────────────────────────────
         const raw = e.dataTransfer.getData('application/vtt-character')
         if (!raw) return
         let snapshot
         try { snapshot = JSON.parse(raw) } catch { return }
-        const pos = _containerPos(e)
-        if (!pos) return
         const halfPx = ((snapshot.size || 1) * gridSize.value) / 2
         const x = snap(pos.canvasX - halfPx)
         const y = snap(pos.canvasY - halfPx)
@@ -800,12 +854,17 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
             return
         }
 
-        // Stop radius measurement on any other mouseup
+        // Stop radius measurement on any other mouseup;
+        // if Alt is held, commit as a persistent area instead.
         if (isRadiusMeasuring.value && !isPanning.value) {
-            isRadiusMeasuring.value = false
-            radiusOrigin.value = null
-            radiusCurrent.value = null
-            _radiusSourceTokenId = null
+            if (isAltHeld.value && radiusOrigin.value && radiusCurrent.value) {
+                _commitRadiusArea()
+            } else {
+                isRadiusMeasuring.value = false
+                radiusOrigin.value = null
+                radiusCurrent.value = null
+                _radiusSourceTokenId = null
+            }
         }
 
         if (isPanning.value) {
@@ -965,6 +1024,21 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
         saveState()
     }
 
+    const setTokenVisibility = (canvasItemId, isHidden) => {
+        const item = canvasItemsById.value.get(canvasItemId)
+        if (!item) return
+        recordSnapshot()
+        item.isHidden = isHidden
+        saveState()
+    }
+
+    const removeTokenByCharacterId = (characterId) => {
+        if (!characterId) return
+        recordSnapshot()
+        canvasItems.value = canvasItems.value.filter(i => i.characterId !== characterId)
+        saveState()
+    }
+
     const clearAll = () => {
         if (!window.confirm('Remove all tokens from the tabletop?')) return
         recordSnapshot()
@@ -981,6 +1055,7 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
         // Track modifier keys for measurement modes
         if (e.key === 'Meta' || e.key === 'Control') isCmdHeld.value = true
         if (e.key === 'Shift') isShiftHeld.value = true
+        if (e.key === 'Alt') isAltHeld.value = true
 
         const ctrlOrCmd = e.metaKey || e.ctrlKey
 
@@ -1056,6 +1131,22 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
     const handleGlobalKeyup = (e) => {
         if (e.key === 'Meta' || e.key === 'Control') isCmdHeld.value = false
         if (e.key === 'Shift') isShiftHeld.value = false
+        if (e.key === 'Alt') isAltHeld.value = false
+    }
+
+    // Reset modifier keys when the window loses focus or the tab is hidden.
+    // Without this, pressing Shift on another tab leaves isShiftHeld stuck true,
+    // causing the cursor to appear in ruler mode when returning to the tabletop.
+    const handleWindowBlur = () => {
+        isShiftHeld.value = false
+        isCmdHeld.value = false
+        isAltHeld.value = false
+    }
+    const handleVisibilityChange = () => {
+        if (document.visibilityState !== 'visible') return
+        isShiftHeld.value = false
+        isCmdHeld.value = false
+        isAltHeld.value = false
     }
 
     // ─── Persistence ─────────────────────────────────────────────────────────
@@ -1081,6 +1172,7 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
         const snapshot = {
             items: JSON.parse(JSON.stringify(canvasItems.value)),
             backgroundImage: backgroundImage.value ? { ...backgroundImage.value } : null,
+            mapScale: mapScale.value,
             gridSize: gridSize.value,
             gridColor: gridColor.value,
             gridOpacity: gridOpacity.value,
@@ -1096,8 +1188,12 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
             if (currentTid !== tid) return
             campaignStore.updateTabletop(cid, tid, { ...snapshot, transform: { ...transform.value }, rollLogExpanded: rollLogExpanded.value })
                 .then(() => {
-                    console.log('[VTT] State persisted; calling onStateSaved to broadcast via socket')
-                    onStateSaved?.(snapshot)
+                    // Exclude rollLog from the socket broadcast: roll entries are synced
+                    // independently via ROLL_RECEIVED events (useTabletopRollLog).
+                    // Broadcasting rollLog via state sync would overwrite other clients'
+                    // locally-assembled chat logs with stale data.
+                    const { rollLog: _excludedRollLog, ...broadcastSnapshot } = snapshot
+                    onStateSaved?.(broadcastSnapshot)
                 })
                 .catch((err) => console.warn('[VTT] Failed to persist tabletop state:', err))
         }, 500)
@@ -1122,6 +1218,7 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
                 topZIndex.value = Math.max(1, ...snapshot.items.map((i) => i.zIndex ?? 0))
             }
             if (snapshot.backgroundImage !== undefined) backgroundImage.value = snapshot.backgroundImage
+            if (snapshot.mapScale != null) mapScale.value = snapshot.mapScale
             if (snapshot.gridSize != null) gridSize.value = snapshot.gridSize
             if (snapshot.gridColor) gridColor.value = snapshot.gridColor
             if (snapshot.gridOpacity != null) gridOpacity.value = snapshot.gridOpacity
@@ -1151,6 +1248,7 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
         }
         if (tabletop.transform) transform.value = tabletop.transform
         if (tabletop.backgroundImage) backgroundImage.value = tabletop.backgroundImage
+        if (tabletop.mapScale != null) mapScale.value = tabletop.mapScale
         if (tabletop.gridSize) gridSize.value = tabletop.gridSize
         if (tabletop.gridColor) gridColor.value = tabletop.gridColor
         if (tabletop.gridOpacity != null) gridOpacity.value = tabletop.gridOpacity
@@ -1173,6 +1271,7 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
             canvasItems.value = []
             transform.value = { x: 0, y: 0, scale: 1 }
             backgroundImage.value = null
+            mapScale.value = 1
             gridSize.value = 40
             gridColor.value = '#ffffff'
             gridOpacity.value = 0.06
@@ -1191,6 +1290,7 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
             _isResizeDrag = false
             _areaMoveState = null
             isShiftHeld.value = false
+            isAltHeld.value = false
             radiusAreas.value = []
             selectedRadiusAreaId.value = null
             hoveringRadiusAreaId.value = null
@@ -1201,31 +1301,25 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
         }
     )
 
-    // ─── Global right-click → commit radius area ──────────────────────────────
-    const handleGlobalMousedown = (e) => {
-        if (e.button === 2 && isRadiusMeasuring.value) {
-            e.preventDefault()
-            _commitRadiusArea()
-        }
-    }
-
     // ─── Lifecycle ────────────────────────────────────────────────────────────
     onMounted(() => {
-        window.addEventListener('mousedown', handleGlobalMousedown, true)
         window.addEventListener('mousemove', handleGlobalMousemove)
         window.addEventListener('mouseup', handleGlobalMouseup)
         window.addEventListener('keydown', handleGlobalKeydown)
         window.addEventListener('keyup', handleGlobalKeyup)
+        window.addEventListener('blur', handleWindowBlur)
+        document.addEventListener('visibilitychange', handleVisibilityChange)
     })
 
     onUnmounted(() => {
         _stateReady = false
         if (_saveTimer) clearTimeout(_saveTimer)
-        window.removeEventListener('mousedown', handleGlobalMousedown, true)
         window.removeEventListener('mousemove', handleGlobalMousemove)
         window.removeEventListener('mouseup', handleGlobalMouseup)
         window.removeEventListener('keydown', handleGlobalKeydown)
         window.removeEventListener('keyup', handleGlobalKeyup)
+        window.removeEventListener('blur', handleWindowBlur)
+        document.removeEventListener('visibilitychange', handleVisibilityChange)
         clearSelectedCharacterIds()
     })
 
@@ -1258,6 +1352,7 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
         measureCurrent,
         isCmdHeld,
         isShiftHeld,
+        isAltHeld,
         isRadiusMeasuring,
         radiusOrigin,
         radiusCurrent,
@@ -1271,6 +1366,9 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
         adjustZoom,
         increaseGridSize,
         decreaseGridSize,
+        mapScale,
+        increaseMapScale,
+        decreaseMapScale,
         setBackgroundImage,
         clearBackgroundImage,
         setGridColor,
@@ -1290,12 +1388,16 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
         beginAreaMove,
         bringRadiusAreaToFront,
         removeToken,
+        setTokenVisibility,
+        removeTokenByCharacterId,
+        recordSnapshot,
         clearAll,
         loadState,
         saveState,
         rollLog,
         rollLogExpanded,
         setRollLogExpanded,
+        clearRollLog,
         applyExternalState,
     }
 }

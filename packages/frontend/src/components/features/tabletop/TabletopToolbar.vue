@@ -48,10 +48,23 @@
             </button>
         </template>
 
+        <!-- Map scale (only when a background is set) -->
+        <template v-if="hasBackground">
+            <div class="toolbar-divider" />
+            <span class="section-label">Map Scale</span>
+            <button class="tool-btn icon-btn" title="Decrease map scale" @click="$emit('decrease-map-scale')">−</button>
+            <span class="zoom-label">{{ Math.round(mapScale * 100) }}%</span>
+            <button class="tool-btn icon-btn" title="Increase map scale" @click="$emit('increase-map-scale')">+</button>
+        </template>
+
         <div class="toolbar-divider" />
 
         <button v-if="itemCount > 0" class="tool-btn danger-btn" @click="$emit('clear-all')">
             Clear All Tokens
+        </button>
+
+        <button v-if="isGM" class="tool-btn danger-btn" @click="$emit('clear-log')">
+            Clear Log
         </button>
 
         <!-- Measurement path display toggle -->
@@ -100,6 +113,7 @@ const props = defineProps({
     canUndo: Boolean,
     canRedo: Boolean,
     hasBackground: Boolean,
+    mapScale: { type: Number, default: 1 },
     showPaths: { type: Boolean, default: true },
     isGM: { type: Boolean, default: false },
     tabletops: { type: Array, default: () => [] },
@@ -108,7 +122,7 @@ const props = defineProps({
     currentTabletopName: { type: String, default: '' },
 })
 
-const emit = defineEmits(['zoom-in', 'zoom-out', 'increase-grid', 'decrease-grid', 'clear-all', 'undo', 'redo', 'set-background', 'clear-background', 'update-grid-color', 'update-grid-opacity', 'update-show-paths', 'toggle-active-tabletop', 'switch-tabletop'])
+const emit = defineEmits(['zoom-in', 'zoom-out', 'increase-grid', 'decrease-grid', 'increase-map-scale', 'decrease-map-scale', 'clear-all', 'undo', 'redo', 'set-background', 'clear-background', 'update-grid-color', 'update-grid-opacity', 'update-show-paths', 'toggle-active-tabletop', 'switch-tabletop', 'clear-log'])
 
 const showBgInput = ref(false)
 const bgUrlDraft = ref('')

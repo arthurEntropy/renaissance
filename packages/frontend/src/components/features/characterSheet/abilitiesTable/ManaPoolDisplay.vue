@@ -3,6 +3,9 @@
         <!-- Pill container -->
         <div class="mana-pool-pill">
             <!-- Label -->
+            <!-- Untap all — only visible when there is tapped mana -->
+            <FloatingActionButton v-if="anyTapped" :variant="FAB_TYPES.REFRESH" :size="FAB_SIZES.SMALL"
+                :visibility="FAB_VISIBILITIES.ALWAYS" title="Untap all mana" @click="untapAll" />
             <span class="mana-pool-label">Mana Pool:</span>
 
             <!-- Colorless untapped aggregate -->
@@ -31,9 +34,6 @@
 
             <!-- Action buttons cluster: untap, delete, add —— separated from pips -->
             <div class="actions-cluster">
-                <!-- Untap all — only visible when there is tapped mana -->
-                <FloatingActionButton v-if="anyTapped" :variant="FAB_TYPES.REFRESH" :size="FAB_SIZES.SMALL"
-                    :visibility="FAB_VISIBILITIES.ALWAYS" title="Untap all mana" @click="untapAll" />
 
                 <!-- Clear all / drop-to-delete — visible when there is mana; becomes drop zone while dragging -->
                 <div v-if="anyMana || dragging" class="delete-slot"

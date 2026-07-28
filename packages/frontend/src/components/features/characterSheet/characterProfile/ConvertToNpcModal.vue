@@ -11,7 +11,7 @@
                     </option>
                 </select>
             </div>
-            <p class="convert-hint">The character will become an NPC in this campaign after saving.</p>
+            <p class="convert-hint">The character will become an NPC in this campaign.</p>
         </div>
         <template #actions>
             <ActionButton variant="neutral" size="large" text="Cancel" @click="emit('close')" />

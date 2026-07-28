@@ -107,11 +107,22 @@ export const useCharactersStore = defineStore('characters', () => {
   })
 
   // Wrap update to persist the entity.
-  // Deliberately does NOT overwrite selectedCharacter with the server response:
-  // the reactive proxy already has the user's latest mutations, and replacing it
-  // with the server payload would revert any changes made during the round-trip.
+  // base.update replaces allItems[i] with the server response (a new object), which
+  // disconnects selectedCharacter.value from the store array.  Any subsequent
+  // auto-save would then operate on the disconnected reference and could overwrite
+  // correct server data with stale local state.
+  //
+  // After the server round-trip we re-point allItems[i] back to selectedCharacter.value
+  // so the two are always the same object.  Local mutations made during the request
+  // are preserved because we never replace selectedCharacter.value itself.
   const update = async (entity) => {
     const updatedEntity = await base.update(entity)
+    if (selectedCharacter.value?.id === entity?.id) {
+      const idx = base.allItems.value.findIndex((c) => c.id === entity.id)
+      if (idx !== -1 && base.allItems.value[idx] !== selectedCharacter.value) {
+        base.allItems.value[idx] = selectedCharacter.value
+      }
+    }
     return updatedEntity
   }
 

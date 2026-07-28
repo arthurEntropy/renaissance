@@ -47,10 +47,12 @@ function buildRollLogEntry(rollResult, canvasItem) {
     isNpc: canvasItem.isNpc ?? false,
     isBeast: canvasItem.isBeast ?? false,
     type: rollResult.type ?? 'unknown',
-    skillName: rollResult.skillName ?? rollResult.baseSkillName ?? null,
+    // Prefer baseSkillName (without favored suffix) to avoid duplication with favoredStatus field
+    skillName: rollResult.baseSkillName ?? rollResult.skillName ?? null,
     total: rollResult.total ?? null,
     diceTotal: rollResult.diceTotal ?? null,
     modifier: rollResult.modifier ?? 0,
+    modifierLabel: rollResult.modifierLabel ?? null,
     success: rollResult.success ?? null,
     difficulty: rollResult.difficulty ?? null,
     footer: rollResult.footer ?? null,
@@ -124,6 +126,39 @@ export function useTabletopRollLog({ canvasItems, rollLog, saveStateFn, tabletop
     activeBubbles.value = next
   }
 
+  // ── Engagement combining ────────────────────────────────────────────────────
+
+  /**
+   * When both sides of an engagement are in the log, merge them into a single
+   * combined entry for a cleaner chatlog display.
+   */
+  function _createCombinedEngagementEntry(firstEntry, secondEntry) {
+    return {
+      id: `combined_${firstEntry.id}`,
+      timestamp: firstEntry.timestamp,
+      type: RollTypes.ENGAGEMENT,
+      combined: true,
+      // First character
+      characterId: firstEntry.characterId,
+      characterName: firstEntry.characterName,
+      portraitUrl: firstEntry.portraitUrl,
+      isNpc: firstEntry.isNpc,
+      isBeast: firstEntry.isBeast,
+      result: firstEntry.result,
+      userWins: firstEntry.userWins,
+      opponentWins: firstEntry.opponentWins,
+      diceResults: firstEntry.diceResults,
+      // Second character
+      opponentCharacterId: secondEntry.characterId,
+      opponentName: firstEntry.opponentName,
+      opponentPortraitUrl: secondEntry.portraitUrl,
+      opponentIsNpc: secondEntry.isNpc,
+      opponentIsBeast: secondEntry.isBeast,
+      opponentResult: secondEntry.result,
+      opponentDiceResults: secondEntry.diceResults,
+    }
+  }
+
   // ── Log helpers ─────────────────────────────────────────────────────────────
 
   /**
@@ -142,6 +177,33 @@ export function useTabletopRollLog({ canvasItems, rollLog, saveStateFn, tabletop
       (e) => e.characterId === entry.characterId && e.timestamp === entry.timestamp
     )
     if (isDuplicate) return
+
+    // For ENGAGEMENT rolls, try to combine with the opponent's matching entry already in the log.
+    if (entry.type === RollTypes.ENGAGEMENT && !entry.combined) {
+      const matchingIdx = rollLog.value.findIndex(
+        (e) =>
+          e.type === RollTypes.ENGAGEMENT &&
+          !e.combined &&
+          e.characterName === entry.opponentName &&
+          e.opponentName === entry.characterName
+      )
+      if (matchingIdx !== -1) {
+        const firstEntry = rollLog.value[matchingIdx]
+        const combined = _createCombinedEngagementEntry(firstEntry, entry)
+        const newLog = [...rollLog.value]
+        newLog.splice(matchingIdx, 1, combined)
+        rollLog.value = newLog
+        // Still show an individual speech bubble for this character's result
+        if (canvasItemId) {
+          _showBubble(canvasItemId, entry)
+        }
+        saveStateFn()
+        if (!fromSocket && tabletopId.value && campaignId.value) {
+          tabletopSocketService.broadcastRollLogged(tabletopId.value, campaignId.value, combined)
+        }
+        return
+      }
+    }
 
     const newLog = [...rollLog.value, entry]
     if (newLog.length > MAX_LOG_ENTRIES) newLog.shift()
@@ -170,10 +232,20 @@ export function useTabletopRollLog({ canvasItems, rollLog, saveStateFn, tabletop
         const canvasItem = canvasItems.value.find(
           (i) => i.characterId && i.characterId === roll.rollCharacterId
         )
-        if (!canvasItem) continue // character isn't on this tabletop
 
-        const entry = buildRollLogEntry(roll, canvasItem)
-        _appendEntry(entry, canvasItem.id, false)
+        // Build the entry using canvas item data when available, falling back to
+        // roll result data for characters not placed on this canvas (e.g. initiative
+        // rolls for pinned-group members that don't have tokens).
+        const entrySource = canvasItem ?? {
+          characterId: roll.rollCharacterId,
+          name: roll.characterName ?? 'Unknown',
+          portraitUrl: null,
+          isNpc: false,
+          isBeast: false,
+        }
+
+        const entry = buildRollLogEntry(roll, entrySource)
+        _appendEntry(entry, canvasItem?.id ?? null, false)
       }
     },
     { deep: true }
@@ -185,6 +257,47 @@ export function useTabletopRollLog({ canvasItems, rollLog, saveStateFn, tabletop
     if (!entry) return
     // Deduplicate by entry ID
     if (rollLog.value.some((e) => e.id === entry.id)) return
+
+    // Combined engagement entries need special handling: the combined entry shares
+    // the same characterId+timestamp as the first player's individual entry that is
+    // already in the local log.  The normal _appendEntry dedup would reject it, so
+    // we instead replace the matching individual entry directly and show the
+    // opponent's bubble.
+    if (entry.type === RollTypes.ENGAGEMENT && entry.combined) {
+      const matchingIdx = rollLog.value.findIndex(
+        (e) =>
+          e.type === RollTypes.ENGAGEMENT &&
+          !e.combined &&
+          e.characterId === entry.characterId &&
+          e.timestamp === entry.timestamp
+      )
+      if (matchingIdx !== -1) {
+        const newLog = [...rollLog.value]
+        newLog.splice(matchingIdx, 1, entry)
+        rollLog.value = newLog
+        // Show a bubble for the second participant (the opponent's canvas item)
+        if (entry.opponentCharacterId) {
+          const opponentCanvasItem = canvasItems.value.find(
+            (i) => i.characterId === entry.opponentCharacterId
+          )
+          if (opponentCanvasItem) {
+            // Show the bubble with the opponent's perspective data if available,
+            // otherwise fall back to the combined entry itself.
+            const opponentEntry = {
+              ...entry,
+              characterId: entry.opponentCharacterId,
+              characterName: entry.opponentName,
+              userWins: entry.opponentWins,
+              opponentWins: entry.userWins,
+              result: entry.opponentResult ?? entry.result,
+            }
+            _showBubble(opponentCanvasItem.id, opponentEntry)
+          }
+        }
+        saveStateFn()
+        return
+      }
+    }
 
     const canvasItem = canvasItems.value.find((i) => i.characterId === entry.characterId)
     _appendEntry(entry, canvasItem?.id ?? null, true)
