@@ -22,13 +22,10 @@ export function useTabletopSync({ tabletopId, campaignId, applyExternalState, on
   // ── Socket event handlers ────────────────────────────────────────────────
 
   function _onStateUpdated({ tabletopId: remoteTid, snapshot }) {
-    console.log(`[TabletopSync] STATE_UPDATED received: remoteTid=${remoteTid}, myTid=${tabletopId.value}`)
     // Only apply updates meant for the currently-open tabletop
     if (remoteTid !== tabletopId.value) {
-      console.log('[TabletopSync] STATE_UPDATED ignored (different tabletop)')
       return
     }
-    console.log('[TabletopSync] Applying external state')
     applyExternalState(snapshot)
   }
 
@@ -50,7 +47,6 @@ export function useTabletopSync({ tabletopId, campaignId, applyExternalState, on
   async function _joinRoom() {
     const tid = tabletopId.value
     const cid = campaignId.value
-    console.log(`[TabletopSync] _joinRoom called: tid=${tid}, cid=${cid}`)
     if (tid && cid) {
       await tabletopSocketService.join(tid, cid)
     }

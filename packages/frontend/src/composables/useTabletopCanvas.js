@@ -1184,7 +1184,6 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
             if (currentTid !== tid) return
             campaignStore.updateTabletop(cid, tid, { ...snapshot, transform: { ...transform.value }, rollLogExpanded: rollLogExpanded.value })
                 .then(() => {
-                    console.log('[VTT] State persisted; calling onStateSaved to broadcast via socket')
                     // Exclude rollLog from the socket broadcast: roll entries are synced
                     // independently via ROLL_RECEIVED events (useTabletopRollLog).
                     // Broadcasting rollLog via state sync would overwrite other clients'
