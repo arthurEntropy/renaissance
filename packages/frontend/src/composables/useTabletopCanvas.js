@@ -397,8 +397,11 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved, isWorl
             if (INTERACTIVE_TAGS.has(el.tagName?.toLowerCase())) return
             if (el.isContentEditable) return
         }
-        // On the world map, locked culture tokens cannot be dragged
+        // On the world map, locked culture tokens cannot be dragged.
+        // Consume the event to prevent rubber-band selection from starting on the canvas.
         if (isWorldMap && cultureTokensLocked.value && item.tokenType === 'culture') {
+            e.preventDefault()
+            e.stopPropagation()
             return
         }
         e.preventDefault()
@@ -686,8 +689,10 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved, isWorl
 
             // Enable measurement overlay once the token has moved at least one grid square,
             // preventing the brief flash that would appear on a plain click.
+            // On world maps, only start measuring when Shift is held (auto-measuring
+            // on token drag is disabled there — users measure explicitly with Shift).
             const movementThreshold = isWorldMap ? 4 : gridSize.value
-            if (!isMeasuring.value && (Math.abs(dx) >= movementThreshold || Math.abs(dy) >= movementThreshold)) {
+            if (!isMeasuring.value && (Math.abs(dx) >= movementThreshold || Math.abs(dy) >= movementThreshold) && (!isWorldMap || isShiftHeld.value)) {
                 isMeasuring.value = true
             }
 
@@ -1418,6 +1423,36 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved, isWorl
     })
 
     onUnmounted(() => {
+        // If a debounced save is pending, fire it immediately so any in-flight
+        // state changes (e.g. the last token placement before navigating away)
+        // are not silently dropped.
+        if (_saveTimer && _stateReady) {
+            clearTimeout(_saveTimer)
+            _saveTimer = null
+            const cid = typeof campaignId === 'object' ? campaignId.value : campaignId
+            const tid = typeof tabletopId === 'object' ? tabletopId.value : tabletopId
+            if (cid && tid) {
+                const snapshot = {
+                    items: JSON.parse(JSON.stringify(canvasItems.value)),
+                    backgroundImage: backgroundImage.value ? { ...backgroundImage.value } : null,
+                    mapScale: mapScale.value,
+                    gridSize: gridSize.value,
+                    gridColor: gridColor.value,
+                    gridOpacity: gridOpacity.value,
+                    showPaths: showPaths.value,
+                    radiusAreas: JSON.parse(JSON.stringify(radiusAreas.value)),
+                    rollLog: JSON.parse(JSON.stringify(rollLog.value)),
+                    ...(isWorldMap && {
+                        pixelsPerMile: pixelsPerMile.value,
+                        characterTokenSize: characterTokenSize.value,
+                        cultureTokenSize: cultureTokenSize.value,
+                        cultureTokensLocked: cultureTokensLocked.value,
+                    }),
+                }
+                campaignStore.updateTabletop(cid, tid, { ...snapshot, transform: { ...transform.value }, rollLogExpanded: rollLogExpanded.value })
+                    .catch(() => {})
+            }
+        }
         _stateReady = false
         if (_saveTimer) clearTimeout(_saveTimer)
         window.removeEventListener('mousemove', handleGlobalMousemove)

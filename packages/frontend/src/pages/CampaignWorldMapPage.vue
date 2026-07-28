@@ -19,15 +19,16 @@
                     :ref="(el) => registerTokenRef(item.id, el)"
                     :class="{ 'is-dragging': isDragging(item.id), 'is-hidden-token': item.isHidden, 'is-locked-culture': item.tokenType === 'culture' && cultureTokensLocked }"
                     :style="{ transform: `translate(${item.x}px, ${item.y}px)`, zIndex: item.zIndex }"
-                    @mousedown="(e) => handleTokenMousedown(item, e)">
+                    @mousedown="(e) => handleTokenMousedown(item, e)" @click="(e) => handleCanvasItemClick(item, e)">
                     <!-- Culture token -->
                     <CultureToken v-if="item.tokenType === 'culture'" :culture="resolveCultureById(item.cultureId)"
-                        :is-placed="true" :size="item.size" :show-remove-fab="isGM"
+                        :is-placed="true" :show-permanent-name="true" :size="item.size"
+                        :show-remove-fab="isGM && !cultureTokensLocked"
                         @remove="removeCultureTokenFromCanvas(item.cultureId)" />
-                    <!-- Character token -->
-                    <TabletopToken v-else :name="item.name" :portrait-url="item.portraitUrl" :is-beast="item.isBeast"
-                        :is-npc="item.isNpc" :size="item.size" :grid-size="1" :is-selected="isSelected(item.id)"
-                        :in-engagement="false" />
+                    <!-- Character token: use live portrait/name from the store to avoid stale snapshots -->
+                    <TabletopToken v-else :name="resolveCurrentName(item)"
+                        :portrait-url="resolveCurrentPortraitUrl(item)" :is-beast="item.isBeast" :is-npc="item.isNpc"
+                        :size="item.size" :grid-size="1" :is-selected="isSelected(item.id)" :in-engagement="false" />
                     <TabletopTokenInfoArea
                         v-if="item.tokenType !== 'culture' && singleSelectedToken?.id === item.id && canViewTokenInfo"
                         :character="singleSelectedCharacter" :can-edit="canEditTokenInfo" :is-in-engagement="false"
@@ -88,7 +89,7 @@
                     @set-background="setBackgroundImage" @clear-background="clearBackgroundImage"
                     @clear-log="clearRollLog" @increase-pixels-per-mile="increasePixelsPerMile"
                     @decrease-pixels-per-mile="decreasePixelsPerMile"
-                    @update-character-token-size="setCharacterTokenSize"
+                    @update-character-token-size="setAndResizeCharacterTokens"
                     @update-culture-token-size="setAndResizeCultureTokens" />
             </div>
         </Teleport>
@@ -121,6 +122,8 @@ import CharacterSheetPopup from '@/components/features/tabletop/CharacterSheetPo
 import CultureToken from '@/components/features/worldMap/CultureToken.vue'
 import WorldMapLinearScale from '@/components/features/worldMap/WorldMapLinearScale.vue'
 import { createDefaultWorldMap } from '@shared/types/tabletop.js'
+import { createSlug } from '@/utils/urlHelpers'
+import rulerCursorUrl from '@/assets/icons/cursor/ruler.png'
 
 const route = useRoute()
 const _router = useRouter()
@@ -166,6 +169,7 @@ const {
     measureWaypoints,
     measureCurrent,
     isCmdHeld,
+    isShiftHeld,
     registerTokenRef,
     handleWheel,
     handleContainerMousedown,
@@ -241,6 +245,32 @@ function resolveCultureById(id) {
     return conceptsStore.cultures.find(c => c.id === id) ?? null
 }
 
+/** Resolve the current portrait URL from the live store to avoid stale canvas snapshots (issue #5). */
+function resolveCurrentPortraitUrl(item) {
+    if (!item.characterId) return item.portraitUrl
+    const char = charactersStore.getById(item.characterId)
+        ?? campaignStore.campaignCharacters.find(c => c.id === item.characterId)
+    if (!char) return item.portraitUrl
+    return char.featuredArtUrls?.[0] ?? char.artUrls?.[0] ?? item.portraitUrl
+}
+
+function resolveCurrentName(item) {
+    if (!item.characterId) return item.name
+    const char = charactersStore.getById(item.characterId)
+        ?? campaignStore.campaignCharacters.find(c => c.id === item.characterId)
+    return char?.name ?? item.name
+}
+
+/** When a locked culture token is clicked, navigate to its detail page on CulturesPage. */
+function handleCanvasItemClick(item, _e) {
+    if (item.tokenType === 'culture' && cultureTokensLocked.value) {
+        const culture = resolveCultureById(item.cultureId)
+        if (culture?.name) {
+            _router.push(`/cultures/${createSlug(culture.name)}`)
+        }
+    }
+}
+
 function removeCultureTokenFromCanvas(cultureId) {
     if (!cultureId) return
     recordSnapshot()
@@ -252,6 +282,17 @@ function setAndResizeCultureTokens(size) {
     setCultureTokenSize(size)
     for (const item of canvasItems.value) {
         if (item.tokenType === 'culture') {
+            item.size = size
+        }
+    }
+    saveState()
+}
+
+// When characterTokenSize changes, resize all existing character tokens
+function setAndResizeCharacterTokens(size) {
+    setCharacterTokenSize(size)
+    for (const item of canvasItems.value) {
+        if (item.tokenType !== 'culture') {
             item.size = size
         }
     }
@@ -306,7 +347,9 @@ function toggleTokenVisibility() {
 
 // ─── Cursor style ─────────────────────────────────────────────────────────────
 const canvasCursorStyle = computed(() => {
-    return isPanning.value ? { cursor: 'grabbing' } : {}
+    if (isPanning.value) return { cursor: 'grabbing' }
+    if (isShiftHeld.value) return { cursor: `url('${rulerCursorUrl}') 8 8, crosshair` }
+    return {}
 })
 
 // ─── Character sheet popup ────────────────────────────────────────────────────
@@ -365,12 +408,17 @@ watch(campaignId, async (id) => {
     const fetches = []
     if (!charactersStore.characters.length) fetches.push(charactersStore.fetch())
     if (!conceptsStore.cultures.length) fetches.push(conceptsStore.fetch())
-    if (!campaignStore.campaignCharacters.length) fetches.push(campaignStore.fetchCampaignCharacters(id))
+    // Always re-fetch campaign characters to ensure NPC portrait URLs are current (issue #5).
+    fetches.push(campaignStore.fetchCampaignCharacters(id))
     await Promise.all(fetches)
     await ensureWorldMap()
 }, { immediate: true })
 
-onUnmounted(() => { })
+onUnmounted(() => {
+    // Reset world map state so PinnedTokensContainer returns to its regular mode
+    // when navigating away from the world map page (issue #6).
+    sharedCanvas.deactivateWorldMap()
+})
 </script>
 
 <style scoped>
@@ -437,6 +485,16 @@ onUnmounted(() => { })
 
 .canvas-item.is-locked-culture {
     cursor: default;
+}
+
+/* Ensure locked culture tokens show the default cursor even on inner elements */
+.canvas-item.is-locked-culture :deep(.culture-token-wrapper) {
+    cursor: default;
+}
+
+/* Unlocked culture tokens on the canvas use the grab cursor */
+.canvas-item :deep(.culture-token-wrapper) {
+    cursor: grab;
 }
 
 .canvas-item--ghost {

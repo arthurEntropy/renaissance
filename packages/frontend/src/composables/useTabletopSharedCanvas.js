@@ -108,6 +108,20 @@ export function useTabletopSharedCanvas() {
         _toggleCultureLockFn?.()
     }
 
+    /**
+     * Called by CampaignWorldMapPage on unmount so that PinnedTokensContainer
+     * stops showing world-map groups when the user navigates away (issue #6).
+     */
+    function deactivateWorldMap() {
+        _isWorldMapActive.value = false
+        _placedCultureIds.value = new Set()
+        _cultureTokensLocked.value = false
+        _toggleCultureLockFn = null
+        _canvasItemsRef = null
+        _saveStateFn = null
+        _recordSnapshotFn = null
+    }
+
     return {
         placedCharacterIds: _placedCharacterIds,
         hiddenCharacterIds: _hiddenCharacterIds,
@@ -121,5 +135,6 @@ export function useTabletopSharedCanvas() {
         removeTokensByCharacterIds,
         registerToggleCultureLock,
         toggleCultureLock,
+        deactivateWorldMap,
     }
 }

@@ -432,7 +432,7 @@ function dieClass(die) {
     position: absolute;
     right: 0;
     /* Sit above the teleported toolbar; falls back to 0 on non-tabletop pages */
-    bottom: var(--vtt-toolbar-height, 0px);
+    bottom: calc(var(--vtt-toolbar-height, 0px) - 1px);
     /* Normal: bottom half of canvas-container, minus toolbar */
     height: 50%;
     display: flex;

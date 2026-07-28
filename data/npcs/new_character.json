@@ -1,8 +1,8 @@
 {
   "id": "a442f42a-3fb2-463d-ad3b-b2196ae63e24",
-  "isDeleted": false,
+  "isDeleted": true,
   "createdAt": "2026-07-25T20:13:28.796Z",
-  "lastModified": "2026-07-27T12:31:12.633Z",
+  "lastModified": "2026-07-28T17:38:46.050Z",
   "characterType": "npc",
   "name": "New Character",
   "featuredArtUrls": [
@@ -297,5 +297,5 @@
   "keeping": null,
   "treasure": 0,
   "xp": 0,
-  "updatedAt": "2026-07-27T12:31:12.633Z"
+  "updatedAt": "2026-07-28T17:38:46.050Z"
 }

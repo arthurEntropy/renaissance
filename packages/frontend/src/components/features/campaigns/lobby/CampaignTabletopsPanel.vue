@@ -85,17 +85,22 @@ const campaignSlug = computed(() => campaign.value?.slug)
 const isGM = computed(() => campaignStore.isGMInActiveCampaign)
 const tabletops = computed(() => campaignStore.tabletops)
 const activeTabletopId = computed(() => campaign.value?.activeTabletopId || null)
+const worldMapTabletopId = computed(() => campaign.value?.worldMapTabletopId || null)
 
 const isCollapsed = ref(false)
 const renamingId = ref(null)
 const renameValue = ref('')
 const renameInputRef = ref(null)
 
-// Local copy of tabletops for drag-reorder — kept in sync with the store
-const localTabletops = ref([...tabletops.value])
+// Local copy of tabletops for drag-reorder — kept in sync with the store.
+// World map tabletops are excluded; they are managed separately.
+const regularTabletops = computed(() =>
+    tabletops.value.filter(t => t.id !== worldMapTabletopId.value)
+)
+const localTabletops = ref([...regularTabletops.value])
 let isReordering = false
 
-watch(tabletops, (val) => {
+watch(regularTabletops, (val) => {
     if (!isReordering) {
         localTabletops.value = [...val]
     }
@@ -170,6 +175,8 @@ function cancelRename() {
 
 async function toggleActive(tabletopId) {
     if (!campaignId.value) return
+    // World maps must never be set as the active tabletop.
+    if (tabletopId === worldMapTabletopId.value) return
     const newActive = tabletopId === activeTabletopId.value ? null : tabletopId
     try {
         await campaignStore.setActiveTabletop(campaignId.value, newActive)
@@ -201,7 +208,7 @@ async function handleDragEnd() {
         await campaignStore.reorderTabletops(campaignId.value, orderedIds)
     } catch (err) {
         console.error('Failed to reorder tabletops:', err)
-        localTabletops.value = [...tabletops.value]
+        localTabletops.value = [...regularTabletops.value]
     } finally {
         isReordering = false
     }

@@ -124,6 +124,7 @@ const showActiveTabletop = computed(() => {
   if (!authStore.isAuthenticated) return false
   if (route.path === '/') return false
   if (route.path.includes('/tabletop/')) return false
+  if (route.path.includes('/world-map')) return false
   return true
 })
 

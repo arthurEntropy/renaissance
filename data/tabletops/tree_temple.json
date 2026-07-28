@@ -2,7 +2,7 @@
   "id": "8167b174-0177-47a3-9cd2-5904707463ba",
   "isDeleted": false,
   "createdAt": "2026-07-28T11:47:21.442Z",
-  "lastModified": "2026-07-28T13:40:05.775Z",
+  "lastModified": "2026-07-28T18:56:21.255Z",
   "campaignId": "c9ddeab9-d180-4fc5-869f-e64239bc3376",
   "name": "Tree Temple",
   "backgroundImage": {
@@ -116,8 +116,8 @@
   ],
   "transform": {
     "scale": 0.8573388203017829,
-    "x": -286.9076433981336,
-    "y": -99.5835026756431
+    "x": -305.9076433981336,
+    "y": 104.4164973243569
   },
   "gridSize": 40,
   "gridColor": "#ffffff",

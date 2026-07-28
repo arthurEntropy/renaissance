@@ -2,11 +2,11 @@
   "id": "34920c64-763c-40ef-b5a6-9f593829c443",
   "isDeleted": false,
   "createdAt": "2026-07-27T18:32:43.731Z",
-  "lastModified": "2026-07-27T19:44:12.595Z",
-  "characterType": "playerCharacter",
-  "name": "New Character",
+  "lastModified": "2026-07-28T17:39:06.471Z",
+  "characterType": "npc",
+  "name": "Tierney",
   "featuredArtUrls": [
-    "https://cdn.midjourney.com/57ddad16-9e72-4b6a-876d-6bd623affbb5/0_0.png"
+    "https://cdn.midjourney.com/dd0503fb-28ce-49bf-8441-f3d7c720bba1/0_1.png"
   ],
   "speed": {
     "current": 30,
@@ -264,25 +264,29 @@
   "witchFamiliar": null,
   "summonerVessels": [],
   "hunterTraps": [],
-  "campaignId": null,
+  "campaignId": "c9ddeab9-d180-4fc5-869f-e64239bc3376",
   "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
   "isPublicPreview": false,
-  "sectionOrder": [],
+  "sectionOrder": [
+    "engagement",
+    "equipment",
+    "abilities"
+  ],
   "martialTrainingOverrides": {},
-  "pronouns": "",
+  "pronouns": "he/him",
   "ancestryIds": [
-    "2e46823f-bec7-4d70-b323-dbc8b71c7739",
-    "fffc6b74-d66f-4270-a8b4-e045433ae176"
+    "adc655c1-1d9c-433f-a0eb-41f93cf3ee07",
+    "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
   ],
   "cultureIds": [],
   "mestiereId": "",
-  "age": 0,
-  "heightFeet": 0,
-  "heightInches": 0,
-  "weight": 0,
+  "age": 199,
+  "heightFeet": 5,
+  "heightInches": 3,
+  "weight": 279,
   "keeping": null,
   "treasure": 0,
   "xp": 0,
   "description": "",
-  "updatedAt": "2026-07-27T19:44:12.595Z"
+  "updatedAt": "2026-07-28T17:39:06.471Z"
 }

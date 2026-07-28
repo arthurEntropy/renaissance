@@ -1,22 +1,25 @@
 <template>
-    <div class="culture-token" :class="{
+    <div v-if="culture" class="culture-token-wrapper" :class="{
         'culture-token--placed': isPlaced,
         'culture-token--unplaced': !isPlaced,
         'culture-token--ghost': isGhost,
-    }" :style="tokenStyle" draggable="true" @dragstart="$emit('dragstart', $event)" @dragend="$emit('dragend', $event)"
-        @click="$emit('click', culture)">
-        <img v-if="portraitUrl" :src="portraitUrl" :alt="culture?.name" class="culture-token__portrait" />
-        <span v-else class="culture-token__initials" :style="initialsStyle">{{ initials }}</span>
-        <div class="culture-token__label">{{ culture?.name }}</div>
-        <button v-if="showRemoveFab && isPlaced" class="culture-token__remove" title="Remove from map"
-            @click.stop="$emit('remove', culture)">
-            ×
-        </button>
+        'culture-token--has-permanent-name': showPermanentName,
+    }" :style="{ '--culture-size': size + 'px' }">
+        <!-- Name permanently displayed above the token in all-caps -->
+        <div v-if="showPermanentName" class="culture-token__name">{{ culture.name?.toUpperCase() }}</div>
+        <BaseToken :entity="culture" :imageSrc="portraitUrl" variant="culture" :square="true"
+            :showRemoveFab="showRemoveFab && isPlaced" :removeFabVariant="FAB_TYPES.DELETE"
+            @click="$emit('click', culture)" @remove="$emit('remove', culture)">
+            <!-- Initials shown in the portrait area when no art URL is available -->
+            <span v-if="!portraitUrl" class="culture-token__initials" :style="initialsStyle">{{ initials }}</span>
+        </BaseToken>
     </div>
 </template>
 
 <script setup>
 import { computed } from 'vue'
+import BaseToken from '@/components/features/characterSelection/BaseToken.vue'
+import { FAB_TYPES } from '@/constants/fab'
 import { useOptimizedImage } from '@/composables/useOptimizedImage'
 import { MIDJOURNEY_IMAGE_CONTEXTS } from '@shared/constants/artConstants.js'
 
@@ -26,13 +29,15 @@ const props = defineProps({
     isPlaced: { type: Boolean, default: false },
     /** Pixel size of the token */
     size: { type: Number, default: 60 },
-    /** Show the remove (x) button */
+    /** Show the delete FAB on hover */
     showRemoveFab: { type: Boolean, default: false },
     /** Ghost mode for drag preview */
     isGhost: { type: Boolean, default: false },
+    /** Show the culture name permanently above the token (only for canvas-placed tokens) */
+    showPermanentName: { type: Boolean, default: false },
 })
 
-defineEmits(['click', 'remove', 'dragstart', 'dragend'])
+defineEmits(['click', 'remove'])
 
 const portraitUrl = useOptimizedImage(
     () => props.culture?.featuredArtUrls?.[0] ?? props.culture?.artUrls?.[0] ?? null,
@@ -48,70 +53,24 @@ const initials = computed(() => {
         .join('')
 })
 
-const tokenStyle = computed(() => ({
-    width: `${props.size}px`,
-    height: `${props.size}px`,
-}))
-
 const initialsStyle = computed(() => ({
     fontSize: `${Math.max(10, Math.round(props.size * 0.28))}px`,
 }))
 </script>
 
 <style scoped>
-.culture-token {
+.culture-token-wrapper {
     position: relative;
     flex-shrink: 0;
-    border-radius: var(--radius-10, 10px);
-    overflow: hidden;
-    border: 2px solid var(--color-primary, goldenrod);
-    background: var(--overlay-black-heavy, rgba(0, 0, 0, 0.7));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     cursor: grab;
     user-select: none;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
-    transition: opacity var(--transition-normal, 0.2s), border-color var(--transition-normal, 0.2s);
 }
 
-.culture-token--unplaced {
-    opacity: 0.5;
-    border-color: var(--color-gray-medium, #666);
-}
-
-.culture-token--placed {
-    opacity: 1;
-    border-color: var(--color-primary, goldenrod);
-}
-
-.culture-token--ghost {
-    opacity: 0.7;
-    pointer-events: none;
-    cursor: default;
-}
-
-.culture-token__portrait {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-}
-
-.culture-token__initials {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: var(--font-weight-bold, 700);
-    font-family: var(--font-family-primary, sans-serif);
-    color: var(--color-text-primary, #fff);
-    letter-spacing: 0.04em;
-}
-
-.culture-token__label {
-    position: absolute;
-    bottom: -1.6em;
-    left: 50%;
-    transform: translateX(-50%);
+/* Name label permanently above the token in all-caps */
+.culture-token__name {
     font-size: var(--font-size-11, 11px);
     font-family: var(--font-family-primary, sans-serif);
     color: var(--color-text-primary, #fff);
@@ -119,29 +78,62 @@ const initialsStyle = computed(() => ({
     text-shadow: 0 1px 4px rgba(0, 0, 0, 0.95), 0 0 8px rgba(0, 0, 0, 0.9);
     pointer-events: none;
     line-height: 1.3;
+    letter-spacing: 0.08em;
+    margin-bottom: 3px;
 }
 
-.culture-token__remove {
+/* Override BaseToken portrait to match culture token appearance */
+:deep(.token-portrait) {
+    width: var(--culture-size, 60px);
+    height: var(--culture-size, 60px);
+    border-radius: var(--radius-10, 10px);
+    border: 2px solid var(--color-text-secondary, goldenrod);
+    background: var(--overlay-black-heavy, rgba(0, 0, 0, 0.7));
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+    transition: opacity var(--transition-normal, 0.2s), border-color var(--transition-normal, 0.2s);
+}
+
+/* Suppress BaseToken's hover name tooltip only when the name is permanently shown above */
+.culture-token--has-permanent-name :deep(.token-name-tooltip) {
+    display: none;
+}
+
+/* Let parent context control the cursor instead of BaseToken's default pointer */
+:deep(.character-token) {
+    cursor: inherit;
+}
+
+/* Unplaced: dim the portrait and switch to neutral border */
+.culture-token--unplaced :deep(.token-portrait) {
+    opacity: 0.5;
+    border-color: var(--color-gray-medium, #666);
+}
+
+/* Ghost mode */
+.culture-token--ghost .culture-token-wrapper,
+.culture-token--ghost :deep(.character-token) {
+    pointer-events: none;
+    cursor: default;
+}
+
+.culture-token--ghost :deep(.token-portrait) {
+    opacity: 0.7;
+}
+
+/* Initials fallback: overlaid absolutely inside the portrait area via slot */
+.culture-token__initials {
     position: absolute;
-    top: -6px;
-    right: -6px;
-    width: 18px;
-    height: 18px;
-    background: var(--color-danger, red);
-    border: none;
-    border-radius: 50%;
-    color: white;
-    font-size: 13px;
-    line-height: 1;
-    cursor: pointer;
+    top: 0;
+    left: 0;
+    width: var(--culture-size, 60px);
+    height: var(--culture-size, 60px);
     display: flex;
     align-items: center;
     justify-content: center;
-    opacity: 0;
-    transition: opacity var(--transition-fast, 0.1s);
-}
-
-.culture-token:hover .culture-token__remove {
-    opacity: 1;
+    font-weight: var(--font-weight-bold, 700);
+    font-family: var(--font-family-primary, sans-serif);
+    color: var(--color-text-primary, #fff);
+    letter-spacing: 0.04em;
+    pointer-events: none;
 }
 </style>

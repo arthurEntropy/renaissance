@@ -55,11 +55,18 @@ export function useCharacterStatWatchers(selectedCharacter, allEquipment) {
     flush: 'post' // Run after component updates to batch changes
   })
 
-  // Cleanup on unmount — cancel any pending save
+  // Cleanup on unmount — flush any pending save instead of discarding it.
+  // Without this, edits made within the debounce window are lost when the user
+  // closes a popup (e.g. CharacterSheetPopup) before the 1500ms timer fires.
   onUnmounted(() => {
     if (saveTimeout) {
       clearTimeout(saveTimeout)
       saveTimeout = null
+      const char = selectedCharacter.value
+      if (char) {
+        // Fire-and-forget: persist any in-flight changes immediately
+        charactersStore.update(char).catch(() => {})
+      }
     }
   })
 

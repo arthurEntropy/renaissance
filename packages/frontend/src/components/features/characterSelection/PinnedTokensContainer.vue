@@ -15,10 +15,10 @@
                             :visibility="FAB_VISIBILITIES.ALWAYS" :is-active="true" title="Toggle visibility"
                             @click="toggleWorldMapGroupVisibility('pc')" />
                     </div>
-                    <button class="token-group-collapse-toggle" @click="worldMapCollapsed.pcs = !worldMapCollapsed.pcs">
-                        <component :is="worldMapCollapsed.pcs ? ChevronUpIcon : ChevronDownIcon"
-                            class="token-group-chevron" />
-                    </button>
+                    <div v-if="worldMapCollapsed.pcs" class="token-group-member-dots">
+                        <span v-for="char in worldMapPlayerCharacters" :key="char.id" class="member-dot"
+                            :style="{ backgroundColor: getMemberDotColor(char) }" />
+                    </div>
                 </div>
                 <div v-if="!worldMapCollapsed.pcs" class="token-group-members">
                     <div v-for="char in worldMapPlayerCharacters" :key="char.id" class="draggable-token-wrapper"
@@ -28,6 +28,10 @@
                             @click="openCharacterSheet(char)" />
                     </div>
                 </div>
+                <button class="token-group-collapse-toggle" @click="worldMapCollapsed.pcs = !worldMapCollapsed.pcs">
+                    <component :is="worldMapCollapsed.pcs ? ChevronDownIcon : ChevronUpIcon"
+                        class="token-group-chevron" />
+                </button>
             </div>
 
             <!-- NPCs group -->
@@ -41,11 +45,10 @@
                             :visibility="FAB_VISIBILITIES.ALWAYS" :is-active="true" title="Toggle visibility"
                             @click="toggleWorldMapGroupVisibility('npc')" />
                     </div>
-                    <button class="token-group-collapse-toggle"
-                        @click="worldMapCollapsed.npcs = !worldMapCollapsed.npcs">
-                        <component :is="worldMapCollapsed.npcs ? ChevronUpIcon : ChevronDownIcon"
-                            class="token-group-chevron" />
-                    </button>
+                    <div v-if="worldMapCollapsed.npcs" class="token-group-member-dots">
+                        <span v-for="npc in worldMapNPCs" :key="npc.id" class="member-dot"
+                            :style="{ backgroundColor: getMemberDotColor(npc) }" />
+                    </div>
                 </div>
                 <div v-if="!worldMapCollapsed.npcs" class="token-group-members">
                     <div v-for="npc in worldMapNPCs" :key="npc.id" class="draggable-token-wrapper"
@@ -55,6 +58,10 @@
                             @click="openCharacterSheet(npc)" />
                     </div>
                 </div>
+                <button class="token-group-collapse-toggle" @click="worldMapCollapsed.npcs = !worldMapCollapsed.npcs">
+                    <component :is="worldMapCollapsed.npcs ? ChevronDownIcon : ChevronUpIcon"
+                        class="token-group-chevron" />
+                </button>
             </div>
 
             <!-- Cultures group -->
@@ -73,11 +80,10 @@
                             :visibility="FAB_VISIBILITIES.ALWAYS" :is-active="true"
                             title="Toggle visibility of placed cultures" @click="toggleCulturesVisibility" />
                     </div>
-                    <button class="token-group-collapse-toggle"
-                        @click="worldMapCollapsed.cultures = !worldMapCollapsed.cultures">
-                        <component :is="worldMapCollapsed.cultures ? ChevronUpIcon : ChevronDownIcon"
-                            class="token-group-chevron" />
-                    </button>
+                    <div v-if="worldMapCollapsed.cultures" class="token-group-member-dots">
+                        <span v-for="culture in campaignCultures" :key="culture.id"
+                            class="member-dot member-dot--culture" />
+                    </div>
                 </div>
                 <div v-if="!worldMapCollapsed.cultures" class="token-group-members token-group-members--cultures">
                     <div v-for="culture in campaignCultures" :key="culture.id" class="draggable-token-wrapper"
@@ -87,6 +93,11 @@
                             :show-remove-fab="false" />
                     </div>
                 </div>
+                <button class="token-group-collapse-toggle"
+                    @click="worldMapCollapsed.cultures = !worldMapCollapsed.cultures">
+                    <component :is="worldMapCollapsed.cultures ? ChevronDownIcon : ChevronUpIcon"
+                        class="token-group-chevron" />
+                </button>
             </div>
 
             <!-- PC Panel Modal -->
@@ -290,6 +301,9 @@
 
         <!-- Token group edit modal -->
         <TokenGroupEditModal v-if="editingGroupId" :group-id="editingGroupId" @close="editingGroupId = null" />
+
+        <!-- Spacer so the last item can scroll fully above the bottom toolbar -->
+        <div class="token-rail-spacer" aria-hidden="true" />
 
     </div>
 </template>
@@ -1047,6 +1061,13 @@ function getFocusedTokenProps(character) {
     pointer-events: none;
 }
 
+/* Spacer at the bottom so the last token group can scroll fully above the toolbar */
+.token-rail-spacer {
+    height: var(--vtt-toolbar-height, 56px);
+    flex-shrink: 0;
+    pointer-events: none;
+}
+
 .token-group {
     --token-size: 50px;
     --token-group-width: calc(var(--token-size) + (var(--space-xl) * 2));
@@ -1493,6 +1514,12 @@ function getFocusedTokenProps(character) {
     opacity: 0.85;
 }
 
+/* Culture dots use a goldenrod color and square shape to match the culture token style */
+.member-dot--culture {
+    background-color: var(--color-text-secondary, goldenrod);
+    border-radius: var(--radius-3, 3px);
+}
+
 /* ─── Add Group button (GM + cmd held) ───────────────────────────────────────── */
 .add-group-btn {
     pointer-events: auto;
@@ -1534,7 +1561,6 @@ function getFocusedTokenProps(character) {
 /* ─── World map group styles ────────────────────────────────────────────── */
 .token-group--world-map {
     border-color: var(--overlay-white-medium);
-    width: auto;
     min-width: var(--token-group-width);
 }
 

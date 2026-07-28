@@ -2,9 +2,9 @@
   "id": "917e904f-d97e-4033-a498-8391260f3752",
   "isDeleted": false,
   "createdAt": "2026-07-24T22:34:07.812Z",
-  "lastModified": "2026-07-28T13:27:01.367Z",
+  "lastModified": "2026-07-28T17:48:55.385Z",
   "characterType": "playerCharacter",
-  "name": "Magnuss",
+  "name": "Magnuss Hardhand",
   "featuredArtUrls": [
     "https://cdn.midjourney.com/9d007aef-e372-4e42-9581-a2703cfe7018/0_2.jpeg"
   ],
@@ -401,5 +401,5 @@
   "xp": 0,
   "description": "",
   "featuredArtUrl": "https://cdn.midjourney.com/9d007aef-e372-4e42-9581-a2703cfe7018/0_2.jpeg",
-  "updatedAt": "2026-07-28T13:27:01.367Z"
+  "updatedAt": "2026-07-28T17:48:55.385Z"
 }
