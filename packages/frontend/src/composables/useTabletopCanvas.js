@@ -9,8 +9,8 @@ const MAX_HISTORY = 50
 // Tags whose presence in the event path should suppress token dragging
 const INTERACTIVE_TAGS = new Set(['button', 'a', 'input', 'select', 'textarea', 'label'])
 
-export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {}) {
-    const { draggingCharacter, clearDraggingCharacter, draggingGroup, clearDraggingGroup } = useTabletopDragState()
+export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved, isWorldMap = false } = {}) {
+    const { draggingCharacter, clearDraggingCharacter, draggingGroup, clearDraggingGroup, draggingCulture, clearDraggingCulture } = useTabletopDragState()
     const { setSelectedCharacterIds, clearSelectedCharacterIds } = useTabletopSelectionState()
     const campaignStore = useCampaignStore()
 
@@ -62,13 +62,15 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
     const gridColor = ref('#ffffff')
     const gridOpacity = ref(0.06)
 
-    const snap = (val) => Math.round(val / gridSize.value) * gridSize.value
+    const snap = (val) => isWorldMap ? val : Math.round(val / gridSize.value) * gridSize.value
     // Snap to the centre of the nearest grid cell (used for measurement origin/waypoints)
-    const snapCenter = (val) => Math.floor(val / gridSize.value) * gridSize.value + gridSize.value / 2
+    const snapCenter = (val) => isWorldMap ? val : Math.floor(val / gridSize.value) * gridSize.value + gridSize.value / 2
 
     // Grid overlay is a sibling of the canvas div in the container, so its
     // background-position must track the canvas transform to stay aligned.
     const canvasGridStyle = computed(() => {
+        // World maps have no grid
+        if (isWorldMap) return {}
         const size = gridSize.value * transform.value.scale
         const ox = transform.value.x % size
         const oy = transform.value.y % size
@@ -99,6 +101,21 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
     const decreaseGridSize = () => { gridSize.value = Math.max(10, gridSize.value - 10); _resnapTokens(); saveState() }
     const setGridColor = (color) => { gridColor.value = color; saveState() }
     const setGridOpacity = (opacity) => { gridOpacity.value = opacity; saveState() }
+
+    // ─── World map specific settings ─────────────────────────────────────────
+    // These are only meaningful for isWorldMap tabletops but are included in
+    // the save/load cycle so they round-trip correctly.
+    const pixelsPerMile = ref(40)
+    const characterTokenSize = ref(40)
+    const cultureTokenSize = ref(60)
+    const cultureTokensLocked = ref(false)
+
+    const setPixelsPerMile = (val) => { pixelsPerMile.value = Math.max(1, val); saveState() }
+    const increasePixelsPerMile = () => setPixelsPerMile(pixelsPerMile.value + 5)
+    const decreasePixelsPerMile = () => setPixelsPerMile(Math.max(5, pixelsPerMile.value - 5))
+    const setCharacterTokenSize = (val) => { characterTokenSize.value = Math.max(10, val); saveState() }
+    const setCultureTokenSize = (val) => { cultureTokenSize.value = Math.max(10, val); saveState() }
+    const setCultureTokensLocked = (val) => { cultureTokensLocked.value = val; saveState() }
 
     // ─── Background image (defines canvas bounds) ────────────────────────────
     // { url, naturalWidth, naturalHeight } or null for an unbounded canvas
@@ -304,7 +321,7 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
                 _radiusSourceTokenId = null
             }
         } else if (e.button === 0) {
-            if (e.shiftKey && (e.metaKey || e.ctrlKey)) {
+            if (!isWorldMap && e.shiftKey && (e.metaKey || e.ctrlKey)) {
                 // Shift+Cmd/Ctrl: start radius measurement at this canvas position
                 const pos = _containerPos(e)
                 if (!pos) return
@@ -380,11 +397,15 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
             if (INTERACTIVE_TAGS.has(el.tagName?.toLowerCase())) return
             if (el.isContentEditable) return
         }
+        // On the world map, locked culture tokens cannot be dragged
+        if (isWorldMap && cultureTokensLocked.value && item.tokenType === 'culture') {
+            return
+        }
         e.preventDefault()
         e.stopPropagation()
 
         if (e.shiftKey) {
-            if (e.metaKey || e.ctrlKey) {
+            if (!isWorldMap && (e.metaKey || e.ctrlKey)) {
                 // Shift+Cmd/Ctrl: start radius measurement from this token's center
                 isMeasuring.value = false
                 measureWaypoints.value = []
@@ -402,7 +423,7 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
                     radiusCurrent.value = null
                     _radiusSourceTokenId = null
                 }
-                const halfPx = (item.size * gridSize.value) / 2
+                const halfPx = isWorldMap ? item.size / 2 : (item.size * gridSize.value) / 2
                 isMeasuring.value = true
                 measureWaypoints.value = [{ x: item.x + halfPx, y: item.y + halfPx }]
                 measureCurrent.value = { x: item.x + halfPx, y: item.y + halfPx }
@@ -453,7 +474,7 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
         // would appear on a plain click-without-drag.
         measureTracks.value = itemsToDrag.map(({ id, startX, startY }) => {
             const i = canvasItemsById.value.get(id)
-            const halfPx = (i.size * gridSize.value) / 2
+            const halfPx = isWorldMap ? i.size / 2 : (i.size * gridSize.value) / 2
             const origin = { x: startX + halfPx, y: startY + halfPx }
             return { waypoints: [origin], currentPoint: { ...origin }, size: i.size }
         })
@@ -481,22 +502,41 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
         // Group drag: show one ghost per unplaced member
         const dg = draggingGroup.value
         if (dg && dg.length > 0) {
-            const startX = snap(pos.canvasX - gridSize.value / 2)
-            const startY = snap(pos.canvasY - gridSize.value / 2)
+            const tokenSizePx = isWorldMap ? characterTokenSize.value : ((dg[0]?.size || 1) * gridSize.value)
+            const startX = snap(pos.canvasX - tokenSizePx / 2)
+            const startY = snap(pos.canvasY - tokenSizePx / 2)
             dropGhosts.value = dg.map((snapshot, i) => ({
                 ...snapshot,
-                x: startX + i * (snapshot.size || 1) * gridSize.value,
+                size: isWorldMap ? characterTokenSize.value : (snapshot.size || 1),
+                x: startX + i * tokenSizePx,
                 y: startY,
             }))
             dropGhost.value = null
             return
         }
+        // Culture drag (world map only)
+        if (isWorldMap) {
+            const dc = draggingCulture.value
+            if (dc) {
+                const halfPx = cultureTokenSize.value / 2
+                dropGhost.value = {
+                    ...dc,
+                    tokenType: 'culture',
+                    size: cultureTokenSize.value,
+                    x: snap(pos.canvasX - halfPx),
+                    y: snap(pos.canvasY - halfPx),
+                }
+                return
+            }
+        }
         // Single character drag
         const dc = draggingCharacter.value
         if (!dc) return
-        const halfPx = ((dc.size || 1) * gridSize.value) / 2
+        const effectiveSize = isWorldMap ? characterTokenSize.value : ((dc.size || 1) * gridSize.value)
+        const halfPx = effectiveSize / 2
         dropGhost.value = {
             ...dc,
+            size: isWorldMap ? characterTokenSize.value : (dc.size || 1),
             x: snap(pos.canvasX - halfPx),
             y: snap(pos.canvasY - halfPx),
         }
@@ -515,6 +555,25 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
         const pos = _containerPos(e)
         if (!pos) return
 
+        // ── Culture token drop (world map only) ───────────────────────────
+        if (isWorldMap) {
+            const rawCulture = e.dataTransfer.getData('application/vtt-culture')
+            if (rawCulture) {
+                let snapshot
+                try { snapshot = JSON.parse(rawCulture) } catch { return }
+                const halfPx = cultureTokenSize.value / 2
+                const x = snap(pos.canvasX - halfPx)
+                const y = snap(pos.canvasY - halfPx)
+                recordSnapshot()
+                canvasItems.value = canvasItems.value.filter(i => i.cultureId !== snapshot.cultureId)
+                _placeToken({ ...snapshot, tokenType: 'culture', size: cultureTokenSize.value }, x, y)
+                dropGhost.value = null
+                clearDraggingCulture()
+                saveState()
+                return
+            }
+        }
+
         // ── Group drop: place all unplaced members in a row ────────────────
         const rawGroup = e.dataTransfer.getData('application/vtt-group')
         if (rawGroup) {
@@ -523,12 +582,13 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
             const placedCharIds = new Set(canvasItems.value.map(i => i.characterId).filter(Boolean))
             const unplaced = snapshots.filter(s => !placedCharIds.has(s.characterId))
             if (unplaced.length > 0) {
-                const startX = snap(pos.canvasX - gridSize.value / 2)
-                const startY = snap(pos.canvasY - gridSize.value / 2)
+                const tokenSizePx = isWorldMap ? characterTokenSize.value : ((unplaced[0]?.size || 1) * gridSize.value)
+                const startX = snap(pos.canvasX - tokenSizePx / 2)
+                const startY = snap(pos.canvasY - tokenSizePx / 2)
                 recordSnapshot()
                 unplaced.forEach((snapshot, i) => {
-                    const x = startX + i * (snapshot.size || 1) * gridSize.value
-                    _placeToken(snapshot, x, startY)
+                    const x = startX + i * tokenSizePx
+                    _placeToken({ ...snapshot, size: isWorldMap ? characterTokenSize.value : (snapshot.size || 1) }, x, startY)
                 })
                 saveState()
             }
@@ -542,7 +602,8 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
         if (!raw) return
         let snapshot
         try { snapshot = JSON.parse(raw) } catch { return }
-        const halfPx = ((snapshot.size || 1) * gridSize.value) / 2
+        const effectiveSize = isWorldMap ? characterTokenSize.value : ((snapshot.size || 1) * gridSize.value)
+        const halfPx = effectiveSize / 2
         const x = snap(pos.canvasX - halfPx)
         const y = snap(pos.canvasY - halfPx)
         recordSnapshot()
@@ -550,7 +611,7 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
         if (snapshot.characterId) {
             canvasItems.value = canvasItems.value.filter(i => i.characterId !== snapshot.characterId)
         }
-        _placeToken(snapshot, x, y)
+        _placeToken({ ...snapshot, size: isWorldMap ? characterTokenSize.value : (snapshot.size || 1) }, x, y)
         dropGhost.value = null
         clearDraggingCharacter()
         saveState()
@@ -587,7 +648,7 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
                 if (maxX - minX > 4 || maxY - minY > 4) {
                     const next = new Set()
                     for (const item of canvasItems.value) {
-                        const sz = item.size * gridSize.value
+                        const sz = isWorldMap ? item.size : item.size * gridSize.value
                         if (item.x + sz > minX && item.x < maxX && item.y + sz > minY && item.y < maxY) {
                             next.add(item.id)
                         }
@@ -625,7 +686,8 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
 
             // Enable measurement overlay once the token has moved at least one grid square,
             // preventing the brief flash that would appear on a plain click.
-            if (!isMeasuring.value && (Math.abs(dx) >= gridSize.value || Math.abs(dy) >= gridSize.value)) {
+            const movementThreshold = isWorldMap ? 4 : gridSize.value
+            if (!isMeasuring.value && (Math.abs(dx) >= movementThreshold || Math.abs(dy) >= movementThreshold)) {
                 isMeasuring.value = true
             }
 
@@ -657,7 +719,7 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
                     isNpc: dragItem.isNpc ?? false,
                 })
                 if (isMeasuring.value && newTracks[idx]) {
-                    const halfPx = (dragItem.size * gridSize.value) / 2
+                    const halfPx = isWorldMap ? dragItem.size / 2 : (dragItem.size * gridSize.value) / 2
                     newTracks[idx] = {
                         ...newTracks[idx],
                         currentPoint: { x: snappedX + halfPx, y: snappedY + halfPx },
@@ -666,18 +728,20 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
             }
             tokenGhosts.value = newGhosts
             if (isMeasuring.value) measureTracks.value = newTracks
-            // Live-update radius areas linked to dragged tokens
-            for (const { id, startX, startY } of ds.items) {
-                const dragItem = canvasItemsById.value.get(id)
-                if (!dragItem) continue
-                const snappedX = snap(startX + dx)
-                const snappedY = snap(startY + dy)
-                const halfPx = (dragItem.size * gridSize.value) / 2
-                const charId = dragItem.characterId ?? dragItem.id
-                for (const area of radiusAreas.value) {
-                    if (area.tokenId === charId) {
-                        area.originX = snappedX + halfPx
-                        area.originY = snappedY + halfPx
+            // Live-update radius areas linked to dragged tokens (not relevant for world maps)
+            if (!isWorldMap) {
+                for (const { id, startX, startY } of ds.items) {
+                    const dragItem = canvasItemsById.value.get(id)
+                    if (!dragItem) continue
+                    const snappedX = snap(startX + dx)
+                    const snappedY = snap(startY + dy)
+                    const halfPx = (dragItem.size * gridSize.value) / 2
+                    const charId = dragItem.characterId ?? dragItem.id
+                    for (const area of radiusAreas.value) {
+                        if (area.tokenId === charId) {
+                            area.originX = snappedX + halfPx
+                            area.originY = snappedY + halfPx
+                        }
                     }
                 }
             }
@@ -885,7 +949,8 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
                 if (maxX - minX > 4 || maxY - minY > 4) {
                     const next = new Set()
                     for (const item of canvasItems.value) {
-                        const sz = item.size * gridSize.value
+                        // In world map mode, item.size is already in pixels; otherwise multiply by gridSize
+                        const sz = isWorldMap ? item.size : item.size * gridSize.value
                         if (item.x + sz > minX && item.x < maxX && item.y + sz > minY && item.y < maxY) {
                             next.add(item.id)
                         }
@@ -1003,7 +1068,9 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
         topZIndex.value += 1
         canvasItems.value.push({
             id: crypto.randomUUID(),
-            characterId: snapshot.characterId,
+            tokenType: snapshot.tokenType ?? 'character',
+            characterId: snapshot.characterId ?? null,
+            cultureId: snapshot.cultureId ?? null,
             isBeast: snapshot.isBeast ?? false,
             isNpc: snapshot.isNpc ?? false,
             name: snapshot.name ?? 'Unknown',
@@ -1013,6 +1080,28 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
             y,
             zIndex: topZIndex.value,
         })
+    }
+
+    /** Place a culture token on the world map canvas. */
+    const placeCultureToken = (culture, x, y) => {
+        const existing = canvasItems.value.find(i => i.cultureId === culture.id)
+        if (existing) return // already placed
+        recordSnapshot()
+        _placeToken({
+            tokenType: 'culture',
+            cultureId: culture.id,
+            name: culture.name ?? 'Unknown',
+            portraitUrl: culture.featuredArtUrls?.[0] ?? culture.artUrls?.[0] ?? null,
+            size: cultureTokenSize.value,
+        }, x, y)
+        saveState()
+    }
+
+    const removeCultureToken = (cultureId) => {
+        if (!cultureId) return
+        recordSnapshot()
+        canvasItems.value = canvasItems.value.filter(i => i.cultureId !== cultureId)
+        saveState()
     }
 
     const removeToken = (id) => {
@@ -1179,6 +1268,13 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
             showPaths: showPaths.value,
             radiusAreas: JSON.parse(JSON.stringify(radiusAreas.value)),
             rollLog: JSON.parse(JSON.stringify(rollLog.value)),
+            // World map settings (no-op for regular tabletops)
+            ...(isWorldMap && {
+                pixelsPerMile: pixelsPerMile.value,
+                characterTokenSize: characterTokenSize.value,
+                cultureTokenSize: cultureTokenSize.value,
+                cultureTokensLocked: cultureTokensLocked.value,
+            }),
         }
         _saveTimer = setTimeout(() => {
             // Safety guard: abort if the active tabletop has changed since this
@@ -1225,6 +1321,11 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
             if (snapshot.showPaths != null) showPaths.value = snapshot.showPaths
             if (Array.isArray(snapshot.radiusAreas)) radiusAreas.value = snapshot.radiusAreas
             if (Array.isArray(snapshot.rollLog)) rollLog.value = snapshot.rollLog
+            // World map settings
+            if (snapshot.pixelsPerMile != null) pixelsPerMile.value = snapshot.pixelsPerMile
+            if (snapshot.characterTokenSize != null) characterTokenSize.value = snapshot.characterTokenSize
+            if (snapshot.cultureTokenSize != null) cultureTokenSize.value = snapshot.cultureTokenSize
+            if (snapshot.cultureTokensLocked != null) cultureTokensLocked.value = snapshot.cultureTokensLocked
         } finally {
             _applyingExternalState = false
         }
@@ -1256,6 +1357,11 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
         if (Array.isArray(tabletop.radiusAreas)) radiusAreas.value = tabletop.radiusAreas
         if (Array.isArray(tabletop.rollLog)) rollLog.value = tabletop.rollLog
         if (tabletop.rollLogExpanded != null) rollLogExpanded.value = tabletop.rollLogExpanded
+        // World map settings
+        if (tabletop.pixelsPerMile != null) pixelsPerMile.value = tabletop.pixelsPerMile
+        if (tabletop.characterTokenSize != null) characterTokenSize.value = tabletop.characterTokenSize
+        if (tabletop.cultureTokenSize != null) cultureTokenSize.value = tabletop.cultureTokenSize
+        if (tabletop.cultureTokensLocked != null) cultureTokensLocked.value = tabletop.cultureTokensLocked
         _stateReady = true
     }
 
@@ -1390,6 +1496,8 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
         removeToken,
         setTokenVisibility,
         removeTokenByCharacterId,
+        placeCultureToken,
+        removeCultureToken,
         recordSnapshot,
         clearAll,
         loadState,
@@ -1399,5 +1507,16 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
         setRollLogExpanded,
         clearRollLog,
         applyExternalState,
+        // World map settings
+        pixelsPerMile,
+        characterTokenSize,
+        cultureTokenSize,
+        cultureTokensLocked,
+        setPixelsPerMile,
+        increasePixelsPerMile,
+        decreasePixelsPerMile,
+        setCharacterTokenSize,
+        setCultureTokenSize,
+        setCultureTokensLocked,
     }
 }

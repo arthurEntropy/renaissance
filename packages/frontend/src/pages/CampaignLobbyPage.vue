@@ -63,6 +63,8 @@
 
                 <CampaignShopsPanel />
 
+                <CampaignWorldMapSection v-if="slug" :campaign-slug="slug" />
+
             </div>
         </div>
 
@@ -110,6 +112,9 @@ import CampaignPlayerCharactersPanel from '@/components/features/campaigns/lobby
 import CampaignNpcsPanel from '@/components/features/campaigns/lobby/CampaignNpcsPanel.vue'
 import CampaignShopsPanel from '@/components/features/campaigns/lobby/CampaignShopsPanel.vue'
 import CampaignTabletopsPanel from '@/components/features/campaigns/lobby/CampaignTabletopsPanel.vue'
+import CampaignWorldMapSection from '@/components/features/worldMap/CampaignWorldMapSection.vue'
+import TextEditor from '@/components/ui/textEditor/TextEditor.vue'
+import CampaignCurationPanel from '@/components/features/campaigns/lobby/CampaignCurationPanel.vue'
 import { sanitizeHtml } from '@/utils/sanitizeHtml'
 import CampaignService from '@/services/entities/campaignService'
 import { CAMPAIGN_ROLE } from '@shared/constants/campaignConstants'

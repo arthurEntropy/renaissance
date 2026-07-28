@@ -297,7 +297,7 @@ _broadcastStateUpdateRef = _syncBroadcast
 
 // ─── Shared canvas bridge (features: visibility, group sync, placement) ───────
 const sharedCanvas = useTabletopSharedCanvas()
-sharedCanvas.init(canvasItems, saveState, recordSnapshot)
+sharedCanvas.init(canvasItems, saveState, recordSnapshot, { isWorldMap: false })
 watch(canvasItems, (items) => {
     // Removing a token from the canvas no longer cascades to group membership.
     sharedCanvas.syncFromCanvas(items)

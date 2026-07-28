@@ -9,9 +9,10 @@
         </defs>
 
         <!-- Highlighted path squares (expanded to token footprint width) -->
-        <rect v-show="showPaths" v-for="sq in pathSquares" :key="`${sq.col},${sq.row}`" :x="toSvgX(sq.col * gridSize)"
-            :y="toSvgY(sq.row * gridSize)" :width="gridSize * transform.scale" :height="gridSize * transform.scale"
-            fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.4)" stroke-width="1" />
+        <rect v-show="showPaths && !isWorldMap" v-for="sq in pathSquares" :key="`${sq.col},${sq.row}`"
+            :x="toSvgX(sq.col * gridSize)" :y="toSvgY(sq.row * gridSize)" :width="gridSize * transform.scale"
+            :height="gridSize * transform.scale" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.4)"
+            stroke-width="1" />
 
         <!-- Waypoint markers (intermediate locked waypoints, not the start) -->
         <circle v-for="(wp, i) in innerWaypoints" :key="`wp-${i}`" :cx="toSvgX(wp.x)" :cy="toSvgY(wp.y)" r="5"
@@ -26,11 +27,16 @@
     </svg>
 
     <!-- Distance popover positioned near the current measurement endpoint -->
-    <div v-if="currentPoint && totalFeet > 0" class="measurement-popover"
+    <div v-if="currentPoint && (isWorldMap ? worldMapDistanceMiles > 0 : totalFeet > 0)" class="measurement-popover"
         :style="{ left: `${toSvgX(currentPoint.x) + 14}px`, top: `${toSvgY(currentPoint.y) - 30}px` }">
-        <span class="measurement-feet">{{ totalFeet }} ft</span>
-        <span class="measurement-sep">/</span>
-        <span class="measurement-squares">{{ totalSquares }} sq</span>
+        <template v-if="isWorldMap">
+            <span class="measurement-feet">{{ worldMapDistanceLabel }}</span>
+        </template>
+        <template v-else>
+            <span class="measurement-feet">{{ totalFeet }} ft</span>
+            <span class="measurement-sep">/</span>
+            <span class="measurement-squares">{{ totalSquares }} sq</span>
+        </template>
     </div>
 </template>
 
@@ -52,6 +58,12 @@ const props = defineProps({
     showPaths: { type: Boolean, default: true },
     /** Size of the token in grid squares (e.g. 1 = 1x1, 2 = 2x2, 3 = 3x3) */
     tokenSize: { type: Number, default: 1 },
+    /**
+     * World map mode: when set to a positive number, distances are shown in miles
+     * (or feet if < 1 mile) using this as the pixels-per-mile ratio.
+     * When null/0, the overlay uses its normal feet/squares display.
+     */
+    pixelsPerMile: { type: Number, default: 0 },
 })
 
 // ── Coordinate conversion ─────────────────────────────────────────────────────
@@ -155,6 +167,33 @@ const totalFeet = computed(() => {
         return Math.round(lineSegments.value.reduce((s, [a, b]) => s + segEuclideanFeet(a, b), 0))
     return totalSquares.value * 5
 })
+
+// ── World map distance (miles or feet) ─────────────────────────────────────
+const isWorldMap = computed(() => props.pixelsPerMile > 0)
+
+const worldMapDistancePx = computed(() => {
+    if (!isWorldMap.value || lineSegments.value.length === 0) return 0
+    return lineSegments.value.reduce((sum, [a, b]) => {
+        const dx = b.x - a.x, dy = b.y - a.y
+        return sum + Math.sqrt(dx * dx + dy * dy)
+    }, 0)
+})
+
+const worldMapDistanceMiles = computed(() =>
+    worldMapDistancePx.value / props.pixelsPerMile
+)
+
+const worldMapDistanceLabel = computed(() => {
+    const miles = worldMapDistanceMiles.value
+    if (miles <= 0) return ''
+    if (miles < 1) {
+        const feet = Math.round(miles * 5280)
+        return `${feet} ft`
+    }
+    if (miles >= 10) return `${Math.round(miles)} mi`
+    return `${miles % 1 === 0 ? miles : parseFloat(miles.toFixed(2))} mi`
+})
+
 </script>
 
 <style scoped>

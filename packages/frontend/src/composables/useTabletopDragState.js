@@ -10,6 +10,9 @@ const _draggingCharacter = ref(null)
 // to show multiple ghost tokens during dragover.
 const _draggingGroup = ref(null)
 
+// Culture drag (world map only): snapshot of the dragged culture token.
+const _draggingCulture = ref(null)
+
 export function useTabletopDragState() {
     return {
         draggingCharacter: _draggingCharacter,
@@ -25,6 +28,13 @@ export function useTabletopDragState() {
         },
         clearDraggingGroup() {
             _draggingGroup.value = null
+        },
+        draggingCulture: _draggingCulture,
+        setDraggingCulture(snapshot) {
+            _draggingCulture.value = snapshot
+        },
+        clearDraggingCulture() {
+            _draggingCulture.value = null
         },
     }
 }

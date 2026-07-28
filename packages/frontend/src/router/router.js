@@ -15,6 +15,7 @@ import RulesPage from '@/pages/RulesPage.vue'
 import AdminPage from '@/pages/AdminPage.vue'
 import ArtPage from '@/pages/ArtPage.vue'
 import VirtualTabletopPage from '@/pages/VirtualTabletopPage.vue'
+import CampaignWorldMapPage from '@/pages/CampaignWorldMapPage.vue'
 import DesignLabPage from '@/pages/DesignLabPage.vue'
 import ModalLabPage from '@/pages/ModalLabPage.vue'
 import CampaignLobbyPage from '@/pages/CampaignLobbyPage.vue'
@@ -67,6 +68,11 @@ const routes = [
   {
     path: '/campaigns/:slug/tabletop/:tabletopId',
     component: VirtualTabletopPage,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: '/campaigns/:slug/world-map',
+    component: CampaignWorldMapPage,
     meta: { requiresAuth: true },
   },
   {
