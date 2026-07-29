@@ -96,7 +96,7 @@ const barStyle = computed(() => {
 .tabletop-abilities-bar {
     position: fixed;
     top: calc(var(--nav-height) + var(--space-sm));
-    z-index: var(--z-badge);
+    z-index: var(--z-interactive);
     display: flex;
     /* row-reverse: first item (highest count) sits at the far right */
     flex-direction: row-reverse;
