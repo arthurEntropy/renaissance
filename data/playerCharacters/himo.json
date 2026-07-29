@@ -2,7 +2,7 @@
   "id": "0f6f7b18-4fa1-4a7c-993b-173437f1cd79",
   "isDeleted": false,
   "createdAt": "2026-07-25T00:22:58.175Z",
-  "lastModified": "2026-07-28T17:55:35.075Z",
+  "lastModified": "2026-07-29T00:31:44.530Z",
   "characterType": "playerCharacter",
   "name": "Himo",
   "featuredArtUrls": [
@@ -311,9 +311,9 @@
   },
   "rollStats": {
     "skillChecks": {
-      "attempts": 16,
-      "successes": 16,
-      "totalSum": 251,
+      "attempts": 17,
+      "successes": 17,
+      "totalSum": 259,
       "bestTotal": 28,
       "hardestSuccess": null,
       "bySkill": {
@@ -321,7 +321,7 @@
         "Stealth": 3,
         "Dexterity": 9,
         "Craft": 1,
-        "Strength": 2
+        "Strength": 3
       },
       "solCount": 2,
       "morteCount": 2,
@@ -400,5 +400,5 @@
   "xp": 0,
   "description": "",
   "featuredArtUrl": "https://cdn.midjourney.com/d540e4e9-8b5c-4fd1-b7ab-41ee29f97979/0_2.jpeg",
-  "updatedAt": "2026-07-28T17:55:35.075Z"
+  "updatedAt": "2026-07-29T00:31:44.530Z"
 }

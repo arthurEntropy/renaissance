@@ -11,12 +11,12 @@
                 <!-- Spacer pushes entries to the bottom when content is short,
                      without blocking upward scroll when content overflows -->
                 <div class="chatlog-spacer" />
-                <div v-if="!rollLog.length" class="chatlog-empty">
+                <div v-if="!displayedRollLog.length" class="chatlog-empty">
                     Roll results will appear here.
                 </div>
                 <template v-else>
                     <TransitionGroup name="chatlog-entry" tag="div" class="chatlog-entries">
-                        <div v-for="entry in rollLog" :key="entry.id" class="chatlog-entry">
+                        <div v-for="entry in displayedRollLog" :key="entry.id" class="chatlog-entry">
                             <!-- Portrait -->
                             <div class="entry-portrait-wrap">
                                 <img v-if="entry.portraitUrl" :src="entry.portraitUrl" :alt="entry.characterName"
@@ -32,7 +32,7 @@
                                 <div class="entry-header-line">
                                     <span class="entry-name" :style="{ color: engagementCharColor(entry, true) }">{{
                                         entry.characterName
-                                    }}</span><span class="entry-title"> vs </span><span class="entry-name"
+                                        }}</span><span class="entry-title"> vs </span><span class="entry-name"
                                         :style="{ color: engagementCharColor(entry, false) }">{{ entry.opponentName
                                         }}</span><span class="entry-title">:</span>
                                 </div>
@@ -42,6 +42,8 @@
                                     <span class="entry-total entry-engagement-dash">–</span>
                                     <span class="entry-total" :style="{ color: engagementCharColor(entry, false) }">{{
                                         entry.opponentWins }}</span>
+                                    <EyeSlashIcon v-if="isCurrentUserGM && isEntryHiddenFromPlayers(entry)"
+                                        class="entry-hidden-icon" />
                                 </div>
                             </div>
 
@@ -75,7 +77,9 @@
                                                 entry.modifier }}{{ entry.modifierLabel ? ` (${entry.modifierLabel})` : ''
                                             }}</span>
                                         <span class="entry-total" :class="outcomeClass(entry)">{{ rollTotal(entry)
-                                            }}</span>
+                                        }}</span>
+                                        <EyeSlashIcon v-if="isCurrentUserGM && isEntryHiddenFromPlayers(entry)"
+                                            class="entry-hidden-icon" />
                                     </div>
                                     <!-- Reroll button: centered over the full result row on hover -->
                                     <button v-if="hoveredRerollEntryId === entry.id" type="button"
@@ -107,13 +111,15 @@
 </template>
 
 <script setup>
-import { ref, nextTick, watch, onMounted, onUnmounted } from 'vue'
+import { ref, computed, nextTick, watch, onMounted, onUnmounted } from 'vue'
+import { EyeSlashIcon } from '@heroicons/vue/24/outline'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import { useTabletopChatlogState } from '@/composables/useTabletopChatlogState'
 import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 import { RollTypes } from '@/constants/rollTypes'
 import { EngagementResultTypes } from '@/constants/engagementResultTypes'
 import { useCardPreview } from '@/composables/useCardPreview'
+import { useTabletopSharedCanvas } from '@/composables/useTabletopSharedCanvas'
 import { useAbilitiesStore } from '@/stores/abilitiesStore'
 import { useEquipmentStore } from '@/stores/equipmentStore'
 import { useConceptsStore } from '@/stores/conceptsStore'
@@ -146,6 +152,7 @@ const emit = defineEmits(['update:isExpanded'])
 // ── Card preview for source name hover ───────────────────────────────────────
 
 const { showAbilityPreview, showEquipmentPreview, scheduleHide } = useCardPreview()
+const { hiddenCharacterIds } = useTabletopSharedCanvas()
 const abilitiesStore = useAbilitiesStore()
 const equipmentStore = useEquipmentStore()
 const conceptsStore = useConceptsStore()
@@ -154,6 +161,27 @@ const keepingStore = useKeepingStore()
 const authStore = useAuthStore()
 const campaignStore = useCampaignStore()
 const rollsStore = useRollsStore()
+
+// ── Hidden-token visibility ───────────────────────────────────────────────────
+
+const isCurrentUserGM = computed(() => campaignStore.isGMInActiveCampaign)
+
+/**
+ * Returns true if the character who made this roll currently has a hidden token
+ * on the canvas (visible only to the GM).
+ */
+function isEntryHiddenFromPlayers(entry) {
+    return hiddenCharacterIds.value.has(entry.characterId)
+}
+
+/**
+ * The subset of rollLog entries that should be displayed to the current user.
+ * Non-GMs cannot see rolls from characters whose tokens are currently hidden.
+ */
+const displayedRollLog = computed(() => {
+    if (isCurrentUserGM.value) return props.rollLog
+    return props.rollLog.filter(entry => !hiddenCharacterIds.value.has(entry.characterId))
+})
 
 // ── Reroll ─────────────────────────────────────────────────────────────────────
 
@@ -238,7 +266,7 @@ function handleSourceHoverEnter(entry, event) {
     const character = entry.characterId ? charactersStore.getById(entry.characterId) : null
     const ability = abilitiesStore.abilities?.find(a => a.name === entry.sourceName)
     if (ability) {
-        showAbilityPreview(ability, el, undefined, character)
+        showAbilityPreview(ability, el, undefined, character, true)
         return
     }
     // Prefer resolving equipment by the character's inventory entry (by ID) so that
@@ -256,7 +284,7 @@ function handleSourceHoverEnter(entry, event) {
         equipment = equipmentStore.equipment?.find(e => e.name === entry.sourceName)
     }
     if (equipment) {
-        showEquipmentPreview(equipment, el, character)
+        showEquipmentPreview(equipment, el, character, true)
     }
 }
 
@@ -720,6 +748,16 @@ function dieClass(die) {
     font-size: var(--font-size-10);
     color: var(--color-accent-cyan);
     cursor: pointer;
+}
+
+/* Hidden-from-players indicator — shown only to the GM */
+.entry-hidden-icon {
+    width: 14px;
+    height: 14px;
+    color: var(--color-danger);
+    flex-shrink: 0;
+    margin-left: var(--space-xs);
+    align-self: center;
 }
 
 /* ── FAB area ─────────────────────────────────────────────────────────────────── */

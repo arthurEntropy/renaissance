@@ -62,12 +62,27 @@
                     <input v-model="pickerSearch" class="cascade-search" placeholder="Search combatants…"
                         @keydown.escape="closePicker" />
                     <div v-if="pickerItems.length > 0" class="cascade-items-list">
-                        <div v-for="item in pickerItems" :key="item.id"
-                            class="cascade-item-wrap cascade-item-wrap--leaf" @click="addCombatant(item)">
-                            <button class="cascade-btn cascade-btn--leaf" tabindex="-1" type="button">
-                                <span class="cascade-btn-label">{{ item.name }}</span>
-                            </button>
-                        </div>
+                        <template v-for="item in pickerItems" :key="item.id">
+                            <!-- Section header (non-clickable) -->
+                            <div v-if="item.type === 'header'" class="cascade-section-header">
+                                {{ item.label }}
+                            </div>
+                            <!-- Add All Active action -->
+                            <div v-else-if="item.type === 'action'"
+                                class="cascade-item-wrap cascade-item-wrap--leaf cascade-item-wrap--action"
+                                @click="addAllActiveCombatants(item.actionType)">
+                                <button class="cascade-btn cascade-btn--leaf cascade-btn--action" tabindex="-1"
+                                    type="button">
+                                    <span class="cascade-btn-label">{{ item.name }}</span>
+                                </button>
+                            </div>
+                            <!-- Regular combatant item -->
+                            <div v-else class="cascade-item-wrap cascade-item-wrap--leaf" @click="addCombatant(item)">
+                                <button class="cascade-btn cascade-btn--leaf" tabindex="-1" type="button">
+                                    <span class="cascade-btn-label">{{ item.name }}</span>
+                                </button>
+                            </div>
+                        </template>
                     </div>
                     <div v-else class="cascade-empty">
                         <span>No matching combatants.</span>
@@ -261,6 +276,10 @@ const campaignPlayerCharacters = computed(() => {
     return charactersStore.characters.filter(c => allCharIds.has(c.id))
 })
 
+// Active / inactive IDs from lobby state
+const inactivePcIds = computed(() => new Set(campaign.value?.lobbyState?.inactivePlayerCharacterIds || []))
+const inactiveNpcIdSet = computed(() => new Set(campaign.value?.lobbyState?.inactiveNpcIds || []))
+
 const sourceTypeOptions = computed(() => [
     { id: 'pcs', label: 'PCs', count: campaignPlayerCharacters.value.length },
     { id: 'npcs', label: 'NPCs', count: npcs.value.length },
@@ -268,13 +287,35 @@ const sourceTypeOptions = computed(() => [
 ])
 
 const pickerItems = computed(() => {
-    let source, type
-    if (selectedType.value === 'beasts') { source = beastPickerTemplates.value; type = 'beast' }
-    else if (selectedType.value === 'pcs') { source = campaignPlayerCharacters.value; type = 'pc' }
-    else { source = npcs.value; type = 'npc' }
     const search = pickerSearch.value.trim().toLowerCase()
-    const items = source.map(c => ({ id: c.id, name: c.name, type }))
-    return search ? items.filter(i => i.name?.toLowerCase().includes(search)) : items
+
+    if (selectedType.value === 'beasts') {
+        const items = beastPickerTemplates.value.map(c => ({ id: c.id, name: c.name, type: 'beast' }))
+        return search ? items.filter(i => i.name?.toLowerCase().includes(search)) : items
+    }
+
+    if (selectedType.value === 'pcs') {
+        const all = campaignPlayerCharacters.value.map(c => ({ id: c.id, name: c.name, type: 'pc' }))
+        const filtered = search ? all.filter(i => i.name?.toLowerCase().includes(search)) : all
+        const active = filtered.filter(i => !inactivePcIds.value.has(i.id))
+        const inactive = filtered.filter(i => inactivePcIds.value.has(i.id))
+        const result = []
+        if (!search) result.push({ id: '__add-all-active-pcs', name: 'Add All Active PCs', type: 'action', actionType: 'add-all-active-pcs' })
+        if (active.length) result.push({ id: '__header-active-pcs', type: 'header', label: 'Active' }, ...active)
+        if (inactive.length) result.push({ id: '__header-inactive-pcs', type: 'header', label: 'Inactive' }, ...inactive)
+        return result
+    }
+
+    // NPCs
+    const all = npcs.value.map(c => ({ id: c.id, name: c.name, type: 'npc' }))
+    const filtered = search ? all.filter(i => i.name?.toLowerCase().includes(search)) : all
+    const active = filtered.filter(i => !inactiveNpcIdSet.value.has(i.id))
+    const inactive = filtered.filter(i => inactiveNpcIdSet.value.has(i.id))
+    const result = []
+    if (!search) result.push({ id: '__add-all-active-npcs', name: 'Add All Active NPCs', type: 'action', actionType: 'add-all-active-npcs' })
+    if (active.length) result.push({ id: '__header-active-npcs', type: 'header', label: 'Active' }, ...active)
+    if (inactive.length) result.push({ id: '__header-inactive-npcs', type: 'header', label: 'Inactive' }, ...inactive)
+    return result
 })
 
 const getViewportBounds = () => {
@@ -410,6 +451,28 @@ async function addCombatant(item) {
             { id: `${item.type}:${item.id}`, type: item.type, characterId: item.id },
         ]
     }
+    commitCombatants()
+}
+
+/**
+ * Adds all active PCs or NPCs (depending on actionType) to the group,
+ * skipping any that are already members.
+ */
+async function addAllActiveCombatants(actionType) {
+    closePicker()
+    const isPc = actionType === 'add-all-active-pcs'
+    const inactiveIds = isPc ? inactivePcIds.value : inactiveNpcIdSet.value
+    const source = isPc ? campaignPlayerCharacters.value : npcs.value
+    const type = isPc ? 'pc' : 'npc'
+
+    const toAdd = source
+        .filter(c => !inactiveIds.has(c.id))
+        .filter(c => !localCombatants.value.some(m => m.characterId === c.id))
+
+    if (!toAdd.length) return
+
+    const newEntries = toAdd.map(c => ({ id: `${type}:${c.id}`, type, characterId: c.id }))
+    localCombatants.value = [...localCombatants.value, ...newEntries]
     commitCombatants()
 }
 
@@ -560,5 +623,27 @@ onUnmounted(() => {
 
 .tge-items-col {
     width: 240px;
+}
+
+/* Section header in the picker item list */
+.cascade-section-header {
+    padding: var(--space-xs) var(--space-md);
+    font-size: var(--font-size-10);
+    font-weight: var(--font-weight-semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-text-secondary);
+    pointer-events: none;
+    user-select: none;
+}
+
+/* "Add All Active" action item */
+.cascade-btn--action {
+    color: var(--color-primary);
+    font-weight: var(--font-weight-semibold);
+}
+
+.cascade-item-wrap--action:hover .cascade-btn--action {
+    color: var(--color-primary-hover);
 }
 </style>

@@ -2,7 +2,7 @@
   "id": "5f0b9a9f-4188-4099-8d29-78814cf83282",
   "isDeleted": false,
   "createdAt": "2026-07-28T16:53:36.074Z",
-  "lastModified": "2026-07-29T00:28:55.701Z",
+  "lastModified": "2026-07-29T00:29:51.996Z",
   "campaignId": "c9ddeab9-d180-4fc5-869f-e64239bc3376",
   "name": "World Map",
   "backgroundImage": {
@@ -313,9 +313,9 @@
     }
   ],
   "transform": {
-    "scale": 1.2609668198635562,
-    "x": -1292.1576363721265,
-    "y": -156.11956400355473
+    "scale": 1.3618441654526403,
+    "x": -1541.3068889118122,
+    "y": -266.8828079120559
   },
   "gridSize": 40,
   "gridColor": "#ffffff",

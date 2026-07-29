@@ -109,7 +109,8 @@
 
     <!-- Skill Check Modal -->
     <SkillCheckModal v-if="showSkillCheckModal" :selected-skill-key="rollLinkSkillKey" :character="selectedCharacter"
-      :default-roll-type="rollLinkRollType" :source-name="rollLinkSourceName" @close="showSkillCheckModal = false" />
+      :default-roll-type="rollLinkRollType" :source-name="rollLinkSourceName" :initial-ill-favored="rollLinkIllFavored"
+      @close="showSkillCheckModal = false" />
 
     <!-- Gratuiti Popup -->
     <GratuitiPopup v-if="showGratuitiPopup" :mestiere-gratuiti="characterMestiereNovizio?.gratuiti"
@@ -134,7 +135,7 @@
       :initial-modifier="damageRollModalConfig.initialModifier" :roll-name="damageRollModalConfig.rollName"
       :source-name="damageRollModalConfig.sourceName" :roll-mode="damageRollModalConfig.rollMode ?? 'damage'"
       :initial-active-stat-key="damageRollModalConfig.initialActiveStatKey ?? null"
-      :initial-ill-favored="damageRollModalConfig.initialIllFavored ?? false" @close="showDamageRollModal = false" />
+      @close="showDamageRollModal = false" />
 
   </CharacterSheetSection>
 </template>
@@ -254,6 +255,7 @@ const showSkillCheckModal = ref(false)
 const rollLinkSkillKey = ref(null)
 const rollLinkRollType = ref(null)
 const rollLinkSourceName = ref(null)
+const rollLinkIllFavored = ref(false)
 
 // Damage roll modal refs
 const showDamageRollModal = ref(false)
@@ -488,8 +490,6 @@ const handleDamageRoll = ({ equipment, lacksTraining } = {}) => {
     rollMode: 'damage',
     title: 'Damage Roll',
     initialActiveStatKey: 'body',
-    // Pre-set ill-favored when the character lacks martial training for this item
-    initialIllFavored: !!lacksTraining,
   }
   showDamageRollModal.value = true
 }
@@ -500,6 +500,7 @@ const handleRollLink = (rollData) => {
   if (rollData.type === 'skill-check' || rollData.type === 'contest') {
     rollLinkSkillKey.value = Object.values(SKILLS).find(s => s.label === rollData.skill)?.key ?? rollData.skill?.toLowerCase() ?? null
     rollLinkSourceName.value = rollData.sourceName ?? null
+    rollLinkIllFavored.value = !!rollData.lacksTraining
     // Contest links open as unopposed (no difficulty)
     rollLinkRollType.value = rollData.type === 'contest' ? 'unopposed' : RollTypes.SKILL_CHECK
     showSkillCheckModal.value = true

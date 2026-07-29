@@ -14,6 +14,9 @@ const previewCharacterOverride = ref(null)
 const anchorRect = ref(null)
 // Suppresses all previews while a drag is in progress.
 const isDragging = ref(false)
+// When true, roll-link and roll-damage events are ignored in CardPreviewOverlay.
+// Set by contexts (e.g. the chatlog) that want to show info-only previews.
+const previewRollsDisabled = ref(false)
 
 let hideTimer = null
 let showTimer = null
@@ -23,7 +26,7 @@ let officialDragActive = false
 let pendingMouseUpListener = null
 
 export function useCardPreview() {
-  function showAbilityPreview(ability, element, delay = SHOW_DELAY_MS, character = null) {
+  function showAbilityPreview(ability, element, delay = SHOW_DELAY_MS, character = null, disableRolls = false) {
     if (isDragging.value) return
     clearTimeout(hideTimer)
     clearTimeout(showTimer)
@@ -34,10 +37,11 @@ export function useCardPreview() {
       previewAbility.value = ability
       previewCharacterOverride.value = character
       anchorRect.value = element.getBoundingClientRect()
+      previewRollsDisabled.value = disableRolls
     }, delay)
   }
 
-  function showEquipmentPreview(equipment, element, character = null) {
+  function showEquipmentPreview(equipment, element, character = null, disableRolls = false) {
     if (isDragging.value) return
     clearTimeout(hideTimer)
     clearTimeout(showTimer)
@@ -47,11 +51,10 @@ export function useCardPreview() {
       previewEquipment.value = equipment
       previewCharacterOverride.value = character
       anchorRect.value = element.getBoundingClientRect()
+      previewRollsDisabled.value = disableRolls
     }, SHOW_DELAY_MS)
   }
 
-  // Short delay so moving the mouse from the collapsed card into the preview
-  // pane does not cause the preview to flicker out.
   function scheduleHide() {
     clearTimeout(showTimer)
     clearTimeout(hideTimer)
@@ -60,6 +63,7 @@ export function useCardPreview() {
       previewEquipment.value = null
       previewCharacterOverride.value = null
       anchorRect.value = null
+      previewRollsDisabled.value = false
     }, HIDE_DELAY_MS)
   }
 
@@ -122,6 +126,7 @@ export function useCardPreview() {
     previewCharacterOverride,
     anchorRect,
     isDragging,
+    previewRollsDisabled,
     showAbilityPreview,
     showEquipmentPreview,
     scheduleHide,

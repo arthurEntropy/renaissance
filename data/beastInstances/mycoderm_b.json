@@ -2,7 +2,7 @@
   "id": "7e81280c-067f-4578-bc1e-969275ccc56a",
   "isDeleted": false,
   "createdAt": "2026-07-28T11:51:40.417Z",
-  "lastModified": "2026-07-29T00:19:36.247Z",
+  "lastModified": "2026-07-29T01:00:13.423Z",
   "characterType": "beastInstance",
   "name": "Mycoderm B",
   "featuredArtUrls": [
@@ -213,13 +213,14 @@
   },
   "rollStats": {
     "skillChecks": {
-      "attempts": 1,
-      "successes": 1,
-      "totalSum": 7,
-      "bestTotal": 7,
+      "attempts": 2,
+      "successes": 2,
+      "totalSum": 28,
+      "bestTotal": 21,
       "hardestSuccess": null,
       "bySkill": {
-        "Spirit": 1
+        "Spirit": 1,
+        "Strength": 1
       },
       "solCount": 0,
       "morteCount": 0,
@@ -240,7 +241,7 @@
     "xpEarned": 0,
     "xpSpent": 0,
     "treasureEarned": 0,
-    "treasureSpent": 0
+    "treasureSpent": 10
   },
   "biomeTags": [],
   "biomeId": null,
@@ -275,7 +276,7 @@
   "description": "",
   "size": 3,
   "reach": 5,
-  "updatedAt": "2026-07-29T00:19:36.247Z",
+  "updatedAt": "2026-07-29T01:00:13.423Z",
   "challenge": 11,
   "sectionOrder": [],
   "martialTrainingOverrides": {},

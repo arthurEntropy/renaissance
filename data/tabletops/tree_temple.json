@@ -2,7 +2,7 @@
   "id": "8167b174-0177-47a3-9cd2-5904707463ba",
   "isDeleted": false,
   "createdAt": "2026-07-28T11:47:21.442Z",
-  "lastModified": "2026-07-29T00:28:29.693Z",
+  "lastModified": "2026-07-29T01:03:14.540Z",
   "campaignId": "c9ddeab9-d180-4fc5-869f-e64239bc3376",
   "name": "Tree Temple",
   "backgroundImage": {
@@ -21,7 +21,7 @@
       "size": 1,
       "x": 1360,
       "y": 880,
-      "zIndex": 7,
+      "zIndex": 25,
       "isHidden": false
     },
     {
@@ -60,7 +60,7 @@
       "size": 3,
       "x": 1280,
       "y": 480,
-      "zIndex": 24,
+      "zIndex": 27,
       "isHidden": true
     },
     {
@@ -99,7 +99,7 @@
       "size": 1,
       "x": 1040,
       "y": 720,
-      "zIndex": 19
+      "zIndex": 26
     },
     {
       "id": "874a9db1-7b90-42e3-9fa4-242a04e2e1a4",
@@ -115,9 +115,9 @@
     }
   ],
   "transform": {
-    "scale": 0.7350298527964524,
-    "x": -120.43653125067226,
-    "y": 136.2011974978685
+    "scale": 0.9259259259259247,
+    "x": -360.708111654847,
+    "y": -104.26296509756503
   },
   "gridSize": 40,
   "gridColor": "#ffffff",
@@ -1186,6 +1186,167 @@
           "isDropped": false,
           "rolledMaxValue": false,
           "cssClass": "df-d12-6"
+        }
+      ]
+    },
+    {
+      "id": "0f6f7b18-4fa1-4a7c-993b-173437f1cd79_1785285104266_m298",
+      "timestamp": 1785285104266,
+      "characterId": "0f6f7b18-4fa1-4a7c-993b-173437f1cd79",
+      "characterName": "Himo",
+      "portraitUrl": "https://cdn.midjourney.com/d540e4e9-8b5c-4fd1-b7ab-41ee29f97979/0_2.jpeg",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "skill_check",
+      "skillName": "Strength",
+      "total": 8,
+      "diceTotal": null,
+      "modifier": 0,
+      "modifierLabel": null,
+      "success": true,
+      "difficulty": null,
+      "footer": "",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": "Club",
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 8,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-8"
+        }
+      ]
+    },
+    {
+      "id": "917e904f-d97e-4033-a498-8391260f3752_1785286795037_30er",
+      "timestamp": 1785286795037,
+      "characterId": "917e904f-d97e-4033-a498-8391260f3752",
+      "characterName": "Magnuss",
+      "portraitUrl": "https://cdn.midjourney.com/9d007aef-e372-4e42-9581-a2703cfe7018/0_2.jpeg",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "skill_check",
+      "skillName": "Strength",
+      "total": 15,
+      "diceTotal": null,
+      "modifier": 0,
+      "modifierLabel": null,
+      "success": true,
+      "difficulty": null,
+      "footer": "Insecure, Angry, Troubled",
+      "favoredStatus": "ill-favored",
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": "Dagger",
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 6,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-6"
+        },
+        {
+          "dieSize": 12,
+          "dieRollValue": 0,
+          "emoji": null,
+          "isDropped": true,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-9"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 5,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-5"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 2,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-2"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 2,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-2"
+        }
+      ]
+    },
+    {
+      "id": "7e81280c-067f-4578-bc1e-969275ccc56a_1785286813155_m789",
+      "timestamp": 1785286813155,
+      "characterId": "7e81280c-067f-4578-bc1e-969275ccc56a",
+      "characterName": "Mycoderm B",
+      "portraitUrl": "https://cdn.midjourney.com/1981f3be-8de5-4457-9d0f-da52943eb68c/0_0.png",
+      "isNpc": false,
+      "isBeast": true,
+      "type": "skill_check",
+      "skillName": "Strength",
+      "total": 21,
+      "diceTotal": null,
+      "modifier": 0,
+      "modifierLabel": null,
+      "success": true,
+      "difficulty": null,
+      "footer": "",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 10,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-10"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 4,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-4"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 4,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-4"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 3,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-3"
         }
       ]
     }
