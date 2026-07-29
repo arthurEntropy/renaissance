@@ -30,6 +30,9 @@ export const FAB_TYPES = {
     EXPAND: 'expand',
     SPECTATE: 'spectate',
     ATTACK: 'attack',
+    LOCKED: 'locked',
+    UNLOCKED: 'unlocked',
+    ARCHIVE: 'archive',
 }
 
 export const FAB_SIZES = {

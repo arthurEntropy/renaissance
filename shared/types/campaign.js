@@ -66,6 +66,19 @@ import { CAMPAIGN_ROLE, CAMPAIGN_MEMBER_STATUS } from '../constants/campaignCons
  */
 
 /**
+ * @typedef {'active'|'completed'|'archived'} CampaignQuestionStatus
+ */
+
+/**
+ * @typedef {Object} CampaignQuestion
+ * @property {string} id - Unique identifier for the question
+ * @property {string} text - The question text
+ * @property {CampaignQuestionStatus} status - Current status of the question
+ * @property {string} createdAt - ISO date string when the question was created
+ * @property {string|null} completedAt - ISO date string when the question was completed, or null
+ */
+
+/**
  * @typedef {import('./baseEntity.js').BaseEntity} BaseEntity
  */
 
@@ -81,8 +94,11 @@ import { CAMPAIGN_ROLE, CAMPAIGN_MEMBER_STATUS } from '../constants/campaignCons
  * @property {CampaignShop[]} shops - Generated shops
  * @property {CampaignLobbyState} lobbyState - Shared GM lobby arrangement
  * @property {CombatGroup[]} combatGroups - Shared combat groups for campaign lobby
+ * @property {CampaignQuestion[]} campaignQuestions - Campaign questions the players are investigating
  * @property {string[]} tabletopIds - IDs of tabletops belonging to this campaign, in display order
  * @property {string|null} activeTabletopId - ID of the currently active tabletop visible to all members, or null
+ * @property {string|null} worldMapTabletopId - ID of the campaign's world map tabletop, or null if none has been created
+ * @property {number} baneBoonPosition - Normalized (0–1) horizontal position of the Bane/Boon tracker indicator, where 0 is full bane and 1 is full boon
  */
 
 /**
@@ -119,7 +135,10 @@ export function createDefaultCampaign(foundingGmUserId) {
       inactivePlayerCharacterIds: [],
     },
     combatGroups: [],
+    campaignQuestions: [],
     tabletopIds: [],
     activeTabletopId: null,
+    worldMapTabletopId: null,
+    baneBoonPosition: 0.5,
   }
 }

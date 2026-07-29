@@ -506,7 +506,7 @@ const attackMenuPosition = ref({ x: 0, y: 0 })
 function handleAttackButtonClick(event) {
   const options = attackSkillOptions.value
   if (options.length === 1) {
-    emit('roll-link', { type: 'skill-check', skill: options[0], sourceName: props.equipment.name })
+    emit('roll-link', { type: 'skill-check', skill: options[0], sourceName: props.equipment.name, lacksTraining: lacksTraining.value })
     return
   }
   const rect = event.currentTarget.getBoundingClientRect()
@@ -519,7 +519,7 @@ function handleAttackButtonClick(event) {
 
 function selectAttackSkill(skillLabel) {
   showAttackSkillMenu.value = false
-  emit('roll-link', { type: 'skill-check', skill: skillLabel, sourceName: props.equipment.name })
+  emit('roll-link', { type: 'skill-check', skill: skillLabel, sourceName: props.equipment.name, lacksTraining: lacksTraining.value })
 }
 
 const hasDiceSection = computed(() =>

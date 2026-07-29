@@ -7,9 +7,11 @@
 
 <script setup>
 import BaseToken from './BaseToken.vue'
+import { computed } from 'vue'
 import { FAB_TYPES } from '@/constants/fab'
 import { useOptimizedImage } from '@/composables/useOptimizedImage'
 import { useCardPreview } from '@/composables/useCardPreview'
+import { useSourcesStore } from '@/stores/sourcesStore'
 import { MIDJOURNEY_IMAGE_CONTEXTS } from '@shared/constants/artConstants.js'
 
 const props = defineProps({
@@ -21,7 +23,14 @@ const props = defineProps({
 defineEmits(['click', 'remove'])
 
 const cardPreview = useCardPreview()
-const abilityArt = useOptimizedImage(() => props.ability?.artUrl, MIDJOURNEY_IMAGE_CONTEXTS.THUMBNAIL)
+const sourcesStore = useSourcesStore()
+
+// Use ability art if available; fall back to the source's cardBackgroundImage.
+const imageUrl = computed(() => {
+    if (props.ability?.artUrl) return props.ability.artUrl
+    return sourcesStore.getSourceById(props.ability?.source)?.cardBackgroundImage ?? null
+})
+const abilityArt = useOptimizedImage(() => imageUrl.value, MIDJOURNEY_IMAGE_CONTEXTS.THUMBNAIL)
 
 function onMouseEnter(event) {
     cardPreview.showAbilityPreview(props.ability, event.currentTarget, 1000)

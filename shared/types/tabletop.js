@@ -1,16 +1,23 @@
 import { createBaseEntity } from './baseEntity.js'
 
 /**
+ * @typedef {'character'|'culture'} CanvasTokenType
+ */
+
+/**
  * @typedef {Object} TabletopCanvasItem
  * @property {string} id - Canvas-local UUID for this token instance
- * @property {string} [characterId] - Source character ID (NPC, beast instance, or player character)
+ * @property {CanvasTokenType} [tokenType] - Token type; defaults to 'character' for backward compatibility
+ * @property {string} [characterId] - Source character ID (NPC, beast instance, or player character); only for character tokens
+ * @property {string} [cultureId] - Source culture ID; only for culture tokens
  * @property {boolean} isBeast - Whether the token represents a beast
  * @property {string} name - Display name
  * @property {string|null} portraitUrl - Portrait image URL
- * @property {number} size - Token size in grid cells
+ * @property {number} size - Token size in pixels (world map) or grid cells (regular tabletop)
  * @property {number} x - Canvas x position in pixels
  * @property {number} y - Canvas y position in pixels
  * @property {number} zIndex - Stacking order
+ * @property {boolean} [isHidden] - Whether the token is hidden from non-GM players
  */
 
 /**
@@ -83,10 +90,11 @@ import { createBaseEntity } from './baseEntity.js'
  * @typedef {Object} TabletopFields
  * @property {string} campaignId - ID of the owning campaign
  * @property {string} name - Tabletop display name
+ * @property {boolean} [isWorldMap] - Whether this tabletop is a campaign world map
  * @property {TabletopBackgroundImage|null} backgroundImage - Background map image, or null for an unbounded canvas
  * @property {TabletopCanvasItem[]} items - Token instances placed on the canvas
  * @property {TabletopTransform} transform - Current pan/zoom state
- * @property {number} gridSize - Grid cell size in pixels
+ * @property {number} gridSize - Grid cell size in pixels (unused / always 1 for world maps)
  * @property {string} gridColor - Grid line colour as a CSS hex string
  * @property {number} gridOpacity - Grid line opacity between 0 and 1
  * @property {number} mapScale - Scale factor applied to the background map image (1 = 100%)
@@ -95,6 +103,10 @@ import { createBaseEntity } from './baseEntity.js'
  * @property {RollLogEntry[]} rollLog - Persistent roll history for this tabletop, capped at 100 entries
  * @property {boolean} [rollLogExpanded] - Whether the roll log panel is expanded (per-user, not synced)
  * @property {CombatGroup[]} combatGroups - Combat groups (token groupings) for this tabletop
+ * @property {number} [pixelsPerMile] - World map only: how many canvas pixels represent one mile
+ * @property {number} [characterTokenSize] - World map only: pixel size of character tokens when placed
+ * @property {number} [cultureTokenSize] - World map only: pixel size of culture tokens when placed
+ * @property {boolean} [cultureTokensLocked] - World map only: whether culture tokens are locked in place
  */
 
 /**
@@ -124,5 +136,21 @@ export function createDefaultTabletop(campaignId, name = 'New Tabletop') {
     radiusAreas: [],
     rollLog: [],
     combatGroups: [],
+  }
+}
+
+/**
+ * Creates a new default world map tabletop for a campaign.
+ * @param {string} campaignId - The owning campaign's ID
+ * @returns {Tabletop & { isWorldMap: true, pixelsPerMile: number, characterTokenSize: number, cultureTokenSize: number, cultureTokensLocked: boolean }}
+ */
+export function createDefaultWorldMap(campaignId) {
+  return {
+    ...createDefaultTabletop(campaignId, 'World Map'),
+    isWorldMap: true,
+    pixelsPerMile: 40,
+    characterTokenSize: 40,
+    cultureTokenSize: 60,
+    cultureTokensLocked: false,
   }
 }

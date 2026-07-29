@@ -56,7 +56,7 @@ const campaignStore = useCampaignStore()
 
 const isOnLobbyPage = computed(() => {
     const path = route.path
-    return path.startsWith('/campaigns/') && !path.includes('/tabletop/')
+    return path.startsWith('/campaigns/') && !path.includes('/tabletop/') && !path.includes('/world-map')
 })
 const wrapperRef = ref(null)
 const menuRef = ref(null)

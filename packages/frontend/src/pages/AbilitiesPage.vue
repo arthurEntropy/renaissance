@@ -352,12 +352,13 @@ const allFilteredAbilities = computed(() => {
     filtered = filtered.filter((item) => !item.isBeastAbility)
   }
 
-  // Campaign mode: restrict to abilities from included concept sources
+  // Campaign mode: restrict to abilities from included concept sources.
+  // Beast abilities (beastItemTheme sources) are universal game content and always visible.
   const campaignStore = useCampaignStore()
   if (campaignStore.isInCampaign && campaignStore.activeIncludedConceptIds?.length > 0) {
     const included = new Set(campaignStore.activeIncludedConceptIds)
     filtered = filtered.filter(
-      (item) => !item.source || item.source === 'general' || included.has(item.source)
+      (item) => !item.source || item.source === 'general' || included.has(item.source) || sourcesStore.getSourceType(item.source) === 'beastItemTheme'
     )
   }
 

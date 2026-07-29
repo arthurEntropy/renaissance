@@ -313,6 +313,45 @@ export const useCampaignStore = defineStore('campaigns', () => {
     }
   }
 
+  const updateCampaignQuestions = async (campaignId, campaignQuestions) => {
+    const idx = campaigns.value.findIndex((c) => c.id === campaignId)
+    const original = idx !== -1 ? campaigns.value[idx] : null
+
+    if (original) {
+      campaigns.value[idx] = {
+        ...original,
+        campaignQuestions: Array.isArray(campaignQuestions) ? campaignQuestions : [],
+      }
+    }
+
+    try {
+      const updated = await CampaignService.updateCampaignQuestions(campaignId, campaignQuestions)
+      upsertCampaign(updated)
+      return updated
+    } catch (err) {
+      if (original) upsertCampaign(original)
+      console.error('Error updating campaign questions:', err)
+      throw err
+    }
+  }
+
+  const updateBaneBoonPosition = async (campaignId, position) => {
+    const idx = campaigns.value.findIndex((c) => c.id === campaignId)
+    const original = idx !== -1 ? campaigns.value[idx] : null
+    if (original) {
+      campaigns.value[idx] = { ...original, baneBoonPosition: position }
+    }
+    try {
+      const updated = await CampaignService.updateBaneBoonPosition(campaignId, position)
+      upsertCampaign(updated)
+      return updated
+    } catch (err) {
+      if (original) upsertCampaign(original)
+      console.error('Error updating bane boon position:', err)
+      throw err
+    }
+  }
+
   const fetchCampaignCharacters = async (campaignId) => {
     try {
       campaignCharacters.value = await CampaignService.getCampaignCharacters(campaignId)
@@ -510,6 +549,8 @@ export const useCampaignStore = defineStore('campaigns', () => {
     updateIncludedConcepts,
     updateLobbyState,
     updateCombatGroups,
+    updateCampaignQuestions,
+    updateBaneBoonPosition,
     fetchCampaignCharacters,
     addCampaignCharacter,
     removeCampaignCharacter,

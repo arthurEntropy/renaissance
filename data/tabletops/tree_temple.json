@@ -2,7 +2,7 @@
   "id": "8167b174-0177-47a3-9cd2-5904707463ba",
   "isDeleted": false,
   "createdAt": "2026-07-28T11:47:21.442Z",
-  "lastModified": "2026-07-28T13:37:53.613Z",
+  "lastModified": "2026-07-29T02:14:12.374Z",
   "campaignId": "c9ddeab9-d180-4fc5-869f-e64239bc3376",
   "name": "Tree Temple",
   "backgroundImage": {
@@ -21,7 +21,7 @@
       "size": 1,
       "x": 1360,
       "y": 880,
-      "zIndex": 7,
+      "zIndex": 25,
       "isHidden": false
     },
     {
@@ -60,7 +60,7 @@
       "size": 3,
       "x": 1280,
       "y": 480,
-      "zIndex": 22,
+      "zIndex": 29,
       "isHidden": true
     },
     {
@@ -99,7 +99,7 @@
       "size": 1,
       "x": 1040,
       "y": 720,
-      "zIndex": 19
+      "zIndex": 26
     },
     {
       "id": "874a9db1-7b90-42e3-9fa4-242a04e2e1a4",
@@ -115,9 +115,9 @@
     }
   ],
   "transform": {
-    "scale": 1.1663999999999999,
-    "x": -895.9086564227783,
-    "y": -363.46127166834333
+    "scale": 0.9259259259259247,
+    "x": -336.708111654847,
+    "y": -136.26296509756503
   },
   "gridSize": 40,
   "gridColor": "#ffffff",
@@ -1083,6 +1083,272 @@
           "cssClass": "df-d6-2"
         }
       ]
+    },
+    {
+      "id": "7e81280c-067f-4578-bc1e-969275ccc56a_1785284375987_cajf",
+      "timestamp": 1785284375987,
+      "characterId": "7e81280c-067f-4578-bc1e-969275ccc56a",
+      "characterName": "Mycoderm B",
+      "portraitUrl": "https://cdn.midjourney.com/1981f3be-8de5-4457-9d0f-da52943eb68c/0_0.png",
+      "isNpc": false,
+      "isBeast": true,
+      "type": "initiative",
+      "skillName": "Initiative",
+      "total": 3,
+      "diceTotal": 1,
+      "modifier": 2,
+      "modifierLabel": "WITS",
+      "success": null,
+      "difficulty": null,
+      "footer": null,
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 1,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-1"
+        }
+      ]
+    },
+    {
+      "id": "508bf892-8ae1-4f41-954d-8b33ae22f806_1785284375989_kswe",
+      "timestamp": 1785284375989,
+      "characterId": "508bf892-8ae1-4f41-954d-8b33ae22f806",
+      "characterName": "Spore Hound G",
+      "portraitUrl": "https://cdn.midjourney.com/39ad5992-8dc0-48f7-9e24-e9633e4377ae/0_1.png",
+      "isNpc": false,
+      "isBeast": true,
+      "type": "initiative",
+      "skillName": "Initiative",
+      "total": 10,
+      "diceTotal": 9,
+      "modifier": 1,
+      "modifierLabel": "WITS",
+      "success": null,
+      "difficulty": null,
+      "footer": null,
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 9,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-9"
+        }
+      ]
+    },
+    {
+      "id": "c1b316b0-83ac-454f-a2bf-71d44a4e3e63_1785284375992_qta7",
+      "timestamp": 1785284375992,
+      "characterId": "c1b316b0-83ac-454f-a2bf-71d44a4e3e63",
+      "characterName": "Spore Hound I",
+      "portraitUrl": "https://cdn.midjourney.com/39ad5992-8dc0-48f7-9e24-e9633e4377ae/0_1.png",
+      "isNpc": false,
+      "isBeast": true,
+      "type": "initiative",
+      "skillName": "Initiative",
+      "total": 7,
+      "diceTotal": 6,
+      "modifier": 1,
+      "modifierLabel": "WITS",
+      "success": null,
+      "difficulty": null,
+      "footer": null,
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 6,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-6"
+        }
+      ]
+    },
+    {
+      "id": "0f6f7b18-4fa1-4a7c-993b-173437f1cd79_1785285104266_m298",
+      "timestamp": 1785285104266,
+      "characterId": "0f6f7b18-4fa1-4a7c-993b-173437f1cd79",
+      "characterName": "Himo",
+      "portraitUrl": "https://cdn.midjourney.com/d540e4e9-8b5c-4fd1-b7ab-41ee29f97979/0_2.jpeg",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "skill_check",
+      "skillName": "Strength",
+      "total": 8,
+      "diceTotal": null,
+      "modifier": 0,
+      "modifierLabel": null,
+      "success": true,
+      "difficulty": null,
+      "footer": "",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": "Club",
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 8,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-8"
+        }
+      ]
+    },
+    {
+      "id": "917e904f-d97e-4033-a498-8391260f3752_1785286795037_30er",
+      "timestamp": 1785286795037,
+      "characterId": "917e904f-d97e-4033-a498-8391260f3752",
+      "characterName": "Magnuss",
+      "portraitUrl": "https://cdn.midjourney.com/9d007aef-e372-4e42-9581-a2703cfe7018/0_2.jpeg",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "skill_check",
+      "skillName": "Strength",
+      "total": 15,
+      "diceTotal": null,
+      "modifier": 0,
+      "modifierLabel": null,
+      "success": true,
+      "difficulty": null,
+      "footer": "Insecure, Angry, Troubled",
+      "favoredStatus": "ill-favored",
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": "Dagger",
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 6,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-6"
+        },
+        {
+          "dieSize": 12,
+          "dieRollValue": 0,
+          "emoji": null,
+          "isDropped": true,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-9"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 5,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-5"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 2,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-2"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 2,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-2"
+        }
+      ]
+    },
+    {
+      "id": "7e81280c-067f-4578-bc1e-969275ccc56a_1785286813155_m789",
+      "timestamp": 1785286813155,
+      "characterId": "7e81280c-067f-4578-bc1e-969275ccc56a",
+      "characterName": "Mycoderm B",
+      "portraitUrl": "https://cdn.midjourney.com/1981f3be-8de5-4457-9d0f-da52943eb68c/0_0.png",
+      "isNpc": false,
+      "isBeast": true,
+      "type": "skill_check",
+      "skillName": "Strength",
+      "total": 21,
+      "diceTotal": null,
+      "modifier": 0,
+      "modifierLabel": null,
+      "success": true,
+      "difficulty": null,
+      "footer": "",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 10,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-10"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 4,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-4"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 4,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-4"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 3,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-3"
+        }
+      ]
     }
   ],
   "combatGroups": [
@@ -1144,5 +1410,9 @@
         }
       ]
     }
-  ]
+  ],
+  "pixelsPerMile": 40,
+  "characterTokenSize": 40,
+  "cultureTokenSize": 60,
+  "cultureTokensLocked": false
 }

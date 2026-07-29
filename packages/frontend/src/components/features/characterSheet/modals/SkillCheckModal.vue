@@ -108,6 +108,11 @@ const props = defineProps({
     type: String,
     default: null,
   },
+  // When true, the roll starts pre-set to ill-favored (e.g. character lacks martial training).
+  initialIllFavored: {
+    type: Boolean,
+    default: false,
+  },
 })
 
 const emit = defineEmits(['close', 'update-difficulty'])
@@ -209,7 +214,7 @@ function updateRollParameters() {
       key: getSkillId(selectedSkill.value),
       name: getSkillLabel(selectedSkill.value),
       isFavored: selectedSkill.value.isFavored,
-      isIllFavored: selectedSkill.value.isIllFavored,
+      isIllFavored: selectedSkill.value.isIllFavored || !!props.initialIllFavored,
       ranks: selectedSkill.value.ranks,
       diceMod: (selectedSkill.value.diceMod || 0) + (selectedSkill.value.manualDiceMod || 0) + props.defaultDiceMod,
     }

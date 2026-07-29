@@ -11,7 +11,7 @@ import {
 import { getUserProfile } from './userController.js'
 import { CAMPAIGN_ROLE, CAMPAIGN_MEMBER_STATUS } from '../../../shared/constants/campaignConstants.js'
 import { createDefaultCampaign } from '../../../shared/types/campaign.js'
-import { createDefaultTabletop } from '../../../shared/types/tabletop.js'
+import { createDefaultTabletop, createDefaultWorldMap } from '../../../shared/types/tabletop.js'
 import { toLetterSuffix } from '../../../shared/utils/letterSuffix.js'
 import { v4 as uuidv4 } from 'uuid'
 import { getAllActiveCampaigns, getCampaignById, getCampaignMembership } from '../utils/campaignUtils.js'
@@ -820,6 +820,71 @@ export const deleteBeastInstance = (req, res) => {
   }
 }
 
+// PUT /campaigns/:id/campaign-questions — updates campaign questions (visible to all members)
+export const updateCampaignQuestions = (req, res) => {
+  try {
+    const campaign = getCampaignById(req.params.id)
+    if (!campaign) {
+      return res.status(404).json({ error: 'Campaign not found' })
+    }
+
+    const inputQuestions = req.body?.campaignQuestions
+    if (!Array.isArray(inputQuestions)) {
+      return res.status(400).json({ error: 'campaignQuestions must be an array' })
+    }
+
+    const validStatuses = new Set(['active', 'completed', 'archived'])
+    const normalizedQuestions = inputQuestions.map((q, i) => {
+      if (!q || typeof q !== 'object') {
+        throw new Error(`campaignQuestions[${i}] must be an object`)
+      }
+      const id = String(q.id || '').trim()
+      if (!id) throw new Error(`campaignQuestions[${i}].id is required`)
+      const text = String(q.text ?? '')
+      const status = validStatuses.has(q.status) ? q.status : 'active'
+      return {
+        id,
+        text,
+        status,
+        createdAt: q.createdAt ?? new Date().toISOString(),
+        completedAt: q.completedAt ?? null,
+      }
+    })
+
+    const updated = { ...campaign, campaignQuestions: normalizedQuestions }
+    saveFile(updated, CAMPAIGNS_DIRECTORY, campaign.name, campaign.id)
+    res.json(updated)
+  } catch (err) {
+    console.error('Error updating campaign questions:', err)
+    if (err?.message?.includes('campaignQuestions[')) {
+      return res.status(400).json({ error: err.message })
+    }
+    res.status(500).json({ error: 'Failed to update campaign questions' })
+  }
+}
+
+// PUT /campaigns/:id/bane-boon-position — updates the Bane/Boon tracker position (any member)
+export const updateBaneBoonPosition = (req, res) => {
+  try {
+    const campaign = getCampaignById(req.params.id)
+    if (!campaign) {
+      return res.status(404).json({ error: 'Campaign not found' })
+    }
+
+    const position = req.body?.baneBoonPosition
+    if (typeof position !== 'number' || position < 0 || position > 1) {
+      return res.status(400).json({ error: 'baneBoonPosition must be a number between 0 and 1' })
+    }
+
+    const updated = { ...campaign, baneBoonPosition: position }
+    saveFile(updated, CAMPAIGNS_DIRECTORY, campaign.name, campaign.id)
+    res.json(updated)
+  } catch (err) {
+    console.error('Error updating bane boon position:', err)
+    res.status(500).json({ error: 'Failed to update bane boon position' })
+  }
+}
+
 // ─── Tabletop handlers ────────────────────────────────────────────────────────
 
 const getTabletopById = (tabletopId) => {
@@ -859,14 +924,24 @@ export const createCampaignTabletop = (req, res) => {
       return res.status(404).json({ error: 'Campaign not found' })
     }
 
-    const { name } = req.body
-    const tabletop = createDefaultTabletop(campaign.id, name?.trim() || 'New Tabletop')
+    const { name, isWorldMap } = req.body
+
+    // Build the tabletop from the appropriate default, then overlay any extra
+    // fields sent by the client (e.g. world-map-specific settings).
+    const base = isWorldMap
+      ? createDefaultWorldMap(campaign.id)
+      : createDefaultTabletop(campaign.id, name?.trim() || 'New Tabletop')
+
+    const tabletop = { ...base, ...(name?.trim() ? { name: name.trim() } : {}) }
     saveFile(tabletop, TABLETOPS_DIRECTORY)
 
-    const updatedCampaign = {
-      ...campaign,
+    // If this is a world map, store its ID on the campaign so subsequent loads
+    // can find it without scanning all tabletops.
+    const campaignUpdates = {
       tabletopIds: [...(campaign.tabletopIds || []), tabletop.id],
+      ...(isWorldMap ? { worldMapTabletopId: tabletop.id } : {}),
     }
+    const updatedCampaign = { ...campaign, ...campaignUpdates }
     saveFile(updatedCampaign, CAMPAIGNS_DIRECTORY, campaign.name, campaign.id)
 
     res.status(201).json({ tabletop, campaign: updatedCampaign })
@@ -892,7 +967,7 @@ export const updateCampaignTabletop = (req, res) => {
       return res.status(403).json({ error: 'Tabletop does not belong to this campaign' })
     }
 
-    const allowedFields = ['name', 'backgroundImage', 'items', 'transform', 'gridSize', 'gridColor', 'gridOpacity', 'mapScale', 'showPaths', 'radiusAreas', 'rollLog', 'combatGroups']
+    const allowedFields = ['name', 'backgroundImage', 'items', 'transform', 'gridSize', 'gridColor', 'gridOpacity', 'mapScale', 'showPaths', 'radiusAreas', 'rollLog', 'combatGroups', 'pixelsPerMile', 'characterTokenSize', 'cultureTokenSize', 'cultureTokensLocked', 'isWorldMap']
     const updates = {}
     for (const field of allowedFields) {
       if (req.body[field] !== undefined) updates[field] = req.body[field]

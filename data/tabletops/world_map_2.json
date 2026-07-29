@@ -1,0 +1,23 @@
+{
+  "id": "5ba212d2-3c13-4de3-8a24-f4044e365a7a",
+  "isDeleted": true,
+  "createdAt": "2026-07-28T15:26:08.716Z",
+  "lastModified": "2026-07-28T15:26:08.716Z",
+  "campaignId": "c9ddeab9-d180-4fc5-869f-e64239bc3376",
+  "name": "World Map",
+  "backgroundImage": null,
+  "items": [],
+  "transform": {
+    "x": 0,
+    "y": 0,
+    "scale": 1
+  },
+  "gridSize": 40,
+  "gridColor": "#ffffff",
+  "gridOpacity": 0.06,
+  "mapScale": 1,
+  "showPaths": true,
+  "radiusAreas": [],
+  "rollLog": [],
+  "combatGroups": []
+}

@@ -1,6 +1,137 @@
 <template>
     <div v-if="hasAnyTokens" class="token-rail-container">
-        <div v-if="hasFocusedTokens && !isGMOnTabletop" class="token-group token-group--focused"
+
+        <!-- ─── World map mode groups ─────────────────────────────────────────── -->
+        <template v-if="isWorldMap">
+            <!-- Player Characters group -->
+            <div class="token-group token-group--pinned token-group--world-map">
+                <div class="token-group-header">
+                    <span class="token-group-label">Player Characters</span>
+                    <div v-if="isCmdHeld && campaignStore.isGMInActiveCampaign" class="group-gm-controls">
+                        <FloatingActionButton :variant="FAB_TYPES.EDIT" :size="FAB_SIZES.SMALL"
+                            :visibility="FAB_VISIBILITIES.ALWAYS" title="Edit player characters"
+                            @click="showPCPanel = true" />
+                        <FloatingActionButton :variant="FAB_TYPES.VISIBILITY" :size="FAB_SIZES.SMALL"
+                            :visibility="FAB_VISIBILITIES.ALWAYS" :is-active="true" title="Toggle visibility"
+                            @click="toggleWorldMapGroupVisibility('pc')" />
+                    </div>
+                    <div v-if="worldMapCollapsed.pcs" class="token-group-member-dots">
+                        <span v-for="char in worldMapPlayerCharacters" :key="char.id" class="member-dot"
+                            :style="{ backgroundColor: getMemberDotColor(char) }" />
+                    </div>
+                </div>
+                <div v-if="!worldMapCollapsed.pcs" class="token-group-members">
+                    <div v-for="char in worldMapPlayerCharacters" :key="char.id" class="draggable-token-wrapper"
+                        :class="{ 'is-unplaced': !placedCharacterIds.has(char.id), 'is-tabletop-selected': isTabletopSelected(char.id) }"
+                        draggable="true" @dragstart="handleTokenDragStart($event, char)" @dragend="handleTokenDragEnd">
+                        <CharacterToken :character="char" :showRemoveFab="false" :disableDefaultClick="true"
+                            @click="openCharacterSheet(char)" />
+                    </div>
+                </div>
+                <button class="token-group-collapse-toggle" @click="worldMapCollapsed.pcs = !worldMapCollapsed.pcs">
+                    <component :is="worldMapCollapsed.pcs ? ChevronDownIcon : ChevronUpIcon"
+                        class="token-group-chevron" />
+                </button>
+            </div>
+
+            <!-- NPCs group -->
+            <div class="token-group token-group--pinned token-group--world-map">
+                <div class="token-group-header">
+                    <span class="token-group-label">NPCs</span>
+                    <div v-if="isCmdHeld && campaignStore.isGMInActiveCampaign" class="group-gm-controls">
+                        <FloatingActionButton :variant="FAB_TYPES.EDIT" :size="FAB_SIZES.SMALL"
+                            :visibility="FAB_VISIBILITIES.ALWAYS" title="Edit NPCs" @click="showNPCPanel = true" />
+                        <FloatingActionButton :variant="FAB_TYPES.VISIBILITY" :size="FAB_SIZES.SMALL"
+                            :visibility="FAB_VISIBILITIES.ALWAYS" :is-active="true" title="Toggle visibility"
+                            @click="toggleWorldMapGroupVisibility('npc')" />
+                    </div>
+                    <div v-if="worldMapCollapsed.npcs" class="token-group-member-dots">
+                        <span v-for="npc in worldMapNPCs" :key="npc.id" class="member-dot"
+                            :style="{ backgroundColor: getMemberDotColor(npc) }" />
+                    </div>
+                </div>
+                <div v-if="!worldMapCollapsed.npcs" class="token-group-members">
+                    <div v-for="npc in worldMapNPCs" :key="npc.id" class="draggable-token-wrapper"
+                        :class="{ 'is-unplaced': !placedCharacterIds.has(npc.id), 'is-tabletop-selected': isTabletopSelected(npc.id) }"
+                        draggable="true" @dragstart="handleTokenDragStart($event, npc)" @dragend="handleTokenDragEnd">
+                        <CharacterToken :character="npc" :showRemoveFab="false" :disableDefaultClick="true"
+                            @click="openCharacterSheet(npc)" />
+                    </div>
+                </div>
+                <button class="token-group-collapse-toggle" @click="worldMapCollapsed.npcs = !worldMapCollapsed.npcs">
+                    <component :is="worldMapCollapsed.npcs ? ChevronDownIcon : ChevronUpIcon"
+                        class="token-group-chevron" />
+                </button>
+            </div>
+
+            <!-- Cultures group -->
+            <div v-if="campaignCultures.length > 0" class="token-group token-group--pinned token-group--world-map">
+                <div class="token-group-header">
+                    <span class="token-group-label">Cultures</span>
+                    <div v-if="isCmdHeld && campaignStore.isGMInActiveCampaign" class="group-gm-controls">
+                        <FloatingActionButton :variant="FAB_TYPES.EDIT" :size="FAB_SIZES.SMALL"
+                            :visibility="FAB_VISIBILITIES.ALWAYS" title="Edit included cultures"
+                            @click="showCurationPanel = true" />
+                        <FloatingActionButton :variant="cultureTokensLocked ? FAB_TYPES.LOCKED : FAB_TYPES.UNLOCKED"
+                            :size="FAB_SIZES.SMALL" :visibility="FAB_VISIBILITIES.ALWAYS"
+                            :title="cultureTokensLocked ? 'Culture tokens are locked – click to unlock' : 'Culture tokens are unlocked – click to lock'"
+                            @click="toggleCultureLock" />
+                        <FloatingActionButton :variant="FAB_TYPES.VISIBILITY" :size="FAB_SIZES.SMALL"
+                            :visibility="FAB_VISIBILITIES.ALWAYS" :is-active="true"
+                            title="Toggle visibility of placed cultures" @click="toggleCulturesVisibility" />
+                    </div>
+                    <div v-if="worldMapCollapsed.cultures" class="token-group-member-dots">
+                        <span v-for="culture in campaignCultures" :key="culture.id"
+                            class="member-dot member-dot--culture" />
+                    </div>
+                </div>
+                <div v-if="!worldMapCollapsed.cultures" class="token-group-members token-group-members--cultures">
+                    <div v-for="culture in campaignCultures" :key="culture.id" class="draggable-token-wrapper"
+                        :class="{ 'is-unplaced': !placedCultureIds.has(culture.id) }" draggable="true"
+                        @dragstart="handleCultureDragStart($event, culture)" @dragend="handleCultureDragEnd">
+                        <CultureToken :culture="culture" :is-placed="placedCultureIds.has(culture.id)" :size="48"
+                            :show-remove-fab="false" />
+                    </div>
+                </div>
+                <button class="token-group-collapse-toggle"
+                    @click="worldMapCollapsed.cultures = !worldMapCollapsed.cultures">
+                    <component :is="worldMapCollapsed.cultures ? ChevronDownIcon : ChevronUpIcon"
+                        class="token-group-chevron" />
+                </button>
+            </div>
+
+            <!-- PC Panel Modal -->
+            <div v-if="showPCPanel" class="modal-overlay" @click.self="showPCPanel = false">
+                <div class="world-map-panel-modal">
+                    <CampaignPlayerCharactersPanel />
+                    <button class="world-map-panel-close" @click="showPCPanel = false">✕ Close</button>
+                </div>
+            </div>
+
+            <!-- NPC Panel Modal -->
+            <div v-if="showNPCPanel" class="modal-overlay" @click.self="showNPCPanel = false">
+                <div class="world-map-panel-modal">
+                    <CampaignNpcsPanel />
+                    <button class="world-map-panel-close" @click="showNPCPanel = false">✕ Close</button>
+                </div>
+            </div>
+
+            <!-- Curation Panel Modal -->
+            <div v-if="showCurationPanel" class="modal-overlay" @click.self="showCurationPanel = false">
+                <div class="world-map-panel-modal world-map-panel-modal--wide">
+                    <CampaignCurationPanel v-if="campaignStore.activeCampaign?.id" ref="curationPanelRef"
+                        :campaign-id="campaignStore.activeCampaign.id"
+                        :included-concept-ids="campaignStore.activeCampaign?.includedConceptIds || []" />
+                    <div class="world-map-panel-actions">
+                        <button class="world-map-panel-close" @click="showCurationPanel = false">Cancel</button>
+                        <button class="world-map-panel-save" @click="saveCuration">Save</button>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        <!-- ─── Regular tabletop groups (hidden in world map mode) ──────────── -->
+        <div v-if="hasFocusedTokens && !isGMOnTabletop && !isWorldMap" class="token-group token-group--focused"
             :class="{ 'is-active-view': isViewingFocusedCharacterSheet, 'token-group--has-stats': showFocusedCharacterStats, 'token-group--stats-always': statsAlwaysVisible && showFocusedCharacterStats }">
             <div class="token-group-header">
                 <span class="token-group-label">Selected</span>
@@ -24,7 +155,7 @@
             </div>
         </div>
 
-        <div v-if="summonersBeast && !isGMOnTabletop" class="token-group token-group--summoned"
+        <div v-if="summonersBeast && !isGMOnTabletop && !isWorldMap" class="token-group token-group--summoned"
             :class="{ 'is-active-view': isViewingSummonedBeastSheet }">
             <div class="token-group-header">
                 <span class="token-group-label token-group-label--summoned">Summoned</span>
@@ -38,7 +169,7 @@
             </div>
         </div>
 
-        <div v-if="witchsFamiliar && !isGMOnTabletop" class="token-group token-group--familiar"
+        <div v-if="witchsFamiliar && !isGMOnTabletop && !isWorldMap" class="token-group token-group--familiar"
             :class="{ 'is-active-view': isViewingFamiliarSheet }">
             <div class="token-group-header">
                 <span class="token-group-label token-group-label--familiar">Familiar</span>
@@ -65,8 +196,9 @@
             </div>
         </div>
 
-        <!-- Multi-select visibility: GM on tabletop with ≥2 canvas tokens selected, cmd/ctrl held -->
-        <div v-if="isGMOnTabletop && multiSelectVisibilityState && isCmdHeld" class="multi-select-visibility">
+        <!-- Multi-select visibility: GM on tabletop with ≥2 canvas tokens selected, cmd/ctrl held (not in world map) -->
+        <div v-if="isGMOnTabletop && !isWorldMap && multiSelectVisibilityState && isCmdHeld"
+            class="multi-select-visibility">
             <span class="multi-visibility-label">{{ multiSelectVisibilityLabel }}</span>
             <FloatingActionButton :variant="FAB_TYPES.VISIBILITY" :size="FAB_SIZES.SMALL"
                 :visibility="FAB_VISIBILITIES.ALWAYS" :is-active="multiSelectVisibilityState !== 'hidden'"
@@ -74,8 +206,8 @@
                 @click="toggleMultiSelectVisibility" />
         </div>
 
-        <!-- Initiative controls: GM on tabletop only, when there are pinned groups -->
-        <div v-if="isGMOnTabletop && resolvedPinnedGroups.length > 0" class="initiative-controls">
+        <!-- Initiative controls: GM on regular tabletop only (not world map), when there are pinned groups -->
+        <div v-if="isGMOnTabletop && !isWorldMap && resolvedPinnedGroups.length > 0" class="initiative-controls">
             <button type="button" class="initiative-sort-btn" @click="sortGroupsByInitiative">
                 <CrossedSwordsIcon class="initiative-sort-icon" aria-hidden="true" />
                 <span>SORT</span>
@@ -90,7 +222,7 @@
             </div>
         </div>
 
-        <TransitionGroup tag="div" name="group-list" class="pinned-groups-list">
+        <TransitionGroup v-if="!isWorldMap" tag="div" name="group-list" class="pinned-groups-list">
             <div v-for="group in resolvedPinnedGroups" :key="group.id" :ref="(el) => setGroupEl(group.id, el)"
                 class="token-group token-group--pinned" draggable="true" :class="{
                     'token-group--initiative-active': isInitiativeActive && isGMOnTabletop && group.id === resolvedPinnedGroups[0]?.id,
@@ -161,13 +293,17 @@
         </TransitionGroup>
 
         <!-- ADD GROUP button: GM on tabletop, cmd/ctrl held -->
-        <button v-if="isGMOnTabletop && isCmdHeld" type="button" class="add-group-btn" @click="createAndOpenGroup">
+        <button v-if="isGMOnTabletop && !isWorldMap && isCmdHeld" type="button" class="add-group-btn"
+            @click="createAndOpenGroup">
             <PlusIcon class="add-group-icon" />
             <span>Add Group</span>
         </button>
 
         <!-- Token group edit modal -->
         <TokenGroupEditModal v-if="editingGroupId" :group-id="editingGroupId" @close="editingGroupId = null" />
+
+        <!-- Spacer so the last item can scroll fully above the bottom toolbar -->
+        <div class="token-rail-spacer" aria-hidden="true" />
 
     </div>
 </template>
@@ -179,10 +315,15 @@ import { ChevronDownIcon, ChevronUpIcon, ChevronLeftIcon, ChevronRightIcon, Plus
 import { useCharacterContextStore } from '@/stores/characterContextStore'
 import { useCharactersStore } from '@/stores/charactersStore'
 import { useCampaignStore } from '@/stores/campaignStore'
+import { useConceptsStore } from '@/stores/conceptsStore'
 import TokenGroupEditModal from '@/components/features/characterSelection/TokenGroupEditModal.vue'
 import CharacterToken from '@/components/features/characterSelection/CharacterToken.vue'
 import BeastToken from '@/components/features/characterSelection/BeastToken.vue'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
+import CultureToken from '@/components/features/worldMap/CultureToken.vue'
+import CampaignPlayerCharactersPanel from '@/components/features/campaigns/lobby/CampaignPlayerCharactersPanel.vue'
+import CampaignNpcsPanel from '@/components/features/campaigns/lobby/CampaignNpcsPanel.vue'
+import CampaignCurationPanel from '@/components/features/campaigns/lobby/CampaignCurationPanel.vue'
 import { useSummonedBeast } from '@/composables/useSummonedBeast'
 import { useAppCharacterSheetModal } from '@/composables/useAppCharacterSheetModal'
 import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
@@ -200,6 +341,7 @@ import CrossedSwordsIcon from '@/assets/icons/characterSheet/crossed_swords.svg?
 const characterContextStore = useCharacterContextStore()
 const charactersStore = useCharactersStore()
 const campaignStore = useCampaignStore()
+const conceptsStore = useConceptsStore()
 const rollsStore = useRollsStore()
 const abilitiesStore = useAbilitiesStore()
 const route = useRoute()
@@ -211,14 +353,78 @@ const isOnTabletopPage = ref(route.path.includes('/tabletop/'))
 const _unregisterGuard = router.beforeEach((to) => {
     isOnTabletopPage.value = to.path.includes('/tabletop/')
 })
-const { setDraggingCharacter, clearDraggingCharacter, setDraggingGroup, clearDraggingGroup } = useTabletopDragState()
+const { setDraggingCharacter, clearDraggingCharacter, setDraggingGroup, clearDraggingGroup, setDraggingCulture, clearDraggingCulture } = useTabletopDragState()
 const { selectedCharacterIds } = useTabletopSelectionState()
-const { placedCharacterIds, hiddenCharacterIds, setCharactersVisibility, removeTokensByCharacterIds } = useTabletopSharedCanvas()
+const { placedCharacterIds, hiddenCharacterIds, setCharactersVisibility, removeTokensByCharacterIds, isWorldMapActive, placedCultureIds, cultureTokensLocked: sharedCultureTokensLocked, toggleCultureLock } = useTabletopSharedCanvas()
 const { getSummonedBeastForCharacterId } = useSummonedBeast()
 const { open: openCharacterSheet, close: closeCharacterSheet, isOpen: isCharacterSheetOpen } = useAppCharacterSheetModal()
 const collapsedGroupIds = ref(new Set())
 const cyclingLeavingId = ref(null)
 const isCycling = ref(false)
+
+// ─── World map props/state ────────────────────────────────────────────────────
+const props = defineProps({
+    /** When true, the container is in world map mode with simplified group structure */
+    isWorldMap: { type: Boolean, default: false },
+})
+
+// Read world map state from the shared canvas singleton
+const isWorldMap = computed(() => props.isWorldMap || isWorldMapActive.value)
+const cultureTokensLocked = computed(() => sharedCultureTokensLocked.value)
+
+// World map: modal visibility
+const showPCPanel = ref(false)
+const showNPCPanel = ref(false)
+const showCurationPanel = ref(false)
+
+// Cultures included in the campaign (only those from campaign's includedConceptIds)
+const campaignCultures = computed(() => {
+    if (!isWorldMap.value) return []
+    const included = new Set(campaignStore.activeCampaign?.includedConceptIds || [])
+    return conceptsStore.cultures.filter(c => included.has(c.id))
+})
+
+// Player characters from campaign's member characterIds
+const worldMapPlayerCharacters = computed(() => {
+    if (!isWorldMap.value) return []
+    const campaign = campaignStore.activeCampaign
+    if (!campaign) return []
+    const allCharIds = (campaign.members || []).flatMap(m => m.characterIds || [])
+    return charactersStore.characters.filter(c => allCharIds.includes(c.id))
+})
+
+// NPCs from campaign
+const worldMapNPCs = computed(() => {
+    if (!isWorldMap.value) return []
+    return campaignStore.campaignNPCs || []
+})
+
+// World map group collapse state (separate from regular groups)
+const worldMapCollapsed = ref({ pcs: false, npcs: false, cultures: false })
+
+// Culture drag
+function handleCultureDragStart(event, culture) {
+    if (!event?.dataTransfer) return
+    const snapshot = {
+        tokenType: 'culture',
+        cultureId: culture.id,
+        name: culture.name ?? 'Unknown',
+        portraitUrl: culture.featuredArtUrls?.[0] ?? culture.artUrls?.[0] ?? null,
+    }
+    setDraggingCulture(snapshot)
+    event.dataTransfer.setData('application/vtt-culture', JSON.stringify(snapshot))
+    event.dataTransfer.effectAllowed = 'copy'
+    // Suppress browser drag image
+    const phantom = document.createElement('div')
+    phantom.style.cssText = 'position:fixed;left:-9999px;top:-9999px;width:1px;height:1px;'
+    document.body.appendChild(phantom)
+    event.dataTransfer.setDragImage(phantom, 0, 0)
+    requestAnimationFrame(() => phantom.remove())
+}
+
+function handleCultureDragEnd() {
+    clearDraggingCulture()
+}
 
 // FLIP animation: track group DOM elements by id for manual position-based animation
 const groupElsMap = new Map()
@@ -351,6 +557,11 @@ const isGMOnTabletop = computed(() =>
     campaignStore.isGMInActiveCampaign && isOnTabletopPage.value
 )
 const hasAnyTokens = computed(() => {
+    if (isWorldMap.value) {
+        return worldMapPlayerCharacters.value.length > 0
+            || worldMapNPCs.value.length > 0
+            || campaignCultures.value.length > 0
+    }
     if (!isGMOnTabletop.value) {
         if (hasFocusedTokens.value || !!summonersBeast.value || !!witchsFamiliar.value) return true
     }
@@ -651,6 +862,35 @@ onUnmounted(() => {
     _unregisterGuard()
 })
 
+// ─── World map visibility helpers ────────────────────────────────────────────
+
+const curationPanelRef = ref(null)
+
+async function saveCuration() {
+    if (curationPanelRef.value?.saveCuration) {
+        await curationPanelRef.value.saveCuration()
+    }
+    showCurationPanel.value = false
+}
+
+function toggleWorldMapGroupVisibility(group) {
+    const charIds = group === 'pc'
+        ? worldMapPlayerCharacters.value.map(c => c.id)
+        : worldMapNPCs.value.map(c => c.id)
+    const anyVisible = charIds.some(id => !hiddenCharacterIds.value.has(id))
+    setCharactersVisibility(charIds, anyVisible)
+}
+
+function toggleCulturesVisibility() {
+    const placed = campaignCultures.value.filter(c => placedCultureIds.value.has(c.id))
+    if (placed.length === 0) return
+    // Find culture tokens in canvas and toggle their visibility using characterIds as cultureIds
+    // (We'll use sharedCanvas but culture tokens use cultureId, not characterId)
+    // For now, toggle via hidden state by cultureId (TODO: extend sharedCanvas for cultures)
+    const anyVisible = placed.some(c => !hiddenCharacterIds.value.has(c.id))
+    setCharactersVisibility(placed.map(c => c.id), anyVisible)
+}
+
 // ─── Initiative controls (GM on tabletop only) ───────────────────────────────
 
 const isInitiativeActive = ref(false)
@@ -818,6 +1058,13 @@ function getFocusedTokenProps(character) {
     padding-right: 12rem;
     margin-right: -12rem;
     /* Let clicks pass through the invisible padding zone to the sheet backdrop behind it. */
+    pointer-events: none;
+}
+
+/* Spacer at the bottom so the last token group can scroll fully above the toolbar */
+.token-rail-spacer {
+    height: var(--vtt-toolbar-height, 56px);
+    flex-shrink: 0;
     pointer-events: none;
 }
 
@@ -1267,6 +1514,12 @@ function getFocusedTokenProps(character) {
     opacity: 0.85;
 }
 
+/* Culture dots use a goldenrod color and square shape to match the culture token style */
+.member-dot--culture {
+    background-color: var(--color-text-secondary, goldenrod);
+    border-radius: var(--radius-3, 3px);
+}
+
 /* ─── Add Group button (GM + cmd held) ───────────────────────────────────────── */
 .add-group-btn {
     pointer-events: auto;
@@ -1303,5 +1556,81 @@ function getFocusedTokenProps(character) {
 /* Uses a slightly tighter token gap than pinned character groups */
 .token-group-members--abilities {
     gap: var(--space-lg);
+}
+
+/* ─── World map group styles ────────────────────────────────────────────── */
+.token-group--world-map {
+    border-color: var(--overlay-white-medium);
+    min-width: var(--token-group-width);
+}
+
+.token-group-members--cultures {
+    flex-direction: column;
+    gap: var(--space-lg);
+    align-items: center;
+}
+
+/* World map panel modals */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: calc(var(--z-badge) + 100);
+    background: var(--overlay-black-medium);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: auto;
+}
+
+.world-map-panel-modal {
+    background: var(--color-bg-primary);
+    border: 1px solid var(--overlay-white-medium);
+    border-radius: var(--radius-10);
+    padding: var(--space-lg);
+    max-height: 80vh;
+    overflow-y: auto;
+    min-width: 320px;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+}
+
+.world-map-panel-modal--wide {
+    max-width: 1100px;
+    width: min(1100px, 94vw);
+}
+
+.world-map-panel-close,
+.world-map-panel-save {
+    padding: var(--space-xs) var(--space-md);
+    border-radius: var(--radius-5);
+    font-family: var(--font-family-primary);
+    font-size: var(--font-size-13);
+    cursor: pointer;
+    border: 1px solid var(--overlay-white-medium);
+    background: none;
+    color: var(--color-text-primary);
+    transition: background var(--transition-fast);
+}
+
+.world-map-panel-save {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    color: var(--color-black);
+}
+
+.world-map-panel-save:hover {
+    background: var(--color-primary-hover);
+}
+
+.world-map-panel-close:hover {
+    background: var(--overlay-white-subtle);
+}
+
+.world-map-panel-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--space-sm);
 }
 </style>

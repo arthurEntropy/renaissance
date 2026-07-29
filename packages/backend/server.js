@@ -55,6 +55,8 @@ import {
   deleteBeastInstance,
   updateLobbyState,
   updateCombatGroups,
+  updateCampaignQuestions,
+  updateBaneBoonPosition,
   getCampaignTabletops,
   createCampaignTabletop,
   updateCampaignTabletop,
@@ -175,6 +177,8 @@ app.delete('/campaigns/:id/beasts/:characterId', requireAuth, requireCampaignGM,
 // Campaign lobby state
 app.put('/campaigns/:id/lobby-state', requireAuth, requireCampaignGM, updateLobbyState)
 app.put('/campaigns/:id/combat-groups', requireAuth, requireCampaignGM, updateCombatGroups)
+app.put('/campaigns/:id/campaign-questions', requireAuth, requireCampaignMember, updateCampaignQuestions)
+app.put('/campaigns/:id/bane-boon-position', requireAuth, requireCampaignMember, updateBaneBoonPosition)
 
 // Campaign tabletops
 app.get('/campaigns/:id/tabletops', requireAuth, requireCampaignMember, getCampaignTabletops)

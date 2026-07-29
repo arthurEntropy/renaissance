@@ -6,38 +6,54 @@ import { ref } from 'vue'
 const _placedCharacterIds = ref(new Set())
 const _hiddenCharacterIds = ref(new Set())
 
+// World map specific state
+const _isWorldMapActive = ref(false)
+const _placedCultureIds = ref(new Set())
+const _cultureTokensLocked = ref(false)
+let _toggleCultureLockFn = null
+
 let _canvasItemsRef = null
 let _saveStateFn = null
 let _recordSnapshotFn = null
 
 export function useTabletopSharedCanvas() {
     /**
-     * Called once by VirtualTabletopPage after canvas setup to register
+     * Called once by VirtualTabletopPage/CampaignWorldMapPage after canvas setup to register
      * the mutable refs and persistence callbacks.
      */
-    function init(canvasItemsRef, saveState, recordSnapshot) {
+    function init(canvasItemsRef, saveState, recordSnapshot, { isWorldMap = false } = {}) {
         _canvasItemsRef = canvasItemsRef
         _saveStateFn = saveState
         _recordSnapshotFn = recordSnapshot
+        _isWorldMapActive.value = isWorldMap
     }
 
     /**
-     * Called by VirtualTabletopPage whenever canvasItems changes.
+     * Called by the page whenever canvasItems changes.
      * Updates the reactive placement/visibility sets.
-     * Removing a token from the canvas no longer cascades to group membership –
-     * that relationship is managed exclusively through PinnedTokensContainer.
      */
     function syncFromCanvas(items) {
         const placed = new Set()
         const hidden = new Set()
+        const placedCultures = new Set()
         for (const item of items) {
-            if (item.characterId) {
+            if (item.tokenType === 'culture' && item.cultureId) {
+                placedCultures.add(item.cultureId)
+            } else if (item.characterId) {
                 placed.add(item.characterId)
                 if (item.isHidden) hidden.add(item.characterId)
             }
         }
         _placedCharacterIds.value = placed
         _hiddenCharacterIds.value = hidden
+        _placedCultureIds.value = placedCultures
+    }
+
+    /**
+     * Update the culture tokens locked state from the canvas.
+     */
+    function setCultureTokensLockedState(locked) {
+        _cultureTokensLocked.value = locked
     }
 
     /**
@@ -80,12 +96,45 @@ export function useTabletopSharedCanvas() {
         _saveStateFn?.()
     }
 
+    /**
+     * Toggle the culture tokens locked state from PinnedTokensContainer.
+     * Delegates to a callback registered by CampaignWorldMapPage.
+     */
+    function registerToggleCultureLock(fn) {
+        _toggleCultureLockFn = fn
+    }
+
+    function toggleCultureLock() {
+        _toggleCultureLockFn?.()
+    }
+
+    /**
+     * Called by CampaignWorldMapPage on unmount so that PinnedTokensContainer
+     * stops showing world-map groups when the user navigates away (issue #6).
+     */
+    function deactivateWorldMap() {
+        _isWorldMapActive.value = false
+        _placedCultureIds.value = new Set()
+        _cultureTokensLocked.value = false
+        _toggleCultureLockFn = null
+        _canvasItemsRef = null
+        _saveStateFn = null
+        _recordSnapshotFn = null
+    }
+
     return {
         placedCharacterIds: _placedCharacterIds,
         hiddenCharacterIds: _hiddenCharacterIds,
+        isWorldMapActive: _isWorldMapActive,
+        placedCultureIds: _placedCultureIds,
+        cultureTokensLocked: _cultureTokensLocked,
         init,
         syncFromCanvas,
+        setCultureTokensLockedState,
         setCharactersVisibility,
         removeTokensByCharacterIds,
+        registerToggleCultureLock,
+        toggleCultureLock,
+        deactivateWorldMap,
     }
 }

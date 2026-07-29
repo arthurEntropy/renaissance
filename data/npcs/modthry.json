@@ -1,21 +1,21 @@
 {
-  "id": "508bf892-8ae1-4f41-954d-8b33ae22f806",
+  "id": "0687e75f-4f8d-428f-a37f-6a62606c5fb6",
   "isDeleted": false,
-  "createdAt": "2026-07-28T11:51:43.482Z",
-  "lastModified": "2026-07-29T00:19:36.255Z",
-  "characterType": "beastInstance",
-  "name": "Spore Hound G",
+  "createdAt": "2026-07-28T17:39:17.660Z",
+  "lastModified": "2026-07-28T19:43:26.105Z",
+  "characterType": "npc",
+  "name": "Modthry",
   "featuredArtUrls": [
-    "https://cdn.midjourney.com/39ad5992-8dc0-48f7-9e24-e9633e4377ae/0_1.png"
+    "https://cdn.midjourney.com/6c5b3ad0-ef63-43a2-9db2-e944c2de093c/0_0.png"
   ],
   "speed": {
-    "current": 35,
-    "base": 35
+    "current": 0,
+    "base": 0
   },
   "notes": "",
-  "body": 2,
-  "heart": 1,
-  "wits": 1,
+  "body": 0,
+  "heart": 0,
+  "wits": 0,
   "skills": [
     {
       "key": "awe",
@@ -27,7 +27,7 @@
     },
     {
       "key": "strength",
-      "ranks": 2,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -83,7 +83,7 @@
     },
     {
       "key": "spirit",
-      "ranks": 1,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -107,7 +107,7 @@
     },
     {
       "key": "awareness",
-      "ranks": 1,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -115,7 +115,7 @@
     },
     {
       "key": "stealth",
-      "ranks": 1,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -139,16 +139,16 @@
     }
   ],
   "endurance": {
-    "current": 10,
-    "base": 10
+    "current": 0,
+    "base": 0
   },
   "hope": {
-    "current": 2,
-    "base": 2
+    "current": 0,
+    "base": 0
   },
   "defense": {
-    "current": 6,
-    "base": 6
+    "current": 0,
+    "base": 0
   },
   "load": 0,
   "shadow": 0,
@@ -171,25 +171,10 @@
   "engagementDice": [],
   "engagementSuccesses": [],
   "engagementDiceStatuses": {},
-  "equipment": [
-    {
-      "id": "3a61c9aa-09ba-4b44-9efb-529795835e69",
-      "quantity": 1,
-      "isCarried": true,
-      "isWielding": true,
-      "collapsed": false
-    },
-    {
-      "id": "a77e5e36-1c1d-4a15-865f-da6748d815b7",
-      "quantity": 1,
-      "isCarried": true,
-      "isWielding": true,
-      "collapsed": false
-    }
-  ],
+  "equipment": [],
   "groupEquipmentBySource": false,
   "groupEquipmentByCustom": false,
-  "equipmentSortOption": "name-asc",
+  "equipmentSortOption": "",
   "equipmentCustomGroups": [],
   "mp": {
     "current": 0,
@@ -199,7 +184,7 @@
   "groupAbilitiesBySource": false,
   "groupAbilitiesByManaColor": false,
   "groupAbilitiesByCustom": false,
-  "abilitySortOption": "name-asc",
+  "abilitySortOption": "",
   "abilityCustomGroups": [],
   "autoCalculations": {
     "load": true,
@@ -252,14 +237,18 @@
     "colorless": []
   },
   "witchcraftTokens": [],
+  "witchFamiliar": null,
   "summonerVessels": [],
+  "hunterTraps": [],
   "campaignId": "c9ddeab9-d180-4fc5-869f-e64239bc3376",
   "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
   "isPublicPreview": false,
+  "sectionOrder": [],
+  "martialTrainingOverrides": {},
   "pronouns": "",
   "ancestryIds": [],
   "cultureIds": [],
-  "mestiereId": null,
+  "mestiereId": "",
   "age": 0,
   "heightFeet": 0,
   "heightInches": 0,
@@ -267,32 +256,6 @@
   "keeping": null,
   "treasure": 0,
   "xp": 0,
-  "updatedAt": "2026-07-29T00:19:36.255Z",
   "description": "",
-  "size": 1,
-  "reach": 5,
-  "challenge": 5,
-  "sectionOrder": [],
-  "martialTrainingOverrides": {},
-  "hasDarkvision": true,
-  "hasBlindsight": false,
-  "hasTremorsense": false,
-  "hasTruesight": false,
-  "burrowSpeed": 0,
-  "climbSpeed": 0,
-  "flySpeed": 0,
-  "swimSpeed": 0,
-  "biomeTagsAugment": [
-    "forest",
-    "wetland",
-    "underground"
-  ],
-  "biomeTagsInhibit": [
-    "cold",
-    "civilized"
-  ],
-  "beastTypeIds": [
-    "b7e57001-0000-4000-a000-000000000002"
-  ],
-  "templateId": "720bd912-d3a4-4096-9dfd-24d80508ef6e"
+  "updatedAt": "2026-07-28T19:43:26.105Z"
 }

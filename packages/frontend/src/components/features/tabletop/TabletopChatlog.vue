@@ -1,22 +1,25 @@
 <template>
     <div class="chatlog-wrapper" :class="{ 'chatlog-wrapper--expanded': isExpanded }"
-        :style="{ width: `${chatlogWidth}px` }" @mousedown.stop>
+        :style="{ width: `${chatlogWidth}px`, '--bb-tracker-height': `${trackerHeight}px` }" @mousedown.stop>
 
         <!-- Resize handle (left edge drag) -->
         <div class="chatlog-resize-handle" @mousedown.stop.prevent="handleResizeMousedown" />
 
-        <!-- Fade wrapper: applies gradient mask in collapsed state -->
-        <div class="chatlog-fade-wrapper" :class="{ 'chatlog-fade-wrapper--no-mask': isExpanded }">
+        <!-- Bane & Boon tracker: always anchored at the top of the chatlog -->
+        <BaneBoonTracker />
+
+        <!-- Fade wrapper: mask removed since tracker provides the defined top edge -->
+        <div class="chatlog-fade-wrapper chatlog-fade-wrapper--no-mask">
             <div ref="scrollRef" class="chatlog-scroll" @wheel.stop>
                 <!-- Spacer pushes entries to the bottom when content is short,
                      without blocking upward scroll when content overflows -->
                 <div class="chatlog-spacer" />
-                <div v-if="!rollLog.length" class="chatlog-empty">
+                <div v-if="!displayedRollLog.length" class="chatlog-empty">
                     Roll results will appear here.
                 </div>
                 <template v-else>
                     <TransitionGroup name="chatlog-entry" tag="div" class="chatlog-entries">
-                        <div v-for="entry in rollLog" :key="entry.id" class="chatlog-entry">
+                        <div v-for="entry in displayedRollLog" :key="entry.id" class="chatlog-entry">
                             <!-- Portrait -->
                             <div class="entry-portrait-wrap">
                                 <img v-if="entry.portraitUrl" :src="entry.portraitUrl" :alt="entry.characterName"
@@ -32,7 +35,7 @@
                                 <div class="entry-header-line">
                                     <span class="entry-name" :style="{ color: engagementCharColor(entry, true) }">{{
                                         entry.characterName
-                                    }}</span><span class="entry-title"> vs </span><span class="entry-name"
+                                        }}</span><span class="entry-title"> vs </span><span class="entry-name"
                                         :style="{ color: engagementCharColor(entry, false) }">{{ entry.opponentName
                                         }}</span><span class="entry-title">:</span>
                                 </div>
@@ -42,6 +45,8 @@
                                     <span class="entry-total entry-engagement-dash">–</span>
                                     <span class="entry-total" :style="{ color: engagementCharColor(entry, false) }">{{
                                         entry.opponentWins }}</span>
+                                    <EyeSlashIcon v-if="isCurrentUserGM && isEntryHiddenFromPlayers(entry)"
+                                        class="entry-hidden-icon" />
                                 </div>
                             </div>
 
@@ -75,7 +80,9 @@
                                                 entry.modifier }}{{ entry.modifierLabel ? ` (${entry.modifierLabel})` : ''
                                             }}</span>
                                         <span class="entry-total" :class="outcomeClass(entry)">{{ rollTotal(entry)
-                                            }}</span>
+                                        }}</span>
+                                        <EyeSlashIcon v-if="isCurrentUserGM && isEntryHiddenFromPlayers(entry)"
+                                            class="entry-hidden-icon" />
                                     </div>
                                     <!-- Reroll button: centered over the full result row on hover -->
                                     <button v-if="hoveredRerollEntryId === entry.id" type="button"
@@ -107,13 +114,16 @@
 </template>
 
 <script setup>
-import { ref, nextTick, watch, onMounted, onUnmounted } from 'vue'
+import { ref, computed, nextTick, watch, onMounted, onUnmounted } from 'vue'
+import { EyeSlashIcon } from '@heroicons/vue/24/outline'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
+import BaneBoonTracker from '@/components/features/campaigns/BaneBoonTracker.vue'
 import { useTabletopChatlogState } from '@/composables/useTabletopChatlogState'
 import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 import { RollTypes } from '@/constants/rollTypes'
 import { EngagementResultTypes } from '@/constants/engagementResultTypes'
 import { useCardPreview } from '@/composables/useCardPreview'
+import { useTabletopSharedCanvas } from '@/composables/useTabletopSharedCanvas'
 import { useAbilitiesStore } from '@/stores/abilitiesStore'
 import { useEquipmentStore } from '@/stores/equipmentStore'
 import { useConceptsStore } from '@/stores/conceptsStore'
@@ -146,6 +156,7 @@ const emit = defineEmits(['update:isExpanded'])
 // ── Card preview for source name hover ───────────────────────────────────────
 
 const { showAbilityPreview, showEquipmentPreview, scheduleHide } = useCardPreview()
+const { hiddenCharacterIds } = useTabletopSharedCanvas()
 const abilitiesStore = useAbilitiesStore()
 const equipmentStore = useEquipmentStore()
 const conceptsStore = useConceptsStore()
@@ -154,6 +165,27 @@ const keepingStore = useKeepingStore()
 const authStore = useAuthStore()
 const campaignStore = useCampaignStore()
 const rollsStore = useRollsStore()
+
+// ── Hidden-token visibility ───────────────────────────────────────────────────
+
+const isCurrentUserGM = computed(() => campaignStore.isGMInActiveCampaign)
+
+/**
+ * Returns true if the character who made this roll currently has a hidden token
+ * on the canvas (visible only to the GM).
+ */
+function isEntryHiddenFromPlayers(entry) {
+    return hiddenCharacterIds.value.has(entry.characterId)
+}
+
+/**
+ * The subset of rollLog entries that should be displayed to the current user.
+ * Non-GMs cannot see rolls from characters whose tokens are currently hidden.
+ */
+const displayedRollLog = computed(() => {
+    if (isCurrentUserGM.value) return props.rollLog
+    return props.rollLog.filter(entry => !hiddenCharacterIds.value.has(entry.characterId))
+})
 
 // ── Reroll ─────────────────────────────────────────────────────────────────────
 
@@ -238,7 +270,7 @@ function handleSourceHoverEnter(entry, event) {
     const character = entry.characterId ? charactersStore.getById(entry.characterId) : null
     const ability = abilitiesStore.abilities?.find(a => a.name === entry.sourceName)
     if (ability) {
-        showAbilityPreview(ability, el, undefined, character)
+        showAbilityPreview(ability, el, undefined, character, true)
         return
     }
     // Prefer resolving equipment by the character's inventory entry (by ID) so that
@@ -256,7 +288,7 @@ function handleSourceHoverEnter(entry, event) {
         equipment = equipmentStore.equipment?.find(e => e.name === entry.sourceName)
     }
     if (equipment) {
-        showEquipmentPreview(equipment, el, character)
+        showEquipmentPreview(equipment, el, character, true)
     }
 }
 
@@ -275,6 +307,9 @@ const MIN_WIDTH = 200
 const MAX_WIDTH = 560
 
 const chatlogWidth = ref(DEFAULT_WIDTH)
+
+// Height of the BaneBoonTracker (aspect ratio 4:1 relative to chatlog width)
+const trackerHeight = computed(() => Math.round(chatlogWidth.value / 4))
 
 // Keep shared state in sync so TabletopActiveAbilitiesBar can position itself
 const { chatlogWidth: _sharedChatlogWidth, chatlogExpanded: _sharedChatlogExpanded } = useTabletopChatlogState()
@@ -432,7 +467,7 @@ function dieClass(die) {
     position: absolute;
     right: 0;
     /* Sit above the teleported toolbar; falls back to 0 on non-tabletop pages */
-    bottom: var(--vtt-toolbar-height, 0px);
+    bottom: calc(var(--vtt-toolbar-height, 0px) - 1px);
     /* Normal: bottom half of canvas-container, minus toolbar */
     height: 50%;
     display: flex;
@@ -449,7 +484,7 @@ function dieClass(die) {
 
 .chatlog-wrapper--expanded {
     /* Full height minus toolbar so we don't overflow at the top */
-    height: calc(100% - var(--vtt-toolbar-height, 0px));
+    height: calc(100% - var(--vtt-toolbar-height, 0px) - var(--nav-height));
     --fab-opacity: 1;
 }
 
@@ -722,11 +757,21 @@ function dieClass(die) {
     cursor: pointer;
 }
 
+/* Hidden-from-players indicator — shown only to the GM */
+.entry-hidden-icon {
+    width: 14px;
+    height: 14px;
+    color: var(--color-danger);
+    flex-shrink: 0;
+    margin-left: var(--space-xs);
+    align-self: center;
+}
+
 /* ── FAB area ─────────────────────────────────────────────────────────────────── */
 .chatlog-fab-area {
     position: absolute;
-    /* In collapsed state: near the top of the visually opaque area (~38% down) */
-    top: 0;
+    /* In collapsed state: just below the BaneBoon tracker */
+    top: var(--bb-tracker-height, 0px);
     left: 50%;
     transform: translateX(-50%);
     z-index: var(--z-interactive);

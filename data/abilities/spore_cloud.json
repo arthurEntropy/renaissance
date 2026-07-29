@@ -1,0 +1,11 @@
+{
+  "id": "85e0d4e1-3abf-472d-b04f-8ea069dfed46",
+  "createdAt": "2026-07-29T01:07:06.605Z",
+  "lastModified": "2026-07-29T01:07:57.596Z",
+  "name": "Spore Cloud",
+  "description": "<p>Roll Fortitude vs Fortitude against each creature within short range. On each win, the creature takes 2d6 damage.</p>",
+  "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
+  "source": "97adb8c8-3812-401d-b324-60320679ea81",
+  "school": null,
+  "isBeastAbility": true
+}

@@ -13,23 +13,60 @@
 
         <!-- Zoom controls -->
         <span class="section-label">Zoom</span>
-        <button class="tool-btn icon-btn" title="Zoom in (scroll up)" @click="$emit('zoom-in')">+</button>
-        <span class="zoom-label">{{ Math.round(scale * 100) }}%</span>
         <button class="tool-btn icon-btn" title="Zoom out (scroll down)" @click="$emit('zoom-out')">−</button>
+        <span class="zoom-label">{{ Math.round(scale * 100) }}%</span>
+        <button class="tool-btn icon-btn" title="Zoom in (scroll up)" @click="$emit('zoom-in')">+</button>
 
         <div class="toolbar-divider" />
 
-        <!-- Grid size (grid is always on) -->
-        <span class="section-label">Grid</span>
-        <input type="color" class="grid-color-input" :value="gridColor" title="Grid line colour"
-            @input="$emit('update-grid-color', $event.target.value)" />
-        <input type="range" class="grid-opacity-slider" min="0" max="1" step="0.01" :value="gridOpacity"
-            title="Grid opacity" @input="$emit('update-grid-opacity', parseFloat($event.target.value))" />
-        <button class="tool-btn icon-btn" title="Decrease grid size" @click="$emit('decrease-grid')">−</button>
-        <span class="zoom-label" title="Grid size (px)">{{ gridSize }}px</span>
-        <button class="tool-btn icon-btn" title="Increase grid size" @click="$emit('increase-grid')">+</button>
+        <!-- Map scale (only when a background is set) -->
+        <template v-if="hasBackground">
+            <span class="section-label">Map Scale</span>
+            <button class="tool-btn icon-btn" title="Decrease map scale" @click="$emit('decrease-map-scale')">−</button>
+            <span class="zoom-label">{{ Math.round(mapScale * 100) }}%</span>
+            <button class="tool-btn icon-btn" title="Increase map scale" @click="$emit('increase-map-scale')">+</button>
+        </template>
 
         <div class="toolbar-divider" />
+
+        <!-- Regular tabletop: grid controls -->
+        <template v-if="!isWorldMap">
+            <span class="section-label">Grid</span>
+            <input type="color" class="grid-color-input" :value="gridColor" title="Grid line colour"
+                @input="$emit('update-grid-color', $event.target.value)" />
+            <input type="range" class="grid-opacity-slider" min="0" max="1" step="0.01" :value="gridOpacity"
+                title="Grid opacity" @input="$emit('update-grid-opacity', parseFloat($event.target.value))" />
+            <button class="tool-btn icon-btn" title="Decrease grid size" @click="$emit('decrease-grid')">−</button>
+            <span class="zoom-label" title="Grid size (px)">{{ gridSize }}px</span>
+            <button class="tool-btn icon-btn" title="Increase grid size" @click="$emit('increase-grid')">+</button>
+            <div class="toolbar-divider" />
+        </template>
+
+        <!-- World map: px-per-mile scale and token size controls -->
+        <template v-if="isWorldMap">
+            <span class="section-label">1 mi = </span>
+            <button class="tool-btn icon-btn" title="Decrease map scale (pixels per mile)"
+                @click="$emit('decrease-pixels-per-mile')">−</button>
+            <span class="zoom-label" title="Pixels per mile">{{ pixelsPerMile }}px</span>
+            <button class="tool-btn icon-btn" title="Increase map scale (pixels per mile)"
+                @click="$emit('increase-pixels-per-mile')">+</button>
+
+            <div class="toolbar-divider" />
+
+            <span class="section-label">Token Size</span>
+            <input type="range" class="grid-opacity-slider" min="16" max="200" step="4" :value="characterTokenSize"
+                title="Character token size (px)"
+                @input="$emit('update-character-token-size', parseInt($event.target.value))" />
+
+            <div class="toolbar-divider" />
+
+            <span class="section-label">Culture Size</span>
+            <input type="range" class="grid-opacity-slider" min="16" max="200" step="4" :value="cultureTokenSize"
+                title="Culture token size (px)"
+                @input="$emit('update-culture-token-size', parseInt($event.target.value))" />
+
+            <div class="toolbar-divider" />
+        </template>
 
         <!-- Background map image -->
         <template v-if="showBgInput">
@@ -48,33 +85,24 @@
             </button>
         </template>
 
-        <!-- Map scale (only when a background is set) -->
-        <template v-if="hasBackground">
-            <div class="toolbar-divider" />
-            <span class="section-label">Map Scale</span>
-            <button class="tool-btn icon-btn" title="Decrease map scale" @click="$emit('decrease-map-scale')">−</button>
-            <span class="zoom-label">{{ Math.round(mapScale * 100) }}%</span>
-            <button class="tool-btn icon-btn" title="Increase map scale" @click="$emit('increase-map-scale')">+</button>
-        </template>
-
         <div class="toolbar-divider" />
 
         <button v-if="itemCount > 0" class="tool-btn danger-btn" @click="$emit('clear-all')">
-            Clear All Tokens
+            Clear All Items
         </button>
 
         <button v-if="isGM" class="tool-btn danger-btn" @click="$emit('clear-log')">
             Clear Log
         </button>
 
-        <!-- Measurement path display toggle -->
-        <label class="toolbar-checkbox">
+        <!-- Measurement path display toggle (only for regular tabletops with grid paths) -->
+        <label v-if="!isWorldMap" class="toolbar-checkbox">
             <input type="checkbox" :checked="showPaths" @change="$emit('update-show-paths', $event.target.checked)" />
             Show Paths When Measuring
         </label>
 
         <!-- GM-only controls pushed to the right -->
-        <template v-if="isGM">
+        <template v-if="isGM && !isWorldMap">
             <div class="toolbar-spacer" />
 
             <!-- Tabletop switcher button -->
@@ -95,8 +123,9 @@
     </div>
 
     <!-- Tabletop Switcher Modal -->
-    <TabletopSwitcherModal v-if="showSwitcher" :tabletops="tabletops" :current-tabletop-id="currentTabletopId"
-        :active-tabletop-id="activeTabletopId" @close="showSwitcher = false" @switch-tabletop="handleSwitchTabletop" />
+    <TabletopSwitcherModal v-if="showSwitcher && !isWorldMap" :tabletops="tabletops"
+        :current-tabletop-id="currentTabletopId" :active-tabletop-id="activeTabletopId" @close="showSwitcher = false"
+        @switch-tabletop="handleSwitchTabletop" />
 </template>
 
 <script setup>
@@ -120,9 +149,14 @@ const props = defineProps({
     currentTabletopId: { type: String, default: null },
     activeTabletopId: { type: String, default: null },
     currentTabletopName: { type: String, default: '' },
+    // World map mode
+    isWorldMap: { type: Boolean, default: false },
+    pixelsPerMile: { type: Number, default: 40 },
+    characterTokenSize: { type: Number, default: 40 },
+    cultureTokenSize: { type: Number, default: 60 },
 })
 
-const emit = defineEmits(['zoom-in', 'zoom-out', 'increase-grid', 'decrease-grid', 'increase-map-scale', 'decrease-map-scale', 'clear-all', 'undo', 'redo', 'set-background', 'clear-background', 'update-grid-color', 'update-grid-opacity', 'update-show-paths', 'toggle-active-tabletop', 'switch-tabletop', 'clear-log'])
+const emit = defineEmits(['zoom-in', 'zoom-out', 'increase-grid', 'decrease-grid', 'increase-map-scale', 'decrease-map-scale', 'clear-all', 'undo', 'redo', 'set-background', 'clear-background', 'update-grid-color', 'update-grid-opacity', 'update-show-paths', 'toggle-active-tabletop', 'switch-tabletop', 'clear-log', 'increase-pixels-per-mile', 'decrease-pixels-per-mile', 'update-character-token-size', 'update-culture-token-size'])
 
 const showBgInput = ref(false)
 const bgUrlDraft = ref('')
@@ -288,6 +322,12 @@ const handleSwitchTabletop = (tabletopId) => {
     width: 72px;
     cursor: pointer;
     accent-color: var(--color-text-secondary);
+}
+
+.token-size-slider {
+    width: 80px;
+    cursor: pointer;
+    accent-color: var(--color-primary);
 }
 
 .btn-icon {
