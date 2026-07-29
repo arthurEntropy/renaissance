@@ -4,6 +4,7 @@
         'culture-token--unplaced': !isPlaced,
         'culture-token--ghost': isGhost,
         'culture-token--has-permanent-name': showPermanentName,
+        'culture-token--selected': isSelected,
     }" :style="{ '--culture-size': size + 'px' }">
         <!-- Name permanently displayed above the token in all-caps -->
         <div v-if="showPermanentName" class="culture-token__name">{{ culture.name?.toUpperCase() }}</div>
@@ -35,6 +36,8 @@ const props = defineProps({
     isGhost: { type: Boolean, default: false },
     /** Show the culture name permanently above the token (only for canvas-placed tokens) */
     showPermanentName: { type: Boolean, default: false },
+    /** Whether this token is selected on the canvas */
+    isSelected: { type: Boolean, default: false },
 })
 
 defineEmits(['click', 'remove'])
@@ -101,6 +104,11 @@ const initialsStyle = computed(() => ({
 /* Let parent context control the cursor instead of BaseToken's default pointer */
 :deep(.character-token) {
     cursor: inherit;
+}
+
+/* Selected: white glow ring matching the style for other selected tokens */
+.culture-token--selected :deep(.token-portrait) {
+    box-shadow: 0 0 0 3px var(--color-white), var(--shadow-sm);
 }
 
 /* Unplaced: dim the portrait and switch to neutral border */

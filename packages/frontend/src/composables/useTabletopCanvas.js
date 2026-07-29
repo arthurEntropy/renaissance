@@ -9,7 +9,7 @@ const MAX_HISTORY = 50
 // Tags whose presence in the event path should suppress token dragging
 const INTERACTIVE_TAGS = new Set(['button', 'a', 'input', 'select', 'textarea', 'label'])
 
-export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {}) {
+export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved, isWorldMap = false } = {}) {
     const { draggingCharacter, clearDraggingCharacter, draggingCulture, clearDraggingCulture } = useTabletopDragState()
     const { setSelectedCharacterIds, clearSelectedCharacterIds } = useTabletopSelectionState()
     const campaignStore = useCampaignStore()
@@ -58,9 +58,10 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
     const gridColor = ref('#ffffff')
     const gridOpacity = ref(0.06)
 
-    const snap = (val) => Math.round(val / gridSize.value) * gridSize.value
+    // On the world map there is no grid – positions are free-form canvas pixels.
+    const snap = (val) => isWorldMap ? val : Math.round(val / gridSize.value) * gridSize.value
     // Snap to the centre of the nearest grid cell (used for measurement origin/waypoints)
-    const snapCenter = (val) => Math.floor(val / gridSize.value) * gridSize.value + gridSize.value / 2
+    const snapCenter = (val) => isWorldMap ? val : Math.floor(val / gridSize.value) * gridSize.value + gridSize.value / 2
 
     // Grid overlay is a sibling of the canvas div in the container, so its
     // background-position must track the canvas transform to stay aligned.
@@ -383,6 +384,12 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
 
     const handleTokenMousedown = (item, e) => {
         if (e.button !== 0) return
+        // Locked culture tokens: don't drag; let the @click handler process the interaction.
+        // Propagation is stopped so the container's rubber-band selection doesn't activate.
+        if (item.tokenType === 'culture' && cultureTokensLocked.value) {
+            e.stopPropagation()
+            return
+        }
         // Don't start drag when clicking interactive elements inside the token
         for (const el of e.composedPath()) {
             if (el === e.currentTarget) break
@@ -399,7 +406,7 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
                 isMeasuring.value = false
                 measureWaypoints.value = []
                 measureCurrent.value = null
-                const halfPx = (item.size * gridSize.value) / 2
+                const halfPx = (item.size * (isWorldMap ? 1 : gridSize.value)) / 2
                 isRadiusMeasuring.value = true
                 radiusOrigin.value = { x: item.x + halfPx, y: item.y + halfPx }
                 radiusCurrent.value = { x: item.x + halfPx, y: item.y + halfPx }
@@ -412,7 +419,7 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
                     radiusCurrent.value = null
                     _radiusSourceTokenId = null
                 }
-                const halfPx = (item.size * gridSize.value) / 2
+                const halfPx = (item.size * (isWorldMap ? 1 : gridSize.value)) / 2
                 isMeasuring.value = true
                 measureWaypoints.value = [{ x: item.x + halfPx, y: item.y + halfPx }]
                 measureCurrent.value = { x: item.x + halfPx, y: item.y + halfPx }
@@ -463,7 +470,7 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
         // would appear on a plain click-without-drag.
         measureTracks.value = itemsToDrag.map(({ id, startX, startY }) => {
             const i = canvasItemsById.value.get(id)
-            const halfPx = (i.size * gridSize.value) / 2
+            const halfPx = (i.size * (isWorldMap ? 1 : gridSize.value)) / 2
             const origin = { x: startX + halfPx, y: startY + halfPx }
             return { waypoints: [origin], currentPoint: { ...origin }, size: i.size }
         })
@@ -563,7 +570,7 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
         try { snapshot = JSON.parse(raw) } catch { return }
         const pos = _containerPos(e)
         if (!pos) return
-        const halfPx = ((snapshot.size || 1) * gridSize.value) / 2
+        const halfPx = ((snapshot.size || 1) * (isWorldMap ? 1 : gridSize.value)) / 2
         const x = snap(pos.canvasX - halfPx)
         const y = snap(pos.canvasY - halfPx)
         recordSnapshot()
@@ -608,7 +615,8 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
                 if (maxX - minX > 4 || maxY - minY > 4) {
                     const next = new Set()
                     for (const item of canvasItems.value) {
-                        const sz = item.size * gridSize.value
+                        if (item.tokenType === 'culture' && cultureTokensLocked.value) continue
+                        const sz = isWorldMap ? item.size : item.size * gridSize.value
                         if (item.x + sz > minX && item.x < maxX && item.y + sz > minY && item.y < maxY) {
                             next.add(item.id)
                         }
@@ -680,7 +688,7 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
                     cultureId: dragItem.cultureId,
                 })
                 if (isMeasuring.value && newTracks[idx]) {
-                    const halfPx = (dragItem.size * gridSize.value) / 2
+                    const halfPx = (dragItem.size * (isWorldMap ? 1 : gridSize.value)) / 2
                     newTracks[idx] = {
                         ...newTracks[idx],
                         currentPoint: { x: snappedX + halfPx, y: snappedY + halfPx },
@@ -903,7 +911,8 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved } = {})
                 if (maxX - minX > 4 || maxY - minY > 4) {
                     const next = new Set()
                     for (const item of canvasItems.value) {
-                        const sz = item.size * gridSize.value
+                        if (item.tokenType === 'culture' && cultureTokensLocked.value) continue
+                        const sz = isWorldMap ? item.size : item.size * gridSize.value
                         if (item.x + sz > minX && item.x < maxX && item.y + sz > minY && item.y < maxY) {
                             next.add(item.id)
                         }

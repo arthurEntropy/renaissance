@@ -23,7 +23,7 @@
                     <!-- Culture token -->
                     <CultureToken v-if="item.tokenType === 'culture'" :culture="resolveCultureById(item.cultureId)"
                         :is-placed="true" :show-permanent-name="true" :size="item.size"
-                        :show-remove-fab="isGM && !cultureTokensLocked"
+                        :is-selected="isSelected(item.id)" :show-remove-fab="isGM && !cultureTokensLocked"
                         @remove="removeCultureTokenFromCanvas(item.cultureId)" />
                     <!-- Character token: use live portrait/name from the store to avoid stale snapshots -->
                     <TabletopToken v-else :name="resolveCurrentName(item)"

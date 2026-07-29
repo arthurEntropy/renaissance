@@ -2,7 +2,7 @@
   "id": "8167b174-0177-47a3-9cd2-5904707463ba",
   "isDeleted": false,
   "createdAt": "2026-07-28T11:47:21.442Z",
-  "lastModified": "2026-07-28T23:50:43.238Z",
+  "lastModified": "2026-07-29T00:28:29.693Z",
   "campaignId": "c9ddeab9-d180-4fc5-869f-e64239bc3376",
   "name": "Tree Temple",
   "backgroundImage": {
@@ -1083,6 +1083,111 @@
           "cssClass": "df-d6-2"
         }
       ]
+    },
+    {
+      "id": "7e81280c-067f-4578-bc1e-969275ccc56a_1785284375987_cajf",
+      "timestamp": 1785284375987,
+      "characterId": "7e81280c-067f-4578-bc1e-969275ccc56a",
+      "characterName": "Mycoderm B",
+      "portraitUrl": "https://cdn.midjourney.com/1981f3be-8de5-4457-9d0f-da52943eb68c/0_0.png",
+      "isNpc": false,
+      "isBeast": true,
+      "type": "initiative",
+      "skillName": "Initiative",
+      "total": 3,
+      "diceTotal": 1,
+      "modifier": 2,
+      "modifierLabel": "WITS",
+      "success": null,
+      "difficulty": null,
+      "footer": null,
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 1,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-1"
+        }
+      ]
+    },
+    {
+      "id": "508bf892-8ae1-4f41-954d-8b33ae22f806_1785284375989_kswe",
+      "timestamp": 1785284375989,
+      "characterId": "508bf892-8ae1-4f41-954d-8b33ae22f806",
+      "characterName": "Spore Hound G",
+      "portraitUrl": "https://cdn.midjourney.com/39ad5992-8dc0-48f7-9e24-e9633e4377ae/0_1.png",
+      "isNpc": false,
+      "isBeast": true,
+      "type": "initiative",
+      "skillName": "Initiative",
+      "total": 10,
+      "diceTotal": 9,
+      "modifier": 1,
+      "modifierLabel": "WITS",
+      "success": null,
+      "difficulty": null,
+      "footer": null,
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 9,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-9"
+        }
+      ]
+    },
+    {
+      "id": "c1b316b0-83ac-454f-a2bf-71d44a4e3e63_1785284375992_qta7",
+      "timestamp": 1785284375992,
+      "characterId": "c1b316b0-83ac-454f-a2bf-71d44a4e3e63",
+      "characterName": "Spore Hound I",
+      "portraitUrl": "https://cdn.midjourney.com/39ad5992-8dc0-48f7-9e24-e9633e4377ae/0_1.png",
+      "isNpc": false,
+      "isBeast": true,
+      "type": "initiative",
+      "skillName": "Initiative",
+      "total": 7,
+      "diceTotal": 6,
+      "modifier": 1,
+      "modifierLabel": "WITS",
+      "success": null,
+      "difficulty": null,
+      "footer": null,
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 6,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-6"
+        }
+      ]
     }
   ],
   "combatGroups": [
@@ -1144,5 +1249,9 @@
         }
       ]
     }
-  ]
+  ],
+  "pixelsPerMile": 40,
+  "characterTokenSize": 40,
+  "cultureTokenSize": 60,
+  "cultureTokensLocked": false
 }

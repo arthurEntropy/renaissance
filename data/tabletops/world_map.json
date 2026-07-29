@@ -2,7 +2,7 @@
   "id": "5f0b9a9f-4188-4099-8d29-78814cf83282",
   "isDeleted": false,
   "createdAt": "2026-07-28T16:53:36.074Z",
-  "lastModified": "2026-07-29T00:06:05.384Z",
+  "lastModified": "2026-07-29T00:28:55.701Z",
   "campaignId": "c9ddeab9-d180-4fc5-869f-e64239bc3376",
   "name": "World Map",
   "backgroundImage": {
@@ -11,20 +11,6 @@
     "naturalHeight": 1632
   },
   "items": [
-    {
-      "id": "17c6b519-5cab-4a1e-a66f-be2968287f4b",
-      "tokenType": "culture",
-      "characterId": null,
-      "cultureId": "c02c53d1-b456-45d0-a048-6fc941cacc03",
-      "isBeast": false,
-      "isNpc": false,
-      "name": "Agralaur",
-      "portraitUrl": "https://cdn.midjourney.com/044812dc-342d-48db-b698-5e9d8a96c22a/0_1_640_N.webp",
-      "size": 52,
-      "x": 1280,
-      "y": 560,
-      "zIndex": 82
-    },
     {
       "id": "2d600b85-e924-40aa-9da9-b6242105028b",
       "tokenType": "culture",
@@ -135,7 +121,7 @@
       "size": 52,
       "x": 1280,
       "y": 320,
-      "zIndex": 78
+      "zIndex": 93
     },
     {
       "id": "3d05d328-2dee-4f2e-89cc-e49fdea76360",
@@ -147,9 +133,9 @@
       "name": "The Underdark",
       "portraitUrl": "https://cdn.midjourney.com/9cd1ff24-401e-4f50-b162-8aa063f685b6/0_1_640_N.webp",
       "size": 52,
-      "x": 1564,
-      "y": 244,
-      "zIndex": 68
+      "x": 1600,
+      "y": 240,
+      "zIndex": 94
     },
     {
       "id": "2144ff0e-c76b-47ae-8a1c-ccab37f34bec",
@@ -161,9 +147,9 @@
       "name": "Upham",
       "portraitUrl": "https://cdn.midjourney.com/4cda2189-9f1d-4c60-a782-7101b5d88e4f/0_3_640_N.webp",
       "size": 52,
-      "x": 1604,
-      "y": 444,
-      "zIndex": 69
+      "x": 1609.2461877433727,
+      "y": 452.74364623895485,
+      "zIndex": 112
     },
     {
       "id": "216f6c0f-279a-4759-a9f1-f7eb37402255",
@@ -174,9 +160,9 @@
       "isNpc": true,
       "name": "Gilly",
       "portraitUrl": "https://cdn.midjourney.com/2684e08c-ba39-48d3-9b1e-5d4de676ef02/0_0.png",
-      "size": 48,
-      "x": 1960,
-      "y": 400,
+      "size": 44,
+      "x": 1962,
+      "y": 402,
       "zIndex": 90
     },
     {
@@ -188,24 +174,10 @@
       "isNpc": true,
       "name": "Modthry",
       "portraitUrl": "https://cdn.midjourney.com/a8a36740-b7d3-4aef-bea3-a95039bec06f/0_2.png",
-      "size": 48,
-      "x": 1640,
-      "y": 960,
+      "size": 44,
+      "x": 1642,
+      "y": 962,
       "zIndex": 83
-    },
-    {
-      "id": "5e38d472-6e01-45c2-8cc2-4dd7c6053d6d",
-      "tokenType": "character",
-      "characterId": "34920c64-763c-40ef-b5a6-9f593829c443",
-      "cultureId": null,
-      "isBeast": false,
-      "isNpc": true,
-      "name": "Tierney",
-      "portraitUrl": "https://cdn.midjourney.com/dd0503fb-28ce-49bf-8441-f3d7c720bba1/0_1.png",
-      "size": 48,
-      "x": 1640,
-      "y": 520,
-      "zIndex": 89
     },
     {
       "id": "1ff49654-0e69-4447-b8d2-e5dd865bc009",
@@ -216,10 +188,10 @@
       "isNpc": false,
       "name": "Sukha",
       "portraitUrl": "https://cdn.midjourney.com/770da9b9-1295-4027-87aa-64363df253e6/0_2.jpeg",
-      "size": 48,
-      "x": 1560,
-      "y": 520,
-      "zIndex": 88
+      "size": 44,
+      "x": 1578.904382728646,
+      "y": 515.0050830088361,
+      "zIndex": 110
     },
     {
       "id": "096b2a91-11b3-4e28-8aa3-a1ef1c3a88aa",
@@ -230,9 +202,9 @@
       "isNpc": false,
       "name": "Sergio",
       "portraitUrl": "https://cdn.midjourney.com/1d600001-fa0c-4cd7-8d15-151ac4fcfe3c/0_3_640_N.webp",
-      "size": 48,
-      "x": 1354,
-      "y": 394,
+      "size": 44,
+      "x": 1356,
+      "y": 396,
       "zIndex": 72
     },
     {
@@ -244,9 +216,9 @@
       "isNpc": false,
       "name": "Pimlan",
       "portraitUrl": "https://cdn.midjourney.com/b5a43e5a-3fc5-4215-b969-c8d1f5392653/0_3.png",
-      "size": 48,
-      "x": 1560,
-      "y": 960,
+      "size": 44,
+      "x": 1562,
+      "y": 962,
       "zIndex": 85
     },
     {
@@ -258,9 +230,9 @@
       "isNpc": false,
       "name": "Palfrey",
       "portraitUrl": "https://cdn.midjourney.com/2916e967-136f-4900-8d0b-5dd0ec354e19/0_1_640_N.webp",
-      "size": 48,
-      "x": 2234,
-      "y": 594,
+      "size": 44,
+      "x": 2236,
+      "y": 596,
       "zIndex": 73
     },
     {
@@ -272,9 +244,9 @@
       "isNpc": false,
       "name": "Magnuss Hardhand",
       "portraitUrl": "https://cdn.midjourney.com/9d007aef-e372-4e42-9581-a2703cfe7018/0_2.jpeg",
-      "size": 48,
-      "x": 2234,
-      "y": 194,
+      "size": 44,
+      "x": 2236,
+      "y": 196,
       "zIndex": 74
     },
     {
@@ -286,9 +258,9 @@
       "isNpc": false,
       "name": "Jebeddo",
       "portraitUrl": "https://cdn.midjourney.com/ef8f7b85-a18f-49a1-8a2d-238a3eb1cb5a/0_1_640_N.webp",
-      "size": 48,
-      "x": 954,
-      "y": 754,
+      "size": 44,
+      "x": 956,
+      "y": 756,
       "zIndex": 75
     },
     {
@@ -300,9 +272,9 @@
       "isNpc": false,
       "name": "Himo",
       "portraitUrl": "https://cdn.midjourney.com/d540e4e9-8b5c-4fd1-b7ab-41ee29f97979/0_2.jpeg",
-      "size": 48,
-      "x": 1847.66996728061,
-      "y": 887.0423303979437,
+      "size": 44,
+      "x": 1849.66996728061,
+      "y": 889.0423303979437,
       "zIndex": 41
     },
     {
@@ -315,12 +287,35 @@
       "x": 1607.8356471095897,
       "y": 905.0204075060371,
       "zIndex": 80
+    },
+    {
+      "id": "80157f95-2863-45d1-9560-74dfa214c77a",
+      "tokenType": "culture",
+      "cultureId": "c02c53d1-b456-45d0-a048-6fc941cacc03",
+      "name": "Agralaur",
+      "portraitUrl": "https://cdn.midjourney.com/044812dc-342d-48db-b698-5e9d8a96c22a/0_1_640_N.webp",
+      "size": 52,
+      "x": 1292.1836732377724,
+      "y": 574.85489081318,
+      "zIndex": 105
+    },
+    {
+      "id": "38c559be-6768-4ebd-b2da-51d3c6866aea",
+      "characterId": "34920c64-763c-40ef-b5a6-9f593829c443",
+      "isBeast": false,
+      "isNpc": true,
+      "name": "Tierney",
+      "portraitUrl": "https://cdn.midjourney.com/dd0503fb-28ce-49bf-8441-f3d7c720bba1/0_1.png",
+      "size": 44,
+      "x": 1653.406924233064,
+      "y": 516.7233142036102,
+      "zIndex": 109
     }
   ],
   "transform": {
-    "scale": 0.9268482559855219,
-    "x": -725.3177200904997,
-    "y": -40.914640983900426
+    "scale": 1.2609668198635562,
+    "x": -1292.1576363721265,
+    "y": -156.11956400355473
   },
   "gridSize": 40,
   "gridColor": "#ffffff",
@@ -332,7 +327,7 @@
   "combatGroups": [],
   "isWorldMap": true,
   "pixelsPerMile": 10,
-  "characterTokenSize": 48,
+  "characterTokenSize": 44,
   "cultureTokenSize": 52,
-  "cultureTokensLocked": false
+  "cultureTokensLocked": true
 }

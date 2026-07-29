@@ -2,7 +2,7 @@
   "id": "7e81280c-067f-4578-bc1e-969275ccc56a",
   "isDeleted": false,
   "createdAt": "2026-07-28T11:51:40.417Z",
-  "lastModified": "2026-07-28T13:11:34.627Z",
+  "lastModified": "2026-07-29T00:19:36.247Z",
   "characterType": "beastInstance",
   "name": "Mycoderm B",
   "featuredArtUrls": [
@@ -275,7 +275,7 @@
   "description": "",
   "size": 3,
   "reach": 5,
-  "updatedAt": "2026-07-28T13:11:34.627Z",
+  "updatedAt": "2026-07-29T00:19:36.247Z",
   "challenge": 11,
   "sectionOrder": [],
   "martialTrainingOverrides": {},
