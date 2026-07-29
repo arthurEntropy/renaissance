@@ -356,7 +356,7 @@ const allFilteredEquipment = computed(() => {
     if (campaignStore.isInCampaign && campaignStore.activeIncludedConceptIds?.length > 0) {
         const included = new Set(campaignStore.activeIncludedConceptIds)
         filtered = filtered.filter(
-            (item) => !item.source || item.source === 'general' || included.has(item.source)
+            (item) => !item.source || item.source === 'general' || included.has(item.source) || sourcesStore.getSourceType(item.source) === 'beastItemTheme'
         )
     }
 

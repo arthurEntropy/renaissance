@@ -88,9 +88,9 @@ export const useCharactersStore = defineStore('characters', () => {
   const canEditSelectedCharacter = computed(() => {
     if (!selectedCharacter.value) return false
     if (selectedCharacter.value.isPublicPreview && !authStore.isAdmin) return false
-    // Beast template: only admin not currently in a campaign can edit
+    // Beast template: only admins can edit
     if (isBeastTemplate(selectedCharacter.value)) {
-      return authStore.isAdmin && !campaignStore.isInCampaign
+      return authStore.isAdmin
     }
     // Beast instance: GM in the active campaign can edit, or the player who owns it
     if (isBeastInstance(selectedCharacter.value)) {

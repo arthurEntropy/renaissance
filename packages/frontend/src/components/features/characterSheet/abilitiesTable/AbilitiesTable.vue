@@ -258,7 +258,14 @@ const characterAbilities = computed(() => {
   return sortItems(abilities, abilitySortOption.value)
 })
 
-const abilityPicker = useCardCascadePicker({ fixedCategory: 'ability' })
+const abilityPicker = useCardCascadePicker({
+  fixedCategory: 'ability',
+  filterItems: computed(() => {
+    const type = selectedCharacter.value?.characterType
+    const isBeast = type === 'beast' || type === 'beastInstance'
+    return (a) => isBeast || !a.isBeastAbility
+  })
+})
 const {
   showPicker: showAbilitySelector,
   openPicker: openAbilitySelector,
