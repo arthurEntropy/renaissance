@@ -472,7 +472,7 @@ const handleCharacterUpdate = (updatedCharacter) => {
   }
 }
 
-const handleDamageRoll = ({ equipment, lacksTraining } = {}) => {
+const handleDamageRoll = ({ equipment } = {}) => {
   if (!equipment || !selectedCharacter.value) return
 
   // Build initial dice counts from equipment's damage dice

@@ -5,7 +5,7 @@
   "name": "Claws (tiny)",
   "description": "<p>Roll Dexterity vs Defense. On a pass, you deal 1 damage.</p>",
   "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
-  "isPassive": true,
+  "isBeastAbility": true,
   "source": "4064763c-377d-46f8-bc9a-74e1e621e875",
   "school": null
 }

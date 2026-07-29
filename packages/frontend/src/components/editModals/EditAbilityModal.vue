@@ -7,7 +7,7 @@
       <!-- Flags -->
       <div class="form-group centered">
         <label for="isBeastAbility">
-          <input type="checkbox" id="isBeastAbility" v-model="editedAbility.isPassive" />
+          <input type="checkbox" id="isBeastAbility" v-model="editedAbility.isBeastAbility" />
           Beast Ability
         </label>
         <label for="isMagical">
