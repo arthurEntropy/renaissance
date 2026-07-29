@@ -2,7 +2,7 @@
   "id": "5f0b9a9f-4188-4099-8d29-78814cf83282",
   "isDeleted": false,
   "createdAt": "2026-07-28T16:53:36.074Z",
-  "lastModified": "2026-07-28T19:45:25.026Z",
+  "lastModified": "2026-07-29T00:06:05.384Z",
   "campaignId": "c9ddeab9-d180-4fc5-869f-e64239bc3376",
   "name": "World Map",
   "backgroundImage": {
@@ -20,24 +20,10 @@
       "isNpc": false,
       "name": "Agralaur",
       "portraitUrl": "https://cdn.midjourney.com/044812dc-342d-48db-b698-5e9d8a96c22a/0_1_640_N.webp",
-      "size": 60,
-      "x": 1256.5985585199787,
-      "y": 532.3540500275285,
-      "zIndex": 8
-    },
-    {
-      "id": "6b085696-0f41-4c42-a899-e79ccd110474",
-      "tokenType": "culture",
-      "characterId": null,
-      "cultureId": "352c844b-6d4f-4b61-b475-315421a453e7",
-      "isBeast": false,
-      "isNpc": false,
-      "name": "Guildford",
-      "portraitUrl": "https://cdn.midjourney.com/6fa9ec41-bf94-4cf5-9ff3-57b77f2848a3/0_3_640_N.webp",
-      "size": 60,
-      "x": 1602.7996544960668,
-      "y": 905.4566897010754,
-      "zIndex": 9
+      "size": 52,
+      "x": 1280,
+      "y": 560,
+      "zIndex": 82
     },
     {
       "id": "2d600b85-e924-40aa-9da9-b6242105028b",
@@ -48,10 +34,10 @@
       "isNpc": false,
       "name": "The Harrow Wood",
       "portraitUrl": "https://cdn.midjourney.com/988bf45c-b734-4c16-becb-fb610792e297/0_1_640_N.webp",
-      "size": 60,
-      "x": 1850.8732909499613,
-      "y": 805.2886188951236,
-      "zIndex": 10
+      "size": 52,
+      "x": 1884,
+      "y": 804,
+      "zIndex": 61
     },
     {
       "id": "e6fc0f48-adb4-4bd7-ace7-b6050be51b78",
@@ -62,10 +48,10 @@
       "isNpc": false,
       "name": "Chobham",
       "portraitUrl": "https://cdn.midjourney.com/fd526181-9eae-4259-822a-4301470598c8/0_3.jpeg",
-      "size": 60,
-      "x": 1456.6494609802749,
-      "y": 735.2229150193835,
-      "zIndex": 7
+      "size": 52,
+      "x": 1484,
+      "y": 724,
+      "zIndex": 62
     },
     {
       "id": "4adc0277-8fbc-4b9c-a49e-5e23cb1778fb",
@@ -76,9 +62,9 @@
       "isNpc": false,
       "name": "Highlake",
       "portraitUrl": "https://cdn.midjourney.com/c9659efc-0926-4617-865d-8deeb768be1d/0_0.png",
-      "size": 60,
-      "x": 2146.2546411231087,
-      "y": 1290.8970804115593,
+      "size": 52,
+      "x": 2150.2546411231087,
+      "y": 1294.8970804115593,
       "zIndex": 11
     },
     {
@@ -90,10 +76,10 @@
       "isNpc": false,
       "name": "The Kepland",
       "portraitUrl": "https://cdn.midjourney.com/31e7a11a-493a-4281-9355-ba03af84fb26/0_3_640_N.webp",
-      "size": 60,
-      "x": 1905.8641029747264,
-      "y": 302.01782121025957,
-      "zIndex": 17
+      "size": 52,
+      "x": 1924,
+      "y": 284,
+      "zIndex": 63
     },
     {
       "id": "3e257551-99f9-45c2-be98-254fc0dd008f",
@@ -104,10 +90,10 @@
       "isNpc": false,
       "name": "Nïrwe",
       "portraitUrl": "https://cdn.midjourney.com/2c054bfd-b221-46fb-b11a-2174cfee3765/0_0_640_N.webp",
-      "size": 60,
-      "x": 966.1556356674141,
-      "y": 691.0134193049145,
-      "zIndex": 19
+      "size": 52,
+      "x": 964,
+      "y": 684,
+      "zIndex": 64
     },
     {
       "id": "f5e01fc6-dbbd-4619-9aca-e037d44b9d6f",
@@ -118,10 +104,10 @@
       "isNpc": false,
       "name": "Ockham",
       "portraitUrl": "https://cdn.midjourney.com/5e5be9b9-35ea-4fb6-a78b-54cb6266892a/0_3_640_N.webp",
-      "size": 60,
-      "x": 2234.762066532286,
-      "y": 529.2961481869119,
-      "zIndex": 20
+      "size": 52,
+      "x": 2244,
+      "y": 524,
+      "zIndex": 65
     },
     {
       "id": "f7f4ddea-fd6b-45a9-80f1-a1a605c03adf",
@@ -132,10 +118,10 @@
       "isNpc": false,
       "name": "Stone's Throw",
       "portraitUrl": "https://cdn.midjourney.com/3b379acc-da2e-4d47-8b55-3cd660c3be91/0_2.png",
-      "size": 60,
-      "x": 2240.22548785384,
-      "y": 115.16881201310788,
-      "zIndex": 22
+      "size": 52,
+      "x": 2244,
+      "y": 124,
+      "zIndex": 66
     },
     {
       "id": "0ca4d0f4-07fd-4401-914c-8c85286662de",
@@ -146,10 +132,10 @@
       "isNpc": false,
       "name": "Teek",
       "portraitUrl": "https://cdn.midjourney.com/2475c64d-94ce-4713-b5b9-a80833eda76c/0_1_640_N.webp",
-      "size": 60,
-      "x": 1278.6633352603112,
-      "y": 316.2227166463003,
-      "zIndex": 33
+      "size": 52,
+      "x": 1280,
+      "y": 320,
+      "zIndex": 78
     },
     {
       "id": "3d05d328-2dee-4f2e-89cc-e49fdea76360",
@@ -160,10 +146,10 @@
       "isNpc": false,
       "name": "The Underdark",
       "portraitUrl": "https://cdn.midjourney.com/9cd1ff24-401e-4f50-b162-8aa063f685b6/0_1_640_N.webp",
-      "size": 60,
-      "x": 1563.8539282454374,
-      "y": 246.29092373040731,
-      "zIndex": 24
+      "size": 52,
+      "x": 1564,
+      "y": 244,
+      "zIndex": 68
     },
     {
       "id": "2144ff0e-c76b-47ae-8a1c-ccab37f34bec",
@@ -174,10 +160,10 @@
       "isNpc": false,
       "name": "Upham",
       "portraitUrl": "https://cdn.midjourney.com/4cda2189-9f1d-4c60-a782-7101b5d88e4f/0_3_640_N.webp",
-      "size": 60,
-      "x": 1576.9661394171671,
-      "y": 463.73509232826217,
-      "zIndex": 26
+      "size": 52,
+      "x": 1604,
+      "y": 444,
+      "zIndex": 69
     },
     {
       "id": "216f6c0f-279a-4759-a9f1-f7eb37402255",
@@ -188,10 +174,10 @@
       "isNpc": true,
       "name": "Gilly",
       "portraitUrl": "https://cdn.midjourney.com/2684e08c-ba39-48d3-9b1e-5d4de676ef02/0_0.png",
-      "size": 36,
-      "x": 1977.0348948687138,
-      "y": 387.3935085402876,
-      "zIndex": 27
+      "size": 48,
+      "x": 1960,
+      "y": 400,
+      "zIndex": 90
     },
     {
       "id": "65cc16a9-90c5-4d01-a1b7-87f7cf42b7c7",
@@ -202,10 +188,10 @@
       "isNpc": true,
       "name": "Modthry",
       "portraitUrl": "https://cdn.midjourney.com/a8a36740-b7d3-4aef-bea3-a95039bec06f/0_2.png",
-      "size": 36,
-      "x": 1652.4919337149918,
-      "y": 965.7731433252953,
-      "zIndex": 55
+      "size": 48,
+      "x": 1640,
+      "y": 960,
+      "zIndex": 83
     },
     {
       "id": "5e38d472-6e01-45c2-8cc2-4dd7c6053d6d",
@@ -216,10 +202,10 @@
       "isNpc": true,
       "name": "Tierney",
       "portraitUrl": "https://cdn.midjourney.com/dd0503fb-28ce-49bf-8441-f3d7c720bba1/0_1.png",
-      "size": 36,
-      "x": 1638.3027729323571,
-      "y": 544.7400426010469,
-      "zIndex": 30
+      "size": 48,
+      "x": 1640,
+      "y": 520,
+      "zIndex": 89
     },
     {
       "id": "1ff49654-0e69-4447-b8d2-e5dd865bc009",
@@ -230,10 +216,10 @@
       "isNpc": false,
       "name": "Sukha",
       "portraitUrl": "https://cdn.midjourney.com/770da9b9-1295-4027-87aa-64363df253e6/0_2.jpeg",
-      "size": 36,
-      "x": 1564.0002429592207,
-      "y": 544.7400426010469,
-      "zIndex": 31
+      "size": 48,
+      "x": 1560,
+      "y": 520,
+      "zIndex": 88
     },
     {
       "id": "096b2a91-11b3-4e28-8aa3-a1ef1c3a88aa",
@@ -244,10 +230,10 @@
       "isNpc": false,
       "name": "Sergio",
       "portraitUrl": "https://cdn.midjourney.com/1d600001-fa0c-4cd7-8d15-151ac4fcfe3c/0_3_640_N.webp",
-      "size": 36,
-      "x": 1341.0926530398115,
-      "y": 396.13498265477426,
-      "zIndex": 34
+      "size": 48,
+      "x": 1354,
+      "y": 394,
+      "zIndex": 72
     },
     {
       "id": "6246c32f-f2c6-4b06-a82e-f6e49e8a6c77",
@@ -258,10 +244,10 @@
       "isNpc": false,
       "name": "Pimlan",
       "portraitUrl": "https://cdn.midjourney.com/b5a43e5a-3fc5-4215-b969-c8d1f5392653/0_3.png",
-      "size": 36,
-      "x": 1582.4726549032798,
-      "y": 978.1562870940076,
-      "zIndex": 51
+      "size": 48,
+      "x": 1560,
+      "y": 960,
+      "zIndex": 85
     },
     {
       "id": "a27a7bc8-0902-408d-be66-685c3b728040",
@@ -272,10 +258,10 @@
       "isNpc": false,
       "name": "Palfrey",
       "portraitUrl": "https://cdn.midjourney.com/2916e967-136f-4900-8d0b-5dd0ec354e19/0_1_640_N.webp",
-      "size": 36,
-      "x": 2223.981538602961,
-      "y": 611.3937827240075,
-      "zIndex": 37
+      "size": 48,
+      "x": 2234,
+      "y": 594,
+      "zIndex": 73
     },
     {
       "id": "4039be6f-33fd-4313-b56a-4d3d3bdad408",
@@ -286,10 +272,10 @@
       "isNpc": false,
       "name": "Magnuss Hardhand",
       "portraitUrl": "https://cdn.midjourney.com/9d007aef-e372-4e42-9581-a2703cfe7018/0_2.jpeg",
-      "size": 36,
-      "x": 2231.630328453137,
-      "y": 198.35913081451426,
-      "zIndex": 39
+      "size": 48,
+      "x": 2234,
+      "y": 194,
+      "zIndex": 74
     },
     {
       "id": "9aa9a844-df48-4a8a-9d7e-e28f494c7843",
@@ -300,10 +286,10 @@
       "isNpc": false,
       "name": "Jebeddo",
       "portraitUrl": "https://cdn.midjourney.com/ef8f7b85-a18f-49a1-8a2d-238a3eb1cb5a/0_1_640_N.webp",
-      "size": 36,
-      "x": 952.5935706748596,
-      "y": 771.9641724381894,
-      "zIndex": 40
+      "size": 48,
+      "x": 954,
+      "y": 754,
+      "zIndex": 75
     },
     {
       "id": "20cfed6c-1c5e-4b67-9676-2da79fe3f8a6",
@@ -314,16 +300,27 @@
       "isNpc": false,
       "name": "Himo",
       "portraitUrl": "https://cdn.midjourney.com/d540e4e9-8b5c-4fd1-b7ab-41ee29f97979/0_2.jpeg",
-      "size": 36,
-      "x": 1853.66996728061,
-      "y": 893.0423303979437,
+      "size": 48,
+      "x": 1847.66996728061,
+      "y": 887.0423303979437,
       "zIndex": 41
+    },
+    {
+      "id": "bfb3339f-5ee0-4488-830f-3968e0a836b9",
+      "tokenType": "culture",
+      "cultureId": "352c844b-6d4f-4b61-b475-315421a453e7",
+      "name": "Guildford",
+      "portraitUrl": "https://cdn.midjourney.com/6fa9ec41-bf94-4cf5-9ff3-57b77f2848a3/0_3_640_N.webp",
+      "size": 52,
+      "x": 1607.8356471095897,
+      "y": 905.0204075060371,
+      "zIndex": 80
     }
   ],
   "transform": {
-    "scale": 1.2609668198635575,
-    "x": -1479.5815560329588,
-    "y": -227.97838131279502
+    "scale": 0.9268482559855219,
+    "x": -725.3177200904997,
+    "y": -40.914640983900426
   },
   "gridSize": 40,
   "gridColor": "#ffffff",
@@ -335,7 +332,7 @@
   "combatGroups": [],
   "isWorldMap": true,
   "pixelsPerMile": 10,
-  "characterTokenSize": 36,
-  "cultureTokenSize": 60,
-  "cultureTokensLocked": true
+  "characterTokenSize": 48,
+  "cultureTokenSize": 52,
+  "cultureTokensLocked": false
 }

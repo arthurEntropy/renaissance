@@ -32,6 +32,7 @@ export const FAB_TYPES = {
     ATTACK: 'attack',
     LOCKED: 'locked',
     UNLOCKED: 'unlocked',
+    ARCHIVE: 'archive',
 }
 
 export const FAB_SIZES = {

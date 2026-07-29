@@ -47,6 +47,14 @@
                     <TabletopToken v-else :name="ghost.name" :portrait-url="ghost.portraitUrl" :is-beast="ghost.isBeast"
                         :is-npc="ghost.isNpc" :size="ghost.size" :grid-size="1" :is-ghost="true" />
                 </div>
+
+                <!-- Rubber-band selection rect -->
+                <div v-if="isSelecting && selectionRectCanvas" class="selection-rect" :style="{
+                    left: `${Math.min(selectionRectCanvas.x1, selectionRectCanvas.x2)}px`,
+                    top: `${Math.min(selectionRectCanvas.y1, selectionRectCanvas.y2)}px`,
+                    width: `${Math.abs(selectionRectCanvas.x2 - selectionRectCanvas.x1)}px`,
+                    height: `${Math.abs(selectionRectCanvas.y2 - selectionRectCanvas.y1)}px`,
+                }" />
             </div>
 
             <!-- Measurement overlays (linear only; no radius) -->
@@ -66,14 +74,6 @@
             <!-- Roll chatlog -->
             <TabletopChatlog :roll-log="rollLog" :is-expanded="rollLogExpanded"
                 @update:is-expanded="setRollLogExpanded" />
-
-            <!-- Rubber-band selection rect -->
-            <div v-if="isSelecting && selectionRectCanvas" class="selection-rect" :style="{
-                left: `${Math.min(selectionRectCanvas.x1, selectionRectCanvas.x2)}px`,
-                top: `${Math.min(selectionRectCanvas.y1, selectionRectCanvas.y2)}px`,
-                width: `${Math.abs(selectionRectCanvas.x2 - selectionRectCanvas.x1)}px`,
-                height: `${Math.abs(selectionRectCanvas.y2 - selectionRectCanvas.y1)}px`,
-            }" />
         </div>
 
         <!-- Toolbar -->
@@ -99,6 +99,11 @@
             <CharacterSheetPopup v-if="charSheetPopupOpen && charSheetPopupCharacter"
                 :character="charSheetPopupCharacter" @close="charSheetPopupOpen = false" />
         </Teleport>
+
+        <!-- Campaign questions button (top-right, shifts left with chatlog) -->
+        <Teleport to="body">
+            <CampaignQuestionsButton />
+        </Teleport>
     </div>
 </template>
 
@@ -121,6 +126,7 @@ import TabletopChatlog from '@/components/features/tabletop/TabletopChatlog.vue'
 import CharacterSheetPopup from '@/components/features/tabletop/CharacterSheetPopup.vue'
 import CultureToken from '@/components/features/worldMap/CultureToken.vue'
 import WorldMapLinearScale from '@/components/features/worldMap/WorldMapLinearScale.vue'
+import CampaignQuestionsButton from '@/components/features/worldMap/CampaignQuestionsButton.vue'
 import { createDefaultWorldMap } from '@shared/types/tabletop.js'
 import { createSlug } from '@/utils/urlHelpers'
 import rulerCursorUrl from '@/assets/icons/cursor/ruler.png'
@@ -277,22 +283,28 @@ function removeCultureTokenFromCanvas(cultureId) {
     removeCultureToken(cultureId)
 }
 
-// When cultureTokenSize changes, resize all existing culture tokens
+// When cultureTokenSize changes, resize all existing culture tokens keeping center position
 function setAndResizeCultureTokens(size) {
     setCultureTokenSize(size)
     for (const item of canvasItems.value) {
         if (item.tokenType === 'culture') {
+            const oldSize = item.size
+            item.x += (oldSize - size) / 2
+            item.y += (oldSize - size) / 2
             item.size = size
         }
     }
     saveState()
 }
 
-// When characterTokenSize changes, resize all existing character tokens
+// When characterTokenSize changes, resize all existing character tokens keeping center position
 function setAndResizeCharacterTokens(size) {
     setCharacterTokenSize(size)
     for (const item of canvasItems.value) {
         if (item.tokenType !== 'culture') {
+            const oldSize = item.size
+            item.x += (oldSize - size) / 2
+            item.y += (oldSize - size) / 2
             item.size = size
         }
     }

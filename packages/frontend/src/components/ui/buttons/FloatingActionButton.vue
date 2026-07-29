@@ -17,7 +17,7 @@
 <script setup>
 import { computed } from 'vue'
 // Heroicons
-import { PlusIcon, DocumentDuplicateIcon, PencilIcon, CheckIcon, XMarkIcon, TrashIcon, Bars3Icon, Cog6ToothIcon, ArrowPathIcon, BookOpenIcon, ChevronDoubleDownIcon, ChevronDoubleUpIcon, EyeIcon, EyeSlashIcon, ArrowUpIcon, ArrowDownIcon, BoltIcon, BoltSlashIcon, ArrowRightStartOnRectangleIcon, ArrowTopRightOnSquareIcon, LockClosedIcon, LockOpenIcon } from '@heroicons/vue/24/outline'
+import { PlusIcon, DocumentDuplicateIcon, PencilIcon, CheckIcon, XMarkIcon, TrashIcon, Bars3Icon, Cog6ToothIcon, ArrowPathIcon, BookOpenIcon, ChevronDoubleDownIcon, ChevronDoubleUpIcon, EyeIcon, EyeSlashIcon, ArrowUpIcon, ArrowDownIcon, BoltIcon, BoltSlashIcon, ArrowRightStartOnRectangleIcon, ArrowTopRightOnSquareIcon, LockClosedIcon, LockOpenIcon, ArchiveBoxIcon } from '@heroicons/vue/24/outline'
 // Custom icons
 import CrossedSwordsIcon from '@/assets/icons/characterSheet/crossed_swords.svg?component'
 import DieIcon from '@/assets/icons/characterSheet/die.svg?component'
@@ -92,6 +92,7 @@ const FAB_TYPE_CONFIG = {
     [FAB_TYPES.VISIBILITY]: { icon: EyeIcon, tooltip: 'Toggle visibility' },
     [FAB_TYPES.LOCKED]: { icon: LockClosedIcon, tooltip: 'Tokens locked (click to unlock)' },
     [FAB_TYPES.UNLOCKED]: { icon: LockOpenIcon, tooltip: 'Tokens unlocked (click to lock)' },
+    [FAB_TYPES.ARCHIVE]: { icon: ArchiveBoxIcon, tooltip: 'Archive' },
 }
 
 const variantConfig = computed(() => FAB_TYPE_CONFIG[props.variant])
@@ -320,6 +321,21 @@ const variantConfig = computed(() => FAB_TYPE_CONFIG[props.variant])
 .fab--unlocked .fab__icon--small,
 .fab--unlocked .fab__icon--large {
     color: var(--color-text-secondary);
+}
+
+.fab--archive:hover {
+    background: var(--color-accent-gold, goldenrod);
+    border-color: var(--color-accent-gold, goldenrod);
+}
+
+.fab--archive .fab__icon--small,
+.fab--archive .fab__icon--large {
+    color: var(--color-text-secondary);
+}
+
+.fab--archive:hover .fab__icon--small,
+.fab--archive:hover .fab__icon--large {
+    color: var(--color-black);
 }
 
 /* === VISIBILITY VARIANTS === */

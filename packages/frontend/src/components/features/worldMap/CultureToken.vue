@@ -65,7 +65,7 @@ const initialsStyle = computed(() => ({
     display: flex;
     flex-direction: column;
     align-items: center;
-    cursor: grab;
+    cursor: pointer !important;
     user-select: none;
 }
 

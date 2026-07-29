@@ -13,9 +13,19 @@
 
         <!-- Zoom controls -->
         <span class="section-label">Zoom</span>
-        <button class="tool-btn icon-btn" title="Zoom in (scroll up)" @click="$emit('zoom-in')">+</button>
-        <span class="zoom-label">{{ Math.round(scale * 100) }}%</span>
         <button class="tool-btn icon-btn" title="Zoom out (scroll down)" @click="$emit('zoom-out')">−</button>
+        <span class="zoom-label">{{ Math.round(scale * 100) }}%</span>
+        <button class="tool-btn icon-btn" title="Zoom in (scroll up)" @click="$emit('zoom-in')">+</button>
+
+        <div class="toolbar-divider" />
+
+        <!-- Map scale (only when a background is set) -->
+        <template v-if="hasBackground">
+            <span class="section-label">Map Scale</span>
+            <button class="tool-btn icon-btn" title="Decrease map scale" @click="$emit('decrease-map-scale')">−</button>
+            <span class="zoom-label">{{ Math.round(mapScale * 100) }}%</span>
+            <button class="tool-btn icon-btn" title="Increase map scale" @click="$emit('increase-map-scale')">+</button>
+        </template>
 
         <div class="toolbar-divider" />
 
@@ -34,28 +44,26 @@
 
         <!-- World map: px-per-mile scale and token size controls -->
         <template v-if="isWorldMap">
-            <span class="section-label">Scale</span>
+            <span class="section-label">1 mi = </span>
             <button class="tool-btn icon-btn" title="Decrease map scale (pixels per mile)"
                 @click="$emit('decrease-pixels-per-mile')">−</button>
-            <span class="zoom-label" title="Pixels per mile">1 mi = {{ pixelsPerMile }}px</span>
+            <span class="zoom-label" title="Pixels per mile">{{ pixelsPerMile }}px</span>
             <button class="tool-btn icon-btn" title="Increase map scale (pixels per mile)"
                 @click="$emit('increase-pixels-per-mile')">+</button>
 
             <div class="toolbar-divider" />
 
-            <span class="section-label">Char. Size</span>
-            <input type="range" class="token-size-slider" min="16" max="200" step="4" :value="characterTokenSize"
+            <span class="section-label">Token Size</span>
+            <input type="range" class="grid-opacity-slider" min="16" max="200" step="4" :value="characterTokenSize"
                 title="Character token size (px)"
                 @input="$emit('update-character-token-size', parseInt($event.target.value))" />
-            <span class="zoom-label" title="Character token size">{{ characterTokenSize }}px</span>
 
             <div class="toolbar-divider" />
 
             <span class="section-label">Culture Size</span>
-            <input type="range" class="token-size-slider" min="16" max="200" step="4" :value="cultureTokenSize"
+            <input type="range" class="grid-opacity-slider" min="16" max="200" step="4" :value="cultureTokenSize"
                 title="Culture token size (px)"
                 @input="$emit('update-culture-token-size', parseInt($event.target.value))" />
-            <span class="zoom-label" title="Culture token size">{{ cultureTokenSize }}px</span>
 
             <div class="toolbar-divider" />
         </template>
@@ -77,19 +85,10 @@
             </button>
         </template>
 
-        <!-- Map scale (only when a background is set) -->
-        <template v-if="hasBackground">
-            <div class="toolbar-divider" />
-            <span class="section-label">Map Scale</span>
-            <button class="tool-btn icon-btn" title="Decrease map scale" @click="$emit('decrease-map-scale')">−</button>
-            <span class="zoom-label">{{ Math.round(mapScale * 100) }}%</span>
-            <button class="tool-btn icon-btn" title="Increase map scale" @click="$emit('increase-map-scale')">+</button>
-        </template>
-
         <div class="toolbar-divider" />
 
         <button v-if="itemCount > 0" class="tool-btn danger-btn" @click="$emit('clear-all')">
-            Clear All Tokens
+            Clear All Items
         </button>
 
         <button v-if="isGM" class="tool-btn danger-btn" @click="$emit('clear-log')">
