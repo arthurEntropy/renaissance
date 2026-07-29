@@ -863,6 +863,28 @@ export const updateCampaignQuestions = (req, res) => {
   }
 }
 
+// PUT /campaigns/:id/bane-boon-position — updates the Bane/Boon tracker position (any member)
+export const updateBaneBoonPosition = (req, res) => {
+  try {
+    const campaign = getCampaignById(req.params.id)
+    if (!campaign) {
+      return res.status(404).json({ error: 'Campaign not found' })
+    }
+
+    const position = req.body?.baneBoonPosition
+    if (typeof position !== 'number' || position < 0 || position > 1) {
+      return res.status(400).json({ error: 'baneBoonPosition must be a number between 0 and 1' })
+    }
+
+    const updated = { ...campaign, baneBoonPosition: position }
+    saveFile(updated, CAMPAIGNS_DIRECTORY, campaign.name, campaign.id)
+    res.json(updated)
+  } catch (err) {
+    console.error('Error updating bane boon position:', err)
+    res.status(500).json({ error: 'Failed to update bane boon position' })
+  }
+}
+
 // ─── Tabletop handlers ────────────────────────────────────────────────────────
 
 const getTabletopById = (tabletopId) => {

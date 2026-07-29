@@ -1,12 +1,15 @@
 <template>
     <div class="chatlog-wrapper" :class="{ 'chatlog-wrapper--expanded': isExpanded }"
-        :style="{ width: `${chatlogWidth}px` }" @mousedown.stop>
+        :style="{ width: `${chatlogWidth}px`, '--bb-tracker-height': `${trackerHeight}px` }" @mousedown.stop>
 
         <!-- Resize handle (left edge drag) -->
         <div class="chatlog-resize-handle" @mousedown.stop.prevent="handleResizeMousedown" />
 
-        <!-- Fade wrapper: applies gradient mask in collapsed state -->
-        <div class="chatlog-fade-wrapper" :class="{ 'chatlog-fade-wrapper--no-mask': isExpanded }">
+        <!-- Bane & Boon tracker: always anchored at the top of the chatlog -->
+        <BaneBoonTracker />
+
+        <!-- Fade wrapper: mask removed since tracker provides the defined top edge -->
+        <div class="chatlog-fade-wrapper chatlog-fade-wrapper--no-mask">
             <div ref="scrollRef" class="chatlog-scroll" @wheel.stop>
                 <!-- Spacer pushes entries to the bottom when content is short,
                      without blocking upward scroll when content overflows -->
@@ -114,6 +117,7 @@
 import { ref, computed, nextTick, watch, onMounted, onUnmounted } from 'vue'
 import { EyeSlashIcon } from '@heroicons/vue/24/outline'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
+import BaneBoonTracker from '@/components/features/campaigns/BaneBoonTracker.vue'
 import { useTabletopChatlogState } from '@/composables/useTabletopChatlogState'
 import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 import { RollTypes } from '@/constants/rollTypes'
@@ -304,6 +308,9 @@ const MAX_WIDTH = 560
 
 const chatlogWidth = ref(DEFAULT_WIDTH)
 
+// Height of the BaneBoonTracker (aspect ratio 4:1 relative to chatlog width)
+const trackerHeight = computed(() => Math.round(chatlogWidth.value / 4))
+
 // Keep shared state in sync so TabletopActiveAbilitiesBar can position itself
 const { chatlogWidth: _sharedChatlogWidth, chatlogExpanded: _sharedChatlogExpanded } = useTabletopChatlogState()
 watch(chatlogWidth, (w) => { _sharedChatlogWidth.value = w }, { immediate: true })
@@ -477,7 +484,7 @@ function dieClass(die) {
 
 .chatlog-wrapper--expanded {
     /* Full height minus toolbar so we don't overflow at the top */
-    height: calc(100% - var(--vtt-toolbar-height, 0px));
+    height: calc(100% - var(--vtt-toolbar-height, 0px) - var(--nav-height));
     --fab-opacity: 1;
 }
 
@@ -763,8 +770,8 @@ function dieClass(die) {
 /* ── FAB area ─────────────────────────────────────────────────────────────────── */
 .chatlog-fab-area {
     position: absolute;
-    /* In collapsed state: near the top of the visually opaque area (~38% down) */
-    top: 0;
+    /* In collapsed state: just below the BaneBoon tracker */
+    top: var(--bb-tracker-height, 0px);
     left: 50%;
     transform: translateX(-50%);
     z-index: var(--z-interactive);

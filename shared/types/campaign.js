@@ -98,6 +98,7 @@ import { CAMPAIGN_ROLE, CAMPAIGN_MEMBER_STATUS } from '../constants/campaignCons
  * @property {string[]} tabletopIds - IDs of tabletops belonging to this campaign, in display order
  * @property {string|null} activeTabletopId - ID of the currently active tabletop visible to all members, or null
  * @property {string|null} worldMapTabletopId - ID of the campaign's world map tabletop, or null if none has been created
+ * @property {number} baneBoonPosition - Normalized (0–1) horizontal position of the Bane/Boon tracker indicator, where 0 is full bane and 1 is full boon
  */
 
 /**
@@ -138,5 +139,6 @@ export function createDefaultCampaign(foundingGmUserId) {
     tabletopIds: [],
     activeTabletopId: null,
     worldMapTabletopId: null,
+    baneBoonPosition: 0.5,
   }
 }

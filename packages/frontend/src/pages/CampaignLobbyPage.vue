@@ -52,11 +52,18 @@
 
             <div class="lobby-sections">
                 <div class="lobby-row-main">
-                    <CampaignMembersPanel />
+                    <CampaignMembersPanel class="lobby-col-members" />
 
-                    <CampaignPlayerCharactersPanel />
+                    <CampaignPlayerCharactersPanel class="lobby-col-pcs" />
 
-                    <CampaignNpcsPanel />
+                    <div class="section-card lobby-col-bane-boon">
+                        <div class="section-header">
+                            <h2 class="section-title">Bane &amp; Boon</h2>
+                        </div>
+                        <BaneBoonTracker />
+                    </div>
+
+                    <CampaignNpcsPanel class="lobby-col-npcs" />
                 </div>
 
                 <CampaignTabletopsPanel />
@@ -115,6 +122,7 @@ import CampaignTabletopsPanel from '@/components/features/campaigns/lobby/Campai
 import CampaignWorldMapSection from '@/components/features/worldMap/CampaignWorldMapSection.vue'
 import TextEditor from '@/components/ui/textEditor/TextEditor.vue'
 import CampaignCurationPanel from '@/components/features/campaigns/lobby/CampaignCurationPanel.vue'
+import BaneBoonTracker from '@/components/features/campaigns/BaneBoonTracker.vue'
 import { sanitizeHtml } from '@/utils/sanitizeHtml'
 import CampaignService from '@/services/entities/campaignService'
 import { CAMPAIGN_ROLE } from '@shared/constants/campaignConstants'
@@ -422,8 +430,35 @@ onMounted(async () => {
 .lobby-row-main {
     display: grid;
     grid-template-columns: 2fr 3fr 3fr;
+    grid-template-rows: auto auto;
     gap: var(--space-xl);
-    align-items: stretch;
+    align-items: start;
+}
+
+/* Members: spans both rows on the left */
+.lobby-col-members {
+    grid-column: 1;
+    grid-row: 1 / 3;
+    align-self: stretch;
+}
+
+/* Player Characters: top of the middle column */
+.lobby-col-pcs {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+/* Bane & Boon: bottom of the middle column */
+.lobby-col-bane-boon {
+    grid-column: 2;
+    grid-row: 2;
+}
+
+/* NPCs: spans both rows on the right */
+.lobby-col-npcs {
+    grid-column: 3;
+    grid-row: 1 / 3;
+    align-self: stretch;
 }
 
 :deep(.sheet-container) {
