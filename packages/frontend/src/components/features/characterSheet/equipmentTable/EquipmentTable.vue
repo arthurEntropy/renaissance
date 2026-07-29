@@ -337,7 +337,14 @@ const canEdit = computed(() => props.isEditMode)
 // Drag is enabled only when no sort option is active (custom order mode)
 const isDraggable = computed(() => !equipmentSortOption.value)
 
-const equipmentPicker = useCardCascadePicker({ fixedCategory: 'equipment' })
+const equipmentPicker = useCardCascadePicker({
+  fixedCategory: 'equipment',
+  filterItems: computed(() => {
+    const type = selectedCharacter.value?.characterType
+    const isBeast = type === 'beast' || type === 'beastInstance'
+    return (e) => isBeast || !e.isBeastEquipment
+  })
+})
 const {
   showPicker: showEquipmentSelector,
   openPicker: openEquipmentSelector,

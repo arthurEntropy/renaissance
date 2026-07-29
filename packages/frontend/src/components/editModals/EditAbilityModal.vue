@@ -99,7 +99,7 @@
       </div>
 
       <!-- Biome Tags: Only show if source is Wildheart -->
-      <div class="form-group vertical" v-if="isWildheartSource">
+      <div class="form-group vertical">
         <label class="left-aligned">Biome Tags:</label>
         <BiomeTagsCyclePicker :augment-tags="editedAbility.biomeTagsAugment"
           :inhibit-tags="editedAbility.biomeTagsInhibit" @update:augment-tags="editedAbility.biomeTagsAugment = $event"

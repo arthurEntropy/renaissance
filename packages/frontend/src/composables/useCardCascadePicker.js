@@ -1,4 +1,4 @@
-import { ref, computed } from 'vue'
+import { ref, computed, isRef } from 'vue'
 import { useAbilitiesStore } from '@/stores/abilitiesStore'
 import { useEquipmentStore } from '@/stores/equipmentStore'
 import { useSourcesStore } from '@/stores/sourcesStore'
@@ -126,7 +126,8 @@ export function useCardCascadePicker(options = {}) {
         } else if (pickerCategory.value === 'equipment') {
             items = equipmentStore.visibleEquipment.filter(e => !e.isDeleted && !e.isTemplate)
         }
-        return filterItems ? items.filter(filterItems) : items
+        const filter = isRef(filterItems) ? filterItems.value : filterItems
+        return filter ? items.filter(filter) : items
     })
 
     // Level 1: source types that have items, with counts
@@ -157,6 +158,7 @@ export function useCardCascadePicker(options = {}) {
             culture: sourcesStore.sources.cultures,
             mestiere: sourcesStore.sources.mestieri,
             worldElement: sourcesStore.sources.worldElements,
+            beastItemTheme: sourcesStore.sources.beastItemThemes,
         }
         const sourceList = sourceListMap[type] || []
         const usedIds = new Set(
