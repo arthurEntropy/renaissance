@@ -2,7 +2,7 @@
   "id": "a8cb69a9-0146-4aee-bcc1-24b591fe2458",
   "isDeleted": false,
   "createdAt": "2026-07-25T02:30:19.653Z",
-  "lastModified": "2026-07-31T03:43:35.478Z",
+  "lastModified": "2026-08-16T20:38:32.195Z",
   "characterType": "playerCharacter",
   "name": "Jebeddo",
   "featuredArtUrls": [
@@ -399,5 +399,5 @@
   "xp": 0,
   "description": "",
   "featuredArtUrl": "https://cdn.midjourney.com/ef8f7b85-a18f-49a1-8a2d-238a3eb1cb5a/0_1_640_N.webp",
-  "updatedAt": "2026-07-31T03:43:35.478Z"
+  "updatedAt": "2026-08-16T20:38:32.195Z"
 }

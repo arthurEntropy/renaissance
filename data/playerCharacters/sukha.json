@@ -2,7 +2,7 @@
   "id": "18d8d1be-6568-4ec0-9207-916b2ac1a676",
   "isDeleted": false,
   "createdAt": "2026-07-24T23:44:03.615Z",
-  "lastModified": "2026-07-31T03:35:23.975Z",
+  "lastModified": "2026-08-16T20:38:32.225Z",
   "characterType": "playerCharacter",
   "name": "Sukha",
   "featuredArtUrls": [
@@ -339,5 +339,5 @@
   "xp": 0,
   "description": "",
   "featuredArtUrl": "https://cdn.midjourney.com/770da9b9-1295-4027-87aa-64363df253e6/0_2.jpeg",
-  "updatedAt": "2026-07-31T03:35:23.975Z"
+  "updatedAt": "2026-08-16T20:38:32.225Z"
 }

@@ -2,7 +2,7 @@
   "id": "decef988-2c77-4c84-9ee6-bb8198a6f3cb",
   "isDeleted": false,
   "createdAt": "2026-07-25T02:51:40.820Z",
-  "lastModified": "2026-08-11T13:41:16.646Z",
+  "lastModified": "2026-08-16T20:38:32.211Z",
   "characterType": "playerCharacter",
   "name": "Pimlan",
   "featuredArtUrls": [
@@ -347,5 +347,5 @@
   "xp": 0,
   "description": "",
   "featuredArtUrl": "https://cdn.midjourney.com/b5a43e5a-3fc5-4215-b969-c8d1f5392653/0_3.png",
-  "updatedAt": "2026-08-11T13:41:16.646Z"
+  "updatedAt": "2026-08-16T20:38:32.211Z"
 }

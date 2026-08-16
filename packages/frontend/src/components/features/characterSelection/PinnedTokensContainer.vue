@@ -1,5 +1,5 @@
 <template>
-    <div v-if="hasAnyTokens" class="token-rail-container">
+    <div class="token-rail-container">
 
         <!-- ─── World map mode groups ─────────────────────────────────────────── -->
         <template v-if="isWorldMap">
@@ -293,8 +293,7 @@
         </TransitionGroup>
 
         <!-- ADD GROUP button: GM on tabletop, cmd/ctrl held -->
-        <button v-if="isGMOnTabletop && !isWorldMap && isCmdHeld" type="button" class="add-group-btn"
-            @click="createAndOpenGroup">
+        <button v-if="isGMOnTabletop && !isWorldMap" type="button" class="add-group-btn" @click="createAndOpenGroup">
             <PlusIcon class="add-group-icon" />
             <span>Add Group</span>
         </button>
@@ -1528,15 +1527,16 @@ function getFocusedTokenProps(character) {
     justify-content: center;
     gap: var(--space-xs);
     width: 100%;
-    background: transparent;
-    border: 2px dotted var(--overlay-white-heavy);
+    background: var(--overlay-black-medium);
+    border: 2px dotted var(--color-text-primary);
     border-radius: var(--radius-10);
-    color: var(--color-text-secondary);
+    color: var(--color-text-primary);
     font-size: var(--font-size-11);
     font-family: var(--font-family-primary);
     text-transform: uppercase;
     letter-spacing: 0.06em;
-    padding: var(--space-sm) 0;
+    white-space: normal;
+    padding: var(--space-sm);
     cursor: pointer;
     transition: color var(--transition-fast), border-color var(--transition-fast), background var(--transition-fast);
 }
@@ -1544,7 +1544,7 @@ function getFocusedTokenProps(character) {
 .add-group-btn:hover {
     color: var(--color-primary);
     border-color: var(--color-primary);
-    background: var(--overlay-white-subtle);
+    background: var(--overlay-black-heavy);
 }
 
 .add-group-icon {

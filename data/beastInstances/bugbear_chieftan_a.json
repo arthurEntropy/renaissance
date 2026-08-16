@@ -1,25 +1,25 @@
 {
-  "id": "1af228fc-7b3c-4fe6-8c0c-cd028bc850e2",
+  "id": "a67fe329-8d9b-491c-9f25-a3bc8305c6fe",
   "isDeleted": false,
-  "createdAt": "2026-07-24T19:44:15.780Z",
-  "lastModified": "2026-08-16T20:38:32.216Z",
-  "characterType": "playerCharacter",
-  "name": "Palfrey",
+  "createdAt": "2026-08-16T20:34:32.246Z",
+  "lastModified": "2026-08-16T20:38:25.629Z",
+  "characterType": "beastInstance",
+  "name": "Bugbear Chieftan A",
   "featuredArtUrls": [
-    "https://cdn.midjourney.com/5a6c9787-cedb-4eb6-8de1-17f837a10b99/0_1_640_N.webp"
+    "https://cdn.midjourney.com/5d5cfcaf-eb99-44b5-a5c8-cde4cca54439/0_2.png"
   ],
   "speed": {
     "current": 30,
     "base": 30
   },
   "notes": "",
-  "body": 4,
-  "heart": 3,
-  "wits": 2,
+  "body": 8,
+  "heart": 1,
+  "wits": 3,
   "skills": [
     {
       "key": "awe",
-      "ranks": 0,
+      "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -35,7 +35,7 @@
     },
     {
       "key": "dexterity",
-      "ranks": 0,
+      "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -43,7 +43,7 @@
     },
     {
       "key": "fortitude",
-      "ranks": 1,
+      "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -59,14 +59,6 @@
     },
     {
       "key": "perform",
-      "ranks": 1,
-      "isFavored": false,
-      "isIllFavored": false,
-      "diceMod": 0,
-      "manualDiceMod": 0
-    },
-    {
-      "key": "insight",
       "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
@@ -74,8 +66,16 @@
       "manualDiceMod": 0
     },
     {
+      "key": "insight",
+      "ranks": 1,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
       "key": "courtesy",
-      "ranks": 2,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -99,7 +99,7 @@
     },
     {
       "key": "persuade",
-      "ranks": 1,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -107,7 +107,7 @@
     },
     {
       "key": "awareness",
-      "ranks": 1,
+      "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -115,7 +115,7 @@
     },
     {
       "key": "stealth",
-      "ranks": 0,
+      "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -139,18 +139,18 @@
     }
   ],
   "endurance": {
-    "current": 20,
-    "base": 20
+    "current": 40,
+    "base": 40
   },
   "hope": {
-    "current": 6,
-    "base": 6
+    "current": 2,
+    "base": 2
   },
   "defense": {
-    "current": 13,
-    "base": 13
+    "current": 15,
+    "base": 15
   },
-  "load": 7,
+  "load": 0,
   "shadow": 0,
   "injury": 0,
   "states": {
@@ -170,31 +170,10 @@
   },
   "engagementDice": [],
   "engagementSuccesses": [],
-  "engagementDiceStatuses": {
-    "mestiere_0": "selected",
-    "mestiere_1": "available",
-    "user_added_0": "expended",
-    "a77e5e36-1c1d-4a15-865f-da6748d815b7_0": "expended",
-    "3a61c9aa-09ba-4b44-9efb-529795835e69_0": "expended"
-  },
+  "engagementDiceStatuses": {},
   "equipment": [
     {
-      "id": "e86f121f-527e-46c3-878d-1b9bb79ce741",
-      "quantity": 1,
-      "isCarried": true,
-      "isWielding": true,
-      "columnIndex": 0
-    },
-    {
-      "id": "811d35c1-9163-495a-8ba8-36af7f7ed73f",
-      "quantity": 1,
-      "isCarried": true,
-      "collapsed": true,
-      "isWielding": true,
-      "columnIndex": 0
-    },
-    {
-      "id": "9a7fe5d8-027c-48d8-9610-d57ce08e1f09",
+      "id": "3a61c9aa-09ba-4b44-9efb-529795835e69",
       "quantity": 1,
       "isCarried": true,
       "isWielding": true,
@@ -202,20 +181,41 @@
       "collapsed": true
     },
     {
-      "id": "c990a71d-6b5b-4ca8-8afa-4cd1373b4ea6",
+      "id": "ef64fa74-62c0-4686-81b7-839eafa74671",
       "quantity": 1,
       "isCarried": true,
-      "collapsed": false,
       "isWielding": true,
-      "columnIndex": 1
+      "columnIndex": 0,
+      "collapsed": true
     },
     {
-      "id": "839024c9-4cda-4795-935e-0551fe214b6e",
+      "id": "b193cb19-c6b6-4491-9581-9d86519bc4a3",
       "quantity": 1,
       "isCarried": true,
-      "collapsed": false,
       "isWielding": true,
-      "columnIndex": 2
+      "columnIndex": 0,
+      "collapsed": true
+    },
+    {
+      "id": "73fbad42-1ef8-4200-9473-cdc2b317a5aa",
+      "quantity": 1,
+      "isCarried": true,
+      "isWielding": true,
+      "columnIndex": 0,
+      "collapsed": true
+    },
+    {
+      "id": "0b8b74b9-40af-410f-bbb7-c3e14ef86186",
+      "quantity": 1,
+      "isCarried": true,
+      "isWielding": true,
+      "collapsed": false
+    },
+    {
+      "id": "893e43ad-dfd7-46d1-b5a6-48e615753f90",
+      "quantity": 3,
+      "isCarried": true,
+      "collapsed": false
     }
   ],
   "groupEquipmentBySource": false,
@@ -228,64 +228,24 @@
   },
   "abilities": [
     {
-      "id": "ad7f2d4c-75cc-4b7c-8066-57eb1ccaf54a",
-      "collapsed": true,
+      "id": "bfe93949-2e88-40dd-9e6e-657362567486",
+      "collapsed": false,
       "showImprovements": false,
       "showSuccesses": false,
       "isActive": false,
       "columnIndex": 0
     },
     {
-      "id": "754a7883-71a7-414f-bda4-504a147e68cc",
-      "collapsed": true,
-      "showImprovements": false,
-      "showSuccesses": false,
-      "isActive": false,
-      "columnIndex": 0
-    },
-    {
-      "id": "4fbf9ccb-0fbb-45d0-9f8f-7b7fcfb811fb",
-      "collapsed": true,
-      "showImprovements": false,
-      "showSuccesses": false,
-      "isActive": false,
-      "columnIndex": 0
-    },
-    {
-      "id": "c6d0d594-d0c6-4400-b2e7-9e0750ef8e52",
-      "collapsed": true,
+      "id": "21868d26-c1b9-455a-ac90-e5f4d33af7bb",
+      "collapsed": false,
       "showImprovements": false,
       "showSuccesses": false,
       "isActive": false,
       "columnIndex": 1
     },
     {
-      "id": "901bee04-07ea-4bec-a2d1-30c2cca0096b",
-      "collapsed": true,
-      "showImprovements": false,
-      "showSuccesses": false,
-      "isActive": false,
-      "columnIndex": 1
-    },
-    {
-      "id": "79f7d0be-4052-45ae-9351-449cd4023bdf",
-      "collapsed": true,
-      "showImprovements": false,
-      "showSuccesses": false,
-      "isActive": false,
-      "columnIndex": 2
-    },
-    {
-      "id": "d4c43cb4-a4d4-4f27-ae4a-6334bb84ea46",
-      "collapsed": true,
-      "showImprovements": false,
-      "showSuccesses": false,
-      "isActive": false,
-      "columnIndex": 2
-    },
-    {
-      "id": "324647ca-8a6f-4e3c-8c44-a7bdb8fb837f",
-      "collapsed": true,
+      "id": "67386067-a62a-46c1-b753-776767804d2a",
+      "collapsed": false,
       "showImprovements": false,
       "showSuccesses": false,
       "isActive": false,
@@ -306,22 +266,19 @@
   },
   "rollStats": {
     "skillChecks": {
-      "attempts": 3,
-      "successes": 3,
-      "totalSum": 47,
-      "bestTotal": 21,
+      "attempts": 0,
+      "successes": 0,
+      "totalSum": 0,
+      "bestTotal": null,
       "hardestSuccess": null,
-      "bySkill": {
-        "Strength": 2,
-        "Courtesy": 1
-      },
-      "solCount": 1,
+      "bySkill": {},
+      "solCount": 0,
       "morteCount": 0,
-      "successCount": 1
+      "successCount": 0
     },
     "contests": {
       "engagement": {
-        "wins": 1,
+        "wins": 0,
         "losses": 0,
         "draws": 0
       },
@@ -333,8 +290,8 @@
     },
     "xpEarned": 0,
     "xpSpent": 0,
-    "treasureEarned": 34,
-    "treasureSpent": 41
+    "treasureEarned": 0,
+    "treasureSpent": 0
   },
   "biomeTags": [],
   "biomeId": null,
@@ -354,28 +311,63 @@
   "witchFamiliar": null,
   "summonerVessels": [],
   "hunterTraps": [],
-  "campaignId": null,
+  "campaignId": "c9ddeab9-d180-4fc5-869f-e64239bc3376",
   "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
   "isPublicPreview": false,
   "sectionOrder": [],
-  "martialTrainingOverrides": {},
-  "pronouns": "he/him",
-  "ancestryIds": [
-    "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
-  ],
-  "cultureIds": [
-    "0c876a74-a89b-42dc-b76a-4592a0478d81",
-    "352c844b-6d4f-4b61-b475-315421a453e7"
-  ],
-  "mestiereId": "d4dce5e2-e767-464d-91f0-c40b47f788b3",
-  "age": 24,
-  "heightFeet": 5,
-  "heightInches": 9,
-  "weight": 140,
-  "keeping": "3c4d5e6f-7a8b-4c9d-0e1f-2a3b4c5d6e7f",
-  "treasure": 2,
+  "martialTrainingOverrides": {
+    "meleeGrades": [
+      "b92d3394-2c64-487f-8c90-c56ea1cbd3f3",
+      "847d1092-fd43-4d58-b3da-002e6f3b7f3d"
+    ],
+    "polearmGrades": [],
+    "rangedGrades": [
+      "b92d3394-2c64-487f-8c90-c56ea1cbd3f3",
+      "847d1092-fd43-4d58-b3da-002e6f3b7f3d"
+    ],
+    "armorGrades": [
+      "b92d3394-2c64-487f-8c90-c56ea1cbd3f3",
+      "847d1092-fd43-4d58-b3da-002e6f3b7f3d",
+      "ad30b114-3c19-413f-aad2-5f270bd95684"
+    ]
+  },
+  "pronouns": "",
+  "ancestryIds": [],
+  "cultureIds": [],
+  "mestiereId": null,
+  "age": 0,
+  "heightFeet": 0,
+  "heightInches": 0,
+  "weight": 0,
+  "keeping": null,
+  "treasure": 0,
   "xp": 0,
   "description": "",
-  "featuredArtUrl": "https://cdn.midjourney.com/2916e967-136f-4900-8d0b-5dd0ec354e19/0_1_640_N.webp",
-  "updatedAt": "2026-08-16T20:38:32.216Z"
+  "size": 1,
+  "reach": 0,
+  "hasDarkvision": false,
+  "hasBlindsight": false,
+  "hasTremorsense": false,
+  "hasTruesight": false,
+  "burrowSpeed": 0,
+  "climbSpeed": 0,
+  "flySpeed": 0,
+  "swimSpeed": 0,
+  "biomeTagsAugment": [
+    "forest",
+    "mountain",
+    "temperate"
+  ],
+  "biomeTagsInhibit": [
+    "water",
+    "civilized",
+    "enchanted"
+  ],
+  "beastTypeIds": [
+    "b7e57001-0000-4000-a000-000000000002",
+    "b7e57001-0000-4000-a000-00000000000a"
+  ],
+  "updatedAt": "2026-08-16T20:38:25.629Z",
+  "challenge": 26,
+  "templateId": "f2f7d744-aca8-4cc1-8d48-e94a854f66f4"
 }

@@ -2,7 +2,7 @@
   "id": "0ce00d26-d3bc-4d6a-9c9e-b7874296b371",
   "isDeleted": false,
   "createdAt": "2026-07-29T19:18:27.058Z",
-  "lastModified": "2026-08-10T17:23:26.702Z",
+  "lastModified": "2026-08-16T20:39:13.415Z",
   "campaignId": "c9ddeab9-d180-4fc5-869f-e64239bc3376",
   "name": "Nïrwe Night Market",
   "backgroundImage": {
@@ -10,30 +10,617 @@
     "naturalWidth": 1456,
     "naturalHeight": 816
   },
-  "items": [],
+  "items": [
+    {
+      "id": "09a5f8c3-9efc-4a27-ae96-01234a640bd5",
+      "characterId": "a67fe329-8d9b-491c-9f25-a3bc8305c6fe",
+      "isBeast": true,
+      "isNpc": false,
+      "name": "Bugbear Chieftan A",
+      "portraitUrl": "https://cdn.midjourney.com/5d5cfcaf-eb99-44b5-a5c8-cde4cca54439/0_2.png",
+      "size": 1,
+      "x": 280,
+      "y": 280,
+      "zIndex": 2
+    },
+    {
+      "id": "07f0ae8e-a079-4453-be53-02cca76d26c7",
+      "characterId": "466d5b5c-78eb-45a1-bd7d-91ae2e985ef0",
+      "isBeast": true,
+      "isNpc": false,
+      "name": "Bugbear A",
+      "portraitUrl": "https://cdn.midjourney.com/1402c1f5-f529-40e7-9999-fb156e622698/0_1.png",
+      "size": 1,
+      "x": 320,
+      "y": 480,
+      "zIndex": 17
+    },
+    {
+      "id": "88c4fc6b-13f3-48cf-af05-cd2d28fa7f7e",
+      "characterId": "e10e8bcd-83b8-4645-9d7a-ad9b749f2a4c",
+      "isBeast": true,
+      "isNpc": false,
+      "name": "Bugbear B",
+      "portraitUrl": "https://cdn.midjourney.com/1402c1f5-f529-40e7-9999-fb156e622698/0_1.png",
+      "size": 1,
+      "x": 360,
+      "y": 280,
+      "zIndex": 4
+    },
+    {
+      "id": "c7c0af44-7f5d-466a-95cf-07a660c5b7d9",
+      "characterId": "a7c968f0-e07a-431b-9d08-4cc7323d1e72",
+      "isBeast": true,
+      "isNpc": false,
+      "name": "Bugbear C",
+      "portraitUrl": "https://cdn.midjourney.com/1402c1f5-f529-40e7-9999-fb156e622698/0_1.png",
+      "size": 1,
+      "x": 320,
+      "y": 360,
+      "zIndex": 5
+    },
+    {
+      "id": "d0d080d8-cee4-4b67-b7ab-475caae2c495",
+      "characterId": "0f6f7b18-4fa1-4a7c-993b-173437f1cd79",
+      "isBeast": false,
+      "isNpc": false,
+      "name": "Himo",
+      "portraitUrl": "https://cdn.midjourney.com/8ca5d116-21d5-4a5f-bb7c-7ceaf793a311/0_3.png",
+      "size": 1,
+      "x": 960,
+      "y": 440,
+      "zIndex": 6
+    },
+    {
+      "id": "d141763e-76fe-4eec-bc97-14360cedc6ef",
+      "characterId": "a8cb69a9-0146-4aee-bcc1-24b591fe2458",
+      "isBeast": false,
+      "isNpc": false,
+      "name": "Jebeddo",
+      "portraitUrl": "https://cdn.midjourney.com/60fb6863-799d-4119-807e-b397a9bb7534/0_0.png",
+      "size": 1,
+      "x": 400,
+      "y": 360,
+      "zIndex": 7
+    },
+    {
+      "id": "ae831848-627e-41a0-bfbc-90248118a14f",
+      "characterId": "917e904f-d97e-4033-a498-8391260f3752",
+      "isBeast": false,
+      "isNpc": false,
+      "name": "Magnuss",
+      "portraitUrl": "https://cdn.midjourney.com/9d007aef-e372-4e42-9581-a2703cfe7018/0_2.jpeg",
+      "size": 1,
+      "x": 360,
+      "y": 440,
+      "zIndex": 8
+    },
+    {
+      "id": "61053578-a4f2-4f8d-afbb-22701b61988f",
+      "characterId": "1af228fc-7b3c-4fe6-8c0c-cd028bc850e2",
+      "isBeast": false,
+      "isNpc": false,
+      "name": "Palfrey",
+      "portraitUrl": "https://cdn.midjourney.com/5a6c9787-cedb-4eb6-8de1-17f837a10b99/0_1_640_N.webp",
+      "size": 1,
+      "x": 560,
+      "y": 360,
+      "zIndex": 9
+    },
+    {
+      "id": "d8cfb5fc-03b0-42d5-bb39-5c254e32737d",
+      "characterId": "decef988-2c77-4c84-9ee6-bb8198a6f3cb",
+      "isBeast": false,
+      "isNpc": false,
+      "name": "Pimlan",
+      "portraitUrl": "https://cdn.midjourney.com/cbaeac9c-8720-44f8-b904-bc79ab523e7d/0_3_640_N.webp",
+      "size": 1,
+      "x": 560,
+      "y": 760,
+      "zIndex": 10
+    },
+    {
+      "id": "7b2ca8e4-f240-42d4-9fe1-1d565f74c852",
+      "characterId": "bc4960b8-28d0-4d2c-9f7f-99f6cef68706",
+      "isBeast": false,
+      "isNpc": false,
+      "name": "Sergio",
+      "portraitUrl": "https://cdn.midjourney.com/c845873a-6dc7-47cc-89e1-1903a4dc622d/0_0.png",
+      "size": 1,
+      "x": 600,
+      "y": 320,
+      "zIndex": 14
+    },
+    {
+      "id": "4216ef39-c43f-465f-8f26-0a469e447aad",
+      "characterId": "18d8d1be-6568-4ec0-9207-916b2ac1a676",
+      "isBeast": false,
+      "isNpc": false,
+      "name": "Sukha",
+      "portraitUrl": "https://cdn.midjourney.com/95c9a8b1-d0a7-4b44-9c87-91a500f4db7d/0_1_640_N.webp",
+      "size": 1,
+      "x": 1000,
+      "y": 440,
+      "zIndex": 13
+    }
+  ],
   "transform": {
-    "scale": 1.7138242687795189,
-    "x": -380.7885922159526,
-    "y": -179.0504612581551
+    "scale": 1.0799999999999972,
+    "x": 72.44385008229631,
+    "y": 1.7536145935937384
   },
   "gridSize": 40,
   "gridColor": "#ffffff",
   "gridOpacity": 0.06,
   "mapScale": 1.1,
   "showPaths": true,
-  "radiusAreas": [
+  "radiusAreas": [],
+  "rollLog": [
     {
-      "id": "e5e8453a-40d0-4988-a903-cd52c146cb53",
-      "originX": 540,
-      "originY": 340,
-      "radiusFeet": 25,
-      "color": "#ffffff",
-      "label": "",
-      "tokenId": null
+      "id": "a67fe329-8d9b-491c-9f25-a3bc8305c6fe_1786912705341_90sx",
+      "timestamp": 1786912705341,
+      "characterId": "a67fe329-8d9b-491c-9f25-a3bc8305c6fe",
+      "characterName": "Bugbear Chieftan A",
+      "portraitUrl": "https://cdn.midjourney.com/5d5cfcaf-eb99-44b5-a5c8-cde4cca54439/0_2.png",
+      "isNpc": false,
+      "isBeast": true,
+      "type": "initiative",
+      "skillName": "Initiative",
+      "total": 4,
+      "diceTotal": 1,
+      "modifier": 3,
+      "modifierLabel": "WITS",
+      "success": null,
+      "difficulty": null,
+      "footer": null,
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 1,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-1"
+        }
+      ]
+    },
+    {
+      "id": "466d5b5c-78eb-45a1-bd7d-91ae2e985ef0_1786912705346_7p0x",
+      "timestamp": 1786912705346,
+      "characterId": "466d5b5c-78eb-45a1-bd7d-91ae2e985ef0",
+      "characterName": "Bugbear A",
+      "portraitUrl": "https://cdn.midjourney.com/1402c1f5-f529-40e7-9999-fb156e622698/0_1.png",
+      "isNpc": false,
+      "isBeast": true,
+      "type": "initiative",
+      "skillName": "Initiative",
+      "total": 14,
+      "diceTotal": 12,
+      "modifier": 2,
+      "modifierLabel": "WITS",
+      "success": null,
+      "difficulty": null,
+      "footer": null,
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 12,
+          "emoji": "🌞",
+          "isDropped": false,
+          "rolledMaxValue": true,
+          "cssClass": "df-d12-12"
+        }
+      ]
+    },
+    {
+      "id": "e10e8bcd-83b8-4645-9d7a-ad9b749f2a4c_1786912705352_xhqd",
+      "timestamp": 1786912705352,
+      "characterId": "e10e8bcd-83b8-4645-9d7a-ad9b749f2a4c",
+      "characterName": "Bugbear B",
+      "portraitUrl": "https://cdn.midjourney.com/1402c1f5-f529-40e7-9999-fb156e622698/0_1.png",
+      "isNpc": false,
+      "isBeast": true,
+      "type": "initiative",
+      "skillName": "Initiative",
+      "total": 11,
+      "diceTotal": 9,
+      "modifier": 2,
+      "modifierLabel": "WITS",
+      "success": null,
+      "difficulty": null,
+      "footer": null,
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 9,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-9"
+        }
+      ]
+    },
+    {
+      "id": "a7c968f0-e07a-431b-9d08-4cc7323d1e72_1786912705361_3zxf",
+      "timestamp": 1786912705361,
+      "characterId": "a7c968f0-e07a-431b-9d08-4cc7323d1e72",
+      "characterName": "Bugbear C",
+      "portraitUrl": "https://cdn.midjourney.com/1402c1f5-f529-40e7-9999-fb156e622698/0_1.png",
+      "isNpc": false,
+      "isBeast": true,
+      "type": "initiative",
+      "skillName": "Initiative",
+      "total": 11,
+      "diceTotal": 9,
+      "modifier": 2,
+      "modifierLabel": "WITS",
+      "success": null,
+      "difficulty": null,
+      "footer": null,
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 9,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-9"
+        }
+      ]
+    },
+    {
+      "id": "0f6f7b18-4fa1-4a7c-993b-173437f1cd79_1786912711722_7a8k",
+      "timestamp": 1786912711722,
+      "characterId": "0f6f7b18-4fa1-4a7c-993b-173437f1cd79",
+      "characterName": "Himo",
+      "portraitUrl": "https://cdn.midjourney.com/8ca5d116-21d5-4a5f-bb7c-7ceaf793a311/0_3.png",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "initiative",
+      "skillName": "Initiative",
+      "total": 8,
+      "diceTotal": 5,
+      "modifier": 3,
+      "modifierLabel": "WITS",
+      "success": null,
+      "difficulty": null,
+      "footer": null,
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 5,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-5"
+        }
+      ]
+    },
+    {
+      "id": "a8cb69a9-0146-4aee-bcc1-24b591fe2458_1786912711740_4lxz",
+      "timestamp": 1786912711740,
+      "characterId": "a8cb69a9-0146-4aee-bcc1-24b591fe2458",
+      "characterName": "Jebeddo",
+      "portraitUrl": "https://cdn.midjourney.com/60fb6863-799d-4119-807e-b397a9bb7534/0_0.png",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "initiative",
+      "skillName": "Initiative",
+      "total": 5,
+      "diceTotal": 1,
+      "modifier": 4,
+      "modifierLabel": "WITS",
+      "success": null,
+      "difficulty": null,
+      "footer": null,
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 1,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-1"
+        }
+      ]
+    },
+    {
+      "id": "917e904f-d97e-4033-a498-8391260f3752_1786912711754_2wkd",
+      "timestamp": 1786912711754,
+      "characterId": "917e904f-d97e-4033-a498-8391260f3752",
+      "characterName": "Magnuss",
+      "portraitUrl": "https://cdn.midjourney.com/9d007aef-e372-4e42-9581-a2703cfe7018/0_2.jpeg",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "initiative",
+      "skillName": "Initiative",
+      "total": 10,
+      "diceTotal": 9,
+      "modifier": 1,
+      "modifierLabel": "WITS",
+      "success": null,
+      "difficulty": null,
+      "footer": null,
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 9,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-9"
+        }
+      ]
+    },
+    {
+      "id": "1af228fc-7b3c-4fe6-8c0c-cd028bc850e2_1786912711770_8wcl",
+      "timestamp": 1786912711770,
+      "characterId": "1af228fc-7b3c-4fe6-8c0c-cd028bc850e2",
+      "characterName": "Palfrey",
+      "portraitUrl": "https://cdn.midjourney.com/5a6c9787-cedb-4eb6-8de1-17f837a10b99/0_1_640_N.webp",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "initiative",
+      "skillName": "Initiative",
+      "total": 6,
+      "diceTotal": 4,
+      "modifier": 2,
+      "modifierLabel": "WITS",
+      "success": null,
+      "difficulty": null,
+      "footer": null,
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 4,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-4"
+        }
+      ]
+    },
+    {
+      "id": "decef988-2c77-4c84-9ee6-bb8198a6f3cb_1786912711782_ky8f",
+      "timestamp": 1786912711782,
+      "characterId": "decef988-2c77-4c84-9ee6-bb8198a6f3cb",
+      "characterName": "Pimlan",
+      "portraitUrl": "https://cdn.midjourney.com/cbaeac9c-8720-44f8-b904-bc79ab523e7d/0_3_640_N.webp",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "initiative",
+      "skillName": "Initiative",
+      "total": 12,
+      "diceTotal": 10,
+      "modifier": 2,
+      "modifierLabel": "WITS",
+      "success": null,
+      "difficulty": null,
+      "footer": null,
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 10,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-10"
+        }
+      ]
+    },
+    {
+      "id": "bc4960b8-28d0-4d2c-9f7f-99f6cef68706_1786912711795_v6zw",
+      "timestamp": 1786912711795,
+      "characterId": "bc4960b8-28d0-4d2c-9f7f-99f6cef68706",
+      "characterName": "Sergio",
+      "portraitUrl": "https://cdn.midjourney.com/c845873a-6dc7-47cc-89e1-1903a4dc622d/0_0.png",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "initiative",
+      "skillName": "Initiative",
+      "total": 10,
+      "diceTotal": 6,
+      "modifier": 4,
+      "modifierLabel": "WITS",
+      "success": null,
+      "difficulty": null,
+      "footer": null,
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 6,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-6"
+        }
+      ]
+    },
+    {
+      "id": "18d8d1be-6568-4ec0-9207-916b2ac1a676_1786912711807_nufr",
+      "timestamp": 1786912711807,
+      "characterId": "18d8d1be-6568-4ec0-9207-916b2ac1a676",
+      "characterName": "Sukha",
+      "portraitUrl": "https://cdn.midjourney.com/95c9a8b1-d0a7-4b44-9c87-91a500f4db7d/0_1_640_N.webp",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "initiative",
+      "skillName": "Initiative",
+      "total": 13,
+      "diceTotal": 10,
+      "modifier": 3,
+      "modifierLabel": "WITS",
+      "success": null,
+      "difficulty": null,
+      "footer": null,
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 10,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-10"
+        }
+      ]
     }
   ],
-  "rollLog": [],
-  "combatGroups": [],
+  "combatGroups": [
+    {
+      "id": "group-1786912458762-yofdxa",
+      "name": "bugbear gang",
+      "combatants": [
+        {
+          "id": "pc:278941cb-7c09-4be1-8933-da904864e6f9",
+          "type": "pc",
+          "characterId": "278941cb-7c09-4be1-8933-da904864e6f9"
+        },
+        {
+          "id": "beast:a67fe329-8d9b-491c-9f25-a3bc8305c6fe",
+          "type": "beast",
+          "characterId": "a67fe329-8d9b-491c-9f25-a3bc8305c6fe"
+        },
+        {
+          "id": "beast:466d5b5c-78eb-45a1-bd7d-91ae2e985ef0",
+          "type": "beast",
+          "characterId": "466d5b5c-78eb-45a1-bd7d-91ae2e985ef0"
+        },
+        {
+          "id": "beast:e10e8bcd-83b8-4645-9d7a-ad9b749f2a4c",
+          "type": "beast",
+          "characterId": "e10e8bcd-83b8-4645-9d7a-ad9b749f2a4c"
+        },
+        {
+          "id": "beast:a7c968f0-e07a-431b-9d08-4cc7323d1e72",
+          "type": "beast",
+          "characterId": "a7c968f0-e07a-431b-9d08-4cc7323d1e72"
+        }
+      ]
+    },
+    {
+      "id": "group-1786912418469-q3tekz",
+      "name": "Group 1",
+      "combatants": []
+    },
+    {
+      "id": "group-1786912440422-kcs1h9",
+      "name": "Vengeance",
+      "combatants": [
+        {
+          "id": "pc:0f6f7b18-4fa1-4a7c-993b-173437f1cd79",
+          "type": "pc",
+          "characterId": "0f6f7b18-4fa1-4a7c-993b-173437f1cd79"
+        },
+        {
+          "id": "pc:a8cb69a9-0146-4aee-bcc1-24b591fe2458",
+          "type": "pc",
+          "characterId": "a8cb69a9-0146-4aee-bcc1-24b591fe2458"
+        },
+        {
+          "id": "pc:917e904f-d97e-4033-a498-8391260f3752",
+          "type": "pc",
+          "characterId": "917e904f-d97e-4033-a498-8391260f3752"
+        },
+        {
+          "id": "pc:1af228fc-7b3c-4fe6-8c0c-cd028bc850e2",
+          "type": "pc",
+          "characterId": "1af228fc-7b3c-4fe6-8c0c-cd028bc850e2"
+        },
+        {
+          "id": "pc:decef988-2c77-4c84-9ee6-bb8198a6f3cb",
+          "type": "pc",
+          "characterId": "decef988-2c77-4c84-9ee6-bb8198a6f3cb"
+        },
+        {
+          "id": "pc:bc4960b8-28d0-4d2c-9f7f-99f6cef68706",
+          "type": "pc",
+          "characterId": "bc4960b8-28d0-4d2c-9f7f-99f6cef68706"
+        },
+        {
+          "id": "pc:18d8d1be-6568-4ec0-9207-916b2ac1a676",
+          "type": "pc",
+          "characterId": "18d8d1be-6568-4ec0-9207-916b2ac1a676"
+        }
+      ]
+    }
+  ],
   "pixelsPerMile": 40,
   "characterTokenSize": 40,
   "cultureTokenSize": 60,
