@@ -555,17 +555,6 @@ const isViewingFamiliarSheet = computed(() =>
 const isGMOnTabletop = computed(() =>
     campaignStore.isGMInActiveCampaign && isOnTabletopPage.value
 )
-const hasAnyTokens = computed(() => {
-    if (isWorldMap.value) {
-        return worldMapPlayerCharacters.value.length > 0
-            || worldMapNPCs.value.length > 0
-            || campaignCultures.value.length > 0
-    }
-    if (!isGMOnTabletop.value) {
-        if (hasFocusedTokens.value || !!summonersBeast.value || !!witchsFamiliar.value) return true
-    }
-    return resolvedPinnedGroups.value.length > 0
-})
 
 // Show treasure & XP on focused token hover on any page (for non-beast characters).
 // Suppressed entirely while any character sheet is open.
