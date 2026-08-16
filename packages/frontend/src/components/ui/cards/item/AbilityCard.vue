@@ -51,6 +51,8 @@
 
     <!-- Activate / Deactivate FAB: shares the admin-buttons row with edit/delete FABs -->
     <template #admin-actions>
+      <FloatingActionButton v-if="duplicatable" :variant="FAB_TYPES.DUPLICATE" :size="FAB_SIZES.SMALL"
+        :visibility="FAB_VISIBILITIES.ON_HOVER" @click.stop="handleDuplicate" />
       <FloatingActionButton v-if="character && ability.canBeActive"
         :variant="isAbilityActive ? FAB_TYPES.DEACTIVATE : FAB_TYPES.ACTIVATE" :size="FAB_SIZES.SMALL"
         :visibility="FAB_VISIBILITIES.ON_HOVER" @click.stop="handleActivateToggle" />
@@ -75,6 +77,7 @@ import { ChevronUpIcon, ChevronDownIcon } from '@heroicons/vue/24/outline'
 defineOptions({ inheritAttrs: false })
 import { useCardPreview } from '@/composables/useCardPreview'
 import { useImprovements } from '@/composables/useImprovements'
+import { useAbilitiesStore } from '@/stores/abilitiesStore'
 import { useActionCostsStore } from '@/stores/actionCostsStore'
 import { useCharactersStore } from '@/stores/charactersStore'
 import { useBiomeStore } from '@/stores/biomeStore'
@@ -97,6 +100,10 @@ const props = defineProps({
     required: true,
   },
   editable: {
+    type: Boolean,
+    default: false,
+  },
+  duplicatable: {
     type: Boolean,
     default: false,
   },
@@ -151,7 +158,7 @@ const props = defineProps({
   },
 })
 
-const emit = defineEmits(['edit', 'update', 'update:collapsed', 'update:showImprovements', 'update:showSuccesses', 'height-changed', 'roll-link', 'activate', 'deactivate'])
+const emit = defineEmits(['edit', 'duplicate', 'update', 'update:collapsed', 'update:showImprovements', 'update:showSuccesses', 'height-changed', 'roll-link', 'activate', 'deactivate'])
 
 const cardPreview = useCardPreview()
 
@@ -193,6 +200,7 @@ function onCardMouseDown() {
 const { toggleImprovement, getCharacterImprovements } = useImprovements('abilities')
 
 // Stores
+const abilitiesStore = useAbilitiesStore()
 const actionTypesStore = useActionCostsStore()
 const charactersStore = useCharactersStore()
 const biomeStore = useBiomeStore()
@@ -365,6 +373,18 @@ function handleActivateToggle() {
     emit('deactivate', props.ability.id)
   } else {
     emit('activate', props.ability.id)
+  }
+}
+
+async function handleDuplicate() {
+  try {
+    const duplicateData = { ...props.ability }
+    delete duplicateData.id
+    duplicateData.name = `${duplicateData.name} (Copy)`
+    const newAbility = await abilitiesStore.create(duplicateData)
+    emit('duplicate', newAbility)
+  } catch (error) {
+    console.error('Error duplicating ability:', error)
   }
 }
 </script>

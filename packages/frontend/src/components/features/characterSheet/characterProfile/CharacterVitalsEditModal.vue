@@ -439,6 +439,7 @@ const saveChanges = () => {
         if (!char.featuredArtUrls) char.featuredArtUrls = []
         char.featuredArtUrls[0] = formData.value.featuredArtUrl
     }
+    charactersStore.update(char).catch(err => console.error('Failed to save character:', err))
     closeModal()
 }
 

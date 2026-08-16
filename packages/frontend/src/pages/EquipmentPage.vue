@@ -98,7 +98,7 @@
             </template>
         </FilterBar>
 
-        <GroupedMasonryGrid :gap="20" :row-height="10" justify-content="start" :grouped-items="groupedEquipment"
+        <GroupedMasonryGrid :gap="20" :row-height="10" justify-content="center" :grouped-items="groupedEquipment"
             :persistence-key="groupPersistenceKey" class="cards-container">
             <template #default="{ item }">
                 <EquipmentCard :equipment="item" :editable="isAdmin" :duplicatable="isAdmin" :sources="sources"
@@ -429,21 +429,21 @@ const groupedEquipment = computed(() => {
         let groupName = ''
 
         if (groupByOption.value === 'source') {
-            groupId = item.source || '__unknown-source__'
-            groupName = sourcesStore.getSourceName(item.source) || 'Unknown Source'
+            groupId = item.source || '__no-source__'
+            groupName = sourcesStore.getSourceName(item.source) || 'No Source'
         } else if (groupByOption.value === 'type') {
-            groupId = item.type || '__unknown-type__'
-            groupName = equipmentTypesStore.getById(item.type)?.name || 'Unknown Type'
+            groupId = item.type || '__no-type__'
+            groupName = equipmentTypesStore.getById(item.type)?.name || 'No Type'
         } else if (groupByOption.value === 'subtype') {
-            groupId = item.subtype || '__unknown-subtype__'
-            groupName = equipmentSubtypesStore.getById(item.subtype)?.name || 'Unknown Subtype'
+            groupId = item.subtype || '__no-subtype__'
+            groupName = equipmentSubtypesStore.getById(item.subtype)?.name || 'No Subtype'
         } else if (groupByOption.value === 'grade') {
-            groupId = item.grade || '__unknown-grade__'
-            groupName = equipmentGradesStore.getById(item.grade)?.name || 'Unknown Grade'
+            groupId = item.grade || '__no-grade__'
+            groupName = equipmentGradesStore.getById(item.grade)?.name || 'No Grade'
         } else if (groupByOption.value === 'keeping') {
             const keeping = keepingStore.getById(item.keeping)
-            groupId = item.keeping || '__unknown-keeping__'
-            groupName = keeping ? `${keeping.name}` : 'Unknown Keeping'
+            groupId = item.keeping || '__no-keeping__'
+            groupName = keeping ? `${keeping.name}` : 'No Keeping'
         }
 
         if (!groups[groupId]) {
@@ -453,6 +453,12 @@ const groupedEquipment = computed(() => {
     })
 
     return Object.values(groups).sort((a, b) => {
+        // Items with no group value always appear first
+        const aIsNoGroup = a.id.startsWith('__no-')
+        const bIsNoGroup = b.id.startsWith('__no-')
+        if (aIsNoGroup && !bIsNoGroup) return -1
+        if (!aIsNoGroup && bIsNoGroup) return 1
+
         if (groupByOption.value === 'grade') {
             const aIndex = equipmentGradesStore.getById(a.id)?.index ?? 999
             const bIndex = equipmentGradesStore.getById(b.id)?.index ?? 999
@@ -570,11 +576,9 @@ const deleteEquipment = async (equipmentItem) => {
     }
 }
 
-const handleDuplicateEquipment = async () => {
-    try {
-        await equipmentStore.fetch()
-    } catch (error) {
-        console.error('Error refreshing equipment list after duplication:', error)
+const handleDuplicateEquipment = (newEquipment) => {
+    if (newEquipment) {
+        openEditEquipmentModal(newEquipment)
     }
 }
 
@@ -689,9 +693,27 @@ const layoutProps = computed(() => ({
     flex-direction: column;
     align-items: center;
     width: 90%;
-    max-width: 1460px;
+    max-width: 1110px;
     margin: 0 auto;
     gap: var(--space-lg);
+}
+
+@media (min-width: 1623px) {
+    .equipment-page {
+        max-width: 1480px;
+    }
+}
+
+@media (max-width: 1211px) {
+    .equipment-page {
+        max-width: 720px;
+    }
+}
+
+@media (max-width: 799px) {
+    .equipment-page {
+        max-width: 350px;
+    }
 }
 
 .cards-container {

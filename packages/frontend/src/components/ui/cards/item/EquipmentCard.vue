@@ -3,6 +3,7 @@
     :metaInfo="equipment.weight ? `${equipment.weight} ${equipment.weight === 1 ? 'lb' : 'lbs'}` : ''"
     :collapsed="collapsed" :editable="editable" :duplicatable="duplicatable" :collapsible="collapsible"
     :itemType="ItemType.EQUIPMENT" :fallbackBackgroundUrl="keepingFallbackBackgroundUrl"
+    :class="{ 'equipment-card--with-difficulty': showDifficultyBadge && hasDifficultyBadge }"
     @edit="$emit('edit', equipment)" @duplicate="handleDuplicate" @roll-link="$emit('roll-link', $event)"
     @mouseenter="onCardMouseEnter" @mouseleave="cardPreview.scheduleHide()" @mousedown="onCardMouseDown">
 
@@ -890,6 +891,7 @@ onMounted(async () => {
 
 /* Bottom Buttons */
 .bottom-buttons {
+  position: absolute;
   bottom: -10px;
   background: none;
   border: none;
@@ -1006,6 +1008,12 @@ onMounted(async () => {
   opacity: 1;
   pointer-events: auto;
   transform: translateY(-50%) translateX(0);
+}
+
+/* Shift admin FABs right when difficulty badge occupies the center bottom */
+.equipment-card--with-difficulty :deep(.admin-buttons) {
+  left: calc(50% + 20px + var(--space-xs));
+  transform: none;
 }
 </style>
 
