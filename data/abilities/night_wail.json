@@ -1,0 +1,23 @@
+{
+  "id": "56f8aa66-e5e4-48db-87c5-5e95751386ec",
+  "isDeleted": false,
+  "createdAt": "2026-08-14T01:38:03.894Z",
+  "lastModified": "2026-08-14T01:40:59.964Z",
+  "name": "Night Wail",
+  "artUrl": null,
+  "description": "<p>Once per day: If you are not in sunlight, roll Spirit vs Fortitude against each creature within short range. On each win, the creature's current Endurance is reduced to 0. On each loss, the creature's current Endurance is halved.</p>",
+  "successes": "<p>✨: The creature checks a Condition.</p><p>🌞: The creature rolls Injury.</p>",
+  "improvements": [],
+  "source": "26d227ef-9dfb-4a8c-ae91-65764541888a",
+  "school": null,
+  "isMagical": false,
+  "isBeastAbility": true,
+  "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
+  "mpCost": null,
+  "xpCost": 30,
+  "manaCost": null,
+  "biomeTagsAugment": [],
+  "biomeTagsInhibit": [],
+  "canBeActive": false,
+  "hasDifficulty": false
+}

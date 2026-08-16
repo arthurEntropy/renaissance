@@ -2,7 +2,7 @@
   "id": "52ffc99d-378a-4e01-a3b6-c90b2f9cab60",
   "isDeleted": false,
   "createdAt": "2026-07-28T17:40:14.549Z",
-  "lastModified": "2026-07-28T19:01:39.493Z",
+  "lastModified": "2026-07-29T19:30:15.843Z",
   "characterType": "npc",
   "name": "Gilly",
   "featuredArtUrls": [
@@ -249,15 +249,17 @@
   "ancestryIds": [
     "77e4f81a-728f-49a7-a013-4d6f666353e2"
   ],
-  "cultureIds": [],
+  "cultureIds": [
+    "d194ad54-7ca8-4902-a140-e6401681ee55"
+  ],
   "mestiereId": "",
-  "age": 0,
-  "heightFeet": 0,
-  "heightInches": 0,
-  "weight": 0,
-  "keeping": null,
+  "age": 85,
+  "heightFeet": 3,
+  "heightInches": 7,
+  "weight": 55,
+  "keeping": "3c4d5e6f-7a8b-4c9d-0e1f-2a3b4c5d6e7f",
   "treasure": 0,
   "xp": 0,
   "description": "",
-  "updatedAt": "2026-07-28T19:01:39.493Z"
+  "updatedAt": "2026-07-29T19:30:15.843Z"
 }

@@ -1,0 +1,23 @@
+{
+  "id": "762bbac7-6087-43c5-a810-a35706f7f315",
+  "isDeleted": false,
+  "createdAt": "2026-08-14T01:31:33.481Z",
+  "lastModified": "2026-08-14T01:37:52.612Z",
+  "name": "Grim Visage",
+  "artUrl": null,
+  "description": "<p>Roll Awe vs Spirit against each creature within medium range. On each win, the creature checks two Conditions. On each loss, the creature becomes immune to your uses of this ability for the next day.</p>",
+  "successes": "<p>✨: On each win, the creature checks an additional Condition.</p><p>🌞: On each win, the creature cannot move closer to you on its next turn. On each loss, no effect.</p>",
+  "improvements": [],
+  "source": "27cb6e69-76ec-4a0f-9c1b-7213558930b2",
+  "school": null,
+  "isMagical": false,
+  "isBeastAbility": true,
+  "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
+  "mpCost": null,
+  "xpCost": 10,
+  "manaCost": null,
+  "biomeTagsAugment": [],
+  "biomeTagsInhibit": [],
+  "canBeActive": false,
+  "hasDifficulty": false
+}

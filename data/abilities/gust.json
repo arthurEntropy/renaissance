@@ -1,0 +1,23 @@
+{
+  "id": "13388c3b-b890-479f-bdb1-872a1b86f085",
+  "isDeleted": false,
+  "createdAt": "2026-08-02T01:53:44.901Z",
+  "lastModified": "2026-08-04T00:03:18.621Z",
+  "name": "Gust",
+  "artUrl": "https://cdn.midjourney.com/9b549ad4-339a-44e0-a426-f681ded7ed62/0_0.jpeg",
+  "description": "<p>Uncheck a Condition. If you did, you release a burst of air outward from you. Roll Spirit vs Strength against each creature within short range. On each win, the creature is pushed 20 ft away from you. On each loss, the creature is pushed 10 ft away from you.</p><p>If the Condition you unchecked was Troubled, each creature you push is pushed an additional 10 ft, win or lose.</p><p><strong>Describe the wind.</strong></p>",
+  "successes": "<p><strong>✨</strong>: On each win, the creature takes 1d4 damage.</p><p><strong>🌞</strong>: On each win, the creature is knocked prone.</p>",
+  "improvements": [],
+  "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
+  "school": null,
+  "isMagical": true,
+  "isBeastAbility": false,
+  "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
+  "mpCost": null,
+  "xpCost": 15,
+  "manaCost": "2W",
+  "biomeTagsAugment": [],
+  "biomeTagsInhibit": [],
+  "canBeActive": false,
+  "hasDifficulty": false
+}

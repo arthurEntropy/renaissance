@@ -1,0 +1,23 @@
+{
+  "id": "b6b8472c-2449-4b36-a982-e9b9038be196",
+  "isDeleted": false,
+  "createdAt": "2026-08-04T19:45:41.983Z",
+  "lastModified": "2026-08-04T23:55:45.794Z",
+  "name": "Ward Chamber",
+  "artUrl": "https://cdn.midjourney.com/7fc471e8-5325-4308-8810-4fd80d8a3134/0_3.png",
+  "description": "<p>Choose an area within long range that is no larger than 20 ft in any dimension. The area becomes warded against magical and spiritual intrusion.</p><p>Sound cannot cross its boundary, and the boundary appears dark, fog-shrouded, or otherwise obscured, preventing sight through it. Magical sensors cannot appear within the Sanctum or pass through its perimeter, creatures inside cannot be targeted by effects that read or influence their minds or senses, and nothing may teleport into or out of the area, or pass into or out of it while phased out.</p><p>Casting this spell on the same spot every day for a year makes this effect permanent.</p><p><strong>Describe the warding.</strong></p>",
+  "successes": null,
+  "improvements": [],
+  "source": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
+  "school": "6dee9b36-a9ea-4edf-ad7b-7321e4408da5",
+  "isMagical": true,
+  "isBeastAbility": false,
+  "actionCost": null,
+  "mpCost": null,
+  "xpCost": null,
+  "manaCost": null,
+  "biomeTagsAugment": [],
+  "biomeTagsInhibit": [],
+  "canBeActive": true,
+  "hasDifficulty": false
+}

@@ -1,0 +1,21 @@
+{
+  "type": "1cc02e7b-cdaf-477c-a198-6be0ad5ab47f",
+  "createdAt": "2026-05-21T15:55:35.050Z",
+  "lastModified": "2026-07-29T19:11:46.162Z",
+  "isTemplate": false,
+  "name": "Reed Boots",
+  "subtype": "3b179003-c623-425f-8d16-c41b4204758b",
+  "grade": "ad30b114-3c19-413f-aad2-5f270bd95684",
+  "weight": 2,
+  "defenseBonus": 1,
+  "engagementDice": [],
+  "damageDice": [],
+  "reach": 0,
+  "id": "2f7c84ed-8efd-4ff1-86f3-6749b7fc3ef1",
+  "source": "be62ac3d-7168-4779-8274-e60574a2fd27",
+  "artUrl": "https://cdn.midjourney.com/fded1e78-7c0e-4e1b-80a8-50b4cbb8f3e1/0_2.png",
+  "keeping": "2b3c4d5e-6f7a-4b8c-9d0e-1f2a3b4c5d6e",
+  "hasDifficulty": false,
+  "projectile": false,
+  "engagementSuccesses": []
+}

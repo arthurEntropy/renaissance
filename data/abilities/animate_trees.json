@@ -1,0 +1,23 @@
+{
+  "id": "6dd586f6-3e70-4601-a9e0-8f5f6d61955f",
+  "isDeleted": false,
+  "createdAt": "2026-08-13T02:38:17.345Z",
+  "lastModified": "2026-08-13T02:46:39.237Z",
+  "name": "Animate Trees",
+  "artUrl": null,
+  "description": "<p><em>Concentration, up to 1 day.</em></p><p>Once per day: Choose one or two living trees within medium range. Each tree becomes a plant creature with a BODY score of 6, 1 rank in Awe, 3 ranks in Strength 2 ranks in Fortitude, a Speed of 30, a base Defense of 13, a Reach of 5ft, and its unarmed melee attacks deal 1d20+BODY damage.</p><p>You may spend a half action to turn one or both of the trees back into an inanimate tree. If you fall unconscious while maintaining concentration, the trees die.</p>",
+  "successes": null,
+  "improvements": [],
+  "source": "27cb6e69-76ec-4a0f-9c1b-7213558930b2",
+  "school": null,
+  "isMagical": true,
+  "isBeastAbility": true,
+  "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
+  "mpCost": null,
+  "xpCost": 30,
+  "manaCost": null,
+  "biomeTagsAugment": [],
+  "biomeTagsInhibit": [],
+  "canBeActive": true,
+  "hasDifficulty": false
+}

@@ -1,0 +1,23 @@
+{
+  "id": "4681fc34-d00e-4b75-9f74-52042f88123b",
+  "isDeleted": true,
+  "createdAt": "2026-08-02T01:28:12.949Z",
+  "lastModified": "2026-08-02T01:29:36.214Z",
+  "name": "Firestorm",
+  "artUrl": null,
+  "description": "<p><em>Concentration, up to 1 minute.</em></p><p>Choose a point within long range. You create a sphere of swirling flames out to short range from the chosen point. Uncheck any number of con</p>",
+  "successes": null,
+  "improvements": [],
+  "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
+  "school": null,
+  "isMagical": false,
+  "isBeastAbility": false,
+  "actionCost": null,
+  "mpCost": null,
+  "xpCost": null,
+  "manaCost": null,
+  "biomeTagsAugment": [],
+  "biomeTagsInhibit": [],
+  "canBeActive": false,
+  "hasDifficulty": false
+}

@@ -1,0 +1,23 @@
+{
+  "id": "76da168e-ffda-4c30-88f6-8a365b9418e4",
+  "isDeleted": false,
+  "createdAt": "2026-08-01T23:44:31.984Z",
+  "lastModified": "2026-08-02T00:00:07.749Z",
+  "name": "Fly",
+  "artUrl": "https://cdn.midjourney.com/27e118d9-ff90-4593-997b-c3bbd03b51ae/0_0.png",
+  "description": "<p><em>Concentration, up to 10 minutes.</em></p><p>You touch a creature and grant it the ability to fly, up to its Speed. Roll Lore to determine any additional effects.</p><p>When the spell ends, if the creature is in flight, it falls to the ground.</p>",
+  "successes": "<p><strong>✨: </strong>The creature's Speed increases by 10 ft.</p><p><strong>🌞</strong>: The creature's Speed increases by 20 ft and the spell lasts for 10 minutes without concentration.</p><p><strong>💀</strong>: Whenever the creature attempts to fly, they fly in a random direction determined by the GM, then roll a d8. On a 1, the spell ends.</p>",
+  "improvements": [],
+  "source": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
+  "school": "c4a153b2-8906-4b95-be65-d8e5a5cc73ff",
+  "isMagical": false,
+  "isBeastAbility": false,
+  "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
+  "mpCost": null,
+  "xpCost": 15,
+  "manaCost": "",
+  "biomeTagsAugment": [],
+  "biomeTagsInhibit": [],
+  "canBeActive": false,
+  "hasDifficulty": false
+}

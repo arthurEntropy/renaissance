@@ -1,0 +1,23 @@
+{
+  "id": "1429d3ed-b41a-4a0f-b198-1724c732dfd9",
+  "isDeleted": false,
+  "createdAt": "2026-08-03T15:06:55.072Z",
+  "lastModified": "2026-08-03T15:46:38.297Z",
+  "name": "Wall of Ash",
+  "artUrl": "https://cdn.midjourney.com/8f6c1b27-4245-47bc-8b31-be1721663210/0_2.png",
+  "description": "<p><em>Concentration, up to 1 minute.</em></p><p>You create a wall of hot ash within long range that is 15 ft high, 5 ft thick, and up to 30 ft long or a circular wall with a diameter of short range. Uncheck any number of Conditions and roll Spirit to set the Difficulty.</p><p>Each creature that enters the wall, is within the wall when it's created or begins its turn within the wall must roll Fortitude against the Difficulty. On a failure, the creature takes 1d4 damage, and for the next round, it is blinded and cannot breathe. When the round ends, repeat the roll. On a pass, it takes half damage. No further effects and no repeated roll.</p><p>For each Condition you unchecked (twice for Afraid and Angry), choose one:</p><ul><li><p>The wall becomes 10 ft longer or taller, or the diameter increases by 10 ft.</p></li><li><p>+1d damage.</p></li><li><p>Whenever you maintain concentration for this spell, you may move the wall or part of the wall an additional 5 ft in any direction you choose.</p></li></ul><p><strong>Describe how you create the wall.</strong></p>",
+  "successes": "<p>✨: On each failure, the blinded effect persists for 1 minute, regardless of subsequent rolls against the Difficulty.</p><p>🌞: On each failure, the cannot breathe for 1 minute, regardless of subsequent rolls against the Difficulty.</p>",
+  "improvements": [],
+  "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
+  "school": null,
+  "isMagical": true,
+  "isBeastAbility": false,
+  "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
+  "mpCost": null,
+  "xpCost": 25,
+  "manaCost": "3BR",
+  "biomeTagsAugment": [],
+  "biomeTagsInhibit": [],
+  "canBeActive": true,
+  "hasDifficulty": true
+}

@@ -1,10 +1,10 @@
 {
   "isDeleted": false,
   "createdAt": "2026-05-06T17:55:10.305Z",
-  "lastModified": "2026-06-24T14:43:34.136Z",
+  "lastModified": "2026-07-30T13:03:07.748Z",
   "name": "Nunchaku",
   "artUrl": "https://cdn.midjourney.com/a87d147f-f18b-409f-a169-e153138c0382/0_1.png",
-  "description": "<p>This weapon deals 1 damage on a hit.</p>",
+  "description": "",
   "successes": null,
   "improvements": [],
   "source": "cdc93466-8327-4096-a8c2-04cccf3e3835",
@@ -14,7 +14,7 @@
   "isTemplate": false,
   "isMagical": false,
   "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
-  "subtype": "956839d8-393c-4743-9cb3-8038c8a7aa93",
+  "subtype": "ab765755-b7c9-47ac-b62f-34f069e00dc3",
   "grade": "ad30b114-3c19-413f-aad2-5f270bd95684",
   "weight": 2,
   "reach": 0,
@@ -23,7 +23,9 @@
   "thrown": false,
   "finesse": true,
   "piercing": false,
-  "damageDice": [],
+  "damageDice": [
+    2
+  ],
   "engagementDice": [
     4,
     4

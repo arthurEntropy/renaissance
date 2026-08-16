@@ -2,16 +2,17 @@
   "id": "e8bf3d3c-63f7-462d-a69e-c112780b72da",
   "isDeleted": false,
   "createdAt": "2026-01-27T21:35:42.155Z",
-  "lastModified": "2026-07-16T13:19:02.818Z",
+  "lastModified": "2026-08-03T22:13:24.029Z",
   "name": "Shared Wound",
   "artUrl": "https://cdn.midjourney.com/dccd89e2-a3d8-40e0-bc29-af17d669e4c4/0_0.png",
-  "description": "<p><em>Trigger: A creature within short range rolls Injury.</em></p><p>Redirect half the Injury to yourself.</p><p>Check a Condition.</p><p><strong>Describe how you magically divide the Injury.</strong></p>",
-  "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
+  "description": "<p><em>Trigger: A creature within short range rolls Injury.</em></p><p>Redirect half the Injury to yourself.</p><p>Check a Condition. If the Condition you checked was Troubled, half the amount of Injury you take.</p><p><strong>Describe how you magically divide the Injury.</strong></p>",
+  "source": "49f10189-9634-4083-933b-fa74c2583b87",
   "isMagical": true,
   "actionCost": "c4df395c-8284-4c4f-bf01-e293ed51c58c",
   "mpCost": null,
   "xpCost": 5,
-  "manaCost": "W",
+  "manaCost": "",
   "canBeActive": false,
-  "hasDifficulty": false
+  "hasDifficulty": false,
+  "school": null
 }

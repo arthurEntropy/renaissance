@@ -1,0 +1,23 @@
+{
+  "id": "6bdf158c-3bbc-4b70-952b-13ee17cf4079",
+  "isDeleted": false,
+  "createdAt": "2026-08-13T02:35:58.451Z",
+  "lastModified": "2026-08-13T02:38:10.130Z",
+  "name": "Rock Throw",
+  "artUrl": null,
+  "description": "<p>Roll Dexterity vs Defense against a creature within medium range. On a hit, the creature takes 2d10+BODY damage.</p>",
+  "successes": null,
+  "improvements": [],
+  "source": "4064763c-377d-46f8-bc9a-74e1e621e875",
+  "school": null,
+  "isMagical": false,
+  "isBeastAbility": true,
+  "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
+  "mpCost": null,
+  "xpCost": 20,
+  "manaCost": null,
+  "biomeTagsAugment": [],
+  "biomeTagsInhibit": [],
+  "canBeActive": false,
+  "hasDifficulty": false
+}

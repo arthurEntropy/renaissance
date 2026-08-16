@@ -1,0 +1,23 @@
+{
+  "id": "2c09c65d-4630-4c23-84fb-9db6968520f1",
+  "isDeleted": true,
+  "createdAt": "2026-08-02T01:37:36.588Z",
+  "lastModified": "2026-08-04T13:06:04.348Z",
+  "name": "Fog Cloud",
+  "artUrl": "https://cdn.midjourney.com/8dcdb7c4-876c-4a9f-a60e-67993ba1a713/0_0.jpeg",
+  "description": "<p>Choose a point within long range. You create a cloud of fog extending in a sphere out to short range from the chosen point, which lasts for 1 minute. Check a Condition.</p><p>Creatures cannot see more than 15 ft through the cloud. Within the cloud, attack rolls are ill-favored and damage rolls for melee attacks take -1d. If the Condition you checked was Troubled or Insecure, the cloud is difficult terrain.</p><p>Wind moves the cloud, as determined by the GM.</p><p><strong>Describe the fog.</strong></p>",
+  "successes": null,
+  "improvements": [],
+  "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
+  "school": null,
+  "isMagical": true,
+  "isBeastAbility": false,
+  "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
+  "mpCost": null,
+  "xpCost": 10,
+  "manaCost": "WU",
+  "biomeTagsAugment": [],
+  "biomeTagsInhibit": [],
+  "canBeActive": false,
+  "hasDifficulty": false
+}

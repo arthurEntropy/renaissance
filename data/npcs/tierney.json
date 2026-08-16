@@ -2,7 +2,7 @@
   "id": "34920c64-763c-40ef-b5a6-9f593829c443",
   "isDeleted": false,
   "createdAt": "2026-07-27T18:32:43.731Z",
-  "lastModified": "2026-07-28T17:39:06.471Z",
+  "lastModified": "2026-07-29T19:30:00.662Z",
   "characterType": "npc",
   "name": "Tierney",
   "featuredArtUrls": [
@@ -284,9 +284,9 @@
   "heightFeet": 5,
   "heightInches": 3,
   "weight": 279,
-  "keeping": null,
+  "keeping": "5e6f7a8b-9c0d-4e1f-2a3b-4c5d6e7f8a9b",
   "treasure": 0,
   "xp": 0,
   "description": "",
-  "updatedAt": "2026-07-28T17:39:06.471Z"
+  "updatedAt": "2026-07-29T19:30:00.662Z"
 }

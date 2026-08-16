@@ -1,0 +1,41 @@
+{
+  "id": "0ce00d26-d3bc-4d6a-9c9e-b7874296b371",
+  "isDeleted": false,
+  "createdAt": "2026-07-29T19:18:27.058Z",
+  "lastModified": "2026-08-10T17:23:26.702Z",
+  "campaignId": "c9ddeab9-d180-4fc5-869f-e64239bc3376",
+  "name": "Nïrwe Night Market",
+  "backgroundImage": {
+    "url": "https://cdn.midjourney.com/e8627bc8-5083-4ca1-93da-a8299b618d2c/0_0_2048_N.webp",
+    "naturalWidth": 1456,
+    "naturalHeight": 816
+  },
+  "items": [],
+  "transform": {
+    "scale": 1.7138242687795189,
+    "x": -380.7885922159526,
+    "y": -179.0504612581551
+  },
+  "gridSize": 40,
+  "gridColor": "#ffffff",
+  "gridOpacity": 0.06,
+  "mapScale": 1.1,
+  "showPaths": true,
+  "radiusAreas": [
+    {
+      "id": "e5e8453a-40d0-4988-a903-cd52c146cb53",
+      "originX": 540,
+      "originY": 340,
+      "radiusFeet": 25,
+      "color": "#ffffff",
+      "label": "",
+      "tokenId": null
+    }
+  ],
+  "rollLog": [],
+  "combatGroups": [],
+  "pixelsPerMile": 40,
+  "characterTokenSize": 40,
+  "cultureTokenSize": 60,
+  "cultureTokensLocked": false
+}

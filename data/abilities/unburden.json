@@ -2,16 +2,17 @@
   "id": "7f923efd-91ce-4967-bc8f-9166bcd32eec",
   "isDeleted": false,
   "createdAt": "2026-01-28T02:53:55.992Z",
-  "lastModified": "2026-07-16T17:10:35.014Z",
+  "lastModified": "2026-08-03T22:11:32.945Z",
   "name": "Unburden",
   "artUrl": "https://cdn.midjourney.com/fe12c9bb-2f7b-471c-b63f-a6740e45fae6/0_0.png",
   "description": "<p><em>Trigger: A creature within short range would check a Condition.</em></p><p>You check a Condition instead.</p><p>Alternately, you may spend an action instead of a reaction to cast this spell on your turn. If you do, a creature you touch may uncheck a Condition. If they do, you check a Condition.</p><p><strong>Describe how you take on their burden.</strong></p>",
-  "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
+  "source": "49f10189-9634-4083-933b-fa74c2583b87",
   "isMagical": true,
   "actionCost": "c4df395c-8284-4c4f-bf01-e293ed51c58c",
   "mpCost": null,
   "xpCost": 20,
-  "manaCost": "3W",
+  "manaCost": "",
   "canBeActive": false,
-  "hasDifficulty": false
+  "hasDifficulty": false,
+  "school": null
 }

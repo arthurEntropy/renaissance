@@ -1,0 +1,18 @@
+{
+  "id": "109b7300-df80-4697-92ac-ead98366c6d2",
+  "isDeleted": false,
+  "createdAt": "2026-01-13T01:43:13.790Z",
+  "lastModified": "2026-08-03T23:51:22.332Z",
+  "name": "Vortex",
+  "artUrl": "https://cdn.midjourney.com/0feb8a86-9eb2-4a7e-8daf-fec6905eb010/0_2.jpeg",
+  "description": "<p>Uncheck a Condition. If you did, roll Spirit vs Strength against a creature within medium range. On a win, their speed is reduced to 0 for 1 round. On a loss, same as on a win, but the creature may spend a half action to end the effect.</p><p>If the Condition you unchecked was Troubled, you may instead target a creature within long range, and on a loss, the creature must spend an action to end the effect.</p><p><strong>Describe the vortex you create.</strong></p>",
+  "successes": "<p>✨: The target cannot make attacks or cast spells that require physical movement.</p><p>✨: The target drops an object it's wielding, chosen at random.</p><p><strong>🌞:</strong> On a win, at the end of the round, repeat the roll against the same target. On a win, reapply the effect. On a loss, the effect ends. Repeat this each round until the spell ends.</p>",
+  "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
+  "isMagical": true,
+  "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
+  "mpCost": null,
+  "xpCost": 20,
+  "manaCost": "2WW",
+  "canBeActive": false,
+  "hasDifficulty": false
+}

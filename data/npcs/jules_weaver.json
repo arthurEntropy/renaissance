@@ -1,0 +1,265 @@
+{
+  "id": "8b65dd9d-aa2b-4dbd-aee4-f69a8d695b89",
+  "isDeleted": false,
+  "createdAt": "2026-07-29T19:22:58.052Z",
+  "lastModified": "2026-07-29T19:25:50.813Z",
+  "characterType": "npc",
+  "name": "Jules Weaver",
+  "featuredArtUrls": [
+    "https://cdn.midjourney.com/16343822-dfd8-4954-b8c7-cf9999f65179/0_0_640_N.webp"
+  ],
+  "speed": {
+    "current": 0,
+    "base": 0
+  },
+  "notes": "",
+  "body": 0,
+  "heart": 0,
+  "wits": 0,
+  "skills": [
+    {
+      "key": "awe",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "strength",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "dexterity",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "fortitude",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "craft",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "perform",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "insight",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "courtesy",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "spirit",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "aid",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "persuade",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "awareness",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "stealth",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "lore",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "riddle",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    }
+  ],
+  "endurance": {
+    "current": 0,
+    "base": 0
+  },
+  "hope": {
+    "current": 0,
+    "base": 0
+  },
+  "defense": {
+    "current": 0,
+    "base": 0
+  },
+  "load": 0,
+  "shadow": 0,
+  "injury": 0,
+  "states": {
+    "weary": false,
+    "twiceWeary": false,
+    "miserable": false,
+    "twiceMiserable": false,
+    "helpless": false,
+    "twiceHelpless": false
+  },
+  "conditions": {
+    "insecure": false,
+    "guilty": false,
+    "angry": false,
+    "afraid": false,
+    "troubled": false
+  },
+  "engagementDice": [],
+  "engagementSuccesses": [],
+  "engagementDiceStatuses": {},
+  "equipment": [],
+  "groupEquipmentBySource": false,
+  "groupEquipmentByCustom": false,
+  "equipmentSortOption": "",
+  "equipmentCustomGroups": [],
+  "mp": {
+    "current": 0,
+    "base": 0
+  },
+  "abilities": [],
+  "groupAbilitiesBySource": false,
+  "groupAbilitiesByManaColor": false,
+  "groupAbilitiesByCustom": false,
+  "abilitySortOption": "",
+  "abilityCustomGroups": [],
+  "autoCalculations": {
+    "load": true,
+    "states": true,
+    "baseEndurance": true,
+    "baseHope": true,
+    "baseDefense": true
+  },
+  "rollStats": {
+    "skillChecks": {
+      "attempts": 0,
+      "successes": 0,
+      "totalSum": 0,
+      "bestTotal": null,
+      "hardestSuccess": null,
+      "bySkill": {},
+      "solCount": 0,
+      "morteCount": 0,
+      "successCount": 0
+    },
+    "contests": {
+      "engagement": {
+        "wins": 0,
+        "losses": 0,
+        "draws": 0
+      },
+      "contest": {
+        "wins": 0,
+        "losses": 0,
+        "draws": 0
+      }
+    },
+    "xpEarned": 0,
+    "xpSpent": 0,
+    "treasureEarned": 0,
+    "treasureSpent": 0
+  },
+  "biomeTags": [],
+  "biomeId": null,
+  "nimbleStep": 0,
+  "swagger": 0,
+  "swaggerIconIndex": 0,
+  "swaggerColor": "#ffffff",
+  "manaPool": {
+    "white": [],
+    "blue": [],
+    "black": [],
+    "red": [],
+    "green": [],
+    "colorless": []
+  },
+  "witchcraftTokens": [],
+  "witchFamiliar": null,
+  "summonerVessels": [],
+  "hunterTraps": [],
+  "campaignId": "c9ddeab9-d180-4fc5-869f-e64239bc3376",
+  "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
+  "isPublicPreview": false,
+  "sectionOrder": [],
+  "martialTrainingOverrides": {},
+  "pronouns": "",
+  "ancestryIds": [
+    "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+  ],
+  "cultureIds": [
+    "be62ac3d-7168-4779-8274-e60574a2fd27"
+  ],
+  "mestiereId": "",
+  "age": 22,
+  "heightFeet": 5,
+  "heightInches": 10,
+  "weight": 161,
+  "keeping": null,
+  "treasure": 0,
+  "xp": 0,
+  "description": "",
+  "updatedAt": "2026-07-29T19:25:50.813Z"
+}

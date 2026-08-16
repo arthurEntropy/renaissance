@@ -1,0 +1,45 @@
+{
+  "id": "ffc1e5ca-6ca0-4ba7-9acc-ae9c6321bc6f",
+  "isDeleted": false,
+  "createdAt": "2026-05-06T17:55:10.305Z",
+  "lastModified": "2026-07-31T13:50:13.865Z",
+  "name": "Meteor Hammer",
+  "artUrl": "https://cdn.midjourney.com/1130a246-b653-498e-a4d9-94401600ae4f/0_2.png",
+  "description": "",
+  "successes": null,
+  "improvements": [],
+  "source": "e10d7d9f-9d93-46b0-9846-d60241031644",
+  "school": null,
+  "keeping": "3c4d5e6f-7a8b-4c9d-0e1f-2a3b4c5d6e7f",
+  "isCustom": false,
+  "isTemplate": false,
+  "isMagical": false,
+  "isBeastEquipment": false,
+  "hasDifficulty": true,
+  "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
+  "subtype": "ab3719fa-6ee6-4c45-a368-e5047beb0e4f",
+  "grade": "b92d3394-2c64-487f-8c90-c56ea1cbd3f3",
+  "weight": 2,
+  "reach": 5,
+  "range": null,
+  "twoHanded": true,
+  "thrown": false,
+  "finesse": true,
+  "piercing": false,
+  "projectile": false,
+  "damageDice": [
+    4,
+    4
+  ],
+  "engagementDice": [
+    4,
+    4
+  ],
+  "engagementSuccesses": [
+    "b2c3d4e5-f6a7-48b9-c0d1-e2f3a4b5c6d7",
+    "e1f2a3b4-c5d6-47e8-f9a0-b1c2d3e4f5a6",
+    "b4c5d6e7-f8a9-40b1-c2d3-e4f5a6b7c8d9",
+    "d4e5f6a7-b8c9-40d1-e2f3-a4b5c6d7e8f9"
+  ],
+  "defenseBonus": 0
+}

@@ -2,7 +2,7 @@
   "id": "37843429-c6cb-4a9f-a094-d2014a1460fd",
   "isDeleted": false,
   "createdAt": "2026-04-23T23:56:57.047Z",
-  "lastModified": "2026-05-19T15:41:11.154Z",
+  "lastModified": "2026-08-04T18:37:27.492Z",
   "name": "Financius, the Moneyrender",
   "artUrl": "https://cdn.midjourney.com/866cdd44-9501-42f5-bc9b-610a6e3bd255/0_1.png",
   "description": "<p>Halve all damage dealt with Financius, the Moneyrender.</p><p>Once per day, you may spend 10 minutes sharpening the blade with gold worth 1 Treasure. The gold melds with the blade, filling notches and forming a sharp edge. This process imbues the sword with 3 charges. Any time you deal damage with Financius, the Moneyrender and it has charges, remove 1 charge and double the damage instead of halving it.</p>",
@@ -10,17 +10,17 @@
   "improvements": [
     {
       "name": "Golden Edge",
-      "description": "<p>Each time you apply gold to the blade as defined above, instead of imbuing the sword with charges, the blade simply deals double damage instead of half damage for 1 day.</p>",
+      "description": "<p>Each time you apply gold to the blade as defined above, you may instead apply 3 Treasure's worth of gold. If you do, Financius, the Moneyrender deals double damage for the next day.</p>",
       "xpCost": 10,
       "id": "5116dfd3-d788-40f8-93df-e5b04ea6cd88"
     }
   ],
   "source": null,
   "school": null,
-  "keeping": "785f93f5-e4fd-4512-b888-5efdc1a1130f",
+  "keeping": "917cb5ee-f996-4a84-be4a-47a43c25c15a",
   "isCustom": false,
   "isTemplate": false,
-  "isMagical": false,
+  "isMagical": true,
   "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
   "subtype": "ab765755-b7c9-47ac-b62f-34f069e00dc3",
   "grade": "a9023254-92ed-4c54-9840-5a7577c1aa1f",
@@ -32,10 +32,10 @@
   "finesse": false,
   "piercing": false,
   "damageDice": [
-    8
+    10
   ],
   "engagementDice": [
-    8
+    10
   ],
   "engagementSuccesses": [],
   "defenseBonus": 0,

@@ -1,0 +1,23 @@
+{
+  "id": "7dd7dddf-99eb-43d8-bd44-1de556fefd98",
+  "isDeleted": false,
+  "createdAt": "2026-08-04T12:19:27.033Z",
+  "lastModified": "2026-08-04T12:33:10.461Z",
+  "name": "Siphon",
+  "artUrl": "https://cdn.midjourney.com/d1076121-2e2f-42eb-93b3-6c41dc6c72cd/0_0.png",
+  "description": "<p><em>Trigger: A creature within medium range casts a spell.</em></p><p>Counter the spell unless the creature spends 2 MP. Check a Condition. If the Condition you checked was Insecure, the creature must spend an additional 2 MP.</p><p><strong>Describe how you weaken their magic.</strong></p>",
+  "successes": null,
+  "improvements": [],
+  "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
+  "school": null,
+  "isMagical": false,
+  "isBeastAbility": false,
+  "actionCost": "c4df395c-8284-4c4f-bf01-e293ed51c58c",
+  "mpCost": null,
+  "xpCost": 10,
+  "manaCost": "1U",
+  "biomeTagsAugment": [],
+  "biomeTagsInhibit": [],
+  "canBeActive": false,
+  "hasDifficulty": false
+}

@@ -1,0 +1,23 @@
+{
+  "id": "67386067-a62a-46c1-b753-776767804d2a",
+  "isDeleted": false,
+  "createdAt": "2026-08-14T02:15:44.279Z",
+  "lastModified": "2026-08-14T02:17:02.656Z",
+  "name": "Indomitable",
+  "artUrl": null,
+  "description": "<p>Any time a Charm or Curse forces you into a contest, your roll in the contest is ill-favored.</p>",
+  "successes": null,
+  "improvements": [],
+  "source": "6012a723-b5b9-4b3f-abcb-7c8d268654ab",
+  "school": null,
+  "isMagical": false,
+  "isBeastAbility": true,
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": 5,
+  "manaCost": null,
+  "biomeTagsAugment": [],
+  "biomeTagsInhibit": [],
+  "canBeActive": false,
+  "hasDifficulty": false
+}

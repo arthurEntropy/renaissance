@@ -1,0 +1,23 @@
+{
+  "id": "607b6ea4-fa74-439a-b083-2ac5a1112006",
+  "isDeleted": false,
+  "createdAt": "2026-08-03T14:07:36.324Z",
+  "lastModified": "2026-08-04T13:06:12.992Z",
+  "name": "Wall of Mist",
+  "artUrl": "https://cdn.midjourney.com/e19e20df-c330-4a42-a504-461e34075511/0_0.png",
+  "description": "<p><em>Concentration, up to 1 minute.</em></p><p>Uncheck a Condition. If you did, you create a wall of mist within far range that is 20 ft high, 15 ft thick, and up to 100 ft long or a circular wall with a diameter of medium range. The wall limits sight to 15 feet. If the Condition you unchecked was Troubled or Insecure, double the height or triple the thickness of the wall.</p><p>Whenever you maintain concentration for this spell, you may move the wall or part of the wall 5 ft in any direction you choose. Wind moves the cloud, as determined by the GM.</p><p><strong>Describe how you create the wall.</strong></p>",
+  "successes": "",
+  "improvements": [],
+  "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
+  "school": null,
+  "isMagical": true,
+  "isBeastAbility": false,
+  "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
+  "mpCost": null,
+  "xpCost": 15,
+  "manaCost": "1WU",
+  "biomeTagsAugment": [],
+  "biomeTagsInhibit": [],
+  "canBeActive": true,
+  "hasDifficulty": false
+}

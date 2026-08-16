@@ -1,10 +1,10 @@
 {
   "isDeleted": false,
   "createdAt": "2026-05-06T17:55:10.305Z",
-  "lastModified": "2026-06-24T14:43:29.895Z",
+  "lastModified": "2026-07-30T15:59:16.658Z",
   "name": "Net",
   "artUrl": "https://cdn.midjourney.com/846ffa06-7f14-405f-96b5-6f324975d767/0_2.jpeg",
-  "description": "<p>Ensnare</p>",
+  "description": "<p><strong>Ensnare</strong> <em>(If you land a hit with this weapon, your attack roll result becomes the Difficulty and the hit creature becomes grappled. If the creature attempts to escape the grapple, they roll against the Difficulty.)</em></p>",
   "successes": null,
   "improvements": [],
   "source": "5a639d7b-847a-468b-9bbe-5275d31fdf66",
@@ -14,7 +14,7 @@
   "isTemplate": false,
   "isMagical": false,
   "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
-  "subtype": "956839d8-393c-4743-9cb3-8038c8a7aa93",
+  "subtype": "ab765755-b7c9-47ac-b62f-34f069e00dc3",
   "grade": "b92d3394-2c64-487f-8c90-c56ea1cbd3f3",
   "weight": 1,
   "reach": 5,
@@ -34,6 +34,6 @@
   ],
   "defenseBonus": 0,
   "id": "f08a3e74-6849-4773-b46c-44bdaa2c7977",
-  "hasDifficulty": false,
+  "hasDifficulty": true,
   "projectile": false
 }

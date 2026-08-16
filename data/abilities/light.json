@@ -1,7 +1,7 @@
 {
   "id": "e6bb1416-c25c-4684-bee5-f13506d339e7",
   "createdAt": "2026-04-23T14:36:19.643Z",
-  "lastModified": "2026-07-15T01:44:08.393Z",
+  "lastModified": "2026-08-02T00:18:41.062Z",
   "name": "Light",
   "artUrl": "https://cdn.midjourney.com/98ad0182-baa8-41e2-a685-55797d8fa366/0_2.png",
   "description": "<p>You touch one object that is no larger than 10 ft in any dimension. For the next hour, the object sheds light, illuminating an area out to medium range. The light can be colored as you like. The spell ends if you cast it again or spend an action to dismiss it.</p><p><strong>Describe the light.</strong></p>",
@@ -11,5 +11,13 @@
   "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
   "xpCost": 5,
   "canBeActive": false,
-  "hasDifficulty": false
+  "hasDifficulty": false,
+  "improvements": [
+    {
+      "name": "Lights",
+      "description": "<p>You may instead cause up to 10 objects no larger than 1 ft in any dimension within medium range to emit light.</p>",
+      "xpCost": 10,
+      "id": "b5040374-d587-40fa-821b-cfc249ef1e72"
+    }
+  ]
 }

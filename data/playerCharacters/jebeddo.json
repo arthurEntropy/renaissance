@@ -2,11 +2,11 @@
   "id": "a8cb69a9-0146-4aee-bcc1-24b591fe2458",
   "isDeleted": false,
   "createdAt": "2026-07-25T02:30:19.653Z",
-  "lastModified": "2026-07-28T02:51:41.645Z",
+  "lastModified": "2026-07-31T03:43:35.478Z",
   "characterType": "playerCharacter",
   "name": "Jebeddo",
   "featuredArtUrls": [
-    "https://cdn.midjourney.com/ef8f7b85-a18f-49a1-8a2d-238a3eb1cb5a/0_1_640_N.webp"
+    "https://cdn.midjourney.com/60fb6863-799d-4119-807e-b397a9bb7534/0_0.png"
   ],
   "speed": {
     "current": 20,
@@ -222,15 +222,22 @@
       "id": "84239d55-a70b-463e-a8c7-f24d66332816",
       "quantity": 1,
       "isCarried": true,
-      "collapsed": false,
+      "collapsed": true,
       "columnIndex": 1
     },
     {
       "id": "f135fa46-20ff-4a91-a39d-82dad6297158",
       "quantity": 1,
       "isCarried": true,
-      "collapsed": false,
+      "collapsed": true,
       "columnIndex": 2
+    },
+    {
+      "id": "5c461fe0-4ad1-470b-9edd-7c3094190e79",
+      "quantity": 1,
+      "isCarried": true,
+      "isWielding": false,
+      "collapsed": false
     }
   ],
   "groupEquipmentBySource": false,
@@ -321,14 +328,14 @@
   },
   "rollStats": {
     "skillChecks": {
-      "attempts": 2,
-      "successes": 2,
-      "totalSum": 30,
+      "attempts": 4,
+      "successes": 4,
+      "totalSum": 59,
       "bestTotal": 20,
       "hardestSuccess": null,
       "bySkill": {
         "Courtesy": 1,
-        "Strength": 1
+        "Strength": 3
       },
       "solCount": 0,
       "morteCount": 0,
@@ -392,5 +399,5 @@
   "xp": 0,
   "description": "",
   "featuredArtUrl": "https://cdn.midjourney.com/ef8f7b85-a18f-49a1-8a2d-238a3eb1cb5a/0_1_640_N.webp",
-  "updatedAt": "2026-07-28T02:51:41.645Z"
+  "updatedAt": "2026-07-31T03:43:35.478Z"
 }

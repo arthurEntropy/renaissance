@@ -1,0 +1,23 @@
+{
+  "id": "78a82114-a319-492b-b3e4-f01eadb1fb08",
+  "isDeleted": false,
+  "createdAt": "2026-08-03T23:35:07.403Z",
+  "lastModified": "2026-08-04T13:19:18.572Z",
+  "name": "Updraft",
+  "artUrl": "https://cdn.midjourney.com/21387629-fe0f-42d6-a2ec-0e3857ebad34/0_2.png",
+  "description": "<p>Uncheck a Condition. If you did, you create a blast of air that propels you upward to a height equal to your Speed. If the Condition you unchecked was Troubled, you may either propel any number of adjacent creatures to the same height, or propel yourself twice as high.</p><p><strong>Describe the blast.</strong></p>",
+  "successes": null,
+  "improvements": [],
+  "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
+  "school": null,
+  "isMagical": true,
+  "isBeastAbility": false,
+  "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
+  "mpCost": null,
+  "xpCost": 10,
+  "manaCost": "WW",
+  "biomeTagsAugment": [],
+  "biomeTagsInhibit": [],
+  "canBeActive": false,
+  "hasDifficulty": false
+}

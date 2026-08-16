@@ -1,0 +1,16 @@
+{
+  "id": "469ffb2b-40b9-4f8c-be8e-6de882924bac",
+  "createdAt": "2026-04-23T14:17:40.107Z",
+  "lastModified": "2026-08-04T11:47:51.023Z",
+  "name": "Stone Armor",
+  "artUrl": "https://cdn.midjourney.com/cddde480-2d71-4426-b01d-239d461fd91e/0_1.png",
+  "description": "<p><em>Concentration, up to 1 minute.</em></p><p>Uncheck any number of Conditions. For each Condition you unchecked (twice for Guilty), you may create a piece of stone armor, which forms onto the appropriate body part of a creature within medium range:</p><ul><li><p><strong>Helm. </strong>The creature takes +1 temporary Defense and takes +1d to Fortitude rolls.</p></li><li><p><strong>Breastplate. </strong>The creature takes +2 temporary Defense.</p></li><li><p><strong>Gauntlets. </strong>The creature takes +1 temporary Defense and takes +1d to Strength rolls.</p></li><li><p><strong>Greaves.</strong> The creature takes +1 temporary Defense and damage dealt to them by opportunity attacks is halved.</p></li><li><p><strong>Boots. </strong>The creature takes +1 temporary Defense and cannot be pushed or pulled by spell effects.</p></li><li><p><strong>Shield. </strong>The creature takes +3 temporary Defense.</p></li></ul><p>The armor is held in place with your magic and does not add to the creatures' Load. You may form these armor pieces on top of Light or Common armor the creature is wearing, but not Martial, Heavy or Great armor. A creature must have a free hand to wield the shield.</p><p><strong>Describe how you create the armor.</strong></p>",
+  "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
+  "isMagical": true,
+  "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
+  "xpCost": 30,
+  "manaCost": "5G",
+  "canBeActive": true,
+  "hasDifficulty": false,
+  "successes": ""
+}

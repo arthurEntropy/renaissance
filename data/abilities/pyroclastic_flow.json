@@ -1,0 +1,23 @@
+{
+  "id": "b3f8f468-e046-41ae-8bab-5c0a2cd42931",
+  "isDeleted": false,
+  "createdAt": "2026-08-02T02:16:25.999Z",
+  "lastModified": "2026-08-02T02:38:15.248Z",
+  "name": "Pyroclastic Flow",
+  "artUrl": "https://cdn.midjourney.com/a105ec89-34fe-4c83-a121-83c7b12389ad/0_1.jpeg",
+  "description": "<p>You create a fast-moving cloud of smoke and superheated debris. Roll Spirit to set the Difficulty and uncheck any number of Conditions. For each Condition you unchecked (twice for Anger and Guilty):</p><ul><li><p>The cloud's radius increases by 5 ft.</p></li><li><p>The cloud's Speed increases by 20 ft.</p></li><li><p>Whenever the cloud deals damage, it deals an additional 2d6 damage.</p></li><li><p>The cloud persists for 1 additional round.</p></li></ul><p>The cloud appears centered on a point within medium range and moves away from you up to its Speed at the start of each of your turns, moving downhill or - if on flat terrain - continuously in a direction you choose.</p><p>When the cloud appears, each creature within it must roll Dexterity against the Difficulty. On each failure, the cloud deals its damage to the creature. On each pass, half damage.</p><p>Each creature that enters the cloud or begins its turn inside the cloud must roll against the Difficulty, as above. The cloud automatically deals its damage to objects within it, and ignites anything flammable within it.</p><p><strong>Describe the destruction.</strong></p>",
+  "successes": "<p>✨: +1d damage.</p><p>🌞: For each Condition you unchecked (twice for Anger and Guilty), choose one additional effect.</p>",
+  "improvements": [],
+  "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
+  "school": null,
+  "isMagical": true,
+  "isBeastAbility": false,
+  "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
+  "mpCost": null,
+  "xpCost": 40,
+  "manaCost": "4RRGG",
+  "biomeTagsAugment": [],
+  "biomeTagsInhibit": [],
+  "canBeActive": false,
+  "hasDifficulty": false
+}

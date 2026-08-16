@@ -1,0 +1,23 @@
+{
+  "id": "163d9fab-f967-4451-889f-21764a17ada3",
+  "isDeleted": false,
+  "createdAt": "2026-08-13T01:20:36.822Z",
+  "lastModified": "2026-08-13T01:42:53.912Z",
+  "name": "Corrosion",
+  "artUrl": null,
+  "description": "<p>Whenever you hit a creature with a melee attack, you may corrode one ferrous metal object it is wearing or wielding. Permanently downgrade its engagement and damage dice, if any, by one die type and reduce its Defense bonus, if any, by 1. If the object has none of these bonuses, it is destroyed. If all its engagement and damage dice are downgraded below d2, or its Defense bonus reaches 0, it is destroyed.</p><p>Whenever a creature hits you with a melee attack and the creature is within Reach, you may spend a reaction to corrode one ferrous metal object it is wearing or wielding, as above.</p><p>You may spend an action to corrode up to 1 cubic foot of unworn, unwielded ferrous metal you touch into rust.</p>",
+  "successes": null,
+  "improvements": [],
+  "source": "97adb8c8-3812-401d-b324-60320679ea81",
+  "school": null,
+  "isMagical": false,
+  "isBeastAbility": true,
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": 20,
+  "manaCost": null,
+  "biomeTagsAugment": [],
+  "biomeTagsInhibit": [],
+  "canBeActive": false,
+  "hasDifficulty": false
+}

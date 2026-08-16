@@ -2,22 +2,22 @@
   "id": "8a762dde-2929-4301-8b05-30f57350bdec",
   "isDeleted": false,
   "createdAt": "2026-01-22T16:09:04.055Z",
-  "lastModified": "2026-07-15T01:51:20.419Z",
+  "lastModified": "2026-08-03T19:58:33.344Z",
   "name": "Lightning Bolt",
   "artUrl": "https://cdn.midjourney.com/3e81b6ab-4495-44ec-acc7-64178947158e/0_3.png",
-  "description": "<p>Uncheck a Condition. If you did, roll Spirit vs Dexterity against a creature within long range. On a win, it takes 3d6 damage. On a loss, half damage.</p><p>If the unchecked Condition was Angry, +1d damage.</p><p><strong>Describe the lightning.</strong></p>",
+  "description": "<p>Uncheck a Condition. If you did, roll Spirit vs Dexterity against a creature within long range. On a win, it takes 2d6+HEART damage. On a loss, half damage.</p><p>If the Condition you unchecked was Angry, +1d damage.</p><p><strong>Describe the lightning.</strong></p>",
   "successes": "<p>✨: +1d damage.</p><p><strong>🌞: </strong>+2d damage.</p>",
   "improvements": [
     {
       "name": "Chain Lightning",
-      "description": "<p>On a win, you may chain this attack to another creature within short range of the previous target. Roll Spirit vs Dexterity. On a win, the target takes 2d6 damage and you may continue chaining. On a loss, the target takes half damage and the chain ends.</p>",
-      "xpCost": 10,
+      "description": "<p>On a win, you may chain this attack to another creature within short range of the previous target. Roll Spirit vs Dexterity. On a win, the target takes 1d6 damage and you may continue chaining. On a loss, the target takes half damage and the chain ends.</p>",
+      "xpCost": 15,
       "id": "01e2801d-d255-43db-8449-50f729e725ee"
     },
     {
       "name": "Ball Lightning",
       "description": "<p>For the initial attack, you may instead target any number of creatures in a straight line reaching out to long range, using the same roll and triggering the same effect on each win.</p><p>If you have the Chain Lightning advancement, you may chain outward in any direction from each individual win.</p>",
-      "xpCost": 10,
+      "xpCost": 20,
       "id": "51292a75-7ce7-4832-af7e-d8d3afe43b95"
     }
   ],

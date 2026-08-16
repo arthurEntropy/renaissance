@@ -2,11 +2,11 @@
   "id": "bc4960b8-28d0-4d2c-9f7f-99f6cef68706",
   "isDeleted": false,
   "createdAt": "2026-07-25T02:13:15.929Z",
-  "lastModified": "2026-07-28T13:27:31.716Z",
+  "lastModified": "2026-07-31T12:27:04.357Z",
   "characterType": "playerCharacter",
   "name": "Sergio",
   "featuredArtUrls": [
-    "https://cdn.midjourney.com/1d600001-fa0c-4cd7-8d15-151ac4fcfe3c/0_3_640_N.webp"
+    "https://cdn.midjourney.com/c845873a-6dc7-47cc-89e1-1903a4dc622d/0_0.png"
   ],
   "speed": {
     "current": 30,
@@ -289,7 +289,7 @@
       "collapsed": true,
       "showImprovements": false,
       "showSuccesses": false,
-      "isActive": true,
+      "isActive": false,
       "columnIndex": 2
     },
     {
@@ -305,7 +305,7 @@
       "collapsed": true,
       "showImprovements": false,
       "showSuccesses": false,
-      "isActive": true,
+      "isActive": false,
       "columnIndex": 2
     },
     {
@@ -313,7 +313,7 @@
       "collapsed": true,
       "showImprovements": false,
       "showSuccesses": false,
-      "isActive": true,
+      "isActive": false,
       "columnIndex": 2
     },
     {
@@ -365,7 +365,7 @@
     },
     "xpEarned": 0,
     "xpSpent": 0,
-    "treasureEarned": 254,
+    "treasureEarned": 285,
     "treasureSpent": 46
   },
   "biomeTags": [],
@@ -412,5 +412,5 @@
   "xp": 0,
   "description": "",
   "featuredArtUrl": "https://cdn.midjourney.com/1d600001-fa0c-4cd7-8d15-151ac4fcfe3c/0_3_640_N.webp",
-  "updatedAt": "2026-07-28T13:27:31.716Z"
+  "updatedAt": "2026-07-31T12:27:04.357Z"
 }

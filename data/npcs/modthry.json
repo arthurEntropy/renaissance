@@ -2,7 +2,7 @@
   "id": "0687e75f-4f8d-428f-a37f-6a62606c5fb6",
   "isDeleted": false,
   "createdAt": "2026-07-28T17:39:17.660Z",
-  "lastModified": "2026-07-28T19:43:26.105Z",
+  "lastModified": "2026-07-29T19:31:09.166Z",
   "characterType": "npc",
   "name": "Modthry",
   "featuredArtUrls": [
@@ -247,15 +247,17 @@
   "martialTrainingOverrides": {},
   "pronouns": "",
   "ancestryIds": [],
-  "cultureIds": [],
+  "cultureIds": [
+    "352c844b-6d4f-4b61-b475-315421a453e7"
+  ],
   "mestiereId": "",
-  "age": 0,
-  "heightFeet": 0,
-  "heightInches": 0,
-  "weight": 0,
-  "keeping": null,
+  "age": "",
+  "heightFeet": 7,
+  "heightInches": 8,
+  "weight": 700,
+  "keeping": "2b3c4d5e-6f7a-4b8c-9d0e-1f2a3b4c5d6e",
   "treasure": 0,
   "xp": 0,
   "description": "",
-  "updatedAt": "2026-07-28T19:43:26.105Z"
+  "updatedAt": "2026-07-29T19:31:09.166Z"
 }

@@ -1,0 +1,23 @@
+{
+  "id": "adbb2206-db7c-42ed-a2eb-a821426f3faa",
+  "isDeleted": false,
+  "createdAt": "2026-08-03T22:14:33.701Z",
+  "lastModified": "2026-08-04T00:10:12.777Z",
+  "name": "Displace",
+  "artUrl": "https://cdn.midjourney.com/1ca00016-555f-4c8c-8f3c-070044d06775/0_0.png",
+  "description": "<p><em>Trigger: A creature within short range would make a melee attack.</em></p><p>You push the attacking creature 15 feet in a direction you choose.</p><p>Check a Condition. If the Condition you checked was Troubled, you push the creature an additional 15 ft.</p><p><strong>Describe how you push them.</strong></p>",
+  "successes": null,
+  "improvements": [],
+  "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
+  "school": null,
+  "isMagical": true,
+  "isBeastAbility": false,
+  "actionCost": "c4df395c-8284-4c4f-bf01-e293ed51c58c",
+  "mpCost": null,
+  "xpCost": 5,
+  "manaCost": "W",
+  "biomeTagsAugment": [],
+  "biomeTagsInhibit": [],
+  "canBeActive": false,
+  "hasDifficulty": false
+}

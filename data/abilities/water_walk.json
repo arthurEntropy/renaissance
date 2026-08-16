@@ -1,0 +1,23 @@
+{
+  "id": "d60a9e52-1d00-4447-a2c3-02e25f2fe4d3",
+  "isDeleted": false,
+  "createdAt": "2026-08-05T00:27:34.149Z",
+  "lastModified": "2026-08-05T12:24:02.133Z",
+  "name": "Water Walk",
+  "artUrl": "https://cdn.midjourney.com/0d3be430-c540-4c97-a83a-f020b27d783f/0_0.png",
+  "description": "<p>Choose up to 10 willing creatures within short range. For the next hour, the chosen creatures can walk across liquid surfaces as if they were solid.</p><p>The creatures are not protected from any harm that may come from being in contact with a dangerous liquid, such as acid or lava. If you target a creature that is submerged in a liquid, it moves to the surface of the liquid at a rate of 60 ft per turn.</p>",
+  "successes": null,
+  "improvements": [],
+  "source": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
+  "school": "c4a153b2-8906-4b95-be65-d8e5a5cc73ff",
+  "isMagical": true,
+  "isBeastAbility": false,
+  "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
+  "mpCost": 3,
+  "xpCost": 15,
+  "manaCost": null,
+  "biomeTagsAugment": [],
+  "biomeTagsInhibit": [],
+  "canBeActive": true,
+  "hasDifficulty": false
+}

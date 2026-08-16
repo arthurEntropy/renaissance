@@ -1,0 +1,23 @@
+{
+  "id": "1bba1366-9070-4784-8ef3-21f33400727e",
+  "isDeleted": false,
+  "createdAt": "2026-08-03T14:13:45.698Z",
+  "lastModified": "2026-08-03T15:40:15.147Z",
+  "name": "Wall of Ice",
+  "artUrl": "https://cdn.midjourney.com/f9bf8a31-bca3-4eba-aa24-a96abcf7eced/0_0.png",
+  "description": "<p><em>Concentration, up to 1 minute.</em></p><p>You create a wall of ice within medium range that is 15 ft high, 5 ft thick, and up to 30 ft long or a circular wall with a diameter of short range. Uncheck any number of Conditions and roll Spirit to set the Difficulty. For each Condition you unchecked (twice for Insecure and Afraid), the Difficulty increases by 2.</p><p>Each creature that is within the wall when it's created must roll Dexterity against the Difficulty. On a failure, the creature takes 1d10 damage, is frozen inside the wall and cannot breathe. On a pass, it takes half damage and may move out of the wall in a direction it chooses.</p><p>Each 5 ft section of the wall has Endurance equal to the Difficulty and Defense equal to half the Difficulty. A creature must roll Strength or Dexterity against the Difficulty to climb over it.</p><p><strong>Describe how you create the wall.</strong></p>",
+  "successes": "<p>✨: +1d damage.</p><p>🌞: You may maintain concentration for 1 additional minute.</p>",
+  "improvements": [],
+  "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
+  "school": null,
+  "isMagical": true,
+  "isBeastAbility": false,
+  "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
+  "mpCost": null,
+  "xpCost": 25,
+  "manaCost": "3UB",
+  "biomeTagsAugment": [],
+  "biomeTagsInhibit": [],
+  "canBeActive": true,
+  "hasDifficulty": true
+}

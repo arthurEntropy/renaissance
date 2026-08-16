@@ -1,9 +1,9 @@
 {
   "id": "34799d66-7466-4505-8013-dcfe8c5e8614",
   "isDeleted": false,
-  "lastModified": "2026-07-14T13:57:47.959Z",
+  "lastModified": "2026-07-30T00:46:37.717Z",
   "name": "Fortune Telling",
-  "description": "<p><em>You've seen how fortune telling - real or not - can influence people's actions.</em></p><p>When you gain this ability, choose a technique like palm reading, astrology or reading tea leaves.</p><p>Once per long rest, you may spend at least 1 minute performing your technique to tell a humanoid creature's fortune, then select a skill. For the next day, whenever the creature rolls the selected skill, they get +1d or -1d, your choice.</p><p>If you chose +1d, the effect ends if they fail/lose a roll using the selected skill. If you chose -1d, the effect ends if they pass/win a roll using the selected skill.</p><p><strong>Describe your technique and to what degree you believe in it.</strong></p>",
+  "description": "<p><em>You've seen how fortune telling - real or not - can influence people's actions.</em></p><p>When you gain this ability, choose a technique like palm reading, astrology or reading tea leaves.</p><p>Once per long rest, you may spend at least 1 minute performing your technique to tell a humanoid creature's fortune (in their attentive presence), then select a skill. For the next day, whenever the creature rolls the selected skill, they get +1d or -1d, your choice.</p><p>If you chose +1d, the effect ends if they fail/lose a roll using the selected skill. If you chose -1d, the effect ends if they pass/win a roll using the selected skill.</p><p><strong>Describe your technique and to what degree you believe in it.</strong></p>",
   "source": "55494a30-a1bb-47c3-aae9-2db3a5bfcb8b",
   "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
   "mpCost": null,

@@ -1,10 +1,10 @@
 {
   "id": "dd7acfdd-58e6-4d0f-8242-daeddf2510d6",
   "createdAt": "2026-04-16T18:34:25.873Z",
-  "lastModified": "2026-04-16T18:42:50.050Z",
+  "lastModified": "2026-08-04T01:42:04.951Z",
   "name": "Stoneskin",
   "artUrl": "https://cdn.midjourney.com/b668ba5b-dd5e-458f-ae62-c939b2d7b34c/0_1.png",
-  "description": "<p><em>Concentration, up to 1 hour.</em></p><p>You touch a willing creature. Uncheck a Condition. If you did, that creature's skin turns hard as stone. Halve all damage dealt to it.</p><p>If the Condition you unchecked was Guilty, the creature also takes +1d to damage rolls.</p><p><strong>Describe the change.</strong></p>",
+  "description": "<p><em>Concentration, up to 1 hour.</em></p><p>You touch a willing creature. Uncheck any number of Conditions. For each Condition you unchecked (twice for Guilty), choose one:</p><ul><li><p>The creature takes +5 temporary Defense.</p></li><li><p>Halve all damage dealt to the creature.</p></li><li><p>Halve all Injury dealt the creature.</p></li><li><p>The creature takes +1d to damage rolls for unarmed strikes.</p></li><li><p>The creature's Fortitude rolls are favored.</p></li></ul><p>Choose each effect only once. Regardless of which effects you choose, the creature's Speed is reduced by 10 ft.</p><p><strong>Describe the change.</strong></p>",
   "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
   "isMagical": true,
   "actionCost": "40656418-af01-43ae-8a60-a1bd0124efb4",

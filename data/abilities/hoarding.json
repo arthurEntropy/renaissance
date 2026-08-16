@@ -1,10 +1,10 @@
 {
   "id": "01c9a39c-4819-450d-826f-3af51127b15d",
   "createdAt": "2026-02-26T01:26:50.510Z",
-  "lastModified": "2026-07-15T00:59:07.813Z",
+  "lastModified": "2026-08-11T18:36:21.884Z",
   "name": "Hoarding",
   "artUrl": "https://cdn.midjourney.com/4f41e3d0-d93d-42c4-8b1a-5a43f6b7bff1/0_1.png",
-  "description": "<p><em>You feel an irresistible urge to gather a hoard of gold, jewels and other finery, and you gain special benefits from being atop it.</em></p><p>At the end of each long rest (or each night of Intermezzo) where you sleep atop your hoard while it is spread out in an enclosed, private space, add together the total Treasure you have with you, plus the cost, in Treasure, of all the equipment items you have with you. For every 20 Treasure of value, choose one (choose each option only once):</p><ul><li><p>Uncheck a Condition.</p></li><li><p>Remove 1 Injury.</p></li><li><p>Gain 1 Hope, up to your base.</p></li></ul><p>While atop your hoard in an enclosed private space, all your rolls are favored. If a creature threatens your hoard, all your rolls against it are favored, indefinitely.</p><p><strong>Describe your relationship with gold and other riches.</strong></p>",
+  "description": "<p><em>You feel an irresistible urge to gather a hoard of gold, jewels and other finery, and you gain special benefits from being atop it.</em></p><p>At the end of each long rest (or each night of Intermezzo) where you sleep atop your hoard while it is spread out in an enclosed, private space, add together the total Treasure you have with you, plus the cost, in Treasure, of all the equipment items you have with you. For every 20 Treasure of value, choose one (choose each option only once):</p><ul><li><p>Uncheck a Condition.</p></li><li><p>Remove 1 Injury.</p></li><li><p>Gain 1 Hope, up to your base.</p></li></ul><p>While atop your hoard in an enclosed private space, all your rolls are favored. If a creature steals from your hoard, all your rolls against it are favored, indefinitely.</p><p><strong>Describe your relationship with gold and other riches.</strong></p>",
   "source": "ba7af7ad-54d2-4b45-86ad-71781d4cdb33",
   "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
   "canBeActive": false,

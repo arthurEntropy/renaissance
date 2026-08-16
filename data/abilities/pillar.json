@@ -1,0 +1,23 @@
+{
+  "id": "c754acf3-b6b3-43ed-9863-7379c2dda939",
+  "isDeleted": false,
+  "createdAt": "2026-08-04T01:43:42.416Z",
+  "lastModified": "2026-08-04T11:49:06.413Z",
+  "name": "Pillar",
+  "artUrl": "https://cdn.midjourney.com/12a0c0a8-75ab-40df-ad6a-2e91d9077db7/0_3.jpeg",
+  "description": "<p>You cause a 5 ft diameter pillar of earth to rise out of the ground at a point within medium range, up to a height equal to your Speed. Check a Condition. If the Condition you checked was Guilty, you may double the diameter or height.</p><p>You may choose to have the pillar rise gently or violently. If the latter, roll Spirit vs Dexterity against each creature on the ground where the pillar emerges. On each win, the creature is carried with the top of the pillar. On each loss, the creature is pushed outside the area where the pillar emerges.</p><p><strong>Describe how you create the pillar.</strong></p>",
+  "successes": null,
+  "improvements": [],
+  "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
+  "school": null,
+  "isMagical": true,
+  "isBeastAbility": false,
+  "actionCost": "40656418-af01-43ae-8a60-a1bd0124efb4",
+  "mpCost": null,
+  "xpCost": 10,
+  "manaCost": "1G",
+  "biomeTagsAugment": [],
+  "biomeTagsInhibit": [],
+  "canBeActive": false,
+  "hasDifficulty": false
+}
