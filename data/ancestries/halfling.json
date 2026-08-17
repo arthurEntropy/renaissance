@@ -2,7 +2,7 @@
   "id": "77e4f81a-728f-49a7-a013-4d6f666353e2",
   "conceptType": "ANCESTRY",
   "name": "Halfling",
-  "description": "<p>Of modest height and build, Halflings are lighter on their feet than almost anyone has a right to be. Their senses are sharp, their reflexes quicker than their size implies, and they have a long-established reputation for appearing in exactly the place you weren't watching.</p>",
+  "description": "<p>Halflings are compact and nimble, with quick reflexes and an uncanny knack for passing through danger unscathed. They possess remarkable hand-eye coordination when throwing, and their small frames belie a stubborn resilience that allows them to keep going when others might falter.</p>",
   "isDeleted": false,
   "featuredArtUrls": [
     "https://cdn.midjourney.com/033e30ef-e853-44db-971b-ba105fd8a590/0_3.png"
@@ -10,7 +10,7 @@
   "backgroundImage": "",
   "cardBackgroundImage": "https://cdn.midjourney.com/12e9b421-4ba7-445a-babd-354b5e673fd3/0_2.png",
   "expansion": "",
-  "lastModified": "2026-02-25T14:25:14.291Z",
+  "lastModified": "2026-08-11T19:24:48.579Z",
   "physiology": {
     "heightMin": 3,
     "heightMax": 4,

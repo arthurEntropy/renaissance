@@ -7,7 +7,7 @@ class BaseEntityService {
   }
 
   async create(overrides = {}) {
-    const newEntity = { ...this.getDefaultEntity(), ...overrides }
+    const newEntity = { ...this.getDefaultEntity(overrides.conceptType), ...overrides }
     try {
       const response = await apiClient.post(this.endpoint, newEntity)
       return response.data

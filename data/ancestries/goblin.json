@@ -2,7 +2,7 @@
   "id": "6ff91bc4-122f-4e95-bb08-b577f1a94bb6",
   "conceptType": "ANCESTRY",
   "name": "Goblin",
-  "description": "<p>Small, quick, and famously mischievous, Goblins are possessed of more energy than their frame suggests it can contain. Whatever darkness may have touched their ancient origins has long since been worn away by the ordinary work of living. What persists is spryness, tenacity and a willingness to throw caution to the wind.</p>",
+  "description": "<p>Small, quick, and famously mischievous, Goblins are possessed of more energy than their frame suggests it can contain. Whatever darkness may have touched their ancient origins has long since been worn away by the ordinary work of day-to-day life. What persists is spryness, tenacity and a willingness to throw caution to the wind.</p>",
   "isDeleted": false,
   "featuredArtUrls": [
     "https://cdn.midjourney.com/33cf6394-1488-4dbf-b76d-e9205a9410cd/0_2.png"
@@ -10,7 +10,7 @@
   "backgroundImage": "",
   "cardBackgroundImage": "https://cdn.midjourney.com/787576dd-0a5c-4e70-a08a-a61ac19e4312/0_1.png",
   "expansion": "",
-  "lastModified": "2026-07-21T13:43:11.699Z",
+  "lastModified": "2026-08-11T19:11:07.519Z",
   "physiology": {
     "heightMin": 3,
     "heightMax": 4,

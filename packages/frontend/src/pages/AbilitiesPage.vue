@@ -22,9 +22,9 @@
     <!-- Item cards slot -->
     <template #item-cards="{ items }">
       <AbilityCard v-for="ability in items" :key="ability.id" :ability="ability" :editable="isAdmin" :sources="sources"
-        :collapsible="false" :showImprovements="getAbilityShowImprovements(ability.id)" @delete="deleteAbility(ability)"
-        @update="handleUpdate" @edit="openEditAbilityModal(ability)"
-        @update:showImprovements="updateAbilityShowImprovements(ability.id, $event)"
+        :duplicatable="isAdmin" :collapsible="false" :showImprovements="getAbilityShowImprovements(ability.id)"
+        @delete="deleteAbility(ability)" @update="handleUpdate" @edit="openEditAbilityModal(ability)"
+        @duplicate="handleDuplicateAbility" @update:showImprovements="updateAbilityShowImprovements(ability.id, $event)"
         :showSuccesses="getAbilityShowSuccesses(ability.id)"
         @update:showSuccesses="updateAbilityShowSuccesses(ability.id, $event)" :character="selectedCharacter"
         :show-improvement-toggle="!!selectedCharacter" />
@@ -70,58 +70,58 @@
     </FilterBar>
 
     <!-- School Grouped view -->
-    <GroupedMasonryGrid v-if="groupByOption === 'school'" :gap="20" :row-height="10" justify-content="start"
+    <GroupedMasonryGrid v-if="groupByOption === 'school'" :gap="20" :row-height="10" justify-content="center"
       :grouped-items="schoolGroupedAbilities" :persistence-key="`abilities-school-groups`" class="cards-container">
       <template #default="{ item }">
-        <AbilityCard :ability="item" :editable="isAdmin" :sources="sources" :collapsible="false"
+        <AbilityCard :ability="item" :editable="isAdmin" :sources="sources" :duplicatable="isAdmin" :collapsible="false"
           :showImprovements="getAbilityShowImprovements(item.id)"
           @update:showImprovements="updateAbilityShowImprovements(item.id, $event)" @edit="openEditAbilityModal(item)"
-          :character="selectedCharacter" :show-improvement-toggle="!!selectedCharacter"
-          :showSuccesses="getAbilityShowSuccesses(item.id)"
+          @duplicate="handleDuplicateAbility" :character="selectedCharacter"
+          :show-improvement-toggle="!!selectedCharacter" :showSuccesses="getAbilityShowSuccesses(item.id)"
           @update:showSuccesses="updateAbilityShowSuccesses(item.id, $event)" @update="handleUpdate"
           @delete="deleteAbility(item)" />
       </template>
     </GroupedMasonryGrid>
 
     <!-- Mana Color Grouped view -->
-    <GroupedMasonryGrid v-else-if="groupByOption === 'mana-color'" :gap="20" :row-height="10" justify-content="start"
+    <GroupedMasonryGrid v-else-if="groupByOption === 'mana-color'" :gap="20" :row-height="10" justify-content="center"
       :grouped-items="manaColorGroupedAbilities" :persistence-key="`abilities-mana-color-groups`"
       class="cards-container">
       <template #default="{ item }">
-        <AbilityCard :ability="item" :editable="isAdmin" :sources="sources" :collapsible="false"
+        <AbilityCard :ability="item" :editable="isAdmin" :sources="sources" :duplicatable="isAdmin" :collapsible="false"
           :showImprovements="getAbilityShowImprovements(item.id)"
           @update:showImprovements="updateAbilityShowImprovements(item.id, $event)" @edit="openEditAbilityModal(item)"
-          :character="selectedCharacter" :show-improvement-toggle="!!selectedCharacter"
-          :showSuccesses="getAbilityShowSuccesses(item.id)"
+          @duplicate="handleDuplicateAbility" :character="selectedCharacter"
+          :show-improvement-toggle="!!selectedCharacter" :showSuccesses="getAbilityShowSuccesses(item.id)"
           @update:showSuccesses="updateAbilityShowSuccesses(item.id, $event)" @update="handleUpdate"
           @delete="deleteAbility(item)" />
       </template>
     </GroupedMasonryGrid>
 
     <!-- Source Grouped view -->
-    <GroupedMasonryGrid v-else-if="groupByOption === 'source'" :gap="20" :row-height="10" justify-content="start"
+    <GroupedMasonryGrid v-else-if="groupByOption === 'source'" :gap="20" :row-height="10" justify-content="center"
       :grouped-items="sourceGroupedAbilities" :persistence-key="`abilities-source-groups`" class="cards-container">
       <template #default="{ item }">
-        <AbilityCard :ability="item" :editable="isAdmin" :sources="sources" :collapsible="false"
+        <AbilityCard :ability="item" :editable="isAdmin" :sources="sources" :duplicatable="isAdmin" :collapsible="false"
           :showImprovements="getAbilityShowImprovements(item.id)"
           @update:showImprovements="updateAbilityShowImprovements(item.id, $event)" @edit="openEditAbilityModal(item)"
-          :character="selectedCharacter" :show-improvement-toggle="!!selectedCharacter"
-          :showSuccesses="getAbilityShowSuccesses(item.id)"
+          @duplicate="handleDuplicateAbility" :character="selectedCharacter"
+          :show-improvement-toggle="!!selectedCharacter" :showSuccesses="getAbilityShowSuccesses(item.id)"
           @update:showSuccesses="updateAbilityShowSuccesses(item.id, $event)" @update="handleUpdate"
           @delete="deleteAbility(item)" />
       </template>
     </GroupedMasonryGrid>
 
     <!-- Action Type Grouped view -->
-    <GroupedMasonryGrid v-else-if="groupByOption === 'action-type'" :gap="20" :row-height="10" justify-content="start"
+    <GroupedMasonryGrid v-else-if="groupByOption === 'action-type'" :gap="20" :row-height="10" justify-content="center"
       :grouped-items="actionTypeGroupedAbilities" :persistence-key="`abilities-action-type-groups`"
       class="cards-container">
       <template #default="{ item }">
-        <AbilityCard :ability="item" :editable="isAdmin" :sources="sources" :collapsible="false"
+        <AbilityCard :ability="item" :editable="isAdmin" :sources="sources" :duplicatable="isAdmin" :collapsible="false"
           :showImprovements="getAbilityShowImprovements(item.id)"
           @update:showImprovements="updateAbilityShowImprovements(item.id, $event)" @edit="openEditAbilityModal(item)"
-          :character="selectedCharacter" :show-improvement-toggle="!!selectedCharacter"
-          :showSuccesses="getAbilityShowSuccesses(item.id)"
+          @duplicate="handleDuplicateAbility" :character="selectedCharacter"
+          :show-improvement-toggle="!!selectedCharacter" :showSuccesses="getAbilityShowSuccesses(item.id)"
           @update:showSuccesses="updateAbilityShowSuccesses(item.id, $event)" @update="handleUpdate"
           @delete="deleteAbility(item)" />
       </template>
@@ -459,8 +459,8 @@ const schoolGroupedAbilities = computed(() => {
   }
 
   const result = Object.values(groups).sort((a, b) => {
-    if (a.id === '__no-school__') return 1
-    if (b.id === '__no-school__') return -1
+    if (a.id === '__no-school__') return -1
+    if (b.id === '__no-school__') return 1
     return a.name.localeCompare(b.name)
   })
 
@@ -498,13 +498,17 @@ const sourceGroupedAbilities = computed(() => {
   const groups = {}
   allFilteredAbilities.value.forEach(ability => {
     const sourceId = ability.source
-    const sourceName = sourcesStore.getSourceName(sourceId) || 'Unknown Source'
+    const sourceName = sourcesStore.getSourceName(sourceId) || 'No Source'
     if (!groups[sourceId]) {
       groups[sourceId] = { id: sourceId, name: sourceName, collapsed: false, items: [] }
     }
     groups[sourceId].items.push(ability)
   })
-  return Object.values(groups).sort((a, b) => a.name.localeCompare(b.name))
+  return Object.values(groups).sort((a, b) => {
+    if (!a.id) return -1
+    if (!b.id) return 1
+    return a.name.localeCompare(b.name)
+  })
 })
 
 // Grouped abilities by action cost
@@ -513,13 +517,17 @@ const actionTypeGroupedAbilities = computed(() => {
   const groups = {}
   allFilteredAbilities.value.forEach(ability => {
     const actionTypeId = ability.actionCost
-    const actionTypeName = actionTypesStore.getById(actionTypeId)?.name || 'Unknown Action Cost'
+    const actionTypeName = actionTypesStore.getById(actionTypeId)?.name || 'No Action Cost'
     if (!groups[actionTypeId]) {
       groups[actionTypeId] = { id: actionTypeId, name: actionTypeName, collapsed: false, items: [] }
     }
     groups[actionTypeId].items.push(ability)
   })
-  return Object.values(groups).sort((a, b) => a.name.localeCompare(b.name))
+  return Object.values(groups).sort((a, b) => {
+    if (!a.id) return -1
+    if (!b.id) return 1
+    return a.name.localeCompare(b.name)
+  })
 })
 
 // Statistics
@@ -609,6 +617,10 @@ const saveEditedAbility = async (editedAbility) => {
   closeEditAbilityModal()
 }
 
+const handleDuplicateAbility = (newAbility) => {
+  openEditAbilityModal(newAbility)
+}
+
 // Data initialization
 const refreshData = async () => {
   try {
@@ -657,9 +669,27 @@ const layoutProps = computed(() => ({
   flex-direction: column;
   align-items: center;
   width: 90%;
-  max-width: 1460px;
+  max-width: 1110px;
   margin: 0 auto;
   gap: var(--space-lg);
+}
+
+@media (min-width: 1623px) {
+  .abilities-page {
+    max-width: 1480px;
+  }
+}
+
+@media (max-width: 1211px) {
+  .abilities-page {
+    max-width: 720px;
+  }
+}
+
+@media (max-width: 799px) {
+  .abilities-page {
+    max-width: 350px;
+  }
 }
 
 .cards-container {

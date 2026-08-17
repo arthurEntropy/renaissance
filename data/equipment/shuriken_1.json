@@ -1,7 +1,7 @@
 {
   "isDeleted": false,
   "createdAt": "2026-05-06T17:55:10.305Z",
-  "lastModified": "2026-07-27T15:02:29.772Z",
+  "lastModified": "2026-07-31T13:46:09.566Z",
   "name": "Shuriken",
   "artUrl": "https://cdn.midjourney.com/9ed070f3-f291-4ab8-8a96-a63d32ca2fbf/0_0.png",
   "description": "<p>Attacks made with Shuriken only cost one half action.</p>",
@@ -21,7 +21,7 @@
   "range": "c8e24244-5f2f-42a5-848c-1a4371dd1922",
   "twoHanded": false,
   "thrown": true,
-  "finesse": true,
+  "finesse": false,
   "piercing": false,
   "damageDice": [
     2

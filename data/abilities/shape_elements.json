@@ -1,0 +1,23 @@
+{
+  "id": "466fca24-6145-4745-8e56-10b39bfe3ae8",
+  "isDeleted": false,
+  "createdAt": "2026-08-04T11:50:24.616Z",
+  "lastModified": "2026-08-04T13:13:02.212Z",
+  "name": "Shape Elements",
+  "artUrl": "https://cdn.midjourney.com/d7f06105-d5b3-432d-b590-b376d757ede0/0_2.png",
+  "description": "<p>You are able to shape the elements at-will, as a free action, to cause minor effects within short range:</p><ul><li><p><strong>Air.</strong> You may cause a small, focused puff of wind, cause gentle movements of air, or create an area of stillness.</p></li><li><p><strong>Water.</strong> You may move or levitate up to a gallon of water, cause small waves in a body of water, or stop or accelerate the flow of a small stream.</p></li><li><p><strong>Darkness. </strong>You may halve the brightness of a single light source, create a small area of shade in sunlight, or partially obscure an area no larger than you.</p></li><li><p><strong>Fire. </strong>You may light or snuff a candle, torch or small campfire, create a small flame in your palm, or warm and object you're holding.</p></li><li><p><strong>Earth. </strong>You may shift, shape or levitate stones or sections of stone up to 10 lbs.</p></li></ul><p>The GM may allow you to achieve other effects of similar scale, at their discretion.</p>",
+  "successes": null,
+  "improvements": [],
+  "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
+  "school": null,
+  "isMagical": true,
+  "isBeastAbility": false,
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": null,
+  "manaCost": null,
+  "biomeTagsAugment": [],
+  "biomeTagsInhibit": [],
+  "canBeActive": false,
+  "hasDifficulty": false
+}

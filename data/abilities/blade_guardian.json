@@ -2,16 +2,17 @@
   "id": "ec5cca33-66bb-4976-b205-877ba1b01a4b",
   "isDeleted": false,
   "createdAt": "2026-01-28T15:10:11.604Z",
-  "lastModified": "2026-07-12T23:37:18.899Z",
+  "lastModified": "2026-08-03T22:13:33.257Z",
   "name": "Blade Guardian",
   "artUrl": "https://cdn.midjourney.com/821f89d8-7e4d-4955-98bd-b75aae5814fa/0_0.png",
-  "description": "<p><em>Concentration, up to one minute.</em></p><p>You create a magical floating blade that protects a creature you choose within short range. The blade provides the creature a number of temporary d4 Engagement dice equal to your HEART score.</p><p>Check a Condition.</p><p><strong>Describe the blade.</strong></p>",
-  "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
+  "description": "<p><em>Concentration, up to 1 minute.</em></p><p>You create a magical floating blade that protects a creature you choose within short range. The blade provides the creature a number of temporary d4 Engagement dice equal to your HEART score.</p><p>Check a Condition. If the Condition you checked was Troubled, they also gain access to the Parry engagement success effect.</p><p><strong>Describe the blade.</strong></p>",
+  "source": "49f10189-9634-4083-933b-fa74c2583b87",
   "isMagical": true,
   "actionCost": "40656418-af01-43ae-8a60-a1bd0124efb4",
   "mpCost": null,
   "xpCost": 10,
-  "manaCost": "1W",
+  "manaCost": "",
   "canBeActive": true,
-  "hasDifficulty": false
+  "hasDifficulty": false,
+  "school": null
 }

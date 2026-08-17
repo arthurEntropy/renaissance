@@ -1,0 +1,23 @@
+{
+  "id": "579a8da9-3cbd-4df9-bd0f-76f40f414271",
+  "isDeleted": false,
+  "createdAt": "2026-08-04T12:27:27.920Z",
+  "lastModified": "2026-08-04T12:33:26.472Z",
+  "name": "Divert",
+  "artUrl": "https://cdn.midjourney.com/40c9c544-00a7-4517-89c3-6a163f43be3b/0_2.png",
+  "description": "<p><em>Trigger: A creature within medium range would make a melee attack.</em></p><p>The creature must spend a half action to continue with the attack.</p><p>Check a Condition. If the Condition you checked was Insecure, the creature must also spend a reaction to continue with the attack.</p><p><strong>Describe how you interfere.</strong></p>",
+  "successes": null,
+  "improvements": [],
+  "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
+  "school": null,
+  "isMagical": true,
+  "isBeastAbility": false,
+  "actionCost": "c4df395c-8284-4c4f-bf01-e293ed51c58c",
+  "mpCost": null,
+  "xpCost": 15,
+  "manaCost": "2U",
+  "biomeTagsAugment": [],
+  "biomeTagsInhibit": [],
+  "canBeActive": false,
+  "hasDifficulty": false
+}

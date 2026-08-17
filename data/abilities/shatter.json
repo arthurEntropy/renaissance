@@ -1,16 +1,18 @@
 {
   "id": "8c407283-06cb-4843-a67f-0bfc792ba34e",
   "createdAt": "2026-04-23T12:58:19.839Z",
-  "lastModified": "2026-07-16T13:20:35.002Z",
+  "lastModified": "2026-08-05T00:09:50.604Z",
   "name": "Shatter",
   "artUrl": "https://cdn.midjourney.com/29ad2152-1175-405c-a4d5-8e77104dccd3/0_1.png",
-  "description": "<p>Uncheck a Condition. If you did, choose a point within medium range. You create an explosive concussion of force centered on that point.</p><p>Roll Spirit vs Fortitude against each creature within short range of the point. On each win, the creature takes 3d8 damage. On each loss, half damage. Either way, if the creature is made inorganic material such as stone or metal, double the damage. Mundane objects within the area automatically take the damage. Magical objects within the area automatically take half damage.</p><p>If the Condition you unchecked was Angry, +1d damage.</p><p><strong>Describe the sound.</strong></p>",
-  "successes": "<p>✨: +1d damage.</p><p>🌞: On each win, the creature is knocked prone and deafened for 1 minute.</p>",
-  "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
+  "description": "<p>Choose a point within medium range. You create an explosive concussion of force centered on that point.</p><p>Roll Lore vs Fortitude against each creature within short range of the point. On each win, the creature takes 1d8 damage. On each loss, half damage. Either way, if the creature is made inorganic material such as stone or metal, double the damage. Mundane objects within the area automatically take the damage. Magical objects within the area automatically take half damage.</p><p><strong>Describe the sound.</strong></p>",
+  "successes": "<p>✨: +1d damage.</p><p>🌞: On each win, the creature is knocked prone and deafened for 1 minute.</p><p>💀: The explosion causes you to lose your hearing for 10 minutes.</p>",
+  "source": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
   "isMagical": true,
   "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
   "xpCost": 15,
-  "manaCost": "2R",
+  "manaCost": "",
   "canBeActive": false,
-  "hasDifficulty": false
+  "hasDifficulty": false,
+  "school": "0341bd63-648c-48c2-ba5d-ce92322e5a09",
+  "mpCost": 2
 }

@@ -2,11 +2,11 @@
   "id": "0f6f7b18-4fa1-4a7c-993b-173437f1cd79",
   "isDeleted": false,
   "createdAt": "2026-07-25T00:22:58.175Z",
-  "lastModified": "2026-07-29T00:31:44.530Z",
+  "lastModified": "2026-08-16T20:38:32.185Z",
   "characterType": "playerCharacter",
   "name": "Himo",
   "featuredArtUrls": [
-    "https://cdn.midjourney.com/d540e4e9-8b5c-4fd1-b7ab-41ee29f97979/0_2.jpeg"
+    "https://cdn.midjourney.com/8ca5d116-21d5-4a5f-bb7c-7ceaf793a311/0_3.png"
   ],
   "speed": {
     "current": 0,
@@ -365,17 +365,17 @@
     {
       "id": "e568f464-e5bd-45f5-817e-74a4d9a7e90e",
       "difficulty": null,
-      "imageUrl": "/src/assets/icons/hunter/box_trap.png"
+      "imageUrl": "/assets/box_trap-UKovvTGi.png"
     },
     {
       "id": "251f0746-4167-452f-b0b2-8e2f35a93058",
       "difficulty": null,
-      "imageUrl": "/src/assets/icons/hunter/wolf_trap.png"
+      "imageUrl": "/assets/lasso-BdSimWVP.png"
     },
     {
       "id": "cd196a8f-517b-4248-af9c-593f6f196421",
-      "difficulty": 7,
-      "imageUrl": "/src/assets/icons/hunter/spiky_pit.png"
+      "difficulty": null,
+      "imageUrl": "/assets/wolf_trap-BxLxSTHf.png"
     }
   ],
   "campaignId": null,
@@ -400,5 +400,5 @@
   "xp": 0,
   "description": "",
   "featuredArtUrl": "https://cdn.midjourney.com/d540e4e9-8b5c-4fd1-b7ab-41ee29f97979/0_2.jpeg",
-  "updatedAt": "2026-07-29T00:31:44.530Z"
+  "updatedAt": "2026-08-16T20:38:32.185Z"
 }

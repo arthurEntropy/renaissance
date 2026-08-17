@@ -1,0 +1,42 @@
+{
+  "id": "7a024694-31ab-4f17-a652-2c15c7b8925e",
+  "isDeleted": false,
+  "createdAt": "2026-08-13T01:59:53.547Z",
+  "lastModified": "2026-08-13T02:22:36.358Z",
+  "name": "Rusted Shortsword",
+  "artUrl": null,
+  "description": "",
+  "successes": null,
+  "improvements": [],
+  "source": "6012a723-b5b9-4b3f-abcb-7c8d268654ab",
+  "school": null,
+  "keeping": "2b3c4d5e-6f7a-4b8c-9d0e-1f2a3b4c5d6e",
+  "isCustom": false,
+  "isTemplate": false,
+  "isMagical": false,
+  "isBeastEquipment": true,
+  "hasDifficulty": false,
+  "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
+  "subtype": "ab765755-b7c9-47ac-b62f-34f069e00dc3",
+  "grade": "847d1092-fd43-4d58-b3da-002e6f3b7f3d",
+  "weight": 2,
+  "reach": 0,
+  "range": null,
+  "twoHanded": false,
+  "thrown": false,
+  "finesse": false,
+  "piercing": false,
+  "projectile": false,
+  "damageDice": [
+    6
+  ],
+  "engagementDice": [
+    6
+  ],
+  "engagementSuccesses": [
+    "a1b2c3d4-e5f6-47a8-b9c0-d1e2f3a4b5c6",
+    "c3d4e5f6-a7b8-49c0-d1e2-f3a4b5c6d7e8",
+    "e1f2a3b4-c5d6-47e8-f9a0-b1c2d3e4f5a6"
+  ],
+  "defenseBonus": 0
+}

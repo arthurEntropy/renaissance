@@ -1,0 +1,23 @@
+{
+  "id": "f3565514-709e-429a-84df-10bd99bd6584",
+  "isDeleted": false,
+  "createdAt": "2026-08-02T02:02:32.589Z",
+  "lastModified": "2026-08-02T02:46:40.014Z",
+  "name": "Ice Storm",
+  "artUrl": "https://cdn.midjourney.com/afcd567c-b234-42af-a8c6-4a3ba38a2c16/0_1.jpeg",
+  "description": "<p><em>Concentration, up to 1 minute.</em></p><p>Choose a point within far range. You create a swirling cloud of ice shards extending out to medium range from the chosen point. Uncheck any number of Conditions and roll Spirit to set the Difficulty.</p><p>When the cloud appears around a creature and each time a creature starts its turn in the cloud, it must roll Fortitude against the Difficulty. On each failure, for each Condition you unchecked (twice for Troubled, Insecure and Afraid), the creature takes 1 Injury. On each pass, half as much Injury (minimum 1 Injury).</p><p><strong>Describe the storm.</strong></p>",
+  "successes": "<p>✨: You may extend the cloud's radius by an additional 5 ft.</p><p>🌞: Pass or fail, double the amount of Injury.</p>",
+  "improvements": [],
+  "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
+  "school": null,
+  "isMagical": true,
+  "isBeastAbility": false,
+  "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
+  "mpCost": null,
+  "xpCost": 20,
+  "manaCost": "1WUB",
+  "biomeTagsAugment": [],
+  "biomeTagsInhibit": [],
+  "canBeActive": false,
+  "hasDifficulty": false
+}

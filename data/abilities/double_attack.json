@@ -1,0 +1,23 @@
+{
+  "id": "bfe93949-2e88-40dd-9e6e-657362567486",
+  "isDeleted": false,
+  "createdAt": "2026-08-13T00:51:27.266Z",
+  "lastModified": "2026-08-13T02:47:28.330Z",
+  "name": "Double Attack",
+  "artUrl": null,
+  "description": "<p>Whenever you spend an action to make a melee attack, you may make a second attack this turn.</p><p>The second attack may have a different target and you may use movement or take other actions between the attacks. If both attacks have the same target and are consecutive, use the result of the first attack's engagement for the second attack. Otherwise, roll engagement for each attack.</p>",
+  "successes": null,
+  "improvements": [],
+  "source": "6012a723-b5b9-4b3f-abcb-7c8d268654ab",
+  "school": null,
+  "isMagical": false,
+  "isBeastAbility": true,
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": 25,
+  "manaCost": null,
+  "biomeTagsAugment": [],
+  "biomeTagsInhibit": [],
+  "canBeActive": false,
+  "hasDifficulty": false
+}

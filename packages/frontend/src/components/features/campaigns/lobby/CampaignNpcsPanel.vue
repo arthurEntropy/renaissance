@@ -1,5 +1,5 @@
 <template>
-    <div class="section-card edit-hover-area">
+    <div v-bind="$attrs" class="section-card edit-hover-area">
         <div class="section-header">
             <h2 class="section-title">NPCs</h2>
             <FloatingActionButton v-if="isGM" :variant="FAB_TYPES.ADD" :size="FAB_SIZES.SMALL"
@@ -250,6 +250,8 @@ const closeNpcPreview = () => {
     charactersStore.deselectCharacter()
 }
 
+defineOptions({ inheritAttrs: false })
+
 onUnmounted(() => {
     clearDragPreview()
 })
@@ -257,4 +259,10 @@ onUnmounted(() => {
 
 <style scoped>
 @import './lobbyShared.css';
+
+/* Fill the full grid row height when used as a grid item with align-self: stretch */
+.section-card {
+    height: 100%;
+    box-sizing: border-box;
+}
 </style>

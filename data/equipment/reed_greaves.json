@@ -1,0 +1,21 @@
+{
+  "type": "1cc02e7b-cdaf-477c-a198-6be0ad5ab47f",
+  "createdAt": "2026-05-21T15:55:35.050Z",
+  "lastModified": "2026-07-29T19:12:05.723Z",
+  "isTemplate": false,
+  "name": "Reed Greaves",
+  "subtype": "9b83b280-d799-4177-9e98-5bab995116e5",
+  "grade": "ad30b114-3c19-413f-aad2-5f270bd95684",
+  "weight": 1,
+  "defenseBonus": 1,
+  "engagementDice": [],
+  "damageDice": [],
+  "reach": 0,
+  "id": "d5c723e6-e0a6-437f-b174-ee4f366093ba",
+  "source": "be62ac3d-7168-4779-8274-e60574a2fd27",
+  "artUrl": "https://cdn.midjourney.com/c6c45ac3-cb2e-4d72-bbf6-d03c8462a10c/0_3.png",
+  "keeping": "2b3c4d5e-6f7a-4b8c-9d0e-1f2a3b4c5d6e",
+  "hasDifficulty": false,
+  "projectile": false,
+  "engagementSuccesses": []
+}

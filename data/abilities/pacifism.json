@@ -2,17 +2,18 @@
   "id": "9bd3cdd7-5ae7-4d1a-b185-c3ed8fa8824f",
   "isDeleted": false,
   "createdAt": "2026-01-23T15:59:07.738Z",
-  "lastModified": "2026-07-15T13:50:47.918Z",
+  "lastModified": "2026-08-03T22:08:26.996Z",
   "name": "Pacifism",
   "artUrl": "https://cdn.midjourney.com/4b787bdc-7770-4932-8d2f-3aaf75b3effa/0_3.png",
   "description": "<p>Uncheck any number of Conditions. For each Condition unchecked (twice for Troubled), choose one creature within medium range. Roll Spirit vs Spirit against each chosen creature. On each win, the creature clears all Conditions and cannot attack or be targeted by attacks for 1 round. On each loss, it only clears all Conditions.</p><p><strong>Describe the calm on the battlefield.</strong></p>",
   "successes": "<p><strong>✨:</strong> On each win, the creature’s speed is reduced to 0 for 1 round.</p><p><strong>🌞:</strong> On each win, the creature cannot attack or be targeted by attacks for 1 minute.</p>",
-  "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
+  "source": "49f10189-9634-4083-933b-fa74c2583b87",
   "isMagical": true,
   "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
   "mpCost": null,
   "xpCost": 30,
-  "manaCost": "3WWW",
+  "manaCost": "",
   "canBeActive": false,
-  "hasDifficulty": false
+  "hasDifficulty": false,
+  "school": null
 }

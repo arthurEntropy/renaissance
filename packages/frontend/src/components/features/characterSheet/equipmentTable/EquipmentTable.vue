@@ -45,11 +45,10 @@
         @rename-group="renameEquipmentGroup" @delete-group="deleteEquipmentGroup">
         <template #default="{ item }">
           <template v-if="item.equipment">
-            <EquipmentCard :equipment="item.equipment" :collapsed="item.collapsed || false"
-              :editable="item.equipment.isCustom" class="equipment-card" @edit="openEditEquipmentModal"
-              @update="handleCharacterUpdate" :collapsible="true" :show-keeping-badge="true"
-              :keeping-badge-hidden-by-default="true" :character="selectedCharacter" :show-improvement-toggle="true"
-              :show-improvements="item.showImprovements"
+            <EquipmentCard :equipment="item.equipment" :collapsed="item.collapsed || false" :editable="internalEditMode"
+              class="equipment-card" @edit="handleEquipmentEdit" @update="handleCharacterUpdate" :collapsible="true"
+              :show-keeping-badge="true" :keeping-badge-hidden-by-default="true" :keeping-badge-zero-for-null="true"
+              :character="selectedCharacter" :show-improvement-toggle="true" :show-improvements="item.showImprovements"
               :show-discovery-badge="item.equipment.subtype === MESMER_MASK_SUBTYPE_ID" :show-difficulty-badge="true"
               @update:collapsed="updateEquipmentCollapsed(item.id, $event)"
               @update:showImprovements="updateEquipmentShowImprovements(item, $event)"
@@ -69,11 +68,10 @@
         @reorder="handleEquipmentReorder">
         <template #default="{ item }">
           <template v-if="item.equipment">
-            <EquipmentCard :equipment="item.equipment" :collapsed="item.collapsed || false"
-              :editable="item.equipment.isCustom" class="equipment-card" @edit="openEditEquipmentModal"
-              @update="handleCharacterUpdate" :collapsible="true" :show-keeping-badge="true"
-              :keeping-badge-hidden-by-default="true" :character="selectedCharacter" :show-improvement-toggle="true"
-              :show-improvements="item.showImprovements"
+            <EquipmentCard :equipment="item.equipment" :collapsed="item.collapsed || false" :editable="internalEditMode"
+              class="equipment-card" @edit="handleEquipmentEdit" @update="handleCharacterUpdate" :collapsible="true"
+              :show-keeping-badge="true" :keeping-badge-hidden-by-default="true" :keeping-badge-zero-for-null="true"
+              :character="selectedCharacter" :show-improvement-toggle="true" :show-improvements="item.showImprovements"
               :show-discovery-badge="item.equipment.subtype === MESMER_MASK_SUBTYPE_ID" :show-difficulty-badge="true"
               @update:collapsed="updateEquipmentCollapsed(item.id, $event)"
               @update:showImprovements="updateEquipmentShowImprovements(item, $event)"
@@ -596,6 +594,31 @@ const toggleAllEquipment = () => {
   const collapse = allEquipmentExpanded.value
   for (const e of selectedCharacter.value.equipment) {
     e.collapsed = collapse
+  }
+}
+
+const handleEquipmentEdit = async (equipment) => {
+  if (equipment.isCustom) {
+    openEditEquipmentModal(equipment)
+    return
+  }
+  if (!confirm('Convert to custom item? This cannot be undone.')) return
+  try {
+    const copyData = { ...equipment }
+    delete copyData.id
+    copyData.isCustom = true
+    const newEquipment = await equipmentStore.create(copyData)
+    if (selectedCharacter.value?.equipment) {
+      const idx = selectedCharacter.value.equipment.findIndex(e => e.id === equipment.id)
+      if (idx !== -1) {
+        selectedCharacter.value.equipment.splice(idx, 1, { ...selectedCharacter.value.equipment[idx], id: newEquipment.id })
+      }
+    }
+    await equipmentStore.fetch()
+    const fullEquipment = equipmentStore.equipment.find(eq => eq.id === newEquipment.id) ?? newEquipment
+    openEditEquipmentModal(fullEquipment)
+  } catch (error) {
+    console.error('Error converting equipment to custom:', error)
   }
 }
 

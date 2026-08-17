@@ -1,0 +1,23 @@
+{
+  "id": "8600ec44-6e04-4639-8771-85487c989825",
+  "isDeleted": false,
+  "createdAt": "2026-08-13T01:02:28.940Z",
+  "lastModified": "2026-08-13T01:06:29.348Z",
+  "name": "Keen Sight",
+  "artUrl": null,
+  "description": "<p>Whenever you roll Awareness to perceive with sight, the roll is favored.</p>",
+  "successes": null,
+  "improvements": [],
+  "source": "4064763c-377d-46f8-bc9a-74e1e621e875",
+  "school": null,
+  "isMagical": false,
+  "isBeastAbility": true,
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": 5,
+  "manaCost": null,
+  "biomeTagsAugment": [],
+  "biomeTagsInhibit": [],
+  "canBeActive": false,
+  "hasDifficulty": false
+}

@@ -1,0 +1,23 @@
+{
+  "id": "8927eb39-333e-4501-8229-fa968f9f500a",
+  "isDeleted": false,
+  "createdAt": "2026-08-02T00:27:48.422Z",
+  "lastModified": "2026-08-04T01:31:08.398Z",
+  "name": "Earthquake",
+  "artUrl": "https://cdn.midjourney.com/04588bae-9e46-4d05-a461-b4690caa4b96/0_2.jpeg",
+  "description": "<p><em>Concentration, up to 1 minute.</em></p><p>Choose a point within far range. You trigger an earthquake out to long range from that point. The ground within the area becomes difficult terrain. Roll Spirit to set the Difficulty and check any number of Conditions. For each Condition you checked (twice for Guilty), increase the Difficulty by 1.</p><p style=\"text-align: left\">When you cast this spell and again whenever you spend an action to do so, reduce the Difficulty by 2 and choose one:</p><ul><li><p><strong>Tremor.</strong> The ground shakes violently. Each creature within the affected area must roll Dexterity against the Difficulty. On each failure, the creature is knocked prone. On each pass, the creature's speed is reduced by 10 ft for 1 round.</p></li><li><p><strong>Fissures.</strong> Roll a d20. The result is the number of contiguous 5 ft squares within the affected area that you cause to become open fissures, reaching 30 ft down into the earth. Creatures in those squares when the fissures appear must roll Dexterity against the Difficulty. On each failure, the creature falls into the fissure. On each pass, it moves with the edge of the fissure to an adjacent space.</p></li><li><p><strong>Collapse.</strong> Roll a d20. Choose a structure or section of a structure within the affected area that is no greater than the result, in feet, in any dimension. The structure or section takes 10d10 damage. The GM determines whether it collapses and whether any nearby creatures are affected by the collapse.</p></li></ul><p>The changes made to the terrain persist after the spell ends.</p><p><strong>Describe the earthquake.</strong></p>",
+  "successes": "<p>✨: Increase the Difficulty by 2.</p><p><strong>🌞: </strong>Each time you reduce the Difficulty and choose an effect, choose one additional effect.</p>",
+  "improvements": [],
+  "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
+  "school": null,
+  "isMagical": true,
+  "isBeastAbility": false,
+  "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
+  "mpCost": null,
+  "xpCost": 40,
+  "manaCost": "5GGG",
+  "biomeTagsAugment": [],
+  "biomeTagsInhibit": [],
+  "canBeActive": false,
+  "hasDifficulty": true
+}

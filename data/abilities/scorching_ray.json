@@ -1,0 +1,23 @@
+{
+  "id": "45e11ae5-c36f-42c1-a16e-1c778f697a41",
+  "isDeleted": false,
+  "createdAt": "2026-08-05T00:00:34.560Z",
+  "lastModified": "2026-08-05T00:08:38.943Z",
+  "name": "Scorching Ray",
+  "artUrl": "https://cdn.midjourney.com/3b8cc5e4-b26b-4eac-8da1-41b4ac8da699/0_0.jpeg",
+  "description": "<p>Roll Dexterity vs Defense against a creature within long range. On a pass, the creature takes 2d6 damage.</p>",
+  "successes": "<p>✨: +1d damage</p><p>🌞: You may target a second creature within long range, or target the same creature a second time.</p><p>💀: You take 1d4 damage.</p>",
+  "improvements": [],
+  "source": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
+  "school": "0341bd63-648c-48c2-ba5d-ce92322e5a09",
+  "isMagical": true,
+  "isBeastAbility": false,
+  "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
+  "mpCost": 2,
+  "xpCost": 10,
+  "manaCost": null,
+  "biomeTagsAugment": [],
+  "biomeTagsInhibit": [],
+  "canBeActive": false,
+  "hasDifficulty": false
+}

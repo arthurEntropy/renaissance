@@ -1,0 +1,23 @@
+{
+  "id": "5eef1245-1762-4703-bf2d-7d6ab1a3e602",
+  "isDeleted": false,
+  "createdAt": "2026-08-03T15:19:19.208Z",
+  "lastModified": "2026-08-03T15:19:19.801Z",
+  "name": "New Ability",
+  "artUrl": null,
+  "description": "",
+  "successes": null,
+  "improvements": [],
+  "source": null,
+  "school": null,
+  "isMagical": false,
+  "isBeastAbility": false,
+  "actionCost": null,
+  "mpCost": null,
+  "xpCost": null,
+  "manaCost": null,
+  "biomeTagsAugment": [],
+  "biomeTagsInhibit": [],
+  "canBeActive": false,
+  "hasDifficulty": false
+}

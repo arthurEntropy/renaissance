@@ -1,15 +1,16 @@
 {
   "id": "32591781-7147-40f0-86f0-0ae7b115b2a8",
   "createdAt": "2026-04-23T15:57:38.462Z",
-  "lastModified": "2026-07-16T19:27:36.686Z",
+  "lastModified": "2026-08-03T22:13:12.040Z",
   "name": "Blade Ward",
   "artUrl": "https://cdn.midjourney.com/5d0809ed-63f2-4260-8f06-9e91ceff564d/0_3.png",
-  "description": "<p>You touch a creature. For the next minute, halve all damage dealt to it by melee weapons.</p><p>Check a Condition.</p><p><strong>Describe the ward.</strong></p>",
-  "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
+  "description": "<p>You touch a creature. For the next minute, halve all damage dealt to it by melee weapons.</p><p>Check a Condition. If the condition you checked was Troubled, the creature also gains a temporary d4 engagement die for the next minute.</p><p><strong>Describe the ward.</strong></p>",
+  "source": "49f10189-9634-4083-933b-fa74c2583b87",
   "isMagical": true,
   "actionCost": "40656418-af01-43ae-8a60-a1bd0124efb4",
   "xpCost": 5,
-  "manaCost": "W",
+  "manaCost": "",
   "canBeActive": false,
-  "hasDifficulty": false
+  "hasDifficulty": false,
+  "school": null
 }

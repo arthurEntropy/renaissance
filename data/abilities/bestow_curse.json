@@ -1,0 +1,23 @@
+{
+  "id": "180d97fd-dd14-4b13-ac60-7fd1a3e42158",
+  "isDeleted": false,
+  "createdAt": "2026-08-04T18:41:14.764Z",
+  "lastModified": "2026-08-04T18:57:13.107Z",
+  "name": "Bestow Curse",
+  "artUrl": "https://cdn.midjourney.com/b810c92a-eef7-4e6f-9844-4232e1672f5f/0_0.png",
+  "description": "<p><em>Concentration, up to 1 minute.</em></p><p>Roll Lore vs Spirit against a creature you touch. On a win, choose a curse effect:</p><ul><li><p>Choose a skill. The creature's rolls for that skill are ill-favored.</p></li><li><p>All the creature's attack rolls against you are ill-favored.</p></li><li><p>The creature takes -1 half action.</p></li><li><p>All your attacks against the target deal an additional 1d8 damage.</p></li></ul><p>The creature knows you are the one who cursed it.</p><p><strong>Describe the curse's effects.</strong></p>",
+  "successes": null,
+  "improvements": [],
+  "source": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
+  "school": "a0a08024-4b29-4b14-a187-232b79ee3f4a",
+  "isMagical": true,
+  "isBeastAbility": false,
+  "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
+  "mpCost": 3,
+  "xpCost": 15,
+  "manaCost": null,
+  "biomeTagsAugment": [],
+  "biomeTagsInhibit": [],
+  "canBeActive": false,
+  "hasDifficulty": false
+}

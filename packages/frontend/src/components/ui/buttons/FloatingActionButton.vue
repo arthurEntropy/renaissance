@@ -288,13 +288,13 @@ const variantConfig = computed(() => FAB_TYPE_CONFIG[props.variant])
 }
 
 .fab--attack {
-    background: var(--color-primary);
-    border-color: var(--color-primary);
+    background: var(--color-text-primary);
+    border-color: var(--color-text-primary);
 }
 
 .fab--attack:hover {
-    background: var(--color-primary-hover);
-    border-color: var(--color-primary-hover);
+    background: var(--color-primary);
+    border-color: var(--color-primary);
 }
 
 .fab--attack .fab__icon--small,

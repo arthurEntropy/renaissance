@@ -1,10 +1,10 @@
 {
   "id": "22b1ec3d-59a4-4cac-98a1-98a2286e9520",
   "isDeleted": false,
-  "lastModified": "2026-07-16T14:35:50.710Z",
+  "lastModified": "2026-08-11T18:59:43.412Z",
   "name": "Stout Stature",
   "artUrl": "https://cdn.midjourney.com/fc7c2206-2313-4aab-b5fb-a467f2889844/0_2.png",
-  "description": "<p><em>Your sturdy frame allows you to bear more weight than your size would suggest.</em></p><p>When calculating Load, halve the total weight of all gear you're carrying.</p><p>Whenever you take the Sprint action, you lose Endurance equal to half your BODY score.</p><p><strong>Describe how you bear up under the weight.</strong></p>",
+  "description": "<p><em>Your sturdy frame allows you to bear more weight than your size would suggest.</em></p><p>When calculating Load, halve the total weight of all gear you're carrying.</p><p>Whenever you take the Sprint action on more than one consecutive turn, you lose Endurance equal to half your BODY score.</p><p><strong>Describe how you bear up under the weight.</strong></p>",
   "source": "adc655c1-1d9c-433f-a0eb-41f93cf3ee07",
   "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
   "mpCost": null,

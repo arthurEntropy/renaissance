@@ -1,0 +1,23 @@
+{
+  "id": "1ef8da54-1979-4c32-aac3-b1e75c15294d",
+  "isDeleted": false,
+  "createdAt": "2026-08-04T00:48:46.905Z",
+  "lastModified": "2026-08-04T01:05:05.651Z",
+  "name": "Plague",
+  "artUrl": "https://cdn.midjourney.com/3b689d5c-f7c9-45ae-800f-47774572c19d/0_2.jpeg",
+  "description": "<p><em>Concentration, up to 1 minute.</em></p><p>Uncheck a Condition. If you did, diseased vapors spread outward from you to medium range. Roll Spirit to set the Difficulty.</p><p>Once per round, you may spend a half action to spread plague. Sacrifice any amount of Endurance, then each creature within the area must roll Fortitude against the Difficulty. On each win, the creature loses the amount of Endurance you sacrificed. On each loss, the creature loses half that amount.</p><p>If the condition you unchecked was Afraid, double the Endurance loss on wins and losses.</p><p><strong>Describe the plague.</strong></p>",
+  "successes": "<p>✨: On each win or loss, the creature loses an additional 1 Endurance.</p><p>🌞: On each win, the creature also rolls Injury.</p>",
+  "improvements": [],
+  "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
+  "school": null,
+  "isMagical": true,
+  "isBeastAbility": false,
+  "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
+  "mpCost": null,
+  "xpCost": 30,
+  "manaCost": "4BB",
+  "biomeTagsAugment": [],
+  "biomeTagsInhibit": [],
+  "canBeActive": true,
+  "hasDifficulty": true
+}

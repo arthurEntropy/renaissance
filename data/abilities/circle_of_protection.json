@@ -2,7 +2,7 @@
   "id": "3783b9d5-f6cc-4a9e-b071-40954248d990",
   "isDeleted": false,
   "createdAt": "2026-01-22T15:37:29.741Z",
-  "lastModified": "2026-04-16T15:14:47.841Z",
+  "lastModified": "2026-08-03T22:12:32.515Z",
   "name": "Circle of Protection",
   "artUrl": "https://cdn.midjourney.com/cc328b96-ee70-42eb-8e36-29058f20d45a/0_2.png",
   "description": "<p><em>Concentration, up to 1 minute.</em></p><p>Uncheck a Condition. If you did, you create a protective circle out to short range, which moves with you as you move.</p><p>Whenever a creature within the circle is targeted by an attack, you may check a Condition to apply one of the following effects, once per attack:</p><ul><li><p>Any rolls the creature is forced to make by the attack are favored.</p></li><li><p>The attack’s damage or Injury is reduced by 1d4+HEART.</p></li><li><p>The creature may reroll one engagement die for the attack.</p></li></ul><p>If the Condition you unchecked was Troubled, you may apply a second effect per attack.</p><p><strong>Describe the circle.</strong></p>",
@@ -21,12 +21,13 @@
       "id": "ccfc7553-3a14-4131-9bfd-dc4334f043ca"
     }
   ],
-  "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
+  "source": "49f10189-9634-4083-933b-fa74c2583b87",
   "isMagical": true,
   "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
   "mpCost": null,
   "xpCost": 10,
-  "manaCost": "1W",
+  "manaCost": "",
   "canBeActive": true,
-  "hasDifficulty": false
+  "hasDifficulty": false,
+  "school": null
 }

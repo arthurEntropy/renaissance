@@ -1,0 +1,23 @@
+{
+  "id": "fb002e0c-0527-4c74-8a84-c1485341b890",
+  "isDeleted": false,
+  "createdAt": "2026-08-04T19:56:44.367Z",
+  "lastModified": "2026-08-04T20:08:27.056Z",
+  "name": "False Aura",
+  "artUrl": "https://cdn.midjourney.com/016d1ab8-8727-4a45-84f7-681348e4ea3d/0_1.png",
+  "description": "<p>You touch an object or creature and place an illusion upon it that gives false information to spells that identify, locate, or observe. </p><p>You may make a magical object appear mundane or vice versa. You may give an object or creature an aura that makes it appear to be from a particular mestiere (and school within that mestiere, if you choose). For a creature, you may give it a false profile, including its creature type, size and/or native biome.</p><p>The illusion only provides false information to spells. It does not disguise the object or creature from ordinary observation.</p><p>This effect lasts for 1 day. If you cast this spell on the same creature or object with an identical illusion for 7 consecutive days, the illusion persists indefinitely.</p><p><strong>Describe the illusion.</strong></p>",
+  "successes": null,
+  "improvements": [],
+  "source": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
+  "school": "ed9b382c-f5e3-458e-a7b7-d3cc74e09894",
+  "isMagical": true,
+  "isBeastAbility": false,
+  "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
+  "mpCost": 2,
+  "xpCost": 10,
+  "manaCost": null,
+  "biomeTagsAugment": [],
+  "biomeTagsInhibit": [],
+  "canBeActive": false,
+  "hasDifficulty": false
+}

@@ -1,10 +1,10 @@
 {
   "id": "de1f7e3d-cf67-4ef1-9307-21935fae9ed9",
   "createdAt": "2026-04-23T11:57:51.023Z",
-  "lastModified": "2026-04-23T19:59:28.105Z",
+  "lastModified": "2026-08-04T01:19:05.505Z",
   "name": "Stoneshape",
   "artUrl": "https://cdn.midjourney.com/6f085459-cb2d-4861-b2b0-b6f9aad193a4/0_2.png",
-  "description": "<p>You touch a stone object or section of a stone object no more than 5 feet in any dimension. Choose one:</p><ul><li><p>You form the stone into any shape you choose. The form may be functional - like a simple door or a bridge - but fine mechanical or artistic detail isn’t possible. The change is permanent.</p></li><li><p>You cause the stone to crumble into small chunks.</p></li></ul><p>Check a Condition.</p><p><strong>Describe how you shape the stone.</strong></p>",
+  "description": "<p>You touch a stone object or section of a stone object no more than 5 feet in any dimension. Choose one:</p><ul><li><p>You form the stone into any shape you choose. The form may be functional - like a simple door or a bridge - but fine mechanical or artistic detail isn’t possible. The change is permanent.</p></li><li><p>You cause the stone to crumble into small chunks.</p></li></ul><p>Check a Condition. If the Condition you checked was Guilty, double the size of object or section you can target.</p><p><strong>Describe how you shape the stone.</strong></p>",
   "improvements": [
     {
       "name": "Greater Stoneshape",

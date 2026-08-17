@@ -2,7 +2,7 @@
   "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
   "conceptType": "ANCESTRY",
   "name": "Human",
-  "description": "<p>Humans are not the strongest, nor the quickest, nor the longest-lived. What they are is adaptable — constitutionally, stubbornly so. Where other peoples are often shaped by a deep affinity for one way of being, Humans are shaped by the capacity to adapt. It is a less dramatic gift than most, and rarer than it looks.</p>",
+  "description": "<p>Humans are not the strongest, nor the quickest, nor the longest-lived. What they are is adaptable — constitutionally, stubbornly so. Where other peoples are often shaped by a deep affinity for one way of being, Humans are shaped by the capacity to adapt. It is a less dramatic gift than most, but no less valuable.</p>",
   "isDeleted": false,
   "featuredArtUrls": [
     "https://cdn.midjourney.com/6996ccd1-d214-4f22-ac97-21f819a25e36/0_1.png"
@@ -10,12 +10,12 @@
   "backgroundImage": "",
   "cardBackgroundImage": "https://cdn.midjourney.com/58959018-cd89-433d-a3dd-9c00b5012c64/0_3.png",
   "expansion": "",
-  "lastModified": "2026-04-23T01:29:47.706Z",
+  "lastModified": "2026-08-11T19:32:36.817Z",
   "physiology": {
     "heightMin": 5,
     "heightMax": 6,
     "weightMin": 90,
-    "weightMax": 250,
+    "weightMax": 275,
     "lifespan": 80,
     "speed": 30
   }

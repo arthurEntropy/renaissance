@@ -1,7 +1,7 @@
 {
   "isDeleted": false,
   "createdAt": "2026-05-06T17:55:10.305Z",
-  "lastModified": "2026-07-16T12:46:38.770Z",
+  "lastModified": "2026-07-31T13:50:41.528Z",
   "name": "Meteor Hammer",
   "artUrl": "https://cdn.midjourney.com/e21a48dd-4417-42ea-ad92-06be65375a2c/0_1.jpeg",
   "description": "",
@@ -15,7 +15,7 @@
   "isMagical": false,
   "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
   "subtype": "ab3719fa-6ee6-4c45-a368-e5047beb0e4f",
-  "grade": "ebcc2bcb-8221-4ca0-bef3-000fb7e59e96",
+  "grade": "ad30b114-3c19-413f-aad2-5f270bd95684",
   "weight": 1,
   "reach": 5,
   "range": null,

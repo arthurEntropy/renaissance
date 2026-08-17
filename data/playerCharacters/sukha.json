@@ -2,11 +2,11 @@
   "id": "18d8d1be-6568-4ec0-9207-916b2ac1a676",
   "isDeleted": false,
   "createdAt": "2026-07-24T23:44:03.615Z",
-  "lastModified": "2026-07-28T17:37:09.251Z",
+  "lastModified": "2026-08-16T20:38:32.225Z",
   "characterType": "playerCharacter",
   "name": "Sukha",
   "featuredArtUrls": [
-    "https://cdn.midjourney.com/770da9b9-1295-4027-87aa-64363df253e6/0_2.jpeg"
+    "https://cdn.midjourney.com/95c9a8b1-d0a7-4b44-9c87-91a500f4db7d/0_1_640_N.webp"
   ],
   "speed": {
     "current": 30,
@@ -293,7 +293,7 @@
     "xpEarned": 0,
     "xpSpent": 0,
     "treasureEarned": 0,
-    "treasureSpent": 42
+    "treasureSpent": 80
   },
   "biomeTags": [],
   "biomeId": null,
@@ -339,5 +339,5 @@
   "xp": 0,
   "description": "",
   "featuredArtUrl": "https://cdn.midjourney.com/770da9b9-1295-4027-87aa-64363df253e6/0_2.jpeg",
-  "updatedAt": "2026-07-28T17:37:09.251Z"
+  "updatedAt": "2026-08-16T20:38:32.225Z"
 }

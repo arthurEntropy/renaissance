@@ -1,0 +1,23 @@
+{
+  "id": "1c1f3916-a328-4a4d-88f5-dfa4bb585644",
+  "isDeleted": false,
+  "createdAt": "2026-08-14T02:34:46.683Z",
+  "lastModified": "2026-08-14T02:36:04.836Z",
+  "name": "Poison Touch",
+  "artUrl": null,
+  "description": "<p>Make an unarmed melee attack against a creature within Reach. On a hit, it takes 1d4+BODY damage, and for the next minute, it must roll Fortitude against a difficulty of 10 at the start of each of its turns, taking 1d4 damage on each loss.</p>",
+  "successes": "<p>✨: +1d damage for the initial attack.</p><p>🌞: +1d damage for the initial attack and ongoing effect.</p>",
+  "improvements": [],
+  "source": "97adb8c8-3812-401d-b324-60320679ea81",
+  "school": null,
+  "isMagical": false,
+  "isBeastAbility": true,
+  "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
+  "mpCost": null,
+  "xpCost": 5,
+  "manaCost": null,
+  "biomeTagsAugment": [],
+  "biomeTagsInhibit": [],
+  "canBeActive": false,
+  "hasDifficulty": false
+}

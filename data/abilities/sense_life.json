@@ -1,0 +1,23 @@
+{
+  "id": "a0523847-8b7a-42a8-bede-0998056f855c",
+  "isDeleted": false,
+  "createdAt": "2026-08-14T01:19:45.035Z",
+  "lastModified": "2026-08-14T01:41:28.378Z",
+  "name": "Sense Life",
+  "artUrl": null,
+  "description": "<p>You can magically sense living creatures that are within 1 mile of you. You sense their general direction, but not their exact location.</p>",
+  "successes": null,
+  "improvements": [],
+  "source": "27cb6e69-76ec-4a0f-9c1b-7213558930b2",
+  "school": null,
+  "isMagical": false,
+  "isBeastAbility": true,
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": 15,
+  "manaCost": null,
+  "biomeTagsAugment": [],
+  "biomeTagsInhibit": [],
+  "canBeActive": false,
+  "hasDifficulty": false
+}

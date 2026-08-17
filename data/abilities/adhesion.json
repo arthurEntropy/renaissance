@@ -1,0 +1,23 @@
+{
+  "id": "ecdf35ab-278b-4ec1-b183-121e9e54f180",
+  "isDeleted": false,
+  "createdAt": "2026-08-14T02:28:41.817Z",
+  "lastModified": "2026-08-14T02:29:45.513Z",
+  "name": "Adhesion",
+  "artUrl": null,
+  "description": "<p>You can climb along walls, ceilings and any other surfaces without needing to make a skill check.</p>",
+  "successes": null,
+  "improvements": [],
+  "source": "4064763c-377d-46f8-bc9a-74e1e621e875",
+  "school": null,
+  "isMagical": false,
+  "isBeastAbility": true,
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": 10,
+  "manaCost": null,
+  "biomeTagsAugment": [],
+  "biomeTagsInhibit": [],
+  "canBeActive": false,
+  "hasDifficulty": false
+}

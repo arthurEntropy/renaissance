@@ -1,0 +1,23 @@
+{
+  "id": "1a6edbcc-da4c-4b3c-939a-29f31434799e",
+  "isDeleted": false,
+  "createdAt": "2026-08-13T02:11:16.608Z",
+  "lastModified": "2026-08-13T02:16:42.629Z",
+  "name": "Reassemble",
+  "artUrl": null,
+  "description": "<p><em>Trigger: Your Endurance is reduced to 0.</em></p><p>Roll a d8. On an 8, at the start of your next turn, your body reassembles, restoring your Endurance to its base.</p>",
+  "successes": null,
+  "improvements": [],
+  "source": "27cb6e69-76ec-4a0f-9c1b-7213558930b2",
+  "school": null,
+  "isMagical": false,
+  "isBeastAbility": true,
+  "actionCost": "c4df395c-8284-4c4f-bf01-e293ed51c58c",
+  "mpCost": null,
+  "xpCost": 5,
+  "manaCost": null,
+  "biomeTagsAugment": [],
+  "biomeTagsInhibit": [],
+  "canBeActive": false,
+  "hasDifficulty": false
+}

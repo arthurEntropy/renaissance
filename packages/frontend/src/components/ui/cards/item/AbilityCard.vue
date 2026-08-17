@@ -51,6 +51,8 @@
 
     <!-- Activate / Deactivate FAB: shares the admin-buttons row with edit/delete FABs -->
     <template #admin-actions>
+      <FloatingActionButton v-if="duplicatable" :variant="FAB_TYPES.DUPLICATE" :size="FAB_SIZES.SMALL"
+        :visibility="FAB_VISIBILITIES.ON_HOVER" @click.stop="handleDuplicate" />
       <FloatingActionButton v-if="character && ability.canBeActive"
         :variant="isAbilityActive ? FAB_TYPES.DEACTIVATE : FAB_TYPES.ACTIVATE" :size="FAB_SIZES.SMALL"
         :visibility="FAB_VISIBILITIES.ON_HOVER" @click.stop="handleActivateToggle" />
@@ -75,6 +77,7 @@ import { ChevronUpIcon, ChevronDownIcon } from '@heroicons/vue/24/outline'
 defineOptions({ inheritAttrs: false })
 import { useCardPreview } from '@/composables/useCardPreview'
 import { useImprovements } from '@/composables/useImprovements'
+import { useAbilitiesStore } from '@/stores/abilitiesStore'
 import { useActionCostsStore } from '@/stores/actionCostsStore'
 import { useCharactersStore } from '@/stores/charactersStore'
 import { useBiomeStore } from '@/stores/biomeStore'
@@ -97,6 +100,10 @@ const props = defineProps({
     required: true,
   },
   editable: {
+    type: Boolean,
+    default: false,
+  },
+  duplicatable: {
     type: Boolean,
     default: false,
   },
@@ -151,7 +158,7 @@ const props = defineProps({
   },
 })
 
-const emit = defineEmits(['edit', 'update', 'update:collapsed', 'update:showImprovements', 'update:showSuccesses', 'height-changed', 'roll-link', 'activate', 'deactivate'])
+const emit = defineEmits(['edit', 'duplicate', 'update', 'update:collapsed', 'update:showImprovements', 'update:showSuccesses', 'height-changed', 'roll-link', 'activate', 'deactivate'])
 
 const cardPreview = useCardPreview()
 
@@ -193,6 +200,7 @@ function onCardMouseDown() {
 const { toggleImprovement, getCharacterImprovements } = useImprovements('abilities')
 
 // Stores
+const abilitiesStore = useAbilitiesStore()
 const actionTypesStore = useActionCostsStore()
 const charactersStore = useCharactersStore()
 const biomeStore = useBiomeStore()
@@ -223,16 +231,17 @@ const shouldShowBaseXpBadge = computed(() => {
 })
 
 // Show the XP badge when there's a cost, OR when a character context is present and
-// either the table is in edit mode (show "-Remove" for owned free abilities) or
-// the character doesn't own the ability yet (show "+Add").
+// either the table is in edit mode, the card is expanded, or the character doesn't own the ability yet.
 const xpBadgeVisible = computed(() =>
-  shouldShowBaseXpBadge.value || (!!props.character && (props.editMode === true || !characterHasBaseAbility.value))
+  shouldShowBaseXpBadge.value || (!!props.character && (props.editMode === true || !props.collapsed || !characterHasBaseAbility.value))
 )
 
 // In uncontrolled mode (editMode===null) preserve original behaviour: interactive whenever a
-// character is present. In controlled mode: interactive only when in edit mode.
+// character is present. In controlled mode: interactive when in edit mode OR when the card is
+// expanded (so the badge responds on hover regardless of edit mode).
 const badgeIsInteractive = computed(() => {
   if (props.readonlyBadge) return false
+  if (props.editMode !== null && !props.collapsed && !!props.character) return true
   if (props.editMode === null) return !!props.character
   return props.editMode && !!props.character
 })
@@ -240,11 +249,17 @@ const badgeIsInteractive = computed(() => {
 // Force the badge into its "action" state (show "-Remove"/"+Add" without needing to hover)
 const badgeForceActive = computed(() => props.editMode === true)
 
-// In display mode (editMode===false): always hide until card hover.
-// In edit/uncontrolled mode: only hide free unowned badges (original behaviour).
-const badgeHiddenByDefault = computed(() =>
-  props.editMode === false || (!shouldShowBaseXpBadge.value && !characterHasBaseAbility.value)
-)
+// Hiding logic:
+// - Edit mode: hide only free unowned badges
+// - Expanded with character (display/uncontrolled mode): always hidden at rest (show on card hover)
+// - Display mode collapsed: hide everything by default
+// - Uncontrolled mode: original logic
+const badgeHiddenByDefault = computed(() => {
+  if (props.editMode === true) return !shouldShowBaseXpBadge.value && !characterHasBaseAbility.value
+  if (props.editMode !== null && !props.collapsed && !!props.character) return true
+  if (props.editMode === false) return true
+  return !shouldShowBaseXpBadge.value && !characterHasBaseAbility.value
+})
 
 const biomeDiceMod = computed(() => {
   const augment = (props.ability.biomeTagsAugment || []).filter(t => biomeStore.activeTags.has(t)).length
@@ -365,6 +380,18 @@ function handleActivateToggle() {
     emit('deactivate', props.ability.id)
   } else {
     emit('activate', props.ability.id)
+  }
+}
+
+async function handleDuplicate() {
+  try {
+    const duplicateData = { ...props.ability }
+    delete duplicateData.id
+    duplicateData.name = `${duplicateData.name} (Copy)`
+    const newAbility = await abilitiesStore.create(duplicateData)
+    emit('duplicate', newAbility)
+  } catch (error) {
+    console.error('Error duplicating ability:', error)
   }
 }
 </script>

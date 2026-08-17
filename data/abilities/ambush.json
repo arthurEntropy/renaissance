@@ -1,0 +1,23 @@
+{
+  "id": "21868d26-c1b9-455a-ac90-e5f4d33af7bb",
+  "isDeleted": false,
+  "createdAt": "2026-08-14T02:03:05.502Z",
+  "lastModified": "2026-08-14T02:03:49.347Z",
+  "name": "Ambush",
+  "artUrl": null,
+  "description": "<p>Double all damage you deal during the surprise round of combat.</p>",
+  "successes": null,
+  "improvements": [],
+  "source": "6012a723-b5b9-4b3f-abcb-7c8d268654ab",
+  "school": null,
+  "isMagical": false,
+  "isBeastAbility": true,
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": 5,
+  "manaCost": null,
+  "biomeTagsAugment": [],
+  "biomeTagsInhibit": [],
+  "canBeActive": false,
+  "hasDifficulty": false
+}

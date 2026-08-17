@@ -1,15 +1,15 @@
 {
   "id": "a3884291-a274-45c7-93c3-d8d3e45e85ef",
   "createdAt": "2026-04-23T13:12:23.547Z",
-  "lastModified": "2026-04-23T13:24:49.468Z",
+  "lastModified": "2026-08-04T11:29:46.177Z",
   "name": "Stonestride",
   "artUrl": "https://cdn.midjourney.com/c3d36315-6a5e-488e-a085-8c59be0d239a/0_3.png",
-  "description": "<p><em>Concentration, up to 1 minute.</em></p><p>You may step into contiguous stone surfaces or objects larger than you and move through them as if they were difficult terrain. While within the stone, you cannot see outside it, and you are unaware of your surroundings beyond the stone’s boundaries.</p><p>If the stone is broken, significantly reshaped, or reduced such that it can no longer contain you, you are immediately expelled and take 6d6 damage. If you are still within the stone when the spell ends, you are expelled as above.</p><p><strong>Describe your movement.</strong></p>",
+  "description": "<p><em>Concentration, up to 1 minute.</em></p><p>Uncheck a Condition. If you did, you may step into contiguous stone surfaces or objects larger than you and move through them as if they were difficult terrain. While within the stone, you cannot see outside it, and you are unaware of your surroundings beyond the stone’s boundaries.</p><p>If the stone is broken, significantly reshaped, or reduced such that it can no longer contain you, you are immediately expelled and take 6d6 damage. If you are still within the stone when the spell ends, you are expelled as above.</p><p>If the Condition you unchecked was Guilty, you may sustain the spell up to 10 minutes.</p><p><strong>Describe your movement.</strong></p>",
   "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
   "isMagical": true,
   "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
   "xpCost": 15,
-  "manaCost": "2G",
+  "manaCost": "1GG",
   "canBeActive": true,
   "hasDifficulty": false
 }

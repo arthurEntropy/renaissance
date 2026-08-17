@@ -1,0 +1,23 @@
+{
+  "id": "2d4eca06-a682-4c53-8fa7-daaa49eed3f2",
+  "isDeleted": false,
+  "createdAt": "2026-08-13T01:43:37.873Z",
+  "lastModified": "2026-08-13T01:44:35.550Z",
+  "name": "Iron Scent",
+  "artUrl": null,
+  "description": "<p>You can pinpoint, by scent, the location of ferrous metal within short range.</p>",
+  "successes": null,
+  "improvements": [],
+  "source": "97adb8c8-3812-401d-b324-60320679ea81",
+  "school": null,
+  "isMagical": false,
+  "isBeastAbility": true,
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": 10,
+  "manaCost": null,
+  "biomeTagsAugment": [],
+  "biomeTagsInhibit": [],
+  "canBeActive": false,
+  "hasDifficulty": false
+}

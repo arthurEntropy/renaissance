@@ -1,0 +1,23 @@
+{
+  "id": "5f3ef24c-14d6-47c9-a61b-52cec1b64bb9",
+  "isDeleted": false,
+  "createdAt": "2026-08-04T12:42:19.778Z",
+  "lastModified": "2026-08-05T13:52:26.468Z",
+  "name": "Engulf",
+  "artUrl": "https://cdn.midjourney.com/c6e1ece8-749a-48e4-a75b-ec8967a47773/0_3_384_N.webp",
+  "description": "<p>Uncheck a Condition. If you did, roll Spirit vs Strength against a creature within short range. On a win, the creature's limbs are restrained, your roll result becomes the Difficulty, and the creature is grappled. It must roll against the Difficulty to escape the grapple. On a loss, the creature's speed is reduced by 10 ft for 1 round.</p><p>If the Condition you unchecked was Insecure, on a win, the creature is completely engulfed, is grappled and cannot breathe. It must roll against the Difficulty and pass three times before it can escape the grapple and breathe again. On a loss, the creature's speed is halved for 1 round.</p><p><strong>Describe how you trap them in water.</strong></p>",
+  "successes": "<p>✨: On a win, the creature takes 1d4 damage.</p><p>🌞: On a win, the creature rolls Injury.</p>",
+  "improvements": [],
+  "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
+  "school": null,
+  "isMagical": true,
+  "isBeastAbility": false,
+  "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
+  "mpCost": null,
+  "xpCost": 15,
+  "manaCost": "2U",
+  "biomeTagsAugment": [],
+  "biomeTagsInhibit": [],
+  "canBeActive": true,
+  "hasDifficulty": true
+}

@@ -1,15 +1,17 @@
 {
   "id": "08a7438e-e41e-4b6e-85fb-60b8031c5df6",
   "createdAt": "2026-04-23T17:12:33.822Z",
-  "lastModified": "2026-07-16T19:28:16.246Z",
+  "lastModified": "2026-08-04T00:39:22.679Z",
   "name": "Chill Touch",
   "artUrl": "https://cdn.midjourney.com/8754f9c0-50a6-4b9e-b366-b7b0f51f7846/0_3.png",
-  "description": "<p>You conjure a ghostly hand and attempt to touch a creature within short range. Roll Spirit vs Dexterity. On a win, the creature takes 1d8 damage. On a loss, half damage.</p><p>Either way, the creature gains 1 Endurance at the start of each of its turns until it has regained the Endurance lost from the damage dealt by this spell. While this effect lasts, the creature cannot regain Endurance from any other ability.</p><p>Check a Condition.</p><p><strong>Describe the hand.</strong></p>",
-  "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
+  "description": "<p>Uncheck a Condition. If you did, you conjure a ghostly hand and attempt to touch a creature within short range. Roll Spirit vs Dexterity. On a win, the creature takes 1d8 damage. On a loss, half damage.</p><p>Either way, the creature gains 1 Endurance at the start of each of its turns until it has regained the Endurance lost from the damage dealt by this spell. While this effect lasts, the creature cannot regain Endurance from any other ability.</p><p>If the Condition you unchecked was Afraid, +1d damage.</p><p><strong>Describe the hand.</strong></p>",
+  "source": "49f10189-9634-4083-933b-fa74c2583b87",
   "isMagical": true,
   "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
   "xpCost": 5,
-  "manaCost": "B",
+  "manaCost": "",
   "canBeActive": false,
-  "hasDifficulty": false
+  "hasDifficulty": false,
+  "successes": "<p>✨: +1d damage.</p><p>🌞: The creature does not regain any of the lost Endurance, and it cannot regain Endurance from any other ability for 1 minute.</p>",
+  "school": null
 }

@@ -1,0 +1,23 @@
+{
+  "id": "b0b7190b-5cd0-468c-84ff-e2dfc17c6f26",
+  "isDeleted": false,
+  "createdAt": "2026-08-13T01:04:58.007Z",
+  "lastModified": "2026-08-13T01:06:43.391Z",
+  "name": "Keen Smell",
+  "artUrl": null,
+  "description": "<p>Whenever you roll Awareness to perceive by smell, the roll is favored.</p>",
+  "successes": null,
+  "improvements": [],
+  "source": "4064763c-377d-46f8-bc9a-74e1e621e875",
+  "school": null,
+  "isMagical": false,
+  "isBeastAbility": true,
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": 5,
+  "manaCost": null,
+  "biomeTagsAugment": [],
+  "biomeTagsInhibit": [],
+  "canBeActive": false,
+  "hasDifficulty": false
+}

@@ -1,0 +1,23 @@
+{
+  "id": "8ffac643-5fa2-40f4-ba89-31fba9d98987",
+  "isDeleted": false,
+  "createdAt": "2026-08-03T15:34:20.954Z",
+  "lastModified": "2026-08-04T01:31:39.250Z",
+  "name": "Wall of Stone",
+  "artUrl": "https://cdn.midjourney.com/ee01ab76-5e68-40bc-9332-95aa8a2ace33/0_3.png",
+  "description": "<p><em>Concentration, up to 1 minute.</em></p><p>You create a wall of stone within medium range that is 10 ft high, 5 ft thick, and up to 50 ft long or a circular wall with a diameter of short range. Check any number of Conditions and roll Spirit to set the Difficulty.</p><p>Each creature that is within the wall when it's created must roll Dexterity against the Difficulty. On a failure, the creature takes 1d10 damage and is pushed out of the wall, in a direction you choose. On a pass, it takes half damage and is pushed out of the wall in a direction it chooses.</p><p>A creature attempting to climb over the wall must roll Strength against the Difficulty or fall.</p><p>For each Condition you checked (twice for Guilty), choose one:</p><ul><li><p>The wall becomes 10 ft longer or taller, or the diameter increases by 10 ft.</p></li><li><p>+1d damage.</p></li></ul><p><strong>Describe how you create the wall.</strong></p>",
+  "successes": "<p>✨: Whenever the wall deals damage to a creature, the creature is knocked prone.</p><p>🌞: Double the height of the wall.</p>",
+  "improvements": [],
+  "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
+  "school": null,
+  "isMagical": true,
+  "isBeastAbility": false,
+  "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
+  "mpCost": null,
+  "xpCost": 20,
+  "manaCost": "2GG",
+  "biomeTagsAugment": [],
+  "biomeTagsInhibit": [],
+  "canBeActive": true,
+  "hasDifficulty": true
+}

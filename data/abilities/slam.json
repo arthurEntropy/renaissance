@@ -1,0 +1,23 @@
+{
+  "id": "194a8503-f70d-4fed-be8d-27c96eeab069",
+  "isDeleted": false,
+  "createdAt": "2026-08-13T02:31:12.684Z",
+  "lastModified": "2026-08-13T02:34:33.716Z",
+  "name": "Slam",
+  "artUrl": null,
+  "description": "<p>Roll Strength vs Defense against a creature within Reach. On a hit, you deal 1d12+BODY damage.</p>",
+  "successes": "<p>✨: On a hit, +1 damage.</p><p>🌞: On a hit, +1d damage and the creature is knocked prone. On a loss, half damage.</p>",
+  "improvements": [],
+  "source": "4064763c-377d-46f8-bc9a-74e1e621e875",
+  "school": null,
+  "isMagical": false,
+  "isBeastAbility": true,
+  "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
+  "mpCost": null,
+  "xpCost": 15,
+  "manaCost": null,
+  "biomeTagsAugment": [],
+  "biomeTagsInhibit": [],
+  "canBeActive": false,
+  "hasDifficulty": false
+}

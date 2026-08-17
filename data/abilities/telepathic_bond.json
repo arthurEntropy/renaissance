@@ -1,0 +1,23 @@
+{
+  "id": "88b61fe1-c12c-4b70-9383-2107b2b9a1c0",
+  "isDeleted": false,
+  "createdAt": "2026-08-05T00:12:07.080Z",
+  "lastModified": "2026-08-05T00:26:58.912Z",
+  "name": "Telepathic Bond",
+  "artUrl": "https://cdn.midjourney.com/7a67f8d2-e838-4f46-9e52-6df1dfe8dc5b/0_2.jpeg",
+  "description": "<p>You form a telepathic link between you and up to eight willing creatures within short range. For the next hour, you can all communicate telepathically, regardless of distance, and can understand one another even if you don't share a language.</p><p><strong>Describe the telepathy.</strong></p>",
+  "successes": null,
+  "improvements": [],
+  "source": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
+  "school": "874bed28-5424-4948-a9af-a575a5bc1c79",
+  "isMagical": true,
+  "isBeastAbility": false,
+  "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
+  "mpCost": 5,
+  "xpCost": 25,
+  "manaCost": null,
+  "biomeTagsAugment": [],
+  "biomeTagsInhibit": [],
+  "canBeActive": true,
+  "hasDifficulty": false
+}
