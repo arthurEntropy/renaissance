@@ -23,12 +23,14 @@
       </div>
 
       <!-- Meta Info (e.g., weight, action cost, trait, MP, mana cost) -->
-      <div class="item-info text-stroke-thick" v-if="showMetaInfo">
+      <div class="item-info text-stroke-thick" v-if="showMetaInfo || $slots['meta-prefix']">
         <em v-if="showManaCost">
-          <span v-if="metaInfo">{{ metaInfo }}, </span>
+          <slot name="meta-prefix"></slot><span v-if="metaInfo">{{ metaInfo }}, </span>
           <ManaCostDisplay :cost="item.manaCost" />
         </em>
-        <em v-else>{{ metaInfo }}</em>
+        <em v-else>
+          <slot name="meta-prefix"></slot>{{ metaInfo }}
+        </em>
       </div>
     </div>
 

@@ -231,16 +231,17 @@ const shouldShowBaseXpBadge = computed(() => {
 })
 
 // Show the XP badge when there's a cost, OR when a character context is present and
-// either the table is in edit mode (show "-Remove" for owned free abilities) or
-// the character doesn't own the ability yet (show "+Add").
+// either the table is in edit mode, the card is expanded, or the character doesn't own the ability yet.
 const xpBadgeVisible = computed(() =>
-  shouldShowBaseXpBadge.value || (!!props.character && (props.editMode === true || !characterHasBaseAbility.value))
+  shouldShowBaseXpBadge.value || (!!props.character && (props.editMode === true || !props.collapsed || !characterHasBaseAbility.value))
 )
 
 // In uncontrolled mode (editMode===null) preserve original behaviour: interactive whenever a
-// character is present. In controlled mode: interactive only when in edit mode.
+// character is present. In controlled mode: interactive when in edit mode OR when the card is
+// expanded (so the badge responds on hover regardless of edit mode).
 const badgeIsInteractive = computed(() => {
   if (props.readonlyBadge) return false
+  if (props.editMode !== null && !props.collapsed && !!props.character) return true
   if (props.editMode === null) return !!props.character
   return props.editMode && !!props.character
 })
@@ -248,11 +249,17 @@ const badgeIsInteractive = computed(() => {
 // Force the badge into its "action" state (show "-Remove"/"+Add" without needing to hover)
 const badgeForceActive = computed(() => props.editMode === true)
 
-// In display mode (editMode===false): always hide until card hover.
-// In edit/uncontrolled mode: only hide free unowned badges (original behaviour).
-const badgeHiddenByDefault = computed(() =>
-  props.editMode === false || (!shouldShowBaseXpBadge.value && !characterHasBaseAbility.value)
-)
+// Hiding logic:
+// - Edit mode: hide only free unowned badges
+// - Expanded with character (display/uncontrolled mode): always hidden at rest (show on card hover)
+// - Display mode collapsed: hide everything by default
+// - Uncontrolled mode: original logic
+const badgeHiddenByDefault = computed(() => {
+  if (props.editMode === true) return !shouldShowBaseXpBadge.value && !characterHasBaseAbility.value
+  if (props.editMode !== null && !props.collapsed && !!props.character) return true
+  if (props.editMode === false) return true
+  return !shouldShowBaseXpBadge.value && !characterHasBaseAbility.value
+})
 
 const biomeDiceMod = computed(() => {
   const augment = (props.ability.biomeTagsAugment || []).filter(t => biomeStore.activeTags.has(t)).length

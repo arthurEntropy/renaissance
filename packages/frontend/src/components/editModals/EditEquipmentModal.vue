@@ -60,8 +60,8 @@
           </select>
         </div>
 
-        <!-- Subtype Dropdown -->
-        <div class="form-column">
+        <!-- Subtype Dropdown: hidden for the "Item" type since it has no subtypes -->
+        <div class="form-column" v-if="editedEquipment.type !== ITEM_TYPE_ID">
           <label for="equipmentSubtype" class="left-aligned">Subtype:</label>
           <select id="equipmentSubtype" v-model="editedEquipment.subtype" class="modal-input"
             :disabled="!editedEquipment.type">
@@ -274,6 +274,8 @@ import { useKeepingStore } from '@/stores/keepingStore'
 import { useEngagementSuccessesStore } from '@/stores/engagementSuccessesStore'
 import { useAbilitySchoolsStore } from '@/stores/abilitySchoolsStore'
 import { MESMER_MASK_SUBTYPE_ID, MESMER_CONCEPT_ID } from '@/constants/mesmerConstants'
+
+const ITEM_TYPE_ID = '07e3c504-605e-495e-96d3-6b4177516821'
 
 
 // Props

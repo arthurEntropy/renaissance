@@ -7,6 +7,11 @@
     @edit="$emit('edit', equipment)" @duplicate="handleDuplicate" @roll-link="$emit('roll-link', $event)"
     @mouseenter="onCardMouseEnter" @mouseleave="cardPreview.scheduleHide()" @mousedown="onCardMouseDown">
 
+    <!-- Defense bonus in collapsed header (not shown when expanded since it appears in the card body) -->
+    <template v-if="collapsed && equipment.defenseBonus > 0" #meta-prefix>
+      <span class="defense-meta-text">+{{ equipment.defenseBonus }}</span><span class="defense-meta-separator">, </span>
+    </template>
+
     <!-- Description with categories, properties, dice, and successes -->
     <template #before-description>
       <div v-if="equipmentCategoriesDisplay" class="equipment-categories-header text-stroke"
@@ -22,10 +27,10 @@
     <!-- Keeping badge positioned relative to main description when character owns any improvements OR when improvements are expanded -->
     <template #description-badge>
       <BadgeDisplay
-        v-if="showKeepingBadge && (keepingCost !== null || !!character) && (characterOwnsAnyImprovements || showImprovements)"
-        type="keeping" :value="keepingCost" :is-owned="characterHasBaseEquipment" :asImprovementBadge="true"
+        v-if="showKeepingBadge && (effectiveKeepingCost !== null || !!character) && (characterOwnsAnyImprovements || showImprovements)"
+        type="keeping" :value="effectiveKeepingCost" :is-owned="characterHasBaseEquipment" :asImprovementBadge="true"
         :is-interactive="!!character && !readonlyBadge"
-        :hidden-by-default="keepingBadgeHiddenByDefault || (keepingCost === null && !characterHasBaseEquipment)"
+        :hidden-by-default="keepingBadgeHiddenByDefault || (effectiveKeepingCost === null && !characterHasBaseEquipment)"
         @toggle="handleBaseEquipmentToggle" />
       <!-- Attack roll FAB — shown for weapon-type items when a character context is present.
            showAttackFab can be set to false by card-preview overlays when the viewer
@@ -109,10 +114,10 @@
     <!-- Also shown (hidden until card hover) for free items when a character context is present -->
     <template #badges>
       <BadgeDisplay
-        v-if="!collapsed && showKeepingBadge && (keepingCost !== null || !!character) && !characterOwnsAnyImprovements && !showImprovements"
-        type="keeping" :value="keepingCost" :is-owned="characterHasBaseEquipment"
+        v-if="!collapsed && showKeepingBadge && (effectiveKeepingCost !== null || !!character) && !characterOwnsAnyImprovements && !showImprovements"
+        type="keeping" :value="effectiveKeepingCost" :is-owned="characterHasBaseEquipment"
         :is-interactive="!!character && !readonlyBadge"
-        :hidden-by-default="keepingBadgeHiddenByDefault || (keepingCost === null && !characterHasBaseEquipment)"
+        :hidden-by-default="keepingBadgeHiddenByDefault || (effectiveKeepingCost === null && !characterHasBaseEquipment)"
         @toggle="handleBaseEquipmentToggle" />
 
       <!-- Discovery number badge for Mesmer's Masks -->
@@ -166,7 +171,7 @@
     <!-- Admin actions slot — transfer FAB and/or untrained indicator -->
     <template v-if="showTransferButton || lacksTraining" #admin-actions>
       <FloatingActionButton v-if="showTransferButton" :variant="FAB_TYPES.TRANSFER" :size="FAB_SIZES.SMALL"
-        :visibility="FAB_VISIBILITIES.ALWAYS" @click.stop="$emit('transfer', equipment)" />
+        :visibility="FAB_VISIBILITIES.ON_HOVER" @click.stop="$emit('transfer', equipment)" />
       <FloatingActionButton v-if="lacksTraining" :variant="FAB_TYPES.UNTRAINED" :size="FAB_SIZES.SMALL"
         :visibility="FAB_VISIBILITIES.ALWAYS" />
     </template>
@@ -224,6 +229,8 @@ import { scheduleStatsRefund } from '@/composables/useCharacterStatWatchers'
 import { getDiceFontMaxClass } from '@/utils/diceFontUtils'
 import { ItemType } from '@shared/constants/itemTypes'
 import { ARMOR_TYPE_ID } from '@/constants/armorConstants'
+
+const ITEM_TYPE_ID = '07e3c504-605e-495e-96d3-6b4177516821'
 
 // Definitions for weapon properties and subtypes — shown on hover
 const PROPERTY_DEFINITIONS = {
@@ -318,6 +325,12 @@ const props = defineProps({
   // When true, the keeping cost badge is always hidden until the card is hovered
   // (mirrors the XP badge behaviour in AbilityCard within AbilitiesTable)
   keepingBadgeHiddenByDefault: {
+    type: Boolean,
+    default: false
+  },
+  // When true, items with no keeping cost display 0 instead of the "+Add" badge text.
+  // Used in EquipmentTable where the item is already in the character's inventory.
+  keepingBadgeZeroForNull: {
     type: Boolean,
     default: false
   },
@@ -554,9 +567,11 @@ const lacksTraining = computed(() => {
 })
 
 // Format is "Type - Subtype, Grade", e.g. "Weapon - Melee, Martial"
+// "Item" type items don't display their type/subtype (isMagical badge handles magic display)
 // Returns HTML — subtype gets a hint span if a definition exists (e.g. Firearm)
 const equipmentCategoriesDisplay = computed(() => {
   if (!props.equipment.type) return null
+  if (props.equipment.type === ITEM_TYPE_ID) return null
 
   const type = equipmentTypesStore.getById(props.equipment.type)
   const subtype = equipmentSubtypesStore.getById(props.equipment.subtype)
@@ -625,6 +640,12 @@ const keepingCost = computed(() => {
   const keeping = keepingStore.getById(props.equipment.keeping)
   return keeping?.cost ?? null
 })
+
+// When in an inventory context (keepingBadgeZeroForNull=true), treat null keeping as 0
+// so the badge shows the value rather than "+Add"
+const effectiveKeepingCost = computed(() =>
+  props.keepingBadgeZeroForNull && keepingCost.value === null ? 0 : keepingCost.value
+)
 
 const keepingFallbackBackgroundUrl = computed(() => {
   if (props.equipment.source) return null
@@ -773,7 +794,17 @@ onMounted(async () => {
 @import '@/styles/design-tokens.css';
 @import '@/styles/cascade-picker.css';
 
-/* Defense Bonus Display */
+/* Defense bonus in collapsed card header */
+.defense-meta-text {
+  color: var(--color-accent-armor);
+  font-size: var(--font-size-16);
+}
+
+.defense-meta-separator {
+  color: var(--color-text-primary);
+}
+
+/* Defense Bonus Display (expanded card body) */
 .defense-bonus-display {
   text-align: center;
   color: var(--color-accent-armor);
