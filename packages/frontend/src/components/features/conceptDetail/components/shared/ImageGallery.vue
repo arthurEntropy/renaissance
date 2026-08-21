@@ -141,6 +141,7 @@ import { ART_TYPES, IMAGE_GALLERY_MODES, MIDJOURNEY_IMAGE_CONTEXTS } from '@shar
 import { useOptimizedImage, useOptimizedImages } from '@/composables/useOptimizedImage'
 import { useImagePreloader } from '@/composables/useImagePreloader'
 import { getOptimizedImageUrl } from '@/utils/imageOptimization'
+import { useConfirm } from '@/composables/useConfirm'
 
 const props = defineProps({
   images: {
@@ -339,8 +340,9 @@ const saveImageUrl = () => {
   closeEditModal()
 }
 
-const deleteImage = () => {
-  if (confirm('Are you sure you want to delete this image?')) {
+const deleteImage = async () => {
+  const { confirm } = useConfirm()
+  if (await confirm('Are you sure you want to delete this image?')) {
     const indexToDelete = selectedIndex.value
     const updatedImages = localImages.value.filter((_, index) => index !== indexToDelete)
 

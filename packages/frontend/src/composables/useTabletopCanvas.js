@@ -2,6 +2,7 @@ import { ref, shallowRef, computed, watch, onMounted, onUnmounted } from 'vue'
 import { useTabletopDragState } from './useTabletopDragState'
 import { useTabletopSelectionState } from './useTabletopSelectionState'
 import { useCampaignStore } from '@/stores/campaignStore'
+import { useConfirm } from './useConfirm'
 
 const MIN_SCALE = 0.1
 const MAX_SCALE = 4
@@ -1051,8 +1052,9 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved, isWorl
         saveState()
     }
 
-    const clearAll = () => {
-        if (!window.confirm('Remove all tokens from the tabletop?')) return
+    const clearAll = async () => {
+        const { confirm } = useConfirm()
+        if (!await confirm('Remove all tokens from the tabletop?')) return
         recordSnapshot()
         canvasItems.value = []
         selectedIds.value = new Set()

@@ -1,5 +1,6 @@
 import { ref, watch } from 'vue'
 import { useEditMode } from './useEditMode'
+import { useConfirm } from './useConfirm'
 
 export function useUnsavedChanges(emit, hasChanges) {
   const hasUnsavedChanges = ref(false)
@@ -28,8 +29,9 @@ export function useUnsavedChanges(emit, hasChanges) {
     }
   }
 
-  const confirmIfUnsaved = (onConfirm, message = 'You have unsaved changes. Are you sure you want to continue?') => {
-    if (hasUnsavedChanges.value && !confirm(message)) {
+  const confirmIfUnsaved = async (onConfirm, message = 'You have unsaved changes. Are you sure you want to continue?') => {
+    const { confirm } = useConfirm()
+    if (hasUnsavedChanges.value && !await confirm(message)) {
       return false
     }
     onConfirm()

@@ -38,6 +38,7 @@ import { computed } from 'vue'
 import { PlusIcon, SparklesIcon } from '@heroicons/vue/24/outline'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
+import { useConfirm } from '@/composables/useConfirm'
 
 const props = defineProps({
     familiar: {
@@ -52,8 +53,9 @@ const artUrl = computed(() => props.familiar?.featuredArtUrls?.[0] ?? null)
 
 const isCustomImage = computed(() => /^https?:\/\//i.test(artUrl.value ?? ''))
 
-function handleRemove() {
-    const confirmed = window.confirm('Remove this familiar? The character copy will remain in your characters list.')
+async function handleRemove() {
+    const { confirm } = useConfirm()
+    const confirmed = await confirm('Remove this familiar? The character copy will remain in your characters list.')
     if (confirmed) emit('remove')
 }
 </script>

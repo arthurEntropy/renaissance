@@ -271,6 +271,7 @@ import BaseModal from '@/components/ui/modals/BaseModal.vue'
 import GeneticsWizardModal from './GeneticsWizardModal.vue'
 import BiomeTagsCyclePicker from '@/components/ui/biome/BiomeTagsCyclePicker.vue'
 import { isBeastTemplate, isBeastInstance } from '@/utils/characterTypeGuards'
+import { useConfirm } from '@/composables/useConfirm'
 
 const charactersStore = useCharactersStore()
 const conceptsStore = useConceptsStore()
@@ -387,9 +388,10 @@ const closeModal = () => {
     emit('close')
 }
 
-const _handleOverlayClick = () => {
+const _handleOverlayClick = async () => {
     if (initialFormDataSnapshot.value && JSON.stringify(formData.value) !== initialFormDataSnapshot.value) {
-        if (!confirm('You have unsaved changes. Are you sure you want to close?')) return
+        const { confirm } = useConfirm()
+        if (!await confirm('You have unsaved changes. Are you sure you want to close?')) return
     }
     closeModal()
 }

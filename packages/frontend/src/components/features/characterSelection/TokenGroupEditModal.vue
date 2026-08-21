@@ -111,6 +111,7 @@ import { useAppCharacterSheetModal } from '@/composables/useAppCharacterSheetMod
 import { useTabletopSharedCanvas } from '@/composables/useTabletopSharedCanvas'
 import { useCascadeColumnPositioning } from '@/composables/useCascadeColumnPositioning'
 import { toLetterSuffix } from '@shared/utils/letterSuffix'
+import { useConfirm } from '@/composables/useConfirm'
 
 const props = defineProps({
     groupId: { type: String, required: true },
@@ -180,7 +181,8 @@ function cancelNameEdit() {
 // ─── Delete group ─────────────────────────────────────────────────────────────
 
 async function deleteGroup() {
-    if (!confirm(`Delete group "${localName.value}"? This cannot be undone.`)) return
+    const { confirm } = useConfirm()
+    if (!await confirm(`Delete group "${localName.value}"? This cannot be undone.`)) return
     // Remove beast instances created for this group
     const cid = campaignStore.activeCampaign?.id
     if (cid) {

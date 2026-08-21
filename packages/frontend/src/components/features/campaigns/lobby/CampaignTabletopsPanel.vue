@@ -75,6 +75,7 @@ import { useCampaignStore } from '@/stores/campaignStore'
 import tabletopSocketService from '@/services/sessions/tabletopSocketService'
 import { getOptimizedImageUrl } from '@/utils/imageOptimization'
 import { MIDJOURNEY_IMAGE_CONTEXTS } from '@shared/constants/artConstants.js'
+import { useConfirm } from '@/composables/useConfirm'
 
 const router = useRouter()
 const campaignStore = useCampaignStore()
@@ -191,7 +192,8 @@ async function toggleActive(tabletopId) {
 }
 
 async function confirmDelete(tabletop) {
-    if (!confirm(`Delete tabletop "${tabletop.name}"? This cannot be undone.`)) return
+    const { confirm } = useConfirm()
+    if (!await confirm(`Delete tabletop "${tabletop.name}"? This cannot be undone.`)) return
     if (!campaignId.value) return
     try {
         await campaignStore.deleteTabletop(campaignId.value, tabletop.id)

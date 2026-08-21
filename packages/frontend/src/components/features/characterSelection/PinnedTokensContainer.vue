@@ -334,6 +334,7 @@ import { useTabletopDragState } from '@/composables/useTabletopDragState'
 import { useTabletopSelectionState } from '@/composables/useTabletopSelectionState'
 import { useTabletopSharedCanvas } from '@/composables/useTabletopSharedCanvas'
 import { useRollsStore } from '@/stores/rollsStore'
+import { useConfirm } from '@/composables/useConfirm'
 import BatchRollOrchestrationService from '@/services/rolls/batchRollOrchestrationService'
 import CrossedSwordsIcon from '@/assets/icons/characterSheet/crossed_swords.svg?component'
 
@@ -790,7 +791,8 @@ function createAndOpenGroup() {
 // ─── Delete group with confirmation ──────────────────────────────────────────
 
 async function deleteGroupWithConfirm(group) {
-    if (!confirm(`Delete group "${group.name}"? This cannot be undone.`)) return
+    const { confirm } = useConfirm()
+    if (!await confirm(`Delete group "${group.name}"? This cannot be undone.`)) return
     const cid = campaignStore.activeCampaign?.id
     if (cid) {
         const beastDeletes = group.members

@@ -77,6 +77,7 @@ import { useImageListPreloader } from '@/composables/useImagePreloader'
 import { getOptimizedImageUrl } from '@/utils/imageOptimization'
 import { MIDJOURNEY_IMAGE_CONTEXTS } from '@shared/constants/artConstants.js'
 import { useKeepingStore } from '@/stores/keepingStore'
+import { useConfirm } from '@/composables/useConfirm'
 
 // Static icon imports — must match VesselModal.vue so keys resolve correctly
 import ballGlowIcon from '@/assets/icons/summoner/ball-glow.png'
@@ -185,15 +186,14 @@ function handleArtClick() {
     if (props.beast) emit('open-sheet', props.beast)
 }
 
-function handleRemove() {
+async function handleRemove() {
+    const { confirm } = useConfirm()
     if (props.beast) {
-        // Remove only the beast from the vessel — vessel reverts to state B (empty)
-        if (window.confirm(`Remove ${props.beast.name} from this vessel?`)) {
+        if (await confirm(`Remove ${props.beast.name} from this vessel?`)) {
             emit('remove-beast', props.vessel)
         }
     } else {
-        // Remove the vessel entry entirely — slot reverts to state A (ghost)
-        if (window.confirm('Remove this vessel?')) {
+        if (await confirm('Remove this vessel?')) {
             emit('remove-vessel', props.vessel)
         }
     }

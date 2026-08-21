@@ -84,6 +84,7 @@ import RulesService from '@/services/entities/rulesService'
 import RulesSearchResults from './RulesSearchResults.vue'
 import { createSlug } from '@/utils/urlHelpers'
 import { useRulesSearch } from '@/composables/useRulesSearch'
+import { useConfirm } from '@/composables/useConfirm'
 
 const route = useRoute()
 const router = useRouter()
@@ -205,7 +206,8 @@ const createNewSection = async () => {
 }
 
 const confirmDeleteSection = async (section) => {
-  if (window.confirm(`Are you sure you want to delete "${section.name}"?`)) {
+  const { confirm } = useConfirm()
+  if (await confirm(`Are you sure you want to delete "${section.name}"?`)) {
     await rulesStore.update({ ...section, isDeleted: true })
 
     if (rulesStore.selectedSection?.id === section.id && orderedSections.value.length > 0) {

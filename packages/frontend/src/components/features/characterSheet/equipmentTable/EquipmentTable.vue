@@ -182,6 +182,7 @@ import { RollTypes } from '@/constants/rollTypes'
 import { SKILLS } from '@shared/constants/characterConstants'
 import { MESMER_MASK_SUBTYPE_ID } from '@/constants/mesmerConstants'
 import { getModifierStatKey } from '@/utils/characterKeyUtils'
+import { useConfirm } from '@/composables/useConfirm'
 
 const props = defineProps({
   isEditMode: {
@@ -602,7 +603,8 @@ const handleEquipmentEdit = async (equipment) => {
     openEditEquipmentModal(equipment)
     return
   }
-  if (!confirm('Convert to custom item? This cannot be undone.')) return
+  const { confirm } = useConfirm()
+  if (!await confirm('Convert to custom item? This cannot be undone.')) return
   try {
     const copyData = { ...equipment }
     delete copyData.id

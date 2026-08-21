@@ -49,6 +49,7 @@ import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.v
 import CampaignShopSection from '@/components/features/campaigns/CampaignShopSection.vue'
 import ShopGeneratorModal from '@/components/features/campaigns/ShopGeneratorModal.vue'
 import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
+import { useConfirm } from '@/composables/useConfirm'
 
 const campaignStore = useCampaignStore()
 
@@ -68,7 +69,8 @@ const visibleShops = computed(() =>
 )
 
 const deleteShop = async (shopId) => {
-    if (!confirm('Delete this shop?')) return
+    const { confirm } = useConfirm()
+    if (!await confirm('Delete this shop?')) return
     try {
         await campaignStore.deleteShop(campaignId.value, shopId)
     } catch (error) {

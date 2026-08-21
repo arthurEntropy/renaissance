@@ -60,6 +60,7 @@ import { useCardPreview } from '@/composables/useCardPreview'
 import { useSourcesStore } from '@/stores/sourcesStore'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
+import { useConfirm } from '@/composables/useConfirm'
 
 // Static icon imports — must match WitchcraftItemModal.vue so keys resolve correctly
 import beadsIcon from '@/assets/icons/witch/beads.png'
@@ -160,9 +161,10 @@ function onSpellChipEnter(event, ability) {
     }
 }
 
-function handleRemove() {
+async function handleRemove() {
     const itemType = props.type === 'token' ? 'token' : 'talisman'
-    const confirmed = window.confirm(`Remove this ${itemType}?`)
+    const { confirm } = useConfirm()
+    const confirmed = await confirm(`Remove this ${itemType}?`)
     if (confirmed) emit('remove', props.item)
 }
 

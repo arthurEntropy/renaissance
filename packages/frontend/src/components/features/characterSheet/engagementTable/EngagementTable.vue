@@ -40,6 +40,7 @@ import EngagementSuccessDisplay from './EngagementSuccessDisplay.vue'
 import { useEngagementRoll } from '@/composables/useEngagementRoll'
 import { useEngagementSuccesses } from '@/composables/useEngagementSuccesses'
 import { DiceStatus } from '@/constants/diceStatus'
+import { useConfirm } from '@/composables/useConfirm'
 
 const props = defineProps({
   canEdit: {
@@ -67,13 +68,14 @@ const resetDice = diceManager.resetDice
 const INLINE_DICE_THRESHOLD = 8
 const diceInHeader = computed(() => diceManager.allOwnedEngagementDice.value.length <= INLINE_DICE_THRESHOLD)
 
-const rollSelectedDice = () => {
+const rollSelectedDice = async () => {
   const selectedDice = diceManager.allOwnedEngagementDice.value
     .filter(item => item.status === DiceStatus.SELECTED)
     .map(item => ({ dieSize: item.die }))
 
   if (selectedDice.length === 0) {
-    if (!confirm('Enter engagement with no dice selected?')) {
+    const { confirm } = useConfirm()
+    if (!await confirm('Enter engagement with no dice selected?')) {
       return
     }
   }

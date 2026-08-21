@@ -373,7 +373,7 @@ const saveDiceChanges = () => {
 
 const saveEquipment = () => {
   if (!editedEquipment.value.id) {
-    alert('Cannot save equipment: Missing ID. Please try again or contact support.')
+    alert('Cannot save equipment: Missing ID. Please try again.')
     return
   }
   saveDiceChanges()

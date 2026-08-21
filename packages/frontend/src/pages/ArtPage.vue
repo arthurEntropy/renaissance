@@ -32,6 +32,7 @@ import { useArtMultiSelect } from '@/components/features/artLibrary/composables/
 import { useArtNavigation } from '@/components/features/artLibrary/composables/useArtNavigation'
 import { useArtMultiEdit } from '@/components/features/artLibrary/composables/useArtMultiEdit'
 import { useArtCrud } from '@/components/features/artLibrary/composables/useArtCrud'
+import { useConfirm } from '@/composables/useConfirm'
 import ArtFilters from '@/components/features/artLibrary/components/ArtFilters.vue'
 import ArtGrid from '@/components/features/artLibrary/components/ArtGrid.vue'
 import EditMultipleBar from '@/components/features/artLibrary/components/EditMultipleBar.vue'
@@ -134,7 +135,8 @@ const handleDelete = async (artData) => {
 }
 
 const handleDeleteMultiple = async () => {
-    if (!confirm(`Delete ${selectedItems.value.length} selected item${selectedItems.value.length !== 1 ? 's' : ''}? This cannot be undone.`)) return
+    const { confirm } = useConfirm()
+    if (!await confirm(`Delete ${selectedItems.value.length} selected item${selectedItems.value.length !== 1 ? 's' : ''}? This cannot be undone.`)) return
     try {
         await Promise.all(selectedItems.value.map(id => {
             const art = artStore.getById(id)

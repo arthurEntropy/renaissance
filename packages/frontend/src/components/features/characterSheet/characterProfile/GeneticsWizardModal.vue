@@ -76,6 +76,7 @@ import AbilityCard from '@/components/ui/cards/item/AbilityCard.vue'
 import GeneticsAncestryColumn from './GeneticsAncestryColumn.vue'
 import { useAbilitiesStore } from '@/stores/abilitiesStore'
 import { useCharactersStore } from '@/stores/charactersStore'
+import { useConfirm } from '@/composables/useConfirm'
 
 const props = defineProps({
     ancestryA: {
@@ -233,8 +234,9 @@ const applyAll = () => {
 
 // ── Cancel ────────────────────────────────────────────────────────────────────
 
-const onCancel = () => {
-    if (!confirm('Are you sure you want to cancel? Your Genetics Wizard selections will be lost.')) return
+const onCancel = async () => {
+    const { confirm } = useConfirm()
+    if (!await confirm('Are you sure you want to cancel? Your Genetics Wizard selections will be lost.')) return
     clearPendingTimeouts()
     emit('close')
 }
