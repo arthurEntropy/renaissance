@@ -95,10 +95,10 @@ const displayText = computed(() => {
             // Show "- Remove" for owned items, "+ Add" for unowned
             return props.isOwned ? '- Remove' : '+ Add'
         }
-        // Free items (no cost): always show "+ Add" as the resting text
+        // Free items (no cost): show "0 XP" for owned items, "+Add" for unowned
         // (the badge is opacity:0 at rest anyway, only revealed on card hover)
         if (props.value === undefined || props.value === null) {
-            return '+ Add'
+            return props.isOwned ? '0 XP' : '+ Add'
         }
         // Show normal badge text when not hovering
         return props.type === 'xp' ? `${props.value} XP` : props.value

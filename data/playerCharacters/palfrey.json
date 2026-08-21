@@ -2,7 +2,7 @@
   "id": "da8bd375-e52c-4b5a-9cbf-d729eb2442cf",
   "isDeleted": false,
   "createdAt": "2026-08-17T18:10:20.190Z",
-  "lastModified": "2026-08-18T18:13:42.669Z",
+  "lastModified": "2026-08-21T15:12:25.489Z",
   "characterType": "playerCharacter",
   "name": "Palfrey",
   "featuredArtUrls": [
@@ -152,7 +152,7 @@
   },
   "defense": {
     "current": 11,
-    "base": 2
+    "base": 11
   },
   "load": 4,
   "shadow": 0,
@@ -175,11 +175,8 @@
   "engagementDice": [],
   "engagementSuccesses": [],
   "engagementDiceStatuses": {
-    "3a61c9aa-09ba-4b44-9efb-529795835e69_0": "expended",
-    "a8a14960-4382-4030-82f7-1da7391a3aa9_0": "expended",
-    "ef6f473a-0967-4d3f-aec8-465b14390460_0": "expended",
-    "mestiere_1": "expended",
     "mestiere_0": "expended",
+    "mestiere_1": "expended",
     "adfa9a8b-7318-4512-b876-4bd1d857d287_0": "expended"
   },
   "equipment": [
@@ -384,5 +381,5 @@
   "treasure": 2,
   "xp": 0,
   "description": "",
-  "updatedAt": "2026-08-18T18:13:42.669Z"
+  "updatedAt": "2026-08-21T15:12:25.489Z"
 }

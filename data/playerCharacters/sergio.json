@@ -2,7 +2,7 @@
   "id": "285cc523-b6f4-41cc-83b6-91915f207c8a",
   "isDeleted": false,
   "createdAt": "2026-08-17T19:11:39.296Z",
-  "lastModified": "2026-08-18T18:48:09.962Z",
+  "lastModified": "2026-08-21T16:01:26.813Z",
   "characterType": "playerCharacter",
   "name": "Sergio",
   "featuredArtUrls": [
@@ -180,14 +180,15 @@
     {
       "id": "604d30f6-42c6-4c34-ba16-18ea3f529161",
       "quantity": 1,
-      "isCarried": true
+      "isCarried": true,
+      "collapsed": false
     },
     {
       "id": "37a3317f-f796-4cc7-b6ae-816fd8404ca5",
       "quantity": 1,
       "isCarried": true,
       "isWielding": true,
-      "collapsed": true
+      "collapsed": false
     }
   ],
   "groupEquipmentBySource": false,
@@ -403,5 +404,5 @@
   "treasure": 20,
   "xp": 0,
   "description": "",
-  "updatedAt": "2026-08-18T18:48:09.962Z"
+  "updatedAt": "2026-08-21T16:01:26.813Z"
 }

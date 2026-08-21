@@ -2,7 +2,7 @@
   "id": "8f20a6c3-b272-45d6-9d80-c07ced314693",
   "isDeleted": false,
   "createdAt": "2026-08-17T15:40:41.734Z",
-  "lastModified": "2026-08-18T18:16:55.301Z",
+  "lastModified": "2026-08-21T15:46:53.037Z",
   "characterType": "playerCharacter",
   "name": "Jebeddo",
   "featuredArtUrls": [
@@ -179,7 +179,11 @@
   },
   "engagementDice": [],
   "engagementSuccesses": [],
-  "engagementDiceStatuses": {},
+  "engagementDiceStatuses": {
+    "mestiere_0": "expended",
+    "mestiere_1": "expended",
+    "ef6f473a-0967-4d3f-aec8-465b14390460_0": "expended"
+  },
   "equipment": [
     {
       "id": "42c51e86-d2c9-4e11-be71-ba8d754c04b4",
@@ -318,19 +322,19 @@
   },
   "rollStats": {
     "skillChecks": {
-      "attempts": 3,
-      "successes": 3,
-      "totalSum": 31,
-      "bestTotal": 13,
+      "attempts": 7,
+      "successes": 7,
+      "totalSum": 72,
+      "bestTotal": 14,
       "hardestSuccess": null,
       "bySkill": {
         "Courtesy": 1,
-        "Strength": 1,
+        "Strength": 5,
         "Dexterity": 1
       },
       "solCount": 1,
       "morteCount": 1,
-      "successCount": 1
+      "successCount": 2
     },
     "contests": {
       "engagement": {
@@ -389,5 +393,5 @@
   "treasure": 2,
   "xp": 0,
   "description": "",
-  "updatedAt": "2026-08-18T18:16:55.301Z"
+  "updatedAt": "2026-08-21T15:46:53.037Z"
 }

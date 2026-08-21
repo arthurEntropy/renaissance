@@ -2,7 +2,7 @@
   "id": "ef9111f4-12e2-4104-8634-f614016cce58",
   "isDeleted": false,
   "createdAt": "2026-08-17T20:37:02.051Z",
-  "lastModified": "2026-08-18T18:38:22.272Z",
+  "lastModified": "2026-08-21T15:11:32.841Z",
   "characterType": "beastInstance",
   "name": "Mycoderm C",
   "featuredArtUrls": [
@@ -148,7 +148,7 @@
   },
   "defense": {
     "current": 12,
-    "base": 2
+    "base": 7
   },
   "load": 0,
   "shadow": 0,
@@ -170,7 +170,10 @@
   },
   "engagementDice": [],
   "engagementSuccesses": [],
-  "engagementDiceStatuses": {},
+  "engagementDiceStatuses": {
+    "4d9fd1b5-b468-431c-961f-82a84c91de39_0": "expended",
+    "db418790-1337-43d4-8d92-53a29b16a240_0": "expended"
+  },
   "equipment": [
     {
       "id": "db418790-1337-43d4-8d92-53a29b16a240",
@@ -278,7 +281,7 @@
   "description": "",
   "size": 3,
   "reach": 5,
-  "updatedAt": "2026-08-18T18:38:22.272Z",
+  "updatedAt": "2026-08-21T15:11:32.841Z",
   "challenge": 17,
   "sectionOrder": [],
   "martialTrainingOverrides": {},

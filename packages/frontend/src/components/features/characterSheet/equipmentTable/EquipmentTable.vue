@@ -54,7 +54,7 @@
               @update:showImprovements="updateEquipmentShowImprovements(item, $event)"
               :engagement-success-options="engagementSuccessOptions" :enable-damage-roll="true"
               @roll-damage="handleDamageRoll" @roll-link="handleRollLink" :show-transfer-button="showTransferButton"
-              @transfer="handleTransferEquipment" />
+              :difficulty-editable="true" @transfer="handleTransferEquipment" />
             <EquipmentDetails :equipment-item="item" :item-id="item.id" :is-edit-mode="canEdit"
               @update-carried="handleCarriedChange" @update-wielding="handleWieldingChange"
               @update-quantity="handleQuantityChange" />
@@ -77,7 +77,7 @@
               @update:showImprovements="updateEquipmentShowImprovements(item, $event)"
               :engagement-success-options="engagementSuccessOptions" :enable-damage-roll="true"
               @roll-damage="handleDamageRoll" @roll-link="handleRollLink" :show-transfer-button="showTransferButton"
-              @transfer="handleTransferEquipment" />
+              :difficulty-editable="true" @transfer="handleTransferEquipment" />
             <EquipmentDetails :equipment-item="item" :item-id="item.id" :is-edit-mode="canEdit"
               @update-carried="handleCarriedChange" @update-wielding="handleWieldingChange"
               @update-quantity="handleQuantityChange" />
@@ -178,7 +178,6 @@ import { useConceptsStore } from '@/stores/conceptsStore'
 import { useCampaignStore } from '@/stores/campaignStore'
 import { useAuthStore } from '@/stores/authStore'
 import EngagementSuccessService from '@/services/entities/engagementSuccessService'
-import { RollTypes } from '@/constants/rollTypes'
 import { SKILLS } from '@shared/constants/characterConstants'
 import { MESMER_MASK_SUBTYPE_ID } from '@/constants/mesmerConstants'
 import { getModifierStatKey } from '@/utils/characterKeyUtils'
@@ -507,8 +506,8 @@ const handleRollLink = (rollData) => {
     rollLinkSkillKey.value = Object.values(SKILLS).find(s => s.label === rollData.skill)?.key ?? rollData.skill?.toLowerCase() ?? null
     rollLinkSourceName.value = rollData.sourceName ?? null
     rollLinkIllFavored.value = !!rollData.lacksTraining
-    // Contest links open as unopposed (no difficulty)
-    rollLinkRollType.value = rollData.type === 'contest' ? 'unopposed' : RollTypes.SKILL_CHECK
+    // Skill-check and contest links open as unopposed (no difficulty); explicit contest links also stay unopposed
+    rollLinkRollType.value = 'unopposed'
     showSkillCheckModal.value = true
   } else if (rollData.type === 'damage-roll') {
     const initialDiceCounts = {}

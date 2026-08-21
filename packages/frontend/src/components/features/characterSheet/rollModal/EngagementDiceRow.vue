@@ -128,7 +128,7 @@ const handleSuccessDrop = (successData) => {
 
 // Handle removing success assignment
 const handleRemoveSuccess = () => {
-    engagementSuccesses.removeSuccess(props.side, props.index, character.value.id)
+    engagementSuccesses.clearAssignment(props.side, props.index, character.value.id)
 }
 
 const getDiceClasses = (die, index) => {

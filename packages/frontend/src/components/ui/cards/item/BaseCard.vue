@@ -50,8 +50,7 @@
           <slot name="properties"></slot>
 
           <!-- Main description -->
-          <CardDescription
-            v-if="item.description || showBiomeTags || showTopBadges || $slots['before-description'] || $slots['after-description']"
+          <CardDescription v-if="item.description || showBiomeTags || showTopBadges || hasDescriptionSlotContent"
             :content="item.description || ''" :additionalClasses="descriptionManaClass"
             @roll-link="emit('roll-link', $event)">
             <template v-if="showTopBadges" #top-badge>
@@ -125,6 +124,9 @@ const props = defineProps({
   collapsible: { type: Boolean, default: true },
   itemType: { type: String, default: ItemType.ABILITY },
   fallbackBackgroundUrl: { type: String, default: null },
+  // Set to true when the parent card has slot content (before/after-description) to render.
+  // When false and item has no description text, biome tags, or badges, CardDescription is hidden.
+  hasDescriptionSlotContent: { type: Boolean, default: false },
 })
 
 const emit = defineEmits(['edit', 'duplicate', 'delete', 'update', 'send-to-chat', 'height-changed', 'update:collapsed', 'roll-link'])

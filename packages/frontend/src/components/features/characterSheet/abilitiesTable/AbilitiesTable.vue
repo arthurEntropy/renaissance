@@ -50,7 +50,7 @@
             @update="handleCharacterUpdate" @update:collapsed="updateAbilityCollapsed(item.id, $event)"
             @update:showImprovements="updateAbilityShowImprovements(item, $event)" :show-successes="item.showSuccesses"
             @update:showSuccesses="updateAbilityShowSuccesses(item, $event)" @roll-link="handleRollLink"
-            :show-difficulty-badge="true" @activate="setAbilityActive(item.id, true)"
+            :show-difficulty-badge="true" :difficulty-editable="true" @activate="setAbilityActive(item.id, true)"
             @deactivate="setAbilityActive(item.id, false)" />
           <span v-else class="missing-item">Unknown ability</span>
         </template>
@@ -66,8 +66,8 @@
             @update="handleCharacterUpdate" @update:collapsed="updateAbilityCollapsed(ability.id, $event)"
             @update:showImprovements="updateAbilityShowImprovements(ability, $event)"
             :show-successes="ability.showSuccesses" @update:showSuccesses="updateAbilityShowSuccesses(ability, $event)"
-            @roll-link="handleRollLink" :show-difficulty-badge="true" @activate="setAbilityActive(ability.id, true)"
-            @deactivate="setAbilityActive(ability.id, false)" />
+            @roll-link="handleRollLink" :show-difficulty-badge="true" :difficulty-editable="true"
+            @activate="setAbilityActive(ability.id, true)" @deactivate="setAbilityActive(ability.id, false)" />
           <span v-else class="missing-item">Unknown ability</span>
         </template>
       </ThreeColumnLayout>

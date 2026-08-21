@@ -5,7 +5,8 @@
     :itemType="ItemType.EQUIPMENT" :fallbackBackgroundUrl="keepingFallbackBackgroundUrl"
     :class="{ 'equipment-card--with-difficulty': showDifficultyBadge && hasDifficultyBadge }"
     @edit="$emit('edit', equipment)" @duplicate="handleDuplicate" @roll-link="$emit('roll-link', $event)"
-    @mouseenter="onCardMouseEnter" @mouseleave="cardPreview.scheduleHide()" @mousedown="onCardMouseDown">
+    @mouseenter="onCardMouseEnter" @mouseleave="cardPreview.scheduleHide()" @mousedown="onCardMouseDown"
+    :has-description-slot-content="hasDescriptionSlotContent">
 
     <!-- Defense bonus in collapsed header (not shown when expanded since it appears in the card body) -->
     <template v-if="collapsed && equipment.defenseBonus > 0" #meta-prefix>
@@ -37,7 +38,8 @@
            is not the character owner and not a GM. -->
       <div v-if="isWeapon && character && showAttackFab" class="attack-roll-fab-host">
         <FloatingActionButton :variant="FAB_TYPES.ATTACK" :size="FAB_SIZES.SMALL"
-          :visibility="FAB_VISIBILITIES.ON_HOVER" @click.stop="handleAttackButtonClick" />
+          :visibility="showAttackSkillMenu ? FAB_VISIBILITIES.ALWAYS : FAB_VISIBILITIES.ON_HOVER"
+          @click.stop="handleAttackButtonClick" />
       </div>
     </template>
 
@@ -142,8 +144,8 @@
       </div>
 
       <!-- Difficulty badge for Hunter's Traps and other difficulty-setting equipment -->
-      <DifficultyBadge v-if="showDifficultyBadge && hasDifficultyBadge" :value="trapDifficulty" :readonly="!character"
-        @update:value="handleTrapDifficultyUpdate" />
+      <DifficultyBadge v-if="showDifficultyBadge && hasDifficultyBadge" :value="trapDifficulty"
+        :readonly="!difficultyEditable" @update:value="handleTrapDifficultyUpdate" />
 
       <!-- Skill selection menu for weapons that can use Strength or Dexterity -->
       <CascadeMenuFrame v-if="showAttackSkillMenu" :overlay="false" :anchor-position="attackMenuPosition"
@@ -321,6 +323,11 @@ const props = defineProps({
   showDifficultyBadge: {
     type: Boolean,
     default: true,
+  },
+  // When true, the DifficultyBadge allows editing. Should only be true in EquipmentTable/AbilitiesTable.
+  difficultyEditable: {
+    type: Boolean,
+    default: false,
   },
   // When true, the keeping cost badge is always hidden until the card is hovered
   // (mirrors the XP badge behaviour in AbilityCard within AbilitiesTable)
@@ -538,6 +545,15 @@ function selectAttackSkill(skillLabel) {
 
 const hasDiceSection = computed(() =>
   (props.equipment.engagementDice?.length > 0) || (props.equipment.damageDice?.length > 0)
+)
+
+const hasDescriptionSlotContent = computed(() =>
+  !!equipmentCategoriesDisplay.value ||
+  !!equipmentPropertiesDisplay.value ||
+  props.equipment.defenseBonus > 0 ||
+  hasDiceSection.value ||
+  engagementSuccesses.value.length > 0 ||
+  (props.equipment.successes?.length ?? 0) > 0
 )
 
 // Training category key for the equipment item

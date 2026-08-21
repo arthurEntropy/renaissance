@@ -2,7 +2,7 @@
   "id": "18953367-9a25-4dd1-8429-ff2820832d9b",
   "isDeleted": false,
   "createdAt": "2026-08-17T19:54:55.724Z",
-  "lastModified": "2026-08-18T18:23:01.880Z",
+  "lastModified": "2026-08-21T15:46:50.044Z",
   "campaignId": "84b00fc0-eae8-4808-9151-949bf59928ff",
   "name": "Nïrwe Night Market",
   "backgroundImage": {
@@ -1466,6 +1466,11 @@
           "characterId": "8f56a2a7-87f1-4f6e-ba28-bd3327ce5da6"
         }
       ]
+    },
+    {
+      "id": "group-1787320075320-v7cwrv",
+      "name": "Group 1",
+      "combatants": []
     }
   ],
   "pixelsPerMile": 40,

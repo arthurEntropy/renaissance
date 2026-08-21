@@ -30,7 +30,7 @@
         <!-- Footer strip: DifficultyBadge -->
         <div class="badge__footer">
             <div class="badge__difficulty-host">
-                <DifficultyBadge :value="trap.difficulty" @update:value="$emit('update-difficulty', $event)" />
+                <DifficultyBadge :value="trap.difficulty" :readonly="true" />
             </div>
         </div>
     </div>
