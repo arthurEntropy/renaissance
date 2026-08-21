@@ -2,7 +2,7 @@
   "id": "da8bd375-e52c-4b5a-9cbf-d729eb2442cf",
   "isDeleted": false,
   "createdAt": "2026-08-17T18:10:20.190Z",
-  "lastModified": "2026-08-21T15:12:25.489Z",
+  "lastModified": "2026-08-21T20:56:12.745Z",
   "characterType": "playerCharacter",
   "name": "Palfrey",
   "featuredArtUrls": [
@@ -209,18 +209,18 @@
       "columnIndex": 0
     },
     {
+      "id": "381587b8-7519-4d79-b2d6-5bca9a908c2f",
+      "quantity": 1,
+      "isCarried": true,
+      "columnIndex": 2,
+      "collapsed": false
+    },
+    {
       "id": "adfa9a8b-7318-4512-b876-4bd1d857d287",
       "quantity": 1,
       "isCarried": true,
       "isWielding": true,
       "columnIndex": 1,
-      "collapsed": false
-    },
-    {
-      "id": "381587b8-7519-4d79-b2d6-5bca9a908c2f",
-      "quantity": 1,
-      "isCarried": true,
-      "columnIndex": 2,
       "collapsed": false
     }
   ],
@@ -338,7 +338,7 @@
     },
     "xpEarned": 0,
     "xpSpent": 0,
-    "treasureEarned": 46,
+    "treasureEarned": 47,
     "treasureSpent": 1
   },
   "biomeTags": [],
@@ -378,8 +378,8 @@
   "heightInches": 9,
   "weight": 175,
   "keeping": "3c4d5e6f-7a8b-4c9d-0e1f-2a3b4c5d6e7f",
-  "treasure": 2,
+  "treasure": 3,
   "xp": 0,
   "description": "",
-  "updatedAt": "2026-08-21T15:12:25.489Z"
+  "updatedAt": "2026-08-21T20:56:12.745Z"
 }

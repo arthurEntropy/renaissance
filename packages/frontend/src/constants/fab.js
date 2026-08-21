@@ -33,6 +33,7 @@ export const FAB_TYPES = {
     LOCKED: 'locked',
     UNLOCKED: 'unlocked',
     ARCHIVE: 'archive',
+    SELL: 'sell',
 }
 
 export const FAB_SIZES = {

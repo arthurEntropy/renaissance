@@ -2,7 +2,7 @@
     <CharacterSheetSection>
         <TableHeader title="Acrobat" :show-edit-button="false">
             <template #header-center>
-                <p v-if="speed <= 0" class="no-speed-message">Set a speed on the profile to use this tracker.</p>
+                <p v-if="speed <= 0" class="no-speed-message">Set a Speed for your character.</p>
                 <div v-else class="nimble-inline">
                     <span class="nimble-label-movement">{{ movementDisplay }}</span>
                     <div class="nimble-bar-wrapper">

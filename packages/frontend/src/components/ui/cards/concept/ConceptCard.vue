@@ -3,6 +3,9 @@
     @click="$emit('select', concept)" @keydown.enter="$emit('select', concept)"
     @keydown.space.prevent="$emit('select', concept)">
     <img v-if="expansionLogoUrl" :src="expansionLogoUrl" alt="Expansion Logo" class="expansion-logo-badge" />
+    <span v-if="concept.characterType === 'beast'" class="challenge-badge">
+      {{ concept.challenge ?? 0 }}
+    </span>
     <img v-if="conceptArtUrl" :src="optimizedConceptArtUrl" :alt="`${concept.name} concept art`"
       class="concept-card-image" />
     <p ref="nameRef" class="concept-card-name">{{ concept.name }}</p>
@@ -107,6 +110,27 @@ onMounted(async () => {
   box-shadow: var(--shadow-sm);
   background: var(--color-gray-dark);
   object-fit: cover;
+  border: 2px solid var(--color-gray-dark);
+  pointer-events: none;
+}
+
+.challenge-badge {
+  position: absolute;
+  bottom: 0;
+  right: 12px;
+  transform: translateY(50%);
+  z-index: var(--z-raised);
+  width: 26px;
+  height: 26px;
+  border-radius: var(--radius-full);
+  background: var(--color-danger-hover);
+  color: var(--color-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-16);
+  font-weight: var(--font-weight-bold);
+  box-shadow: var(--shadow-sm);
   border: 2px solid var(--color-gray-dark);
   pointer-events: none;
 }

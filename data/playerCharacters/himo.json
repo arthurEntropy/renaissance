@@ -2,7 +2,7 @@
   "id": "54f77e58-eca4-4e28-ac76-6d55493470cc",
   "isDeleted": false,
   "createdAt": "2026-08-17T14:48:57.453Z",
-  "lastModified": "2026-08-18T18:47:57.396Z",
+  "lastModified": "2026-08-21T18:53:45.996Z",
   "characterType": "playerCharacter",
   "name": "Himo",
   "featuredArtUrls": [
@@ -23,7 +23,8 @@
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "manualDiceMod": 0
+      "manualDiceMod": 0,
+      "isIllFavoredAutocalc": false
     },
     {
       "key": "strength",
@@ -31,7 +32,8 @@
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "manualDiceMod": 0
+      "manualDiceMod": 0,
+      "isIllFavoredAutocalc": false
     },
     {
       "key": "dexterity",
@@ -47,7 +49,8 @@
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "manualDiceMod": 0
+      "manualDiceMod": 0,
+      "isIllFavoredAutocalc": false
     },
     {
       "key": "craft",
@@ -55,7 +58,8 @@
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "manualDiceMod": 0
+      "manualDiceMod": 0,
+      "isIllFavoredAutocalc": false
     },
     {
       "key": "perform",
@@ -148,7 +152,7 @@
   },
   "defense": {
     "current": 5,
-    "base": 1
+    "base": 5
   },
   "load": 0,
   "shadow": 0,
@@ -371,5 +375,5 @@
   "treasure": 0,
   "xp": 0,
   "description": "",
-  "updatedAt": "2026-08-18T18:47:57.396Z"
+  "updatedAt": "2026-08-21T18:53:45.996Z"
 }

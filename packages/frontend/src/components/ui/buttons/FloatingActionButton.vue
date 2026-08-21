@@ -8,6 +8,9 @@
         <!-- Trap state variants: text labels, styling driven by isActive prop -->
         <span v-else-if="props.variant === FAB_TYPES.TRAP_DROP" class="trap-text">DROP</span>
         <span v-else-if="props.variant === FAB_TYPES.TRAP_THROW" class="trap-text">THROW</span>
+        <!-- Sell variant: keeping PNG icon -->
+        <img v-else-if="props.variant === FAB_TYPES.SELL" :src="keepingPng" alt=""
+            :class="[props.size === FAB_SIZES.SMALL ? 'fab__icon--small' : 'fab__icon--large', 'fab__icon--png']" />
         <component v-else
             :is="props.variant === FAB_TYPES.VISIBILITY && !props.isActive ? EyeSlashIcon : variantConfig.icon"
             :class="props.size === FAB_SIZES.SMALL ? 'fab__icon--small' : 'fab__icon--large'" />
@@ -21,6 +24,7 @@ import { PlusIcon, DocumentDuplicateIcon, PencilIcon, CheckIcon, XMarkIcon, Tras
 // Custom icons
 import CrossedSwordsIcon from '@/assets/icons/characterSheet/crossed_swords.svg?component'
 import DieIcon from '@/assets/icons/characterSheet/die.svg?component'
+import keepingPng from '@/assets/icons/keeping/keeping.png'
 import InjuryIcon from '@/assets/icons/characterSheet/injury.svg?component'
 import MartialTrainingIcon from '@/assets/icons/characterSheet/martial_training.svg?component'
 import GratuitiIcon from '@/assets/icons/characterSheet/gratuiti.svg?component'
@@ -93,6 +97,7 @@ const FAB_TYPE_CONFIG = {
     [FAB_TYPES.LOCKED]: { icon: LockClosedIcon, tooltip: 'Tokens locked (click to unlock)' },
     [FAB_TYPES.UNLOCKED]: { icon: LockOpenIcon, tooltip: 'Tokens unlocked (click to lock)' },
     [FAB_TYPES.ARCHIVE]: { icon: ArchiveBoxIcon, tooltip: 'Archive' },
+    [FAB_TYPES.SELL]: { tooltip: 'Sell item' },
 }
 
 const variantConfig = computed(() => FAB_TYPE_CONFIG[props.variant])
@@ -336,6 +341,22 @@ const variantConfig = computed(() => FAB_TYPE_CONFIG[props.variant])
 .fab--archive:hover .fab__icon--small,
 .fab--archive:hover .fab__icon--large {
     color: var(--color-black);
+}
+
+.fab__icon--png {
+    object-fit: contain;
+    filter: invert(1);
+    opacity: 0.8;
+}
+
+.fab--sell:hover {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+}
+
+.fab--sell:hover .fab__icon--png {
+    filter: brightness(0);
+    opacity: 1;
 }
 
 /* === VISIBILITY VARIANTS === */

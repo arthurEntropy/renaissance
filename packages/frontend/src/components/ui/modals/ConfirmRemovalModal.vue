@@ -1,24 +1,27 @@
 <template>
-    <BaseModal :title="cost !== null && cost > 0 ? 'Remove Item' : 'Confirm Remove'" width="360px"
-        @close="$emit('close')">
+    <BaseModal :title="modalTitle" width="360px" @close="$emit('close')">
         <div class="confirm-removal-body">
             <div v-show="!removed" class="removal-content">
                 <p class="removal-message">
-                    Remove <strong>{{ itemName }}</strong>?
+                    {{ mode === 'sell' ? 'Sell' : 'Remove' }} <strong>{{ itemName }}</strong>?
                 </p>
-                <p v-if="cost !== null && cost > 0" class="refund-line">
+                <p v-if="shouldShowBalanceLine" class="refund-line">
                     <strong>{{ characterBalance }}</strong><template v-if="currencyLabel === 'Treasure'"> <img
                             :src="keepingIcon" alt="treasure" class="currency-icon" /></template><template v-else> {{
                                 currencyLabel }}</template>
                     <ArrowLongRightIcon class="balance-arrow-icon" />
-                    <strong>{{ characterBalance + cost }}</strong><template v-if="currencyLabel === 'Treasure'"> <img
+                    <strong>{{ balanceAfter }}</strong><template v-if="currencyLabel === 'Treasure'"> <img
                             :src="keepingIcon" alt="treasure" class="currency-icon" /></template><template v-else> {{
                                 currencyLabel }}</template>
+                </p>
+                <p v-if="mode === 'sell'" class="sell-rule-reminder">
+                    Selling a piece of equipment in good repair yields half its original cost in Treasure, rounded
+                    down.
                 </p>
             </div>
             <Transition name="fade">
                 <div v-if="removed" class="removed-confirmation">
-                    Removed!
+                    {{ mode === 'sell' ? 'Sold!' : 'Removed!' }}
                 </div>
             </Transition>
         </div>
@@ -26,12 +29,17 @@
         <template #actions>
             <div v-if="!removed" class="confirm-removal-actions">
                 <div class="primary-actions">
-                    <ActionButton v-if="cost !== null && cost > 0" variant="primary" size="large"
-                        :text="`Remove & Refund ${cost} ${currencyLabel}`" @click="handleRemoveWithRefund" />
-                    <ActionButton v-else variant="primary" size="large" text="Remove" @click="handleRemoveNoRefund" />
+                    <ActionButton v-if="mode === 'sell'" variant="primary" size="large"
+                        :text="`Sell For ${sellAmount} Treasure`" @click="handleSell" />
+                    <template v-else>
+                        <ActionButton v-if="cost !== null && cost > 0" variant="primary" size="large"
+                            :text="`Remove & Refund ${cost} ${currencyLabel}`" @click="handleRemoveWithRefund" />
+                        <ActionButton v-else variant="primary" size="large" text="Remove"
+                            @click="handleRemoveNoRefund" />
+                    </template>
                     <ActionButton variant="neutral" size="large" text="Cancel" @click="$emit('close')" />
                 </div>
-                <a v-if="cost !== null && cost > 0" href="#" class="remove-free-link"
+                <a v-if="mode !== 'sell' && cost !== null && cost > 0" href="#" class="remove-free-link"
                     @click.prevent="handleRemoveNoRefund">Remove Without Refund</a>
             </div>
         </template>
@@ -39,13 +47,13 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { ArrowLongRightIcon } from '@heroicons/vue/24/outline'
 import BaseModal from './BaseModal.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import keepingIcon from '@/assets/icons/keeping/keeping.png'
 
-defineProps({
+const props = defineProps({
     /** Display name of the item being removed */
     itemName: {
         type: String,
@@ -66,11 +74,31 @@ defineProps({
         type: String,
         default: 'XP',
     },
+    /** 'remove' for standard removal, 'sell' for the sell-item flow. */
+    mode: {
+        type: String,
+        default: 'remove',
+        validator: (v) => ['remove', 'sell'].includes(v),
+    },
 })
 
-const emit = defineEmits(['confirm-refund', 'confirm-no-refund', 'close'])
+const emit = defineEmits(['confirm-refund', 'confirm-no-refund', 'confirm-sell', 'close'])
 
 const removed = ref(false)
+
+const sellAmount = computed(() => Math.floor((props.cost ?? 0) / 2))
+const shouldShowBalanceLine = computed(() => {
+    if (props.mode === 'sell') return true
+    return props.cost !== null && props.cost > 0
+})
+const balanceAfter = computed(() => {
+    if (props.mode === 'sell') return props.characterBalance + sellAmount.value
+    return props.characterBalance + (props.cost ?? 0)
+})
+const modalTitle = computed(() => {
+    if (props.mode === 'sell') return 'Sell Item'
+    return props.cost !== null && props.cost > 0 ? 'Remove Item' : 'Confirm Remove'
+})
 
 async function showRemovedAndClose() {
     removed.value = true
@@ -85,6 +113,11 @@ function handleRemoveWithRefund() {
 
 function handleRemoveNoRefund() {
     emit('confirm-no-refund')
+    showRemovedAndClose()
+}
+
+function handleSell() {
+    emit('confirm-sell')
     showRemovedAndClose()
 }
 </script>
@@ -179,6 +212,14 @@ function handleRemoveNoRefund() {
 
 .remove-free-link:hover {
     color: var(--color-text-primary);
+}
+
+.sell-rule-reminder {
+    font-size: var(--font-size-12);
+    color: var(--color-text-secondary);
+    font-style: italic;
+    margin: var(--space-sm) 0 0;
+    text-align: center;
 }
 
 /* Fade transition for the "Removed!" confirmation */

@@ -172,6 +172,8 @@
 
     <!-- Admin actions slot — transfer FAB and/or untrained indicator -->
     <template v-if="showTransferButton || lacksTraining" #admin-actions>
+      <FloatingActionButton v-if="showTransferButton" :variant="FAB_TYPES.SELL" :size="FAB_SIZES.SMALL"
+        :visibility="FAB_VISIBILITIES.ON_HOVER" title="Sell item" @click.stop="showSellModal = true" />
       <FloatingActionButton v-if="showTransferButton" :variant="FAB_TYPES.TRANSFER" :size="FAB_SIZES.SMALL"
         :visibility="FAB_VISIBILITIES.ON_HOVER" @click.stop="$emit('transfer', equipment)" />
       <FloatingActionButton v-if="lacksTraining" :variant="FAB_TYPES.UNTRAINED" :size="FAB_SIZES.SMALL"
@@ -189,6 +191,11 @@
   <ConfirmRemovalModal v-if="showConfirmRemovalModal" :item-name="equipment.name" :cost="keepingCost"
     :character-balance="character?.treasure ?? 0" currency-label="Treasure" @confirm-refund="confirmRemoveWithRefund"
     @confirm-no-refund="confirmRemoveNoRefund" @close="showConfirmRemovalModal = false" />
+
+  <!-- Sell modal: shown when selling equipment -->
+  <ConfirmRemovalModal v-if="showSellModal" mode="sell" :item-name="equipment.name" :cost="keepingCost"
+    :character-balance="character?.treasure ?? 0" currency-label="Treasure" @confirm-sell="confirmSell"
+    @close="showSellModal = false" />
 
   <!-- Property hint tooltip (reach, range, weapon properties, firearm subtype) -->
   <teleport to="body">
@@ -733,6 +740,7 @@ const handleBaseEquipmentToggle = () => {
 
 const showConfirmPurchaseModal = ref(false)
 const showConfirmRemovalModal = ref(false)
+const showSellModal = ref(false)
 
 function doEquipmentRemove(refundTreasure = false) {
   const equipmentIndex = props.character.equipment.findIndex(e => e.id === props.equipment.id)
@@ -770,6 +778,16 @@ function confirmAddWithSpend() {
 function confirmAddFree() {
   const updatedCharacter = CharacterService.addEquipmentToCharacter(props.character, props.equipment)
   if (updatedCharacter) emit('update', updatedCharacter)
+}
+
+function confirmSell() {
+  const equipmentIndex = props.character.equipment.findIndex(e => e.id === props.equipment.id)
+  if (equipmentIndex === -1) return
+  const updatedCharacter = CharacterService.removeItem(props.character, 'equipment', equipmentIndex)
+  if (!updatedCharacter) return
+  const cost = keepingCost.value ?? 0
+  const saleAmount = Math.floor(cost / 2)
+  emit('update', { ...updatedCharacter, treasure: (updatedCharacter.treasure ?? 0) + saleAmount })
 }
 
 const handleDuplicate = async () => {
