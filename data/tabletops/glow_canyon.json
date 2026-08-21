@@ -2,7 +2,7 @@
   "id": "87b9491c-b265-4a8b-be84-dac5866a3784",
   "isDeleted": false,
   "createdAt": "2026-08-17T20:11:22.169Z",
-  "lastModified": "2026-08-18T18:46:41.882Z",
+  "lastModified": "2026-08-21T17:21:29.122Z",
   "campaignId": "84b00fc0-eae8-4808-9151-949bf59928ff",
   "name": "Glow Canyon",
   "backgroundImage": {
@@ -45,7 +45,7 @@
       "size": 1,
       "x": 880,
       "y": 1000,
-      "zIndex": 50
+      "zIndex": 55
     },
     {
       "id": "24f2ff0b-059f-4339-a73e-9ab966f49c0f",
@@ -122,8 +122,8 @@
   ],
   "transform": {
     "scale": 0.9999999999999998,
-    "x": -145.06892145868767,
-    "y": -346.96028978995173
+    "x": -148.06892145868767,
+    "y": -505.96028978995173
   },
   "gridSize": 40,
   "gridColor": "#ffffff",
@@ -1599,6 +1599,906 @@
           "isDropped": false,
           "rolledMaxValue": false,
           "cssClass": "df-d12-3"
+        }
+      ]
+    },
+    {
+      "id": "4083afd8-0594-4647-ac06-09b8a2a8cefc_1787332002750_bvzb",
+      "timestamp": 1787332002750,
+      "characterId": "4083afd8-0594-4647-ac06-09b8a2a8cefc",
+      "characterName": "Magnuss",
+      "portraitUrl": "https://cdn.midjourney.com/9d007aef-e372-4e42-9581-a2703cfe7018/0_2_2048_N.webp",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "skill_check",
+      "skillName": "Spirit",
+      "total": 19,
+      "diceTotal": null,
+      "modifier": 0,
+      "modifierLabel": null,
+      "success": true,
+      "difficulty": null,
+      "footer": "",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 6,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-6"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 5,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-5"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 3,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-3"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 2,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-2"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 2,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-2"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 1,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-1"
+        }
+      ]
+    },
+    {
+      "id": "4083afd8-0594-4647-ac06-09b8a2a8cefc_1787332006060_3iol",
+      "timestamp": 1787332006060,
+      "characterId": "4083afd8-0594-4647-ac06-09b8a2a8cefc",
+      "characterName": "Magnuss",
+      "portraitUrl": "https://cdn.midjourney.com/9d007aef-e372-4e42-9581-a2703cfe7018/0_2_2048_N.webp",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "skill_check",
+      "skillName": "Spirit",
+      "total": 28,
+      "diceTotal": null,
+      "modifier": 0,
+      "modifierLabel": null,
+      "success": true,
+      "difficulty": null,
+      "footer": "",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 9,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-9"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 6,
+          "emoji": "✨",
+          "isDropped": false,
+          "rolledMaxValue": true,
+          "cssClass": "df-d6-6"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 5,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-5"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 4,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-4"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 3,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-3"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 1,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-1"
+        }
+      ]
+    },
+    {
+      "id": "4083afd8-0594-4647-ac06-09b8a2a8cefc_1787332073356_nh6q",
+      "timestamp": 1787332073356,
+      "characterId": "4083afd8-0594-4647-ac06-09b8a2a8cefc",
+      "characterName": "Magnuss",
+      "portraitUrl": "https://cdn.midjourney.com/9d007aef-e372-4e42-9581-a2703cfe7018/0_2_2048_N.webp",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "skill_check",
+      "skillName": "Spirit",
+      "total": 26,
+      "diceTotal": null,
+      "modifier": 0,
+      "modifierLabel": null,
+      "success": true,
+      "difficulty": null,
+      "footer": "",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 10,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-10"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 6,
+          "emoji": "✨",
+          "isDropped": false,
+          "rolledMaxValue": true,
+          "cssClass": "df-d6-6"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 4,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-4"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 3,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-3"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 2,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-2"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 1,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-1"
+        }
+      ]
+    },
+    {
+      "id": "4083afd8-0594-4647-ac06-09b8a2a8cefc_1787332081956_ocvz",
+      "timestamp": 1787332081956,
+      "characterId": "4083afd8-0594-4647-ac06-09b8a2a8cefc",
+      "characterName": "Magnuss",
+      "portraitUrl": "https://cdn.midjourney.com/9d007aef-e372-4e42-9581-a2703cfe7018/0_2_2048_N.webp",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "skill_check",
+      "skillName": "Spirit",
+      "total": 18,
+      "diceTotal": null,
+      "modifier": 0,
+      "modifierLabel": null,
+      "success": true,
+      "difficulty": null,
+      "footer": "",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 11,
+          "emoji": "💀",
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-11"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 5,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-5"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 5,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-5"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 3,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-3"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 3,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-3"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 2,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-2"
+        }
+      ]
+    },
+    {
+      "id": "4083afd8-0594-4647-ac06-09b8a2a8cefc_1787332084891_qpf1",
+      "timestamp": 1787332084891,
+      "characterId": "4083afd8-0594-4647-ac06-09b8a2a8cefc",
+      "characterName": "Magnuss",
+      "portraitUrl": "https://cdn.midjourney.com/9d007aef-e372-4e42-9581-a2703cfe7018/0_2_2048_N.webp",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "skill_check",
+      "skillName": "Spirit",
+      "total": 21,
+      "diceTotal": null,
+      "modifier": 0,
+      "modifierLabel": null,
+      "success": true,
+      "difficulty": null,
+      "footer": "",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 6,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-6"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 6,
+          "emoji": "✨",
+          "isDropped": false,
+          "rolledMaxValue": true,
+          "cssClass": "df-d6-6"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 4,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-4"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 2,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-2"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 2,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-2"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 1,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-1"
+        }
+      ]
+    },
+    {
+      "id": "4083afd8-0594-4647-ac06-09b8a2a8cefc_1787332087640_25sn",
+      "timestamp": 1787332087640,
+      "characterId": "4083afd8-0594-4647-ac06-09b8a2a8cefc",
+      "characterName": "Magnuss",
+      "portraitUrl": "https://cdn.midjourney.com/9d007aef-e372-4e42-9581-a2703cfe7018/0_2_2048_N.webp",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "skill_check",
+      "skillName": "Spirit",
+      "total": 25,
+      "diceTotal": null,
+      "modifier": 0,
+      "modifierLabel": null,
+      "success": true,
+      "difficulty": null,
+      "footer": "",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 7,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-7"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 5,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-5"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 5,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-5"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 3,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-3"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 3,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-3"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 2,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-2"
+        }
+      ]
+    },
+    {
+      "id": "4083afd8-0594-4647-ac06-09b8a2a8cefc_1787332090472_ppzw",
+      "timestamp": 1787332090472,
+      "characterId": "4083afd8-0594-4647-ac06-09b8a2a8cefc",
+      "characterName": "Magnuss",
+      "portraitUrl": "https://cdn.midjourney.com/9d007aef-e372-4e42-9581-a2703cfe7018/0_2_2048_N.webp",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "skill_check",
+      "skillName": "Spirit",
+      "total": 12,
+      "diceTotal": null,
+      "modifier": 0,
+      "modifierLabel": null,
+      "success": true,
+      "difficulty": null,
+      "footer": "",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 1,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-1"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 4,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-4"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 3,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-3"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 2,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-2"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 1,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-1"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 1,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-1"
+        }
+      ]
+    },
+    {
+      "id": "4083afd8-0594-4647-ac06-09b8a2a8cefc_1787332092875_q7wm",
+      "timestamp": 1787332092875,
+      "characterId": "4083afd8-0594-4647-ac06-09b8a2a8cefc",
+      "characterName": "Magnuss",
+      "portraitUrl": "https://cdn.midjourney.com/9d007aef-e372-4e42-9581-a2703cfe7018/0_2_2048_N.webp",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "skill_check",
+      "skillName": "Spirit",
+      "total": 25,
+      "diceTotal": null,
+      "modifier": 0,
+      "modifierLabel": null,
+      "success": true,
+      "difficulty": null,
+      "footer": "",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 6,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-6"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 5,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-5"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 4,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-4"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 4,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-4"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 3,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-3"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 3,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-3"
+        }
+      ]
+    },
+    {
+      "id": "4083afd8-0594-4647-ac06-09b8a2a8cefc_1787332095405_ey08",
+      "timestamp": 1787332095405,
+      "characterId": "4083afd8-0594-4647-ac06-09b8a2a8cefc",
+      "characterName": "Magnuss",
+      "portraitUrl": "https://cdn.midjourney.com/9d007aef-e372-4e42-9581-a2703cfe7018/0_2_2048_N.webp",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "skill_check",
+      "skillName": "Spirit",
+      "total": 23,
+      "diceTotal": null,
+      "modifier": 0,
+      "modifierLabel": null,
+      "success": true,
+      "difficulty": null,
+      "footer": "",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 7,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-7"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 5,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-5"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 3,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-3"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 3,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-3"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 3,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-3"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 2,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-2"
+        }
+      ]
+    },
+    {
+      "id": "4083afd8-0594-4647-ac06-09b8a2a8cefc_1787332097723_hws2",
+      "timestamp": 1787332097723,
+      "characterId": "4083afd8-0594-4647-ac06-09b8a2a8cefc",
+      "characterName": "Magnuss",
+      "portraitUrl": "https://cdn.midjourney.com/9d007aef-e372-4e42-9581-a2703cfe7018/0_2_2048_N.webp",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "skill_check",
+      "skillName": "Spirit",
+      "total": 29,
+      "diceTotal": null,
+      "modifier": 0,
+      "modifierLabel": null,
+      "success": true,
+      "difficulty": null,
+      "footer": "",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 9,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-9"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 5,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-5"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 5,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-5"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 5,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-5"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 4,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-4"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 1,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-1"
+        }
+      ]
+    },
+    {
+      "id": "4083afd8-0594-4647-ac06-09b8a2a8cefc_1787332100140_572e",
+      "timestamp": 1787332100140,
+      "characterId": "4083afd8-0594-4647-ac06-09b8a2a8cefc",
+      "characterName": "Magnuss",
+      "portraitUrl": "https://cdn.midjourney.com/9d007aef-e372-4e42-9581-a2703cfe7018/0_2_2048_N.webp",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "skill_check",
+      "skillName": "Spirit",
+      "total": 31,
+      "diceTotal": null,
+      "modifier": 0,
+      "modifierLabel": null,
+      "success": true,
+      "difficulty": null,
+      "footer": "",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 10,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-10"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 6,
+          "emoji": "✨",
+          "isDropped": false,
+          "rolledMaxValue": true,
+          "cssClass": "df-d6-6"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 6,
+          "emoji": "✨",
+          "isDropped": false,
+          "rolledMaxValue": true,
+          "cssClass": "df-d6-6"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 6,
+          "emoji": "✨",
+          "isDropped": false,
+          "rolledMaxValue": true,
+          "cssClass": "df-d6-6"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 2,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-2"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 1,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-1"
+        }
+      ]
+    },
+    {
+      "id": "4083afd8-0594-4647-ac06-09b8a2a8cefc_1787332157336_tuxi",
+      "timestamp": 1787332157336,
+      "characterId": "4083afd8-0594-4647-ac06-09b8a2a8cefc",
+      "characterName": "Magnuss",
+      "portraitUrl": "https://cdn.midjourney.com/9d007aef-e372-4e42-9581-a2703cfe7018/0_2_2048_N.webp",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "skill_check",
+      "skillName": "Spirit",
+      "total": 23,
+      "diceTotal": null,
+      "modifier": 0,
+      "modifierLabel": null,
+      "success": true,
+      "difficulty": null,
+      "footer": "",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 7,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-7"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 6,
+          "emoji": "✨",
+          "isDropped": false,
+          "rolledMaxValue": true,
+          "cssClass": "df-d6-6"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 3,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-3"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 3,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-3"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 3,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-3"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 1,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-1"
         }
       ]
     }

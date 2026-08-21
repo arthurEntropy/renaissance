@@ -2,7 +2,7 @@
   "id": "4083afd8-0594-4647-ac06-09b8a2a8cefc",
   "isDeleted": false,
   "createdAt": "2026-08-17T17:37:39.448Z",
-  "lastModified": "2026-08-20T12:22:13.150Z",
+  "lastModified": "2026-08-21T17:09:17.605Z",
   "characterType": "playerCharacter",
   "name": "Magnuss",
   "featuredArtUrls": [
@@ -306,18 +306,18 @@
   },
   "rollStats": {
     "skillChecks": {
-      "attempts": 3,
-      "successes": 3,
-      "totalSum": 48,
-      "bestTotal": 23,
+      "attempts": 18,
+      "successes": 18,
+      "totalSum": 404,
+      "bestTotal": 31,
       "hardestSuccess": null,
       "bySkill": {
         "Fortitude": 1,
-        "Spirit": 2
+        "Spirit": 17
       },
-      "solCount": 0,
-      "morteCount": 0,
-      "successCount": 2
+      "solCount": 1,
+      "morteCount": 1,
+      "successCount": 10
     },
     "contests": {
       "engagement": {
@@ -391,5 +391,5 @@
   "treasure": 6,
   "xp": 0,
   "description": "",
-  "updatedAt": "2026-08-20T12:22:13.150Z"
+  "updatedAt": "2026-08-21T17:09:17.605Z"
 }

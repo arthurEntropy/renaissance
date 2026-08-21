@@ -70,6 +70,14 @@
             </template>
         </AdminListManager>
 
+        <AdminListManager title="Skill Check Successes" item-name="Success" :store="skillCheckSuccessesStore"
+            :default-item="{ name: '', description: '', index: 0 }">
+            <template #fields="{ item, update }">
+                <input v-model="item.name" @blur="update" class="field-input" placeholder="Success Name" />
+                <input v-model="item.description" @blur="update" class="field-input flex-1" placeholder="Description" />
+            </template>
+        </AdminListManager>
+
         <AdminListManager title="Beast Types" item-name="Beast Type" :store="beastTypesStore"
             :default-item="{ name: '', description: '', artUrl: '', index: 0 }">
             <template #fields="{ item, update }">
@@ -180,6 +188,7 @@ import { useEquipmentSubtypesStore } from '@/stores/equipmentSubtypesStore'
 import { useEquipmentGradesStore } from '@/stores/equipmentGradesStore'
 import { useEquipmentRangesStore } from '@/stores/equipmentRangesStore'
 import { useEngagementSuccessesStore } from '@/stores/engagementSuccessesStore'
+import { useSkillCheckSuccessesStore } from '@/stores/skillCheckSuccessesStore'
 import { useBiomesStore } from '@/stores/biomesStore'
 import { useBeastTypesStore } from '@/stores/beastTypesStore'
 import { useBeastItemThemesStore } from '@/stores/beastItemThemesStore'
@@ -196,6 +205,7 @@ const equipmentSubtypesStore = useEquipmentSubtypesStore()
 const equipmentGradesStore = useEquipmentGradesStore()
 const equipmentRangesStore = useEquipmentRangesStore()
 const engagementSuccessesStore = useEngagementSuccessesStore()
+const skillCheckSuccessesStore = useSkillCheckSuccessesStore()
 const biomesStore = useBiomesStore()
 const beastTypesStore = useBeastTypesStore()
 const beastItemThemesStore = useBeastItemThemesStore()

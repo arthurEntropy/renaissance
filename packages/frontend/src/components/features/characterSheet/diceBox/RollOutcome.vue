@@ -20,11 +20,14 @@
                         ({{ rollData.diceTotal }}{{ rollData.modifier >= 0 ? '+' : '' }}{{ rollData.modifier }})
                     </span>
                 </span>
-                <span v-else>
-                    <span class="roll-number roll-total"
-                        :class="[{ 'has-difficulty': hasDifficulty }, hasDifficulty && outcomeClass]">{{
-                            rollData.total
-                        }}</span>
+                <span v-else class="skill-check-result">
+                    <span ref="skillCheckTotalRef" class="roll-number roll-total"
+                        :class="[hasDifficulty && outcomeClass, { 'roll-total--clickable': skillCheckSuccessCount > 0 && !shouldHideRollNumbers }]"
+                        @click="skillCheckSuccessCount > 0 && !shouldHideRollNumbers && handleSuccessClick()">{{
+                        rollData.total }}</span>
+                    <span v-if="skillCheckSuccessCount > 0 && !shouldHideRollNumbers" class="skill-check-successes"
+                        @click="handleSuccessClick">{{ '\u2728'.repeat(skillCheckSuccessCount) }}</span>
+                    <span v-if="hasDifficulty" class="roll-separator"> / </span>
                     <span v-if="hasDifficulty" class="roll-number roll-difficulty">{{ rollData.difficulty }}</span>
                 </span>
             </div>
@@ -41,6 +44,7 @@
 <script setup>
 import { computed, onUnmounted, ref, watch } from 'vue'
 import { EngagementResultTypes } from '@/constants/engagementResultTypes'
+import { RollTypes } from '@/constants/rollTypes'
 
 const REVEAL_FALLBACK_DELAY = 75
 
@@ -74,6 +78,20 @@ const props = defineProps({
         required: true
     }
 })
+
+const emit = defineEmits(['open-success-popup'])
+
+const skillCheckTotalRef = ref(null)
+
+const skillCheckSuccessCount = computed(() => {
+    if (props.isEngagement || props.isCustomRoll || props.isDamage || props.isInitiative || props.isInjury) return 0
+    if (props.rollData?.type !== RollTypes.SKILL_CHECK) return 0
+    return (props.rollData.diceResults ?? []).filter(d => d.rolledMaxValue && d.die?.dieSize === 6).length
+})
+
+function handleSuccessClick() {
+    emit('open-success-popup', { successCount: skillCheckSuccessCount.value, anchorEl: skillCheckTotalRef.value })
+}
 
 const hasDifficulty = computed(() => {
     return props.rollData.difficulty !== null && props.rollData.difficulty !== undefined
@@ -174,11 +192,27 @@ onUnmounted(() => {
     transition: var(--transition-fast);
 }
 
-.roll-total.has-difficulty::after {
-    content: ' / ';
+.skill-check-result {
+    display: flex;
+    align-items: center;
+}
+
+.skill-check-successes {
+    font-size: var(--font-size-32);
+    line-height: 1;
+    cursor: pointer;
+    user-select: none;
+    margin-left: 2px;
+}
+
+.roll-total--clickable {
+    cursor: pointer;
+}
+
+.roll-separator {
+    font-size: var(--font-size-16);
     color: var(--color-gray-medium);
     margin: 0 var(--space-2xs);
-    text-shadow: none;
 }
 
 .roll-difficulty {
