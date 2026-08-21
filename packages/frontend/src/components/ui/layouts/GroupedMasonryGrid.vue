@@ -111,6 +111,7 @@ defineExpose({ updateLayout })
     display: flex;
     flex-direction: column;
     gap: var(--space-xl);
+    margin-top: var(--space-xl);
 }
 
 .masonry-item {
