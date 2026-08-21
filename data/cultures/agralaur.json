@@ -39,12 +39,12 @@
     }
   ],
   "localFlavor": {
-    "names": "Yara, Tetsu, Maikolli, Riku, Ixaya, Nobu, Kael, Yumiko, Ahuac, Brisa, Tamo, Sachiko, Kallima, Jiro, Nayeli, Tomiko, Koan, Luma, Citlali, Tiago, Renzo",
-    "occupations": "Canal Skimmer, Portrait Painter, Mask Maker, Itamae-For-Hire, Parade Musician, River Diver, Sea Gardener, Lantern Stringer, Sandal Cobbler, Drum Carver, Cachaça Distiller, Gondola Pilot, Corner Herald, Sewer Guide, Ship Rower",
-    "publicHouses": "Kyabakura Capybara, Rodizio e Nomihodai, Iso Stand, Bar Veloso, Mocotó, Komah House, Mapu Baos, Izumiya Honten, O Cravinho, Bar Bottleman Saitama",
+    "names": "Yara, Tetsu, Maikolli, Riku, Ixaya, Nobu, Kael, Yumiko, Ahuac, Brisa, Tamo, Sachiko, Kallima, Jiro, Nayeli, Tomiko, Bobobito, Xixixaxa, Koan, Luma, Citlali, Tiago, Renzo",
+    "occupations": "Canal Skimmer, Portrait Painter, Headdress Maker, Itamae-For-Hire, Parade Musician, River Diver, Sea Gardener, Lantern Stringer, Sandal Cobbler, Drum Carver, Cachaça Distiller, Gondola Pilot, Fire Dancer, Sewer Guide, Ship Rower",
+    "publicHouses": "Kyabakura Capybara, Conch Club, Rodizio e Nomihodai, Seu's Underground Rooftop Tavern, Iso Stand, Bar Veloso, Mocotó, Komah House, Mapu Baos, Izumiya Honten, O Cravinho, Bar Bottleman Saitama",
     "vittles": "Fermented Shrimp Paste, Spiced Plantain Cakes, Smoked River Turtle, Tamarind Fish, Pickled Cycad, Blackened Catfish, Vinegar Rice Parcels, Dried Mango Strips, Fried Cassava Balls, Mussel and Pepper Skewers, Coconut Milk Porridge, Roasted Corn with Lime Salt, Honeyed Insect Clusters, Cured River Eel, Candied Hibiscus Petals",
-    "pointsOfInterest": "Kyū Velha (Old Quarter), The Carnaval Ziggurat, Favela Kizuato, The Singing Bridge, Byoto Ward, Cais do Ichiba (Wholesale Market), Kinjo Chique (Wealthy Quarter)",
-    "floraFauna": "Mangrove, Water Hyacinth, River Cress, Lotus, Banana Tree, Cycad, Capybara, Ibis, Marsh Toad, River Dolphin, Painted Frog, Lantern Beetle, Water Snake, Sail Lizard, Golden Kite"
+    "pointsOfInterest": "The Sunken Quarter, The Carnaval Ziggurat, Favela Kizuato, The Singing Bridge, Byoto Ward, Cais do Ichiba Wholesale Market, The Tilting Mansions of Kinjo Chique, The Drowned Alleys",
+    "floraFauna": "Mangrove, Water Hyacinth, River Cress, Kelp, Banana Tree, Cycad, Capybara, Ibis, Marsh Toad, River Dolphin, Painted Frog, Lantern Beetle, Water Snake, Sailfish, Urchin, Golden Kite"
   },
-  "lastModified": "2026-07-30T15:34:15.262Z"
+  "lastModified": "2026-08-20T12:42:50.987Z"
 }

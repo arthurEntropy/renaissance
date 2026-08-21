@@ -2,7 +2,7 @@
   "id": "c114dc0e-d6ca-4115-be35-684dead36de2",
   "conceptType": "CULTURE",
   "name": "The Underdark",
-  "description": "<p>The Underdark is everywhere, beneath everything. Miles underground, there is another world. Cut off from the light and warmth of the surface, life nevertheless flourishes here. Glowing mushrooms and shimmering streams take the place of the sun and moon, while thermal vents and dripping stalactites take the place of the wind and rain, and a myriad of creatures long adapted to the damp half-darkness roam, graze, hunt, and multiply.</p><p>What drew or drove the first peoples downward into this strange world is obscure, but over the centuries their bodies changed to reflect their new home. In the long years they built homes, temples, cities, shaping the dark stone into works magnificent and homely. They also became fierce, as the incursions of strange ancient beasts from the deeper reaches forced them to organize themselves around their own defense.</p><p>And so it was that the peoples of the surface discovered a highly militarized and bureaucratized society beneath their feet when the long isolation was broken at last. Now, these long-hardened societal structures are being tested, as some natives choose to leave and rejoin their long-estranged kin on the surface, and new arrivals question the many long-standing rules and norms, and yearn to explore places yet deeper and darker.</p>",
+  "description": "<p>The Underdark is everywhere, beneath everything. Miles underground, there is another world. Cut off from the light and warmth of the surface, life nevertheless flourishes here. Glowing mushrooms and shimmering streams take the place of the sun and moon, while thermal vents and dripping stalactites take the place of the wind and rain, and a myriad of creatures long adapted to the damp half-darkness roam, graze, hunt, and multiply.</p><p>What drew or drove the first peoples downward into this strange world is obscure, but over the centuries their bodies changed to reflect their new home. In the long years they built homes, temples, cities, shaping the dark stone into works magnificent and homely. They also became fierce, as frequent incursions of strange and ancient beasts from the deeper reaches forced them to organize themselves around their own defense.</p><p>And so it was that, when the long isolation was broken at last, the peoples of the surface discovered a highly militarized and bureaucratized society thriving beneath their feet. Now, these long-hardened societal structures are being tested, as some natives choose to leave and rejoin their long-estranged kin on the surface, while new arrivals question long-standing rules and norms, and yearn to explore places yet deeper and darker.</p>",
   "isDeleted": false,
   "featuredArtUrls": [
     "https://cdn.midjourney.com/9cd1ff24-401e-4f50-b162-8aa063f685b6/0_1_640_N.webp"
@@ -38,12 +38,12 @@
     }
   ],
   "localFlavor": {
-    "names": "Gregorik, Ilona, Radomir, Zsófia, Marek, Anika, Vlas, Erzsé, Tibor, Daciana, Emil, Klara, Istvan, Mirela, Vojtek, Lenka, Bela, Florika, Andor",
-    "occupations": "Tunnel Cartographer, Lampwright, Chitin Smith, Shadow Courier, Larvae Hunter, Mold Taxidermist, Glowworm Shepherd, Bone Archivist, Echo Scout, Passage Watcher, Crypt Curate, Vein Surveyor, Lichen Apothecary, Vault Mason, Myco-Chronicler",
-    "publicHouses": "The Velvet Spore, The Red Grotto, Darkheart's Table, The Glasslight, Deepslate Tavern,  Stag in the Deep",
-    "vittles": "Pickled Glowcap, Bat Jerky, Sourmoss Soup, Roasted Lichen Crisps, Ash-Baked Rootcakes, Salted Larvae Pâté, Chitin Crackers, Ghostberry Jam, Moss-Stuffed Dumplings, Glowsap Mead, Mold-Crusted Cheese, Deepwater Snail Stew, Fried Beetles, Stonefruit Cordial, Gloamtree Cider",
+    "names": "Gregorik, Ilona, Radomir, Zsófia, Marek, Anika, Vlas, Erzsé, Tibor, Daciana, Emil, Jebeddo, Klara, Istvan, Mirela, Vojtek, Lenka, Bela, Florika, Andor",
+    "occupations": "Tunnel Cartographer, Lampwright, Chitin Smith, Mushroom Arborist, Larvae Hunter, Mold Taxidermist, Glowworm Shepherd, Bone Archivist, Echo Scout, Passage Warden, Soldier, Tea Brewer, Lichen Apothecary, Vault Mason, Myco-Chronicler",
+    "publicHouses": "Ratmeyer's, Uránia Borozó, House Oberwart, Bauerngartl, Kis Pamut, Weinbau Kern, Gotthardt's Bank, Dampfbar, Rennhofer's, Room Kocsma, House of Terem",
+    "vittles": "Pickled Glowcap, Bat Jerky, Sourmoss Soup, Roasted Lichen Crisps, Steamed Rootcakes, Salted Larvae Pâté, Chitin Crackers, Ghostberry Jam, Moss-Stuffed Dumplings, Glowsap Mead, Mold-Crusted Cheese, Deepwater Snail Stew, Fried Beetles, Stonefruit Cordial, Gloamtree Cider",
     "pointsOfInterest": "Vault of Imperial Spores, The Darksteel Fortress, Mushroom Leather Market, The Myrioid Hives, The Night Fields, The Teetering Columns, The Deep Dark",
-    "floraFauna": "Glowcap, Cave Ivy, Ghost Fern, Red Moss, Iron Vein Lichen, Spore Lily, Scree Bat, Pale Mite, Echo Frog, Chitin Hound, Silkmoth, Blind Newt, Tunnel Cobra, Gloom Elk, Marble Ant"
+    "floraFauna": "Giant Glowcap, Cave Ivy, Ghost Fern, Hanging Leechweed, Iron Vein Lichen, Spore Lily, Scree Bat, Pale Mite, Echo Frog, Chitin Hound, Silkmoth, Blind Newt, Tunnel Cobra, Gloom Elk, Marble Ant"
   },
-  "lastModified": "2026-07-30T00:19:31.087Z"
+  "lastModified": "2026-08-20T12:50:54.444Z"
 }

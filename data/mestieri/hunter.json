@@ -25,7 +25,8 @@
         "ad30b114-3c19-413f-aad2-5f270bd95684",
         "ebcc2bcb-8221-4ca0-bef3-000fb7e59e96",
         "b92d3394-2c64-487f-8c90-c56ea1cbd3f3",
-        "a9023254-92ed-4c54-9840-5a7577c1aa1f"
+        "a9023254-92ed-4c54-9840-5a7577c1aa1f",
+        "847d1092-fd43-4d58-b3da-002e6f3b7f3d"
       ],
       "firearmGrades": [],
       "armorGrades": [
@@ -53,7 +54,7 @@
     "spellcasting": "",
     "gratuiti": "<p>A waterskin, a backpack &amp; bedroll, a traveling cloak, a hunting horn, a pocketknife.</p>"
   },
-  "lastModified": "2026-08-05T14:37:28.893Z",
+  "lastModified": "2026-08-17T15:02:35.500Z",
   "hooks": [],
   "playlists": []
 }

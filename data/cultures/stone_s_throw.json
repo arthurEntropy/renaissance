@@ -39,11 +39,11 @@
   ],
   "localFlavor": {
     "names": "Rusk, Maelle, Bram, Oda, Grond, Magnuss, Hilde, Fenrik, Claes, Dorga, Evelien, Brog, Leontien, Ardek, Tilda, Roan, Korneel, Varka, Elsje, Trog, Hennie",
-    "occupations": "Stone Tunneler, Hot Spring Attendant, Crystal Peddler, Cobbler, Tavern Singer, Gravestone Mason, Lore Keeper, Salt Miner, Mountain Guide, Brochure Scribe, Window Duster, Ale Runner, Outfitter, Goat Wrangler",
-    "publicHouses": "The Hollow Horn, The Mountain's Foot, The Ardis Lodge, The South Lodge, The Black Lodge, Unungula's Drink Yurt",
-    "vittles": "Fried Root Fritters, Pickled Beets and Eggs, Cave Cheese, Slow-Cooked Boar Neck, Springwater Ale, Honeycorn Bread, Fermented Apple Mash, Barley Mush with Molasses, Stewed Goat, Coal-Smoked Ham, Vinegar Pie, Salt-Crusted Cabbage, Flat Gritcakes, Stewed Onion and Bean, Blackberry Brandy",
-    "pointsOfInterest": "The Collapsed Shaft, The Listening Stone, Springhouse Hollow, The Broken Road, The Old Jail, Hollowback Falls, Hardhand's Outpost",
-    "floraFauna": "Mountain Laurel, Coal Rose, Lichen Fern, Gravel Vine, Silverleaf Moss, Hollowcap Mushroom, Stone Hare, Ridgeback Goat, Black Vulture, Moss Toad, Burrowing Beetle, Crimson Stoat, Lime Bat, Stonefin Trout, Cave Moth"
+    "occupations": "Mountain Guide, Hot Spring Attendant, Barkeep, Crystal Peddler, Cobbler, Tavern Singer, Prospector, River Runner, Lodge Maid, Carpenter, Brochure Scribe, Window Duster, Ale Runner, Outfitter, Goat Wrangler",
+    "publicHouses": "Hunkar's, The River Dog, Blauwhuis, Alice's & More, Piney View, Trollekelder, The Ardis Lodge, The South Lodge, The Black Lodge, Unungula's",
+    "vittles": "Root Fritters, Pickled Beets and Eggs, Cave Cheese, Slow-Cooked Boar Neck, Springwater Ale, Honeycorn Bread, Fermented Apple Mash, Barley Mush with Molasses, Stewed Goat, Coal-Smoked Ham, Vinegar Pie, Salt-Crusted Cabbage, Flat Gritcakes, Stewed Onion and Bean, Blackberry Brandy",
+    "pointsOfInterest": "The Sundered Mines, The Listening Stone, Springhouse Hollow, The Broken Road, The Old Jail, Hollowback Falls, Hardhand's Outpost",
+    "floraFauna": "Mountain Laurel, Coal Rose, Red Fern, Gravel Vine, Silverleaf Moss, Hollowcap Mushroom, Dust Hare, Ridgeback Goat, Black Vulture, Granite Toad, Burrowing Beetle, Crimson Stoat, Flying Squirrel, Stonefin Trout, Cave Moth"
   },
-  "lastModified": "2026-07-30T01:36:53.804Z"
+  "lastModified": "2026-08-20T12:49:14.209Z"
 }

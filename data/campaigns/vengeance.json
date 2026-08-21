@@ -1,11 +1,11 @@
 {
-  "id": "c9ddeab9-d180-4fc5-869f-e64239bc3376",
+  "id": "84b00fc0-eae8-4808-9151-949bf59928ff",
   "isDeleted": false,
-  "createdAt": "2026-05-18T17:56:57.471Z",
-  "lastModified": "2026-08-16T20:37:00.269Z",
+  "createdAt": "2026-08-17T14:44:47.494Z",
+  "lastModified": "2026-08-18T15:22:19.318Z",
   "slug": "vengeance",
   "name": "Vengeance",
-  "description": "<p>Long ago, the Ascendant visited our world and unlocked a hidden power. For many long years the Chthonic Subcommittee greedily hoarded that power away while the people learned magic in secret and at risk of death. Then came the rising of the bards, stirring the people into revolution. The Subcommittee was overthrown and an age of free magic began. It is in this happy time that our heroes meet and discover that all is not well. Will they rise to defend their world against a growing threat? Or will they mostly focus on root vegetables and magic cows?</p>",
+  "description": "Long ago, the Ascendant visited our world and unlocked a hidden power. For many long years the Chthonic Subcommittee greedily hoarded that power away while the people learned magic in secret and at risk of death. Then came the rising of the bards, stirring the people into revolution. The Subcommittee was overthrown and an age of free magic began. It is in this happy time that our heroes meet and discover that all is not well. Will they rise to defend their world against a growing threat? Or will they mostly focus on root vegetables and magic cows?",
   "coverImageUrl": "https://cdn.midjourney.com/579f3b17-4c19-4409-80c6-875df4546d87/0_0.png",
   "foundingGmUserId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
   "members": [
@@ -14,182 +14,96 @@
       "role": "gm",
       "status": "accepted",
       "characterIds": [
-        "224ddaf7-26fc-4344-b922-6fd3853435f1",
-        "b146fe7d-e513-4321-a466-0e785656725c",
-        "917e904f-d97e-4033-a498-8391260f3752",
-        "1af228fc-7b3c-4fe6-8c0c-cd028bc850e2",
-        "18d8d1be-6568-4ec0-9207-916b2ac1a676",
-        "0f6f7b18-4fa1-4a7c-993b-173437f1cd79",
-        "decef988-2c77-4c84-9ee6-bb8198a6f3cb",
-        "bc4960b8-28d0-4d2c-9f7f-99f6cef68706",
-        "a8cb69a9-0146-4aee-bcc1-24b591fe2458"
+        "54f77e58-eca4-4e28-ac76-6d55493470cc",
+        "8f20a6c3-b272-45d6-9d80-c07ced314693",
+        "4083afd8-0594-4647-ac06-09b8a2a8cefc",
+        "da8bd375-e52c-4b5a-9cbf-d729eb2442cf",
+        "c4883e09-8543-42e5-a69d-26bbae78d44e",
+        "285cc523-b6f4-41cc-83b6-91915f207c8a",
+        "13e267c3-f608-466d-9a8d-7442dcd5a7d4"
       ]
     },
     {
       "userId": "yMwXRvIrCwWwG4NRC4HBjN2BrOM2",
       "role": "player",
-      "status": "accepted",
+      "status": "pending",
       "characterIds": []
     }
   ],
   "includedConceptIds": [
+    "ba7af7ad-54d2-4b45-86ad-71781d4cdb33",
+    "2e46823f-bec7-4d70-b323-dbc8b71c7739",
+    "adc655c1-1d9c-433f-a0eb-41f93cf3ee07",
+    "f5cda222-6c69-4ae9-bc0d-761729cd8e2e",
+    "fffc6b74-d66f-4270-a8b4-e045433ae176",
+    "6ff91bc4-122f-4e95-bb08-b577f1a94bb6",
+    "77e4f81a-728f-49a7-a013-4d6f666353e2",
+    "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+    "b6f7cc3e-f689-4cd9-a8ed-73bf5e7f0fef",
+    "eed942f5-8cc4-446a-8806-b83186098274",
+    "15bb5476-5cca-48ee-a6a0-95b0ea6cc803",
+    "1c61dcb1-937a-44fe-9c69-3cd588e9dcb7",
+    "c02c53d1-b456-45d0-a048-6fc941cacc03",
     "55494a30-a1bb-47c3-aae9-2db3a5bfcb8b",
+    "352c844b-6d4f-4b61-b475-315421a453e7",
+    "cdc93466-8327-4096-a8c2-04cccf3e3835",
+    "d194ad54-7ca8-4902-a140-e6401681ee55",
+    "be62ac3d-7168-4779-8274-e60574a2fd27",
     "0c876a74-a89b-42dc-b76a-4592a0478d81",
+    "3085883d-e74b-40aa-84a9-af6fccb3d98e",
+    "c114dc0e-d6ca-4115-be35-684dead36de2",
+    "40086e18-eaba-411a-b4ec-7a0a7fd42d37",
     "5a639d7b-847a-468b-9bbe-5275d31fdf66",
     "e10d7d9f-9d93-46b0-9846-d60241031644",
     "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
     "e0a69b6f-38f9-4fa5-a1ef-5e5777299e82",
     "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
-    "4eccfe5d-de19-4bc5-8c9c-374d793d67f0",
     "10f46ecd-e6f5-4d3b-b510-d4035ab24f56",
-    "1e4131c7-8a6f-422c-998a-5147600c946e",
+    "4eccfe5d-de19-4bc5-8c9c-374d793d67f0",
     "45ca935d-938b-4974-961c-4171cc388904",
     "dab3e414-0118-49be-9779-4e3018cdba71",
+    "1e4131c7-8a6f-422c-998a-5147600c946e",
     "a07490af-2d77-4968-9adc-0a2a7c84ef70",
     "d4dce5e2-e767-464d-91f0-c40b47f788b3",
     "558abd15-f90f-40d7-80d8-df73a37f977c",
     "937d52da-0ebf-4d74-b3ee-be395f2f5d0a",
     "162ae4db-7a67-4770-8a2c-7e9883da14f6",
-    "c02c53d1-b456-45d0-a048-6fc941cacc03",
-    "ba7af7ad-54d2-4b45-86ad-71781d4cdb33",
-    "adc655c1-1d9c-433f-a0eb-41f93cf3ee07",
-    "6ff91bc4-122f-4e95-bb08-b577f1a94bb6",
-    "77e4f81a-728f-49a7-a013-4d6f666353e2",
-    "b6f7cc3e-f689-4cd9-a8ed-73bf5e7f0fef",
-    "15bb5476-5cca-48ee-a6a0-95b0ea6cc803",
-    "1c61dcb1-937a-44fe-9c69-3cd588e9dcb7",
-    "eed942f5-8cc4-446a-8806-b83186098274",
-    "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
-    "fffc6b74-d66f-4270-a8b4-e045433ae176",
-    "f5cda222-6c69-4ae9-bc0d-761729cd8e2e",
-    "2e46823f-bec7-4d70-b323-dbc8b71c7739",
-    "352c844b-6d4f-4b61-b475-315421a453e7",
-    "cdc93466-8327-4096-a8c2-04cccf3e3835",
-    "3085883d-e74b-40aa-84a9-af6fccb3d98e",
-    "40086e18-eaba-411a-b4ec-7a0a7fd42d37",
-    "c114dc0e-d6ca-4115-be35-684dead36de2",
-    "be62ac3d-7168-4779-8274-e60574a2fd27",
-    "d194ad54-7ca8-4902-a140-e6401681ee55",
-    "61e2ce55-1954-4e8e-b1b3-b249ae915fa7",
-    "e40cb278-9365-4aa3-a925-14b6b825f711",
-    "96e062f8-646e-49f4-8eec-d92bd5fb77c4",
-    "c597638a-94ef-4a1d-ba3a-fcdcbaf9dd6d",
-    "a7895ceb-db19-4c87-acf5-8960f6b555ea",
-    "21bd354f-8468-4057-971c-5afc0d20b571",
-    "49f10189-9634-4083-933b-fa74c2583b87"
+    "6ed6b66c-0fc1-49f2-94e8-5639c87e58c7",
+    "61e2ce55-1954-4e8e-b1b3-b249ae915fa7"
   ],
-  "shops": [],
+  "shops": [
+    {
+      "id": "db09001b-b1f3-4293-989d-7b12ffe2f426",
+      "name": "Tierney's Magic Nifty Trinkets",
+      "primaryCultureId": null,
+      "generationParams": {},
+      "isVisibleToPlayers": true,
+      "items": [
+        "5fed9640-ad6d-45a6-a35f-7fb1236ee897",
+        "78e8ce59-c802-42ad-b77e-389e7cc453eb",
+        "37843429-c6cb-4a9f-a094-d2014a1460fd",
+        "b2235478-d2a6-4ccd-8cde-bd7efc35fd59",
+        "5b6f3f9e-1e13-4f11-a51c-131732bbee7a"
+      ]
+    }
+  ],
   "lobbyState": {
     "inactiveNpcIds": [],
     "hiddenNpcIds": [],
     "inactivePlayerCharacterIds": []
   },
-  "combatGroups": [
-    {
-      "id": "group-1784948706661-v7ccse",
-      "name": "Bad Boyz",
-      "combatants": [
-        {
-          "id": "beast:2d4e6250-2db8-4f5a-9456-c6a5c7fbc551",
-          "type": "beast",
-          "characterId": "2d4e6250-2db8-4f5a-9456-c6a5c7fbc551"
-        },
-        {
-          "id": "beast:2207bbc0-55e1-49d8-86e5-8453aa0b3a97",
-          "type": "beast",
-          "characterId": "2207bbc0-55e1-49d8-86e5-8453aa0b3a97"
-        },
-        {
-          "id": "beast:782eb653-7dad-4ec0-be7b-8c3841969a78",
-          "type": "beast",
-          "characterId": "782eb653-7dad-4ec0-be7b-8c3841969a78"
-        },
-        {
-          "id": "beast:9225611b-fdc0-426c-9e4c-70da673d5e0d",
-          "type": "beast",
-          "characterId": "9225611b-fdc0-426c-9e4c-70da673d5e0d"
-        },
-        {
-          "id": "beast:b8928e57-3348-4178-b8ad-4eafb947dfef",
-          "type": "beast",
-          "characterId": "b8928e57-3348-4178-b8ad-4eafb947dfef"
-        },
-        {
-          "id": "beast:f97877c1-f985-4268-b168-753d01cd07e9",
-          "type": "beast",
-          "characterId": "f97877c1-f985-4268-b168-753d01cd07e9"
-        },
-        {
-          "id": "beast:54a82a5f-96e9-40ca-9b93-82acc53bb44b",
-          "type": "beast",
-          "characterId": "54a82a5f-96e9-40ca-9b93-82acc53bb44b"
-        }
-      ]
-    },
-    {
-      "id": "group-1785007568363-5c4zr6",
-      "name": "Our Heroes",
-      "combatants": [
-        {
-          "id": "pc:0f6f7b18-4fa1-4a7c-993b-173437f1cd79",
-          "type": "pc",
-          "characterId": "0f6f7b18-4fa1-4a7c-993b-173437f1cd79"
-        },
-        {
-          "id": "pc:a8cb69a9-0146-4aee-bcc1-24b591fe2458",
-          "type": "pc",
-          "characterId": "a8cb69a9-0146-4aee-bcc1-24b591fe2458"
-        },
-        {
-          "id": "pc:917e904f-d97e-4033-a498-8391260f3752",
-          "type": "pc",
-          "characterId": "917e904f-d97e-4033-a498-8391260f3752"
-        },
-        {
-          "id": "pc:1af228fc-7b3c-4fe6-8c0c-cd028bc850e2",
-          "type": "pc",
-          "characterId": "1af228fc-7b3c-4fe6-8c0c-cd028bc850e2"
-        }
-      ]
-    }
-  ],
+  "combatGroups": [],
+  "campaignQuestions": [],
   "tabletopIds": [
-    "b5900a53-e43e-4cbe-a4fd-b11cf632d822",
-    "5f0b9a9f-4188-4099-8d29-78814cf83282",
-    "0ce00d26-d3bc-4d6a-9c9e-b7874296b371",
-    "00f2dfb8-9a4f-4d59-a978-24abcc917cf1"
+    "18953367-9a25-4dd1-8429-ff2820832d9b",
+    "c3e43b7b-d53a-4e4d-acf0-59886e38147d",
+    "87b9491c-b265-4a8b-be84-dac5866a3784",
+    "7022a9a6-2127-4325-927e-e775662eebd9",
+    "d4f5f712-f4f2-40aa-b75f-537acb7d16db",
+    "7afda792-c821-433c-94b6-36cfbc1a24d4",
+    "3f52681d-7231-472d-9ce1-305d7db7c791"
   ],
-  "activeTabletopId": "0ce00d26-d3bc-4d6a-9c9e-b7874296b371",
-  "worldMapTabletopId": "5f0b9a9f-4188-4099-8d29-78814cf83282",
-  "campaignQuestions": [
-    {
-      "id": "q-1785268861407-m7o69k",
-      "text": "Who is Blorfdwar?",
-      "status": "completed",
-      "createdAt": "2026-07-28T20:01:01.407Z",
-      "completedAt": "2026-07-28T20:06:00.369Z"
-    },
-    {
-      "id": "q-1785268940353-r612v7",
-      "text": "What is Rigel up to?",
-      "status": "archived",
-      "createdAt": "2026-07-28T20:02:20.353Z",
-      "completedAt": null
-    },
-    {
-      "id": "q-1785269079646-ta9etu",
-      "text": "Where is the Wending Bow?",
-      "status": "completed",
-      "createdAt": "2026-07-28T20:04:39.646Z",
-      "completedAt": "2026-07-28T20:04:52.305Z"
-    },
-    {
-      "id": "q-1785269168747-amz9bu",
-      "text": "Where is the Bruleflame Blade?",
-      "status": "active",
-      "createdAt": "2026-07-28T20:06:08.747Z",
-      "completedAt": null
-    }
-  ],
-  "baneBoonPosition": 0.4928571428571429
+  "activeTabletopId": "3f52681d-7231-472d-9ce1-305d7db7c791",
+  "worldMapTabletopId": "4549d4a8-2a44-48fe-9d9d-96117f6b3b4e",
+  "baneBoonPosition": 0.496
 }

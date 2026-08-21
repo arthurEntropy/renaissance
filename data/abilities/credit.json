@@ -1,0 +1,23 @@
+{
+  "id": "2ad15c08-5bdd-44c5-bbeb-0b07c566e456",
+  "isDeleted": false,
+  "createdAt": "2026-08-18T19:50:32.124Z",
+  "lastModified": "2026-08-18T19:52:09.911Z",
+  "name": "Credit",
+  "artUrl": null,
+  "description": "<p>[Placeholder for some sort of trait where you can buy equipment on credit but the debt piles up in an interesting way. Maybe you gain one item for free or something when you get this ability.]</p>",
+  "successes": null,
+  "improvements": [],
+  "source": "01869d39-1961-4c8d-941d-744ce1d51bbd",
+  "school": null,
+  "isMagical": false,
+  "isBeastAbility": false,
+  "actionCost": null,
+  "mpCost": null,
+  "xpCost": null,
+  "manaCost": null,
+  "biomeTagsAugment": [],
+  "biomeTagsInhibit": [],
+  "canBeActive": false,
+  "hasDifficulty": false
+}
