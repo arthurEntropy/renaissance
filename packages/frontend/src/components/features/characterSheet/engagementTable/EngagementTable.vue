@@ -10,7 +10,8 @@
       </template>
       <template #header-right>
         <div v-if="props.canEdit" class="button-group">
-          <ActionButton variant="neutral" size="small" text="Reset" :disabled="internalEditMode || !hasExpendedDice"
+          <ActionButton variant="neutral" size="small" text="Regain All"
+            :disabled="internalEditMode || !hasExpendedDice"
             aria-label="Reset all expended engagement dice to available status" @click="resetDice" />
           <ActionButton variant="primary" size="small" text="Roll" :disabled="internalEditMode"
             aria-label="Roll selected engagement dice and enter engagement" @click="rollSelectedDice" />
