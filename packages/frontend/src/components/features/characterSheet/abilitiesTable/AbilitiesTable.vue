@@ -519,9 +519,9 @@ const resetMP = () => {
 }
 
 .empty-table-message {
-  font-size: var(--font-size-18);
+  font-size: var(--font-size-14);
   font-weight: var(--font-weight-medium);
-  color: var(--color-text-secondary);
+  color: var(--color-text-muted);
   margin: 0 0 var(--space-sm) 0;
 }
 

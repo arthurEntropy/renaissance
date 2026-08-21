@@ -15,7 +15,7 @@
 
         <!-- No Successes Message -->
         <div v-if="successData.length === 0 && !isEditMode && diceData.length > 0" class="no-successes-message">
-            No engagement successes available
+            No engagement success effects available
         </div>
 
         <!-- Success Selection Dropdown -->

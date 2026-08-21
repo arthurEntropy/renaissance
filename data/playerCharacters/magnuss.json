@@ -2,7 +2,7 @@
   "id": "4083afd8-0594-4647-ac06-09b8a2a8cefc",
   "isDeleted": false,
   "createdAt": "2026-08-17T17:37:39.448Z",
-  "lastModified": "2026-08-21T17:09:17.605Z",
+  "lastModified": "2026-08-21T18:35:02.394Z",
   "characterType": "playerCharacter",
   "name": "Magnuss",
   "featuredArtUrls": [
@@ -391,5 +391,5 @@
   "treasure": 6,
   "xp": 0,
   "description": "",
-  "updatedAt": "2026-08-21T17:09:17.605Z"
+  "updatedAt": "2026-08-21T18:35:02.394Z"
 }
