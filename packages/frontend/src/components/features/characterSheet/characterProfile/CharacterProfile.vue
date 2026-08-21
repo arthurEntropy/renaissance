@@ -16,7 +16,7 @@
           <span class="beast-physical-stat-label">Size: </span>
           <span class="beast-physical-stat-value">{{ formatBeastSize(character.size) }}</span>
         </span>
-        <span class="beast-physical-stat">
+        <span v-if="character.reach" class="beast-physical-stat">
           <span class="beast-physical-stat-label">Reach: </span>
           <span class="beast-physical-stat-value">{{ character.reach || 0 }} ft</span>
         </span>
