@@ -39,11 +39,11 @@
   ],
   "localFlavor": {
     "names": "Sael, Jinwei, Mathis, Lian, Silas, Xue, Tavra, Quentin, Mei, Corin, Ru, Lysander, Wenya, Jonas, Gao, Mira, Elric, Ning, Alton, Yao",
-    "occupations": "Squatter, Wall Scribe, Chasm Guide, Rooftop Courier, Gutter Astrologer, Coinshaver, Tithe Collector, Market Brawler, Bone Smuggler, Lookout, Forger, Gate Warden, Blade Broker",
-    "publicHouses": "The Hollow Gate, The Red Ledger, Blackguard Inn, The Silent Seal, Dustrunner's Post",
-    "vittles": "Charred Flatbread, Ash-Boiled Millet, Spiced Carrion Sausage, Pickled Bitterroot, Vinegar Rice and Scraps, Dust-Jerky, Dried Plums with Salt, Smoked Lungfish, Chasm Mushrooms, Burnt Sugarcakes, Cracked Grain Soup, Pickled Eyes, Barrel Eels, Hearth Beans, Bone-Apple Tea",
-    "pointsOfInterest": "The Empty Citadel, The Chasm Mouth, The Broken Gate, The Red Pillar Courtyard, Dealmaker's Corner, The Mudflat Harbor",
-    "floraFauna": "Dust Lily, Ironroot, Ghost Cactus, Wind Thistle, Red Mallow, Sand Ivy, Scavenger Dog, Owlbat, Crater Beetle, Rag Cat, Pale Vulture, Chasm Moth, Lungfish, Tunnel Ferret"
+    "occupations": "Wall Scribe, Chasm Guide, Alley Courier, Gutter Astrologer, Coinshaver, Tithe Collector, Market Bouncer, Bone Smuggler, Lookout, Forger, Gate Warden, Blade Broker, Squatter",
+    "publicHouses": "Mumu Qing, The Red Ledger, Keke Pub, June Times, Hawa Club, Bard's Bench, Yuren's Wharf House, Blackguard Inn, The Jersey Lily Saloon, Zuimei Light Bar, The Snail Ballad, Dustrunner's Post",
+    "vittles": "Charred Flatbread, Ash-Boiled Millet, Spiced Carrion Sausage, Pickled Bitterroot, Vinegar Rice and Offal, Rat Jerky, Dried Plums with Salt, Smoked Lungfish, Chasm Mushrooms, Burnt Sugarcakes, Cracked Grain Soup, Pickled Eyes, Black Lobster, Hearth Beans, Bone-Apple Tea",
+    "pointsOfInterest": "The Empty Citadel, The Chasm Mouth, The Broken Gate, The Red Pillar Courtyard, Dealmaker's Corner, The Mudflat Harbor, Cutthroat Alley, The Gunpowder Market",
+    "floraFauna": "Dust Lily, Ironroot, Ghost Cactus, Wind Thistle, Red Mallow, Sand Ivy, Wild Dog, Owlbat, Crater Beetle, Rag Cat, Pale Vulture, Chasm Swallow, Lungfish, Tunnel Ferret"
   },
-  "lastModified": "2026-07-29T19:08:45.188Z"
+  "lastModified": "2026-08-20T12:47:39.410Z"
 }

@@ -1,10 +1,10 @@
 {
   "id": "79f7d0be-4052-45ae-9351-449cd4023bdf",
   "isDeleted": false,
-  "lastModified": "2026-07-21T17:16:51.631Z",
+  "lastModified": "2026-08-18T19:46:44.504Z",
   "name": "Momentum",
   "artUrl": "https://cdn.midjourney.com/1658269a-a5fa-453a-8a3e-fa1cbf3dd0a5/0_1.png",
-  "description": "<p>Whenever you inflict Injury on a creature, you gain 1 MP. Whenever you knock a creature unconscious, you gain 3 MP.</p><p>At any time, you may convert any amount of Hope, one-for-one, into MP.</p><p><strong>Describe how success in battle lifts your heart.</strong></p>",
+  "description": "<p>Whenever you inflict Injury on a creature, you gain 1 Hope. Whenever you knock a creature unconscious, you gain 2 Hope.</p><p>At any time, you may convert any amount of Hope, one-for-one, into MP.</p><p><strong>Describe how success in battle lifts your heart.</strong></p>",
   "source": "d4dce5e2-e767-464d-91f0-c40b47f788b3",
   "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
   "mpCost": null,

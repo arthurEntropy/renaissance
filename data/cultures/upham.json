@@ -38,12 +38,12 @@
     }
   ],
   "localFlavor": {
-    "names": "Ansel, Greta, Alaric, Ilsa, Arindam, Marta, Soumitro, Liese, Otto, Brigida, Labonyo, Moumita, Hugo, Sabina, Indrajit, Piyali, Klaus, Verena, Oskar, Niharika",
-    "occupations": "Trapper, Tanner, Furrier, Bowyer, Fletcher, Porter, Miller, Innkeeper, Cooper, Mason, Blacksmith, Herbalist, Mountain Guide, River Guide",
-    "publicHouses": "The Upham General, The Stone Cup",
-    "vittles": "Smoked Trout, Venison Stew, Black Bread, Goat Cheese, Pickled Cabbage, Jhalmuri, Roasted Walnuts, Shingara, Spiced Ale, Aloo Posto, Sausage Links, Hard Pears, Juniper Mead, Roshogolla",
-    "pointsOfInterest": "The Twin Falls, The Old Pelt Market, The Broken Anvil, The Mossy Steps, Tierney's Magic Nifty Trinkets",
-    "floraFauna": "Pine, Juniper, Edelweiss, Alpine Rose, Wild Thyme, Scholar Tree, Shiuli, Brown Bear, Red Deer, Mountain Goat, Pine Marten, Wolf, Golden Eagle, Trout, Otter, Fishing Cat"
+    "names": "Ansel, Shtira, Greta, Alaric, Sukha, Ilsa, Arindam, Marta, Soumitro, Liese, Otto, Brigida, Labonyo, Moumita, Hugo, Sabina, Indrajit, Piyali, Klaus, Verena, Oskar, Niharika",
+    "occupations": "Trapper, Tanner, Furrier, Bowyer, Fletcher, Porter, Miller, Innkeeper, Cooper, Mason, Blacksmith, Shopkeeper, Bard, Herbalist, Mountain Guide, River Guide",
+    "publicHouses": "The Upham General, Blockhäusl, Ma Kali, Post Bar, Lommastubn Pub, Mitra Kitchen, Evergreen Gold, Shivam Bar, Nandra's, The Stone Cup",
+    "vittles": "Smoked Salmon, Venison Stew, Black Bread, Goat Cheese, Pickled Cabbage, Puffed Grain With Vegetables and Mustard Oil, Roasted Walnuts, Fried Pea Pastry, Spiced Ale, Potatoes with Poppy Seed Paste, Sausage Links, Hard Pears, Juniper Mead, Boiled Cheese Dumplings",
+    "pointsOfInterest": "The Twin Falls, The Old Pelt Market, The Broken Anvil, The Mossy Steps, The Pool Of The Gods, The Orb Porters, Tierney's Magic Nifty Trinkets",
+    "floraFauna": "Pine, Juniper, Edelweiss, Alpine Rose, Wild Thyme, Scholar Tree, Shiuli Flower, Brown Bear, Red Deer, Mountain Goat, Pine Marten, Wolf, Golden Eagle, Trout, Otter, Fishing Cat"
   },
-  "lastModified": "2026-07-30T12:55:19.433Z"
+  "lastModified": "2026-08-20T12:51:40.397Z"
 }

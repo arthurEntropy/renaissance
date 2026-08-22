@@ -32,14 +32,14 @@
 
             <div v-if="picker.showDropdown.value" class="dropdown-list dropdown-list--cascade">
                 <!-- Left column: section headers + group entries + direct items -->
-                <div class="cascade-col">
+                <div ref="leftColRef" class="cascade-col">
                     <template v-for="entry in picker.cascadeEntries.value" :key="entry.id">
                         <div v-if="entry.type === 'header'" class="cascade-section-label">
                             {{ entry.label }}
                         </div>
                         <div v-else class="cascade-item-wrap"
                             :class="{ active: picker.activeCascadeEntryId.value === entry.id, 'cascade-item-wrap--leaf': entry.type === 'item' }"
-                            @mouseenter="picker.handleCascadeHover(entry)" @click="picker.handleCascadeSelect(entry)">
+                            @mouseenter="onGroupHover(entry, $event)" @click="picker.handleCascadeSelect(entry)">
                             <button class="cascade-btn" :class="{ 'cascade-btn--leaf': entry.type === 'item' }"
                                 tabindex="-1">
                                 <span class="cascade-btn-label">{{ entry.label }}</span>
@@ -50,17 +50,18 @@
                 </div>
 
                 <!-- Middle column: options within the active group -->
-                <div v-if="picker.activeCascadeGroup.value" class="cascade-col">
+                <div v-if="picker.activeCascadeGroup.value" ref="middleColRef" class="cascade-col"
+                    :style="middleColumnStyle">
                     <input v-model="picker.cascadeSearch.value" class="cascade-search" placeholder="Search tags..."
                         @keydown.escape="picker.showDropdown.value = false" />
                     <div v-if="picker.filteredCascadeOptions.value.length > 0" class="cascade-items-list">
                         <div v-for="option in picker.filteredCascadeOptions.value" :key="option.id"
                             class="cascade-item-wrap"
-                            :class="{ active: picker.activeCascadeOptionId.value === option.id, 'cascade-item-wrap--leaf': !option.items || option.items.length === 0 }"
-                            @mouseenter="picker.handleCascadeOptionHover(option)"
+                            :class="{ active: picker.activeCascadeOptionId.value === option.id, 'cascade-item-wrap--leaf': !option.items || option.items.length === 0, 'cascade-item-wrap--group-all': option.id.startsWith('source-type:') }"
+                            @mouseenter="onOptionHover(option, $event)"
                             @click="picker.handleCascadeOptionSelect(option)">
                             <button class="cascade-btn"
-                                :class="{ 'cascade-btn--leaf': !option.items || option.items.length === 0 }"
+                                :class="{ 'cascade-btn--leaf': !option.items || option.items.length === 0, 'cascade-btn--group-all': option.id.startsWith('source-type:') }"
                                 tabindex="-1">
                                 <span class="cascade-btn-label">{{ option.name }}</span>
                                 <span v-if="option.items && option.items.length > 0" class="cascade-chevron">›</span>
@@ -71,12 +72,16 @@
                 </div>
 
                 <!-- Right column: options within the active subgroup -->
-                <div v-if="picker.activeCascadeSubgroup.value" class="cascade-col">
+                <div v-if="picker.activeCascadeSubgroup.value" class="cascade-col" :style="rightColumnStyle">
                     <div class="cascade-section-label">{{ picker.activeCascadeSubgroup.value.name }}</div>
                     <div v-if="picker.filteredCascadeSubOptions.value.length > 0" class="cascade-items-list">
                         <div v-for="option in picker.filteredCascadeSubOptions.value" :key="option.id"
-                            class="cascade-item-wrap cascade-item-wrap--leaf" @click="picker.selectTag(option.id)">
-                            <button class="cascade-btn cascade-btn--leaf" tabindex="-1">
+                            class="cascade-item-wrap cascade-item-wrap--leaf"
+                            :class="{ 'cascade-item-wrap--group-all': option.id.startsWith('source-type:') }"
+                            @click="picker.selectTag(option.id)">
+                            <button class="cascade-btn cascade-btn--leaf"
+                                :class="{ 'cascade-btn--group-all': option.id.startsWith('source-type:') }"
+                                tabindex="-1">
                                 <span class="cascade-btn-label">{{ option.name }}</span>
                             </button>
                         </div>
@@ -103,7 +108,7 @@
 </template>
 
 <script setup>
-import { ref, toRef, onMounted } from 'vue'
+import { ref, computed, toRef, onMounted } from 'vue'
 import { XMarkIcon } from '@heroicons/vue/24/outline'
 import { useFilterTagPicker } from '@/composables/useFilterTagPicker'
 
@@ -129,6 +134,10 @@ const props = defineProps({
 const selectedTags = defineModel('selectedTags', { default: () => [] })
 
 const wrapperRef = ref(null)
+const leftColRef = ref(null)
+const middleColRef = ref(null)
+const middleColumnOffset = ref(0)
+const rightColumnOffset = ref(0)
 
 const picker = useFilterTagPicker({
     tagGroups: toRef(props, 'tagGroups'),
@@ -136,6 +145,29 @@ const picker = useFilterTagPicker({
     multiselect: toRef(props, 'multiselect'),
     selectedTags,
 })
+
+const middleColumnStyle = computed(() => ({
+    transform: `translateY(${middleColumnOffset.value}px)`,
+}))
+
+const rightColumnStyle = computed(() => ({
+    transform: `translateY(${rightColumnOffset.value}px)`,
+}))
+
+const onGroupHover = (entry, event) => {
+    picker.handleCascadeHover(entry)
+    if (entry.type !== 'group' || !leftColRef.value) return
+    const colTop = leftColRef.value.getBoundingClientRect().top
+    middleColumnOffset.value = event.currentTarget.getBoundingClientRect().top - colTop
+    rightColumnOffset.value = 0
+}
+
+const onOptionHover = (option, event) => {
+    picker.handleCascadeOptionHover(option)
+    if (!option?.items?.length || !leftColRef.value) return
+    const colTop = leftColRef.value.getBoundingClientRect().top
+    rightColumnOffset.value = event.currentTarget.getBoundingClientRect().top - colTop
+}
 
 onMounted(() => {
     picker.setWrapperRef(wrapperRef)
@@ -246,6 +278,11 @@ onMounted(() => {
     text-align: center;
     color: var(--color-text-secondary);
     font-size: var(--font-size-14);
+}
+
+/* "All X" options in the cascade middle column */
+.cascade-btn--group-all .cascade-btn-label {
+    color: var(--color-primary);
 }
 
 .selected-chips {

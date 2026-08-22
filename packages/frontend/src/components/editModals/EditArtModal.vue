@@ -48,6 +48,7 @@ import ArtTagsDisplay from '@/components/editModals/artModal/ArtTagsDisplay.vue'
 import ArtTagsSelector from '@/components/editModals/artModal/ArtTagsSelector.vue'
 import { useSourcesStore } from '@/stores/sourcesStore'
 import { ART_TYPES } from '@shared/constants/artConstants'
+import { useConfirm } from '@/composables/useConfirm'
 
 const props = defineProps({
     art: {
@@ -166,8 +167,9 @@ const removeSource = (sourceId) => {
     }
 }
 
-const handleDelete = () => {
-    if (confirm('Are you sure you want to delete this art? This will remove it from all tagged sources.')) {
+const handleDelete = async () => {
+    const { confirm } = useConfirm()
+    if (await confirm('Are you sure you want to delete this art? This will remove it from all tagged sources.')) {
         emit('delete', localArt.value)
     }
 }

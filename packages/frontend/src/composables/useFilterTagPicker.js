@@ -90,6 +90,13 @@ export function useFilterTagPicker({ tagGroups, tagPickerMode, multiselect, sele
     const cascadeEntries = computed(() => {
         const entries = []
 
+        if (regularCascadeGroups.value.length) {
+            entries.push({ id: '__header__sources', type: 'header', label: 'Sources' })
+            for (const group of regularCascadeGroups.value) {
+                entries.push({ id: `group:${group.label}`, label: group.label, type: 'group', group })
+            }
+        }
+
         const specialItems = specialTagGroup.value?.items || []
         if (specialItems.length) {
             entries.push({ id: '__header__special', type: 'header', label: 'Special Filters' })
@@ -99,13 +106,6 @@ export function useFilterTagPicker({ tagGroups, tagPickerMode, multiselect, sele
                 } else {
                     entries.push({ id: `item:${item.id}`, label: item.name, type: 'item', itemId: item.id })
                 }
-            }
-        }
-
-        if (regularCascadeGroups.value.length) {
-            entries.push({ id: '__header__sources', type: 'header', label: 'Sources' })
-            for (const group of regularCascadeGroups.value) {
-                entries.push({ id: `group:${group.label}`, label: group.label, type: 'group', group })
             }
         }
 

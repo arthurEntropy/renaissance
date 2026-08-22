@@ -187,6 +187,7 @@ const clearDiceTooltip = () => {
 }
 
 .no-dice-message {
+    font-size: var(--font-size-14);
     text-align: center;
     color: var(--color-text-muted);
     margin-top: 10px;

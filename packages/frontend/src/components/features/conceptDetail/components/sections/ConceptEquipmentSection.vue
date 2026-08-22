@@ -147,7 +147,7 @@ const groupedEquipment = computed(() => {
 })
 
 const equipment = computed(() =>
-    equipmentStore.equipment.filter(e => e.source === concept.value?.id)
+    equipmentStore.equipment.filter(e => !e.isCustom && e.source === concept.value?.id)
 )
 
 /**

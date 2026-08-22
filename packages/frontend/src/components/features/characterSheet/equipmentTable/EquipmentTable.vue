@@ -54,7 +54,7 @@
               @update:showImprovements="updateEquipmentShowImprovements(item, $event)"
               :engagement-success-options="engagementSuccessOptions" :enable-damage-roll="true"
               @roll-damage="handleDamageRoll" @roll-link="handleRollLink" :show-transfer-button="showTransferButton"
-              @transfer="handleTransferEquipment" />
+              :difficulty-editable="true" @transfer="handleTransferEquipment" />
             <EquipmentDetails :equipment-item="item" :item-id="item.id" :is-edit-mode="canEdit"
               @update-carried="handleCarriedChange" @update-wielding="handleWieldingChange"
               @update-quantity="handleQuantityChange" />
@@ -77,7 +77,7 @@
               @update:showImprovements="updateEquipmentShowImprovements(item, $event)"
               :engagement-success-options="engagementSuccessOptions" :enable-damage-roll="true"
               @roll-damage="handleDamageRoll" @roll-link="handleRollLink" :show-transfer-button="showTransferButton"
-              @transfer="handleTransferEquipment" />
+              :difficulty-editable="true" @transfer="handleTransferEquipment" />
             <EquipmentDetails :equipment-item="item" :item-id="item.id" :is-edit-mode="canEdit"
               @update-carried="handleCarriedChange" @update-wielding="handleWieldingChange"
               @update-quantity="handleQuantityChange" />
@@ -178,10 +178,10 @@ import { useConceptsStore } from '@/stores/conceptsStore'
 import { useCampaignStore } from '@/stores/campaignStore'
 import { useAuthStore } from '@/stores/authStore'
 import EngagementSuccessService from '@/services/entities/engagementSuccessService'
-import { RollTypes } from '@/constants/rollTypes'
 import { SKILLS } from '@shared/constants/characterConstants'
 import { MESMER_MASK_SUBTYPE_ID } from '@/constants/mesmerConstants'
 import { getModifierStatKey } from '@/utils/characterKeyUtils'
+import { useConfirm } from '@/composables/useConfirm'
 
 const props = defineProps({
   isEditMode: {
@@ -506,8 +506,8 @@ const handleRollLink = (rollData) => {
     rollLinkSkillKey.value = Object.values(SKILLS).find(s => s.label === rollData.skill)?.key ?? rollData.skill?.toLowerCase() ?? null
     rollLinkSourceName.value = rollData.sourceName ?? null
     rollLinkIllFavored.value = !!rollData.lacksTraining
-    // Contest links open as unopposed (no difficulty)
-    rollLinkRollType.value = rollData.type === 'contest' ? 'unopposed' : RollTypes.SKILL_CHECK
+    // Skill-check and contest links open as unopposed (no difficulty); explicit contest links also stay unopposed
+    rollLinkRollType.value = 'unopposed'
     showSkillCheckModal.value = true
   } else if (rollData.type === 'damage-roll') {
     const initialDiceCounts = {}
@@ -602,7 +602,8 @@ const handleEquipmentEdit = async (equipment) => {
     openEditEquipmentModal(equipment)
     return
   }
-  if (!confirm('Convert to custom item? This cannot be undone.')) return
+  const { confirm } = useConfirm()
+  if (!await confirm('Convert to custom item? This cannot be undone.')) return
   try {
     const copyData = { ...equipment }
     delete copyData.id
@@ -740,9 +741,9 @@ onMounted(async () => {
 }
 
 .empty-table-message {
-  font-size: var(--font-size-18);
+  font-size: var(--font-size-14);
   font-weight: var(--font-weight-medium);
-  color: var(--color-text-secondary);
+  color: var(--color-text-muted);
   margin: 0 0 var(--space-sm) 0;
 }
 

@@ -75,29 +75,8 @@
             </div>
         </div>
 
-        <div v-if="showEditImageModal" class="modal-overlay" @click.self="showEditImageModal = false">
-            <div class="modal modal--wide settings-modal">
-                <h2 class="modal-title">Campaign Settings</h2>
-                <div class="section-card settings-section-card">
-                    <div class="section-header">
-                        <h3 class="section-title settings-section-title">Background Image</h3>
-                    </div>
-                    <div class="form-field settings-form-field">
-                        <label class="form-label">Image URL</label>
-                        <input v-model="editImageUrl" class="form-input" type="text" placeholder="https://…"
-                            autofocus />
-                    </div>
-                </div>
-                <CampaignCurationPanel ref="curationPanelRef" :campaign-id="campaignId"
-                    :included-concept-ids="campaign.includedConceptIds || []" />
-                <div class="modal-actions">
-                    <ActionButton variant="neutral" @click="showEditImageModal = false">Cancel</ActionButton>
-                    <ActionButton variant="primary" :disabled="savingSettings" @click="saveSettings">
-                        {{ savingSettings ? 'Saving…' : 'Save Settings' }}
-                    </ActionButton>
-                </div>
-            </div>
-        </div>
+        <CampaignSettingsModal v-if="showEditImageModal" :campaign="campaign" @close="showEditImageModal = false"
+            @saved="onSettingsSaved" />
 
     </div>
 </template>
@@ -121,7 +100,7 @@ import CampaignShopsPanel from '@/components/features/campaigns/lobby/CampaignSh
 import CampaignTabletopsPanel from '@/components/features/campaigns/lobby/CampaignTabletopsPanel.vue'
 import CampaignWorldMapSection from '@/components/features/worldMap/CampaignWorldMapSection.vue'
 import TextEditor from '@/components/ui/textEditor/TextEditor.vue'
-import CampaignCurationPanel from '@/components/features/campaigns/lobby/CampaignCurationPanel.vue'
+import CampaignSettingsModal from '@/components/features/campaigns/lobby/CampaignSettingsModal.vue'
 import BaneBoonTracker from '@/components/features/campaigns/BaneBoonTracker.vue'
 import { sanitizeHtml } from '@/utils/sanitizeHtml'
 import CampaignService from '@/services/entities/campaignService'
@@ -227,27 +206,15 @@ const cancelDescEdit = () => {
     isEditingDescription.value = false
 }
 const showEditImageModal = ref(false)
-const editImageUrl = ref('')
-const savingSettings = ref(false)
-const curationPanelRef = ref(null)
 
 const openEditImageModal = () => {
-    editImageUrl.value = campaign.value?.coverImageUrl || ''
     showEditImageModal.value = true
 }
 
-const saveSettings = async () => {
-    if (!campaignId.value) return
-    savingSettings.value = true
-    try {
-        const tasks = [campaignStore.update(campaignId.value, { coverImageUrl: editImageUrl.value.trim() })]
-        if (isGM.value && curationPanelRef.value?.saveCuration) {
-            tasks.push(curationPanelRef.value.saveCuration())
-        }
-        await Promise.all(tasks)
-        showEditImageModal.value = false
-    } finally {
-        savingSettings.value = false
+const onSettingsSaved = (updatedCampaign) => {
+    // If the backend generated a new slug, navigate to it
+    if (updatedCampaign?.slug && updatedCampaign.slug !== slug.value) {
+        router.replace(`/campaigns/${updatedCampaign.slug}`)
     }
 }
 
@@ -464,26 +431,6 @@ onMounted(async () => {
 :deep(.sheet-container) {
     width: min(1240px, calc(100vw - 120px));
     margin: 0 auto;
-}
-
-.settings-modal {
-    width: min(1100px, 94vw);
-    max-height: 90vh;
-}
-
-.settings-section-title {
-    margin: 0;
-    font-size: var(--font-size-20);
-    font-weight: var(--font-weight-semibold);
-    color: var(--color-text-primary);
-}
-
-.settings-section-card {
-    gap: var(--space-md);
-}
-
-.settings-form-field {
-    margin-bottom: 0;
 }
 
 .btn-secondary {

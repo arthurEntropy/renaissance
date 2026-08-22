@@ -2,10 +2,10 @@
   "id": "0be14c83-458a-41f4-b5ac-29c2b4266ea5",
   "isDeleted": false,
   "createdAt": "2026-02-03T17:41:38.381Z",
-  "lastModified": "2026-07-16T15:49:04.794Z",
+  "lastModified": "2026-08-17T15:08:15.275Z",
   "name": "Trapper",
   "artUrl": "https://cdn.midjourney.com/cbd5ecf2-01db-4418-9d64-505c58264a0d/0_2.png",
-  "description": "<p>You are skilled in crafting, setting and concealing a variety of traps. You have 3 traps, which you can set using the <em>Set Trap</em> ability. Each trap can inflict the following effects on a trapped creature:</p><ul><li><p><strong>Maul: </strong>The trap deals 3d4 damage to the trapped creature.</p></li><li><p><strong>Pierce: </strong>The creature rolls Injury.</p></li><li><p><strong>Clamp: </strong>The trapped creature's Speed is halved. It may spend an action on its turn to roll Strength against the trap's Difficulty to end this effect.</p></li><li><p><strong>Trip: </strong>The trapped creature is knocked prone.</p></li><li><p><strong>Foil: </strong>The trapped creature checks a Condition.</p></li></ul><p><strong>Describe how you make and use your traps.</strong></p>",
+  "description": "<p>You are skilled in crafting, setting and concealing a variety of traps. You have 3 traps, which you can set using the <em>Set Trap</em> ability. Each trap can inflict the following effects on a trapped creature:</p><ul><li><p><strong>Maul: </strong>The trap deals 3d4 damage to the trapped creature.</p></li><li><p><strong>Pierce: </strong>The creature rolls Injury.</p></li><li><p><strong>Clamp: </strong>The trapped creature's Speed is halved. It may spend an action on its turn to roll Strength against the trap's Difficulty, ending the effect on a pass.</p></li><li><p><strong>Trip: </strong>The trapped creature is knocked prone.</p></li><li><p><strong>Foil: </strong>The trapped creature checks a Condition.</p></li></ul><p><strong>Describe how you make and use your traps.</strong></p>",
   "successes": "",
   "improvements": [
     {

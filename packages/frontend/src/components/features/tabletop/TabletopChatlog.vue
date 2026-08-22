@@ -35,7 +35,7 @@
                                 <div class="entry-header-line">
                                     <span class="entry-name" :style="{ color: engagementCharColor(entry, true) }">{{
                                         entry.characterName
-                                        }}</span><span class="entry-title"> vs </span><span class="entry-name"
+                                    }}</span><span class="entry-title"> vs </span><span class="entry-name"
                                         :style="{ color: engagementCharColor(entry, false) }">{{ entry.opponentName
                                         }}</span><span class="entry-title">:</span>
                                 </div>
@@ -61,37 +61,42 @@
                                         class="entry-title">:</span>
                                 </div>
                                 <!-- Dice row wrapper: tracks hover to show the centered reroll button -->
-                                <div class="entry-dice-row-wrap"
+                                <div v-if="entry.type !== RollTypes.CHAT_LINK" class="entry-dice-row-wrap"
                                     @mouseenter="canRerollEntry(entry) ? hoveredRerollEntryId = entry.id : null"
                                     @mouseleave="hoveredRerollEntryId = null">
                                     <div class="entry-dice-row">
-                                        <span v-for="(die, i) in entry.diceResults" :key="i" class="entry-die"
-                                            :class="dieClass(die)">
-                                            <i :class="die.cssClass" />
-                                            <!-- Only show emoji annotations for skill checks and initiative -->
-                                            <span
-                                                v-if="die.emoji && die.emoji !== '' && (entry.type === RollTypes.SKILL_CHECK || entry.type === RollTypes.INITIATIVE)"
-                                                class="entry-die-emoji">{{ die.emoji }}</span>
-                                        </span>
-                                        <!-- Inline modifier note for damage and initiative rolls -->
+                                        <div class="entry-dice-icons">
+                                            <span v-for="(die, i) in entry.diceResults" :key="i" class="entry-die"
+                                                :class="dieClass(die)">
+                                                <i :class="die.cssClass" />
+                                                <!-- Only show emoji annotations for skill checks and initiative -->
+                                                <span
+                                                    v-if="die.emoji && die.emoji !== '' && (entry.type === RollTypes.SKILL_CHECK || entry.type === RollTypes.INITIATIVE)"
+                                                    class="entry-die-emoji">{{ die.emoji }}</span>
+                                            </span>
+                                            <!-- Reroll button: centered over just the dice icon group so it never covers the total -->
+                                            <button v-if="hoveredRerollEntryId === entry.id" type="button"
+                                                class="entry-reroll-button" @click.stop="handleRerollEntry(entry)">
+                                                Reroll
+                                            </button>
+                                        </div>
+                                        <!-- Inline modifier note for damage, initiative, and custom rolls -->
                                         <span
-                                            v-if="(entry.type === RollTypes.DAMAGE || entry.type === RollTypes.INITIATIVE) && entry.modifier !== 0 && entry.diceTotal != null"
+                                            v-if="(entry.type === RollTypes.DAMAGE || entry.type === RollTypes.INITIATIVE || entry.type === RollTypes.CUSTOM_ROLL) && entry.modifier !== 0 && entry.diceTotal != null"
                                             class="entry-modifier-note">{{ entry.modifier >= 0 ? '+' : '' }}{{
                                                 entry.modifier }}{{ entry.modifierLabel ? ` (${entry.modifierLabel})` : ''
                                             }}</span>
                                         <span class="entry-total" :class="outcomeClass(entry)">{{ rollTotal(entry)
-                                        }}</span>
+                                            }}</span>
+                                        <span v-if="entrySuccessCount(entry) > 0" class="entry-success-stars"
+                                            @click.stop="openSuccessPopup(entry, $event)">{{
+                                                '\u2728'.repeat(entrySuccessCount(entry)) }}</span>
                                         <EyeSlashIcon v-if="isCurrentUserGM && isEntryHiddenFromPlayers(entry)"
                                             class="entry-hidden-icon" />
                                     </div>
-                                    <!-- Reroll button: centered over the full result row on hover -->
-                                    <button v-if="hoveredRerollEntryId === entry.id" type="button"
-                                        class="entry-reroll-button" @click.stop="handleRerollEntry(entry)">
-                                        Reroll
-                                    </button>
                                 </div>
-                                <!-- Footer: suppress for damage and initiative (modifier shown inline) -->
-                                <div v-if="entry.footer && entry.type !== RollTypes.DAMAGE && entry.type !== RollTypes.INITIATIVE"
+                                <!-- Footer: suppress for damage, initiative, and custom rolls (modifier shown inline) -->
+                                <div v-if="entry.footer && entry.type !== RollTypes.DAMAGE && entry.type !== RollTypes.INITIATIVE && entry.type !== RollTypes.CUSTOM_ROLL"
                                     class="entry-footer">{{
                                         entry.footer }}</div>
                             </div>
@@ -111,6 +116,11 @@
                 @click.stop="emit('update:isExpanded', false)" />
         </div>
     </div>
+
+    <!-- Skill Check Success Popup -->
+    <SkillCheckSuccessPopup v-if="successPopupData" :success-count="successPopupData.successCount"
+        :anchor-el="successPopupData.anchorEl" :character="successPopupData.character"
+        @close="successPopupData = null" />
 </template>
 
 <script setup>
@@ -118,6 +128,7 @@ import { ref, computed, nextTick, watch, onMounted, onUnmounted } from 'vue'
 import { EyeSlashIcon } from '@heroicons/vue/24/outline'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import BaneBoonTracker from '@/components/features/campaigns/BaneBoonTracker.vue'
+import SkillCheckSuccessPopup from '@/components/features/characterSheet/diceBox/SkillCheckSuccessPopup.vue'
 import { useTabletopChatlogState } from '@/composables/useTabletopChatlogState'
 import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 import { RollTypes } from '@/constants/rollTypes'
@@ -371,7 +382,7 @@ onMounted(async () => {
     if (fetches.length) await Promise.all(fetches)
 })
 
-watch(() => props.rollLog.length, async () => {
+watch(() => displayedRollLog.value.length, async () => {
     const el = scrollRef.value
     if (!el) return
     await nextTick()
@@ -406,6 +417,8 @@ function rollTitleBase(entry) {
             return 'rolled'
         case RollTypes.DAMAGE:
             return 'rolled damage'
+        case RollTypes.CHAT_LINK:
+            return 'shared'
         default: { // SKILL_CHECK + anything else
             const fav = entry.favoredStatus ? `, ${entry.favoredStatus}` : ''
             return `rolled ${entry.skillName || '?'}${fav}`
@@ -421,8 +434,8 @@ function rollTotal(entry) {
         return entry.diceTotal != null ? String(entry.diceTotal) : '—'
     }
     if (entry.total == null) return '—'
-    // For damage and initiative rolls the modifier is shown inline; return just the total.
-    if (entry.type !== RollTypes.DAMAGE && entry.type !== RollTypes.INITIATIVE && entry.modifier && entry.modifier !== 0 && entry.diceTotal != null) {
+    // For damage, initiative, and custom rolls the modifier is shown inline; return just the total.
+    if (entry.type !== RollTypes.DAMAGE && entry.type !== RollTypes.INITIATIVE && entry.type !== RollTypes.CUSTOM_ROLL && entry.modifier && entry.modifier !== 0 && entry.diceTotal != null) {
         const sign = entry.modifier >= 0 ? '+' : ''
         return `${entry.total} (${entry.diceTotal}${sign}${entry.modifier})`
     }
@@ -456,6 +469,24 @@ function dieClass(die) {
     return {
         'entry-die--dropped': die.isDropped,
         'entry-die--max': die.rolledMaxValue,
+    }
+}
+
+// ── Skill Check Success Popup ─────────────────────────────────────────────────
+
+const successPopupData = ref(null)
+
+function entrySuccessCount(entry) {
+    if (entry.type !== RollTypes.SKILL_CHECK) return 0
+    return (entry.diceResults ?? []).filter(d => d.rolledMaxValue && (d.die?.dieSize ?? d.dieSize) === 6).length
+}
+
+function openSuccessPopup(entry, event) {
+    const character = resolveCharacterById(entry.characterId)
+    successPopupData.value = {
+        successCount: entrySuccessCount(entry),
+        anchorEl: event.currentTarget,
+        character: character ?? null,
     }
 }
 
@@ -639,7 +670,7 @@ function dieClass(die) {
     line-height: 1.4;
 }
 
-/* Dice row wrapper: provides a positioning context for the reroll button overlay */
+/* Dice row wrapper: hover area for triggering the reroll button */
 .entry-dice-row-wrap {
     position: relative;
 }
@@ -654,7 +685,17 @@ function dieClass(die) {
     font-family: var(--font-family-dice);
 }
 
-/* Reroll button: overlaid, centered across the full dice + total row */
+/* Dice icon group: positioning context so the reroll button overlays only the
+   dice icons and never the roll total. */
+.entry-dice-icons {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3px;
+    align-items: center;
+}
+
+/* Reroll button: overlaid, centered over just the dice icon group */
 .entry-reroll-button {
     position: absolute;
     inset: 0;
@@ -670,8 +711,9 @@ function dieClass(die) {
     cursor: pointer;
     transition: background var(--transition-fast), border-color var(--transition-fast);
     z-index: var(--z-raised);
-    width: 30%;
-
+    width: 50px;
+    /* Calculate 50% of the dice row width, minus half the gap between dice icons (3px) */
+    left: calc(50% - 25px - 1.5px);
 }
 
 .entry-reroll-button:hover {
@@ -752,7 +794,7 @@ function dieClass(die) {
 
 /* Source name (ability/equipment origin) — cyan and hoverable */
 .entry-source {
-    font-size: var(--font-size-10);
+    font-size: var(--font-size-12);
     color: var(--color-accent-cyan);
     cursor: pointer;
 }
@@ -764,6 +806,14 @@ function dieClass(die) {
     color: var(--color-danger);
     flex-shrink: 0;
     margin-left: var(--space-xs);
+    align-self: center;
+}
+
+.entry-success-stars {
+    font-size: var(--font-size-14);
+    line-height: 1;
+    cursor: pointer;
+    user-select: none;
     align-self: center;
 }
 

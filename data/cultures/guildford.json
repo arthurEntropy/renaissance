@@ -38,12 +38,12 @@
     }
   ],
   "localFlavor": {
-    "names": "Rudek, Silvana, Teobald, Mirela, Oskar, Drina, Jorik, Ysabet, Klemens, Sancia, Otakar, Vesna, Niklas, Elzbiéta, Dario, Rozsa, Varek, Lucetta, Soren, Alodia",
-    "occupations": "Bridge Scribe, Guild Enforcer, Blade Dancer, Ink Brewer, Relic Appraiser, Alley Barber, Thaumaturge, Guild Herald, Tournament Armorer, Spellwright, Ferryman, Charm Vendor, Cobblestone Mender, Discreet Courier",
-    "publicHouses": "The Healthy Chicken, The Empty Coinpurse, The Fey Chestnut, Ratbridge Tavern, Guilder’s Respite, The Fifth Tower, Bellman’s Flask, The Blood Flag, Lions' Club, The Very Secure Hotel",
-    "vittles": "Poppyseed Bread, Blood Sausage, Roasted Leeks with Vinegar, Aged Goat Cheese, Herbed Lentils, Salted Carp, Honeyed Chestnuts, Caraway Crackers, Pickled Beets, Garlic Chicken Pottage, Plum Brandy, Spiced Goulash, Smoked Duck Leg, Beetroot Tart, Mulled Wine",
+    "names": "Rudek, Silvana, Teobald, Mirela, Volans, Oskar, Drina, Jorik, Ysabet, Klemens, Sancia, Otakar, Vesna, Niklas, Pimlan, Elzbiéta, Dario, Opik, Rozsa, Varek, Lucetta, Soren, Alodia",
+    "occupations": "Bridge Scribe, Guild Enforcer, Arena Fighter, Ink Brewer, Relic Appraiser, Alley Barber, Thaumaturge, Guild Herald, Tournament Armorer, Spellwright, Ferryman, Charm Vendor, Cobblestone Mender, Rooftop Courier",
+    "publicHouses": "The Healthy Chicken, Těptín, The Empty Coinpurse, Nová Hospoda, The Fey Chestnut, Vestec's, Bellman’s Flask, The Blood Flag, Sokolowski's University Inn, Lions' Club, Milan Pilar's, The Very Secure Hotel",
+    "vittles": "Poppyseed Bread, Blood Sausage, Roasted Leeks with Vinegar, Aged Goat Cheese, Herbed Lentils, Salted Carp, Honeyed Chestnuts, Caraway Crackers, Pickled Beets, Garlic Chicken Pottage, Plum Brandy, Spiced Goulash, Smoked Duck Leg, Beetroot Tart, Sparkling Wine",
     "pointsOfInterest": "The Guild Bridges, Thieves' Guild Tower, Knights' Guild Arena, The Church of the Immaculate Hammer, The First Wizards' Guild, The Second Wizards' Guild, The Third Wizard's Guild, The First Secular Armorer's Guild, Ropeson's Finest Ropes, Congress Of Independent Rangers, Jock Jockson's Fighting School, The Whither Wastes",
-    "floraFauna": "Twilight Ivy, Black Rose, Rue, Mandrake, Elder Tree, Saffron Crocus, Sewer Rat, Bridge Owl, Canal Pike, Copper Beetle, Gutter Cat, Grey Heron, Basilisk Wyrmling, Night Toad, Gilded Moth"
+    "floraFauna": "Twilight Ivy, Black Rose, Rue, Mandrake, Elder Tree, Saffron Crocus, Sewer Rat, Bridge Owl, Canal Pike, Copper Beetle, Gutter Cat, Grey Heron, Basilisk Wyrmling, Night Toad, Gilded Mouse"
   },
-  "lastModified": "2026-07-29T20:14:01.054Z"
+  "lastModified": "2026-08-20T12:44:23.908Z"
 }

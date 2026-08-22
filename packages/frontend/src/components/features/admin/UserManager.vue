@@ -63,6 +63,7 @@ import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import UserCard from './UserCard.vue'
 import UserService from '@/services/entities/userService'
 import { USER_STATUS, USER_ROLE } from '@shared/constants/userConstants'
+import { useConfirm } from '@/composables/useConfirm'
 
 const users = ref([])
 const loading = ref(true)
@@ -97,7 +98,8 @@ const approveUser = async (userId) => {
 }
 
 const rejectUser = async (userId) => {
-    if (!confirm('Are you sure you want to reject this user? This will delete their account.')) {
+    const { confirm } = useConfirm()
+    if (!await confirm('Are you sure you want to reject this user? This will delete their account.')) {
         return
     }
 
@@ -111,7 +113,8 @@ const rejectUser = async (userId) => {
 }
 
 const suspendUser = async (userId) => {
-    if (!confirm('Are you sure you want to suspend this user?')) {
+    const { confirm } = useConfirm()
+    if (!await confirm('Are you sure you want to suspend this user?')) {
         return
     }
 
@@ -135,7 +138,8 @@ const updateUserRole = async (userId, role) => {
 }
 
 const deleteUser = async (userId) => {
-    if (!confirm('Are you sure you want to delete this user? This action cannot be undone.')) {
+    const { confirm } = useConfirm()
+    if (!await confirm('Are you sure you want to delete this user? This action cannot be undone.')) {
         return
     }
 

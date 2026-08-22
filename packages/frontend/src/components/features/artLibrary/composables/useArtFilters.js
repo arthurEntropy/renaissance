@@ -44,6 +44,14 @@ export function useArtFilters(artStore) {
     const filteredArt = computed(() => {
         let filtered = artStore.art
 
+        // Apply expansion/campaign visibility: art with no sources always shows;
+        // art with any source from a hidden/filtered concept is excluded.
+        const visibleSourceIds = new Set(sourcesStore.allSourcesFlat.map((s) => s.id))
+        filtered = filtered.filter((art) => {
+            if (!art?.sources || art.sources.length === 0) return true
+            return art.sources.every((id) => visibleSourceIds.has(id))
+        })
+
         // Guard against stale/malformed persisted filter state.
         const normalizedTypeFilters = Array.isArray(typeFilters.value) ? typeFilters.value : []
         const normalizedSourceFilters = Array.isArray(sourceFilters.value) ? sourceFilters.value : []

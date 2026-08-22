@@ -8,9 +8,11 @@
             <!-- Popup card -->
             <div class="cs-popup" ref="popupEl" @click.stop>
 
-                <!-- Character token (click to navigate to full character sheet) -->
-                <div class="cs-popup-token" @click.stop="router.push(`/characters/${character.id}`)">
-                    <CharacterToken :character="character" :disableDefaultClick="true" :showRemoveFab="false" />
+                <!-- Character token -->
+                <div class="cs-popup-token">
+                    <component :is="isBeastToken ? BeastToken : CharacterToken"
+                        :character="isBeastToken ? undefined : character" :beast="isBeastToken ? character : undefined"
+                        :disableDefaultClick="true" :showRemoveFab="false" />
                 </div>
 
                 <!-- Close button -->
@@ -63,10 +65,11 @@
 </template>
 
 <script setup>
-import { ref, computed, watch, nextTick, onMounted, onUnmounted } from 'vue'
-import { useRouter } from 'vue-router'
+import { ref, computed, watch, nextTick, onMounted, onUnmounted, provide } from 'vue'
 import { useCharactersStore } from '@/stores/charactersStore'
+import { isBeastInstance, isBeastTemplate } from '@/utils/characterTypeGuards'
 import CharacterToken from '@/components/features/characterSelection/CharacterToken.vue'
+import BeastToken from '@/components/features/characterSelection/BeastToken.vue'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 import { useConceptsStore } from '@/stores/conceptsStore'
@@ -102,9 +105,10 @@ const props = defineProps({
     },
 })
 
-defineEmits(['close'])
+const emit = defineEmits(['close', 'character-saved'])
 
-const router = useRouter()
+// Allow BaseCard descendants to show the CHAT FAB
+provide('chatFabEnabled', true)
 
 const charactersStore = useCharactersStore()
 const conceptsStore = useConceptsStore()
@@ -146,9 +150,17 @@ watch(() => props.character, (newChar) => {
 
 // Wire up auto-save watchers (same as CharacterSheet)
 const selectedCharacter = computed(() => charactersStore.selectedCharacter)
-useCharacterStatWatchers(selectedCharacter, computed(() => equipmentStore.equipment || []))
+useCharacterStatWatchers(selectedCharacter, computed(() => equipmentStore.equipment || []), {
+    onSaved: (char) => emit('character-saved', char),
+})
 
 const canEdit = computed(() => charactersStore.canEditSelectedCharacter)
+const isBeastToken = computed(() => isBeastInstance(props.character) || isBeastTemplate(props.character))
+
+// Close on Escape
+function _onKeydown(e) { if (e.key === 'Escape') emit('close') }
+onMounted(() => window.addEventListener('keydown', _onKeydown))
+onUnmounted(() => window.removeEventListener('keydown', _onKeydown))
 
 // ─── Section visibility (mirrors CharacterSheet.vue logic) ───────────────────
 const mestiere = computed(() => {
@@ -301,6 +313,7 @@ watch(activeTab, async (newTab) => {
     background: var(--color-bg-primary);
     overflow-x: auto;
     scrollbar-width: none;
+    border-radius: var(--radius-10);
 }
 
 .cs-popup__tabs::-webkit-scrollbar {

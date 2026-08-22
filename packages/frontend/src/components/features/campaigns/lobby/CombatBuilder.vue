@@ -88,7 +88,7 @@ import { useCampaignStore } from '@/stores/campaignStore'
 import { useCharactersStore } from '@/stores/charactersStore'
 import { useAppCharacterSheetModal } from '@/composables/useAppCharacterSheetModal'
 import { useCascadeColumnPositioning } from '@/composables/useCascadeColumnPositioning'
-import { toLetterSuffix } from '@shared/utils/letterSuffix'
+import { pickNextCircledSuffix } from '@shared/utils/letterSuffix'
 
 const props = defineProps({
     tabletop: { type: Object, required: true },
@@ -309,19 +309,16 @@ const getNextGroupName = () => {
 }
 
 const getNextBeastInstanceName = (baseName) => {
-    const escaped = String(baseName || '').replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
-    const suffixPattern = new RegExp(`^${escaped}\\s+([A-Z]+)$`)
-    const usedSuffixes = new Set()
-    for (const beast of beasts.value || []) {
-        if (!beast?.name) continue
-        const match = beast.name.match(suffixPattern)
-        if (match?.[1]) usedSuffixes.add(match[1])
-    }
-    for (let index = 0; index < 702; index += 1) {
-        const suffix = toLetterSuffix(index)
-        if (!usedSuffixes.has(suffix)) return `${baseName} ${suffix}`
-    }
-    return `${baseName} ${Date.now()}`
+    // Scope to beast instances on this tabletop
+    const tabletopBeastIds = new Set(
+        (props.tabletop.combatGroups || [])
+            .flatMap(g => g.combatants || [])
+            .filter(c => c.type === 'beast')
+            .map(c => c.characterId)
+    )
+    const relevant = (beasts.value || []).filter(b => b?.id && tabletopBeastIds.has(b.id))
+    const suffix = pickNextCircledSuffix(relevant, baseName)
+    return `${baseName} ${suffix}`
 }
 
 const createGroup = () => {
@@ -468,6 +465,7 @@ const createBeastInstanceFromTemplate = async (templateId) => {
             characterType: 'beastInstance',
             templateId: template.id,
             campaignId,
+            tabletopId: props.tabletop?.id || null,
             createdAt: new Date().toISOString(),
             lastModified: new Date().toISOString(),
         }

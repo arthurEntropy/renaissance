@@ -31,7 +31,8 @@
                     :ref="(el) => registerTokenRef(item.id, el)"
                     :class="{ 'is-dragging': isDragging(item.id), 'is-hidden-token': item.isHidden }"
                     :style="{ transform: `translate(${item.x}px, ${item.y}px)`, zIndex: item.zIndex }"
-                    @mousedown="(e) => { dismissBubble(item.id); handleTokenMousedown(item, e); handleTokenRightClick(item, e); handleTokenCmdClick(item, e) }">
+                    @mousedown="(e) => { dismissBubble(item.id); handleTokenMousedown(item, e); handleTokenRightClick(item, e); handleTokenCmdClick(item, e) }"
+                    @dblclick="(e) => handleTokenDoubleClick(item, e)">
                     <TabletopToken :name="item.name" :portrait-url="item.portraitUrl" :is-beast="item.isBeast"
                         :is-npc="item.isNpc" :size="item.size" :grid-size="gridSize" :is-selected="isSelected(item.id)"
                         :in-engagement="isCharacterInEngagement(item)" />
@@ -118,7 +119,8 @@
              which would trigger Vue's "runtime directive on non-element root" warning. -->
         <Teleport to="body">
             <CharacterSheetPopup v-if="charSheetPopupOpen && charSheetPopupCharacter"
-                :character="charSheetPopupCharacter" @close="charSheetPopupOpen = false" />
+                :character="charSheetPopupCharacter" @close="charSheetPopupOpen = false"
+                @character-saved="onCharacterSaved" />
         </Teleport>
 
         <!-- Engagement spectate popup (read-only view of another character's engagement) -->
@@ -487,6 +489,15 @@ function handleTokenCmdClick(item, e) {
     charSheetPopupOpen.value = true
 }
 
+/** Double-clicking a token opens its CharacterSheetPopup directly. */
+function handleTokenDoubleClick(item) {
+    if (!item.characterId) return
+    const char = resolveCharacterById(item.characterId)
+    if (!char) return
+    charSheetPopupCharacter.value = char
+    charSheetPopupOpen.value = true
+}
+
 // Close the popup automatically when a roll bubble appears for the character it shows.
 // This covers all roll types (skill checks, damage, etc.) triggered from within the popup.
 // If the user holds Shift when triggering the roll, the popup stays open.
@@ -605,6 +616,24 @@ watch(campaignId, async (id) => {
         characterContextStore.setGroupsFromTabletop(tabletop?.combatGroups ?? [])
     }
 }, { immediate: true })
+
+// Reload canvas state and combat groups when the user switches tabletops within the
+// same campaign. The campaignId watcher above only fires on campaign change, so we
+// need a separate watcher here to handle intra-campaign tabletop navigation.
+watch(tabletopId, async (tid, oldTid) => {
+    if (!tid || !campaignId.value || tid === oldTid) return
+
+    if (!campaignStore.tabletops.some((t) => t.id === tid)) {
+        await campaignStore.fetchTabletops(campaignId.value)
+    }
+
+    loadState()
+
+    if (isGM.value) {
+        const tabletop = campaignStore.tabletops.find((t) => t.id === tid)
+        characterContextStore.setGroupsFromTabletop(tabletop?.combatGroups ?? [])
+    }
+})
 
 // ─── Persist combat-group changes from the rail back to the tabletop ─────────
 // When the GM renames, reorders, or sets initiative results for a group in

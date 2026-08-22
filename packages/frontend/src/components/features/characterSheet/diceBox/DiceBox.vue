@@ -23,7 +23,8 @@
           :skip-animation="shouldSkipRollAnimation" @reroll-all-dice="rollsStore.reroll" />
 
         <RollOutcome :rollData="latestRoll" :isEngagement="isEngagement" :isCustomRoll="isCustomRoll"
-          :isDamage="isDamage" :isInitiative="isInitiative" :isInjury="isInjury" :isRolling="isRolling" />
+          :isDamage="isDamage" :isInitiative="isInitiative" :isInjury="isInjury" :isRolling="isRolling"
+          @open-success-popup="openSuccessPopup" />
       </template>
     </div>
 
@@ -39,6 +40,10 @@
     <!-- Custom Roll Modal -->
     <CustomRollModal v-if="showCustomRollModal" :character="activeCharacter" @close="showCustomRollModal = false" />
 
+    <!-- Skill Check Success Popup -->
+    <SkillCheckSuccessPopup v-if="successPopupData" :success-count="successPopupData.successCount"
+      :anchor-el="successPopupData.anchorEl" :character="activeCharacter" @close="successPopupData = null" />
+
   </CharacterSheetSection>
 </template>
 
@@ -52,6 +57,7 @@ import RollTitle from './RollTitle.vue'
 import RollOutcome from './RollOutcome.vue'
 import EmptyRollState from './EmptyRollState.vue'
 import CustomRollModal from '../customDiceRoller/CustomRollModal.vue'
+import SkillCheckSuccessPopup from './SkillCheckSuccessPopup.vue'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
@@ -72,6 +78,11 @@ const diceDisplayRef = ref(null)
 const CONTAINER_WIDTH = 310
 
 const showCustomRollModal = ref(false)
+const successPopupData = ref(null)
+
+function openSuccessPopup({ successCount, anchorEl }) {
+  successPopupData.value = { successCount, anchorEl }
+}
 
 // Get the active character - use explicit prop if provided, otherwise fall back to selected
 const activeCharacter = computed(() => props.character || charactersStore.selectedCharacter)

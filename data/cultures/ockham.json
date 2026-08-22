@@ -38,12 +38,12 @@
     }
   ],
   "localFlavor": {
-    "names": "Hugh, Albie, Benedict, Miles, Rupert, Imogen, Harriet, Tamsin, Elspeth, Marnie, Rowan, Kit, Jules, Enid, Robin, Edmund, Cecily, Anselm, Lettice, Simeon",
-    "occupations": "Farmer, Shepherd, Miller, Broker, Blacksmith, Carpenter, Cooper, Weaver, Potter, Tanner, Carney, Butcher, Baker, Brewer, Chandler, Mason, Thatcher, Midwife",
-    "publicHouses": "The Stripey Pig, The Green Woman, The Sack and Sickle, Stickney's Tavern, The Shepherd's Legs",
-    "vittles": "Cider, Mead, Barley Bread, Oat Porridge, Smoked Eel, Salted Pork, Stewed Lentils, Hard Cheese, Fresh Apples, Pickled Onions, Roasted Turnips, Honey Cakes, Black Pudding, Small Beer, Snipe-On-A-Stick",
-    "pointsOfInterest": "The Festival Square, The Grand Fountain, The Exchange House, The Tithing Barn, The Hollow Tree",
-    "floraFauna": "Oak, Willow, Hawthorn, Elderberry, Wild Garlic, Nettles, Foxglove, Crow, Hedgehog, Badger, Red Deer, Pike, Barn Owl, Toad, Lark"
+    "names": "Hugh, Albie, Benedict, Miles, Rupert, Imogen, Stickney, Harriet, Tamsin, Elspeth, Marnie, Rowan, Kit, June, Enid, Robin, Edmund, Cecily, Anselm, Palfrey, Lettice, Simeon",
+    "occupations": "Butcher, Baker, Brewer, Chandler, Shepherd, Miller, Broker, Blacksmith, Carpenter, Cooper, Weaver, Potter, Tanner, Carney,  Mason, Thatcher, Midwife, Gardener",
+    "publicHouses": "The Stripey Pig, Barley Mow, The Green Woman, The Sign Of The Bear, The Running Mare, Stickney's Tavern, Cricketer's, The Shepherd's Legs, The Black Swan",
+    "vittles": "Cider, Mead, Barley Bread, Oat Porridge, Smoked Shad, Salted Pork, Stewed Lentils, Hard Cheese, Fresh Apples, Pickled Onions, Roasted Turnips, Honey Cakes, Black Pudding, Small Beer, Snipe-On-A-Stick",
+    "pointsOfInterest": "The Festival Square, The Grand Fountain, The Exchange House, The Tithing Barn, The Hollow Tree, Cheese Hill, Ledgeward's Clover Farm, The Falls At Ottershaw",
+    "floraFauna": "Oak, Willow, Beech, Elderberry, Wild Garlic, Nettles, Foxglove, Crow, Hedgehog, Vole, Red Deer, Silver Minnow, Screech Owl, Toad, Lark"
   },
-  "lastModified": "2026-07-30T19:07:50.937Z"
+  "lastModified": "2026-08-20T12:48:25.726Z"
 }

@@ -48,11 +48,11 @@
                                 <div v-if="isGM" class="tabletop-actions">
                                     <FloatingActionButton
                                         :variant="tabletop.id === activeTabletopId ? FAB_TYPES.DEACTIVATE : FAB_TYPES.ACTIVATE"
-                                        :size="FAB_SIZES.SMALL" :visibility="FAB_VISIBILITIES.ALWAYS"
+                                        :size="FAB_SIZES.SMALL" :visibility="FAB_VISIBILITIES.ON_HOVER"
                                         :title="tabletop.id === activeTabletopId ? 'Deactivate' : 'Set as active'"
                                         @click="toggleActive(tabletop.id)" />
                                     <FloatingActionButton :variant="FAB_TYPES.TRASH" :size="FAB_SIZES.SMALL"
-                                        :visibility="FAB_VISIBILITIES.ALWAYS" title="Delete"
+                                        :visibility="FAB_VISIBILITIES.ON_HOVER" title="Delete"
                                         @click="confirmDelete(tabletop)" />
                                 </div>
                             </div>
@@ -75,6 +75,7 @@ import { useCampaignStore } from '@/stores/campaignStore'
 import tabletopSocketService from '@/services/sessions/tabletopSocketService'
 import { getOptimizedImageUrl } from '@/utils/imageOptimization'
 import { MIDJOURNEY_IMAGE_CONTEXTS } from '@shared/constants/artConstants.js'
+import { useConfirm } from '@/composables/useConfirm'
 
 const router = useRouter()
 const campaignStore = useCampaignStore()
@@ -191,7 +192,8 @@ async function toggleActive(tabletopId) {
 }
 
 async function confirmDelete(tabletop) {
-    if (!confirm(`Delete tabletop "${tabletop.name}"? This cannot be undone.`)) return
+    const { confirm } = useConfirm()
+    if (!await confirm(`Delete tabletop "${tabletop.name}"? This cannot be undone.`)) return
     if (!campaignId.value) return
     try {
         await campaignStore.deleteTabletop(campaignId.value, tabletop.id)

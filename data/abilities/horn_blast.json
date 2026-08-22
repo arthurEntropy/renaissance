@@ -2,10 +2,10 @@
   "id": "f942516f-3b3d-47d8-ba14-d73f21f9d49f",
   "isDeleted": false,
   "createdAt": "2026-02-03T19:59:27.976Z",
-  "lastModified": "2026-07-15T01:03:05.461Z",
+  "lastModified": "2026-08-20T13:08:46.405Z",
   "name": "Horn Blast",
   "artUrl": "https://cdn.midjourney.com/e7bd62a1-f3a1-49b6-860c-dc5c77763c84/0_0.png",
-  "description": "<p>You blow a blast on your hunting horn, which can be heard up to a mile away. Choose one:</p><ul><li><p>Each ally within far range gains +1d on their next skill check this round.</p></li><li><p>Each foe within far range takes -1d on their next skill check this round.</p></li><li><p>All creatures within far range do not provoke attacks of opportunity this round.</p></li></ul><p>Choose each effect only once per rest.</p><p><strong>Describe your horn and its sound.</strong></p>",
+  "description": "<p>You blow a blast on your hunting horn, which can be heard up to a mile away. Choose one:</p><ul><li><p>Each ally within far range gains +1d on their next skill check made within the next round.</p></li><li><p>Each foe within far range takes -1d on their next skill check made within the next round.</p></li><li><p>All creatures within far range do not provoke attacks of opportunity for 1 round.</p></li></ul><p>Choose each effect only once per rest.</p><p><strong>Describe your horn and its sound.</strong></p>",
   "successes": "",
   "improvements": [
     {

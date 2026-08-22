@@ -46,11 +46,11 @@
     "engagementSuccessNotes": "",
     "baseMP": 0,
     "baseMpNotes": "<p>Acrobat abilities to not have an MP cost.</p>",
-    "abilities": "<p><em>Nimble</em> and choose one, ignoring its XP cost: <em>Pole Training, Rope &amp; Chain Weapon Training, Shuriken Training, </em>or <em>Pressure Point Training</em>.</p>",
+    "abilities": "<p><em>Nimble</em> and choose one, ignoring its XP cost: <em>Pole Training, Rope &amp; Chain Weapon Training, Shuriken Training, </em>or <em>Pressure Point Training</em>. Unless you chose Pressure Point Training, choose and gain one weapon appropriate to your training from this mestiere or from one of your home cultures.</p>",
     "spellcasting": "",
     "gratuiti": "<p>Clothes and footwear that are easy to move in, a spool of wrist wrap, a small pouch of chalk.</p>"
   },
-  "lastModified": "2026-08-05T13:18:15.301Z",
+  "lastModified": "2026-08-17T14:08:39.860Z",
   "hooks": [],
   "playlists": []
 }

@@ -97,7 +97,8 @@
         <!-- Character sheet popup -->
         <Teleport to="body">
             <CharacterSheetPopup v-if="charSheetPopupOpen && charSheetPopupCharacter"
-                :character="charSheetPopupCharacter" @close="charSheetPopupOpen = false" />
+                :character="charSheetPopupCharacter" @close="charSheetPopupOpen = false"
+                @character-saved="onCharacterSaved" />
         </Teleport>
 
         <!-- Campaign questions button (top-right, shifts left with chatlog) -->

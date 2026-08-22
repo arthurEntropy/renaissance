@@ -30,7 +30,7 @@
         <!-- Footer strip: DifficultyBadge -->
         <div class="badge__footer">
             <div class="badge__difficulty-host">
-                <DifficultyBadge :value="trap.difficulty" @update:value="$emit('update-difficulty', $event)" />
+                <DifficultyBadge :value="trap.difficulty" :readonly="true" />
             </div>
         </div>
     </div>
@@ -42,6 +42,7 @@ import { PlusIcon, MapPinIcon } from '@heroicons/vue/24/outline'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import DifficultyBadge from '@/components/ui/cards/item/DifficultyBadge.vue'
 import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
+import { useConfirm } from '@/composables/useConfirm'
 
 const props = defineProps({
     trap: {
@@ -58,8 +59,9 @@ const emit = defineEmits(['add', 'edit', 'remove', 'update-difficulty'])
 
 const isCustomImage = computed(() => /^https?:\/\//i.test(props.trap?.imageUrl ?? ''))
 
-function handleRemove() {
-    if (window.confirm('Remove this trap?')) {
+async function handleRemove() {
+    const { confirm } = useConfirm()
+    if (await confirm('Remove this trap?')) {
         emit('remove', props.trap)
     }
 }

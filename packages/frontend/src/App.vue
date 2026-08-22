@@ -76,6 +76,7 @@
   <CreateCampaignModal :visible="showCreateCampaignModal" :is-submitting="creatingCampaign"
     :error-message="createCampaignError" @close="closeCreateCampaign" @submit="submitCreateCampaign" />
   <CardPreviewOverlay />
+  <ConfirmModal />
 </template>
 
 <script setup>
@@ -94,6 +95,7 @@ import PreferencesModal from '@/components/features/preferences/PreferencesModal
 import InvitesModal from '@/components/features/campaigns/InvitesModal.vue'
 import CreateCampaignModal from '@/components/features/campaigns/CreateCampaignModal.vue'
 import CardPreviewOverlay from '@/components/ui/cards/preview/CardPreviewOverlay.vue'
+import ConfirmModal from '@/components/ui/modals/ConfirmModal.vue'
 import CampaignBadge from '@/components/features/campaigns/CampaignBadge.vue'
 import PinnedTokensContainer from '@/components/features/characterSelection/PinnedTokensContainer.vue'
 import ActiveAbilitiesContainer from '@/components/features/characterSelection/ActiveAbilitiesContainer.vue'

@@ -94,6 +94,7 @@ import { WITCH_MESTIERE_NAME } from '@/constants/witchcraftConstants'
 import { SUMMONER_MESTIERE_NAME } from '@/constants/summonerConstants'
 import { HUNTER_MESTIERE_NAME } from '@/constants/hunterConstants'
 import { ACROBAT_MESTIERE_NAME } from '@/constants/acrobatConstants'
+import { useConfirm } from '@/composables/useConfirm'
 
 const SECTION_LABELS = {
     engagement: { label: 'Engagement' },
@@ -244,8 +245,9 @@ const saveChanges = () => {
     closeModal()
 }
 
-const resetStats = () => {
-    const shouldReset = confirm('Reset all tracked character stats?')
+const resetStats = async () => {
+    const { confirm } = useConfirm()
+    const shouldReset = await confirm('Reset all tracked character stats?')
     if (!shouldReset) return
     const char = charactersStore.selectedCharacter
     if (!char) return

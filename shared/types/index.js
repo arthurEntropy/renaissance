@@ -37,6 +37,7 @@ export {
 } from './character.js'
 export { createDefaultBeastType } from './beastType.js'
 export { createDefaultEngagementSuccess } from './engagementSuccess.js'
+export { createDefaultSkillCheckSuccess } from './skillCheckSuccess.js'
 export { createDefaultExpansion } from './expansion.js'
 export { createDefaultKeeping } from './keeping.js'
 export { createDefaultArtPlaceholder } from './artPlaceholder.js'

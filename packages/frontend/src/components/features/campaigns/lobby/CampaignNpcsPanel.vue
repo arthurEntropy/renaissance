@@ -92,6 +92,7 @@ import NpcPreviewModal from '@/components/features/campaigns/lobby/NpcPreviewMod
 import { PlusIcon } from '@heroicons/vue/24/outline'
 import { createDefaultNPC } from '@shared/types'
 import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
+import { useConfirm } from '@/composables/useConfirm'
 
 const campaignStore = useCampaignStore()
 const charactersStore = useCharactersStore()
@@ -224,7 +225,8 @@ const createNPC = async () => {
 
 const deleteNPC = async (npc) => {
     if (!isGM.value) return
-    if (!confirm(`Delete NPC "${npc.name}"?`)) return
+    const { confirm } = useConfirm()
+    if (!await confirm(`Delete NPC "${npc.name}"?`)) return
     try {
         await charactersStore.remove(npc)
         campaignStore.removeCampaignCharacter(npc.id)

@@ -1,0 +1,43 @@
+{
+  "id": "084cbc9d-7db3-4084-9e5c-ac51549c2d91",
+  "isDeleted": false,
+  "createdAt": "2026-08-20T20:35:09.973Z",
+  "lastModified": "2026-08-20T20:41:43.284Z",
+  "name": "Wavebreaker",
+  "artUrl": "https://cdn.midjourney.com/6cccb84b-aba3-4e0e-99c1-e2ac2cf56410/0_1.png",
+  "description": "<p><em>Requires attunement.</em></p><p>Whenever you deal damage to a creature with Wavebreaker, roll Spirit vs Spirit. On a win, if the creature is attuned to any items, choose one of those items at random. The creature's attunement with that item is broken.</p>",
+  "successes": "<p>✨: On a win, choose one additional attuned item. The creature's attunement with that item is also broken.</p><p>🌞: On a win, all the creature's current attunements are broken.</p>",
+  "improvements": [],
+  "source": null,
+  "school": null,
+  "keeping": "917cb5ee-f996-4a84-be4a-47a43c25c15a",
+  "isCustom": false,
+  "isTemplate": false,
+  "isMagical": true,
+  "isBeastEquipment": false,
+  "hasDifficulty": false,
+  "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
+  "subtype": "ab765755-b7c9-47ac-b62f-34f069e00dc3",
+  "grade": "ebcc2bcb-8221-4ca0-bef3-000fb7e59e96",
+  "weight": 7,
+  "reach": 0,
+  "range": null,
+  "twoHanded": true,
+  "thrown": false,
+  "finesse": false,
+  "piercing": false,
+  "projectile": false,
+  "damageDice": [
+    10
+  ],
+  "engagementDice": [
+    10
+  ],
+  "engagementSuccesses": [
+    "b2c3d4e5-f6a7-48b9-c0d1-e2f3a4b5c6d7",
+    "d4e5f6a7-b8c9-40d1-e2f3-a4b5c6d7e8f9",
+    "e1f2a3b4-c5d6-47e8-f9a0-b1c2d3e4f5a6",
+    "f6a7b8c9-d0e1-42f3-a4b5-c6d7e8f9a0b1"
+  ],
+  "defenseBonus": 0
+}

@@ -37,6 +37,7 @@ import { useConceptsStore } from '@/stores/conceptsStore'
 import { STAT_ROW_TYPES } from '@/constants/statRowTypes'
 import { ARMOR_TYPE_ID } from '@/constants/armorConstants'
 import * as CharacterUtils from '@shared/utils/characterUtils'
+import { isBeastTemplate, isBeastInstance } from '@/utils/characterTypeGuards'
 import InjuryRollService from '@/services/rolls/injuryRollService'
 import CharacterSheetSection from '@/components/ui/containers/CharacterSheetSection.vue'
 import CoreAbilityHeader from './CoreAbilityHeader.vue'
@@ -128,7 +129,7 @@ const armorDefenseBonus = computed(() => {
   if (!character.value?.equipment || !allEquipment.value) return 0
 
   const trainedGrades = armorTrainedGrades.value
-  const isBeast = character.value.characterType === "beast"
+  const isBeast = isBeastTemplate(character.value) || isBeastInstance(character.value)
 
   return character.value.equipment
     .filter(entry => entry.isWielding)

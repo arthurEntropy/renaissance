@@ -2,7 +2,7 @@
   "id": "f2f7d744-aca8-4cc1-8d48-e94a854f66f4",
   "isDeleted": false,
   "createdAt": "2026-08-14T02:06:37.404Z",
-  "lastModified": "2026-08-16T19:58:12.032Z",
+  "lastModified": "2026-08-21T20:51:12.865Z",
   "characterType": "beast",
   "name": "Bugbear Chieftan",
   "featuredArtUrls": [
@@ -367,6 +367,6 @@
     "b7e57001-0000-4000-a000-000000000002",
     "b7e57001-0000-4000-a000-00000000000a"
   ],
-  "updatedAt": "2026-08-16T19:58:12.032Z",
+  "updatedAt": "2026-08-21T20:51:12.865Z",
   "challenge": 26
 }

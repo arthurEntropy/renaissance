@@ -60,10 +60,10 @@ watch(
 )
 
 const conceptSections = computed(() => [
-    { type: ConceptType.ANCESTRY, label: 'Ancestries', items: conceptsStore.ancestries },
-    { type: ConceptType.CULTURE, label: 'Cultures', items: conceptsStore.cultures },
-    { type: ConceptType.MESTIERE, label: 'Mestieri', items: conceptsStore.mestieri },
-    { type: ConceptType.WORLD_ELEMENT, label: 'World Elements', items: conceptsStore.worldElements },
+    { type: ConceptType.ANCESTRY, label: 'Ancestries', items: conceptsStore.visibleAncestries },
+    { type: ConceptType.CULTURE, label: 'Cultures', items: conceptsStore.visibleCultures },
+    { type: ConceptType.MESTIERE, label: 'Mestieri', items: conceptsStore.visibleMestieri },
+    { type: ConceptType.WORLD_ELEMENT, label: 'World Elements', items: conceptsStore.visibleWorldElements },
 ])
 
 const isIncluded = (id) => localIncluded.value.has(id)

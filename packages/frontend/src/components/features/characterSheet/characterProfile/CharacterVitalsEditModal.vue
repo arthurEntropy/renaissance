@@ -50,9 +50,9 @@
                             class="right-aligned invisible-label invisible-label--ancestry">&nbsp;</label>
                         <div class="genetics-wizard-button-wrapper">
                             <ActionButton variant="outline" size="small" text="Genetics Wizard🪄"
-                                :disabled="!hasTwoAncestries"
-                                :title="hasTwoAncestries ? 'Open the Genetics Wizard' : 'Select two ancestries first'"
-                                @click="showGeneticsWizard = true" />
+                                :disabled="!hasSelectedAncestry"
+                                :title="hasTwoAncestries ? 'Open the Genetics Wizard' : hasOneAncestry ? 'Apply ancestry abilities and speed' : 'Select an ancestry first'"
+                                @click="handleGeneticsWizardClick" />
                         </div>
                         <select v-model="formData.ancestryIds[1]" id="ancestry2" class="modal-input"
                             :disabled="!formData.ancestryIds[0]">
@@ -181,7 +181,7 @@
                     </div>
                     <div class="beast-number-field">
                         <label for="reach" class="left-aligned">Reach:</label>
-                        <input id="reach" type="number" min="0" v-model.number="formData.reach"
+                        <input id="reach" type="number" step="5" min="0" v-model.number="formData.reach"
                             class="modal-input beast-number-input" placeholder="0" />
                     </div>
                     <div class="beast-number-field">
@@ -266,15 +266,18 @@ import { ref, computed, onMounted } from 'vue'
 import { useCharactersStore } from '@/stores/charactersStore'
 import { useConceptsStore } from '@/stores/conceptsStore'
 import { useBeastTypesStore } from '@/stores/beastTypesStore'
+import { useAbilitiesStore } from '@/stores/abilitiesStore'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import BaseModal from '@/components/ui/modals/BaseModal.vue'
 import GeneticsWizardModal from './GeneticsWizardModal.vue'
 import BiomeTagsCyclePicker from '@/components/ui/biome/BiomeTagsCyclePicker.vue'
 import { isBeastTemplate, isBeastInstance } from '@/utils/characterTypeGuards'
+import { useConfirm } from '@/composables/useConfirm'
 
 const charactersStore = useCharactersStore()
 const conceptsStore = useConceptsStore()
 const beastTypesStore = useBeastTypesStore()
+const abilitiesStore = useAbilitiesStore()
 const emit = defineEmits(['close'])
 
 const character = charactersStore.selectedCharacter
@@ -286,6 +289,9 @@ const isBeastCharacter = computed(() =>
 const showGeneticsWizard = ref(false)
 const hasTwoAncestries = computed(() =>
     formData.value.ancestryIds[0] !== '' && formData.value.ancestryIds[1] !== ''
+)
+const hasOneAncestry = computed(() =>
+    formData.value.ancestryIds.some(id => id !== '') && !hasTwoAncestries.value
 )
 const selectedAncestryAObject = computed(() =>
     conceptsStore.ancestries.find(a => a.id === formData.value.ancestryIds[0]) || null
@@ -387,9 +393,59 @@ const closeModal = () => {
     emit('close')
 }
 
-const _handleOverlayClick = () => {
+const handleGeneticsWizardClick = () => {
+    if (hasTwoAncestries.value) {
+        showGeneticsWizard.value = true
+    } else {
+        applySingleAncestryGenetics()
+    }
+}
+
+const applySingleAncestryGenetics = async () => {
+    const ancestryId = formData.value.ancestryIds[0] || formData.value.ancestryIds[1]
+    const ancestry = conceptsStore.ancestries.find(a => a.id === ancestryId)
+    if (!ancestry) return
+
+    const ancestryAbilities = (abilitiesStore.abilities || [])
+        .filter(a => a.source === ancestryId && !a.isDeleted)
+        .sort((a, b) => a.name.localeCompare(b.name))
+        .slice(0, 3)
+
+    const speed = ancestry.physiology?.speed ?? 30
+    const count = ancestryAbilities.length
+
+    const { confirm } = useConfirm()
+    const confirmed = await confirm(
+        `Add ${count} ${count === 1 ? 'ability' : 'abilities'} from ${ancestry.name} and set Speed to ${speed} ft/round?`,
+        { title: 'Apply Ancestry Genetics', confirmLabel: 'Apply', cancelLabel: 'Cancel' }
+    )
+    if (!confirmed) return
+
+    if (!character.speed || typeof character.speed !== 'object') {
+        character.speed = { current: speed, base: speed }
+    } else {
+        character.speed.base = speed
+        character.speed.current = speed
+    }
+
+    if (!character.abilities) character.abilities = []
+    for (const ability of ancestryAbilities) {
+        if (!character.abilities.some(a => a.id === ability.id)) {
+            character.abilities.push({
+                id: ability.id,
+                collapsed: false,
+                showImprovements: false,
+                showSuccesses: false,
+                isActive: false,
+            })
+        }
+    }
+}
+
+const _handleOverlayClick = async () => {
     if (initialFormDataSnapshot.value && JSON.stringify(formData.value) !== initialFormDataSnapshot.value) {
-        if (!confirm('You have unsaved changes. Are you sure you want to close?')) return
+        const { confirm } = useConfirm()
+        if (!await confirm('You have unsaved changes. Are you sure you want to close?')) return
     }
     closeModal()
 }

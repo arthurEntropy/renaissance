@@ -60,6 +60,7 @@
 
 <script setup>
 import { computed, onMounted } from 'vue'
+import { useConfirm } from '@/composables/useConfirm'
 import CollapsibleAdminSection from './CollapsibleAdminSection.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import draggable from 'vuedraggable'
@@ -170,7 +171,8 @@ const updateItem = async (item) => {
 }
 
 const handleDelete = async (item) => {
-    if (confirm(props.deleteConfirmMessage(item))) {
+    const { confirm } = useConfirm()
+    if (await confirm(props.deleteConfirmMessage(item))) {
         await props.store.remove(item)
     }
 }

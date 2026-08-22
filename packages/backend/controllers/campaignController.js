@@ -12,7 +12,7 @@ import { getUserProfile } from './userController.js'
 import { CAMPAIGN_ROLE, CAMPAIGN_MEMBER_STATUS } from '../../../shared/constants/campaignConstants.js'
 import { createDefaultCampaign } from '../../../shared/types/campaign.js'
 import { createDefaultTabletop, createDefaultWorldMap } from '../../../shared/types/tabletop.js'
-import { toLetterSuffix } from '../../../shared/utils/letterSuffix.js'
+import { pickNextCircledSuffix } from '../../../shared/utils/letterSuffix.js'
 import { v4 as uuidv4 } from 'uuid'
 import { getAllActiveCampaigns, getCampaignById, getCampaignMembership } from '../utils/campaignUtils.js'
 
@@ -34,30 +34,8 @@ const generateSlug = (name) =>
     .replace(/\s+/g, '-')
     .replace(/^-|-$/g, '') || 'campaign'
 
-const getNextBeastInstanceSuffix = (allCharacters, templateId, baseName) => {
-  const prefix = `${baseName} `
-  const usedSuffixes = new Set(
-    allCharacters
-      .filter(
-        (c) =>
-          getCharacterType(c) === 'beastInstance' &&
-          c.templateId === templateId &&
-          !c.isDeleted
-      )
-      .map((c) => c.name)
-      .filter((name) => typeof name === 'string' && name.startsWith(prefix))
-      .map((name) => name.slice(prefix.length).trim())
-      .filter(Boolean)
-  )
-
-  for (let i = 0; i < 4096; i += 1) {
-    const candidate = toLetterSuffix(i)
-    if (!usedSuffixes.has(candidate)) {
-      return candidate
-    }
-  }
-
-  return uuidv4().slice(0, 8).toUpperCase()
+const getNextBeastInstanceSuffix = (relevantInstances, baseName) => {
+  return pickNextCircledSuffix(relevantInstances, baseName)
 }
 
 const pickWeightedEntry = (entries, totalWeight) => {
@@ -448,14 +426,36 @@ export const createCampaignCharacter = (req, res) => {
       return res.status(400).json({ error: 'Beast instances require templateId' })
     }
 
-    // Assign a stable, non-colliding suffix (A..Z, AA..ZZ, etc.) for beast instances.
+    // Assign a stable, non-colliding suffix (🅐..🅩, 🅐🅐..🅩🅩, …) for beast instances.
     if (characterType === 'beastInstance' && character.templateId) {
       const allChars = getAllCharacterData()
       const template = allChars.find((c) => c.id === character.templateId)
       const baseName = template?.name || 'Beast'
 
-      const suffix = getNextBeastInstanceSuffix(allChars, character.templateId, baseName)
+      // Scope to the specific tabletop when provided, otherwise use all campaign instances.
+      let relevant = allChars.filter(
+        (c) =>
+          getCharacterType(c) === 'beastInstance' &&
+          c.templateId === character.templateId &&
+          !c.isDeleted
+      )
+      const tabletopId = character.tabletopId
+      if (tabletopId) {
+        const tabletop = getTabletopById(tabletopId)
+        if (tabletop) {
+          const onTabletop = new Set(
+            (tabletop.combatGroups || [])
+              .flatMap((g) => g.combatants || [])
+              .filter((c) => c.type === 'beast')
+              .map((c) => c.characterId)
+          )
+          relevant = relevant.filter((c) => onTabletop.has(c.id))
+        }
+      }
+
+      const suffix = getNextBeastInstanceSuffix(relevant, baseName)
       character.name = `${baseName} ${suffix}`
+      delete character.tabletopId
     }
 
     saveCharacterFile(character)
@@ -513,14 +513,17 @@ export const generateShop = (req, res) => {
 
     const { cultureMix, keepingMix, rareTierIds = [], itemCount = 12 } = req.body
 
-    if (!Array.isArray(cultureMix) || cultureMix.length === 0) {
-      return res.status(400).json({ error: 'cultureMix is required' })
+    if (!Array.isArray(cultureMix)) {
+      return res.status(400).json({ error: 'cultureMix must be an array' })
     }
     if (!Array.isArray(keepingMix) || keepingMix.length === 0) {
       return res.status(400).json({ error: 'keepingMix is required' })
     }
 
     const targetCount = Math.min(Math.max(itemCount, 5), 50)
+    // An empty cultureMix means the GM set all culture weights to 0, requesting only
+    // sourceless items (items with no culture source assigned).
+    const sourcelessOnly = cultureMix.length === 0
     const cultureIds = new Set(cultureMix.map((c) => c.cultureId))
     const keepingIds = new Set(keepingMix.map((k) => k.keepingId))
     // Rare tier IDs bypass the culture filter (items from these tiers have no culture source)
@@ -530,10 +533,12 @@ export const generateShop = (req, res) => {
     const equipmentDir = getDirectory('equipment')
     const allEquipment = getAllDataByDirectory(equipmentDir).filter((e) => !e.isDeleted)
 
-    // Filter eligible items: match keeping tier AND (culture matches OR tier is a rare bypass tier)
-    const eligible = allEquipment.filter(
-      (e) => keepingIds.has(e.keeping) && (cultureIds.has(e.source) || rareIds.has(e.keeping))
-    )
+    // Filter eligible items: match keeping tier AND passes the culture/source filter
+    const eligible = allEquipment.filter((e) => {
+      if (!keepingIds.has(e.keeping)) return false
+      if (sourcelessOnly) return !e.source  // only items with no culture source
+      return cultureIds.has(e.source) || rareIds.has(e.keeping) || !e.source
+    })
 
     if (eligible.length === 0) {
       return res.status(400).json({ error: 'No equipment found matching the selected cultures and keeping tiers' })
@@ -904,7 +909,16 @@ export const getCampaignTabletops = (req, res) => {
     const all = getAllDataByDirectory(TABLETOPS_DIRECTORY)
     const allById = new Map(all.map((t) => [t.id, t]))
 
-    // Return tabletops in the campaign's declared order, skipping any missing entries
+    // Build the ordered list from tabletopIds, skipping missing/deleted entries.
+    // Also include the world map tabletop if it exists but somehow fell out of tabletopIds
+    // (e.g. due to a partial reorder operation).
+    const idSet = new Set(tabletopIds)
+    const wmId = campaign.worldMapTabletopId
+    if (wmId && !idSet.has(wmId)) {
+      idSet.add(wmId)
+      tabletopIds.push(wmId)
+    }
+
     const tabletops = tabletopIds
       .map((id) => allById.get(id))
       .filter((t) => t && !t.isDeleted)
@@ -1004,6 +1018,8 @@ export const deleteCampaignTabletop = (req, res) => {
       ...campaign,
       tabletopIds: (campaign.tabletopIds || []).filter((id) => id !== tabletop.id),
       activeTabletopId: campaign.activeTabletopId === tabletop.id ? null : campaign.activeTabletopId,
+      // Clear the world map reference if the deleted tabletop was the world map
+      ...(campaign.worldMapTabletopId === tabletop.id ? { worldMapTabletopId: null } : {}),
     }
     saveFile(updatedCampaign, CAMPAIGNS_DIRECTORY, campaign.name, campaign.id)
 
@@ -1032,7 +1048,11 @@ export const reorderCampaignTabletops = (req, res) => {
       return res.status(400).json({ error: 'tabletopIds contains unknown tabletop IDs' })
     }
 
-    const updated = { ...campaign, tabletopIds }
+    // Preserve any IDs (e.g. the world map tabletop) that were not included in the
+    // reorder list; append them after the explicitly ordered entries.
+    const sentSet = new Set(tabletopIds)
+    const preserved = (campaign.tabletopIds || []).filter((id) => !sentSet.has(id))
+    const updated = { ...campaign, tabletopIds: [...tabletopIds, ...preserved] }
     saveFile(updated, CAMPAIGNS_DIRECTORY, campaign.name, campaign.id)
     res.json(updated)
   } catch (err) {

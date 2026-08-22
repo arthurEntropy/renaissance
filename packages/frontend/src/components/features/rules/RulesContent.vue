@@ -53,6 +53,7 @@ import { FAB_TYPES, FAB_VISIBILITIES } from '@/constants/fab'
 import { sanitizeHtml } from '@/utils/sanitizeHtml'
 import { highlightInHtml } from '@/utils/highlightText'
 import { useMarkNavigation } from '@/composables/useMarkNavigation'
+import { useConfirm } from '@/composables/useConfirm'
 
 const authStore = useAuthStore()
 const rulesStore = useRulesStore()
@@ -100,7 +101,8 @@ watch(() => rulesStore.selectedSection?.id, async (newId, oldId) => {
   }
 
   if (isContentEditMode.value && unsavedChanges.value) {
-    if (confirm('You have unsaved changes. Do you want to save before continuing?')) {
+    const { confirm } = useConfirm()
+    if (await confirm('You have unsaved changes. Do you want to save before continuing?')) {
       saveSection()
     }
   }

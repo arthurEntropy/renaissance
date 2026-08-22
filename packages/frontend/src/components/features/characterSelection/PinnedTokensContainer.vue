@@ -334,6 +334,7 @@ import { useTabletopDragState } from '@/composables/useTabletopDragState'
 import { useTabletopSelectionState } from '@/composables/useTabletopSelectionState'
 import { useTabletopSharedCanvas } from '@/composables/useTabletopSharedCanvas'
 import { useRollsStore } from '@/stores/rollsStore'
+import { useConfirm } from '@/composables/useConfirm'
 import BatchRollOrchestrationService from '@/services/rolls/batchRollOrchestrationService'
 import CrossedSwordsIcon from '@/assets/icons/characterSheet/crossed_swords.svg?component'
 
@@ -759,6 +760,19 @@ function saveGroupName(groupId, name) {
     persistGroupsToTabletop()
 }
 
+// Auto-resize all group-name textareas when names change (e.g. after TokenGroupEditModal saves).
+watch(
+    () => resolvedPinnedGroups.value.map(g => g.name),
+    async () => {
+        await nextTick()
+        const textareas = document.querySelectorAll('.token-group-name')
+        textareas.forEach(el => {
+            el.style.height = 'auto'
+            el.style.height = `${el.scrollHeight}px`
+        })
+    }
+)
+
 // ─── Group persistence ────────────────────────────────────────────────────────
 
 function persistGroupsToTabletop() {
@@ -790,7 +804,8 @@ function createAndOpenGroup() {
 // ─── Delete group with confirmation ──────────────────────────────────────────
 
 async function deleteGroupWithConfirm(group) {
-    if (!confirm(`Delete group "${group.name}"? This cannot be undone.`)) return
+    const { confirm } = useConfirm()
+    if (!await confirm(`Delete group "${group.name}"? This cannot be undone.`)) return
     const cid = campaignStore.activeCampaign?.id
     if (cid) {
         const beastDeletes = group.members
@@ -1517,9 +1532,9 @@ function getFocusedTokenProps(character) {
     gap: var(--space-xs);
     width: 100%;
     background: var(--overlay-black-medium);
-    border: 2px dotted var(--color-text-primary);
+    border: 2px dotted var(--color-text-muted);
     border-radius: var(--radius-10);
-    color: var(--color-text-primary);
+    color: var(--color-text-secondary);
     font-size: var(--font-size-11);
     font-family: var(--font-family-primary);
     text-transform: uppercase;

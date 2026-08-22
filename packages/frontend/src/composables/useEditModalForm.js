@@ -1,4 +1,5 @@
 import { ref, computed } from 'vue'
+import { useConfirm } from './useConfirm'
 
 export function useEditModalForm(props, emit) {
   const originalData = ref(JSON.parse(JSON.stringify(props[Object.keys(props)[0]])))
@@ -13,9 +14,10 @@ export function useEditModalForm(props, emit) {
     emit('close')
   }
 
-  const deleteItem = (itemName = 'this item') => {
+  const deleteItem = async (itemName = 'this item') => {
+    const { confirm } = useConfirm()
     const name = editedData.value.name || itemName
-    if (confirm(`Are you sure you want to delete "${name}"?`)) {
+    if (await confirm(`Are you sure you want to delete "${name}"?`)) {
       emit('delete', editedData.value)
     }
   }
@@ -24,9 +26,10 @@ export function useEditModalForm(props, emit) {
     emit('close')
   }
 
-  const handleOverlayClick = () => {
+  const handleOverlayClick = async () => {
+    const { confirm } = useConfirm()
     if (hasChanges.value) {
-      if (confirm('You have unsaved changes. Are you sure you want to discard them?')) {
+      if (await confirm('You have unsaved changes. Are you sure you want to discard them?')) {
         close()
       }
     } else {

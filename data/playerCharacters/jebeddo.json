@@ -1,21 +1,21 @@
 {
-  "id": "a8cb69a9-0146-4aee-bcc1-24b591fe2458",
+  "id": "8f20a6c3-b272-45d6-9d80-c07ced314693",
   "isDeleted": false,
-  "createdAt": "2026-07-25T02:30:19.653Z",
-  "lastModified": "2026-08-16T20:38:32.195Z",
+  "createdAt": "2026-08-17T15:40:41.734Z",
+  "lastModified": "2026-08-22T03:35:06.883Z",
   "characterType": "playerCharacter",
   "name": "Jebeddo",
   "featuredArtUrls": [
-    "https://cdn.midjourney.com/60fb6863-799d-4119-807e-b397a9bb7534/0_0.png"
+    "https://cdn.midjourney.com/60fb6863-799d-4119-807e-b397a9bb7534/0_0_2048_N.webp"
   ],
   "speed": {
     "current": 20,
     "base": 20
   },
   "notes": "",
-  "body": 4,
-  "heart": 3,
-  "wits": 4,
+  "body": 1,
+  "heart": 1,
+  "wits": 1,
   "skills": [
     {
       "key": "awe",
@@ -23,15 +23,16 @@
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "manualDiceMod": 0
+      "manualDiceMod": 0,
+      "isIllFavoredAutocalc": false
     },
     {
       "key": "strength",
-      "ranks": 3,
+      "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "manualDiceMod": 0
+      "manualDiceMod": 1
     },
     {
       "key": "dexterity",
@@ -39,7 +40,8 @@
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "manualDiceMod": 0
+      "manualDiceMod": 0,
+      "isIllFavoredAutocalc": false
     },
     {
       "key": "fortitude",
@@ -47,15 +49,17 @@
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "manualDiceMod": 0
+      "manualDiceMod": 0,
+      "isIllFavoredAutocalc": false
     },
     {
       "key": "craft",
-      "ranks": 1,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "manualDiceMod": 0
+      "manualDiceMod": 0,
+      "isIllFavoredAutocalc": false
     },
     {
       "key": "perform",
@@ -63,23 +67,26 @@
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "manualDiceMod": 0
+      "manualDiceMod": 0,
+      "isIllFavoredAutocalc": false
     },
     {
       "key": "insight",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0,
+      "isIllFavoredAutocalc": false
+    },
+    {
+      "key": "courtesy",
       "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "manualDiceMod": 0
-    },
-    {
-      "key": "courtesy",
-      "ranks": 2,
-      "isFavored": false,
-      "isIllFavored": false,
-      "diceMod": 0,
-      "manualDiceMod": 0
+      "manualDiceMod": 0,
+      "isIllFavoredAutocalc": false
     },
     {
       "key": "spirit",
@@ -87,7 +94,8 @@
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "manualDiceMod": 0
+      "manualDiceMod": 0,
+      "isIllFavoredAutocalc": false
     },
     {
       "key": "aid",
@@ -95,7 +103,8 @@
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "manualDiceMod": 0
+      "manualDiceMod": 0,
+      "isIllFavoredAutocalc": false
     },
     {
       "key": "persuade",
@@ -107,7 +116,7 @@
     },
     {
       "key": "awareness",
-      "ranks": 2,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -123,7 +132,7 @@
     },
     {
       "key": "lore",
-      "ranks": 2,
+      "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -139,19 +148,19 @@
     }
   ],
   "endurance": {
-    "current": 20,
-    "base": 20
+    "current": 5,
+    "base": 5
   },
   "hope": {
-    "current": 6,
-    "base": 6
+    "current": 2,
+    "base": 2
   },
   "defense": {
-    "current": 4,
-    "base": 8
+    "current": 7,
+    "base": 7
   },
-  "load": 0,
-  "shadow": 0,
+  "load": 2,
+  "shadow": 2,
   "injury": 0,
   "states": {
     "weary": false,
@@ -168,75 +177,52 @@
     "afraid": false,
     "troubled": false
   },
-  "engagementDice": [
-    4,
-    4,
-    4,
-    4,
-    4,
-    4
-  ],
+  "engagementDice": [],
   "engagementSuccesses": [],
   "engagementDiceStatuses": {
-    "user_added_0": "expended",
-    "user_added_1": "expended",
-    "user_added_2": "expended",
-    "user_added_3": "expended",
-    "user_added_4": "expended",
-    "user_added_5": "expended"
+    "mestiere_0": "expended",
+    "mestiere_1": "expended",
+    "ef6f473a-0967-4d3f-aec8-465b14390460_0": "expended"
   },
   "equipment": [
     {
-      "id": "362d015a-38f9-464f-819c-39a11297199c",
+      "id": "42c51e86-d2c9-4e11-be71-ba8d754c04b4",
+      "quantity": 1,
+      "isCarried": true,
+      "columnIndex": 0,
+      "isWielding": true,
+      "collapsed": false
+    },
+    {
+      "id": "a4da50a7-460d-455c-b3bd-76f7148ad428",
+      "quantity": 1,
+      "isCarried": true,
+      "columnIndex": 0,
+      "isWielding": true,
+      "collapsed": false
+    },
+    {
+      "id": "d5c723e6-e0a6-437f-b174-ee4f366093ba",
+      "quantity": 1,
+      "isCarried": true,
+      "columnIndex": 0,
+      "isWielding": true,
+      "collapsed": false
+    },
+    {
+      "id": "2f7c84ed-8efd-4ff1-86f3-6749b7fc3ef1",
       "quantity": 1,
       "isCarried": true,
       "isWielding": true,
-      "collapsed": true,
-      "columnIndex": 0
+      "columnIndex": 0,
+      "collapsed": false
     },
     {
-      "id": "7f13fc9d-f3a0-46b3-b1ef-41fe07f1a296",
+      "id": "ef6f473a-0967-4d3f-aec8-465b14390460",
       "quantity": 1,
       "isCarried": true,
       "isWielding": true,
-      "collapsed": true,
-      "columnIndex": 0
-    },
-    {
-      "id": "3b58e107-77ec-4e68-a1fb-2e270aa7fbb8",
-      "quantity": 1,
-      "isCarried": true,
-      "isWielding": true,
-      "collapsed": true,
-      "columnIndex": 0
-    },
-    {
-      "id": "3fa1261d-4c78-4d7a-a050-2500d4a9a82c",
-      "quantity": 1,
-      "isCarried": true,
-      "isWielding": true,
-      "collapsed": true,
-      "columnIndex": 0
-    },
-    {
-      "id": "84239d55-a70b-463e-a8c7-f24d66332816",
-      "quantity": 1,
-      "isCarried": true,
-      "collapsed": true,
-      "columnIndex": 1
-    },
-    {
-      "id": "f135fa46-20ff-4a91-a39d-82dad6297158",
-      "quantity": 1,
-      "isCarried": true,
-      "collapsed": true,
-      "columnIndex": 2
-    },
-    {
-      "id": "5c461fe0-4ad1-470b-9edd-7c3094190e79",
-      "quantity": 1,
-      "isCarried": true,
-      "isWielding": false,
+      "columnIndex": 1,
       "collapsed": false
     }
   ],
@@ -249,14 +235,6 @@
     "base": 0
   },
   "abilities": [
-    {
-      "id": "70a66315-8334-4d05-923e-275d03e833e8",
-      "collapsed": true,
-      "showImprovements": false,
-      "showSuccesses": false,
-      "isActive": false,
-      "columnIndex": 0
-    },
     {
       "id": "fad36475-593f-42a9-b925-dd02f6ec9d81",
       "collapsed": true,
@@ -274,12 +252,28 @@
       "columnIndex": 0
     },
     {
-      "id": "370535a8-2e1e-485d-b3a1-96780ab87454",
+      "id": "70a66315-8334-4d05-923e-275d03e833e8",
       "collapsed": true,
       "showImprovements": false,
       "showSuccesses": false,
       "isActive": false,
       "columnIndex": 0
+    },
+    {
+      "id": "723762b8-516f-4c97-a16e-ece0586e99cd",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false,
+      "columnIndex": 1
+    },
+    {
+      "id": "370535a8-2e1e-485d-b3a1-96780ab87454",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false,
+      "columnIndex": 1
     },
     {
       "id": "179fdf43-fee1-4755-af63-7c82ad30617f",
@@ -287,19 +281,19 @@
       "showImprovements": false,
       "showSuccesses": false,
       "isActive": false,
-      "columnIndex": 0
-    },
-    {
-      "id": "c93d20c3-2fa2-4001-837d-cf38629b9c1a",
-      "collapsed": false,
-      "showImprovements": false,
-      "showSuccesses": false,
-      "isActive": false,
       "columnIndex": 1
     },
     {
+      "id": "c93d20c3-2fa2-4001-837d-cf38629b9c1a",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false,
+      "columnIndex": 2
+    },
+    {
       "id": "7eb3559b-8cd5-49ce-b047-a627e30db31c",
-      "collapsed": false,
+      "collapsed": true,
       "showImprovements": false,
       "showSuccesses": false,
       "isActive": false,
@@ -307,7 +301,7 @@
     },
     {
       "id": "2afaa6d7-93d1-401b-8051-61e4b8ab752b",
-      "collapsed": false,
+      "collapsed": true,
       "showImprovements": false,
       "showSuccesses": false,
       "isActive": false,
@@ -324,28 +318,29 @@
     "states": true,
     "baseEndurance": true,
     "baseHope": true,
-    "baseDefense": true
+    "baseDefense": false
   },
   "rollStats": {
     "skillChecks": {
-      "attempts": 4,
-      "successes": 4,
-      "totalSum": 59,
-      "bestTotal": 20,
+      "attempts": 7,
+      "successes": 7,
+      "totalSum": 72,
+      "bestTotal": 14,
       "hardestSuccess": null,
       "bySkill": {
         "Courtesy": 1,
-        "Strength": 3
+        "Strength": 5,
+        "Dexterity": 1
       },
-      "solCount": 0,
-      "morteCount": 0,
-      "successCount": 0
+      "solCount": 1,
+      "morteCount": 1,
+      "successCount": 2
     },
     "contests": {
       "engagement": {
-        "wins": 5,
-        "losses": 2,
-        "draws": 0
+        "wins": 4,
+        "losses": 0,
+        "draws": 1
       },
       "contest": {
         "wins": 0,
@@ -355,8 +350,8 @@
     },
     "xpEarned": 0,
     "xpSpent": 0,
-    "treasureEarned": 25,
-    "treasureSpent": 56
+    "treasureEarned": 41,
+    "treasureSpent": 1
   },
   "biomeTags": [],
   "biomeId": null,
@@ -390,14 +385,13 @@
     "be62ac3d-7168-4779-8274-e60574a2fd27"
   ],
   "mestiereId": "4eccfe5d-de19-4bc5-8c9c-374d793d67f0",
-  "age": 36,
+  "age": 43,
   "heightFeet": 2,
-  "heightInches": 7,
-  "weight": 25,
-  "keeping": "3c4d5e6f-7a8b-4c9d-0e1f-2a3b4c5d6e7f",
-  "treasure": 0,
+  "heightInches": 0,
+  "weight": 50,
+  "keeping": "2b3c4d5e-6f7a-4b8c-9d0e-1f2a3b4c5d6e",
+  "treasure": 2,
   "xp": 0,
   "description": "",
-  "featuredArtUrl": "https://cdn.midjourney.com/ef8f7b85-a18f-49a1-8a2d-238a3eb1cb5a/0_1_640_N.webp",
-  "updatedAt": "2026-08-16T20:38:32.195Z"
+  "updatedAt": "2026-08-22T03:35:06.883Z"
 }

@@ -237,6 +237,7 @@
   --z-badge: 1200;
   --z-cascade-menu: 1300;
   --z-modal-sheet: 1400;
+  --z-modal-nested: calc(var(--z-modal) + 1); /* modal rendered above another modal */
 
   /* ===== BREAKPOINTS ===== */
   --breakpoint-sm: 640px;

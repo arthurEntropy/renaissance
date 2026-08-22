@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import { useCharactersStore } from '@/stores/charactersStore'
 import { applyRollToCharacterStats } from '@/services/rolls/rollStatsService'
+import { RollTypes } from '@/constants/rollTypes'
 
 const ROLL_STATS_PERSIST_DELAY_MS = 250
 
@@ -228,6 +229,19 @@ export const useRollsStore = defineStore('rolls', () => {
     }
   }
 
+  // Add a chat-link entry for an ability or equipment item without triggering stat changes.
+  function sendChatLink(itemName, character) {
+    if (!character?.id) return
+    addRoll({
+      type: RollTypes.CHAT_LINK,
+      sourceName: itemName,
+      characterName: character.name ?? 'Unknown',
+      total: null,
+      diceResults: [],
+      timestamp: Date.now(),
+    }, character.id)
+  }
+
   return {
     // Normalized data (read-only references)
     rollsById,
@@ -251,6 +265,7 @@ export const useRollsStore = defineStore('rolls', () => {
     getRollsForCharacter,
     getRollsForBatch,
     clearRollsForCharacter,
+    sendChatLink,
   }
 })
 

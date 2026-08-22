@@ -4,7 +4,8 @@
     @roll-link="handleRollLinkWithBiome" :itemType="ItemType.ABILITY"
     :class="[$attrs.class, biomeLinkClass, { 'ability-card--active': isAbilityActive, 'ability-card--with-difficulty': isShowingDifficulty }]"
     :show-source="false" @mouseenter="onCardMouseEnter" @mouseleave="cardPreview.scheduleHide()"
-    @mousedown="onCardMouseDown">
+    @mousedown="onCardMouseDown" :has-description-slot-content="hasDescriptionSlotContent"
+    @send-to-chat="handleSendToChat">
 
     <!-- XP badge positioned relative to main description when character owns any improvements OR when improvements are expanded -->
     <template #description-badge>
@@ -45,7 +46,7 @@
         :force-active="badgeForceActive" :hidden-by-default="badgeHiddenByDefault" @toggle="handleBaseAbilityToggle" />
 
       <!-- Difficulty badge for abilities that set a difficulty -->
-      <DifficultyBadge v-if="isShowingDifficulty" :value="abilityDifficulty" :readonly="!character"
+      <DifficultyBadge v-if="isShowingDifficulty" :value="abilityDifficulty" :readonly="!difficultyEditable"
         @update:value="handleDifficultyUpdate" />
     </template>
 
@@ -93,6 +94,7 @@ import ConfirmRemovalModal from '@/components/ui/modals/ConfirmRemovalModal.vue'
 import CharacterService from '@/services/entities/characterService'
 import { scheduleStatsRefund } from '@/composables/useCharacterStatWatchers'
 import { ItemType } from '@shared/constants/itemTypes'
+import { useRollsStore } from '@/stores/rollsStore'
 
 const props = defineProps({
   ability: {
@@ -145,6 +147,11 @@ const props = defineProps({
     type: Boolean,
     default: true,
   },
+  // When true, the DifficultyBadge allows editing. Should only be true in EquipmentTable/AbilitiesTable.
+  difficultyEditable: {
+    type: Boolean,
+    default: false,
+  },
   // null = uncontrolled (original hover/click behaviour outside a table context)
   // true/false = controlled by the table (edit mode vs display mode)
   editMode: {
@@ -164,6 +171,8 @@ const cardPreview = useCardPreview()
 
 // Difficulty badge
 const isShowingDifficulty = computed(() => !!props.ability.hasDifficulty)
+
+const hasDescriptionSlotContent = computed(() => (props.ability.successes?.length ?? 0) > 0)
 
 const characterAbilityEntry = computed(() =>
   props.character?.abilities?.find(a => a.id === props.ability.id) ?? null
@@ -381,6 +390,12 @@ function handleActivateToggle() {
   } else {
     emit('activate', props.ability.id)
   }
+}
+
+function handleSendToChat() {
+  if (!props.character) return
+  const rollsStore = useRollsStore()
+  rollsStore.sendChatLink(props.ability.name, props.character)
 }
 
 async function handleDuplicate() {

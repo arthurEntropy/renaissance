@@ -36,12 +36,12 @@
     }
   ],
   "localFlavor": {
-    "names": "Cassian, Isolde, Percival, Elowen, Ambrose, Marigold, Fen, Lior, Thalia, Orion, Sylvie, Crispin, Juniper, Briar, Marius, Odette, Sorrel, Emrys, Dahlia",
+    "names": "Cassian, Isolde, Ellis, Percival, Elowen, Ambrose, Marigold, Fen, Lior, Thalia, Orion, Sylvie, Crispin, Juniper, Reldresal, Briar, Marius, Odette, Sorrel, Emrys, Dahlia",
     "occupations": "Herbalist, Orchard Keeper, Astrologer, Weaver, Glassblower, Storyteller, Alchemist, Wandwright, Perfumer, Minstrel, Tattooist, Vintner, Potionmaker, Bookbinder",
-    "publicHouses": "The Unicorn's Mouth, The Fruit Man, The Briar's Kiss, The Wandering Star, The Crooked Wand, House at Orchard's End",
-    "vittles": "Spiced Cider, Blackberry Tart, Honeyed Nuts, Mulled Wine, Wild Mushroom Stew, Roasted Chestnuts, Apple Butter, Pear Pasties, Fresh Goat Cheese, Herb Bread, Plum Pudding, Elderflower Cordial, Strawberry Jam, Candied Ginger, Mead-Soaked Cherries",
-    "pointsOfInterest": "The Magic Waxworks, Busker's Corner, The Riverbank, The Roastfruit Orchards, The Chokewood, Auriga's House",
-    "floraFauna": "Apple Tree, Pear Tree, Roastfruit Tree, Blackberry Bramble, Elderflower, Nightshade, Honeysuckle, Rowan Tree, Chokevine, Vine Snake, White Stag, Barn Owl, Red Fox, Luna Moth, Green Woodpecker, Hedge Viper"
+    "publicHouses": "The Unicorn's Mouth, Zvezdet's, The Fruit Man, Strannik Yard, Briar's Kiss, The Wandering Star, Ribaritsa, Kaval Sviri, The Crooked Wand, Baba Vanga, House at Orchard's End",
+    "vittles": "Spiced Cider, Blackberry Tart, Roasted Newt, Mulled Wine, Wild Mushroom Stew, Roasted Chestnuts, Apple Butter, Pear Pasties, Fresh Goat Cheese, Herb Bread, Plum Pudding, Elderflower Cordial, Strawberry Jam, Candied Ginger, Mead-Soaked Cherries",
+    "pointsOfInterest": "The Magic Waxworks, Busker's Corner, The Riverbank, The Roastfruit Orchards, The Terrace Cellars, The Spellcasting Stump, Soothsayer's Row, The Dueling Grounds",
+    "floraFauna": "Apple Tree, Pear Tree, Roastfruit Tree, Blackberry Vine, Elderflower, Nightshade, Honeysuckle, Rowan Tree, Chokevine, White Stag, Barn Owl, Red Fox, Luna Moth, Green Woodpecker, Hedge Viper"
   },
-  "lastModified": "2026-07-30T00:35:21.495Z"
+  "lastModified": "2026-08-20T12:43:43.248Z"
 }

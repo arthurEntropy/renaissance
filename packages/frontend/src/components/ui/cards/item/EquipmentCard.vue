@@ -5,7 +5,8 @@
     :itemType="ItemType.EQUIPMENT" :fallbackBackgroundUrl="keepingFallbackBackgroundUrl"
     :class="{ 'equipment-card--with-difficulty': showDifficultyBadge && hasDifficultyBadge }"
     @edit="$emit('edit', equipment)" @duplicate="handleDuplicate" @roll-link="$emit('roll-link', $event)"
-    @mouseenter="onCardMouseEnter" @mouseleave="cardPreview.scheduleHide()" @mousedown="onCardMouseDown">
+    @mouseenter="onCardMouseEnter" @mouseleave="cardPreview.scheduleHide()" @mousedown="onCardMouseDown"
+    :has-description-slot-content="hasDescriptionSlotContent" @send-to-chat="handleSendToChat">
 
     <!-- Defense bonus in collapsed header (not shown when expanded since it appears in the card body) -->
     <template v-if="collapsed && equipment.defenseBonus > 0" #meta-prefix>
@@ -37,7 +38,8 @@
            is not the character owner and not a GM. -->
       <div v-if="isWeapon && character && showAttackFab" class="attack-roll-fab-host">
         <FloatingActionButton :variant="FAB_TYPES.ATTACK" :size="FAB_SIZES.SMALL"
-          :visibility="FAB_VISIBILITIES.ON_HOVER" @click.stop="handleAttackButtonClick" />
+          :visibility="showAttackSkillMenu ? FAB_VISIBILITIES.ALWAYS : FAB_VISIBILITIES.ON_HOVER"
+          @click.stop="handleAttackButtonClick" />
       </div>
     </template>
 
@@ -142,8 +144,8 @@
       </div>
 
       <!-- Difficulty badge for Hunter's Traps and other difficulty-setting equipment -->
-      <DifficultyBadge v-if="showDifficultyBadge && hasDifficultyBadge" :value="trapDifficulty" :readonly="!character"
-        @update:value="handleTrapDifficultyUpdate" />
+      <DifficultyBadge v-if="showDifficultyBadge && hasDifficultyBadge" :value="trapDifficulty"
+        :readonly="!difficultyEditable" @update:value="handleTrapDifficultyUpdate" />
 
       <!-- Skill selection menu for weapons that can use Strength or Dexterity -->
       <CascadeMenuFrame v-if="showAttackSkillMenu" :overlay="false" :anchor-position="attackMenuPosition"
@@ -170,6 +172,8 @@
 
     <!-- Admin actions slot — transfer FAB and/or untrained indicator -->
     <template v-if="showTransferButton || lacksTraining" #admin-actions>
+      <FloatingActionButton v-if="showTransferButton" :variant="FAB_TYPES.SELL" :size="FAB_SIZES.SMALL"
+        :visibility="FAB_VISIBILITIES.ON_HOVER" title="Sell item" @click.stop="showSellModal = true" />
       <FloatingActionButton v-if="showTransferButton" :variant="FAB_TYPES.TRANSFER" :size="FAB_SIZES.SMALL"
         :visibility="FAB_VISIBILITIES.ON_HOVER" @click.stop="$emit('transfer', equipment)" />
       <FloatingActionButton v-if="lacksTraining" :variant="FAB_TYPES.UNTRAINED" :size="FAB_SIZES.SMALL"
@@ -187,6 +191,11 @@
   <ConfirmRemovalModal v-if="showConfirmRemovalModal" :item-name="equipment.name" :cost="keepingCost"
     :character-balance="character?.treasure ?? 0" currency-label="Treasure" @confirm-refund="confirmRemoveWithRefund"
     @confirm-no-refund="confirmRemoveNoRefund" @close="showConfirmRemovalModal = false" />
+
+  <!-- Sell modal: shown when selling equipment -->
+  <ConfirmRemovalModal v-if="showSellModal" mode="sell" :item-name="equipment.name" :cost="keepingCost"
+    :character-balance="character?.treasure ?? 0" currency-label="Treasure" @confirm-sell="confirmSell"
+    @close="showSellModal = false" />
 
   <!-- Property hint tooltip (reach, range, weapon properties, firearm subtype) -->
   <teleport to="body">
@@ -209,6 +218,7 @@ import { useEquipmentRangesStore } from '@/stores/equipmentRangesStore'
 import { useKeepingStore } from '@/stores/keepingStore'
 import { useCharactersStore } from '@/stores/charactersStore'
 import { useConceptsStore } from '@/stores/conceptsStore'
+import { useRollsStore } from '@/stores/rollsStore'
 import { useImprovements } from '@/composables/useImprovements'
 import BaseCard from '@/components/ui/cards/item/BaseCard.vue'
 import DifficultyBadge from '@/components/ui/cards/item/DifficultyBadge.vue'
@@ -321,6 +331,11 @@ const props = defineProps({
   showDifficultyBadge: {
     type: Boolean,
     default: true,
+  },
+  // When true, the DifficultyBadge allows editing. Should only be true in EquipmentTable/AbilitiesTable.
+  difficultyEditable: {
+    type: Boolean,
+    default: false,
   },
   // When true, the keeping cost badge is always hidden until the card is hovered
   // (mirrors the XP badge behaviour in AbilityCard within AbilitiesTable)
@@ -540,6 +555,15 @@ const hasDiceSection = computed(() =>
   (props.equipment.engagementDice?.length > 0) || (props.equipment.damageDice?.length > 0)
 )
 
+const hasDescriptionSlotContent = computed(() =>
+  !!equipmentCategoriesDisplay.value ||
+  !!equipmentPropertiesDisplay.value ||
+  props.equipment.defenseBonus > 0 ||
+  hasDiceSection.value ||
+  engagementSuccesses.value.length > 0 ||
+  (props.equipment.successes?.length ?? 0) > 0
+)
+
 // Training category key for the equipment item
 const martialTrainingKey = computed(() => {
   if (props.equipment.type === ARMOR_TYPE_ID) return 'armorGrades'
@@ -717,6 +741,7 @@ const handleBaseEquipmentToggle = () => {
 
 const showConfirmPurchaseModal = ref(false)
 const showConfirmRemovalModal = ref(false)
+const showSellModal = ref(false)
 
 function doEquipmentRemove(refundTreasure = false) {
   const equipmentIndex = props.character.equipment.findIndex(e => e.id === props.equipment.id)
@@ -756,6 +781,16 @@ function confirmAddFree() {
   if (updatedCharacter) emit('update', updatedCharacter)
 }
 
+function confirmSell() {
+  const equipmentIndex = props.character.equipment.findIndex(e => e.id === props.equipment.id)
+  if (equipmentIndex === -1) return
+  const updatedCharacter = CharacterService.removeItem(props.character, 'equipment', equipmentIndex)
+  if (!updatedCharacter) return
+  const cost = keepingCost.value ?? 0
+  const saleAmount = Math.floor(cost / 2)
+  emit('update', { ...updatedCharacter, treasure: (updatedCharacter.treasure ?? 0) + saleAmount })
+}
+
 const handleDuplicate = async () => {
   try {
     // Create a copy of the equipment data without the id
@@ -774,6 +809,12 @@ const handleDuplicate = async () => {
   } catch (error) {
     console.error('Error duplicating equipment:', error)
   }
+}
+
+function handleSendToChat() {
+  if (!props.character) return
+  const rollsStore = useRollsStore()
+  rollsStore.sendChatLink(props.equipment.name, props.character)
 }
 
 // Lifecycle

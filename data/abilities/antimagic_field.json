@@ -2,10 +2,10 @@
   "id": "d3a64a0d-dc98-4a78-b2ef-ee7247be0d81",
   "isDeleted": false,
   "createdAt": "2026-04-14T17:36:24.342Z",
-  "lastModified": "2026-07-16T19:26:42.535Z",
+  "lastModified": "2026-08-18T18:48:59.413Z",
   "name": "Antimagic Field",
   "artUrl": "https://cdn.midjourney.com/dbee9fbb-b5d0-40e7-b95a-8510aaa110a9/0_2.png",
-  "description": "<p><em>Concentration, up to 1 hour.</em></p><p>A 10-ft-radius invisible sphere of antimagic surrounds you. This area is devoid of all magical energy. Within the sphere, spells can't be cast, lingering or area-based spell effects are suppressed, summoned creatures disappear, magic items become mundane, and attempts at magical travel fail. Magical attempts to dispel the sphere automatically fail. The sphere moves with you, centered on you. Roll Lore to determine any additional effects.</p><p><strong>Describe the effects.</strong></p>",
+  "description": "<p><em>Concentration, up to 1 hour.</em></p><p>A 10-ft-radius invisible sphere of antimagic surrounds you. This area is devoid of all magical energy. Within the sphere, spells can't be cast, lingering or area-based spell effects are temporarily suppressed, summoned creatures temporarily disappear, magic items become temporarily mundane, and attempts at magical travel fail. Magical attempts to dispel the sphere automatically fail. The sphere moves with you, centered on you. Roll Lore to determine any additional effects.</p><p><strong>Describe the effects.</strong></p>",
   "successes": "<p>✨: You may increase the radius by 5 ft.</p><p>🌞: You may untether the sphere from you. It remains in place regardless of your position. You may spend an action to move the sphere up to 15 ft in any direction.</p><p>💀: The sphere collapses and is concentrated on you. Check a Condition. For the next day, you and objects you're wearing and carrying are affected as if you were inside an antimagic field.</p>",
   "improvements": [
     {

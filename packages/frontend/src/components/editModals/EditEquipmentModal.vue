@@ -6,7 +6,7 @@
 
       <!-- Flags: Custom, Template, Magic -->
       <div class="form-group centered">
-        <label for="isBeastEquipment">
+        <label v-if="isAdmin" for="isBeastEquipment">
           <input type="checkbox" id="isBeastEquipment" v-model="editedEquipment.isBeastEquipment" />
           Beast Equip.
         </label>
@@ -14,16 +14,16 @@
           <input type="checkbox" id="isMagical" v-model="editedEquipment.isMagical" />
           Magic
         </label>
-        <label for="isCustom">
+        <label v-if="isAdmin" for="isCustom">
           <input type="checkbox" id="isCustom" v-model="editedEquipment.isCustom" />
           Custom
         </label>
-        <label for="isTemplate">
+        <label v-if="isAdmin" for="isTemplate">
           <input type="checkbox" id="isTemplate" v-model="editedEquipment.isTemplate" />
           Template
         </label>
         <label for="hasDifficulty">
-          <input type="checkbox" id="hasD ifficulty" v-model="editedEquipment.hasDifficulty" />
+          <input type="checkbox" id="hasDifficulty" v-model="editedEquipment.hasDifficulty" />
           Has Difficulty
         </label>
       </div>
@@ -264,6 +264,7 @@ import SourceCascadePicker from '@/components/ui/pickers/SourceCascadePicker.vue
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import BaseModal from '@/components/ui/modals/BaseModal.vue'
 import { useEditModalForm } from '@/composables/useEditModalForm'
+import { useAuthStore } from '@/stores/authStore'
 import { getDiceFontMaxClass } from '@/utils/diceFontUtils'
 import { STANDARD_DIE_SIZES } from '@shared/constants/dice'
 import { useEquipmentTypesStore } from '@/stores/equipmentTypesStore'
@@ -290,6 +291,9 @@ const props = defineProps({
 const emit = defineEmits(['update', 'delete', 'close'])
 
 // Use edit modal form composable
+const authStore = useAuthStore()
+const isAdmin = computed(() => authStore.isAdmin)
+
 const { editedData: editedEquipment, save: baseSave, deleteItem, handleOverlayClick } = useEditModalForm(props, emit)
 
 // Ensure engagementSuccesses is always an array (older data may be missing this field)
@@ -373,7 +377,7 @@ const saveDiceChanges = () => {
 
 const saveEquipment = () => {
   if (!editedEquipment.value.id) {
-    alert('Cannot save equipment: Missing ID. Please try again or contact support.')
+    alert('Cannot save equipment: Missing ID. Please try again.')
     return
   }
   saveDiceChanges()

@@ -160,9 +160,8 @@ const buildMixArrays = () => {
         .map((c) => ({ cultureId: c.id, weight: cultureMix.value[c.id] ?? 5 }))
         .filter((c) => c.weight > 0)
 
-    const cultureMixPayload = rawCultureMix.length > 0
-        ? rawCultureMix
-        : shopCultures.value.map((c) => ({ cultureId: c.id, weight: 1 }))
+    // When all culture weights are 0, send an empty array to signal "sourceless items only".
+    const cultureMixPayload = rawCultureMix
 
     const rawKeepingMix = allKeepingTiers.value
         .map((t) => ({ keepingId: t.id, weight: keepingMix.value[t.id] ?? (t.cost > 4 ? 0 : 5) }))

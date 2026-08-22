@@ -1,0 +1,2569 @@
+{
+  "id": "87b9491c-b265-4a8b-be84-dac5866a3784",
+  "isDeleted": false,
+  "createdAt": "2026-08-17T20:11:22.169Z",
+  "lastModified": "2026-08-22T01:50:57.403Z",
+  "campaignId": "84b00fc0-eae8-4808-9151-949bf59928ff",
+  "name": "Glow Canyon",
+  "backgroundImage": {
+    "url": "https://cdn.midjourney.com/226c2256-6803-4ddd-812b-b2dadda53f46/0_1_2048_N.webp",
+    "naturalWidth": 1456,
+    "naturalHeight": 816
+  },
+  "items": [
+    {
+      "id": "1eac7e93-a03e-4a1d-b95a-fdf49d29f3b4",
+      "characterId": "c4883e09-8543-42e5-a69d-26bbae78d44e",
+      "isBeast": false,
+      "isNpc": false,
+      "name": "Pimlan",
+      "portraitUrl": "https://cdn.midjourney.com/cbaeac9c-8720-44f8-b904-bc79ab523e7d/0_3_2048_N.webp",
+      "size": 1,
+      "x": 960,
+      "y": 1000,
+      "zIndex": 52
+    },
+    {
+      "id": "8edec4ec-ef49-48c2-8567-648f258dff50",
+      "characterId": "285cc523-b6f4-41cc-83b6-91915f207c8a",
+      "isBeast": false,
+      "isNpc": false,
+      "name": "Sergio",
+      "portraitUrl": "https://cdn.midjourney.com/c845873a-6dc7-47cc-89e1-1903a4dc622d/0_0_2048_N.webp",
+      "size": 1,
+      "x": 920,
+      "y": 1080,
+      "zIndex": 49
+    },
+    {
+      "id": "141db7df-6ebd-45e2-bb32-6455f9269845",
+      "characterId": "4083afd8-0594-4647-ac06-09b8a2a8cefc",
+      "isBeast": false,
+      "isNpc": false,
+      "name": "Magnuss",
+      "portraitUrl": "https://cdn.midjourney.com/9d007aef-e372-4e42-9581-a2703cfe7018/0_2_2048_N.webp",
+      "size": 1,
+      "x": 880,
+      "y": 1000,
+      "zIndex": 55
+    },
+    {
+      "id": "24f2ff0b-059f-4339-a73e-9ab966f49c0f",
+      "characterId": "13e267c3-f608-466d-9a8d-7442dcd5a7d4",
+      "isBeast": false,
+      "isNpc": false,
+      "name": "Sukha",
+      "portraitUrl": "https://cdn.midjourney.com/95c9a8b1-d0a7-4b44-9c87-91a500f4db7d/0_1_2048_N.webp",
+      "size": 1,
+      "x": 840,
+      "y": 1040,
+      "zIndex": 53
+    },
+    {
+      "id": "6cf792dd-8119-47e8-9c46-d19f04c1ac82",
+      "characterId": "efc5fcf5-00cb-4892-9170-f09a5e766676",
+      "isBeast": true,
+      "isNpc": false,
+      "name": "Banshee A",
+      "portraitUrl": "https://cdn.midjourney.com/2c3a08ae-00ce-4adc-82a3-c4406135f442/0_0.png",
+      "size": 1,
+      "x": 760,
+      "y": 560,
+      "zIndex": 43
+    },
+    {
+      "id": "ae172754-d9fa-455c-b644-6236b2a7d14f",
+      "characterId": "99d7520c-aaf4-4a49-bd02-74c7d98b8c7b",
+      "isBeast": true,
+      "isNpc": false,
+      "name": "Skeleton A",
+      "portraitUrl": "https://cdn.midjourney.com/38d41c47-c917-4004-9849-1889abfc5f6c/0_0.png",
+      "size": 1,
+      "x": 1200,
+      "y": 800,
+      "zIndex": 44
+    },
+    {
+      "id": "367412df-36a0-4719-ac5f-d0e75660a151",
+      "characterId": "ca5889a9-104d-4b6d-9fb5-9125def99a80",
+      "isBeast": true,
+      "isNpc": false,
+      "name": "Skeleton B",
+      "portraitUrl": "https://cdn.midjourney.com/38d41c47-c917-4004-9849-1889abfc5f6c/0_0.png",
+      "size": 1,
+      "x": 600,
+      "y": 1040,
+      "zIndex": 45
+    },
+    {
+      "id": "e8052041-3cc6-4d0e-bef1-34e452866a26",
+      "characterId": "039b47aa-7d8a-49ae-937f-f9bf53cfc290",
+      "isBeast": true,
+      "isNpc": false,
+      "name": "Skeleton C",
+      "portraitUrl": "https://cdn.midjourney.com/38d41c47-c917-4004-9849-1889abfc5f6c/0_0.png",
+      "size": 1,
+      "x": 960,
+      "y": 840,
+      "zIndex": 48
+    },
+    {
+      "id": "589f5212-2a80-4718-8140-d2924f3d188a",
+      "characterId": "4162b81b-d5b3-4077-a1c4-50ca0176d1e0",
+      "isBeast": true,
+      "isNpc": false,
+      "name": "Skeleton D",
+      "portraitUrl": "https://cdn.midjourney.com/38d41c47-c917-4004-9849-1889abfc5f6c/0_0.png",
+      "size": 1,
+      "x": 1000,
+      "y": 1240,
+      "zIndex": 47
+    }
+  ],
+  "transform": {
+    "scale": 1.2597119999999997,
+    "x": -224.6979187088025,
+    "y": -625.9376462077055
+  },
+  "gridSize": 40,
+  "gridColor": "#ffffff",
+  "gridOpacity": 0.06,
+  "mapScale": 1.6,
+  "showPaths": true,
+  "radiusAreas": [],
+  "rollLog": [
+    {
+      "id": "414401f9-86dd-4cf7-b0c0-d1f088025f7b_1787057608298_h3aa",
+      "timestamp": 1787057608298,
+      "characterId": "414401f9-86dd-4cf7-b0c0-d1f088025f7b",
+      "characterName": "Bugbear D",
+      "portraitUrl": null,
+      "isNpc": false,
+      "isBeast": false,
+      "type": "engagement",
+      "skillName": null,
+      "total": null,
+      "diceTotal": null,
+      "modifier": 0,
+      "modifierLabel": null,
+      "success": null,
+      "difficulty": null,
+      "footer": null,
+      "favoredStatus": null,
+      "userWins": 1,
+      "opponentWins": 0,
+      "drawCount": 0,
+      "result": "win",
+      "opponentName": "Magnuss",
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 10,
+          "dieRollValue": 9,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d10-9"
+        }
+      ]
+    },
+    {
+      "id": "414401f9-86dd-4cf7-b0c0-d1f088025f7b_1787057624303_p7m1",
+      "timestamp": 1787057624303,
+      "characterId": "414401f9-86dd-4cf7-b0c0-d1f088025f7b",
+      "characterName": "Bugbear D",
+      "portraitUrl": null,
+      "isNpc": false,
+      "isBeast": false,
+      "type": "skill_check",
+      "skillName": "Strength",
+      "total": 16,
+      "diceTotal": null,
+      "modifier": 0,
+      "modifierLabel": null,
+      "success": true,
+      "difficulty": null,
+      "footer": "",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": "Morningstar",
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 9,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-9"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 6,
+          "emoji": "✨",
+          "isDropped": false,
+          "rolledMaxValue": true,
+          "cssClass": "df-d6-6"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 1,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-1"
+        }
+      ]
+    },
+    {
+      "id": "414401f9-86dd-4cf7-b0c0-d1f088025f7b_1787057633723_5a3p",
+      "timestamp": 1787057633723,
+      "characterId": "414401f9-86dd-4cf7-b0c0-d1f088025f7b",
+      "characterName": "Bugbear D",
+      "portraitUrl": null,
+      "isNpc": false,
+      "isBeast": false,
+      "type": "damage",
+      "skillName": "Morningstar",
+      "total": 10,
+      "diceTotal": 5,
+      "modifier": 5,
+      "modifierLabel": "BODY",
+      "success": null,
+      "difficulty": null,
+      "footer": "+ BODY",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": "Morningstar",
+      "diceResults": [
+        {
+          "dieSize": 8,
+          "dieRollValue": 5,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d8-5"
+        }
+      ]
+    },
+    {
+      "id": "6b3a4897-0fb0-427c-8162-b898d995ef25_1787057732151_jbgq",
+      "timestamp": 1787057732151,
+      "characterId": "6b3a4897-0fb0-427c-8162-b898d995ef25",
+      "characterName": "Bugbear Chieftan B",
+      "portraitUrl": null,
+      "isNpc": false,
+      "isBeast": false,
+      "type": "engagement",
+      "skillName": null,
+      "total": null,
+      "diceTotal": null,
+      "modifier": 0,
+      "modifierLabel": null,
+      "success": null,
+      "difficulty": null,
+      "footer": null,
+      "favoredStatus": null,
+      "userWins": 0,
+      "opponentWins": 1,
+      "drawCount": 0,
+      "result": "loss",
+      "opponentName": "Palfrey",
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 10,
+          "dieRollValue": 1,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d10-1"
+        }
+      ]
+    },
+    {
+      "id": "6b3a4897-0fb0-427c-8162-b898d995ef25_1787057744815_dzn3",
+      "timestamp": 1787057744815,
+      "characterId": "6b3a4897-0fb0-427c-8162-b898d995ef25",
+      "characterName": "Bugbear Chieftan B",
+      "portraitUrl": null,
+      "isNpc": false,
+      "isBeast": false,
+      "type": "skill_check",
+      "skillName": "Strength",
+      "total": 21,
+      "diceTotal": null,
+      "modifier": 0,
+      "modifierLabel": null,
+      "success": true,
+      "difficulty": null,
+      "footer": "",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": "Morningstar",
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 8,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-8"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 6,
+          "emoji": "✨",
+          "isDropped": false,
+          "rolledMaxValue": true,
+          "cssClass": "df-d6-6"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 5,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-5"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 2,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-2"
+        }
+      ]
+    },
+    {
+      "id": "6b3a4897-0fb0-427c-8162-b898d995ef25_1787057759016_urhb",
+      "timestamp": 1787057759016,
+      "characterId": "6b3a4897-0fb0-427c-8162-b898d995ef25",
+      "characterName": "Bugbear Chieftan B",
+      "portraitUrl": null,
+      "isNpc": false,
+      "isBeast": false,
+      "type": "damage",
+      "skillName": "Morningstar",
+      "total": 15,
+      "diceTotal": 7,
+      "modifier": 8,
+      "modifierLabel": "BODY",
+      "success": null,
+      "difficulty": null,
+      "footer": "+ BODY",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": "Morningstar",
+      "diceResults": [
+        {
+          "dieSize": 8,
+          "dieRollValue": 7,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d8-7"
+        }
+      ]
+    },
+    {
+      "id": "60f100d7-00ed-4287-a2b2-1b7e0690b701_1787057799972_ygey",
+      "timestamp": 1787057799972,
+      "characterId": "60f100d7-00ed-4287-a2b2-1b7e0690b701",
+      "characterName": "Bugbear E",
+      "portraitUrl": null,
+      "isNpc": false,
+      "isBeast": false,
+      "type": "skill_check",
+      "skillName": "Strength",
+      "total": 12,
+      "diceTotal": null,
+      "modifier": 0,
+      "modifierLabel": null,
+      "success": true,
+      "difficulty": null,
+      "footer": "",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": "Morningstar",
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 5,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-5"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 5,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-5"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 2,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-2"
+        }
+      ]
+    },
+    {
+      "id": "60f100d7-00ed-4287-a2b2-1b7e0690b701_1787057806448_ty9h",
+      "timestamp": 1787057806448,
+      "characterId": "60f100d7-00ed-4287-a2b2-1b7e0690b701",
+      "characterName": "Bugbear E",
+      "portraitUrl": null,
+      "isNpc": false,
+      "isBeast": false,
+      "type": "damage",
+      "skillName": "Morningstar",
+      "total": 6,
+      "diceTotal": 1,
+      "modifier": 5,
+      "modifierLabel": "BODY",
+      "success": null,
+      "difficulty": null,
+      "footer": "+ BODY",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": "Morningstar",
+      "diceResults": [
+        {
+          "dieSize": 8,
+          "dieRollValue": 1,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d8-1"
+        }
+      ]
+    },
+    {
+      "id": "c4883e09-8543-42e5-a69d-26bbae78d44e_1787057854963_78oj",
+      "timestamp": 1787057854963,
+      "characterId": "c4883e09-8543-42e5-a69d-26bbae78d44e",
+      "characterName": "Pimlan",
+      "portraitUrl": "https://cdn.midjourney.com/cbaeac9c-8720-44f8-b904-bc79ab523e7d/0_3_2048_N.webp",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "initiative",
+      "skillName": "Initiative",
+      "total": 5,
+      "diceTotal": 2,
+      "modifier": 3,
+      "modifierLabel": "WITS",
+      "success": null,
+      "difficulty": null,
+      "footer": null,
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 2,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-2"
+        }
+      ]
+    },
+    {
+      "id": "285cc523-b6f4-41cc-83b6-91915f207c8a_1787057854963_tx4n",
+      "timestamp": 1787057854963,
+      "characterId": "285cc523-b6f4-41cc-83b6-91915f207c8a",
+      "characterName": "Sergio",
+      "portraitUrl": "https://cdn.midjourney.com/c845873a-6dc7-47cc-89e1-1903a4dc622d/0_0_2048_N.webp",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "initiative",
+      "skillName": "Initiative",
+      "total": 15,
+      "diceTotal": 12,
+      "modifier": 3,
+      "modifierLabel": "WITS",
+      "success": null,
+      "difficulty": null,
+      "footer": null,
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 12,
+          "emoji": "🌞",
+          "isDropped": false,
+          "rolledMaxValue": true,
+          "cssClass": "df-d12-12"
+        }
+      ]
+    },
+    {
+      "id": "4083afd8-0594-4647-ac06-09b8a2a8cefc_1787057854963_ux4t",
+      "timestamp": 1787057854963,
+      "characterId": "4083afd8-0594-4647-ac06-09b8a2a8cefc",
+      "characterName": "Magnuss",
+      "portraitUrl": "https://cdn.midjourney.com/9d007aef-e372-4e42-9581-a2703cfe7018/0_2_2048_N.webp",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "initiative",
+      "skillName": "Initiative",
+      "total": 6,
+      "diceTotal": 5,
+      "modifier": 1,
+      "modifierLabel": "WITS",
+      "success": null,
+      "difficulty": null,
+      "footer": null,
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 5,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-5"
+        }
+      ]
+    },
+    {
+      "id": "13e267c3-f608-466d-9a8d-7442dcd5a7d4_1787057854963_wzn1",
+      "timestamp": 1787057854963,
+      "characterId": "13e267c3-f608-466d-9a8d-7442dcd5a7d4",
+      "characterName": "Sukha",
+      "portraitUrl": "https://cdn.midjourney.com/95c9a8b1-d0a7-4b44-9c87-91a500f4db7d/0_1_2048_N.webp",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "initiative",
+      "skillName": "Initiative",
+      "total": 5,
+      "diceTotal": 3,
+      "modifier": 2,
+      "modifierLabel": "WITS",
+      "success": null,
+      "difficulty": null,
+      "footer": null,
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 3,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-3"
+        }
+      ]
+    },
+    {
+      "id": "efc5fcf5-00cb-4892-9170-f09a5e766676_1787057856585_5vjt",
+      "timestamp": 1787057856585,
+      "characterId": "efc5fcf5-00cb-4892-9170-f09a5e766676",
+      "characterName": "Banshee A",
+      "portraitUrl": "https://cdn.midjourney.com/2c3a08ae-00ce-4adc-82a3-c4406135f442/0_0.png",
+      "isNpc": false,
+      "isBeast": true,
+      "type": "initiative",
+      "skillName": "Initiative",
+      "total": 12,
+      "diceTotal": 8,
+      "modifier": 4,
+      "modifierLabel": "WITS",
+      "success": null,
+      "difficulty": null,
+      "footer": null,
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 8,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-8"
+        }
+      ]
+    },
+    {
+      "id": "99d7520c-aaf4-4a49-bd02-74c7d98b8c7b_1787057856585_y09b",
+      "timestamp": 1787057856585,
+      "characterId": "99d7520c-aaf4-4a49-bd02-74c7d98b8c7b",
+      "characterName": "Skeleton A",
+      "portraitUrl": "https://cdn.midjourney.com/38d41c47-c917-4004-9849-1889abfc5f6c/0_0.png",
+      "isNpc": false,
+      "isBeast": true,
+      "type": "initiative",
+      "skillName": "Initiative",
+      "total": 1,
+      "diceTotal": 1,
+      "modifier": 0,
+      "modifierLabel": "WITS",
+      "success": null,
+      "difficulty": null,
+      "footer": null,
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 1,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-1"
+        }
+      ]
+    },
+    {
+      "id": "ca5889a9-104d-4b6d-9fb5-9125def99a80_1787057856585_imu3",
+      "timestamp": 1787057856585,
+      "characterId": "ca5889a9-104d-4b6d-9fb5-9125def99a80",
+      "characterName": "Skeleton B",
+      "portraitUrl": "https://cdn.midjourney.com/38d41c47-c917-4004-9849-1889abfc5f6c/0_0.png",
+      "isNpc": false,
+      "isBeast": true,
+      "type": "initiative",
+      "skillName": "Initiative",
+      "total": 4,
+      "diceTotal": 4,
+      "modifier": 0,
+      "modifierLabel": "WITS",
+      "success": null,
+      "difficulty": null,
+      "footer": null,
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 4,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-4"
+        }
+      ]
+    },
+    {
+      "id": "039b47aa-7d8a-49ae-937f-f9bf53cfc290_1787057856585_k3l4",
+      "timestamp": 1787057856585,
+      "characterId": "039b47aa-7d8a-49ae-937f-f9bf53cfc290",
+      "characterName": "Skeleton C",
+      "portraitUrl": "https://cdn.midjourney.com/38d41c47-c917-4004-9849-1889abfc5f6c/0_0.png",
+      "isNpc": false,
+      "isBeast": true,
+      "type": "initiative",
+      "skillName": "Initiative",
+      "total": 8,
+      "diceTotal": 8,
+      "modifier": 0,
+      "modifierLabel": "WITS",
+      "success": null,
+      "difficulty": null,
+      "footer": null,
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 8,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-8"
+        }
+      ]
+    },
+    {
+      "id": "4162b81b-d5b3-4077-a1c4-50ca0176d1e0_1787057856585_93bw",
+      "timestamp": 1787057856585,
+      "characterId": "4162b81b-d5b3-4077-a1c4-50ca0176d1e0",
+      "characterName": "Skeleton D",
+      "portraitUrl": "https://cdn.midjourney.com/38d41c47-c917-4004-9849-1889abfc5f6c/0_0.png",
+      "isNpc": false,
+      "isBeast": true,
+      "type": "initiative",
+      "skillName": "Initiative",
+      "total": 5,
+      "diceTotal": 5,
+      "modifier": 0,
+      "modifierLabel": "WITS",
+      "success": null,
+      "difficulty": null,
+      "footer": null,
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 5,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-5"
+        }
+      ]
+    },
+    {
+      "id": "efc5fcf5-00cb-4892-9170-f09a5e766676_1787058267850_178q",
+      "timestamp": 1787058267850,
+      "characterId": "efc5fcf5-00cb-4892-9170-f09a5e766676",
+      "characterName": "Banshee A",
+      "portraitUrl": "https://cdn.midjourney.com/2c3a08ae-00ce-4adc-82a3-c4406135f442/0_0.png",
+      "isNpc": false,
+      "isBeast": true,
+      "type": "skill_check",
+      "skillName": "Spirit",
+      "total": 15,
+      "diceTotal": null,
+      "modifier": 0,
+      "modifierLabel": null,
+      "success": true,
+      "difficulty": null,
+      "footer": "",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": "Night Wail",
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 7,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-7"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 4,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-4"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 3,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-3"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 1,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-1"
+        }
+      ]
+    },
+    {
+      "id": "4083afd8-0594-4647-ac06-09b8a2a8cefc_1787058276382_iagz",
+      "timestamp": 1787058276382,
+      "characterId": "4083afd8-0594-4647-ac06-09b8a2a8cefc",
+      "characterName": "Magnuss",
+      "portraitUrl": "https://cdn.midjourney.com/9d007aef-e372-4e42-9581-a2703cfe7018/0_2_2048_N.webp",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "skill_check",
+      "skillName": "Fortitude",
+      "total": 13,
+      "diceTotal": null,
+      "modifier": 0,
+      "modifierLabel": null,
+      "success": true,
+      "difficulty": null,
+      "footer": "Insecure, Troubled",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 7,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-7"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 6,
+          "emoji": "✨",
+          "isDropped": false,
+          "rolledMaxValue": true,
+          "cssClass": "df-d6-6"
+        }
+      ]
+    },
+    {
+      "id": "13e267c3-f608-466d-9a8d-7442dcd5a7d4_1787058284852_kz7i",
+      "timestamp": 1787058284852,
+      "characterId": "13e267c3-f608-466d-9a8d-7442dcd5a7d4",
+      "characterName": "Sukha",
+      "portraitUrl": "https://cdn.midjourney.com/95c9a8b1-d0a7-4b44-9c87-91a500f4db7d/0_1_2048_N.webp",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "skill_check",
+      "skillName": "Fortitude",
+      "total": 10,
+      "diceTotal": null,
+      "modifier": 0,
+      "modifierLabel": null,
+      "success": true,
+      "difficulty": null,
+      "footer": "",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 10,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-10"
+        }
+      ]
+    },
+    {
+      "id": "285cc523-b6f4-41cc-83b6-91915f207c8a_1787058326672_j2fi",
+      "timestamp": 1787058326672,
+      "characterId": "285cc523-b6f4-41cc-83b6-91915f207c8a",
+      "characterName": "Sergio",
+      "portraitUrl": "https://cdn.midjourney.com/c845873a-6dc7-47cc-89e1-1903a4dc622d/0_0_2048_N.webp",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "skill_check",
+      "skillName": "Lore",
+      "total": 15,
+      "diceTotal": null,
+      "modifier": 0,
+      "modifierLabel": null,
+      "success": true,
+      "difficulty": null,
+      "footer": "",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 1,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-1"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 6,
+          "emoji": "✨",
+          "isDropped": false,
+          "rolledMaxValue": true,
+          "cssClass": "df-d6-6"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 5,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-5"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 3,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-3"
+        }
+      ]
+    },
+    {
+      "id": "285cc523-b6f4-41cc-83b6-91915f207c8a_1787058411547_we7a",
+      "timestamp": 1787058411547,
+      "characterId": "285cc523-b6f4-41cc-83b6-91915f207c8a",
+      "characterName": "Sergio",
+      "portraitUrl": "https://cdn.midjourney.com/c845873a-6dc7-47cc-89e1-1903a4dc622d/0_0_2048_N.webp",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "skill_check",
+      "skillName": "Lore",
+      "total": 17,
+      "diceTotal": null,
+      "modifier": 0,
+      "modifierLabel": null,
+      "success": true,
+      "difficulty": null,
+      "footer": "",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 6,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-6"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 6,
+          "emoji": "✨",
+          "isDropped": false,
+          "rolledMaxValue": true,
+          "cssClass": "df-d6-6"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 4,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-4"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 1,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-1"
+        }
+      ]
+    },
+    {
+      "id": "efc5fcf5-00cb-4892-9170-f09a5e766676_1787058418023_khm7",
+      "timestamp": 1787058418023,
+      "characterId": "efc5fcf5-00cb-4892-9170-f09a5e766676",
+      "characterName": "Banshee A",
+      "portraitUrl": "https://cdn.midjourney.com/2c3a08ae-00ce-4adc-82a3-c4406135f442/0_0.png",
+      "isNpc": false,
+      "isBeast": true,
+      "type": "skill_check",
+      "skillName": "Spirit",
+      "total": 13,
+      "diceTotal": null,
+      "modifier": 0,
+      "modifierLabel": null,
+      "success": true,
+      "difficulty": null,
+      "footer": "",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 3,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-3"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 4,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-4"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 3,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-3"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 3,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-3"
+        }
+      ]
+    },
+    {
+      "id": "c4883e09-8543-42e5-a69d-26bbae78d44e_1787058561049_2ui0",
+      "timestamp": 1787058561049,
+      "characterId": "c4883e09-8543-42e5-a69d-26bbae78d44e",
+      "characterName": "Pimlan",
+      "portraitUrl": "https://cdn.midjourney.com/cbaeac9c-8720-44f8-b904-bc79ab523e7d/0_3_2048_N.webp",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "skill_check",
+      "skillName": "Dexterity",
+      "total": 20,
+      "diceTotal": null,
+      "modifier": 0,
+      "modifierLabel": null,
+      "success": true,
+      "difficulty": null,
+      "footer": "",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": "Shuriken",
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 5,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-5"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 6,
+          "emoji": "✨",
+          "isDropped": false,
+          "rolledMaxValue": true,
+          "cssClass": "df-d6-6"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 5,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-5"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 4,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-4"
+        }
+      ]
+    },
+    {
+      "id": "c4883e09-8543-42e5-a69d-26bbae78d44e_1787058670591_qxku",
+      "timestamp": 1787058670591,
+      "characterId": "c4883e09-8543-42e5-a69d-26bbae78d44e",
+      "characterName": "Pimlan",
+      "portraitUrl": "https://cdn.midjourney.com/cbaeac9c-8720-44f8-b904-bc79ab523e7d/0_3_2048_N.webp",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "skill_check",
+      "skillName": "Dexterity",
+      "total": 17,
+      "diceTotal": null,
+      "modifier": 0,
+      "modifierLabel": null,
+      "success": true,
+      "difficulty": null,
+      "footer": "",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": "Shuriken",
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 7,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-7"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 6,
+          "emoji": "✨",
+          "isDropped": false,
+          "rolledMaxValue": true,
+          "cssClass": "df-d6-6"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 2,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-2"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 2,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-2"
+        }
+      ]
+    },
+    {
+      "id": "c4883e09-8543-42e5-a69d-26bbae78d44e_1787058678175_f4f0",
+      "timestamp": 1787058678175,
+      "characterId": "c4883e09-8543-42e5-a69d-26bbae78d44e",
+      "characterName": "Pimlan",
+      "portraitUrl": "https://cdn.midjourney.com/cbaeac9c-8720-44f8-b904-bc79ab523e7d/0_3_2048_N.webp",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "skill_check",
+      "skillName": "Dexterity",
+      "total": 20,
+      "diceTotal": null,
+      "modifier": 0,
+      "modifierLabel": null,
+      "success": true,
+      "difficulty": null,
+      "footer": "",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": "Shuriken",
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 10,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-10"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 5,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-5"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 3,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-3"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 2,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-2"
+        }
+      ]
+    },
+    {
+      "id": "c4883e09-8543-42e5-a69d-26bbae78d44e_1787058683564_sh3i",
+      "timestamp": 1787058683564,
+      "characterId": "c4883e09-8543-42e5-a69d-26bbae78d44e",
+      "characterName": "Pimlan",
+      "portraitUrl": "https://cdn.midjourney.com/cbaeac9c-8720-44f8-b904-bc79ab523e7d/0_3_2048_N.webp",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "skill_check",
+      "skillName": "Dexterity",
+      "total": 21,
+      "diceTotal": null,
+      "modifier": 0,
+      "modifierLabel": null,
+      "success": true,
+      "difficulty": null,
+      "footer": "",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": "Shuriken",
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 8,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-8"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 6,
+          "emoji": "✨",
+          "isDropped": false,
+          "rolledMaxValue": true,
+          "cssClass": "df-d6-6"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 4,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-4"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 3,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-3"
+        }
+      ]
+    },
+    {
+      "id": "c4883e09-8543-42e5-a69d-26bbae78d44e_1787058689491_4xuc",
+      "timestamp": 1787058689491,
+      "characterId": "c4883e09-8543-42e5-a69d-26bbae78d44e",
+      "characterName": "Pimlan",
+      "portraitUrl": "https://cdn.midjourney.com/cbaeac9c-8720-44f8-b904-bc79ab523e7d/0_3_2048_N.webp",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "skill_check",
+      "skillName": "Dexterity",
+      "total": 22,
+      "diceTotal": null,
+      "modifier": 0,
+      "modifierLabel": null,
+      "success": true,
+      "difficulty": null,
+      "footer": "",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": "Shuriken",
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 12,
+          "emoji": "🌞",
+          "isDropped": false,
+          "rolledMaxValue": true,
+          "cssClass": "df-d12-12"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 4,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-4"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 4,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-4"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 2,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-2"
+        }
+      ]
+    },
+    {
+      "id": "c4883e09-8543-42e5-a69d-26bbae78d44e_1787058704408_9mw8",
+      "timestamp": 1787058704408,
+      "characterId": "c4883e09-8543-42e5-a69d-26bbae78d44e",
+      "characterName": "Pimlan",
+      "portraitUrl": "https://cdn.midjourney.com/cbaeac9c-8720-44f8-b904-bc79ab523e7d/0_3_2048_N.webp",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "damage",
+      "skillName": "Shuriken",
+      "total": 5,
+      "diceTotal": 1,
+      "modifier": 4,
+      "modifierLabel": "BODY",
+      "success": null,
+      "difficulty": null,
+      "footer": "+ BODY",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": "Shuriken",
+      "diceResults": [
+        {
+          "dieSize": 2,
+          "dieRollValue": 1,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d2-1"
+        }
+      ]
+    },
+    {
+      "id": "c4883e09-8543-42e5-a69d-26bbae78d44e_1787058707331_bckm",
+      "timestamp": 1787058707331,
+      "characterId": "c4883e09-8543-42e5-a69d-26bbae78d44e",
+      "characterName": "Pimlan",
+      "portraitUrl": "https://cdn.midjourney.com/cbaeac9c-8720-44f8-b904-bc79ab523e7d/0_3_2048_N.webp",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "damage",
+      "skillName": "Shuriken",
+      "total": 6,
+      "diceTotal": 2,
+      "modifier": 4,
+      "modifierLabel": "BODY",
+      "success": null,
+      "difficulty": null,
+      "footer": "+ BODY",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": "Shuriken",
+      "diceResults": [
+        {
+          "dieSize": 2,
+          "dieRollValue": 2,
+          "emoji": "✨",
+          "isDropped": false,
+          "rolledMaxValue": true,
+          "cssClass": "df-d2-2"
+        }
+      ]
+    },
+    {
+      "id": "c4883e09-8543-42e5-a69d-26bbae78d44e_1787058708645_e6h4",
+      "timestamp": 1787058708645,
+      "characterId": "c4883e09-8543-42e5-a69d-26bbae78d44e",
+      "characterName": "Pimlan",
+      "portraitUrl": "https://cdn.midjourney.com/cbaeac9c-8720-44f8-b904-bc79ab523e7d/0_3_2048_N.webp",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "damage",
+      "skillName": "Shuriken",
+      "total": 6,
+      "diceTotal": 2,
+      "modifier": 4,
+      "modifierLabel": "BODY",
+      "success": null,
+      "difficulty": null,
+      "footer": "+ BODY",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": "Shuriken",
+      "diceResults": [
+        {
+          "dieSize": 2,
+          "dieRollValue": 2,
+          "emoji": "✨",
+          "isDropped": false,
+          "rolledMaxValue": true,
+          "cssClass": "df-d2-2"
+        }
+      ]
+    },
+    {
+      "id": "c4883e09-8543-42e5-a69d-26bbae78d44e_1787058710228_q98u",
+      "timestamp": 1787058710228,
+      "characterId": "c4883e09-8543-42e5-a69d-26bbae78d44e",
+      "characterName": "Pimlan",
+      "portraitUrl": "https://cdn.midjourney.com/cbaeac9c-8720-44f8-b904-bc79ab523e7d/0_3_2048_N.webp",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "damage",
+      "skillName": "Shuriken",
+      "total": 6,
+      "diceTotal": 2,
+      "modifier": 4,
+      "modifierLabel": "BODY",
+      "success": null,
+      "difficulty": null,
+      "footer": "+ BODY",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": "Shuriken",
+      "diceResults": [
+        {
+          "dieSize": 2,
+          "dieRollValue": 2,
+          "emoji": "✨",
+          "isDropped": false,
+          "rolledMaxValue": true,
+          "cssClass": "df-d2-2"
+        }
+      ]
+    },
+    {
+      "id": "c4883e09-8543-42e5-a69d-26bbae78d44e_1787058711613_z539",
+      "timestamp": 1787058711613,
+      "characterId": "c4883e09-8543-42e5-a69d-26bbae78d44e",
+      "characterName": "Pimlan",
+      "portraitUrl": "https://cdn.midjourney.com/cbaeac9c-8720-44f8-b904-bc79ab523e7d/0_3_2048_N.webp",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "damage",
+      "skillName": "Shuriken",
+      "total": 6,
+      "diceTotal": 2,
+      "modifier": 4,
+      "modifierLabel": "BODY",
+      "success": null,
+      "difficulty": null,
+      "footer": "+ BODY",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": "Shuriken",
+      "diceResults": [
+        {
+          "dieSize": 2,
+          "dieRollValue": 2,
+          "emoji": "✨",
+          "isDropped": false,
+          "rolledMaxValue": true,
+          "cssClass": "df-d2-2"
+        }
+      ]
+    },
+    {
+      "id": "efc5fcf5-00cb-4892-9170-f09a5e766676_1787058732741_kwvf",
+      "timestamp": 1787058732741,
+      "characterId": "efc5fcf5-00cb-4892-9170-f09a5e766676",
+      "characterName": "Banshee A",
+      "portraitUrl": "https://cdn.midjourney.com/2c3a08ae-00ce-4adc-82a3-c4406135f442/0_0.png",
+      "isNpc": false,
+      "isBeast": true,
+      "type": "injury",
+      "skillName": "Injury",
+      "total": 3,
+      "diceTotal": 3,
+      "modifier": 0,
+      "modifierLabel": null,
+      "success": null,
+      "difficulty": null,
+      "footer": "+3 Injury.",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 3,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-3"
+        }
+      ]
+    },
+    {
+      "id": "4083afd8-0594-4647-ac06-09b8a2a8cefc_1787332002750_bvzb",
+      "timestamp": 1787332002750,
+      "characterId": "4083afd8-0594-4647-ac06-09b8a2a8cefc",
+      "characterName": "Magnuss",
+      "portraitUrl": "https://cdn.midjourney.com/9d007aef-e372-4e42-9581-a2703cfe7018/0_2_2048_N.webp",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "skill_check",
+      "skillName": "Spirit",
+      "total": 19,
+      "diceTotal": null,
+      "modifier": 0,
+      "modifierLabel": null,
+      "success": true,
+      "difficulty": null,
+      "footer": "",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 6,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-6"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 5,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-5"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 3,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-3"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 2,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-2"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 2,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-2"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 1,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-1"
+        }
+      ]
+    },
+    {
+      "id": "4083afd8-0594-4647-ac06-09b8a2a8cefc_1787332006060_3iol",
+      "timestamp": 1787332006060,
+      "characterId": "4083afd8-0594-4647-ac06-09b8a2a8cefc",
+      "characterName": "Magnuss",
+      "portraitUrl": "https://cdn.midjourney.com/9d007aef-e372-4e42-9581-a2703cfe7018/0_2_2048_N.webp",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "skill_check",
+      "skillName": "Spirit",
+      "total": 28,
+      "diceTotal": null,
+      "modifier": 0,
+      "modifierLabel": null,
+      "success": true,
+      "difficulty": null,
+      "footer": "",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 9,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-9"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 6,
+          "emoji": "✨",
+          "isDropped": false,
+          "rolledMaxValue": true,
+          "cssClass": "df-d6-6"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 5,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-5"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 4,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-4"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 3,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-3"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 1,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-1"
+        }
+      ]
+    },
+    {
+      "id": "4083afd8-0594-4647-ac06-09b8a2a8cefc_1787332073356_nh6q",
+      "timestamp": 1787332073356,
+      "characterId": "4083afd8-0594-4647-ac06-09b8a2a8cefc",
+      "characterName": "Magnuss",
+      "portraitUrl": "https://cdn.midjourney.com/9d007aef-e372-4e42-9581-a2703cfe7018/0_2_2048_N.webp",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "skill_check",
+      "skillName": "Spirit",
+      "total": 26,
+      "diceTotal": null,
+      "modifier": 0,
+      "modifierLabel": null,
+      "success": true,
+      "difficulty": null,
+      "footer": "",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 10,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-10"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 6,
+          "emoji": "✨",
+          "isDropped": false,
+          "rolledMaxValue": true,
+          "cssClass": "df-d6-6"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 4,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-4"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 3,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-3"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 2,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-2"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 1,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-1"
+        }
+      ]
+    },
+    {
+      "id": "4083afd8-0594-4647-ac06-09b8a2a8cefc_1787332081956_ocvz",
+      "timestamp": 1787332081956,
+      "characterId": "4083afd8-0594-4647-ac06-09b8a2a8cefc",
+      "characterName": "Magnuss",
+      "portraitUrl": "https://cdn.midjourney.com/9d007aef-e372-4e42-9581-a2703cfe7018/0_2_2048_N.webp",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "skill_check",
+      "skillName": "Spirit",
+      "total": 18,
+      "diceTotal": null,
+      "modifier": 0,
+      "modifierLabel": null,
+      "success": true,
+      "difficulty": null,
+      "footer": "",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 11,
+          "emoji": "💀",
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-11"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 5,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-5"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 5,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-5"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 3,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-3"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 3,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-3"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 2,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-2"
+        }
+      ]
+    },
+    {
+      "id": "4083afd8-0594-4647-ac06-09b8a2a8cefc_1787332084891_qpf1",
+      "timestamp": 1787332084891,
+      "characterId": "4083afd8-0594-4647-ac06-09b8a2a8cefc",
+      "characterName": "Magnuss",
+      "portraitUrl": "https://cdn.midjourney.com/9d007aef-e372-4e42-9581-a2703cfe7018/0_2_2048_N.webp",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "skill_check",
+      "skillName": "Spirit",
+      "total": 21,
+      "diceTotal": null,
+      "modifier": 0,
+      "modifierLabel": null,
+      "success": true,
+      "difficulty": null,
+      "footer": "",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 6,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-6"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 6,
+          "emoji": "✨",
+          "isDropped": false,
+          "rolledMaxValue": true,
+          "cssClass": "df-d6-6"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 4,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-4"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 2,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-2"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 2,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-2"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 1,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-1"
+        }
+      ]
+    },
+    {
+      "id": "4083afd8-0594-4647-ac06-09b8a2a8cefc_1787332087640_25sn",
+      "timestamp": 1787332087640,
+      "characterId": "4083afd8-0594-4647-ac06-09b8a2a8cefc",
+      "characterName": "Magnuss",
+      "portraitUrl": "https://cdn.midjourney.com/9d007aef-e372-4e42-9581-a2703cfe7018/0_2_2048_N.webp",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "skill_check",
+      "skillName": "Spirit",
+      "total": 25,
+      "diceTotal": null,
+      "modifier": 0,
+      "modifierLabel": null,
+      "success": true,
+      "difficulty": null,
+      "footer": "",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 7,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-7"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 5,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-5"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 5,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-5"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 3,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-3"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 3,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-3"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 2,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-2"
+        }
+      ]
+    },
+    {
+      "id": "4083afd8-0594-4647-ac06-09b8a2a8cefc_1787332090472_ppzw",
+      "timestamp": 1787332090472,
+      "characterId": "4083afd8-0594-4647-ac06-09b8a2a8cefc",
+      "characterName": "Magnuss",
+      "portraitUrl": "https://cdn.midjourney.com/9d007aef-e372-4e42-9581-a2703cfe7018/0_2_2048_N.webp",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "skill_check",
+      "skillName": "Spirit",
+      "total": 12,
+      "diceTotal": null,
+      "modifier": 0,
+      "modifierLabel": null,
+      "success": true,
+      "difficulty": null,
+      "footer": "",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 1,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-1"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 4,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-4"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 3,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-3"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 2,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-2"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 1,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-1"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 1,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-1"
+        }
+      ]
+    },
+    {
+      "id": "4083afd8-0594-4647-ac06-09b8a2a8cefc_1787332092875_q7wm",
+      "timestamp": 1787332092875,
+      "characterId": "4083afd8-0594-4647-ac06-09b8a2a8cefc",
+      "characterName": "Magnuss",
+      "portraitUrl": "https://cdn.midjourney.com/9d007aef-e372-4e42-9581-a2703cfe7018/0_2_2048_N.webp",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "skill_check",
+      "skillName": "Spirit",
+      "total": 25,
+      "diceTotal": null,
+      "modifier": 0,
+      "modifierLabel": null,
+      "success": true,
+      "difficulty": null,
+      "footer": "",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 6,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-6"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 5,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-5"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 4,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-4"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 4,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-4"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 3,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-3"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 3,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-3"
+        }
+      ]
+    },
+    {
+      "id": "4083afd8-0594-4647-ac06-09b8a2a8cefc_1787332095405_ey08",
+      "timestamp": 1787332095405,
+      "characterId": "4083afd8-0594-4647-ac06-09b8a2a8cefc",
+      "characterName": "Magnuss",
+      "portraitUrl": "https://cdn.midjourney.com/9d007aef-e372-4e42-9581-a2703cfe7018/0_2_2048_N.webp",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "skill_check",
+      "skillName": "Spirit",
+      "total": 23,
+      "diceTotal": null,
+      "modifier": 0,
+      "modifierLabel": null,
+      "success": true,
+      "difficulty": null,
+      "footer": "",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 7,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-7"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 5,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-5"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 3,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-3"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 3,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-3"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 3,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-3"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 2,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-2"
+        }
+      ]
+    },
+    {
+      "id": "4083afd8-0594-4647-ac06-09b8a2a8cefc_1787332097723_hws2",
+      "timestamp": 1787332097723,
+      "characterId": "4083afd8-0594-4647-ac06-09b8a2a8cefc",
+      "characterName": "Magnuss",
+      "portraitUrl": "https://cdn.midjourney.com/9d007aef-e372-4e42-9581-a2703cfe7018/0_2_2048_N.webp",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "skill_check",
+      "skillName": "Spirit",
+      "total": 29,
+      "diceTotal": null,
+      "modifier": 0,
+      "modifierLabel": null,
+      "success": true,
+      "difficulty": null,
+      "footer": "",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 9,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-9"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 5,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-5"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 5,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-5"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 5,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-5"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 4,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-4"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 1,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-1"
+        }
+      ]
+    },
+    {
+      "id": "4083afd8-0594-4647-ac06-09b8a2a8cefc_1787332100140_572e",
+      "timestamp": 1787332100140,
+      "characterId": "4083afd8-0594-4647-ac06-09b8a2a8cefc",
+      "characterName": "Magnuss",
+      "portraitUrl": "https://cdn.midjourney.com/9d007aef-e372-4e42-9581-a2703cfe7018/0_2_2048_N.webp",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "skill_check",
+      "skillName": "Spirit",
+      "total": 31,
+      "diceTotal": null,
+      "modifier": 0,
+      "modifierLabel": null,
+      "success": true,
+      "difficulty": null,
+      "footer": "",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 10,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-10"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 6,
+          "emoji": "✨",
+          "isDropped": false,
+          "rolledMaxValue": true,
+          "cssClass": "df-d6-6"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 6,
+          "emoji": "✨",
+          "isDropped": false,
+          "rolledMaxValue": true,
+          "cssClass": "df-d6-6"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 6,
+          "emoji": "✨",
+          "isDropped": false,
+          "rolledMaxValue": true,
+          "cssClass": "df-d6-6"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 2,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-2"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 1,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-1"
+        }
+      ]
+    },
+    {
+      "id": "4083afd8-0594-4647-ac06-09b8a2a8cefc_1787332157336_tuxi",
+      "timestamp": 1787332157336,
+      "characterId": "4083afd8-0594-4647-ac06-09b8a2a8cefc",
+      "characterName": "Magnuss",
+      "portraitUrl": "https://cdn.midjourney.com/9d007aef-e372-4e42-9581-a2703cfe7018/0_2_2048_N.webp",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "skill_check",
+      "skillName": "Spirit",
+      "total": 23,
+      "diceTotal": null,
+      "modifier": 0,
+      "modifierLabel": null,
+      "success": true,
+      "difficulty": null,
+      "footer": "",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 7,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-7"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 6,
+          "emoji": "✨",
+          "isDropped": false,
+          "rolledMaxValue": true,
+          "cssClass": "df-d6-6"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 3,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-3"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 3,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-3"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 3,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-3"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 1,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-1"
+        }
+      ]
+    }
+  ],
+  "combatGroups": [
+    {
+      "id": "group-1786997697197-fgrq6x",
+      "name": "Boney Bois",
+      "combatants": [
+        {
+          "id": "beast:efc5fcf5-00cb-4892-9170-f09a5e766676",
+          "type": "beast",
+          "characterId": "efc5fcf5-00cb-4892-9170-f09a5e766676"
+        },
+        {
+          "id": "beast:99d7520c-aaf4-4a49-bd02-74c7d98b8c7b",
+          "type": "beast",
+          "characterId": "99d7520c-aaf4-4a49-bd02-74c7d98b8c7b"
+        },
+        {
+          "id": "beast:ca5889a9-104d-4b6d-9fb5-9125def99a80",
+          "type": "beast",
+          "characterId": "ca5889a9-104d-4b6d-9fb5-9125def99a80"
+        },
+        {
+          "id": "beast:039b47aa-7d8a-49ae-937f-f9bf53cfc290",
+          "type": "beast",
+          "characterId": "039b47aa-7d8a-49ae-937f-f9bf53cfc290"
+        },
+        {
+          "id": "beast:4162b81b-d5b3-4077-a1c4-50ca0176d1e0",
+          "type": "beast",
+          "characterId": "4162b81b-d5b3-4077-a1c4-50ca0176d1e0"
+        }
+      ]
+    },
+    {
+      "id": "group-1786997627821-uwtpj5",
+      "name": "Team Vengeance",
+      "combatants": [
+        {
+          "id": "pc:c4883e09-8543-42e5-a69d-26bbae78d44e",
+          "type": "pc",
+          "characterId": "c4883e09-8543-42e5-a69d-26bbae78d44e"
+        },
+        {
+          "id": "pc:285cc523-b6f4-41cc-83b6-91915f207c8a",
+          "type": "pc",
+          "characterId": "285cc523-b6f4-41cc-83b6-91915f207c8a"
+        },
+        {
+          "id": "pc:4083afd8-0594-4647-ac06-09b8a2a8cefc",
+          "type": "pc",
+          "characterId": "4083afd8-0594-4647-ac06-09b8a2a8cefc"
+        },
+        {
+          "id": "pc:13e267c3-f608-466d-9a8d-7442dcd5a7d4",
+          "type": "pc",
+          "characterId": "13e267c3-f608-466d-9a8d-7442dcd5a7d4"
+        }
+      ]
+    }
+  ],
+  "pixelsPerMile": 40,
+  "characterTokenSize": 40,
+  "cultureTokenSize": 60,
+  "cultureTokensLocked": false
+}

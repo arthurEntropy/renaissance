@@ -38,12 +38,12 @@
     }
   ],
   "localFlavor": {
-    "names": "Eira, Branoc, Moira, Tadhg, Cerys, Modou, Ousmane, Alun, Nia, Padraig, Fatou, Aminata, Awa, Mariama, Khoudia, Rhoswen, Caerwyn, Siobhan, Emrys, Briallen, Donal, Iseult, Owain, Alys, Fionn, Nerys, Caelan",
-    "occupations": "Farmer, Cowherd, Hedge Armorer, Ditch Digger, Cidermaker, Piper, Chandler, Story-Keeper, Sheep Shearer, Wainwright, Fence Mender, Tanner, Hearth Mason, Hound Trainer, Barrow Watcher",
-    "publicHouses": "The Briar Cup, Moss and Milk, The Green Flagon, Lantern’s Rest, The Black Cow, Stoneside Table",
+    "names": "Eira, Branoc, Moira, Drunlo, Tadhg, Cerys, Modou, Ousmane, Alun, Nia, Padraig, Fatou, Aminata, Awa, Mariama, Khoudia, Rhoswen, Caerwyn, Siobhan, Emrys, Briallen, Donal, Iseult, Owain, Alys, Fionn, Nerys, Caelan",
+    "occupations": "Farmer, Cowherd, Hedge Armorer, Ditch Digger, Cidermaker, Piper, Chandler, Fearmonger, Sheep Shearer, Wainwright, Fence Mender, Tanner, Hearth Mason, Hound Trainer, Barrow Watcher",
+    "publicHouses": "The Round Traveler, Touba's, The Standing Stone, Khombole Inn, The Green Flagon, Biram Fai, The Ploughman, Kora House",
     "vittles": "Oaten Bannocks, Leek and Potato Pie, Honeyed Barley Mush, Roast Turnips, Smoked Trout, Elderberry Jam, Buttermilk Scones, Boiled Nettles, Mushroom Pottage, Apple-Cider Sausage, Spiced Root Loaf, Gooseberry Wine, Baked Soft Cheese, Rhubarb Tarts, Seed-Cake",
-    "pointsOfInterest": "Kepton, The Singing Stones, Barleyfold Market, The Milkfather’s Shrine, The Hollow Hill, Black Bramble Ridge, The Stone of Three Paths",
-    "floraFauna": "Hawthorn, Elder, Gorse, Rowan, Clover, Wild Leek, Red Fox, Hare, Badger, Grey Owl, Hedgehog, Moorhen, Glowfly, Barrow Wren, Black Lamb"
+    "pointsOfInterest": "Kep Hall, The Singing Stones, Barleyfold Market, Swinemilker's Ridge, The Hollow Hill, The Nettle Keep, The Stone of Three Paths, Mistbane Grove",
+    "floraFauna": "Hawthorn, Elder, Gorse, Rowan, Clover, Wild Leek, Grey Fox, Hare, Badger, Barrow Owl, Hedgehog, Moorhen, Glowfly, Russet Finch, Black Mole"
   },
-  "lastModified": "2026-07-31T01:11:02.696Z"
+  "lastModified": "2026-08-20T12:46:48.513Z"
 }

@@ -14,19 +14,22 @@
 
         <!-- Speed -->
         <CharacterSheetSection custom-class="speed-column">
-            <div class="speed-header edit-hover-area">
-                <FloatingActionButton v-if="isEditMode" :variant="FAB_TYPES.REFRESH" :size="FAB_SIZES.SMALL"
-                    :visibility="FAB_VISIBILITIES.ON_HOVER" @click="resetSpeed" title="Reset current speed to base" />
-                <span class="speed-name">Speed</span>
-            </div>
-            <div class="speed-inputs-row">
-                <NumberInput :model-value="selectedCharacter?.speed?.current ?? 0" :disabled="!isEditMode"
-                    @update:model-value="updateCurrentSpeed" :min="0" :step="5" :size="NUMBER_INPUT_SIZES.MEDIUM"
-                    aria-label="Current speed" />
-                <span class="speed-separator">/</span>
-                <NumberInput :model-value="selectedCharacter?.speed?.base ?? 0" :disabled="!isEditMode"
-                    @update:model-value="updateBaseSpeed" :min="0" :step="5" :size="NUMBER_INPUT_SIZES.MEDIUM"
-                    aria-label="Base speed" />
+            <div class="speed-section edit-hover-area">
+                <div class="speed-header">
+                    <FloatingActionButton v-if="isEditMode" :variant="FAB_TYPES.REFRESH" :size="FAB_SIZES.SMALL"
+                        :visibility="FAB_VISIBILITIES.ON_HOVER" @click="resetSpeed"
+                        title="Reset current speed to base" />
+                    <span class="speed-name">Speed</span>
+                </div>
+                <div class="speed-inputs-row">
+                    <NumberInput :model-value="selectedCharacter?.speed?.current ?? 0" :disabled="!isEditMode"
+                        @update:model-value="updateCurrentSpeed" :min="0" :step="5" :size="NUMBER_INPUT_SIZES.MEDIUM"
+                        aria-label="Current speed" />
+                    <span class="speed-separator">/</span>
+                    <NumberInput :model-value="selectedCharacter?.speed?.base ?? 0" :disabled="!isEditMode"
+                        @update:model-value="updateBaseSpeed" :min="0" :step="5" :size="NUMBER_INPUT_SIZES.MEDIUM"
+                        aria-label="Base speed" />
+                </div>
             </div>
         </CharacterSheetSection>
     </div>
@@ -99,6 +102,13 @@ const resetSpeed = () => {
 .speed-column {
     align-items: center;
     width: 100px;
+}
+
+.speed-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
 }
 
 @media (max-width: var(--breakpoint-sm)) {

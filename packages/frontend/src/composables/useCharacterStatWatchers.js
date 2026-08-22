@@ -25,47 +25,69 @@ export function scheduleStatsRefund(character, { xp = 0, treasure = 0 } = {}) {
   })
 }
 
-export function useCharacterStatWatchers(selectedCharacter, allEquipment) {
+export function useCharacterStatWatchers(selectedCharacter, allEquipment, { onSaved } = {}) {
   const charactersStore = useCharactersStore()
 
-  // Main character save watcher with debouncing.
-  // Note: we intentionally do NOT guard against concurrent saves here. The
-  // characters store's update method does NOT overwrite selectedCharacter with
-  // the server response, so local mutations are never reverted by a slow save.
+  // Main character save watcher with debouncing and save-locking.
+  // Only one save is in flight at a time. If a change arrives while a save is
+  // pending, we set hasPendingSave so the next save runs immediately after the
+  // current one completes — always sending the latest state to the server.
+  // Without this, two concurrent requests could arrive at the server out-of-order
+  // and the stale response could overwrite newer data (visible after page reload).
   let saveTimeout = null
-  
+  let isSaving = false
+  let hasPendingSave = false
+  // Capture the character at queue time so the correct character is saved even
+  // if selectedCharacter changes before the debounce fires (e.g. popup closes).
+  let pendingChar = null
+
+  async function performSave() {
+    isSaving = true
+    const charToSave = pendingChar ?? selectedCharacter.value
+    try {
+      if (charToSave) {
+        await charactersStore.update(charToSave)
+        onSaved?.(charToSave)
+      }
+    } catch (err) {
+      console.error('[CharacterWatcher] Failed to save character:', err)
+    } finally {
+      isSaving = false
+      if (hasPendingSave) {
+        hasPendingSave = false
+        performSave()
+      }
+    }
+  }
+
   watch(selectedCharacter, (newCharacter) => {
     if (!newCharacter) return
-    
-    // Debounce: reset timer on every change, fire 1500 ms after the last one.
-    if (saveTimeout) {
-      clearTimeout(saveTimeout)
-    }
-    
-    saveTimeout = setTimeout(async () => {
+    pendingChar = newCharacter
+
+    if (saveTimeout) clearTimeout(saveTimeout)
+    saveTimeout = setTimeout(() => {
       saveTimeout = null
-      try {
-        await charactersStore.update(newCharacter)
-      } catch (err) {
-        console.error('[CharacterWatcher] Failed to save character:', err)
+      if (isSaving) {
+        hasPendingSave = true
+      } else {
+        performSave()
       }
     }, SAVE_DEBOUNCE_MS)
-  }, { 
+  }, {
     deep: true,
-    flush: 'post' // Run after component updates to batch changes
+    flush: 'post'
   })
 
-  // Cleanup on unmount — flush any pending save instead of discarding it.
-  // Without this, edits made within the debounce window are lost when the user
-  // closes a popup (e.g. CharacterSheetPopup) before the 1500ms timer fires.
+  // Cleanup on unmount — flush any pending debounce immediately.
   onUnmounted(() => {
     if (saveTimeout) {
       clearTimeout(saveTimeout)
       saveTimeout = null
-      const char = selectedCharacter.value
-      if (char) {
-        // Fire-and-forget: persist any in-flight changes immediately
-        charactersStore.update(char).catch(() => {})
+      if (isSaving) {
+        hasPendingSave = true
+      } else {
+        const char = pendingChar ?? selectedCharacter.value
+        if (char) performSave().catch(() => {})
       }
     }
   })

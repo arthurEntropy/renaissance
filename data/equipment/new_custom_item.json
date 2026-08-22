@@ -1,8 +1,8 @@
 {
   "id": "9dfc5255-ae2e-4113-a6b3-201ba84843d2",
-  "isDeleted": false,
+  "isDeleted": true,
   "createdAt": "2026-08-16T23:56:34.283Z",
-  "lastModified": "2026-08-16T23:56:34.298Z",
+  "lastModified": "2026-08-21T13:13:21.027Z",
   "name": "New Custom Item",
   "artUrl": null,
   "description": "",

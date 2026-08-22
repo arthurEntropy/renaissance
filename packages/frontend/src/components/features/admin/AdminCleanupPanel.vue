@@ -81,6 +81,7 @@ import CollapsibleAdminSection from './CollapsibleAdminSection.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import AdminCleanupService from '@/services/admin/adminCleanupService'
 import AdminDataService from '@/services/admin/adminDataService'
+import { useConfirm } from '@/composables/useConfirm'
 
 // Data Sync state
 const fileInput = ref(null)
@@ -111,7 +112,8 @@ const downloadData = async () => {
 
 const uploadData = async () => {
     if (!selectedFile.value) return
-    if (!confirm('This will replace ALL data on the server with the contents of the uploaded archive. This cannot be undone. Continue?')) return
+    const { confirm } = useConfirm()
+    if (!await confirm('This will replace ALL data on the server with the contents of the uploaded archive. This cannot be undone. Continue?')) return
     isUploading.value = true
     uploadStatus.value = ''
     uploadIsError.value = false
@@ -209,7 +211,8 @@ const toggleSelection = (key) => {
 
 const deleteSelected = async () => {
     if (selectedKeys.value.size === 0) return
-    if (!confirm(`Delete ${selectedKeys.value.size} selected items? This cannot be undone.`)) {
+    const { confirm } = useConfirm()
+    if (!await confirm(`Delete ${selectedKeys.value.size} selected items? This cannot be undone.`)) {
         return
     }
 

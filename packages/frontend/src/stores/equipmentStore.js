@@ -8,16 +8,21 @@ export const useEquipmentStore = defineStore('equipment', () => {
   const base = useCrudEntityStore(EquipmentService, 'equipment')
 
   // Equipment whose source concept is visible for the current user role.
-  // Equipment with no source (or 'general' / 'custom') is always included.
+  // Custom items (isCustom: true) and templates are excluded from the shared view;
+  // they are only accessible through a character's own EquipmentTable.
+  // Equipment with no source (or 'general') is always included.
   const visibleEquipment = computed(() => {
     const sourcesStore = useSourcesStore()
     const visibleIds = new Set(sourcesStore.allSourcesFlat.map((s) => s.id))
     return base.items.value.filter(
       (item) =>
-        !item.source ||
-        item.source === 'general' ||
-        item.source === 'custom' ||
-        visibleIds.has(item.source)
+        !item.isCustom &&
+        (
+          !item.source ||
+          item.source === 'general' ||
+          item.source === 'custom' ||
+          visibleIds.has(item.source)
+        )
     )
   })
 

@@ -50,6 +50,7 @@ import CharacterSheetSection from '@/components/ui/containers/CharacterSheetSect
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
+import { useConfirm } from '@/composables/useConfirm'
 import TextEditor from '@/components/ui/textEditor/TextEditor.vue'
 
 const props = defineProps({
@@ -129,9 +130,10 @@ const handleSectionClick = () => {
     openModal()
 }
 
-const handleOverlayClick = () => {
+const handleOverlayClick = async () => {
     if (isEditMode.value && hasUnsavedChanges.value) {
-        const shouldDiscard = confirm('Discard unsaved changes?')
+        const { confirm } = useConfirm()
+        const shouldDiscard = await confirm('Discard unsaved changes?')
         if (shouldDiscard) closeModal()
     } else {
         closeModal()

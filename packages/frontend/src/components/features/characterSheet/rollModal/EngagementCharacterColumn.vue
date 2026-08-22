@@ -153,6 +153,7 @@ const onSuccessDragStart = (event, success) => {
 
 .no-dice-message {
     text-align: center;
+    font-size: var(--font-size-14);
     color: var(--color-text-muted);
     margin-top: var(--space-sm);
     font-style: italic;

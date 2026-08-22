@@ -1,10 +1,10 @@
 {
   "id": "754a7883-71a7-414f-bda4-504a147e68cc",
   "createdAt": "2026-02-26T15:46:58.323Z",
-  "lastModified": "2026-08-11T20:02:44.330Z",
+  "lastModified": "2026-08-17T17:46:52.857Z",
   "name": "Ready For Anything",
   "artUrl": "https://cdn.midjourney.com/c93095ad-e207-4e89-b02b-e489a73a745d/0_2.png",
-  "description": "<p><em>Your readiness instincts are strong.</em></p><p>At the end of each of your turns, if you have an unspent half action, you may convert it into an additional reaction, which is forfeited after 1 round.</p><p><strong>Describe how you stay alert.</strong></p>",
+  "description": "<p><em>Your readiness instincts are strong.</em></p><p>At the end of each of your turns, if you have an unspent half action, you may convert it into an additional reaction for this round.</p><p><strong>Describe how you stay alert.</strong></p>",
   "source": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
   "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
   "canBeActive": false,

@@ -1,61 +1,65 @@
 {
-  "id": "1af228fc-7b3c-4fe6-8c0c-cd028bc850e2",
+  "id": "da8bd375-e52c-4b5a-9cbf-d729eb2442cf",
   "isDeleted": false,
-  "createdAt": "2026-07-24T19:44:15.780Z",
-  "lastModified": "2026-08-16T20:38:32.216Z",
+  "createdAt": "2026-08-17T18:10:20.190Z",
+  "lastModified": "2026-08-22T02:41:21.843Z",
   "characterType": "playerCharacter",
   "name": "Palfrey",
   "featuredArtUrls": [
-    "https://cdn.midjourney.com/5a6c9787-cedb-4eb6-8de1-17f837a10b99/0_1_640_N.webp"
+    "https://cdn.midjourney.com/5a6c9787-cedb-4eb6-8de1-17f837a10b99/0_1_2048_N.webp"
   ],
   "speed": {
     "current": 30,
     "base": 30
   },
   "notes": "",
-  "body": 4,
-  "heart": 3,
+  "body": 2,
+  "heart": 2,
   "wits": 2,
   "skills": [
     {
       "key": "awe",
       "ranks": 0,
       "isFavored": false,
-      "isIllFavored": false,
-      "diceMod": 0,
-      "manualDiceMod": 0
+      "isIllFavored": true,
+      "diceMod": -1,
+      "manualDiceMod": 0,
+      "isIllFavoredAutocalc": true
     },
     {
       "key": "strength",
-      "ranks": 3,
+      "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": 0,
+      "diceMod": -1,
       "manualDiceMod": 0
     },
     {
       "key": "dexterity",
       "ranks": 0,
       "isFavored": false,
-      "isIllFavored": false,
-      "diceMod": 0,
-      "manualDiceMod": 0
+      "isIllFavored": true,
+      "diceMod": -1,
+      "manualDiceMod": 0,
+      "isIllFavoredAutocalc": true
     },
     {
       "key": "fortitude",
-      "ranks": 1,
+      "ranks": 0,
       "isFavored": false,
-      "isIllFavored": false,
-      "diceMod": 0,
-      "manualDiceMod": 0
+      "isIllFavored": true,
+      "diceMod": -1,
+      "manualDiceMod": 0,
+      "isIllFavoredAutocalc": true
     },
     {
       "key": "craft",
       "ranks": 0,
       "isFavored": false,
-      "isIllFavored": false,
-      "diceMod": 0,
-      "manualDiceMod": 0
+      "isIllFavored": true,
+      "diceMod": -1,
+      "manualDiceMod": 0,
+      "isIllFavoredAutocalc": true
     },
     {
       "key": "perform",
@@ -75,7 +79,7 @@
     },
     {
       "key": "courtesy",
-      "ranks": 2,
+      "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -99,7 +103,7 @@
     },
     {
       "key": "persuade",
-      "ranks": 1,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -107,7 +111,7 @@
     },
     {
       "key": "awareness",
-      "ranks": 1,
+      "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -139,22 +143,22 @@
     }
   ],
   "endurance": {
-    "current": 20,
-    "base": 20
+    "current": 3,
+    "base": 10
   },
   "hope": {
-    "current": 6,
-    "base": 6
+    "current": 4,
+    "base": 4
   },
   "defense": {
-    "current": 13,
-    "base": 13
+    "current": 11,
+    "base": 11
   },
-  "load": 7,
+  "load": 4,
   "shadow": 0,
   "injury": 0,
   "states": {
-    "weary": false,
+    "weary": true,
     "twiceWeary": false,
     "miserable": false,
     "twiceMiserable": false,
@@ -171,11 +175,9 @@
   "engagementDice": [],
   "engagementSuccesses": [],
   "engagementDiceStatuses": {
-    "mestiere_0": "selected",
-    "mestiere_1": "available",
-    "user_added_0": "expended",
-    "a77e5e36-1c1d-4a15-865f-da6748d815b7_0": "expended",
-    "3a61c9aa-09ba-4b44-9efb-529795835e69_0": "expended"
+    "mestiere_0": "expended",
+    "mestiere_1": "expended",
+    "adfa9a8b-7318-4512-b876-4bd1d857d287_0": "expended"
   },
   "equipment": [
     {
@@ -186,36 +188,40 @@
       "columnIndex": 0
     },
     {
-      "id": "811d35c1-9163-495a-8ba8-36af7f7ed73f",
+      "id": "1035d152-f0e0-4668-939f-5fddd6469911",
       "quantity": 1,
       "isCarried": true,
-      "collapsed": true,
       "isWielding": true,
       "columnIndex": 0
     },
     {
-      "id": "9a7fe5d8-027c-48d8-9610-d57ce08e1f09",
+      "id": "0abc320a-e3a4-40c7-8c86-0c485a348ccf",
       "quantity": 1,
       "isCarried": true,
       "isWielding": true,
-      "columnIndex": 0,
-      "collapsed": true
+      "columnIndex": 0
     },
     {
-      "id": "c990a71d-6b5b-4ca8-8afa-4cd1373b4ea6",
+      "id": "acbfdf19-eba7-411a-8249-3244d3eb33ea",
       "quantity": 1,
       "isCarried": true,
-      "collapsed": false,
       "isWielding": true,
-      "columnIndex": 1
+      "columnIndex": 0
     },
     {
-      "id": "839024c9-4cda-4795-935e-0551fe214b6e",
+      "id": "381587b8-7519-4d79-b2d6-5bca9a908c2f",
       "quantity": 1,
       "isCarried": true,
-      "collapsed": false,
+      "columnIndex": 2,
+      "collapsed": false
+    },
+    {
+      "id": "adfa9a8b-7318-4512-b876-4bd1d857d287",
+      "quantity": 1,
+      "isCarried": true,
       "isWielding": true,
-      "columnIndex": 2
+      "columnIndex": 1,
+      "collapsed": false
     }
   ],
   "groupEquipmentBySource": false,
@@ -228,7 +234,7 @@
   },
   "abilities": [
     {
-      "id": "ad7f2d4c-75cc-4b7c-8066-57eb1ccaf54a",
+      "id": "4fbf9ccb-0fbb-45d0-9f8f-7b7fcfb811fb",
       "collapsed": true,
       "showImprovements": false,
       "showSuccesses": false,
@@ -244,7 +250,7 @@
       "columnIndex": 0
     },
     {
-      "id": "4fbf9ccb-0fbb-45d0-9f8f-7b7fcfb811fb",
+      "id": "ad7f2d4c-75cc-4b7c-8066-57eb1ccaf54a",
       "collapsed": true,
       "showImprovements": false,
       "showSuccesses": false,
@@ -268,7 +274,7 @@
       "columnIndex": 1
     },
     {
-      "id": "79f7d0be-4052-45ae-9351-449cd4023bdf",
+      "id": "d4c43cb4-a4d4-4f27-ae4a-6334bb84ea46",
       "collapsed": true,
       "showImprovements": false,
       "showSuccesses": false,
@@ -276,7 +282,7 @@
       "columnIndex": 2
     },
     {
-      "id": "d4c43cb4-a4d4-4f27-ae4a-6334bb84ea46",
+      "id": "79f7d0be-4052-45ae-9351-449cd4023bdf",
       "collapsed": true,
       "showImprovements": false,
       "showSuccesses": false,
@@ -306,23 +312,22 @@
   },
   "rollStats": {
     "skillChecks": {
-      "attempts": 3,
-      "successes": 3,
-      "totalSum": 47,
+      "attempts": 6,
+      "successes": 6,
+      "totalSum": 69,
       "bestTotal": 21,
       "hardestSuccess": null,
       "bySkill": {
-        "Strength": 2,
-        "Courtesy": 1
+        "Strength": 6
       },
-      "solCount": 1,
-      "morteCount": 0,
-      "successCount": 1
+      "solCount": 0,
+      "morteCount": 1,
+      "successCount": 3
     },
     "contests": {
       "engagement": {
-        "wins": 1,
-        "losses": 0,
+        "wins": 5,
+        "losses": 2,
         "draws": 0
       },
       "contest": {
@@ -333,8 +338,8 @@
     },
     "xpEarned": 0,
     "xpSpent": 0,
-    "treasureEarned": 34,
-    "treasureSpent": 41
+    "treasureEarned": 65,
+    "treasureSpent": 1
   },
   "biomeTags": [],
   "biomeId": null,
@@ -368,14 +373,13 @@
     "352c844b-6d4f-4b61-b475-315421a453e7"
   ],
   "mestiereId": "d4dce5e2-e767-464d-91f0-c40b47f788b3",
-  "age": 24,
+  "age": 34,
   "heightFeet": 5,
   "heightInches": 9,
-  "weight": 140,
+  "weight": 175,
   "keeping": "3c4d5e6f-7a8b-4c9d-0e1f-2a3b4c5d6e7f",
-  "treasure": 2,
+  "treasure": 3,
   "xp": 0,
   "description": "",
-  "featuredArtUrl": "https://cdn.midjourney.com/2916e967-136f-4900-8d0b-5dd0ec354e19/0_1_640_N.webp",
-  "updatedAt": "2026-08-16T20:38:32.216Z"
+  "updatedAt": "2026-08-22T02:41:21.843Z"
 }

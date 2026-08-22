@@ -42,6 +42,7 @@ import { useCharactersStore } from '@/stores/charactersStore'
 import { useAuthStore } from '@/stores/authStore'
 import { useCampaignStore } from '@/stores/campaignStore'
 import { createDefaultBeastInstance } from '@shared/types/character'
+import { useConfirm } from '@/composables/useConfirm'
 
 const emit = defineEmits(['close', 'chosen'])
 
@@ -63,7 +64,8 @@ async function handleChoose() {
     const beast = eligibleBeasts.value.find(b => b.id === selectedBeastId.value)
     if (!beast) return
 
-    const confirmed = window.confirm(`Choose "${beast.name}" as your familiar? A personal copy will be created.`)
+    const { confirm } = useConfirm()
+    const confirmed = await confirm(`Choose "${beast.name}" as your familiar? A personal copy will be created.`)
     if (!confirmed) return
 
     isSaving.value = true

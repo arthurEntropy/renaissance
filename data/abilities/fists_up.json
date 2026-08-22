@@ -1,14 +1,14 @@
 {
   "id": "1e289ca8-cf6a-4f0d-ad7c-a13fc8e1f381",
   "isDeleted": false,
-  "lastModified": "2026-07-25T18:42:06.555Z",
+  "lastModified": "2026-08-18T19:40:52.600Z",
   "name": "Fists Up",
   "artUrl": "https://cdn.midjourney.com/e5d5231e-2d99-47b2-aa1d-b3dc4970239d/0_3.png",
-  "description": "<p>Whenever you spend an action to make an unarmed melee attack on your turn, you may make one attack per free hand.</p><p>Whenever you land a hit with an unarmed melee attack or with an improvised weapon, roll 1d6 for the damage.</p><p>These effects are suspended while you are wearing armor of martial grade or higher.</p><p><strong>Describe how your stripped-down style delivers a brutal blow.</strong></p>",
+  "description": "<p>Whenever you spend an action to make an unarmed melee attack on your turn, you may make one attack per free hand.</p><p>When you make an unarmed melee attack or make a melee attack with an improvised object, roll Strength vs Defense as normal, but deal 1d6 + BODY damage on a hit.</p><p>These effects are suspended while you are wearing armor of martial grade or higher.</p><p><strong>Describe how your stripped-down style delivers a brutal blow.</strong></p>",
   "improvements": [
     {
       "name": "Fists of Fury",
-      "description": "<p>Your damage die for unarmed melee attacks and attacks with improvised weapons is a d8.</p>",
+      "description": "<p>Your damage for unarmed melee attacks and attacks with improvised weapons is a 1d8.</p>",
       "xpCost": 15,
       "id": "c0cce62d-03a8-5654-92e9-c354f4233834"
     },
