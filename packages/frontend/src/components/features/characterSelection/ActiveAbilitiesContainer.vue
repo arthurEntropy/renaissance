@@ -112,9 +112,17 @@ function deactivateAbility(abilityId) {
     position: static !important;
 }
 
-/* Tooltip anchors to the left for right-rail tokens */
+/* Tooltip floats above the token to avoid overflow-x clipping from the scroll container */
 :deep(.token-name-tooltip) {
-    left: auto;
-    right: 0;
+    bottom: auto;
+    top: -32px;
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%) translateY(-4px);
+    white-space: nowrap;
+}
+
+:deep(.character-token:hover .token-name-tooltip) {
+    transform: translateX(-50%) translateY(0);
 }
 </style>

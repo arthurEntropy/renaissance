@@ -760,6 +760,19 @@ function saveGroupName(groupId, name) {
     persistGroupsToTabletop()
 }
 
+// Auto-resize all group-name textareas when names change (e.g. after TokenGroupEditModal saves).
+watch(
+    () => resolvedPinnedGroups.value.map(g => g.name),
+    async () => {
+        await nextTick()
+        const textareas = document.querySelectorAll('.token-group-name')
+        textareas.forEach(el => {
+            el.style.height = 'auto'
+            el.style.height = `${el.scrollHeight}px`
+        })
+    }
+)
+
 // ─── Group persistence ────────────────────────────────────────────────────────
 
 function persistGroupsToTabletop() {
@@ -1519,9 +1532,9 @@ function getFocusedTokenProps(character) {
     gap: var(--space-xs);
     width: 100%;
     background: var(--overlay-black-medium);
-    border: 2px dotted var(--color-text-primary);
+    border: 2px dotted var(--color-text-muted);
     border-radius: var(--radius-10);
-    color: var(--color-text-primary);
+    color: var(--color-text-secondary);
     font-size: var(--font-size-11);
     font-family: var(--font-family-primary);
     text-transform: uppercase;

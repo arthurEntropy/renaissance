@@ -16,9 +16,14 @@
                 <draggable v-if="localCombatants.length > 0" v-model="localCombatants" item-key="id" tag="div"
                     class="tge-token-drag-list" ghost-class="tge-token--ghost" :animation="150" @end="onReorder">
                     <template #item="{ element: combatant }">
-                        <div class="tge-token-wrap">
+                        <div class="tge-token-wrap edit-hover-area">
                             <component :is="combatant.type === 'beast' ? BeastToken : CharacterToken"
                                 v-bind="getTokenProps(combatant)" />
+                            <!-- Duplicate FAB: top-center, beast instances only -->
+                            <FloatingActionButton v-if="combatant.type === 'beast'" :variant="FAB_TYPES.DUPLICATE"
+                                :size="FAB_SIZES.SMALL" :visibility="FAB_VISIBILITIES.ON_HOVER"
+                                class="tge-duplicate-fab" title="Add another instance of this beast"
+                                @click.stop="duplicateBeastInstance(combatant)" />
                         </div>
                     </template>
                 </draggable>
@@ -91,6 +96,10 @@
             </div>
         </CascadeMenuFrame>
     </BaseModal>
+
+    <!-- Local CharacterSheetPopup (opens when a token is clicked) -->
+    <CharacterSheetPopup v-if="localCharSheetCharacter" :character="localCharSheetCharacter"
+        @close="closeLocalCharSheet" />
 </template>
 
 <script setup>
@@ -107,11 +116,11 @@ import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 import { useCharacterContextStore } from '@/stores/characterContextStore'
 import { useCharactersStore } from '@/stores/charactersStore'
 import { useCampaignStore } from '@/stores/campaignStore'
-import { useAppCharacterSheetModal } from '@/composables/useAppCharacterSheetModal'
 import { useTabletopSharedCanvas } from '@/composables/useTabletopSharedCanvas'
 import { useCascadeColumnPositioning } from '@/composables/useCascadeColumnPositioning'
 import { toLetterSuffix } from '@shared/utils/letterSuffix'
 import { useConfirm } from '@/composables/useConfirm'
+import CharacterSheetPopup from '@/components/features/tabletop/CharacterSheetPopup.vue'
 
 const props = defineProps({
     groupId: { type: String, required: true },
@@ -123,7 +132,6 @@ const route = useRoute()
 const characterContextStore = useCharacterContextStore()
 const charactersStore = useCharactersStore()
 const campaignStore = useCampaignStore()
-const { open: openCharacterSheet } = useAppCharacterSheetModal()
 const { placedCharacterIds, hiddenCharacterIds, setCharactersVisibility, removeTokensByCharacterIds } = useTabletopSharedCanvas()
 
 // ─── Group data ───────────────────────────────────────────────────────────────
@@ -200,6 +208,18 @@ async function deleteGroup() {
     emit('close')
 }
 
+// ─── Local CharacterSheetPopup state ─────────────────────────────────────────
+
+const localCharSheetCharacter = ref(null)
+
+function openLocalCharSheet(character) {
+    localCharSheetCharacter.value = character
+}
+
+function closeLocalCharSheet() {
+    localCharSheetCharacter.value = null
+}
+
 // ─── Member management ────────────────────────────────────────────────────────
 
 function resolveCharacterById(id) {
@@ -215,7 +235,7 @@ function getTokenProps(combatant) {
         disableDefaultClick: true,
         showRemoveFab: true,
         onRemove: () => removeMember(combatant),
-        onClick: () => openCharacterSheet(character),
+        onClick: () => openLocalCharSheet(character),
     }
     if (combatant.type === 'beast') return { ...base, beast: character }
     return { ...base, character }
@@ -436,6 +456,20 @@ async function createBeastInstance(templateId) {
     }
 }
 
+/** Duplicate FAB handler: create another instance from the same template and add it to the group. */
+async function duplicateBeastInstance(combatant) {
+    const beastInst = resolveCharacterById(combatant.characterId)
+    const templateId = beastInst?.templateId
+    if (!templateId) return
+    const created = await createBeastInstance(templateId)
+    if (!created?.id) return
+    localCombatants.value = [
+        ...localCombatants.value,
+        { id: `beast:${created.id}`, type: 'beast', characterId: created.id },
+    ]
+    commitCombatants()
+}
+
 async function addCombatant(item) {
     closePicker()
     if (item.type === 'beast') {
@@ -563,11 +597,20 @@ onUnmounted(() => {
 }
 
 .tge-token-wrap {
+    position: relative;
     cursor: grab;
 }
 
 .tge-token-wrap:active {
     cursor: grabbing;
+}
+
+.tge-duplicate-fab {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2000;
 }
 
 .tge-token--ghost {

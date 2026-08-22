@@ -31,7 +31,8 @@
                     :ref="(el) => registerTokenRef(item.id, el)"
                     :class="{ 'is-dragging': isDragging(item.id), 'is-hidden-token': item.isHidden }"
                     :style="{ transform: `translate(${item.x}px, ${item.y}px)`, zIndex: item.zIndex }"
-                    @mousedown="(e) => { dismissBubble(item.id); handleTokenMousedown(item, e); handleTokenRightClick(item, e); handleTokenCmdClick(item, e) }">
+                    @mousedown="(e) => { dismissBubble(item.id); handleTokenMousedown(item, e); handleTokenRightClick(item, e); handleTokenCmdClick(item, e) }"
+                    @dblclick="(e) => handleTokenDoubleClick(item, e)">
                     <TabletopToken :name="item.name" :portrait-url="item.portraitUrl" :is-beast="item.isBeast"
                         :is-npc="item.isNpc" :size="item.size" :grid-size="gridSize" :is-selected="isSelected(item.id)"
                         :in-engagement="isCharacterInEngagement(item)" />
@@ -118,7 +119,8 @@
              which would trigger Vue's "runtime directive on non-element root" warning. -->
         <Teleport to="body">
             <CharacterSheetPopup v-if="charSheetPopupOpen && charSheetPopupCharacter"
-                :character="charSheetPopupCharacter" @close="charSheetPopupOpen = false" />
+                :character="charSheetPopupCharacter" @close="charSheetPopupOpen = false"
+                @character-saved="onCharacterSaved" />
         </Teleport>
 
         <!-- Engagement spectate popup (read-only view of another character's engagement) -->
@@ -480,6 +482,15 @@ function openCharacterSheetPopup() {
  */
 function handleTokenCmdClick(item, e) {
     if (e.button !== 0 || (!e.metaKey && !e.ctrlKey) || e.shiftKey) return
+    if (!item.characterId) return
+    const char = resolveCharacterById(item.characterId)
+    if (!char) return
+    charSheetPopupCharacter.value = char
+    charSheetPopupOpen.value = true
+}
+
+/** Double-clicking a token opens its CharacterSheetPopup directly. */
+function handleTokenDoubleClick(item, e) {
     if (!item.characterId) return
     const char = resolveCharacterById(item.characterId)
     if (!char) return

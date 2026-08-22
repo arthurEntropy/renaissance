@@ -46,7 +46,7 @@ const wrapStyle = computed(() => {
 .questions-button-wrap {
     position: fixed;
     top: calc(var(--nav-height) + var(--space-sm));
-    z-index: var(--z-badge);
+    z-index: var(--z-interactive);
     pointer-events: auto;
     transition: right 200ms ease;
 }

@@ -2,7 +2,7 @@
   "id": "87b9491c-b265-4a8b-be84-dac5866a3784",
   "isDeleted": false,
   "createdAt": "2026-08-17T20:11:22.169Z",
-  "lastModified": "2026-08-21T17:21:29.122Z",
+  "lastModified": "2026-08-22T01:20:30.218Z",
   "campaignId": "84b00fc0-eae8-4808-9151-949bf59928ff",
   "name": "Glow Canyon",
   "backgroundImage": {
@@ -121,9 +121,9 @@
     }
   ],
   "transform": {
-    "scale": 0.9999999999999998,
-    "x": -148.06892145868767,
-    "y": -505.96028978995173
+    "scale": 0.6805831970337527,
+    "x": -51.850721112067646,
+    "y": -97.04539202742012
   },
   "gridSize": 40,
   "gridColor": "#ffffff",

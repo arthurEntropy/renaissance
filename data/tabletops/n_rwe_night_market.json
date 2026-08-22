@@ -2,7 +2,7 @@
   "id": "18953367-9a25-4dd1-8429-ff2820832d9b",
   "isDeleted": false,
   "createdAt": "2026-08-17T19:54:55.724Z",
-  "lastModified": "2026-08-21T15:46:50.044Z",
+  "lastModified": "2026-08-22T01:27:12.268Z",
   "campaignId": "84b00fc0-eae8-4808-9151-949bf59928ff",
   "name": "Nïrwe Night Market",
   "backgroundImage": {
@@ -45,7 +45,7 @@
       "size": 1,
       "x": 720,
       "y": 440,
-      "zIndex": 24
+      "zIndex": 31
     },
     {
       "id": "8f10f6a0-e83a-4b2d-ac02-544400b1bd2e",
@@ -60,46 +60,46 @@
       "zIndex": 29
     },
     {
-      "id": "94c2f702-15dc-4a7a-bebd-e7c8a8abfc52",
+      "id": "82c442c8-8e19-48b1-851b-7c23b93ecd98",
       "characterId": "ce6c45df-906d-4f6a-85e9-58a7b458a394",
       "isBeast": true,
       "isNpc": false,
       "name": "Carrion Crawler A",
       "portraitUrl": "https://cdn.midjourney.com/48444f34-cffe-4732-ba92-522ed9c62a29/0_3.png",
       "size": 2,
-      "x": 680,
-      "y": 280,
-      "zIndex": 30
+      "x": 640,
+      "y": 240,
+      "zIndex": 36
     },
     {
-      "id": "5b1e6d0a-bd7f-4c38-8617-bf0e08004fee",
+      "id": "22ecd62c-6539-436a-acf7-0e97411fa91f",
       "characterId": "b84a8a85-f236-4880-96a5-86af7c754fe7",
       "isBeast": true,
       "isNpc": false,
       "name": "Carrion Crawler B",
       "portraitUrl": "https://cdn.midjourney.com/48444f34-cffe-4732-ba92-522ed9c62a29/0_3.png",
       "size": 2,
-      "x": 520,
-      "y": 280,
-      "zIndex": 31
+      "x": 800,
+      "y": 200,
+      "zIndex": 35
     },
     {
-      "id": "67ebae0f-c4da-4931-9ff4-04dc90513963",
+      "id": "c5582232-ad52-45fb-ba9f-d4f5d5b629eb",
       "characterId": "8f56a2a7-87f1-4f6e-ba28-bd3327ce5da6",
       "isBeast": true,
       "isNpc": false,
       "name": "Carrion Crawler C",
       "portraitUrl": "https://cdn.midjourney.com/48444f34-cffe-4732-ba92-522ed9c62a29/0_3.png",
       "size": 2,
-      "x": 880,
-      "y": 200,
-      "zIndex": 32
+      "x": 520,
+      "y": 360,
+      "zIndex": 37
     }
   ],
   "transform": {
-    "scale": 0.8573388203017831,
-    "x": 27.828532235939747,
-    "y": -6.984224965706289
+    "scale": 0.6805831970337528,
+    "x": 305.4247472261149,
+    "y": 88.22786098270467
   },
   "gridSize": 40,
   "gridColor": "#ffffff",
@@ -1417,6 +1417,92 @@
           "cssClass": "df-d6-1"
         }
       ]
+    },
+    {
+      "id": "da8bd375-e52c-4b5a-9cbf-d729eb2442cf_1787361127036_7p0z",
+      "timestamp": 1787361127036,
+      "characterId": "da8bd375-e52c-4b5a-9cbf-d729eb2442cf",
+      "characterName": "Palfrey",
+      "portraitUrl": "https://cdn.midjourney.com/5a6c9787-cedb-4eb6-8de1-17f837a10b99/0_1_2048_N.webp",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "skill_check",
+      "skillName": "Strength",
+      "total": 10,
+      "diceTotal": null,
+      "modifier": 0,
+      "modifierLabel": null,
+      "success": true,
+      "difficulty": null,
+      "footer": "Weary",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 6,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-6"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 4,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-4"
+        }
+      ]
+    },
+    {
+      "id": "da8bd375-e52c-4b5a-9cbf-d729eb2442cf_1787361470223_rzoa",
+      "timestamp": 1787361470223,
+      "characterId": "da8bd375-e52c-4b5a-9cbf-d729eb2442cf",
+      "characterName": "Palfrey",
+      "portraitUrl": "https://cdn.midjourney.com/5a6c9787-cedb-4eb6-8de1-17f837a10b99/0_1_2048_N.webp",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "skill_check",
+      "skillName": "Strength",
+      "total": 9,
+      "diceTotal": null,
+      "modifier": 0,
+      "modifierLabel": null,
+      "success": true,
+      "difficulty": null,
+      "footer": "Weary",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 4,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-4"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 5,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-5"
+        }
+      ]
     }
   ],
   "combatGroups": [
@@ -1471,6 +1557,22 @@
       "id": "group-1787320075320-v7cwrv",
       "name": "Group 1",
       "combatants": []
+    },
+    {
+      "id": "group-1787359752474-gkf9vn",
+      "name": "Testing to see if a long name works ok",
+      "combatants": [
+        {
+          "id": "beast:95f5036e-1a78-4b2c-9abb-1ec74cda0224",
+          "type": "beast",
+          "characterId": "95f5036e-1a78-4b2c-9abb-1ec74cda0224"
+        },
+        {
+          "id": "beast:58c39f0b-226b-4311-90b3-b89ec7b5549e",
+          "type": "beast",
+          "characterId": "58c39f0b-226b-4311-90b3-b89ec7b5549e"
+        }
+      ]
     }
   ],
   "pixelsPerMile": 40,

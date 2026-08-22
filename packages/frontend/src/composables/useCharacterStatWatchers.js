@@ -25,7 +25,7 @@ export function scheduleStatsRefund(character, { xp = 0, treasure = 0 } = {}) {
   })
 }
 
-export function useCharacterStatWatchers(selectedCharacter, allEquipment) {
+export function useCharacterStatWatchers(selectedCharacter, allEquipment, { onSaved } = {}) {
   const charactersStore = useCharactersStore()
 
   // Main character save watcher with debouncing and save-locking.
@@ -37,12 +37,18 @@ export function useCharacterStatWatchers(selectedCharacter, allEquipment) {
   let saveTimeout = null
   let isSaving = false
   let hasPendingSave = false
+  // Capture the character at queue time so the correct character is saved even
+  // if selectedCharacter changes before the debounce fires (e.g. popup closes).
+  let pendingChar = null
 
   async function performSave() {
     isSaving = true
+    const charToSave = pendingChar ?? selectedCharacter.value
     try {
-      const char = selectedCharacter.value
-      if (char) await charactersStore.update(char)
+      if (charToSave) {
+        await charactersStore.update(charToSave)
+        onSaved?.(charToSave)
+      }
     } catch (err) {
       console.error('[CharacterWatcher] Failed to save character:', err)
     } finally {
@@ -56,6 +62,7 @@ export function useCharacterStatWatchers(selectedCharacter, allEquipment) {
 
   watch(selectedCharacter, (newCharacter) => {
     if (!newCharacter) return
+    pendingChar = newCharacter
 
     if (saveTimeout) clearTimeout(saveTimeout)
     saveTimeout = setTimeout(() => {
@@ -79,7 +86,7 @@ export function useCharacterStatWatchers(selectedCharacter, allEquipment) {
       if (isSaving) {
         hasPendingSave = true
       } else {
-        const char = selectedCharacter.value
+        const char = pendingChar ?? selectedCharacter.value
         if (char) performSave().catch(() => {})
       }
     }

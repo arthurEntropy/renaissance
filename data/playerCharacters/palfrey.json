@@ -2,7 +2,7 @@
   "id": "da8bd375-e52c-4b5a-9cbf-d729eb2442cf",
   "isDeleted": false,
   "createdAt": "2026-08-17T18:10:20.190Z",
-  "lastModified": "2026-08-21T20:56:12.745Z",
+  "lastModified": "2026-08-22T01:17:50.487Z",
   "characterType": "playerCharacter",
   "name": "Palfrey",
   "featuredArtUrls": [
@@ -312,13 +312,13 @@
   },
   "rollStats": {
     "skillChecks": {
-      "attempts": 3,
-      "successes": 3,
-      "totalSum": 41,
+      "attempts": 5,
+      "successes": 5,
+      "totalSum": 60,
       "bestTotal": 21,
       "hardestSuccess": null,
       "bySkill": {
-        "Strength": 3
+        "Strength": 5
       },
       "solCount": 0,
       "morteCount": 1,
@@ -338,7 +338,7 @@
     },
     "xpEarned": 0,
     "xpSpent": 0,
-    "treasureEarned": 47,
+    "treasureEarned": 53,
     "treasureSpent": 1
   },
   "biomeTags": [],
@@ -381,5 +381,5 @@
   "treasure": 3,
   "xp": 0,
   "description": "",
-  "updatedAt": "2026-08-21T20:56:12.745Z"
+  "updatedAt": "2026-08-22T01:17:50.487Z"
 }

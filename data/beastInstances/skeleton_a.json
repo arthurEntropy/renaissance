@@ -2,7 +2,7 @@
   "id": "99d7520c-aaf4-4a49-bd02-74c7d98b8c7b",
   "isDeleted": false,
   "createdAt": "2026-08-17T20:15:12.750Z",
-  "lastModified": "2026-08-18T12:57:37.187Z",
+  "lastModified": "2026-08-22T01:23:12.558Z",
   "characterType": "beastInstance",
   "name": "Skeleton A",
   "featuredArtUrls": [
@@ -255,7 +255,7 @@
     "xpEarned": 0,
     "xpSpent": 0,
     "treasureEarned": 0,
-    "treasureSpent": 0
+    "treasureSpent": 6
   },
   "biomeTags": [],
   "biomeId": null,
@@ -334,7 +334,7 @@
   "beastTypeIds": [
     "b7e57001-0000-4000-a000-00000000000e"
   ],
-  "updatedAt": "2026-08-18T12:57:37.187Z",
+  "updatedAt": "2026-08-22T01:23:12.558Z",
   "challenge": 7,
   "templateId": "785562af-0611-4d1f-817b-9888b379dd4d"
 }

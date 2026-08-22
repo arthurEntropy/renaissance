@@ -11,7 +11,7 @@ const MAX_HISTORY = 50
 const INTERACTIVE_TAGS = new Set(['button', 'a', 'input', 'select', 'textarea', 'label'])
 
 export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved, isWorldMap = false } = {}) {
-    const { draggingCharacter, clearDraggingCharacter, draggingCulture, clearDraggingCulture } = useTabletopDragState()
+    const { draggingCharacter, clearDraggingCharacter, draggingGroup, clearDraggingGroup, draggingCulture, clearDraggingCulture } = useTabletopDragState()
     const { setSelectedCharacterIds, clearSelectedCharacterIds } = useTabletopSelectionState()
     const campaignStore = useCampaignStore()
 
@@ -233,12 +233,15 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved, isWorl
     // ─── Ghost overlay ────────────────────────────────────────────────────────
     // tokenGhosts: array of ghost objects shown while dragging tokens on the canvas
     const tokenGhosts = ref([])
-    // dropGhost: shown while dragging a character from PinnedTokensContainer over the canvas
+    // dropGhost: shown while dragging a single character from PinnedTokensContainer over the canvas
     const dropGhost = ref(null)
-    // All active ghosts: dragged token ghosts plus the optional drop ghost
+    // dropGhosts: shown while dragging a group from PinnedTokensContainer over the canvas
+    const dropGhosts = ref([])
+    // All active ghosts: dragged token ghosts plus the optional drop ghost(s)
     const activeGhosts = computed(() => {
         const ghosts = [...tokenGhosts.value]
         if (dropGhost.value) ghosts.push(dropGhost.value)
+        ghosts.push(...dropGhosts.value)
         return ghosts
     })
 
@@ -509,6 +512,25 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved, isWorl
             return
         }
 
+        // Group drag: show one ghost per unplaced member, spread in a grid
+        const dg = draggingGroup.value
+        if (dg?.length) {
+            const pos = _containerPos(e)
+            if (!pos) return
+            const cols = Math.ceil(Math.sqrt(dg.length))
+            dropGhosts.value = dg.map((snapshot, i) => {
+                const col = i % cols
+                const row = Math.floor(i / cols)
+                const halfPx = ((snapshot.size || 1) * gridSize.value) / 2
+                return {
+                    ...snapshot,
+                    x: snap(pos.canvasX - halfPx) + col * gridSize.value,
+                    y: snap(pos.canvasY - halfPx) + row * gridSize.value,
+                }
+            })
+            return
+        }
+
         const dc = draggingCharacter.value
         if (!dc) return
         const pos = _containerPos(e)
@@ -525,6 +547,7 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved, isWorl
         // Only clear ghost when the pointer leaves the canvas container entirely
         if (!canvasContainerRef.value?.contains(e.relatedTarget)) {
             dropGhost.value = null
+            dropGhosts.value = []
         }
     }
 
@@ -566,23 +589,52 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved, isWorl
 
         // Handle character token drop
         const raw = e.dataTransfer.getData('application/vtt-character')
-        if (!raw) return
-        let snapshot
-        try { snapshot = JSON.parse(raw) } catch { return }
-        const pos = _containerPos(e)
-        if (!pos) return
-        const halfPx = ((snapshot.size || 1) * (isWorldMap ? 1 : gridSize.value)) / 2
-        const x = snap(pos.canvasX - halfPx)
-        const y = snap(pos.canvasY - halfPx)
-        recordSnapshot()
-        // Remove any existing token for the same character so there's only one instance
-        if (snapshot.characterId) {
-            canvasItems.value = canvasItems.value.filter(i => i.characterId !== snapshot.characterId)
+        if (raw) {
+            let snapshot
+            try { snapshot = JSON.parse(raw) } catch { return }
+            const pos = _containerPos(e)
+            if (!pos) return
+            const halfPx = ((snapshot.size || 1) * (isWorldMap ? 1 : gridSize.value)) / 2
+            const x = snap(pos.canvasX - halfPx)
+            const y = snap(pos.canvasY - halfPx)
+            recordSnapshot()
+            // Remove any existing token for the same character so there's only one instance
+            if (snapshot.characterId) {
+                canvasItems.value = canvasItems.value.filter(i => i.characterId !== snapshot.characterId)
+            }
+            _placeToken(snapshot, x, y)
+            dropGhost.value = null
+            clearDraggingCharacter()
+            saveState()
+            return
         }
-        _placeToken(snapshot, x, y)
-        dropGhost.value = null
-        clearDraggingCharacter()
-        saveState()
+
+        // Handle group drag drop: place all unplaced members spread in a grid
+        const rawGroup = e.dataTransfer.getData('application/vtt-group')
+        if (rawGroup) {
+            let snapshots
+            try { snapshots = JSON.parse(rawGroup) } catch { return }
+            if (!snapshots?.length) return
+            const pos = _containerPos(e)
+            if (!pos) return
+            recordSnapshot()
+            const cols = Math.ceil(Math.sqrt(snapshots.length))
+            snapshots.forEach((snapshot, i) => {
+                const col = i % cols
+                const row = Math.floor(i / cols)
+                const halfPx = ((snapshot.size || 1) * gridSize.value) / 2
+                const x = snap(pos.canvasX - halfPx) + col * gridSize.value
+                const y = snap(pos.canvasY - halfPx) + row * gridSize.value
+                // Remove any existing token for the same character
+                if (snapshot.characterId) {
+                    canvasItems.value = canvasItems.value.filter(i => i.characterId !== snapshot.characterId)
+                }
+                _placeToken(snapshot, x, y)
+            })
+            dropGhosts.value = []
+            clearDraggingGroup()
+            saveState()
+        }
     }
 
     // ─── Global mouse handlers ────────────────────────────────────────────────
