@@ -5,7 +5,7 @@
 
     <!-- Admin Buttons -->
     <div v-if="editable || duplicatable || deletable || $slots['admin-actions']" class="admin-buttons">
-      <FloatingActionButton v-if="deletable" :variant="FAB_TYPES.DELETE" @click.stop="$emit('delete', item)"
+      <FloatingActionButton v-if="deletable" :variant="deleteFabVariant" @click.stop="$emit('delete', item)"
         :size="FAB_SIZES.SMALL" :visibility="FAB_VISIBILITIES.ON_HOVER" class="delete-button-floating" />
       <FloatingActionButton v-if="duplicatable" :variant="FAB_TYPES.DUPLICATE" @click.stop="$emit('duplicate', item)"
         :size="FAB_SIZES.SMALL" :visibility="FAB_VISIBILITIES.ON_HOVER" class="duplicate-button-floating" />
@@ -121,6 +121,7 @@ const props = defineProps({
   editable: { type: Boolean, default: false },
   duplicatable: { type: Boolean, default: false },
   deletable: { type: Boolean, default: false },
+  deleteFabVariant: { type: String, default: FAB_TYPES.DELETE },
   collapsible: { type: Boolean, default: true },
   itemType: { type: String, default: ItemType.ABILITY },
   fallbackBackgroundUrl: { type: String, default: null },

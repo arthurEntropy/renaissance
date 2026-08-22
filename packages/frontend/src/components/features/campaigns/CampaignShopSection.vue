@@ -5,10 +5,13 @@
             <!-- Left: collapse toggle + title -->
             <div class="shop-header-left" @click="isCollapsed = !isCollapsed">
                 <component :is="isCollapsed ? ChevronRightIcon : ChevronDownIcon" class="collapse-chevron" />
-                <div class="shop-title-wrap">
-                    <h3 class="shop-title">{{ shop.name || 'Unnamed Shop' }}</h3>
+                <div class="shop-title-wrap" @click.stop>
+                    <input v-if="isEditMode" v-model="localName" class="shop-name-input" ref="nameInputRef"
+                        @blur="saveNameIfChanged" @keyup.enter="saveNameIfChanged" @keyup.esc="cancelEdit" />
+                    <h3 v-else class="shop-title">{{ shop.name || 'Unnamed Shop' }}</h3>
                     <FloatingActionButton v-if="isGM && !isCollapsed" :variant="FAB_TYPES.EDIT" :size="FAB_SIZES.SMALL"
-                        :visibility="FAB_VISIBILITIES.ON_HOVER" @click.stop="$emit('rename', shop)" />
+                        :visibility="isEditMode ? FAB_VISIBILITIES.ALWAYS : FAB_VISIBILITIES.ON_HOVER"
+                        @click.stop="toggleEditMode" />
                 </div>
             </div>
 
@@ -22,11 +25,11 @@
             <!-- Right: GM actions -->
             <div class="shop-header-right" @click.stop>
                 <template v-if="isGM">
-                    <template v-if="!isCollapsed">
+                    <template v-if="!isCollapsed && isEditMode">
                         <FloatingActionButton :variant="FAB_TYPES.ADD" :size="FAB_SIZES.SMALL"
-                            :visibility="FAB_VISIBILITIES.ON_HOVER" @click="openAddPicker" />
+                            :visibility="FAB_VISIBILITIES.ALWAYS" @click="openAddPicker" />
                         <FloatingActionButton :variant="FAB_TYPES.TRASH" :size="FAB_SIZES.SMALL"
-                            :visibility="FAB_VISIBILITIES.ON_HOVER" @click="$emit('delete', shop.id)" />
+                            :visibility="FAB_VISIBILITIES.ALWAYS" @click="$emit('delete', shop.id)" />
                     </template>
                     <FloatingActionButton :variant="FAB_TYPES.VISIBILITY" :size="FAB_SIZES.SMALL"
                         :visibility="FAB_VISIBILITIES.ALWAYS" :is-active="shop.isVisibleToPlayers ?? true"
@@ -51,20 +54,20 @@
                     <ThreeColumnLayout v-if="noTypeItems.length > 0" :items="noTypeItems">
                         <template #default="{ item }">
                             <EquipmentCard :equipment="item" :collapsible="true"
-                                :collapsed="isCardCollapsed(item.shopEntryId)" :deletable="isGM"
-                                :engagement-success-options="[]"
+                                :collapsed="isCardCollapsed(item.shopEntryId)" :deletable="isGM && isEditMode"
+                                :delete-fab-variant="FAB_TYPES.TRASH" :engagement-success-options="[]"
                                 @update:collapsed="setCardCollapsed(item.shopEntryId, $event)"
-                                @delete="removeItem(item)" />
+                                @delete="confirmRemoveItem(item)" />
                         </template>
                     </ThreeColumnLayout>
                     <GroupedThreeColumnLayout v-if="typeGroupedItems.length > 0" :grouped-items="typeGroupedItems"
                         item-key="shopEntryId">
                         <template #default="{ item }">
                             <EquipmentCard :equipment="item" :collapsible="true"
-                                :collapsed="isCardCollapsed(item.shopEntryId)" :deletable="isGM"
-                                :engagement-success-options="[]"
+                                :collapsed="isCardCollapsed(item.shopEntryId)" :deletable="isGM && isEditMode"
+                                :delete-fab-variant="FAB_TYPES.TRASH" :engagement-success-options="[]"
                                 @update:collapsed="setCardCollapsed(item.shopEntryId, $event)"
-                                @delete="removeItem(item)" />
+                                @delete="confirmRemoveItem(item)" />
                         </template>
                     </GroupedThreeColumnLayout>
                 </template>
@@ -73,9 +76,10 @@
                 <ThreeColumnLayout v-else :items="sortedItems" item-key="shopEntryId">
                     <template #default="{ item }">
                         <EquipmentCard :equipment="item" :collapsible="true"
-                            :collapsed="isCardCollapsed(item.shopEntryId)" :deletable="isGM"
-                            :engagement-success-options="[]"
-                            @update:collapsed="setCardCollapsed(item.shopEntryId, $event)" @delete="removeItem(item)" />
+                            :collapsed="isCardCollapsed(item.shopEntryId)" :deletable="isGM && isEditMode"
+                            :delete-fab-variant="FAB_TYPES.TRASH" :engagement-success-options="[]"
+                            @update:collapsed="setCardCollapsed(item.shopEntryId, $event)"
+                            @delete="confirmRemoveItem(item)" />
                     </template>
                 </ThreeColumnLayout>
             </template>
@@ -90,7 +94,7 @@
 </template>
 
 <script setup>
-import { computed, ref, watch } from 'vue'
+import { computed, nextTick, ref, watch } from 'vue'
 import { ChevronDownIcon, ChevronRightIcon } from '@heroicons/vue/24/outline'
 import EquipmentCard from '@/components/ui/cards/item/EquipmentCard.vue'
 import ThreeColumnLayout from '@/components/ui/layouts/ThreeColumnLayout.vue'
@@ -107,11 +111,13 @@ import { useEquipmentStore } from '@/stores/equipmentStore'
 import { useEquipmentTypesStore } from '@/stores/equipmentTypesStore'
 import { useAuthStore } from '@/stores/authStore'
 import { useCampaignStore } from '@/stores/campaignStore'
+import { useConfirm } from '@/composables/useConfirm'
 
 const equipmentStore = useEquipmentStore()
 const equipmentTypesStore = useEquipmentTypesStore()
 const authStore = useAuthStore()
 const campaignStore = useCampaignStore()
+const { confirm } = useConfirm()
 
 const props = defineProps({
     shop: {
@@ -132,7 +138,41 @@ const props = defineProps({
     },
 })
 
-defineEmits(['rename', 'delete'])
+defineEmits(['delete'])
+
+// ── Edit mode ─────────────────────────────────────────────────────────────
+const isEditMode = ref(false)
+const localName = ref('')
+const nameInputRef = ref(null)
+
+const toggleEditMode = async () => {
+    if (!isEditMode.value) {
+        localName.value = props.shop.name || ''
+        isEditMode.value = true
+        await nextTick()
+        nameInputRef.value?.focus()
+        nameInputRef.value?.select()
+    } else {
+        await saveNameIfChanged()
+        isEditMode.value = false
+    }
+}
+
+const saveNameIfChanged = async () => {
+    const trimmed = localName.value.trim()
+    if (trimmed && trimmed !== props.shop.name) {
+        try {
+            await campaignStore.updateShop(props.campaignId, props.shop.id, { name: trimmed })
+        } catch (err) {
+            console.error('Failed to rename shop:', err)
+        }
+    }
+}
+
+const cancelEdit = () => {
+    localName.value = props.shop.name || ''
+    isEditMode.value = false
+}
 
 // ── Collapse state ────────────────────────────────────────────────────────
 const isCollapsed = ref(false)
@@ -248,7 +288,8 @@ const includedSet = computed(() => new Set(props.includedConceptIds))
 
 const equipmentPicker = useCardCascadePicker({
     fixedCategory: 'equipment',
-    filterItems: (item) => includedSet.value.has(item.source),
+    // Include items with no source (sourceless) as well as items matching the campaign's concepts
+    filterItems: (item) => !item.source || includedSet.value.has(item.source),
 })
 
 const { showPicker, openPicker, closeCascadeImmediate } = equipmentPicker
@@ -286,6 +327,11 @@ const addItem = async (type, equipmentId) => {
         console.error('Failed to add item to shop:', err)
     }
     closeCascadeImmediate()
+}
+
+const confirmRemoveItem = async (equipment) => {
+    if (!await confirm('Remove this item from the shop?')) return
+    removeItem(equipment)
 }
 
 const removeItem = async (equipment) => {
@@ -356,6 +402,23 @@ const removeItem = async (equipment) => {
     font-weight: var(--font-weight-bold);
     color: var(--color-text-primary);
     margin: 0;
+}
+
+.shop-name-input {
+    font-size: var(--font-size-18);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-primary);
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--overlay-white-medium);
+    padding: 0 0 2px;
+    outline: none;
+    font-family: var(--font-family-primary);
+    width: 300px;
+}
+
+.shop-name-input:focus {
+    border-bottom-color: var(--color-primary);
 }
 
 .shop-title-wrap {

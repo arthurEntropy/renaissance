@@ -2,7 +2,7 @@
   "id": "84b00fc0-eae8-4808-9151-949bf59928ff",
   "isDeleted": false,
   "createdAt": "2026-08-17T14:44:47.494Z",
-  "lastModified": "2026-08-21T18:25:36.415Z",
+  "lastModified": "2026-08-22T00:16:59.754Z",
   "slug": "vengeance",
   "name": "Vengeance",
   "description": "Long ago, the Ascendant visited our world and unlocked a hidden power. For many long years the Chthonic Subcommittee greedily hoarded that power away while the people learned magic in secret and at risk of death. Then came the rising of the bards, stirring the people into revolution. The Subcommittee was overthrown and an age of free magic began. It is in this happy time that our heroes meet and discover that all is not well. Will they rise to defend their world against a growing threat? Or will they mostly focus on root vegetables and magic cows?",
@@ -84,6 +84,69 @@
         "37843429-c6cb-4a9f-a094-d2014a1460fd",
         "b2235478-d2a6-4ccd-8cde-bd7efc35fd59",
         "5b6f3f9e-1e13-4f11-a51c-131732bbee7a"
+      ]
+    },
+    {
+      "id": "cf22a44e-2c16-43a0-9b83-8092430d7713",
+      "name": "New Shop",
+      "primaryCultureId": null,
+      "generationParams": {},
+      "isVisibleToPlayers": true,
+      "items": [
+        "b060e3d5-ed07-47ba-a410-a19faf4bf60d",
+        "96eeb5e1-5a26-4d78-8986-131614d91ce4",
+        "f657b59b-da29-40b3-93cd-377221bd7566",
+        "aa3863dc-a648-4386-b39f-7af23803ae17",
+        "e43614f2-91e1-495f-9d4f-7cdc4d87d3be",
+        "e8167728-a261-412c-a6ce-284d63a46556",
+        "b4312fd0-4dcd-4766-8036-23e27e733d9d",
+        "6341bbc6-9c9a-4c53-a603-132e368577b2",
+        "f339e1ee-39c8-4712-8baa-60129fd87ff0",
+        "d7bf98c0-c600-409b-b420-7b843914d94f",
+        "dbfeda00-dd15-413b-b9d1-4c45fca1495f",
+        "dea27c1e-990e-4e9e-be79-05c2438a9819"
+      ]
+    },
+    {
+      "id": "039905dc-97e4-4f3c-9e77-c306eca96835",
+      "name": "New Shop",
+      "primaryCultureId": null,
+      "generationParams": {},
+      "isVisibleToPlayers": true,
+      "items": [
+        "a0656587-f4ad-4bf3-a2b1-c4d68071de73",
+        "d7101d52-00b8-42ec-9047-17a3243f2830",
+        "ccc02b61-beab-4041-b8f6-3b32e6cc3d04",
+        "33fca405-bc95-4edb-ac7b-1a0c6575663d",
+        "7ac1e4a3-05c3-480a-b050-933865b068a6",
+        "2988bbcf-640d-4473-8e14-b949f15161dd",
+        "7d59831e-b494-480d-be1b-98b9fcf9d379",
+        "dff16d44-13e4-460d-9fec-01d0ba4ee9f2",
+        "1a98852b-e310-4f56-b4b4-75af7f784149",
+        "4d317ac7-3dbe-44c2-b746-27356156134f",
+        "4bfd5c04-2fac-4853-9658-5b3719f7be03",
+        "5ead151b-a7b3-426f-9010-5c26293558dc"
+      ]
+    },
+    {
+      "id": "3d605945-a2e9-46ad-a878-5a3e2c274cfd",
+      "name": "New Shop",
+      "primaryCultureId": null,
+      "generationParams": {},
+      "isVisibleToPlayers": true,
+      "items": [
+        "650d2940-e13a-4a2d-89dd-06e1fe6753f1",
+        "5b6f3f9e-1e13-4f11-a51c-131732bbee7a",
+        "f0702eb0-821d-49c0-b53e-db46b5ab7eff",
+        "7d59831e-b494-480d-be1b-98b9fcf9d379",
+        "5fed9640-ad6d-45a6-a35f-7fb1236ee897",
+        "9478836a-cf30-4b36-a9b6-b6de2de0da64",
+        "bedbfb8b-0796-43db-ba35-cdb56fa725d9",
+        "a30300f4-aa2f-4e2a-a15d-1ec2c6402509",
+        "084cbc9d-7db3-4084-9e5c-ac51549c2d91",
+        "67dc612e-31a3-4e00-80cd-ceed484b59ab",
+        "0cd4cf01-3f59-4ea7-8fcf-33e052b13049",
+        "37843429-c6cb-4a9f-a094-d2014a1460fd"
       ]
     }
   ],

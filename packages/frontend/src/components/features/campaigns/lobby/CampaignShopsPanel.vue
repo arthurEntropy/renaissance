@@ -15,28 +15,12 @@
             </div>
             <div v-else class="shops-list">
                 <CampaignShopSection v-for="shop in visibleShops" :key="shop.id" :shop="shop" :campaign-id="campaignId"
-                    :is-g-m="isGM" :included-concept-ids="campaign?.includedConceptIds || []" @rename="startRenameShop"
-                    @delete="deleteShop" />
+                    :is-g-m="isGM" :included-concept-ids="campaign?.includedConceptIds || []" @delete="deleteShop" />
             </div>
         </div>
 
         <ShopGeneratorModal v-if="campaignId" :open="showShopGenerator" :campaign-id="campaignId"
             @close="showShopGenerator = false" />
-
-        <div v-if="renamingShop" class="modal-overlay" @click.self="renamingShop = null">
-            <div class="modal">
-                <h2 class="modal-title">Rename Shop</h2>
-                <div class="form-field">
-                    <label class="form-label">New Name</label>
-                    <input v-model="renameShopValue" class="form-input" type="text" autofocus
-                        @keyup.enter="executeRenameShop" />
-                </div>
-                <div class="modal-actions">
-                    <ActionButton variant="neutral" @click="renamingShop = null">Cancel</ActionButton>
-                    <ActionButton variant="primary" @click="executeRenameShop">Save</ActionButton>
-                </div>
-            </div>
-        </div>
     </div>
 </template>
 
@@ -44,7 +28,6 @@
 import { computed, ref, watch } from 'vue'
 import { ChevronDownIcon, ChevronRightIcon } from '@heroicons/vue/24/outline'
 import { useCampaignStore } from '@/stores/campaignStore'
-import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import CampaignShopSection from '@/components/features/campaigns/CampaignShopSection.vue'
 import ShopGeneratorModal from '@/components/features/campaigns/ShopGeneratorModal.vue'
@@ -59,8 +42,6 @@ const isGM = computed(() => campaignStore.isGMInActiveCampaign)
 
 const isCollapsed = ref(false)
 const showShopGenerator = ref(false)
-const renamingShop = ref(null)
-const renameShopValue = ref('')
 
 const openShopGenerator = () => { showShopGenerator.value = true }
 
@@ -75,23 +56,6 @@ const deleteShop = async (shopId) => {
         await campaignStore.deleteShop(campaignId.value, shopId)
     } catch (error) {
         console.error('Failed to delete shop:', error)
-    }
-}
-
-const startRenameShop = (shop) => {
-    renamingShop.value = shop
-    renameShopValue.value = shop.name || ''
-}
-
-const executeRenameShop = async () => {
-    if (!renamingShop.value) return
-    try {
-        await campaignStore.updateShop(campaignId.value, renamingShop.value.id, {
-            name: renameShopValue.value.trim(),
-        })
-        renamingShop.value = null
-    } catch (error) {
-        console.error('Failed to rename shop:', error)
     }
 }
 

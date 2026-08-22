@@ -40,6 +40,7 @@ const emit = defineEmits(['close', 'mouseenter', 'mouseleave'])
 
 const menuRootRef = ref(null)
 const adjustedTop = ref(null)
+const adjustedLeft = ref(null)
 
 const getViewportTop = () => {
     if (typeof window === 'undefined') return 0
@@ -55,10 +56,11 @@ const menuStyle = computed(() => {
     const usesAnchorY = props.anchorMode === 'anchorY' && Number.isFinite(props.anchorPosition?.y)
     const baseTop = usesAnchorY ? Math.round(props.anchorPosition.y) : getViewportTop()
     const top = adjustedTop.value ?? baseTop
+    const left = adjustedLeft.value ?? props.anchorPosition.x
 
     return {
         top: `${top}px`,
-        left: `${props.anchorPosition.x}px`,
+        left: `${left}px`,
         bottom: 'auto',
         zIndex: 'var(--z-cascade-menu)',
     }
@@ -68,14 +70,23 @@ const clampToViewport = () => {
     const menu = menuRootRef.value
     if (!menu) return
     const rect = menu.getBoundingClientRect()
-    const overflow = rect.bottom - (window.innerHeight - 8)
-    if (overflow > 0) {
-        adjustedTop.value = Math.max(getViewportTop(), Math.round(rect.top - overflow))
+
+    const vOverflow = rect.bottom - (window.innerHeight - 8)
+    if (vOverflow > 0) {
+        adjustedTop.value = Math.max(getViewportTop(), Math.round(rect.top - vOverflow))
+    }
+
+    // Shift the menu left if it overflows the right edge of the viewport
+    const hOverflow = rect.right - (window.innerWidth - 8)
+    if (hOverflow > 0) {
+        const anchorX = props.anchorPosition?.x ?? 0
+        adjustedLeft.value = Math.max(0, Math.round(anchorX - hOverflow))
     }
 }
 
 watch(() => props.anchorPosition, () => {
     adjustedTop.value = null
+    adjustedLeft.value = null
 })
 
 const emitClose = () => {
@@ -90,13 +101,22 @@ const handleDocumentPointerDown = (event) => {
     emitClose()
 }
 
+let _resizeObserver = null
+
 onMounted(() => {
     document.addEventListener('pointerdown', handleDocumentPointerDown)
     nextTick(clampToViewport)
+    // Re-clamp whenever the menu grows (e.g. a new cascade column or card preview appears)
+    if (typeof ResizeObserver !== 'undefined' && menuRootRef.value) {
+        _resizeObserver = new ResizeObserver(() => nextTick(clampToViewport))
+        _resizeObserver.observe(menuRootRef.value)
+    }
 })
 
 onBeforeUnmount(() => {
     document.removeEventListener('pointerdown', handleDocumentPointerDown)
+    _resizeObserver?.disconnect()
+    _resizeObserver = null
 })
 </script>
 

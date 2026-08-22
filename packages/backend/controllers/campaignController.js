@@ -513,14 +513,17 @@ export const generateShop = (req, res) => {
 
     const { cultureMix, keepingMix, rareTierIds = [], itemCount = 12 } = req.body
 
-    if (!Array.isArray(cultureMix) || cultureMix.length === 0) {
-      return res.status(400).json({ error: 'cultureMix is required' })
+    if (!Array.isArray(cultureMix)) {
+      return res.status(400).json({ error: 'cultureMix must be an array' })
     }
     if (!Array.isArray(keepingMix) || keepingMix.length === 0) {
       return res.status(400).json({ error: 'keepingMix is required' })
     }
 
     const targetCount = Math.min(Math.max(itemCount, 5), 50)
+    // An empty cultureMix means the GM set all culture weights to 0, requesting only
+    // sourceless items (items with no culture source assigned).
+    const sourcelessOnly = cultureMix.length === 0
     const cultureIds = new Set(cultureMix.map((c) => c.cultureId))
     const keepingIds = new Set(keepingMix.map((k) => k.keepingId))
     // Rare tier IDs bypass the culture filter (items from these tiers have no culture source)
@@ -530,10 +533,12 @@ export const generateShop = (req, res) => {
     const equipmentDir = getDirectory('equipment')
     const allEquipment = getAllDataByDirectory(equipmentDir).filter((e) => !e.isDeleted)
 
-    // Filter eligible items: match keeping tier AND (culture matches OR tier is a rare bypass tier)
-    const eligible = allEquipment.filter(
-      (e) => keepingIds.has(e.keeping) && (cultureIds.has(e.source) || rareIds.has(e.keeping))
-    )
+    // Filter eligible items: match keeping tier AND passes the culture/source filter
+    const eligible = allEquipment.filter((e) => {
+      if (!keepingIds.has(e.keeping)) return false
+      if (sourcelessOnly) return !e.source  // only items with no culture source
+      return cultureIds.has(e.source) || rareIds.has(e.keeping) || !e.source
+    })
 
     if (eligible.length === 0) {
       return res.status(400).json({ error: 'No equipment found matching the selected cultures and keeping tiers' })
@@ -904,7 +909,16 @@ export const getCampaignTabletops = (req, res) => {
     const all = getAllDataByDirectory(TABLETOPS_DIRECTORY)
     const allById = new Map(all.map((t) => [t.id, t]))
 
-    // Return tabletops in the campaign's declared order, skipping any missing entries
+    // Build the ordered list from tabletopIds, skipping missing/deleted entries.
+    // Also include the world map tabletop if it exists but somehow fell out of tabletopIds
+    // (e.g. due to a partial reorder operation).
+    const idSet = new Set(tabletopIds)
+    const wmId = campaign.worldMapTabletopId
+    if (wmId && !idSet.has(wmId)) {
+      idSet.add(wmId)
+      tabletopIds.push(wmId)
+    }
+
     const tabletops = tabletopIds
       .map((id) => allById.get(id))
       .filter((t) => t && !t.isDeleted)
@@ -1004,6 +1018,8 @@ export const deleteCampaignTabletop = (req, res) => {
       ...campaign,
       tabletopIds: (campaign.tabletopIds || []).filter((id) => id !== tabletop.id),
       activeTabletopId: campaign.activeTabletopId === tabletop.id ? null : campaign.activeTabletopId,
+      // Clear the world map reference if the deleted tabletop was the world map
+      ...(campaign.worldMapTabletopId === tabletop.id ? { worldMapTabletopId: null } : {}),
     }
     saveFile(updatedCampaign, CAMPAIGNS_DIRECTORY, campaign.name, campaign.id)
 
@@ -1032,7 +1048,11 @@ export const reorderCampaignTabletops = (req, res) => {
       return res.status(400).json({ error: 'tabletopIds contains unknown tabletop IDs' })
     }
 
-    const updated = { ...campaign, tabletopIds }
+    // Preserve any IDs (e.g. the world map tabletop) that were not included in the
+    // reorder list; append them after the explicitly ordered entries.
+    const sentSet = new Set(tabletopIds)
+    const preserved = (campaign.tabletopIds || []).filter((id) => !sentSet.has(id))
+    const updated = { ...campaign, tabletopIds: [...tabletopIds, ...preserved] }
     saveFile(updated, CAMPAIGNS_DIRECTORY, campaign.name, campaign.id)
     res.json(updated)
   } catch (err) {

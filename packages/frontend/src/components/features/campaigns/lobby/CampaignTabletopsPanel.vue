@@ -48,11 +48,11 @@
                                 <div v-if="isGM" class="tabletop-actions">
                                     <FloatingActionButton
                                         :variant="tabletop.id === activeTabletopId ? FAB_TYPES.DEACTIVATE : FAB_TYPES.ACTIVATE"
-                                        :size="FAB_SIZES.SMALL" :visibility="FAB_VISIBILITIES.ALWAYS"
+                                        :size="FAB_SIZES.SMALL" :visibility="FAB_VISIBILITIES.ON_HOVER"
                                         :title="tabletop.id === activeTabletopId ? 'Deactivate' : 'Set as active'"
                                         @click="toggleActive(tabletop.id)" />
                                     <FloatingActionButton :variant="FAB_TYPES.TRASH" :size="FAB_SIZES.SMALL"
-                                        :visibility="FAB_VISIBILITIES.ALWAYS" title="Delete"
+                                        :visibility="FAB_VISIBILITIES.ON_HOVER" title="Delete"
                                         @click="confirmDelete(tabletop)" />
                                 </div>
                             </div>

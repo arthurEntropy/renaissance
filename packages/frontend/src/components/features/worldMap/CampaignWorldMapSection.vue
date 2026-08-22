@@ -31,7 +31,7 @@
                     transform: `translate(${item.x}px, ${item.y}px)`
                 }">
                     <CultureToken v-if="item.tokenType === 'culture'" :culture="resolveCultureById(item.cultureId)"
-                        :is-placed="true" :size="item.size" :show-remove-fab="false" />
+                        :is-placed="true" :size="item.size" :show-remove-fab="false" :show-permanent-name="true" />
 
                     <TabletopToken v-else :name="item.name" :portrait-url="item.portraitUrl" :is-beast="item.isBeast"
                         :is-npc="item.isNpc" :size="item.size" :grid-size="1" :in-engagement="false" />
