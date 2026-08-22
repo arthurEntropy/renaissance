@@ -2,7 +2,7 @@
   "id": "13e267c3-f608-466d-9a8d-7442dcd5a7d4",
   "isDeleted": false,
   "createdAt": "2026-08-17T19:28:51.662Z",
-  "lastModified": "2026-08-21T15:11:31.705Z",
+  "lastModified": "2026-08-22T02:00:39.846Z",
   "characterType": "playerCharacter",
   "name": "Sukha",
   "featuredArtUrls": [
@@ -245,7 +245,7 @@
     },
     {
       "id": "1e289ca8-cf6a-4f0d-ad7c-a13fc8e1f381",
-      "collapsed": true,
+      "collapsed": false,
       "showImprovements": false,
       "showSuccesses": false,
       "isActive": false,
@@ -266,18 +266,18 @@
   },
   "rollStats": {
     "skillChecks": {
-      "attempts": 7,
-      "successes": 7,
-      "totalSum": 130,
+      "attempts": 9,
+      "successes": 9,
+      "totalSum": 174,
       "bestTotal": 28,
       "hardestSuccess": null,
       "bySkill": {
-        "Strength": 6,
+        "Strength": 8,
         "Fortitude": 1
       },
       "solCount": 1,
       "morteCount": 0,
-      "successCount": 6
+      "successCount": 7
     },
     "contests": {
       "engagement": {
@@ -335,5 +335,5 @@
   "treasure": 0,
   "xp": 0,
   "description": "",
-  "updatedAt": "2026-08-21T15:11:31.704Z"
+  "updatedAt": "2026-08-22T02:00:39.846Z"
 }

@@ -2,7 +2,7 @@
   "id": "18953367-9a25-4dd1-8429-ff2820832d9b",
   "isDeleted": false,
   "createdAt": "2026-08-17T19:54:55.724Z",
-  "lastModified": "2026-08-22T01:27:12.268Z",
+  "lastModified": "2026-08-22T02:11:47.555Z",
   "campaignId": "84b00fc0-eae8-4808-9151-949bf59928ff",
   "name": "Nïrwe Night Market",
   "backgroundImage": {
@@ -45,7 +45,7 @@
       "size": 1,
       "x": 720,
       "y": 440,
-      "zIndex": 31
+      "zIndex": 43
     },
     {
       "id": "8f10f6a0-e83a-4b2d-ac02-544400b1bd2e",
@@ -57,7 +57,7 @@
       "size": 1,
       "x": 640,
       "y": 880,
-      "zIndex": 29
+      "zIndex": 40
     },
     {
       "id": "82c442c8-8e19-48b1-851b-7c23b93ecd98",
@@ -93,13 +93,13 @@
       "size": 2,
       "x": 520,
       "y": 360,
-      "zIndex": 37
+      "zIndex": 38
     }
   ],
   "transform": {
-    "scale": 0.6805831970337528,
-    "x": 305.4247472261149,
-    "y": 88.22786098270467
+    "scale": 1.0799999999999996,
+    "x": -146.53451485602875,
+    "y": -177.1415398943942
   },
   "gridSize": 40,
   "gridColor": "#ffffff",
@@ -1501,6 +1501,312 @@
           "isDropped": false,
           "rolledMaxValue": false,
           "cssClass": "df-d6-5"
+        }
+      ]
+    },
+    {
+      "id": "13e267c3-f608-466d-9a8d-7442dcd5a7d4_1787364016387_4scj",
+      "timestamp": 1787364016387,
+      "characterId": "13e267c3-f608-466d-9a8d-7442dcd5a7d4",
+      "characterName": "Sukha",
+      "portraitUrl": "https://cdn.midjourney.com/95c9a8b1-d0a7-4b44-9c87-91a500f4db7d/0_1_2048_N.webp",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "skill_check",
+      "skillName": "Strength",
+      "total": 22,
+      "diceTotal": null,
+      "modifier": 0,
+      "modifierLabel": null,
+      "success": true,
+      "difficulty": null,
+      "footer": "",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": "Fists Up",
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 9,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-9"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 4,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-4"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 4,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-4"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 3,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-3"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 2,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-2"
+        }
+      ]
+    },
+    {
+      "id": "13e267c3-f608-466d-9a8d-7442dcd5a7d4_1787364029008_j3b9",
+      "timestamp": 1787364029008,
+      "characterId": "13e267c3-f608-466d-9a8d-7442dcd5a7d4",
+      "characterName": "Sukha",
+      "portraitUrl": "https://cdn.midjourney.com/95c9a8b1-d0a7-4b44-9c87-91a500f4db7d/0_1_2048_N.webp",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "skill_check",
+      "skillName": "Strength",
+      "total": 22,
+      "diceTotal": null,
+      "modifier": 0,
+      "modifierLabel": null,
+      "success": true,
+      "difficulty": null,
+      "footer": "",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": "Fists Up",
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 9,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-9"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 6,
+          "emoji": "✨",
+          "isDropped": false,
+          "rolledMaxValue": true,
+          "cssClass": "df-d6-6"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 3,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-3"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 3,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-3"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 1,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-1"
+        }
+      ]
+    },
+    {
+      "id": "13e267c3-f608-466d-9a8d-7442dcd5a7d4_1787364039585_zh29",
+      "timestamp": 1787364039585,
+      "characterId": "13e267c3-f608-466d-9a8d-7442dcd5a7d4",
+      "characterName": "Sukha",
+      "portraitUrl": "https://cdn.midjourney.com/95c9a8b1-d0a7-4b44-9c87-91a500f4db7d/0_1_2048_N.webp",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "damage",
+      "skillName": "1d6 + BODY damage",
+      "total": 7,
+      "diceTotal": 3,
+      "modifier": 4,
+      "modifierLabel": "BODY",
+      "success": null,
+      "difficulty": null,
+      "footer": "+ BODY",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": "Fists Up",
+      "diceResults": [
+        {
+          "dieSize": 6,
+          "dieRollValue": 3,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-3"
+        }
+      ]
+    },
+    {
+      "id": "da8bd375-e52c-4b5a-9cbf-d729eb2442cf_1787364466090_362j",
+      "timestamp": 1787364466090,
+      "characterId": "da8bd375-e52c-4b5a-9cbf-d729eb2442cf",
+      "characterName": "Palfrey",
+      "portraitUrl": "https://cdn.midjourney.com/5a6c9787-cedb-4eb6-8de1-17f837a10b99/0_1_2048_N.webp",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "damage",
+      "skillName": "Estoc",
+      "total": 3,
+      "diceTotal": 1,
+      "modifier": 2,
+      "modifierLabel": "BODY",
+      "success": null,
+      "difficulty": null,
+      "footer": "+ BODY",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": "Estoc",
+      "diceResults": [
+        {
+          "dieSize": 10,
+          "dieRollValue": 1,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d10-1"
+        }
+      ]
+    },
+    {
+      "id": "da8bd375-e52c-4b5a-9cbf-d729eb2442cf_1787364687196_p2me",
+      "timestamp": 1787364687196,
+      "characterId": "da8bd375-e52c-4b5a-9cbf-d729eb2442cf",
+      "characterName": "Palfrey",
+      "portraitUrl": "https://cdn.midjourney.com/5a6c9787-cedb-4eb6-8de1-17f837a10b99/0_1_2048_N.webp",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "custom_roll",
+      "skillName": "Custom Roll",
+      "total": 17,
+      "diceTotal": 15,
+      "modifier": 2,
+      "modifierLabel": null,
+      "success": null,
+      "difficulty": null,
+      "footer": "",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 6,
+          "dieRollValue": 3,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-3"
+        },
+        {
+          "dieSize": 8,
+          "dieRollValue": 3,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d8-3"
+        },
+        {
+          "dieSize": 8,
+          "dieRollValue": 1,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d8-1"
+        },
+        {
+          "dieSize": 8,
+          "dieRollValue": 8,
+          "emoji": "✨",
+          "isDropped": false,
+          "rolledMaxValue": true,
+          "cssClass": "df-d8-8"
+        }
+      ]
+    },
+    {
+      "id": "da8bd375-e52c-4b5a-9cbf-d729eb2442cf_1787364707022_ckwk",
+      "timestamp": 1787364707022,
+      "characterId": "da8bd375-e52c-4b5a-9cbf-d729eb2442cf",
+      "characterName": "Palfrey",
+      "portraitUrl": "https://cdn.midjourney.com/5a6c9787-cedb-4eb6-8de1-17f837a10b99/0_1_2048_N.webp",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "skill_check",
+      "skillName": "Strength",
+      "total": 9,
+      "diceTotal": null,
+      "modifier": 0,
+      "modifierLabel": null,
+      "success": true,
+      "difficulty": null,
+      "footer": "Weary",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 3,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-3"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 6,
+          "emoji": "✨",
+          "isDropped": false,
+          "rolledMaxValue": true,
+          "cssClass": "df-d6-6"
         }
       ]
     }

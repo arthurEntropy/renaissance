@@ -35,7 +35,7 @@
                                 <div class="entry-header-line">
                                     <span class="entry-name" :style="{ color: engagementCharColor(entry, true) }">{{
                                         entry.characterName
-                                        }}</span><span class="entry-title"> vs </span><span class="entry-name"
+                                    }}</span><span class="entry-title"> vs </span><span class="entry-name"
                                         :style="{ color: engagementCharColor(entry, false) }">{{ entry.opponentName
                                         }}</span><span class="entry-title">:</span>
                                 </div>
@@ -80,14 +80,14 @@
                                                 Reroll
                                             </button>
                                         </div>
-                                        <!-- Inline modifier note for damage and initiative rolls -->
+                                        <!-- Inline modifier note for damage, initiative, and custom rolls -->
                                         <span
-                                            v-if="(entry.type === RollTypes.DAMAGE || entry.type === RollTypes.INITIATIVE) && entry.modifier !== 0 && entry.diceTotal != null"
+                                            v-if="(entry.type === RollTypes.DAMAGE || entry.type === RollTypes.INITIATIVE || entry.type === RollTypes.CUSTOM_ROLL) && entry.modifier !== 0 && entry.diceTotal != null"
                                             class="entry-modifier-note">{{ entry.modifier >= 0 ? '+' : '' }}{{
                                                 entry.modifier }}{{ entry.modifierLabel ? ` (${entry.modifierLabel})` : ''
                                             }}</span>
                                         <span class="entry-total" :class="outcomeClass(entry)">{{ rollTotal(entry)
-                                        }}</span>
+                                            }}</span>
                                         <span v-if="entrySuccessCount(entry) > 0" class="entry-success-stars"
                                             @click.stop="openSuccessPopup(entry, $event)">{{
                                                 '\u2728'.repeat(entrySuccessCount(entry)) }}</span>
@@ -95,8 +95,8 @@
                                             class="entry-hidden-icon" />
                                     </div>
                                 </div>
-                                <!-- Footer: suppress for damage and initiative (modifier shown inline) -->
-                                <div v-if="entry.footer && entry.type !== RollTypes.DAMAGE && entry.type !== RollTypes.INITIATIVE"
+                                <!-- Footer: suppress for damage, initiative, and custom rolls (modifier shown inline) -->
+                                <div v-if="entry.footer && entry.type !== RollTypes.DAMAGE && entry.type !== RollTypes.INITIATIVE && entry.type !== RollTypes.CUSTOM_ROLL"
                                     class="entry-footer">{{
                                         entry.footer }}</div>
                             </div>
@@ -382,7 +382,7 @@ onMounted(async () => {
     if (fetches.length) await Promise.all(fetches)
 })
 
-watch(() => props.rollLog.length, async () => {
+watch(() => displayedRollLog.value.length, async () => {
     const el = scrollRef.value
     if (!el) return
     await nextTick()
@@ -432,8 +432,8 @@ function rollTotal(entry) {
         return entry.diceTotal != null ? String(entry.diceTotal) : '—'
     }
     if (entry.total == null) return '—'
-    // For damage and initiative rolls the modifier is shown inline; return just the total.
-    if (entry.type !== RollTypes.DAMAGE && entry.type !== RollTypes.INITIATIVE && entry.modifier && entry.modifier !== 0 && entry.diceTotal != null) {
+    // For damage, initiative, and custom rolls the modifier is shown inline; return just the total.
+    if (entry.type !== RollTypes.DAMAGE && entry.type !== RollTypes.INITIATIVE && entry.type !== RollTypes.CUSTOM_ROLL && entry.modifier && entry.modifier !== 0 && entry.diceTotal != null) {
         const sign = entry.modifier >= 0 ? '+' : ''
         return `${entry.total} (${entry.diceTotal}${sign}${entry.modifier})`
     }

@@ -617,6 +617,24 @@ watch(campaignId, async (id) => {
     }
 }, { immediate: true })
 
+// Reload canvas state and combat groups when the user switches tabletops within the
+// same campaign. The campaignId watcher above only fires on campaign change, so we
+// need a separate watcher here to handle intra-campaign tabletop navigation.
+watch(tabletopId, async (tid, oldTid) => {
+    if (!tid || !campaignId.value || tid === oldTid) return
+
+    if (!campaignStore.tabletops.some((t) => t.id === tid)) {
+        await campaignStore.fetchTabletops(campaignId.value)
+    }
+
+    loadState()
+
+    if (isGM.value) {
+        const tabletop = campaignStore.tabletops.find((t) => t.id === tid)
+        characterContextStore.setGroupsFromTabletop(tabletop?.combatGroups ?? [])
+    }
+})
+
 // ─── Persist combat-group changes from the rail back to the tabletop ─────────
 // When the GM renames, reorders, or sets initiative results for a group in
 // PinnedTokensContainer, we reconstruct the combatGroups and save to the tabletop.

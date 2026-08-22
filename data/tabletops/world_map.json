@@ -2,7 +2,7 @@
   "id": "4549d4a8-2a44-48fe-9d9d-96117f6b3b4e",
   "isDeleted": false,
   "createdAt": "2026-08-17T19:35:40.912Z",
-  "lastModified": "2026-08-17T19:43:13.316Z",
+  "lastModified": "2026-08-22T02:10:57.959Z",
   "campaignId": "84b00fc0-eae8-4808-9151-949bf59928ff",
   "name": "World Map",
   "backgroundImage": {
@@ -144,18 +144,6 @@
       "zIndex": 21
     },
     {
-      "id": "ce3f3d0d-267e-42a4-b48d-f4251aba1bf9",
-      "characterId": "54f77e58-eca4-4e28-ac76-6d55493470cc",
-      "isBeast": false,
-      "isNpc": false,
-      "name": "Himo",
-      "portraitUrl": "https://cdn.midjourney.com/8ca5d116-21d5-4a5f-bb7c-7ceaf793a311/0_3_2048_N.webp",
-      "size": 44,
-      "x": 1530.111752509456,
-      "y": 798.7980519685034,
-      "zIndex": 35
-    },
-    {
       "id": "1ee05a37-9273-445b-a325-0814ccfc693a",
       "characterId": "8f20a6c3-b272-45d6-9d80-c07ced314693",
       "isBeast": false,
@@ -175,9 +163,9 @@
       "name": "Magnuss",
       "portraitUrl": "https://cdn.midjourney.com/9d007aef-e372-4e42-9581-a2703cfe7018/0_2_2048_N.webp",
       "size": 44,
-      "x": 2326.7679888645766,
-      "y": 206.26507266184166,
-      "zIndex": 27
+      "x": 2325.463321979033,
+      "y": 203.6557388907542,
+      "zIndex": 45
     },
     {
       "id": "10a111b7-641e-46bc-a4b5-50b1b0a31c4f",
@@ -226,12 +214,24 @@
       "x": 1617.9868866079748,
       "y": 473.201154461579,
       "zIndex": 32
+    },
+    {
+      "id": "c3f7df5c-af24-425e-b3e8-e18ba6f82504",
+      "characterId": "54f77e58-eca4-4e28-ac76-6d55493470cc",
+      "isBeast": false,
+      "isNpc": false,
+      "name": "Himo",
+      "portraitUrl": "https://cdn.midjourney.com/8ca5d116-21d5-4a5f-bb7c-7ceaf793a311/0_3_2048_N.webp",
+      "size": 44,
+      "x": 1541.6901990821573,
+      "y": 804.7943623282531,
+      "zIndex": 44
     }
   ],
   "transform": {
     "scale": 0.7664791764705879,
     "x": -321.5359760476217,
-    "y": 18.445738052115473
+    "y": 18.27933805211569
   },
   "gridSize": 40,
   "gridColor": "#ffffff",

@@ -535,7 +535,7 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved, isWorl
         if (!dc) return
         const pos = _containerPos(e)
         if (!pos) return
-        const halfPx = ((dc.size || 1) * gridSize.value) / 2
+        const halfPx = isWorldMap ? characterTokenSize.value / 2 : ((dc.size || 1) * gridSize.value) / 2
         dropGhost.value = {
             ...dc,
             x: snap(pos.canvasX - halfPx),
@@ -594,7 +594,7 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved, isWorl
             try { snapshot = JSON.parse(raw) } catch { return }
             const pos = _containerPos(e)
             if (!pos) return
-            const halfPx = ((snapshot.size || 1) * (isWorldMap ? 1 : gridSize.value)) / 2
+            const halfPx = isWorldMap ? characterTokenSize.value / 2 : ((snapshot.size || 1) * gridSize.value) / 2
             const x = snap(pos.canvasX - halfPx)
             const y = snap(pos.canvasY - halfPx)
             recordSnapshot()
@@ -1088,7 +1088,7 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved, isWorl
             isNpc: snapshot.isNpc ?? false,
             name: snapshot.name ?? 'Unknown',
             portraitUrl: snapshot.portraitUrl ?? null,
-            size: snapshot.size || 1,
+            size: isWorldMap ? characterTokenSize.value : (snapshot.size || 1),
             x,
             y,
             zIndex: topZIndex.value,
