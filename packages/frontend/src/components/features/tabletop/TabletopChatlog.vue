@@ -61,7 +61,7 @@
                                         class="entry-title">:</span>
                                 </div>
                                 <!-- Dice row wrapper: tracks hover to show the centered reroll button -->
-                                <div class="entry-dice-row-wrap"
+                                <div v-if="entry.type !== RollTypes.CHAT_LINK" class="entry-dice-row-wrap"
                                     @mouseenter="canRerollEntry(entry) ? hoveredRerollEntryId = entry.id : null"
                                     @mouseleave="hoveredRerollEntryId = null">
                                     <div class="entry-dice-row">
@@ -417,6 +417,8 @@ function rollTitleBase(entry) {
             return 'rolled'
         case RollTypes.DAMAGE:
             return 'rolled damage'
+        case RollTypes.CHAT_LINK:
+            return 'shared'
         default: { // SKILL_CHECK + anything else
             const fav = entry.favoredStatus ? `, ${entry.favoredStatus}` : ''
             return `rolled ${entry.skillName || '?'}${fav}`
@@ -792,7 +794,7 @@ function openSuccessPopup(entry, event) {
 
 /* Source name (ability/equipment origin) — cyan and hoverable */
 .entry-source {
-    font-size: var(--font-size-10);
+    font-size: var(--font-size-12);
     color: var(--color-accent-cyan);
     cursor: pointer;
 }

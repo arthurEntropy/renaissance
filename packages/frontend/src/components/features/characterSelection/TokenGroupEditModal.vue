@@ -118,7 +118,7 @@ import { useCharactersStore } from '@/stores/charactersStore'
 import { useCampaignStore } from '@/stores/campaignStore'
 import { useTabletopSharedCanvas } from '@/composables/useTabletopSharedCanvas'
 import { useCascadeColumnPositioning } from '@/composables/useCascadeColumnPositioning'
-import { toLetterSuffix } from '@shared/utils/letterSuffix'
+import { pickNextCircledSuffix } from '@shared/utils/letterSuffix'
 import { useConfirm } from '@/composables/useConfirm'
 import CharacterSheetPopup from '@/components/features/tabletop/CharacterSheetPopup.vue'
 
@@ -415,19 +415,16 @@ function handleHoverType(option, event) {
 }
 
 const getNextBeastInstanceName = (baseName) => {
-    const escaped = String(baseName || '').replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
-    const suffixPattern = new RegExp(`^${escaped}\\s+([A-Z]+)$`)
-    const usedSuffixes = new Set()
-    for (const beast of beasts.value || []) {
-        if (!beast?.name) continue
-        const match = beast.name.match(suffixPattern)
-        if (match?.[1]) usedSuffixes.add(match[1])
-    }
-    for (let i = 0; i < 702; i++) {
-        const suffix = toLetterSuffix(i)
-        if (!usedSuffixes.has(suffix)) return `${baseName} ${suffix}`
-    }
-    return `${baseName} ${Date.now()}`
+    // Collect all beast instance IDs currently on this tabletop (across all groups)
+    const tabletopBeastIds = new Set(
+        Object.values(characterContextStore.pinnedGroupsById)
+            .flatMap(g => g.combatants || [])
+            .filter(c => c.type === 'beast')
+            .map(c => c.characterId)
+    )
+    const relevant = (beasts.value || []).filter(b => b?.id && tabletopBeastIds.has(b.id))
+    const suffix = pickNextCircledSuffix(relevant, baseName)
+    return `${baseName} ${suffix}`
 }
 
 async function createBeastInstance(templateId) {
@@ -444,6 +441,7 @@ async function createBeastInstance(templateId) {
             characterType: 'beastInstance',
             templateId: template.id,
             campaignId: cid,
+            tabletopId: route.params.tabletopId || null,
             createdAt: new Date().toISOString(),
             lastModified: new Date().toISOString(),
         }

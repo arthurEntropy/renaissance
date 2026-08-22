@@ -4,7 +4,8 @@
     @roll-link="handleRollLinkWithBiome" :itemType="ItemType.ABILITY"
     :class="[$attrs.class, biomeLinkClass, { 'ability-card--active': isAbilityActive, 'ability-card--with-difficulty': isShowingDifficulty }]"
     :show-source="false" @mouseenter="onCardMouseEnter" @mouseleave="cardPreview.scheduleHide()"
-    @mousedown="onCardMouseDown" :has-description-slot-content="hasDescriptionSlotContent">
+    @mousedown="onCardMouseDown" :has-description-slot-content="hasDescriptionSlotContent"
+    @send-to-chat="handleSendToChat">
 
     <!-- XP badge positioned relative to main description when character owns any improvements OR when improvements are expanded -->
     <template #description-badge>
@@ -93,6 +94,7 @@ import ConfirmRemovalModal from '@/components/ui/modals/ConfirmRemovalModal.vue'
 import CharacterService from '@/services/entities/characterService'
 import { scheduleStatsRefund } from '@/composables/useCharacterStatWatchers'
 import { ItemType } from '@shared/constants/itemTypes'
+import { useRollsStore } from '@/stores/rollsStore'
 
 const props = defineProps({
   ability: {
@@ -388,6 +390,12 @@ function handleActivateToggle() {
   } else {
     emit('activate', props.ability.id)
   }
+}
+
+function handleSendToChat() {
+  if (!props.character) return
+  const rollsStore = useRollsStore()
+  rollsStore.sendChatLink(props.ability.name, props.character)
 }
 
 async function handleDuplicate() {

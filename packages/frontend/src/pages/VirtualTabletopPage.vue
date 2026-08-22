@@ -490,7 +490,7 @@ function handleTokenCmdClick(item, e) {
 }
 
 /** Double-clicking a token opens its CharacterSheetPopup directly. */
-function handleTokenDoubleClick(item, e) {
+function handleTokenDoubleClick(item) {
     if (!item.characterId) return
     const char = resolveCharacterById(item.characterId)
     if (!char) return

@@ -6,7 +6,7 @@
     :class="{ 'equipment-card--with-difficulty': showDifficultyBadge && hasDifficultyBadge }"
     @edit="$emit('edit', equipment)" @duplicate="handleDuplicate" @roll-link="$emit('roll-link', $event)"
     @mouseenter="onCardMouseEnter" @mouseleave="cardPreview.scheduleHide()" @mousedown="onCardMouseDown"
-    :has-description-slot-content="hasDescriptionSlotContent">
+    :has-description-slot-content="hasDescriptionSlotContent" @send-to-chat="handleSendToChat">
 
     <!-- Defense bonus in collapsed header (not shown when expanded since it appears in the card body) -->
     <template v-if="collapsed && equipment.defenseBonus > 0" #meta-prefix>
@@ -218,6 +218,7 @@ import { useEquipmentRangesStore } from '@/stores/equipmentRangesStore'
 import { useKeepingStore } from '@/stores/keepingStore'
 import { useCharactersStore } from '@/stores/charactersStore'
 import { useConceptsStore } from '@/stores/conceptsStore'
+import { useRollsStore } from '@/stores/rollsStore'
 import { useImprovements } from '@/composables/useImprovements'
 import BaseCard from '@/components/ui/cards/item/BaseCard.vue'
 import DifficultyBadge from '@/components/ui/cards/item/DifficultyBadge.vue'
@@ -808,6 +809,12 @@ const handleDuplicate = async () => {
   } catch (error) {
     console.error('Error duplicating equipment:', error)
   }
+}
+
+function handleSendToChat() {
+  if (!props.character) return
+  const rollsStore = useRollsStore()
+  rollsStore.sendChatLink(props.equipment.name, props.character)
 }
 
 // Lifecycle

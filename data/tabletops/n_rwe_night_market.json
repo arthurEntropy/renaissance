@@ -2,7 +2,7 @@
   "id": "18953367-9a25-4dd1-8429-ff2820832d9b",
   "isDeleted": false,
   "createdAt": "2026-08-17T19:54:55.724Z",
-  "lastModified": "2026-08-22T02:11:47.555Z",
+  "lastModified": "2026-08-22T21:01:38.133Z",
   "campaignId": "84b00fc0-eae8-4808-9151-949bf59928ff",
   "name": "Nïrwe Night Market",
   "backgroundImage": {
@@ -33,7 +33,7 @@
       "size": 1,
       "x": 800,
       "y": 400,
-      "zIndex": 28
+      "zIndex": 50
     },
     {
       "id": "a96eb29f-82d2-4ec3-ae5f-4d2e0cecd8a6",
@@ -60,46 +60,46 @@
       "zIndex": 40
     },
     {
-      "id": "82c442c8-8e19-48b1-851b-7c23b93ecd98",
+      "id": "090d9fed-8182-4f57-86a7-22700acc38b9",
       "characterId": "ce6c45df-906d-4f6a-85e9-58a7b458a394",
       "isBeast": true,
       "isNpc": false,
-      "name": "Carrion Crawler A",
+      "name": "Carrion Crawler 🅐",
       "portraitUrl": "https://cdn.midjourney.com/48444f34-cffe-4732-ba92-522ed9c62a29/0_3.png",
       "size": 2,
       "x": 640,
       "y": 240,
-      "zIndex": 36
+      "zIndex": 44
     },
     {
-      "id": "22ecd62c-6539-436a-acf7-0e97411fa91f",
+      "id": "1495878f-0a59-40d8-803b-52ccf83b5f9d",
       "characterId": "b84a8a85-f236-4880-96a5-86af7c754fe7",
       "isBeast": true,
       "isNpc": false,
-      "name": "Carrion Crawler B",
+      "name": "Carrion Crawler 🅑",
       "portraitUrl": "https://cdn.midjourney.com/48444f34-cffe-4732-ba92-522ed9c62a29/0_3.png",
       "size": 2,
-      "x": 800,
-      "y": 200,
-      "zIndex": 35
+      "x": 840,
+      "y": 240,
+      "zIndex": 49
     },
     {
-      "id": "c5582232-ad52-45fb-ba9f-d4f5d5b629eb",
+      "id": "486f496f-628d-4a15-b4f2-a4fe44e61ea2",
       "characterId": "8f56a2a7-87f1-4f6e-ba28-bd3327ce5da6",
       "isBeast": true,
       "isNpc": false,
-      "name": "Carrion Crawler C",
+      "name": "Carrion Crawler 🅒",
       "portraitUrl": "https://cdn.midjourney.com/48444f34-cffe-4732-ba92-522ed9c62a29/0_3.png",
       "size": 2,
       "x": 520,
-      "y": 360,
-      "zIndex": 38
+      "y": 320,
+      "zIndex": 47
     }
   ],
   "transform": {
-    "scale": 1.0799999999999996,
-    "x": -146.53451485602875,
-    "y": -177.1415398943942
+    "scale": 0.9259259259259254,
+    "x": -181.4593970777363,
+    "y": 161.3249410503289
   },
   "gridSize": 40,
   "gridColor": "#ffffff",
@@ -1809,6 +1809,32 @@
           "cssClass": "df-d6-6"
         }
       ]
+    },
+    {
+      "id": "8f20a6c3-b272-45d6-9d80-c07ced314693_1787369707238_fco0",
+      "timestamp": 1787369707238,
+      "characterId": "8f20a6c3-b272-45d6-9d80-c07ced314693",
+      "characterName": "Jebeddo",
+      "portraitUrl": "https://cdn.midjourney.com/60fb6863-799d-4119-807e-b397a9bb7534/0_0_2048_N.webp",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "chat_link",
+      "skillName": null,
+      "total": null,
+      "diceTotal": null,
+      "modifier": 0,
+      "modifierLabel": null,
+      "success": null,
+      "difficulty": null,
+      "footer": null,
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": "Rapier",
+      "diceResults": []
     }
   ],
   "combatGroups": [
@@ -1877,6 +1903,21 @@
           "id": "beast:58c39f0b-226b-4311-90b3-b89ec7b5549e",
           "type": "beast",
           "characterId": "58c39f0b-226b-4311-90b3-b89ec7b5549e"
+        },
+        {
+          "id": "beast:e579cbd9-b6f7-452b-94b8-724293600bd1",
+          "type": "beast",
+          "characterId": "e579cbd9-b6f7-452b-94b8-724293600bd1"
+        },
+        {
+          "id": "beast:0740df81-d9d5-4e7e-817f-a73e79ec918c",
+          "type": "beast",
+          "characterId": "0740df81-d9d5-4e7e-817f-a73e79ec918c"
+        },
+        {
+          "id": "beast:46764086-6b39-43fc-b5d7-7b37c4775b1c",
+          "type": "beast",
+          "characterId": "46764086-6b39-43fc-b5d7-7b37c4775b1c"
         }
       ]
     }

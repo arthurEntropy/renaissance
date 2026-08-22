@@ -5,4 +5,5 @@ export const RollTypes = {
   DAMAGE: 'damage',
   INITIATIVE: 'initiative',
   INJURY: 'injury',
+  CHAT_LINK: 'chat_link',
 }

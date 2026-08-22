@@ -2,7 +2,7 @@
   "id": "3f52681d-7231-472d-9ce1-305d7db7c791",
   "isDeleted": false,
   "createdAt": "2026-08-17T20:35:56.891Z",
-  "lastModified": "2026-08-22T00:47:17.836Z",
+  "lastModified": "2026-08-22T02:40:35.028Z",
   "campaignId": "84b00fc0-eae8-4808-9151-949bf59928ff",
   "name": "Shroom Grove",
   "backgroundImage": {
@@ -57,7 +57,7 @@
       "size": 3,
       "x": 520,
       "y": 600,
-      "zIndex": 37
+      "zIndex": 45
     },
     {
       "id": "b325e8ee-00d7-4be0-aca2-7c6bfa359fa6",
@@ -69,7 +69,8 @@
       "size": 1,
       "x": 640,
       "y": 520,
-      "zIndex": 38
+      "zIndex": 42,
+      "isHidden": false
     },
     {
       "id": "d28cffc0-ba6d-4387-9db0-07ee35c00d8f",
@@ -81,13 +82,13 @@
       "size": 1,
       "x": 720,
       "y": 560,
-      "zIndex": 30
+      "zIndex": 43
     }
   ],
   "transform": {
-    "scale": 1,
-    "x": -114,
-    "y": 51.5
+    "scale": 0.9259259259259252,
+    "x": 241.66233628248426,
+    "y": 111.22185869253843
   },
   "gridSize": 40,
   "gridColor": "#ffffff",

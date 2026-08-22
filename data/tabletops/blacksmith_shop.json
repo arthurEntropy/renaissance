@@ -2,7 +2,7 @@
   "id": "7afda792-c821-433c-94b6-36cfbc1a24d4",
   "isDeleted": false,
   "createdAt": "2026-08-17T20:33:40.216Z",
-  "lastModified": "2026-08-22T02:08:04.976Z",
+  "lastModified": "2026-08-22T02:41:13.543Z",
   "campaignId": "84b00fc0-eae8-4808-9151-949bf59928ff",
   "name": "Blacksmith Shop",
   "backgroundImage": {
@@ -85,9 +85,9 @@
     }
   ],
   "transform": {
-    "scale": 1.5868743229440005,
-    "x": 173.9624349245439,
-    "y": 154.42408992153582
+    "scale": 1.5868743229440003,
+    "x": 195.12536740434894,
+    "y": 149.0858284776503
   },
   "gridSize": 40,
   "gridColor": "#ffffff",

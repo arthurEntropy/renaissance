@@ -4,7 +4,10 @@
     :style="cardStyle" @click="collapsible ? toggleCollapsed() : null">
 
     <!-- Admin Buttons -->
-    <div v-if="editable || duplicatable || deletable || $slots['admin-actions']" class="admin-buttons">
+    <div v-if="editable || duplicatable || deletable || $slots['admin-actions'] || chatFabEnabled"
+      class="admin-buttons">
+      <FloatingActionButton v-if="chatFabEnabled" :variant="FAB_TYPES.CHAT" @click.stop="$emit('send-to-chat')"
+        :size="FAB_SIZES.SMALL" :visibility="FAB_VISIBILITIES.ON_HOVER" class="chat-button-floating" />
       <FloatingActionButton v-if="deletable" :variant="deleteFabVariant" @click.stop="$emit('delete', item)"
         :size="FAB_SIZES.SMALL" :visibility="FAB_VISIBILITIES.ON_HOVER" class="delete-button-floating" />
       <FloatingActionButton v-if="duplicatable" :variant="FAB_TYPES.DUPLICATE" @click.stop="$emit('duplicate', item)"
@@ -96,7 +99,7 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, inject } from 'vue'
 import { useSourcesStore } from '@/stores/sourcesStore'
 import { useUserStore } from '@/stores/userStore'
 import { useBiomeStore } from '@/stores/biomeStore'
@@ -131,6 +134,9 @@ const props = defineProps({
 })
 
 const emit = defineEmits(['edit', 'duplicate', 'delete', 'update', 'send-to-chat', 'height-changed', 'update:collapsed', 'roll-link'])
+
+// True when rendered inside CharacterSheetPopup (provided by that component)
+const chatFabEnabled = inject('chatFabEnabled', false)
 
 // Stores
 const abilitySchoolsStore = useAbilitySchoolsStore()

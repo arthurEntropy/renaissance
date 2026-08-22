@@ -20,7 +20,7 @@
 <script setup>
 import { computed } from 'vue'
 // Heroicons
-import { PlusIcon, DocumentDuplicateIcon, PencilIcon, CheckIcon, XMarkIcon, TrashIcon, Bars3Icon, Cog6ToothIcon, ArrowPathIcon, BookOpenIcon, ChevronDoubleDownIcon, ChevronDoubleUpIcon, EyeIcon, EyeSlashIcon, ArrowUpIcon, ArrowDownIcon, BoltIcon, BoltSlashIcon, ArrowRightStartOnRectangleIcon, ArrowTopRightOnSquareIcon, LockClosedIcon, LockOpenIcon, ArchiveBoxIcon } from '@heroicons/vue/24/outline'
+import { PlusIcon, DocumentDuplicateIcon, PencilIcon, CheckIcon, XMarkIcon, TrashIcon, Bars3Icon, Cog6ToothIcon, ArrowPathIcon, BookOpenIcon, ChevronDoubleDownIcon, ChevronDoubleUpIcon, EyeIcon, EyeSlashIcon, ArrowUpIcon, ArrowDownIcon, BoltIcon, BoltSlashIcon, ArrowRightStartOnRectangleIcon, ArrowTopRightOnSquareIcon, LockClosedIcon, LockOpenIcon, ArchiveBoxIcon, ChatBubbleLeftRightIcon } from '@heroicons/vue/24/outline'
 // Custom icons
 import CrossedSwordsIcon from '@/assets/icons/characterSheet/crossed_swords.svg?component'
 import DieIcon from '@/assets/icons/characterSheet/die.svg?component'
@@ -98,6 +98,7 @@ const FAB_TYPE_CONFIG = {
     [FAB_TYPES.UNLOCKED]: { icon: LockOpenIcon, tooltip: 'Tokens unlocked (click to lock)' },
     [FAB_TYPES.ARCHIVE]: { icon: ArchiveBoxIcon, tooltip: 'Archive' },
     [FAB_TYPES.SELL]: { tooltip: 'Sell item' },
+    [FAB_TYPES.CHAT]: { icon: ChatBubbleLeftRightIcon, tooltip: 'Share to chatlog' },
 }
 
 const variantConfig = computed(() => FAB_TYPE_CONFIG[props.variant])
@@ -357,6 +358,21 @@ const variantConfig = computed(() => FAB_TYPE_CONFIG[props.variant])
 .fab--sell:hover .fab__icon--png {
     filter: brightness(0);
     opacity: 1;
+}
+
+.fab--chat:hover {
+    background: var(--color-accent-cyan);
+    border-color: var(--color-accent-cyan);
+}
+
+.fab--chat .fab__icon--small,
+.fab--chat .fab__icon--large {
+    color: var(--color-accent-cyan);
+}
+
+.fab--chat:hover .fab__icon--small,
+.fab--chat:hover .fab__icon--large {
+    color: var(--color-black);
 }
 
 /* === VISIBILITY VARIANTS === */

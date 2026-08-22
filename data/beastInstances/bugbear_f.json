@@ -2,9 +2,9 @@
   "id": "b536c300-b3b1-49b7-bc04-357c4d3b3bae",
   "isDeleted": false,
   "createdAt": "2026-08-17T20:23:42.125Z",
-  "lastModified": "2026-08-18T18:27:02.329Z",
+  "lastModified": "2026-08-22T02:41:20.080Z",
   "characterType": "beastInstance",
-  "name": "Bugbear F",
+  "name": "Bugbear 🅕",
   "featuredArtUrls": [
     "https://cdn.midjourney.com/1402c1f5-f529-40e7-9999-fb156e622698/0_1.png"
   ],
@@ -350,7 +350,7 @@
     "b7e57001-0000-4000-a000-00000000000a",
     "b7e57001-0000-4000-a000-000000000002"
   ],
-  "updatedAt": "2026-08-18T18:27:02.329Z",
+  "updatedAt": "2026-08-22T02:41:20.080Z",
   "challenge": 11,
   "templateId": "e5ccf49a-de26-4459-9e67-0be307c23db1"
 }

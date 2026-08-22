@@ -12,7 +12,7 @@ import { getUserProfile } from './userController.js'
 import { CAMPAIGN_ROLE, CAMPAIGN_MEMBER_STATUS } from '../../../shared/constants/campaignConstants.js'
 import { createDefaultCampaign } from '../../../shared/types/campaign.js'
 import { createDefaultTabletop, createDefaultWorldMap } from '../../../shared/types/tabletop.js'
-import { toLetterSuffix } from '../../../shared/utils/letterSuffix.js'
+import { pickNextCircledSuffix } from '../../../shared/utils/letterSuffix.js'
 import { v4 as uuidv4 } from 'uuid'
 import { getAllActiveCampaigns, getCampaignById, getCampaignMembership } from '../utils/campaignUtils.js'
 
@@ -34,30 +34,8 @@ const generateSlug = (name) =>
     .replace(/\s+/g, '-')
     .replace(/^-|-$/g, '') || 'campaign'
 
-const getNextBeastInstanceSuffix = (allCharacters, templateId, baseName) => {
-  const prefix = `${baseName} `
-  const usedSuffixes = new Set(
-    allCharacters
-      .filter(
-        (c) =>
-          getCharacterType(c) === 'beastInstance' &&
-          c.templateId === templateId &&
-          !c.isDeleted
-      )
-      .map((c) => c.name)
-      .filter((name) => typeof name === 'string' && name.startsWith(prefix))
-      .map((name) => name.slice(prefix.length).trim())
-      .filter(Boolean)
-  )
-
-  for (let i = 0; i < 4096; i += 1) {
-    const candidate = toLetterSuffix(i)
-    if (!usedSuffixes.has(candidate)) {
-      return candidate
-    }
-  }
-
-  return uuidv4().slice(0, 8).toUpperCase()
+const getNextBeastInstanceSuffix = (relevantInstances, baseName) => {
+  return pickNextCircledSuffix(relevantInstances, baseName)
 }
 
 const pickWeightedEntry = (entries, totalWeight) => {
@@ -448,14 +426,36 @@ export const createCampaignCharacter = (req, res) => {
       return res.status(400).json({ error: 'Beast instances require templateId' })
     }
 
-    // Assign a stable, non-colliding suffix (A..Z, AA..ZZ, etc.) for beast instances.
+    // Assign a stable, non-colliding suffix (🅐..🅩, 🅐🅐..🅩🅩, …) for beast instances.
     if (characterType === 'beastInstance' && character.templateId) {
       const allChars = getAllCharacterData()
       const template = allChars.find((c) => c.id === character.templateId)
       const baseName = template?.name || 'Beast'
 
-      const suffix = getNextBeastInstanceSuffix(allChars, character.templateId, baseName)
+      // Scope to the specific tabletop when provided, otherwise use all campaign instances.
+      let relevant = allChars.filter(
+        (c) =>
+          getCharacterType(c) === 'beastInstance' &&
+          c.templateId === character.templateId &&
+          !c.isDeleted
+      )
+      const tabletopId = character.tabletopId
+      if (tabletopId) {
+        const tabletop = getTabletopById(tabletopId)
+        if (tabletop) {
+          const onTabletop = new Set(
+            (tabletop.combatGroups || [])
+              .flatMap((g) => g.combatants || [])
+              .filter((c) => c.type === 'beast')
+              .map((c) => c.characterId)
+          )
+          relevant = relevant.filter((c) => onTabletop.has(c.id))
+        }
+      }
+
+      const suffix = getNextBeastInstanceSuffix(relevant, baseName)
       character.name = `${baseName} ${suffix}`
+      delete character.tabletopId
     }
 
     saveCharacterFile(character)

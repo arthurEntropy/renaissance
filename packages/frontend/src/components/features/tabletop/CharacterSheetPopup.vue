@@ -65,7 +65,7 @@
 </template>
 
 <script setup>
-import { ref, computed, watch, nextTick, onMounted, onUnmounted } from 'vue'
+import { ref, computed, watch, nextTick, onMounted, onUnmounted, provide } from 'vue'
 import { useCharactersStore } from '@/stores/charactersStore'
 import { isBeastInstance, isBeastTemplate } from '@/utils/characterTypeGuards'
 import CharacterToken from '@/components/features/characterSelection/CharacterToken.vue'
@@ -106,6 +106,9 @@ const props = defineProps({
 })
 
 const emit = defineEmits(['close', 'character-saved'])
+
+// Allow BaseCard descendants to show the CHAT FAB
+provide('chatFabEnabled', true)
 
 const charactersStore = useCharactersStore()
 const conceptsStore = useConceptsStore()

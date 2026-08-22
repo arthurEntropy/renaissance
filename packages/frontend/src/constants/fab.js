@@ -34,6 +34,7 @@ export const FAB_TYPES = {
     UNLOCKED: 'unlocked',
     ARCHIVE: 'archive',
     SELL: 'sell',
+    CHAT: 'chat',
 }
 
 export const FAB_SIZES = {
