@@ -2,7 +2,7 @@
   "id": "13e267c3-f608-466d-9a8d-7442dcd5a7d4",
   "isDeleted": false,
   "createdAt": "2026-08-17T19:28:51.662Z",
-  "lastModified": "2026-08-24T14:58:32.983Z",
+  "lastModified": "2026-08-24T17:54:09.929Z",
   "characterType": "playerCharacter",
   "name": "Sukha",
   "featuredArtUrls": [
@@ -335,5 +335,5 @@
   "treasure": 0,
   "xp": 0,
   "description": "",
-  "updatedAt": "2026-08-24T14:58:32.983Z"
+  "updatedAt": "2026-08-24T17:54:09.929Z"
 }

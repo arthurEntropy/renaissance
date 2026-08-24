@@ -2,7 +2,7 @@
   "id": "18953367-9a25-4dd1-8429-ff2820832d9b",
   "isDeleted": false,
   "createdAt": "2026-08-17T19:54:55.724Z",
-  "lastModified": "2026-08-24T17:40:58.035Z",
+  "lastModified": "2026-08-24T17:55:21.410Z",
   "campaignId": "84b00fc0-eae8-4808-9151-949bf59928ff",
   "name": "Nïrwe Night Market",
   "backgroundImage": {
@@ -33,7 +33,7 @@
       "size": 1,
       "x": 800,
       "y": 400,
-      "zIndex": 57
+      "zIndex": 58
     },
     {
       "id": "a96eb29f-82d2-4ec3-ae5f-4d2e0cecd8a6",
@@ -97,9 +97,9 @@
     }
   ],
   "transform": {
-    "scale": 1.0799999999999994,
-    "x": -107.6727666911687,
-    "y": 53.43750983583095
+    "scale": 1.0799999999999992,
+    "x": 5.32723330883141,
+    "y": 82.44390983583105
   },
   "gridSize": 40,
   "gridColor": "#ffffff",
@@ -2278,9 +2278,347 @@
           "cssClass": "df-d6-6"
         }
       ]
+    },
+    {
+      "id": "54f77e58-eca4-4e28-ac76-6d55493470cc_1787594049641_nq15",
+      "timestamp": 1787594049641,
+      "characterId": "54f77e58-eca4-4e28-ac76-6d55493470cc",
+      "characterName": "Himo",
+      "portraitUrl": "https://cdn.midjourney.com/8ca5d116-21d5-4a5f-bb7c-7ceaf793a311/0_3_2048_N.webp",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "initiative",
+      "skillName": "Initiative",
+      "total": 8,
+      "diceTotal": 7,
+      "modifier": 1,
+      "modifierLabel": "WITS",
+      "success": null,
+      "difficulty": null,
+      "footer": null,
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 7,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-7"
+        }
+      ]
+    },
+    {
+      "id": "8f20a6c3-b272-45d6-9d80-c07ced314693_1787594049645_mtv8",
+      "timestamp": 1787594049645,
+      "characterId": "8f20a6c3-b272-45d6-9d80-c07ced314693",
+      "characterName": "Jebeddo",
+      "portraitUrl": "https://cdn.midjourney.com/60fb6863-799d-4119-807e-b397a9bb7534/0_0_2048_N.webp",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "initiative",
+      "skillName": "Initiative",
+      "total": 8,
+      "diceTotal": 7,
+      "modifier": 1,
+      "modifierLabel": "WITS",
+      "success": null,
+      "difficulty": null,
+      "footer": null,
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 7,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-7"
+        }
+      ]
+    },
+    {
+      "id": "da8bd375-e52c-4b5a-9cbf-d729eb2442cf_1787594049652_jckv",
+      "timestamp": 1787594049652,
+      "characterId": "da8bd375-e52c-4b5a-9cbf-d729eb2442cf",
+      "characterName": "Palfrey",
+      "portraitUrl": "https://cdn.midjourney.com/5a6c9787-cedb-4eb6-8de1-17f837a10b99/0_1_2048_N.webp",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "initiative",
+      "skillName": "Initiative",
+      "total": 9,
+      "diceTotal": 7,
+      "modifier": 2,
+      "modifierLabel": "WITS",
+      "success": null,
+      "difficulty": null,
+      "footer": null,
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 7,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-7"
+        }
+      ]
+    },
+    {
+      "id": "13e267c3-f608-466d-9a8d-7442dcd5a7d4_1787594049660_db4p",
+      "timestamp": 1787594049660,
+      "characterId": "13e267c3-f608-466d-9a8d-7442dcd5a7d4",
+      "characterName": "Sukha",
+      "portraitUrl": "https://cdn.midjourney.com/95c9a8b1-d0a7-4b44-9c87-91a500f4db7d/0_1_2048_N.webp",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "initiative",
+      "skillName": "Initiative",
+      "total": 10,
+      "diceTotal": 8,
+      "modifier": 2,
+      "modifierLabel": "WITS",
+      "success": null,
+      "difficulty": null,
+      "footer": null,
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 8,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-8"
+        }
+      ]
+    },
+    {
+      "id": "ce6c45df-906d-4f6a-85e9-58a7b458a394_1787594050953_epy3",
+      "timestamp": 1787594050953,
+      "characterId": "ce6c45df-906d-4f6a-85e9-58a7b458a394",
+      "characterName": "Carrion Crawler 🅐",
+      "portraitUrl": "https://cdn.midjourney.com/48444f34-cffe-4732-ba92-522ed9c62a29/0_3.png",
+      "isNpc": false,
+      "isBeast": true,
+      "type": "initiative",
+      "skillName": "Initiative",
+      "total": 13,
+      "diceTotal": 12,
+      "modifier": 1,
+      "modifierLabel": "WITS",
+      "success": null,
+      "difficulty": null,
+      "footer": null,
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 12,
+          "emoji": "🌞",
+          "isDropped": false,
+          "rolledMaxValue": true,
+          "cssClass": "df-d12-12"
+        }
+      ]
+    },
+    {
+      "id": "b84a8a85-f236-4880-96a5-86af7c754fe7_1787594050969_byby",
+      "timestamp": 1787594050969,
+      "characterId": "b84a8a85-f236-4880-96a5-86af7c754fe7",
+      "characterName": "Carrion Crawler 🅑",
+      "portraitUrl": "https://cdn.midjourney.com/48444f34-cffe-4732-ba92-522ed9c62a29/0_3.png",
+      "isNpc": false,
+      "isBeast": true,
+      "type": "initiative",
+      "skillName": "Initiative",
+      "total": 4,
+      "diceTotal": 3,
+      "modifier": 1,
+      "modifierLabel": "WITS",
+      "success": null,
+      "difficulty": null,
+      "footer": null,
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 3,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-3"
+        }
+      ]
+    },
+    {
+      "id": "8f56a2a7-87f1-4f6e-ba28-bd3327ce5da6_1787594050982_hxof",
+      "timestamp": 1787594050982,
+      "characterId": "8f56a2a7-87f1-4f6e-ba28-bd3327ce5da6",
+      "characterName": "Carrion Crawler 🅒",
+      "portraitUrl": "https://cdn.midjourney.com/48444f34-cffe-4732-ba92-522ed9c62a29/0_3.png",
+      "isNpc": false,
+      "isBeast": true,
+      "type": "initiative",
+      "skillName": "Initiative",
+      "total": 1,
+      "diceTotal": 0,
+      "modifier": 1,
+      "modifierLabel": "WITS",
+      "success": null,
+      "difficulty": null,
+      "footer": null,
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 11,
+          "emoji": "💀",
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-11"
+        }
+      ]
+    },
+    {
+      "id": "8f20a6c3-b272-45d6-9d80-c07ced314693_1787594114119_73oh",
+      "timestamp": 1787594114119,
+      "characterId": "8f20a6c3-b272-45d6-9d80-c07ced314693",
+      "characterName": "Jebeddo",
+      "portraitUrl": "https://cdn.midjourney.com/60fb6863-799d-4119-807e-b397a9bb7534/0_0_2048_N.webp",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "chat_link",
+      "skillName": null,
+      "total": null,
+      "diceTotal": null,
+      "modifier": 0,
+      "modifierLabel": null,
+      "success": null,
+      "difficulty": null,
+      "footer": null,
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": "Rapier",
+      "diceResults": []
     }
   ],
   "combatGroups": [
+    {
+      "id": "group-1786997113595-cl6u3s",
+      "name": "CARRION MY WAYWARD SONS",
+      "combatants": [
+        {
+          "id": "beast:ce6c45df-906d-4f6a-85e9-58a7b458a394",
+          "type": "beast",
+          "characterId": "ce6c45df-906d-4f6a-85e9-58a7b458a394"
+        },
+        {
+          "id": "beast:b84a8a85-f236-4880-96a5-86af7c754fe7",
+          "type": "beast",
+          "characterId": "b84a8a85-f236-4880-96a5-86af7c754fe7"
+        },
+        {
+          "id": "beast:8f56a2a7-87f1-4f6e-ba28-bd3327ce5da6",
+          "type": "beast",
+          "characterId": "8f56a2a7-87f1-4f6e-ba28-bd3327ce5da6"
+        }
+      ],
+      "initiativeResults": {
+        "groupTotal": 14,
+        "members": [
+          {
+            "characterId": "ce6c45df-906d-4f6a-85e9-58a7b458a394",
+            "name": "Carrion Crawler 🅐",
+            "individualTotal": 13,
+            "diceRoll": 12,
+            "isSol": true,
+            "isMorte": false,
+            "isCaughtOffGuard": false,
+            "emoji": "🌞",
+            "role": "highest",
+            "success": true
+          },
+          {
+            "characterId": "b84a8a85-f236-4880-96a5-86af7c754fe7",
+            "name": "Carrion Crawler 🅑",
+            "individualTotal": 4,
+            "diceRoll": 3,
+            "isSol": false,
+            "isMorte": false,
+            "isCaughtOffGuard": false,
+            "emoji": null,
+            "role": "middle",
+            "success": true
+          },
+          {
+            "characterId": "8f56a2a7-87f1-4f6e-ba28-bd3327ce5da6",
+            "name": "Carrion Crawler 🅒",
+            "individualTotal": 1,
+            "diceRoll": 0,
+            "isSol": false,
+            "isMorte": false,
+            "isCaughtOffGuard": false,
+            "emoji": null,
+            "role": "lowest",
+            "success": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "group-1787320075320-v7cwrv",
+      "name": "Group 1",
+      "combatants": []
+    },
     {
       "id": "group-1786997047236-cqq83l",
       "name": "Team Vengeance",
@@ -2305,64 +2643,60 @@
           "type": "pc",
           "characterId": "13e267c3-f608-466d-9a8d-7442dcd5a7d4"
         }
-      ]
-    },
-    {
-      "id": "group-1786997113595-cl6u3s",
-      "name": "CARRION MY WAYWARD SONS",
-      "combatants": [
-        {
-          "id": "beast:ce6c45df-906d-4f6a-85e9-58a7b458a394",
-          "type": "beast",
-          "characterId": "ce6c45df-906d-4f6a-85e9-58a7b458a394"
-        },
-        {
-          "id": "beast:b84a8a85-f236-4880-96a5-86af7c754fe7",
-          "type": "beast",
-          "characterId": "b84a8a85-f236-4880-96a5-86af7c754fe7"
-        },
-        {
-          "id": "beast:8f56a2a7-87f1-4f6e-ba28-bd3327ce5da6",
-          "type": "beast",
-          "characterId": "8f56a2a7-87f1-4f6e-ba28-bd3327ce5da6"
-        }
-      ]
-    },
-    {
-      "id": "group-1787320075320-v7cwrv",
-      "name": "Group 1",
-      "combatants": []
-    },
-    {
-      "id": "group-1787359752474-gkf9vn",
-      "name": "Testing to see if a long name works ok",
-      "combatants": [
-        {
-          "id": "beast:95f5036e-1a78-4b2c-9abb-1ec74cda0224",
-          "type": "beast",
-          "characterId": "95f5036e-1a78-4b2c-9abb-1ec74cda0224"
-        },
-        {
-          "id": "beast:58c39f0b-226b-4311-90b3-b89ec7b5549e",
-          "type": "beast",
-          "characterId": "58c39f0b-226b-4311-90b3-b89ec7b5549e"
-        },
-        {
-          "id": "beast:e579cbd9-b6f7-452b-94b8-724293600bd1",
-          "type": "beast",
-          "characterId": "e579cbd9-b6f7-452b-94b8-724293600bd1"
-        },
-        {
-          "id": "beast:0740df81-d9d5-4e7e-817f-a73e79ec918c",
-          "type": "beast",
-          "characterId": "0740df81-d9d5-4e7e-817f-a73e79ec918c"
-        },
-        {
-          "id": "beast:46764086-6b39-43fc-b5d7-7b37c4775b1c",
-          "type": "beast",
-          "characterId": "46764086-6b39-43fc-b5d7-7b37c4775b1c"
-        }
-      ]
+      ],
+      "initiativeResults": {
+        "groupTotal": 18,
+        "members": [
+          {
+            "characterId": "13e267c3-f608-466d-9a8d-7442dcd5a7d4",
+            "name": "Sukha",
+            "individualTotal": 10,
+            "diceRoll": 8,
+            "isSol": false,
+            "isMorte": false,
+            "isCaughtOffGuard": false,
+            "emoji": null,
+            "role": "highest",
+            "success": true
+          },
+          {
+            "characterId": "da8bd375-e52c-4b5a-9cbf-d729eb2442cf",
+            "name": "Palfrey",
+            "individualTotal": 9,
+            "diceRoll": 7,
+            "isSol": false,
+            "isMorte": false,
+            "isCaughtOffGuard": false,
+            "emoji": null,
+            "role": "middle",
+            "success": true
+          },
+          {
+            "characterId": "54f77e58-eca4-4e28-ac76-6d55493470cc",
+            "name": "Himo",
+            "individualTotal": 8,
+            "diceRoll": 7,
+            "isSol": false,
+            "isMorte": false,
+            "isCaughtOffGuard": false,
+            "emoji": null,
+            "role": "middle",
+            "success": true
+          },
+          {
+            "characterId": "8f20a6c3-b272-45d6-9d80-c07ced314693",
+            "name": "Jebeddo",
+            "individualTotal": 8,
+            "diceRoll": 7,
+            "isSol": false,
+            "isMorte": false,
+            "isCaughtOffGuard": false,
+            "emoji": null,
+            "role": "lowest",
+            "success": true
+          }
+        ]
+      }
     }
   ],
   "pixelsPerMile": 40,

@@ -87,6 +87,27 @@ import { createBaseEntity } from './baseEntity.js'
  */
 
 /**
+ * @typedef {Object} CombatGroupMember
+ * @property {string} id - Composite key (e.g. 'pc:uuid' or 'beast:uuid')
+ * @property {'pc'|'npc'|'beast'} type - Combatant type
+ * @property {string} characterId - Source character / beast-instance ID
+ */
+
+/**
+ * @typedef {Object} CombatGroupInitiativeResults
+ * @property {number} groupTotal - Rolled group initiative total
+ * @property {Array<{characterId: string, total: number}>} [members] - Per-member results
+ */
+
+/**
+ * @typedef {Object} CombatGroup
+ * @property {string} id - Unique group identifier
+ * @property {string} name - Display name for the group
+ * @property {CombatGroupMember[]} combatants - Members of the group
+ * @property {CombatGroupInitiativeResults} [initiativeResults] - Latest initiative roll results, if any
+ */
+
+/**
  * @typedef {Object} TabletopFields
  * @property {string} campaignId - ID of the owning campaign
  * @property {string} name - Tabletop display name

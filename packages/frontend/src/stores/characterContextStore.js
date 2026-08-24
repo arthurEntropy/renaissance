@@ -26,6 +26,7 @@ export const useCharacterContextStore = defineStore('characterContext', () => {
         name: group.name ?? '',
         memberIds: combatants.map(c => c.characterId),
         combatants,
+        initiativeResults: group.initiativeResults ?? null,
       }
     }
     pinnedGroupIds.value = ids
@@ -88,6 +89,7 @@ export const useCharacterContextStore = defineStore('characterContext', () => {
         id: group.id,
         name: group.name,
         combatants: group.combatants || [],
+        ...(group.initiativeResults != null ? { initiativeResults: group.initiativeResults } : {}),
       }
     }).filter(Boolean)
   }

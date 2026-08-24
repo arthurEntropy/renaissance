@@ -2,7 +2,7 @@
   "id": "8f20a6c3-b272-45d6-9d80-c07ced314693",
   "isDeleted": false,
   "createdAt": "2026-08-17T15:40:41.734Z",
-  "lastModified": "2026-08-24T17:40:57.773Z",
+  "lastModified": "2026-08-24T17:55:11.902Z",
   "characterType": "playerCharacter",
   "name": "Jebeddo",
   "featuredArtUrls": [
@@ -350,7 +350,7 @@
     },
     "xpEarned": 0,
     "xpSpent": 0,
-    "treasureEarned": 47,
+    "treasureEarned": 49,
     "treasureSpent": 1
   },
   "biomeTags": [],
@@ -393,5 +393,5 @@
   "treasure": 2,
   "xp": 0,
   "description": "",
-  "updatedAt": "2026-08-24T17:40:57.773Z"
+  "updatedAt": "2026-08-24T17:55:11.902Z"
 }

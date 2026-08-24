@@ -635,6 +635,18 @@ watch(tabletopId, async (tid, oldTid) => {
     }
 })
 
+// On a hard page refresh, isGMInActiveCampaign may resolve after the campaignId
+// watcher has already run (if the user profile loads late). Re-populate combat
+// groups the moment GM status is confirmed so the initiative controls appear.
+watch(isGM, (gm) => {
+    if (!gm || !campaignId.value || !tabletopId.value) return
+    if (characterContextStore.pinnedGroupIds.length > 0) return // already populated
+    const tabletop = campaignStore.tabletops.find((t) => t.id === tabletopId.value)
+    if (tabletop) {
+        characterContextStore.setGroupsFromTabletop(tabletop?.combatGroups ?? [])
+    }
+})
+
 // ─── Persist combat-group changes from the rail back to the tabletop ─────────
 // When the GM renames, reorders, or sets initiative results for a group in
 // PinnedTokensContainer, we reconstruct the combatGroups and save to the tabletop.
@@ -652,6 +664,7 @@ function reconstructCombatGroups(pinnedGroups) {
             }
             return { id: `${type}:${charId}`, type, characterId: charId }
         }),
+        ...(group.initiativeResults != null ? { initiativeResults: group.initiativeResults } : {}),
     }))
 }
 
