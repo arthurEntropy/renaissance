@@ -2,7 +2,7 @@
   "id": "13e267c3-f608-466d-9a8d-7442dcd5a7d4",
   "isDeleted": false,
   "createdAt": "2026-08-17T19:28:51.662Z",
-  "lastModified": "2026-08-22T02:00:39.846Z",
+  "lastModified": "2026-08-24T14:58:32.983Z",
   "characterType": "playerCharacter",
   "name": "Sukha",
   "featuredArtUrls": [
@@ -172,8 +172,8 @@
   "engagementSuccesses": [],
   "engagementDiceStatuses": {
     "mestiere_0": "expended",
-    "mestiere_1": "expended",
     "mestiere_2": "expended",
+    "mestiere_1": "expended",
     "mestiere_3": "expended",
     "mestiere_4": "expended"
   },
@@ -281,7 +281,7 @@
     },
     "contests": {
       "engagement": {
-        "wins": 8,
+        "wins": 9,
         "losses": 3,
         "draws": 3
       },
@@ -335,5 +335,5 @@
   "treasure": 0,
   "xp": 0,
   "description": "",
-  "updatedAt": "2026-08-22T02:00:39.846Z"
+  "updatedAt": "2026-08-24T14:58:32.983Z"
 }

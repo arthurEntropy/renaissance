@@ -75,6 +75,7 @@ import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 import { useConceptsStore } from '@/stores/conceptsStore'
 import { useEquipmentStore } from '@/stores/equipmentStore'
 import { useAbilitiesStore } from '@/stores/abilitiesStore'
+import { useActionCostsStore } from '@/stores/actionCostsStore'
 import { useCharacterStatWatchers } from '@/composables/useCharacterStatWatchers'
 import { CORE_ABILITIES } from '@shared/constants/characterConstants'
 import { BIOME_MESTIERI } from '@shared/constants/biomeTags'
@@ -114,6 +115,7 @@ const charactersStore = useCharactersStore()
 const conceptsStore = useConceptsStore()
 const equipmentStore = useEquipmentStore()
 const abilitiesStore = useAbilitiesStore()
+const actionCostsStore = useActionCostsStore()
 
 // Save / restore selectedCharacter around the popup's lifetime
 let prevSelectedCharacter = null
@@ -128,6 +130,7 @@ onMounted(() => {
     abilitiesStore.fetch()
     equipmentStore.fetch()
     conceptsStore.fetch()
+    actionCostsStore.fetch()
 })
 onUnmounted(() => {
     if (prevSelectedCharacter) {
@@ -152,6 +155,7 @@ watch(() => props.character, (newChar) => {
 const selectedCharacter = computed(() => charactersStore.selectedCharacter)
 useCharacterStatWatchers(selectedCharacter, computed(() => equipmentStore.equipment || []), {
     onSaved: (char) => emit('character-saved', char),
+    onChanged: (char) => emit('character-saved', char),
 })
 
 const canEdit = computed(() => charactersStore.canEditSelectedCharacter)

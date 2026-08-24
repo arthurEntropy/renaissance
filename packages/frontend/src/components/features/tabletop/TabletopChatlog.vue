@@ -35,7 +35,7 @@
                                 <div class="entry-header-line">
                                     <span class="entry-name" :style="{ color: engagementCharColor(entry, true) }">{{
                                         entry.characterName
-                                    }}</span><span class="entry-title"> vs </span><span class="entry-name"
+                                        }}</span><span class="entry-title"> vs </span><span class="entry-name"
                                         :style="{ color: engagementCharColor(entry, false) }">{{ entry.opponentName
                                         }}</span><span class="entry-title">:</span>
                                 </div>
@@ -87,7 +87,7 @@
                                                 entry.modifier }}{{ entry.modifierLabel ? ` (${entry.modifierLabel})` : ''
                                             }}</span>
                                         <span class="entry-total" :class="outcomeClass(entry)">{{ rollTotal(entry)
-                                            }}</span>
+                                        }}</span>
                                         <span v-if="entrySuccessCount(entry) > 0" class="entry-success-stars"
                                             @click.stop="openSuccessPopup(entry, $event)">{{
                                                 '\u2728'.repeat(entrySuccessCount(entry)) }}</span>
@@ -382,11 +382,14 @@ onMounted(async () => {
     if (fetches.length) await Promise.all(fetches)
 })
 
-watch(() => displayedRollLog.value.length, async () => {
+watch(() => displayedRollLog.value[displayedRollLog.value.length - 1]?.id, async (newId) => {
+    if (!newId) return
     const el = scrollRef.value
     if (!el) return
     await nextTick()
-    el.scrollTop = el.scrollHeight
+    requestAnimationFrame(() => {
+        el.scrollTop = el.scrollHeight
+    })
 })
 
 // ── Display helpers ───────────────────────────────────────────────────────────
@@ -605,7 +608,9 @@ function openSuccessPopup(entry, event) {
 /* ── Entry ───────────────────────────────────────────────────────────────────── */
 /* TransitionGroup renders this div as the container for animated entries */
 .chatlog-entries {
-    display: contents;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
 }
 
 .chatlog-entry {
@@ -849,10 +854,5 @@ function openSuccessPopup(entry, event) {
 .chatlog-entry-enter-from {
     transform: translateY(12px);
     opacity: 0;
-}
-
-/* Moving entries slide smoothly when list reorders (e.g. on initial load) */
-.chatlog-entry-move {
-    transition: transform 200ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 </style>

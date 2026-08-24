@@ -25,7 +25,7 @@ export function scheduleStatsRefund(character, { xp = 0, treasure = 0 } = {}) {
   })
 }
 
-export function useCharacterStatWatchers(selectedCharacter, allEquipment, { onSaved } = {}) {
+export function useCharacterStatWatchers(selectedCharacter, allEquipment, { onSaved, onChanged } = {}) {
   const charactersStore = useCharactersStore()
 
   // Main character save watcher with debouncing and save-locking.
@@ -35,6 +35,7 @@ export function useCharacterStatWatchers(selectedCharacter, allEquipment, { onSa
   // Without this, two concurrent requests could arrive at the server out-of-order
   // and the stale response could overwrite newer data (visible after page reload).
   let saveTimeout = null
+  let changeTimeout = null
   let isSaving = false
   let hasPendingSave = false
   // Capture the character at queue time so the correct character is saved even
@@ -64,6 +65,13 @@ export function useCharacterStatWatchers(selectedCharacter, allEquipment, { onSa
     if (!newCharacter) return
     pendingChar = newCharacter
 
+    // Notify immediately (short debounce batches derived state mutations)
+    if (changeTimeout) clearTimeout(changeTimeout)
+    changeTimeout = setTimeout(() => {
+      changeTimeout = null
+      onChanged?.(newCharacter)
+    }, 100)
+
     if (saveTimeout) clearTimeout(saveTimeout)
     saveTimeout = setTimeout(() => {
       saveTimeout = null
@@ -80,6 +88,10 @@ export function useCharacterStatWatchers(selectedCharacter, allEquipment, { onSa
 
   // Cleanup on unmount — flush any pending debounce immediately.
   onUnmounted(() => {
+    if (changeTimeout) {
+      clearTimeout(changeTimeout)
+      changeTimeout = null
+    }
     if (saveTimeout) {
       clearTimeout(saveTimeout)
       saveTimeout = null

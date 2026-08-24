@@ -1,25 +1,25 @@
 {
-  "id": "ef9111f4-12e2-4104-8634-f614016cce58",
+  "id": "e0272537-0805-4862-9eff-ecbb06e08881",
   "isDeleted": false,
-  "createdAt": "2026-08-17T20:37:02.051Z",
-  "lastModified": "2026-08-21T15:11:32.841Z",
+  "createdAt": "2026-08-17T20:37:05.774Z",
+  "lastModified": "2026-08-24T14:58:32.979Z",
   "characterType": "beastInstance",
-  "name": "Mycoderm 🅒",
+  "name": "Spore Hound 🅗",
   "featuredArtUrls": [
-    "https://cdn.midjourney.com/1981f3be-8de5-4457-9d0f-da52943eb68c/0_0.png"
+    "https://cdn.midjourney.com/39ad5992-8dc0-48f7-9e24-e9633e4377ae/0_1.png"
   ],
   "speed": {
-    "current": 30,
-    "base": 30
+    "current": 35,
+    "base": 35
   },
   "notes": "",
-  "body": 6,
-  "heart": 3,
-  "wits": 2,
+  "body": 2,
+  "heart": 1,
+  "wits": 1,
   "skills": [
     {
       "key": "awe",
-      "ranks": 1,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -27,7 +27,7 @@
     },
     {
       "key": "strength",
-      "ranks": 3,
+      "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -43,7 +43,7 @@
     },
     {
       "key": "fortitude",
-      "ranks": 2,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -83,7 +83,7 @@
     },
     {
       "key": "spirit",
-      "ranks": 2,
+      "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -91,7 +91,7 @@
     },
     {
       "key": "aid",
-      "ranks": 1,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -107,7 +107,7 @@
     },
     {
       "key": "awareness",
-      "ranks": 2,
+      "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -115,7 +115,7 @@
     },
     {
       "key": "stealth",
-      "ranks": 0,
+      "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -139,16 +139,16 @@
     }
   ],
   "endurance": {
-    "current": 30,
-    "base": 30
+    "current": 10,
+    "base": 10
   },
   "hope": {
-    "current": 6,
-    "base": 6
+    "current": 2,
+    "base": 2
   },
   "defense": {
-    "current": 12,
-    "base": 7
+    "current": 6,
+    "base": 6
   },
   "load": 0,
   "shadow": 0,
@@ -171,19 +171,19 @@
   "engagementDice": [],
   "engagementSuccesses": [],
   "engagementDiceStatuses": {
-    "4d9fd1b5-b468-431c-961f-82a84c91de39_0": "expended",
-    "db418790-1337-43d4-8d92-53a29b16a240_0": "expended"
+    "3a61c9aa-09ba-4b44-9efb-529795835e69_0": "expended",
+    "a77e5e36-1c1d-4a15-865f-da6748d815b7_0": "expended"
   },
   "equipment": [
     {
-      "id": "db418790-1337-43d4-8d92-53a29b16a240",
+      "id": "3a61c9aa-09ba-4b44-9efb-529795835e69",
       "quantity": 1,
       "isCarried": true,
       "isWielding": true,
       "collapsed": false
     },
     {
-      "id": "4d9fd1b5-b468-431c-961f-82a84c91de39",
+      "id": "a77e5e36-1c1d-4a15-865f-da6748d815b7",
       "quantity": 1,
       "isCarried": true,
       "isWielding": true,
@@ -198,15 +198,7 @@
     "current": 0,
     "base": 0
   },
-  "abilities": [
-    {
-      "id": "85e0d4e1-3abf-472d-b04f-8ea069dfed46",
-      "collapsed": false,
-      "showImprovements": false,
-      "showSuccesses": false,
-      "isActive": false
-    }
-  ],
+  "abilities": [],
   "groupAbilitiesBySource": false,
   "groupAbilitiesByManaColor": false,
   "groupAbilitiesByCustom": false,
@@ -233,9 +225,9 @@
     },
     "contests": {
       "engagement": {
-        "wins": 6,
-        "losses": 2,
-        "draws": 0
+        "wins": 0,
+        "losses": 1,
+        "draws": 1
       },
       "contest": {
         "wins": 0,
@@ -278,11 +270,11 @@
   "keeping": null,
   "treasure": 0,
   "xp": 0,
+  "updatedAt": "2026-08-24T14:58:32.979Z",
   "description": "",
-  "size": 3,
+  "size": 1,
   "reach": 5,
-  "updatedAt": "2026-08-21T15:11:32.841Z",
-  "challenge": 17,
+  "challenge": 5,
   "sectionOrder": [],
   "martialTrainingOverrides": {},
   "hasDarkvision": true,
@@ -299,12 +291,11 @@
     "underground"
   ],
   "biomeTagsInhibit": [
-    "civilized",
-    "cold"
+    "cold",
+    "civilized"
   ],
   "beastTypeIds": [
-    "b7e57001-0000-4000-a000-000000000002",
-    "b7e57001-0000-4000-a000-00000000000d"
+    "b7e57001-0000-4000-a000-000000000002"
   ],
-  "templateId": "731421e9-f9cb-41c1-b902-76993e0bef6f"
+  "templateId": "720bd912-d3a4-4096-9dfd-24d80508ef6e"
 }

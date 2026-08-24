@@ -1,25 +1,25 @@
 {
-  "id": "e0272537-0805-4862-9eff-ecbb06e08881",
+  "id": "ef9111f4-12e2-4104-8634-f614016cce58",
   "isDeleted": false,
-  "createdAt": "2026-08-17T20:37:05.774Z",
-  "lastModified": "2026-08-18T18:38:28.121Z",
+  "createdAt": "2026-08-17T20:37:02.051Z",
+  "lastModified": "2026-08-24T15:00:03.152Z",
   "characterType": "beastInstance",
-  "name": "Spore Hound 🅗",
+  "name": "Mycoderm 🅒",
   "featuredArtUrls": [
-    "https://cdn.midjourney.com/39ad5992-8dc0-48f7-9e24-e9633e4377ae/0_1.png"
+    "https://cdn.midjourney.com/1981f3be-8de5-4457-9d0f-da52943eb68c/0_0.png"
   ],
   "speed": {
-    "current": 35,
-    "base": 35
+    "current": 30,
+    "base": 30
   },
   "notes": "",
-  "body": 2,
-  "heart": 1,
-  "wits": 1,
+  "body": 6,
+  "heart": 3,
+  "wits": 2,
   "skills": [
     {
       "key": "awe",
-      "ranks": 0,
+      "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -27,7 +27,7 @@
     },
     {
       "key": "strength",
-      "ranks": 2,
+      "ranks": 3,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -43,7 +43,7 @@
     },
     {
       "key": "fortitude",
-      "ranks": 0,
+      "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -83,7 +83,7 @@
     },
     {
       "key": "spirit",
-      "ranks": 1,
+      "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -91,7 +91,7 @@
     },
     {
       "key": "aid",
-      "ranks": 0,
+      "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -107,7 +107,7 @@
     },
     {
       "key": "awareness",
-      "ranks": 1,
+      "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -115,7 +115,7 @@
     },
     {
       "key": "stealth",
-      "ranks": 1,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -139,16 +139,16 @@
     }
   ],
   "endurance": {
-    "current": 10,
-    "base": 10
+    "current": 15,
+    "base": 30
   },
   "hope": {
-    "current": 2,
-    "base": 2
+    "current": 6,
+    "base": 6
   },
   "defense": {
-    "current": 6,
-    "base": 1
+    "current": 12,
+    "base": 12
   },
   "load": 0,
   "shadow": 0,
@@ -171,19 +171,19 @@
   "engagementDice": [],
   "engagementSuccesses": [],
   "engagementDiceStatuses": {
-    "3a61c9aa-09ba-4b44-9efb-529795835e69_0": "expended",
-    "a77e5e36-1c1d-4a15-865f-da6748d815b7_0": "expended"
+    "4d9fd1b5-b468-431c-961f-82a84c91de39_0": "expended",
+    "db418790-1337-43d4-8d92-53a29b16a240_0": "expended"
   },
   "equipment": [
     {
-      "id": "3a61c9aa-09ba-4b44-9efb-529795835e69",
+      "id": "db418790-1337-43d4-8d92-53a29b16a240",
       "quantity": 1,
       "isCarried": true,
       "isWielding": true,
       "collapsed": false
     },
     {
-      "id": "a77e5e36-1c1d-4a15-865f-da6748d815b7",
+      "id": "4d9fd1b5-b468-431c-961f-82a84c91de39",
       "quantity": 1,
       "isCarried": true,
       "isWielding": true,
@@ -198,7 +198,15 @@
     "current": 0,
     "base": 0
   },
-  "abilities": [],
+  "abilities": [
+    {
+      "id": "85e0d4e1-3abf-472d-b04f-8ea069dfed46",
+      "collapsed": false,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false
+    }
+  ],
   "groupAbilitiesBySource": false,
   "groupAbilitiesByManaColor": false,
   "groupAbilitiesByCustom": false,
@@ -213,21 +221,23 @@
   },
   "rollStats": {
     "skillChecks": {
-      "attempts": 0,
-      "successes": 0,
-      "totalSum": 0,
-      "bestTotal": null,
+      "attempts": 1,
+      "successes": 1,
+      "totalSum": 21,
+      "bestTotal": 21,
       "hardestSuccess": null,
-      "bySkill": {},
+      "bySkill": {
+        "Strength": 1
+      },
       "solCount": 0,
       "morteCount": 0,
       "successCount": 0
     },
     "contests": {
       "engagement": {
-        "wins": 0,
-        "losses": 0,
-        "draws": 1
+        "wins": 6,
+        "losses": 2,
+        "draws": 0
       },
       "contest": {
         "wins": 0,
@@ -270,11 +280,11 @@
   "keeping": null,
   "treasure": 0,
   "xp": 0,
-  "updatedAt": "2026-08-18T18:38:28.121Z",
   "description": "",
-  "size": 1,
+  "size": 3,
   "reach": 5,
-  "challenge": 5,
+  "updatedAt": "2026-08-24T15:00:03.152Z",
+  "challenge": 17,
   "sectionOrder": [],
   "martialTrainingOverrides": {},
   "hasDarkvision": true,
@@ -291,11 +301,12 @@
     "underground"
   ],
   "biomeTagsInhibit": [
-    "cold",
-    "civilized"
+    "civilized",
+    "cold"
   ],
   "beastTypeIds": [
-    "b7e57001-0000-4000-a000-000000000002"
+    "b7e57001-0000-4000-a000-000000000002",
+    "b7e57001-0000-4000-a000-00000000000d"
   ],
-  "templateId": "720bd912-d3a4-4096-9dfd-24d80508ef6e"
+  "templateId": "731421e9-f9cb-41c1-b902-76993e0bef6f"
 }
