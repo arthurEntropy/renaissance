@@ -25,15 +25,15 @@
             @click="handleReroll" />
 
         <!-- Success assignment display (right side for opponent) -->
-        <div v-if="die.rolledMaxValue && showResults && isOpponent" class="success-display-zone right-side">
-            <div v-if="assignedSuccess" class="assigned-success-container">
+        <div v-if="die.rolledMaxValue && showResults && isOpponent && assignedSuccess"
+            class="success-display-zone right-side">
+            <div class="assigned-success-container">
                 <ChipTag :text="assignedSuccess.name" :rounded="CHIP_TAG_ROUNDED.FULL"
                     :variant="CHIP_TAG_VARIANTS.PRIMARY" :tooltip="{
                         description: assignedSuccess.description,
                         sources: assignedSuccess.sources
                     }" />
             </div>
-            <div v-else class="success-outline"></div>
         </div>
 
     </div>

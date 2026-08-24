@@ -2,7 +2,7 @@
   "id": "da8bd375-e52c-4b5a-9cbf-d729eb2442cf",
   "isDeleted": false,
   "createdAt": "2026-08-17T18:10:20.190Z",
-  "lastModified": "2026-08-22T02:41:21.843Z",
+  "lastModified": "2026-08-24T17:54:09.923Z",
   "characterType": "playerCharacter",
   "name": "Palfrey",
   "featuredArtUrls": [
@@ -338,7 +338,7 @@
     },
     "xpEarned": 0,
     "xpSpent": 0,
-    "treasureEarned": 65,
+    "treasureEarned": 71,
     "treasureSpent": 1
   },
   "biomeTags": [],
@@ -381,5 +381,5 @@
   "treasure": 3,
   "xp": 0,
   "description": "",
-  "updatedAt": "2026-08-22T02:41:21.843Z"
+  "updatedAt": "2026-08-24T17:54:09.923Z"
 }

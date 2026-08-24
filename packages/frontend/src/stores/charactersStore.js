@@ -155,7 +155,14 @@ export const useCharactersStore = defineStore('characters', () => {
     if (!character?.id) return
     const idx = base.allItems.value.findIndex((c) => c.id === character.id)
     if (idx !== -1) {
-      base.allItems.value.splice(idx, 1, character)
+      if (selectedCharacter.value?.id === character.id) {
+        // Merge in-place so selectedCharacter.value reference stays valid,
+        // keeping the receiving client's view up to date and preventing stale
+        // local data from being saved over the broadcast change.
+        Object.assign(selectedCharacter.value, character)
+      } else {
+        base.allItems.value.splice(idx, 1, character)
+      }
     }
   }
 

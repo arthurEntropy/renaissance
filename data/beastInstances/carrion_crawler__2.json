@@ -1,40 +1,24 @@
 {
-  "id": "46764086-6b39-43fc-b5d7-7b37c4775b1c",
+  "id": "8f56a2a7-87f1-4f6e-ba28-bd3327ce5da6",
   "isDeleted": false,
-  "createdAt": "2026-08-22T20:57:11.401Z",
-  "lastModified": "2026-08-22T20:57:11.415Z",
+  "createdAt": "2026-08-17T20:06:14.689Z",
+  "lastModified": "2026-08-24T17:54:11.265Z",
   "characterType": "beastInstance",
-  "name": "Mycoderm 🅢",
+  "name": "Carrion Crawler 🅒",
   "featuredArtUrls": [
-    "https://cdn.midjourney.com/1981f3be-8de5-4457-9d0f-da52943eb68c/0_0.png"
+    "https://cdn.midjourney.com/48444f34-cffe-4732-ba92-522ed9c62a29/0_3.png"
   ],
   "speed": {
-    "current": 30,
+    "current": 0,
     "base": 30
   },
   "notes": "",
   "body": 6,
-  "heart": 3,
-  "wits": 2,
+  "heart": 0,
+  "wits": 1,
   "skills": [
     {
       "key": "awe",
-      "ranks": 1,
-      "isFavored": false,
-      "isIllFavored": false,
-      "diceMod": 0,
-      "manualDiceMod": 0
-    },
-    {
-      "key": "strength",
-      "ranks": 3,
-      "isFavored": false,
-      "isIllFavored": false,
-      "diceMod": 0,
-      "manualDiceMod": 0
-    },
-    {
-      "key": "dexterity",
       "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
@@ -42,8 +26,24 @@
       "manualDiceMod": 0
     },
     {
-      "key": "fortitude",
+      "key": "strength",
       "ranks": 2,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "dexterity",
+      "ranks": 1,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "fortitude",
+      "ranks": 3,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -83,7 +83,7 @@
     },
     {
       "key": "spirit",
-      "ranks": 2,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -91,7 +91,7 @@
     },
     {
       "key": "aid",
-      "ranks": 1,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -107,7 +107,7 @@
     },
     {
       "key": "awareness",
-      "ranks": 2,
+      "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -143,12 +143,12 @@
     "base": 30
   },
   "hope": {
-    "current": 6,
-    "base": 6
+    "current": 0,
+    "base": 0
   },
   "defense": {
-    "current": 12,
-    "base": 12
+    "current": 11,
+    "base": 11
   },
   "load": 0,
   "shadow": 0,
@@ -177,19 +177,21 @@
       "quantity": 1,
       "isCarried": true,
       "isWielding": true,
+      "columnIndex": 0,
       "collapsed": false
     },
     {
-      "id": "4d9fd1b5-b468-431c-961f-82a84c91de39",
+      "id": "a8a14960-4382-4030-82f7-1da7391a3aa9",
       "quantity": 1,
       "isCarried": true,
+      "collapsed": false,
       "isWielding": true,
-      "collapsed": false
+      "columnIndex": 1
     }
   ],
   "groupEquipmentBySource": false,
   "groupEquipmentByCustom": false,
-  "equipmentSortOption": "name-asc",
+  "equipmentSortOption": "",
   "equipmentCustomGroups": [],
   "mp": {
     "current": 0,
@@ -197,17 +199,42 @@
   },
   "abilities": [
     {
-      "id": "85e0d4e1-3abf-472d-b04f-8ea069dfed46",
+      "id": "bfe93949-2e88-40dd-9e6e-657362567486",
       "collapsed": false,
       "showImprovements": false,
       "showSuccesses": false,
-      "isActive": false
+      "isActive": false,
+      "columnIndex": 0
+    },
+    {
+      "id": "b0b7190b-5cd0-468c-84ff-e2dfc17c6f26",
+      "collapsed": false,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false,
+      "columnIndex": 1
+    },
+    {
+      "id": "ecdf35ab-278b-4ec1-b183-121e9e54f180",
+      "collapsed": false,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false,
+      "columnIndex": 1
+    },
+    {
+      "id": "1c1f3916-a328-4a4d-88f5-dfa4bb585644",
+      "collapsed": false,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false,
+      "columnIndex": 2
     }
   ],
   "groupAbilitiesBySource": false,
   "groupAbilitiesByManaColor": false,
   "groupAbilitiesByCustom": false,
-  "abilitySortOption": "name-asc",
+  "abilitySortOption": "",
   "abilityCustomGroups": [],
   "autoCalculations": {
     "load": true,
@@ -230,8 +257,8 @@
     },
     "contests": {
       "engagement": {
-        "wins": 6,
-        "losses": 2,
+        "wins": 0,
+        "losses": 0,
         "draws": 0
       },
       "contest": {
@@ -260,10 +287,14 @@
     "colorless": []
   },
   "witchcraftTokens": [],
+  "witchFamiliar": null,
   "summonerVessels": [],
+  "hunterTraps": [],
   "campaignId": "84b00fc0-eae8-4808-9151-949bf59928ff",
   "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
   "isPublicPreview": false,
+  "sectionOrder": [],
+  "martialTrainingOverrides": {},
   "pronouns": "",
   "ancestryIds": [],
   "cultureIds": [],
@@ -276,32 +307,27 @@
   "treasure": 0,
   "xp": 0,
   "description": "",
-  "size": 3,
-  "reach": 5,
-  "updatedAt": "2026-08-14T01:05:00.216Z",
-  "challenge": 17,
-  "sectionOrder": [],
-  "martialTrainingOverrides": {},
+  "size": 2,
+  "reach": 0,
   "hasDarkvision": true,
   "hasBlindsight": false,
   "hasTremorsense": false,
   "hasTruesight": false,
   "burrowSpeed": 0,
-  "climbSpeed": 0,
+  "climbSpeed": 30,
   "flySpeed": 0,
   "swimSpeed": 0,
   "biomeTagsAugment": [
-    "forest",
-    "wetland",
-    "underground"
+    "underground",
+    "corrupted"
   ],
   "biomeTagsInhibit": [
-    "civilized",
-    "cold"
+    "enchanted"
   ],
   "beastTypeIds": [
-    "b7e57001-0000-4000-a000-000000000002",
-    "b7e57001-0000-4000-a000-00000000000d"
+    "b7e57001-0000-4000-a000-00000000000b"
   ],
-  "templateId": "731421e9-f9cb-41c1-b902-76993e0bef6f"
+  "updatedAt": "2026-08-24T17:54:11.265Z",
+  "challenge": 19,
+  "templateId": "d6c4191f-9236-4cb9-a410-ec1dd1f14186"
 }

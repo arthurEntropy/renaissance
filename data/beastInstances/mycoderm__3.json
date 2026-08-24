@@ -1,10 +1,10 @@
 {
-  "id": "95f5036e-1a78-4b2c-9abb-1ec74cda0224",
+  "id": "ef9111f4-12e2-4104-8634-f614016cce58",
   "isDeleted": false,
-  "createdAt": "2026-08-22T00:49:17.907Z",
-  "lastModified": "2026-08-22T01:25:42.444Z",
+  "createdAt": "2026-08-17T20:37:02.051Z",
+  "lastModified": "2026-08-24T15:00:03.152Z",
   "characterType": "beastInstance",
-  "name": "Mycoderm 🅓",
+  "name": "Mycoderm 🅒",
   "featuredArtUrls": [
     "https://cdn.midjourney.com/1981f3be-8de5-4457-9d0f-da52943eb68c/0_0.png"
   ],
@@ -139,7 +139,7 @@
     }
   ],
   "endurance": {
-    "current": 30,
+    "current": 15,
     "base": 30
   },
   "hope": {
@@ -170,7 +170,10 @@
   },
   "engagementDice": [],
   "engagementSuccesses": [],
-  "engagementDiceStatuses": {},
+  "engagementDiceStatuses": {
+    "4d9fd1b5-b468-431c-961f-82a84c91de39_0": "expended",
+    "db418790-1337-43d4-8d92-53a29b16a240_0": "expended"
+  },
   "equipment": [
     {
       "id": "db418790-1337-43d4-8d92-53a29b16a240",
@@ -218,12 +221,14 @@
   },
   "rollStats": {
     "skillChecks": {
-      "attempts": 0,
-      "successes": 0,
-      "totalSum": 0,
-      "bestTotal": null,
+      "attempts": 1,
+      "successes": 1,
+      "totalSum": 21,
+      "bestTotal": 21,
       "hardestSuccess": null,
-      "bySkill": {},
+      "bySkill": {
+        "Strength": 1
+      },
       "solCount": 0,
       "morteCount": 0,
       "successCount": 0
@@ -278,7 +283,7 @@
   "description": "",
   "size": 3,
   "reach": 5,
-  "updatedAt": "2026-08-22T01:25:42.444Z",
+  "updatedAt": "2026-08-24T15:00:03.152Z",
   "challenge": 17,
   "sectionOrder": [],
   "martialTrainingOverrides": {},

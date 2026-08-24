@@ -55,10 +55,16 @@
                                 <div class="entry-header-line">
                                     <span class="entry-name" :style="{ color: tokenBorderColor(entry) }">{{
                                         entry.characterName }}</span><span class="entry-title"> {{ rollTitleBase(entry)
-                                        }}</span><span v-if="entry.sourceName" class="entry-source"
-                                        @mouseenter="handleSourceHoverEnter(entry, $event)"
+                                        }}</span><span v-if="entry.sourceName && entry.type !== RollTypes.CHAT_LINK"
+                                        class="entry-source" @mouseenter="handleSourceHoverEnter(entry, $event)"
                                         @mouseleave="handleSourceHoverLeave()"> ({{ entry.sourceName }})</span><span
                                         class="entry-title">:</span>
+                                </div>
+                                <!-- Shared item name: shown prominently on its own line, no parentheses -->
+                                <div v-if="entry.type === RollTypes.CHAT_LINK && entry.sourceName"
+                                    class="entry-chat-link-name" @mouseenter="handleSourceHoverEnter(entry, $event)"
+                                    @mouseleave="handleSourceHoverLeave()">
+                                    {{ entry.sourceName }}
                                 </div>
                                 <!-- Dice row wrapper: tracks hover to show the centered reroll button -->
                                 <div v-if="entry.type !== RollTypes.CHAT_LINK" class="entry-dice-row-wrap"
@@ -69,10 +75,9 @@
                                             <span v-for="(die, i) in entry.diceResults" :key="i" class="entry-die"
                                                 :class="dieClass(die)">
                                                 <i :class="die.cssClass" />
-                                                <!-- Only show emoji annotations for skill checks and initiative -->
-                                                <span
-                                                    v-if="die.emoji && die.emoji !== '' && (entry.type === RollTypes.SKILL_CHECK || entry.type === RollTypes.INITIATIVE)"
-                                                    class="entry-die-emoji">{{ die.emoji }}</span>
+                                                <!-- Only show emoji annotations for feat-die roll types -->
+                                                <span v-if="die.emoji && die.emoji !== ''" class="entry-die-emoji">{{
+                                                    die.emoji }}</span>
                                             </span>
                                             <!-- Reroll button: centered over just the dice icon group so it never covers the total -->
                                             <button v-if="hoveredRerollEntryId === entry.id" type="button"
@@ -89,7 +94,7 @@
                                         <span class="entry-total" :class="outcomeClass(entry)">{{ rollTotal(entry)
                                             }}</span>
                                         <span v-if="entrySuccessCount(entry) > 0" class="entry-success-stars"
-                                            @click.stop="openSuccessPopup(entry, $event)">{{
+                                            @click.stop="openSuccessPopup(entry)">{{
                                                 '\u2728'.repeat(entrySuccessCount(entry)) }}</span>
                                         <EyeSlashIcon v-if="isCurrentUserGM && isEntryHiddenFromPlayers(entry)"
                                             class="entry-hidden-icon" />
@@ -118,9 +123,8 @@
     </div>
 
     <!-- Skill Check Success Popup -->
-    <SkillCheckSuccessPopup v-if="successPopupData" :success-count="successPopupData.successCount"
-        :anchor-el="successPopupData.anchorEl" :character="successPopupData.character"
-        @close="successPopupData = null" />
+    <SkillCheckSuccessPopup v-if="successPopupData" :success-count="successPopupData.successCount" :centered="true"
+        :character="successPopupData.character" @close="successPopupData = null" />
 </template>
 
 <script setup>
@@ -382,11 +386,14 @@ onMounted(async () => {
     if (fetches.length) await Promise.all(fetches)
 })
 
-watch(() => displayedRollLog.value.length, async () => {
+watch(() => displayedRollLog.value[displayedRollLog.value.length - 1]?.id, async (newId) => {
+    if (!newId) return
     const el = scrollRef.value
     if (!el) return
     await nextTick()
-    el.scrollTop = el.scrollHeight
+    requestAnimationFrame(() => {
+        el.scrollTop = el.scrollHeight
+    })
 })
 
 // ── Display helpers ───────────────────────────────────────────────────────────
@@ -481,11 +488,10 @@ function entrySuccessCount(entry) {
     return (entry.diceResults ?? []).filter(d => d.rolledMaxValue && (d.die?.dieSize ?? d.dieSize) === 6).length
 }
 
-function openSuccessPopup(entry, event) {
+function openSuccessPopup(entry) {
     const character = resolveCharacterById(entry.characterId)
     successPopupData.value = {
         successCount: entrySuccessCount(entry),
-        anchorEl: event.currentTarget,
         character: character ?? null,
     }
 }
@@ -605,7 +611,9 @@ function openSuccessPopup(entry, event) {
 /* ── Entry ───────────────────────────────────────────────────────────────────── */
 /* TransitionGroup renders this div as the container for animated entries */
 .chatlog-entries {
-    display: contents;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
 }
 
 .chatlog-entry {
@@ -758,6 +766,14 @@ function openSuccessPopup(entry, event) {
     font-style: italic;
 }
 
+.entry-chat-link-name {
+    font-family: var(--font-family-primary);
+    font-size: var(--font-size-18);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-accent-cyan);
+    margin-top: 2px;
+}
+
 /* Inline modifier note for damage rolls (replaces the separate footer row) */
 .entry-modifier-note {
     font-family: var(--font-family-primary);
@@ -849,10 +865,5 @@ function openSuccessPopup(entry, event) {
 .chatlog-entry-enter-from {
     transform: translateY(12px);
     opacity: 0;
-}
-
-/* Moving entries slide smoothly when list reorders (e.g. on initial load) */
-.chatlog-entry-move {
-    transition: transform 200ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 </style>

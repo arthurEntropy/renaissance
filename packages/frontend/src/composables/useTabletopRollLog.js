@@ -194,7 +194,7 @@ export function useTabletopRollLog({ canvasItems, rollLog, saveStateFn, tabletop
         newLog.splice(matchingIdx, 1, combined)
         rollLog.value = newLog
         // Still show an individual speech bubble for this character's result
-        if (canvasItemId) {
+        if (canvasItemId && entry.type !== RollTypes.CHAT_LINK) {
           _showBubble(canvasItemId, entry)
         }
         saveStateFn()
@@ -209,7 +209,7 @@ export function useTabletopRollLog({ canvasItems, rollLog, saveStateFn, tabletop
     if (newLog.length > MAX_LOG_ENTRIES) newLog.shift()
     rollLog.value = newLog
 
-    if (canvasItemId) {
+    if (canvasItemId && entry.type !== RollTypes.CHAT_LINK) {
       _showBubble(canvasItemId, entry)
     }
 

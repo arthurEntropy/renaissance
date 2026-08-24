@@ -79,6 +79,7 @@ function onEnduranceChange(e) {
     Object.assign(char.states, calculateWearyStates(char))
     updateDiceMods(char)
     updateFavoredStatus(char)
+    emit('character-saved', props.character)
     scheduleSave()
 }
 
@@ -89,6 +90,7 @@ function onDefenseChange(e) {
     Object.assign(char.states, calculateHelplessStates(char))
     updateDiceMods(char)
     updateFavoredStatus(char)
+    emit('character-saved', props.character)
     scheduleSave()
 }
 </script>

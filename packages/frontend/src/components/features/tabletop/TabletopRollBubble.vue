@@ -7,7 +7,9 @@
             <template v-if="!expanded">
                 <span class="bubble-compact-total" :class="entry.type === RollTypes.ENGAGEMENT ? outcomeClass : null">{{
                     compactTotal }}</span>
-                <span v-if="compactEmoji" class="bubble-compact-emoji">{{ compactEmoji }}</span>
+                <span v-if="compactEmoji" class="bubble-compact-emoji"
+                    :class="{ 'bubble-compact-emoji--clickable': successCount > 0 }"
+                    @click.stop="successCount > 0 ? openSuccessPopup() : undefined">{{ compactEmoji }}</span>
             </template>
 
             <!-- Expanded state: full roll detail matching chatlog entry layout -->
@@ -30,6 +32,8 @@
                         class="bubble-modifier-note">{{ entry.modifier >= 0 ? '+' : '' }}{{ entry.modifier }}{{
                             entry.modifierLabel ? ` (${entry.modifierLabel})` : '' }}</span>
                     <span class="bubble-result" :class="outcomeClass">{{ resultText }}</span>
+                    <span v-if="successCount > 0" class="bubble-success-stars" @click.stop="openSuccessPopup">{{
+                        '\u2728'.repeat(successCount) }}</span>
                 </div>
                 <!-- Footer: suppress for damage (modifier shown inline) -->
                 <div v-if="entry.footer && entry.type !== RollTypes.DAMAGE" class="bubble-footer">{{ entry.footer }}
@@ -39,13 +43,18 @@
 
         <!-- Speech-bubble tail pointing down toward the token -->
         <div class="bubble-tail" :class="{ 'bubble-tail--expanded': expanded }" />
+
+        <!-- Success popup (teleports to body, centered in viewport) -->
+        <SkillCheckSuccessPopup v-if="successPopupData" :success-count="successPopupData.successCount" :centered="true"
+            :character="null" @close="successPopupData = null" />
     </div>
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { RollTypes } from '@/constants/rollTypes'
 import { EngagementResultTypes } from '@/constants/engagementResultTypes'
+import SkillCheckSuccessPopup from '@/components/features/characterSheet/diceBox/SkillCheckSuccessPopup.vue'
 
 const MAX_DICE = 4
 
@@ -159,6 +168,19 @@ const outcomeClass = computed(() => {
     if (e.success === false) return 'outcome--failure'
     return ''
 })
+
+// ── Skill Check Success Popup ──────────────────────────────────────────────
+
+const successCount = computed(() => {
+    if (props.entry.type !== RollTypes.SKILL_CHECK) return 0
+    return (props.entry.diceResults ?? []).filter(d => d.rolledMaxValue && (d.die?.dieSize ?? d.dieSize) === 6).length
+})
+
+const successPopupData = ref(null)
+
+function openSuccessPopup() {
+    successPopupData.value = { successCount: successCount.value }
+}
 </script>
 
 <style scoped>
@@ -206,6 +228,10 @@ const outcomeClass = computed(() => {
 .bubble-compact-emoji {
     font-size: var(--font-size-14);
     line-height: 1;
+}
+
+.bubble-compact-emoji--clickable {
+    cursor: pointer;
 }
 
 /* ── Expanded state ───────────────────────────────────────────────────────────── */
@@ -312,6 +338,15 @@ const outcomeClass = computed(() => {
     font-size: var(--font-size-11);
     color: var(--color-text-secondary);
     font-style: italic;
+}
+
+.bubble-success-stars {
+    font-size: var(--font-size-14);
+    line-height: 1;
+    cursor: pointer;
+    user-select: none;
+    align-self: center;
+    margin-left: var(--space-xs);
 }
 
 /* Inline modifier note for damage rolls */
