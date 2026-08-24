@@ -50,6 +50,10 @@ const props = defineProps({
         type: Object,
         default: null,
     },
+    centered: {
+        type: Boolean,
+        default: false,
+    },
 })
 
 const emit = defineEmits(['close'])
@@ -116,7 +120,16 @@ const calculatePosition = () => {
     }
 }
 
-const popupStyle = computed(() => positionStyle.value)
+const popupStyle = computed(() => {
+    if (props.centered) {
+        return {
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+        }
+    }
+    return positionStyle.value
+})
 
 const onScroll = () => emit('close')
 
@@ -125,7 +138,9 @@ onMounted(async () => {
         await skillCheckSuccessesStore.fetch()
     }
     await nextTick()
-    calculatePosition()
+    if (!props.centered) {
+        calculatePosition()
+    }
     window.addEventListener('scroll', onScroll, true)
 })
 
