@@ -22,8 +22,8 @@
                         <div v-for="entry in displayedRollLog" :key="entry.id" class="chatlog-entry">
                             <!-- Portrait -->
                             <div class="entry-portrait-wrap">
-                                <img v-if="entry.portraitUrl" :src="entry.portraitUrl" :alt="entry.characterName"
-                                    class="entry-portrait" />
+                                <img v-if="resolveEntryPortraitUrl(entry)" :src="resolveEntryPortraitUrl(entry)"
+                                    :alt="entry.characterName" class="entry-portrait" />
                                 <span v-else class="entry-portrait entry-portrait--initials"
                                     :style="{ color: tokenBorderColor(entry) }">
                                     {{ initials(entry.characterName) }}
@@ -35,7 +35,7 @@
                                 <div class="entry-header-line">
                                     <span class="entry-name" :style="{ color: engagementCharColor(entry, true) }">{{
                                         entry.characterName
-                                    }}</span><span class="entry-title"> vs </span><span class="entry-name"
+                                        }}</span><span class="entry-title"> vs </span><span class="entry-name"
                                         :style="{ color: engagementCharColor(entry, false) }">{{ entry.opponentName
                                         }}</span><span class="entry-title">:</span>
                                 </div>
@@ -92,7 +92,7 @@
                                                 entry.modifier }}{{ entry.modifierLabel ? ` (${entry.modifierLabel})` : ''
                                             }}</span>
                                         <span class="entry-total" :class="outcomeClass(entry)">{{ rollTotal(entry)
-                                            }}</span>
+                                        }}</span>
                                         <span v-if="entrySuccessCount(entry) > 0" class="entry-success-stars"
                                             @click.stop="openSuccessPopup(entry)">{{
                                                 '\u2728'.repeat(entrySuccessCount(entry)) }}</span>
@@ -397,6 +397,13 @@ watch(() => displayedRollLog.value[displayedRollLog.value.length - 1]?.id, async
 })
 
 // ── Display helpers ───────────────────────────────────────────────────────────
+
+/** Falls back to the characters store when the stored portrait URL is missing. */
+function resolveEntryPortraitUrl(entry) {
+    if (entry.portraitUrl) return entry.portraitUrl
+    const character = resolveCharacterById(entry.characterId)
+    return character?.portraitUrl ?? null
+}
 
 function tokenBorderColor(entry) {
     if (entry.isBeast) return 'var(--color-token-border-beast)'

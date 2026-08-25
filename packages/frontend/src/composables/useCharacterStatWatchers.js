@@ -126,8 +126,10 @@ export function useCharacterStatWatchers(selectedCharacter, allEquipment, { onSa
   watch(() => selectedCharacter.value?.wits, () => {
     if (!selectedCharacter.value || selectedCharacter.value.wits === undefined) return
     if (selectedCharacter.value.autoCalculations?.states ?? true) {
+      // Pass calcMax:false — CoreAbilityColumn owns defense.base and includes the armor bonus.
+      // Recalculating here without the armor bonus would clobber the correct value.
       CharacterUtils.handleWitsChange(selectedCharacter.value, {
-        calcMax: selectedCharacter.value.autoCalculations?.baseDefense ?? true
+        calcMax: false
       })
     }
   })
