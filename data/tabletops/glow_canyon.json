@@ -2,7 +2,7 @@
   "id": "87b9491c-b265-4a8b-be84-dac5866a3784",
   "isDeleted": false,
   "createdAt": "2026-08-17T20:11:22.169Z",
-  "lastModified": "2026-08-22T01:50:57.403Z",
+  "lastModified": "2026-08-25T18:02:40.982Z",
   "campaignId": "84b00fc0-eae8-4808-9151-949bf59928ff",
   "name": "Glow Canyon",
   "backgroundImage": {
@@ -121,9 +121,9 @@
     }
   ],
   "transform": {
-    "scale": 1.2597119999999997,
-    "x": -224.6979187088025,
-    "y": -625.9376462077055
+    "scale": 1.0799999999999996,
+    "x": -164.82331850891842,
+    "y": -436.9204785731356
   },
   "gridSize": 40,
   "gridColor": "#ffffff",
@@ -2501,6 +2501,330 @@
           "cssClass": "df-d6-1"
         }
       ]
+    },
+    {
+      "id": "efc5fcf5-00cb-4892-9170-f09a5e766676_1787680611945_laae",
+      "timestamp": 1787680611945,
+      "characterId": "efc5fcf5-00cb-4892-9170-f09a5e766676",
+      "characterName": "Banshee A",
+      "portraitUrl": "https://cdn.midjourney.com/2c3a08ae-00ce-4adc-82a3-c4406135f442/0_0.png",
+      "isNpc": false,
+      "isBeast": true,
+      "type": "initiative",
+      "skillName": "Initiative",
+      "total": 9,
+      "diceTotal": 5,
+      "modifier": 4,
+      "modifierLabel": "WITS",
+      "success": null,
+      "difficulty": null,
+      "footer": null,
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 5,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-5"
+        }
+      ],
+      "wasTokenVisible": true
+    },
+    {
+      "id": "99d7520c-aaf4-4a49-bd02-74c7d98b8c7b_1787680611947_516i",
+      "timestamp": 1787680611947,
+      "characterId": "99d7520c-aaf4-4a49-bd02-74c7d98b8c7b",
+      "characterName": "Skeleton A",
+      "portraitUrl": "https://cdn.midjourney.com/38d41c47-c917-4004-9849-1889abfc5f6c/0_0.png",
+      "isNpc": false,
+      "isBeast": true,
+      "type": "initiative",
+      "skillName": "Initiative",
+      "total": 8,
+      "diceTotal": 8,
+      "modifier": 0,
+      "modifierLabel": "WITS",
+      "success": null,
+      "difficulty": null,
+      "footer": null,
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 8,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-8"
+        }
+      ],
+      "wasTokenVisible": true
+    },
+    {
+      "id": "ca5889a9-104d-4b6d-9fb5-9125def99a80_1787680611949_qwf6",
+      "timestamp": 1787680611949,
+      "characterId": "ca5889a9-104d-4b6d-9fb5-9125def99a80",
+      "characterName": "Skeleton B",
+      "portraitUrl": "https://cdn.midjourney.com/38d41c47-c917-4004-9849-1889abfc5f6c/0_0.png",
+      "isNpc": false,
+      "isBeast": true,
+      "type": "initiative",
+      "skillName": "Initiative",
+      "total": 5,
+      "diceTotal": 5,
+      "modifier": 0,
+      "modifierLabel": "WITS",
+      "success": null,
+      "difficulty": null,
+      "footer": null,
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 5,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-5"
+        }
+      ],
+      "wasTokenVisible": true
+    },
+    {
+      "id": "039b47aa-7d8a-49ae-937f-f9bf53cfc290_1787680611952_vosf",
+      "timestamp": 1787680611952,
+      "characterId": "039b47aa-7d8a-49ae-937f-f9bf53cfc290",
+      "characterName": "Skeleton C",
+      "portraitUrl": "https://cdn.midjourney.com/38d41c47-c917-4004-9849-1889abfc5f6c/0_0.png",
+      "isNpc": false,
+      "isBeast": true,
+      "type": "initiative",
+      "skillName": "Initiative",
+      "total": 4,
+      "diceTotal": 4,
+      "modifier": 0,
+      "modifierLabel": "WITS",
+      "success": null,
+      "difficulty": null,
+      "footer": null,
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 4,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-4"
+        }
+      ],
+      "wasTokenVisible": true
+    },
+    {
+      "id": "4162b81b-d5b3-4077-a1c4-50ca0176d1e0_1787680611956_nvcr",
+      "timestamp": 1787680611956,
+      "characterId": "4162b81b-d5b3-4077-a1c4-50ca0176d1e0",
+      "characterName": "Skeleton D",
+      "portraitUrl": "https://cdn.midjourney.com/38d41c47-c917-4004-9849-1889abfc5f6c/0_0.png",
+      "isNpc": false,
+      "isBeast": true,
+      "type": "initiative",
+      "skillName": "Initiative",
+      "total": 7,
+      "diceTotal": 7,
+      "modifier": 0,
+      "modifierLabel": "WITS",
+      "success": null,
+      "difficulty": null,
+      "footer": null,
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 7,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-7"
+        }
+      ],
+      "wasTokenVisible": true
+    },
+    {
+      "id": "c4883e09-8543-42e5-a69d-26bbae78d44e_1787680614817_4ig3",
+      "timestamp": 1787680614817,
+      "characterId": "c4883e09-8543-42e5-a69d-26bbae78d44e",
+      "characterName": "Pimlan",
+      "portraitUrl": "https://cdn.midjourney.com/cbaeac9c-8720-44f8-b904-bc79ab523e7d/0_3_2048_N.webp",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "initiative",
+      "skillName": "Initiative",
+      "total": 9,
+      "diceTotal": 6,
+      "modifier": 3,
+      "modifierLabel": "WITS",
+      "success": null,
+      "difficulty": null,
+      "footer": null,
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 6,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-6"
+        }
+      ],
+      "wasTokenVisible": true
+    },
+    {
+      "id": "285cc523-b6f4-41cc-83b6-91915f207c8a_1787680614825_e71q",
+      "timestamp": 1787680614825,
+      "characterId": "285cc523-b6f4-41cc-83b6-91915f207c8a",
+      "characterName": "Sergio",
+      "portraitUrl": "https://cdn.midjourney.com/c845873a-6dc7-47cc-89e1-1903a4dc622d/0_0_2048_N.webp",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "initiative",
+      "skillName": "Initiative",
+      "total": 6,
+      "diceTotal": 3,
+      "modifier": 3,
+      "modifierLabel": "WITS",
+      "success": null,
+      "difficulty": null,
+      "footer": null,
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 3,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-3"
+        }
+      ],
+      "wasTokenVisible": true
+    },
+    {
+      "id": "4083afd8-0594-4647-ac06-09b8a2a8cefc_1787680614832_boo0",
+      "timestamp": 1787680614832,
+      "characterId": "4083afd8-0594-4647-ac06-09b8a2a8cefc",
+      "characterName": "Magnuss",
+      "portraitUrl": "https://cdn.midjourney.com/9d007aef-e372-4e42-9581-a2703cfe7018/0_2_2048_N.webp",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "initiative",
+      "skillName": "Initiative",
+      "total": 3,
+      "diceTotal": 2,
+      "modifier": 1,
+      "modifierLabel": "WITS",
+      "success": null,
+      "difficulty": null,
+      "footer": null,
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 2,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-2"
+        }
+      ],
+      "wasTokenVisible": true
+    },
+    {
+      "id": "13e267c3-f608-466d-9a8d-7442dcd5a7d4_1787680614840_ak0z",
+      "timestamp": 1787680614840,
+      "characterId": "13e267c3-f608-466d-9a8d-7442dcd5a7d4",
+      "characterName": "Sukha",
+      "portraitUrl": "https://cdn.midjourney.com/95c9a8b1-d0a7-4b44-9c87-91a500f4db7d/0_1_2048_N.webp",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "initiative",
+      "skillName": "Initiative",
+      "total": 5,
+      "diceTotal": 3,
+      "modifier": 2,
+      "modifierLabel": "WITS",
+      "success": null,
+      "difficulty": null,
+      "footer": null,
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 3,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-3"
+        }
+      ],
+      "wasTokenVisible": true
     }
   ],
   "combatGroups": [
@@ -2533,7 +2857,72 @@
           "type": "beast",
           "characterId": "4162b81b-d5b3-4077-a1c4-50ca0176d1e0"
         }
-      ]
+      ],
+      "initiativeResults": {
+        "groupTotal": 10,
+        "members": [
+          {
+            "characterId": "efc5fcf5-00cb-4892-9170-f09a5e766676",
+            "name": "Banshee 🅐",
+            "individualTotal": 9,
+            "diceRoll": 5,
+            "isSol": false,
+            "isMorte": false,
+            "isCaughtOffGuard": false,
+            "emoji": null,
+            "role": "highest",
+            "success": true
+          },
+          {
+            "characterId": "99d7520c-aaf4-4a49-bd02-74c7d98b8c7b",
+            "name": "Skeleton 🅐",
+            "individualTotal": 8,
+            "diceRoll": 8,
+            "isSol": false,
+            "isMorte": false,
+            "isCaughtOffGuard": false,
+            "emoji": null,
+            "role": "middle",
+            "success": true
+          },
+          {
+            "characterId": "4162b81b-d5b3-4077-a1c4-50ca0176d1e0",
+            "name": "Skeleton 🅓",
+            "individualTotal": 7,
+            "diceRoll": 7,
+            "isSol": false,
+            "isMorte": false,
+            "isCaughtOffGuard": false,
+            "emoji": null,
+            "role": "middle",
+            "success": true
+          },
+          {
+            "characterId": "ca5889a9-104d-4b6d-9fb5-9125def99a80",
+            "name": "Skeleton 🅑",
+            "individualTotal": 5,
+            "diceRoll": 5,
+            "isSol": false,
+            "isMorte": false,
+            "isCaughtOffGuard": false,
+            "emoji": null,
+            "role": "middle",
+            "success": true
+          },
+          {
+            "characterId": "039b47aa-7d8a-49ae-937f-f9bf53cfc290",
+            "name": "Skeleton 🅒",
+            "individualTotal": 4,
+            "diceRoll": 4,
+            "isSol": false,
+            "isMorte": false,
+            "isCaughtOffGuard": false,
+            "emoji": null,
+            "role": "lowest",
+            "success": true
+          }
+        ]
+      }
     },
     {
       "id": "group-1786997627821-uwtpj5",
@@ -2559,7 +2948,60 @@
           "type": "pc",
           "characterId": "13e267c3-f608-466d-9a8d-7442dcd5a7d4"
         }
-      ]
+      ],
+      "initiativeResults": {
+        "groupTotal": 12,
+        "members": [
+          {
+            "characterId": "c4883e09-8543-42e5-a69d-26bbae78d44e",
+            "name": "Pimlan",
+            "individualTotal": 9,
+            "diceRoll": 6,
+            "isSol": false,
+            "isMorte": false,
+            "isCaughtOffGuard": false,
+            "emoji": null,
+            "role": "highest",
+            "success": true
+          },
+          {
+            "characterId": "285cc523-b6f4-41cc-83b6-91915f207c8a",
+            "name": "Sergio",
+            "individualTotal": 6,
+            "diceRoll": 3,
+            "isSol": false,
+            "isMorte": false,
+            "isCaughtOffGuard": false,
+            "emoji": null,
+            "role": "middle",
+            "success": true
+          },
+          {
+            "characterId": "13e267c3-f608-466d-9a8d-7442dcd5a7d4",
+            "name": "Sukha",
+            "individualTotal": 5,
+            "diceRoll": 3,
+            "isSol": false,
+            "isMorte": false,
+            "isCaughtOffGuard": false,
+            "emoji": null,
+            "role": "middle",
+            "success": true
+          },
+          {
+            "characterId": "4083afd8-0594-4647-ac06-09b8a2a8cefc",
+            "name": "Magnuss",
+            "individualTotal": 3,
+            "diceRoll": 2,
+            "isSol": false,
+            "isMorte": false,
+            "isCaughtOffGuard": false,
+            "emoji": null,
+            "role": "lowest",
+            "success": true
+          }
+        ]
+      }
     }
   ],
   "pixelsPerMile": 40,

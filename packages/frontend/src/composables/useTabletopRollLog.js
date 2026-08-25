@@ -244,7 +244,10 @@ export function useTabletopRollLog({ canvasItems, rollLog, saveStateFn, tabletop
           isBeast: false,
         }
 
-        const entry = buildRollLogEntry(roll, entrySource)
+        const entry = {
+          ...buildRollLogEntry(roll, entrySource),
+          wasTokenVisible: canvasItem != null && !(canvasItem.isHidden ?? false),
+        }
         _appendEntry(entry, canvasItem?.id ?? null, false)
       }
     },

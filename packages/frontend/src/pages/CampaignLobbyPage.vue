@@ -66,7 +66,7 @@
                     <CampaignNpcsPanel class="lobby-col-npcs" />
                 </div>
 
-                <CampaignTabletopsPanel />
+                <CampaignTabletopsPanel v-if="isGM" />
 
                 <CampaignShopsPanel />
 

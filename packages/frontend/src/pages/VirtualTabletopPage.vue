@@ -2,9 +2,10 @@
     <div class="tabletop-root" @wheel.prevent="handleWheel" @contextmenu.prevent>
 
         <!-- Canvas Container -->
-        <div class="canvas-container" :class="{ 'is-panning': isPanning }" :style="canvasCursorStyle"
-            ref="canvasContainerRef" @mousedown="handleCanvasContainerMousedown" @dragover="handleDragOver"
-            @dragleave="handleDragLeave" @drop="handleDrop">
+        <div class="canvas-container" :class="{ 'is-panning': isPanning }"
+            :style="[canvasCursorStyle, !isGM && { '--vtt-toolbar-height': '0px' }]" ref="canvasContainerRef"
+            @mousedown="handleCanvasContainerMousedown" @dragover="handleDragOver" @dragleave="handleDragLeave"
+            @drop="handleDrop">
 
             <!-- Grid overlay (always visible, tracks canvas transform) -->
             <div class="canvas-grid" :style="canvasGridStyle" />
@@ -97,10 +98,10 @@
 
         <!-- Bottom Toolbar – teleported to body so it stacks above PinnedTokensContainer (z-badge) -->
         <Teleport to="body">
-            <div class="tabletop-toolbar-portal">
+            <div v-if="isGM" class="tabletop-toolbar-portal">
                 <TabletopToolbar :scale="transform.scale" :grid-size="gridSize" :item-count="canvasItems.length"
                     :can-undo="canUndo" :can-redo="canRedo" :has-background="!!backgroundImage" :grid-color="gridColor"
-                    :grid-opacity="gridOpacity" :show-paths="showPaths" :is-g-m="campaignStore.isGMInActiveCampaign"
+                    :grid-opacity="gridOpacity" :is-g-m="campaignStore.isGMInActiveCampaign"
                     :tabletops="campaignStore.tabletops" :current-tabletop-id="tabletopId"
                     :active-tabletop-id="campaignStore.activeCampaign?.activeTabletopId ?? null"
                     :current-tabletop-name="currentTabletopName" :map-scale="mapScale" @zoom-in="adjustZoom(1.2)"
@@ -108,9 +109,8 @@
                     @increase-map-scale="increaseMapScale" @decrease-map-scale="decreaseMapScale" @clear-all="clearAll"
                     @undo="undo" @redo="redo" @set-background="setBackgroundImage"
                     @clear-background="clearBackgroundImage" @update-grid-color="setGridColor"
-                    @update-grid-opacity="setGridOpacity" @update-show-paths="setShowPaths"
-                    @toggle-active-tabletop="handleToggleActiveTabletop" @switch-tabletop="handleSwitchTabletop"
-                    @clear-log="clearRollLog" />
+                    @update-grid-opacity="setGridOpacity" @toggle-active-tabletop="handleToggleActiveTabletop"
+                    @switch-tabletop="handleSwitchTabletop" @clear-log="clearRollLog" />
             </div>
         </Teleport>
 
@@ -130,10 +130,10 @@
                 @close="closeSpectatePopup" />
         </Teleport>
 
-        <!-- GM active-abilities bar: one container per character with active abilities,
-             stacked right-to-left across the top of the canvas. -->
+        <!-- Active-abilities bar: one container per character with active abilities,
+             stacked right-to-left across the top of the canvas. Visible to all users. -->
         <Teleport to="body">
-            <TabletopActiveAbilitiesBar v-if="isGM" :canvas-items="canvasItems" />
+            <TabletopActiveAbilitiesBar :canvas-items="displayCanvasItems" />
         </Teleport>
     </div>
 </template>
@@ -240,7 +240,6 @@ const {
     setGridColor,
     setGridOpacity,
     showPaths,
-    setShowPaths,
     radiusAreas,
     selectedRadiusAreaId,
     editingRadiusAreaId,
@@ -276,6 +275,18 @@ function broadcastStateUpdate(snapshot) {
     _broadcastStateUpdateRef?.(snapshot)
 }
 
+// Wraps the canvas applyExternalState to also handle combat-group order and
+// initiative-active flag that the GM broadcasts after sorting or cycling.
+function handleExternalState(snapshot) {
+    applyExternalState(snapshot)
+    if (Array.isArray(snapshot.combatGroups)) {
+        characterContextStore.setGroupsFromTabletop(snapshot.combatGroups)
+    }
+    if (snapshot.isInitiativeActive != null) {
+        characterContextStore.setIsInitiativeActive(snapshot.isInitiativeActive)
+    }
+}
+
 // When the GM changes the active tabletop, redirect all viewers to that tabletop.
 function handleActiveTabletopChanged({ activeTabletopId }) {
     if (!activeTabletopId || !campaignSlug.value) return
@@ -292,7 +303,7 @@ function handleActiveTabletopChanged({ activeTabletopId }) {
 const { broadcastStateUpdate: _syncBroadcast, broadcastCharacterUpdate, announceActiveTabletopChanged } = useTabletopSync({
     tabletopId,
     campaignId,
-    applyExternalState,
+    applyExternalState: handleExternalState,
     onActiveTabletopChanged: handleActiveTabletopChanged,
 })
 _broadcastStateUpdateRef = _syncBroadcast
@@ -610,11 +621,10 @@ watch(campaignId, async (id) => {
     await Promise.all(fetches)
     loadState()
 
-    // GM-only: populate the combat groups rail from the tabletop data.
-    if (isGM.value) {
-        const tabletop = campaignStore.tabletops.find((t) => t.id === tabletopId.value)
-        characterContextStore.setGroupsFromTabletop(tabletop?.combatGroups ?? [])
-    }
+    // Populate the combat groups rail from the tabletop data for all users.
+    const tabletop = campaignStore.tabletops.find((t) => t.id === tabletopId.value)
+    characterContextStore.setGroupsFromTabletop(tabletop?.combatGroups ?? [])
+    characterContextStore.setIsInitiativeActive(tabletop?.isInitiativeActive ?? false)
 }, { immediate: true })
 
 // Reload canvas state and combat groups when the user switches tabletops within the
@@ -629,10 +639,10 @@ watch(tabletopId, async (tid, oldTid) => {
 
     loadState()
 
-    if (isGM.value) {
-        const tabletop = campaignStore.tabletops.find((t) => t.id === tid)
-        characterContextStore.setGroupsFromTabletop(tabletop?.combatGroups ?? [])
-    }
+    // Populate the combat groups rail from the tabletop data for all users.
+    const tabletop = campaignStore.tabletops.find((t) => t.id === tid)
+    characterContextStore.setGroupsFromTabletop(tabletop?.combatGroups ?? [])
+    characterContextStore.setIsInitiativeActive(tabletop?.isInitiativeActive ?? false)
 })
 
 // On a hard page refresh, isGMInActiveCampaign may resolve after the campaignId
@@ -644,6 +654,7 @@ watch(isGM, (gm) => {
     const tabletop = campaignStore.tabletops.find((t) => t.id === tabletopId.value)
     if (tabletop) {
         characterContextStore.setGroupsFromTabletop(tabletop?.combatGroups ?? [])
+        characterContextStore.setIsInitiativeActive(tabletop?.isInitiativeActive ?? false)
     }
 })
 
@@ -669,14 +680,16 @@ function reconstructCombatGroups(pinnedGroups) {
 }
 
 watch(
-    () => characterContextStore.pinnedGroups,
-    (groups) => {
+    [() => characterContextStore.pinnedGroups, () => characterContextStore.isInitiativeActive],
+    ([groups, initiativeActive]) => {
         if (!isGM.value || !campaignId.value || !tabletopId.value) return
         if (_combatGroupsSaveTimer) clearTimeout(_combatGroupsSaveTimer)
         _combatGroupsSaveTimer = setTimeout(() => {
-            campaignStore.updateTabletop(campaignId.value, tabletopId.value, {
-                combatGroups: reconstructCombatGroups(groups),
-            })
+            const combatGroups = reconstructCombatGroups(groups)
+            const payload = { combatGroups, isInitiativeActive: initiativeActive }
+            campaignStore.updateTabletop(campaignId.value, tabletopId.value, payload)
+                .then(() => broadcastStateUpdate(payload))
+                .catch(err => console.error('[VTT] Failed to persist combat groups:', err))
         }, 400)
     },
     { deep: true }

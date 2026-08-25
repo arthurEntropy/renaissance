@@ -84,6 +84,7 @@ import { createBaseEntity } from './baseEntity.js'
  * @property {string|null} opponentName - Engagement opponent name
  * @property {string|null} sourceName - Damage source name
  * @property {RollLogDieResult[]} diceResults - Individual die results for display
+ * @property {boolean} [wasTokenVisible] - Whether the character's token was visible (not hidden) when this entry was created; undefined treated as visible for backward compatibility
  */
 
 /**
@@ -124,6 +125,7 @@ import { createBaseEntity } from './baseEntity.js'
  * @property {RollLogEntry[]} rollLog - Persistent roll history for this tabletop, capped at 100 entries
  * @property {boolean} [rollLogExpanded] - Whether the roll log panel is expanded (per-user, not synced)
  * @property {CombatGroup[]} combatGroups - Combat groups (token groupings) for this tabletop
+ * @property {boolean} [isInitiativeActive] - Whether initiative order is currently active (first group is highlighted)
  * @property {number} [pixelsPerMile] - World map only: how many canvas pixels represent one mile
  * @property {number} [characterTokenSize] - World map only: pixel size of character tokens when placed
  * @property {number} [cultureTokenSize] - World map only: pixel size of culture tokens when placed

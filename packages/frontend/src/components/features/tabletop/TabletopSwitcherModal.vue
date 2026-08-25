@@ -1,11 +1,11 @@
 <template>
     <BaseModal title="Tabletops" width="480px" @close="$emit('close')">
         <div class="switcher-body">
-            <div v-if="!tabletops.length" class="switcher-empty">
+            <div v-if="!filteredTabletops.length" class="switcher-empty">
                 <p>No tabletops available.</p>
             </div>
             <div v-else class="switcher-list">
-                <button v-for="tabletop in tabletops" :key="tabletop.id" type="button" class="switcher-item"
+                <button v-for="tabletop in filteredTabletops" :key="tabletop.id" type="button" class="switcher-item"
                     :class="{ 'is-current': tabletop.id === currentTabletopId, 'is-active': tabletop.id === activeTabletopId }"
                     @click="$emit('switch-tabletop', tabletop.id)">
                     <!-- Preview thumbnail -->
@@ -29,8 +29,9 @@
 
 <script setup>
 import BaseModal from '@/components/ui/modals/BaseModal.vue'
+import { computed } from 'vue'
 
-defineProps({
+const props = defineProps({
     tabletops: {
         type: Array,
         default: () => [],
@@ -46,6 +47,8 @@ defineProps({
 })
 
 defineEmits(['close', 'switch-tabletop'])
+
+const filteredTabletops = computed(() => props.tabletops.filter(t => !t.isWorldMap))
 
 function getPreviewStyle(tabletop) {
     const url = tabletop.backgroundImage?.url

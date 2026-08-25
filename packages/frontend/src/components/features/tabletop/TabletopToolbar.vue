@@ -95,12 +95,6 @@
             Clear Log
         </button>
 
-        <!-- Measurement path display toggle (only for regular tabletops with grid paths) -->
-        <label v-if="!isWorldMap" class="toolbar-checkbox">
-            <input type="checkbox" :checked="showPaths" @change="$emit('update-show-paths', $event.target.checked)" />
-            Show Paths When Measuring
-        </label>
-
         <!-- GM-only controls pushed to the right -->
         <template v-if="isGM && !isWorldMap">
             <div class="toolbar-spacer" />
@@ -143,7 +137,6 @@ const props = defineProps({
     canRedo: Boolean,
     hasBackground: Boolean,
     mapScale: { type: Number, default: 1 },
-    showPaths: { type: Boolean, default: true },
     isGM: { type: Boolean, default: false },
     tabletops: { type: Array, default: () => [] },
     currentTabletopId: { type: String, default: null },
@@ -156,7 +149,7 @@ const props = defineProps({
     cultureTokenSize: { type: Number, default: 60 },
 })
 
-const emit = defineEmits(['zoom-in', 'zoom-out', 'increase-grid', 'decrease-grid', 'increase-map-scale', 'decrease-map-scale', 'clear-all', 'undo', 'redo', 'set-background', 'clear-background', 'update-grid-color', 'update-grid-opacity', 'update-show-paths', 'toggle-active-tabletop', 'switch-tabletop', 'clear-log', 'increase-pixels-per-mile', 'decrease-pixels-per-mile', 'update-character-token-size', 'update-culture-token-size'])
+const emit = defineEmits(['zoom-in', 'zoom-out', 'increase-grid', 'decrease-grid', 'increase-map-scale', 'decrease-map-scale', 'clear-all', 'undo', 'redo', 'set-background', 'clear-background', 'update-grid-color', 'update-grid-opacity', 'toggle-active-tabletop', 'switch-tabletop', 'clear-log', 'increase-pixels-per-mile', 'decrease-pixels-per-mile', 'update-character-token-size', 'update-culture-token-size'])
 
 const showBgInput = ref(false)
 const bgUrlDraft = ref('')

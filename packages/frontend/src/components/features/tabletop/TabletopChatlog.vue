@@ -138,7 +138,6 @@ import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 import { RollTypes } from '@/constants/rollTypes'
 import { EngagementResultTypes } from '@/constants/engagementResultTypes'
 import { useCardPreview } from '@/composables/useCardPreview'
-import { useTabletopSharedCanvas } from '@/composables/useTabletopSharedCanvas'
 import { useAbilitiesStore } from '@/stores/abilitiesStore'
 import { useEquipmentStore } from '@/stores/equipmentStore'
 import { useConceptsStore } from '@/stores/conceptsStore'
@@ -171,7 +170,7 @@ const emit = defineEmits(['update:isExpanded'])
 // ── Card preview for source name hover ───────────────────────────────────────
 
 const { showAbilityPreview, showEquipmentPreview, scheduleHide } = useCardPreview()
-const { hiddenCharacterIds } = useTabletopSharedCanvas()
+
 const abilitiesStore = useAbilitiesStore()
 const equipmentStore = useEquipmentStore()
 const conceptsStore = useConceptsStore()
@@ -186,20 +185,21 @@ const rollsStore = useRollsStore()
 const isCurrentUserGM = computed(() => campaignStore.isGMInActiveCampaign)
 
 /**
- * Returns true if the character who made this roll currently has a hidden token
- * on the canvas (visible only to the GM).
+ * Returns true if the character was GM-only visible at the time this entry was created.
  */
 function isEntryHiddenFromPlayers(entry) {
-    return hiddenCharacterIds.value.has(entry.characterId)
+    return entry.wasTokenVisible === false
 }
 
 /**
  * The subset of rollLog entries that should be displayed to the current user.
- * Non-GMs cannot see rolls from characters whose tokens are currently hidden.
+ * Non-GMs only see entries whose character token was visible at the time the
+ * roll was made (wasTokenVisible). Undefined is treated as visible for
+ * backward compatibility with entries created before this field was added.
  */
 const displayedRollLog = computed(() => {
     if (isCurrentUserGM.value) return props.rollLog
-    return props.rollLog.filter(entry => !hiddenCharacterIds.value.has(entry.characterId))
+    return props.rollLog.filter(entry => entry.wasTokenVisible !== false)
 })
 
 // ── Reroll ─────────────────────────────────────────────────────────────────────

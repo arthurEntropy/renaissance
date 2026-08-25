@@ -184,7 +184,7 @@ app.put('/campaigns/:id/bane-boon-position', requireAuth, requireCampaignMember,
 app.get('/campaigns/:id/tabletops', requireAuth, requireCampaignMember, getCampaignTabletops)
 app.post('/campaigns/:id/tabletops', requireAuth, requireCampaignGM, createCampaignTabletop)
 app.put('/campaigns/:id/tabletops/order', requireAuth, requireCampaignGM, reorderCampaignTabletops)
-app.put('/campaigns/:id/tabletops/:tabletopId', requireAuth, requireCampaignGM, updateCampaignTabletop)
+app.put('/campaigns/:id/tabletops/:tabletopId', requireAuth, requireCampaignMember, updateCampaignTabletop)
 app.delete('/campaigns/:id/tabletops/:tabletopId', requireAuth, requireCampaignGM, deleteCampaignTabletop)
 app.put('/campaigns/:id/active-tabletop', requireAuth, requireCampaignGM, setActiveTabletop)
 

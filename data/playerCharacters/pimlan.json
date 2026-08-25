@@ -2,7 +2,7 @@
   "id": "c4883e09-8543-42e5-a69d-26bbae78d44e",
   "isDeleted": false,
   "createdAt": "2026-08-17T18:30:32.343Z",
-  "lastModified": "2026-08-24T15:00:26.956Z",
+  "lastModified": "2026-08-25T17:56:55.084Z",
   "characterType": "playerCharacter",
   "name": "Pimlan",
   "featuredArtUrls": [
@@ -327,5 +327,5 @@
   "treasure": 8,
   "xp": 0,
   "description": "",
-  "updatedAt": "2026-08-24T15:00:26.956Z"
+  "updatedAt": "2026-08-25T17:56:55.084Z"
 }

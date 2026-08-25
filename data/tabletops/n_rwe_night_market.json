@@ -2,7 +2,7 @@
   "id": "18953367-9a25-4dd1-8429-ff2820832d9b",
   "isDeleted": false,
   "createdAt": "2026-08-17T19:54:55.724Z",
-  "lastModified": "2026-08-24T17:55:21.410Z",
+  "lastModified": "2026-08-25T17:56:16.086Z",
   "campaignId": "84b00fc0-eae8-4808-9151-949bf59928ff",
   "name": "Nïrwe Night Market",
   "backgroundImage": {
@@ -60,46 +60,47 @@
       "zIndex": 40
     },
     {
-      "id": "090d9fed-8182-4f57-86a7-22700acc38b9",
-      "characterId": "ce6c45df-906d-4f6a-85e9-58a7b458a394",
-      "isBeast": true,
-      "isNpc": false,
-      "name": "Carrion Crawler 🅐",
-      "portraitUrl": "https://cdn.midjourney.com/48444f34-cffe-4732-ba92-522ed9c62a29/0_3.png",
-      "size": 2,
-      "x": 640,
-      "y": 240,
-      "zIndex": 56
-    },
-    {
-      "id": "1495878f-0a59-40d8-803b-52ccf83b5f9d",
+      "id": "59de2728-6f8c-45b5-a7e9-dcb40379c72d",
       "characterId": "b84a8a85-f236-4880-96a5-86af7c754fe7",
       "isBeast": true,
       "isNpc": false,
       "name": "Carrion Crawler 🅑",
       "portraitUrl": "https://cdn.midjourney.com/48444f34-cffe-4732-ba92-522ed9c62a29/0_3.png",
       "size": 2,
-      "x": 840,
-      "y": 240,
-      "zIndex": 49
+      "x": 680,
+      "y": 280,
+      "zIndex": 71,
+      "isHidden": false
     },
     {
-      "id": "486f496f-628d-4a15-b4f2-a4fe44e61ea2",
-      "characterId": "8f56a2a7-87f1-4f6e-ba28-bd3327ce5da6",
-      "isBeast": true,
+      "id": "8a7bfe1f-93de-4bbc-a917-6554d540d4af",
+      "characterId": "285cc523-b6f4-41cc-83b6-91915f207c8a",
+      "isBeast": false,
       "isNpc": false,
-      "name": "Carrion Crawler 🅒",
-      "portraitUrl": "https://cdn.midjourney.com/48444f34-cffe-4732-ba92-522ed9c62a29/0_3.png",
-      "size": 2,
-      "x": 520,
-      "y": 320,
-      "zIndex": 47
+      "name": "Sergio",
+      "portraitUrl": "https://cdn.midjourney.com/c845873a-6dc7-47cc-89e1-1903a4dc622d/0_0_2048_N.webp",
+      "size": 1,
+      "x": 680,
+      "y": 800,
+      "zIndex": 73
+    },
+    {
+      "id": "869450ff-1e89-4949-9f1e-7c1018b6ec3a",
+      "characterId": "4083afd8-0594-4647-ac06-09b8a2a8cefc",
+      "isBeast": false,
+      "isNpc": false,
+      "name": "Magnuss",
+      "portraitUrl": "https://cdn.midjourney.com/9d007aef-e372-4e42-9581-a2703cfe7018/0_2_2048_N.webp",
+      "size": 1,
+      "x": 920,
+      "y": 800,
+      "zIndex": 68
     }
   ],
   "transform": {
-    "scale": 1.0799999999999992,
-    "x": 5.32723330883141,
-    "y": 82.44390983583105
+    "scale": 0.9999999999999987,
+    "x": -152.38932013640897,
+    "y": 158.64090048104856
   },
   "gridSize": 40,
   "gridColor": "#ffffff",
@@ -2549,9 +2550,170 @@
       "opponentName": null,
       "sourceName": "Rapier",
       "diceResults": []
+    },
+    {
+      "id": "b84a8a85-f236-4880-96a5-86af7c754fe7_1787671655094_4iba",
+      "timestamp": 1787671655094,
+      "characterId": "b84a8a85-f236-4880-96a5-86af7c754fe7",
+      "characterName": "Carrion Crawler 🅑",
+      "portraitUrl": "https://cdn.midjourney.com/48444f34-cffe-4732-ba92-522ed9c62a29/0_3.png",
+      "isNpc": false,
+      "isBeast": true,
+      "type": "damage",
+      "skillName": "Bite",
+      "total": 9,
+      "diceTotal": 3,
+      "modifier": 6,
+      "modifierLabel": "BODY",
+      "success": null,
+      "difficulty": null,
+      "footer": "+ BODY",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": "Bite",
+      "diceResults": [
+        {
+          "dieSize": 6,
+          "dieRollValue": 3,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-3"
+        }
+      ],
+      "wasTokenVisible": false
+    },
+    {
+      "id": "b84a8a85-f236-4880-96a5-86af7c754fe7_1787677506584_yzvv",
+      "timestamp": 1787677506584,
+      "characterId": "b84a8a85-f236-4880-96a5-86af7c754fe7",
+      "characterName": "Carrion Crawler 🅑",
+      "portraitUrl": "https://cdn.midjourney.com/48444f34-cffe-4732-ba92-522ed9c62a29/0_3.png",
+      "isNpc": false,
+      "isBeast": true,
+      "type": "damage",
+      "skillName": "Bite",
+      "total": 10,
+      "diceTotal": 4,
+      "modifier": 6,
+      "modifierLabel": "BODY",
+      "success": null,
+      "difficulty": null,
+      "footer": "+ BODY",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": "Bite",
+      "diceResults": [
+        {
+          "dieSize": 6,
+          "dieRollValue": 4,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-4"
+        }
+      ],
+      "wasTokenVisible": true
     }
   ],
   "combatGroups": [
+    {
+      "id": "group-1786997047236-cqq83l",
+      "name": "Team Vengeance",
+      "combatants": [
+        {
+          "id": "pc:54f77e58-eca4-4e28-ac76-6d55493470cc",
+          "type": "pc",
+          "characterId": "54f77e58-eca4-4e28-ac76-6d55493470cc"
+        },
+        {
+          "id": "pc:8f20a6c3-b272-45d6-9d80-c07ced314693",
+          "type": "pc",
+          "characterId": "8f20a6c3-b272-45d6-9d80-c07ced314693"
+        },
+        {
+          "id": "pc:da8bd375-e52c-4b5a-9cbf-d729eb2442cf",
+          "type": "pc",
+          "characterId": "da8bd375-e52c-4b5a-9cbf-d729eb2442cf"
+        },
+        {
+          "id": "pc:13e267c3-f608-466d-9a8d-7442dcd5a7d4",
+          "type": "pc",
+          "characterId": "13e267c3-f608-466d-9a8d-7442dcd5a7d4"
+        },
+        {
+          "id": "pc:285cc523-b6f4-41cc-83b6-91915f207c8a",
+          "type": "pc",
+          "characterId": "285cc523-b6f4-41cc-83b6-91915f207c8a"
+        },
+        {
+          "id": "pc:4083afd8-0594-4647-ac06-09b8a2a8cefc",
+          "type": "pc",
+          "characterId": "4083afd8-0594-4647-ac06-09b8a2a8cefc"
+        }
+      ],
+      "initiativeResults": {
+        "groupTotal": 18,
+        "members": [
+          {
+            "characterId": "13e267c3-f608-466d-9a8d-7442dcd5a7d4",
+            "name": "Sukha",
+            "individualTotal": 10,
+            "diceRoll": 8,
+            "isSol": false,
+            "isMorte": false,
+            "isCaughtOffGuard": false,
+            "emoji": null,
+            "role": "highest",
+            "success": true
+          },
+          {
+            "characterId": "da8bd375-e52c-4b5a-9cbf-d729eb2442cf",
+            "name": "Palfrey",
+            "individualTotal": 9,
+            "diceRoll": 7,
+            "isSol": false,
+            "isMorte": false,
+            "isCaughtOffGuard": false,
+            "emoji": null,
+            "role": "middle",
+            "success": true
+          },
+          {
+            "characterId": "54f77e58-eca4-4e28-ac76-6d55493470cc",
+            "name": "Himo",
+            "individualTotal": 8,
+            "diceRoll": 7,
+            "isSol": false,
+            "isMorte": false,
+            "isCaughtOffGuard": false,
+            "emoji": null,
+            "role": "middle",
+            "success": true
+          },
+          {
+            "characterId": "8f20a6c3-b272-45d6-9d80-c07ced314693",
+            "name": "Jebeddo",
+            "individualTotal": 8,
+            "diceRoll": 7,
+            "isSol": false,
+            "isMorte": false,
+            "isCaughtOffGuard": false,
+            "emoji": null,
+            "role": "lowest",
+            "success": true
+          }
+        ]
+      }
+    },
     {
       "id": "group-1786997113595-cl6u3s",
       "name": "CARRION MY WAYWARD SONS",
@@ -2618,85 +2780,6 @@
       "id": "group-1787320075320-v7cwrv",
       "name": "Group 1",
       "combatants": []
-    },
-    {
-      "id": "group-1786997047236-cqq83l",
-      "name": "Team Vengeance",
-      "combatants": [
-        {
-          "id": "pc:54f77e58-eca4-4e28-ac76-6d55493470cc",
-          "type": "pc",
-          "characterId": "54f77e58-eca4-4e28-ac76-6d55493470cc"
-        },
-        {
-          "id": "pc:8f20a6c3-b272-45d6-9d80-c07ced314693",
-          "type": "pc",
-          "characterId": "8f20a6c3-b272-45d6-9d80-c07ced314693"
-        },
-        {
-          "id": "pc:da8bd375-e52c-4b5a-9cbf-d729eb2442cf",
-          "type": "pc",
-          "characterId": "da8bd375-e52c-4b5a-9cbf-d729eb2442cf"
-        },
-        {
-          "id": "pc:13e267c3-f608-466d-9a8d-7442dcd5a7d4",
-          "type": "pc",
-          "characterId": "13e267c3-f608-466d-9a8d-7442dcd5a7d4"
-        }
-      ],
-      "initiativeResults": {
-        "groupTotal": 18,
-        "members": [
-          {
-            "characterId": "13e267c3-f608-466d-9a8d-7442dcd5a7d4",
-            "name": "Sukha",
-            "individualTotal": 10,
-            "diceRoll": 8,
-            "isSol": false,
-            "isMorte": false,
-            "isCaughtOffGuard": false,
-            "emoji": null,
-            "role": "highest",
-            "success": true
-          },
-          {
-            "characterId": "da8bd375-e52c-4b5a-9cbf-d729eb2442cf",
-            "name": "Palfrey",
-            "individualTotal": 9,
-            "diceRoll": 7,
-            "isSol": false,
-            "isMorte": false,
-            "isCaughtOffGuard": false,
-            "emoji": null,
-            "role": "middle",
-            "success": true
-          },
-          {
-            "characterId": "54f77e58-eca4-4e28-ac76-6d55493470cc",
-            "name": "Himo",
-            "individualTotal": 8,
-            "diceRoll": 7,
-            "isSol": false,
-            "isMorte": false,
-            "isCaughtOffGuard": false,
-            "emoji": null,
-            "role": "middle",
-            "success": true
-          },
-          {
-            "characterId": "8f20a6c3-b272-45d6-9d80-c07ced314693",
-            "name": "Jebeddo",
-            "individualTotal": 8,
-            "diceRoll": 7,
-            "isSol": false,
-            "isMorte": false,
-            "isCaughtOffGuard": false,
-            "emoji": null,
-            "role": "lowest",
-            "success": true
-          }
-        ]
-      }
     }
   ],
   "pixelsPerMile": 40,

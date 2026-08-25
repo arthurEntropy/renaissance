@@ -2,7 +2,7 @@
   "id": "b84a8a85-f236-4880-96a5-86af7c754fe7",
   "isDeleted": false,
   "createdAt": "2026-08-17T20:06:08.182Z",
-  "lastModified": "2026-08-24T17:54:11.253Z",
+  "lastModified": "2026-08-25T17:05:06.854Z",
   "characterType": "beastInstance",
   "name": "Carrion Crawler 🅑",
   "featuredArtUrls": [
@@ -327,7 +327,7 @@
   "beastTypeIds": [
     "b7e57001-0000-4000-a000-00000000000b"
   ],
-  "updatedAt": "2026-08-24T17:54:11.253Z",
+  "updatedAt": "2026-08-25T17:05:06.854Z",
   "challenge": 19,
   "templateId": "d6c4191f-9236-4cb9-a410-ec1dd1f14186"
 }
