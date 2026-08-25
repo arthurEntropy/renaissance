@@ -1,10 +1,10 @@
 {
-  "id": "039b47aa-7d8a-49ae-937f-f9bf53cfc290",
+  "id": "99d7520c-aaf4-4a49-bd02-74c7d98b8c7b",
   "isDeleted": false,
-  "createdAt": "2026-08-17T20:15:19.874Z",
-  "lastModified": "2026-08-18T12:57:37.182Z",
+  "createdAt": "2026-08-17T20:15:12.750Z",
+  "lastModified": "2026-08-25T17:56:52.228Z",
   "characterType": "beastInstance",
-  "name": "Skeleton 🅒",
+  "name": "Skeleton 🅐",
   "featuredArtUrls": [
     "https://cdn.midjourney.com/38d41c47-c917-4004-9849-1889abfc5f6c/0_0.png"
   ],
@@ -255,7 +255,7 @@
     "xpEarned": 0,
     "xpSpent": 0,
     "treasureEarned": 0,
-    "treasureSpent": 0
+    "treasureSpent": 6
   },
   "biomeTags": [],
   "biomeId": null,
@@ -334,7 +334,7 @@
   "beastTypeIds": [
     "b7e57001-0000-4000-a000-00000000000e"
   ],
-  "updatedAt": "2026-08-18T12:57:37.181Z",
+  "updatedAt": "2026-08-25T17:56:52.228Z",
   "challenge": 7,
   "templateId": "785562af-0611-4d1f-817b-9888b379dd4d"
 }

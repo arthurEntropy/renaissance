@@ -7,6 +7,7 @@ export const useCharacterContextStore = defineStore('characterContext', () => {
   // localStorage (groups now live on the Tabletop document).
   const pinnedGroupIds = ref([])
   const pinnedGroupsById = ref({})
+  const isInitiativeActive = ref(false)
 
   // ─── Actions ─────────────────────────────────────────────────────────────
 
@@ -98,9 +99,14 @@ export const useCharacterContextStore = defineStore('characterContext', () => {
     return pinnedGroupIds.value.includes(groupId)
   }
 
+  const setIsInitiativeActive = (val) => {
+    isInitiativeActive.value = !!val
+  }
+
   const clearPinnedGroups = () => {
     pinnedGroupIds.value = []
     pinnedGroupsById.value = {}
+    isInitiativeActive.value = false
   }
 
   /**
@@ -141,6 +147,7 @@ export const useCharacterContextStore = defineStore('characterContext', () => {
     // State
     pinnedGroupIds,
     pinnedGroupsById,
+    isInitiativeActive,
 
     // Computed
     pinnedGroups,
@@ -148,6 +155,7 @@ export const useCharacterContextStore = defineStore('characterContext', () => {
 
     // Actions
     setGroupsFromTabletop,
+    setIsInitiativeActive,
     addPinnedGroup,
     unpinGroup,
     updatePinnedGroup,

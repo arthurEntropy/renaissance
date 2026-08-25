@@ -118,11 +118,7 @@ const barStyle = computed(() => {
     border: 1px solid var(--overlay-white-medium);
     background: var(--overlay-black-heavy);
     width: var(--token-group-width);
-    /* Allow tooltip overflow on the left side */
-    overflow-x: visible;
-    /* Prevent very tall groups from extending off-screen */
-    max-height: calc(100vh - var(--nav-height) - var(--space-sm) * 2);
-    overflow-y: auto;
+    /* overflow: visible (default) allows the label to extend past the left edge */
 }
 
 .abilities-group-header {
@@ -139,11 +135,7 @@ const barStyle = computed(() => {
     letter-spacing: 0.08em;
     color: var(--color-primary);
     opacity: 0.9;
-    /* Truncate long character names gracefully */
-    overflow: hidden;
-    text-overflow: ellipsis;
     white-space: nowrap;
-    max-width: 100%;
 }
 
 .abilities-group-members {

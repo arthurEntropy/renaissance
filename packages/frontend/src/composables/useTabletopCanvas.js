@@ -1300,7 +1300,6 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved, isWorl
             if (snapshot.gridColor) gridColor.value = snapshot.gridColor
             if (snapshot.gridOpacity != null) gridOpacity.value = snapshot.gridOpacity
             if (snapshot.mapScale != null) mapScale.value = snapshot.mapScale
-            if (snapshot.showPaths != null) showPaths.value = snapshot.showPaths
             if (Array.isArray(snapshot.radiusAreas)) radiusAreas.value = snapshot.radiusAreas
             if (Array.isArray(snapshot.rollLog)) rollLog.value = snapshot.rollLog
             if (snapshot.pixelsPerMile != null) pixelsPerMile.value = snapshot.pixelsPerMile
@@ -1334,7 +1333,6 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved, isWorl
         if (tabletop.gridColor) gridColor.value = tabletop.gridColor
         if (tabletop.gridOpacity != null) gridOpacity.value = tabletop.gridOpacity
         if (tabletop.mapScale != null) mapScale.value = tabletop.mapScale
-        if (tabletop.showPaths != null) showPaths.value = tabletop.showPaths
         if (Array.isArray(tabletop.radiusAreas)) radiusAreas.value = tabletop.radiusAreas
         if (Array.isArray(tabletop.rollLog)) rollLog.value = tabletop.rollLog
         if (tabletop.rollLogExpanded != null) rollLogExpanded.value = tabletop.rollLogExpanded
@@ -1473,7 +1471,6 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved, isWorl
         setGridColor,
         setGridOpacity,
         showPaths,
-        setShowPaths,
         radiusAreas,
         selectedRadiusAreaId,
         editingRadiusAreaId,

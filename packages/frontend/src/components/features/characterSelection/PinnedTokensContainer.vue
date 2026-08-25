@@ -131,7 +131,7 @@
         </template>
 
         <!-- ─── Regular tabletop groups (hidden in world map mode) ──────────── -->
-        <div v-if="hasFocusedTokens && !isGMOnTabletop && !isWorldMap" class="token-group token-group--focused"
+        <div v-if="hasFocusedTokens && !isOnTabletopPage && !isWorldMap" class="token-group token-group--focused"
             :class="{ 'is-active-view': isViewingFocusedCharacterSheet, 'token-group--has-stats': showFocusedCharacterStats, 'token-group--stats-always': statsAlwaysVisible && showFocusedCharacterStats }">
             <div class="token-group-header">
                 <span class="token-group-label">Selected</span>
@@ -155,7 +155,7 @@
             </div>
         </div>
 
-        <div v-if="summonersBeast && !isGMOnTabletop && !isWorldMap" class="token-group token-group--summoned"
+        <div v-if="summonersBeast && !isOnTabletopPage && !isWorldMap" class="token-group token-group--summoned"
             :class="{ 'is-active-view': isViewingSummonedBeastSheet }">
             <div class="token-group-header">
                 <span class="token-group-label token-group-label--summoned">Summoned</span>
@@ -169,7 +169,7 @@
             </div>
         </div>
 
-        <div v-if="witchsFamiliar && !isGMOnTabletop && !isWorldMap" class="token-group token-group--familiar"
+        <div v-if="witchsFamiliar && !isOnTabletopPage && !isWorldMap" class="token-group token-group--familiar"
             :class="{ 'is-active-view': isViewingFamiliarSheet }">
             <div class="token-group-header">
                 <span class="token-group-label token-group-label--familiar">Familiar</span>
@@ -183,8 +183,8 @@
             </div>
         </div>
 
-        <!-- Player's active abilities: shown below focused/summoned/familiar for non-GM users -->
-        <div v-if="!campaignStore.isGMInActiveCampaign && focusedCharacterActiveAbilities.length > 0"
+        <!-- Player's active abilities: shown below focused/summoned/familiar for non-GM users (not on tabletop or world map) -->
+        <div v-if="!isOnTabletopPage && !isWorldMap && !campaignStore.isGMInActiveCampaign && focusedCharacterActiveAbilities.length > 0"
             class="token-group token-group--active-abilities">
             <div class="token-group-header">
                 <span class="token-group-label">Active Abilities</span>
@@ -225,15 +225,17 @@
         <TransitionGroup v-if="!isWorldMap" tag="div" name="group-list" class="pinned-groups-list">
             <div v-for="group in resolvedPinnedGroups" :key="group.id" :ref="(el) => setGroupEl(group.id, el)"
                 class="token-group token-group--pinned" draggable="true" :class="{
-                    'token-group--initiative-active': isInitiativeActive && isGMOnTabletop && group.id === resolvedPinnedGroups[0]?.id,
+                    'token-group--initiative-active': isInitiativeActive && group.id === resolvedPinnedGroups[0]?.id,
                     'is-cycling-leaving': cyclingLeavingId === group.id,
-                    'is-collapsed': isGroupCollapsed(group.id)
+                    'is-collapsed': isGroupCollapsed(group.id),
+                    'token-group--can-grab': isOnTabletopPage && isGMOnTabletop && isGroupDraggable(group)
                 }" @dragstart.self="handleGroupDragStart($event, group)" @dragend.self="handleGroupDragEnd">
                 <div class="token-group-header">
                     <textarea class="token-group-name" :value="group.name" :title="group.name" rows="1"
-                        @input="e => { e.target.style.height = 'auto'; e.target.style.height = e.target.scrollHeight + 'px' }"
-                        @blur="e => saveGroupName(group.id, e.target.value)"
-                        @keydown.enter.prevent="e => e.target.blur()"
+                        :readonly="!isGMOnTabletop"
+                        @input="e => { if (isGMOnTabletop) { e.target.style.height = 'auto'; e.target.style.height = e.target.scrollHeight + 'px' } }"
+                        @blur="e => { if (isGMOnTabletop) saveGroupName(group.id, e.target.value) }"
+                        @keydown.enter.prevent="e => { if (isGMOnTabletop) e.target.blur() }"
                         @keydown.escape="e => { e.target.value = group.name; e.target.blur() }" @click.stop
                         @mousedown.stop />
                     <div v-if="isGroupCollapsed(group.id)" class="token-group-member-dots">
@@ -258,8 +260,9 @@
                     <div v-for="member in group.members" :key="member.id" class="token-item draggable-token-wrapper"
                         :class="{
                             'is-tabletop-selected': isTabletopSelected(member.id),
-                            'is-unplaced': isGMOnTabletop && !isPlaced(member.id)
-                        }" draggable="true" @dragstart="handleTokenDragStart($event, member)"
+                            'is-unplaced': isOnTabletopPage && !isPlaced(member.id),
+                            'is-no-pointer': isOnTabletopPage && !canDragToken(member) && (isBeastCharacter(member) || isNPC(member))
+                        }" :draggable="canDragToken(member)" @dragstart="handleTokenDragStart($event, member)"
                         @dragend="handleTokenDragEnd">
                         <component :is="getTokenComponent(member)" v-bind="getTokenProps(member, group.id)" />
                     </div>
@@ -270,22 +273,26 @@
                         class="token-group-chevron" />
                 </button>
 
-                <!-- Initiative badge: GM on tabletop only -->
-                <div v-if="isGMOnTabletop" class="initiative-badge"
-                    :class="{ 'initiative-badge--initiative-active': isInitiativeActive && group.id === resolvedPinnedGroups[0]?.id }"
+                <!-- Initiative badge: visible on the tabletop for all users; roll button inactive for non-GMs -->
+                <div v-if="isOnTabletopPage && !isWorldMap" class="initiative-badge" :class="{
+                    'initiative-badge--initiative-active': isInitiativeActive && group.id === resolvedPinnedGroups[0]?.id,
+                    'initiative-badge--player-view': !isGMOnTabletop
+                }"
                     :style="isGroupCollapsed(group.id) ? { top: 'auto', bottom: '0px', transform: 'translate(calc(100% + var(--space-sm)), 0)' } : {}">
                     <FloatingActionButton :variant="FAB_TYPES.INITIATIVE" :size="FAB_SIZES.SMALL"
-                        :visibility="FAB_VISIBILITIES.ALWAYS" :disabled="!isGroupFullyPlaced(group)"
-                        :title="isGroupFullyPlaced(group) ? 'Roll group initiative' : 'Place all group tokens on the tabletop first'"
-                        aria-label="Roll group initiative" @click="rollGroupInitiative(group)" />
-                    <template v-if="editingInitiativeGroupId === group.id">
-                        <input type="number" class="initiative-input" v-model="editingInitiativeValue"
+                        :visibility="FAB_VISIBILITIES.ALWAYS" :disabled="!isGMOnTabletop || !isGroupFullyPlaced(group)"
+                        :title="!isGMOnTabletop ? 'Initiative' : isGroupFullyPlaced(group) ? 'Roll group initiative' : 'Place all group tokens on the tabletop first'"
+                        aria-label="Roll group initiative" @click="isGMOnTabletop && rollGroupInitiative(group)" />
+                    <template v-if="isGMOnTabletop && editingInitiativeGroupId === group.id">
+                        <input type="text" inputmode="numeric" pattern="[0-9]*" class="initiative-input"
+                            v-model="editingInitiativeValue"
+                            @input="editingInitiativeValue = editingInitiativeValue.replace(/\D/g, '')"
                             @blur="saveInitiativeEdit(group.id)" @keydown.enter="saveInitiativeEdit(group.id)"
                             @keydown.escape="cancelInitiativeEdit" />
                     </template>
                     <span v-else class="initiative-result-value"
                         :class="{ 'initiative-result-value--empty': group.initiativeResults?.groupTotal == null }"
-                        @click="startEditingInitiative(group)">
+                        @click="isGMOnTabletop && startEditingInitiative(group)">
                         {{ group.initiativeResults?.groupTotal ?? '—' }}
                     </span>
                 </div>
@@ -315,6 +322,7 @@ import { useCharacterContextStore } from '@/stores/characterContextStore'
 import { useCharactersStore } from '@/stores/charactersStore'
 import { useCampaignStore } from '@/stores/campaignStore'
 import { useConceptsStore } from '@/stores/conceptsStore'
+import { useAuthStore } from '@/stores/authStore'
 import TokenGroupEditModal from '@/components/features/characterSelection/TokenGroupEditModal.vue'
 import CharacterToken from '@/components/features/characterSelection/CharacterToken.vue'
 import BeastToken from '@/components/features/characterSelection/BeastToken.vue'
@@ -344,6 +352,7 @@ const campaignStore = useCampaignStore()
 const conceptsStore = useConceptsStore()
 const rollsStore = useRollsStore()
 const abilitiesStore = useAbilitiesStore()
+const authStore = useAuthStore()
 const route = useRoute()
 const router = useRouter()
 
@@ -624,23 +633,34 @@ function removeMemberFromPinnedGroup(groupId, memberId) {
 function getTokenProps(character, groupId = null) {
     if (!character) return {}
 
+    // Non-GMs on the tabletop can view player character tokens only, not NPCs or beasts.
+    const canClick = isGMOnTabletop.value || (!isBeastCharacter(character) && !isNPC(character))
+
     if (isBeastCharacter(character)) {
         return {
             beast: character,
-            showRemoveFab: !!groupId,
+            showRemoveFab: !!groupId && isGMOnTabletop.value,
             disableDefaultClick: true,
-            onRemove: groupId ? () => removeMemberFromPinnedGroup(groupId, character.id) : undefined,
-            onClick: () => openCharacterSheet(character),
+            onRemove: groupId && isGMOnTabletop.value ? () => removeMemberFromPinnedGroup(groupId, character.id) : undefined,
+            onClick: canClick ? () => openCharacterSheet(character) : undefined,
         }
     }
 
     return {
         character,
-        showRemoveFab: !!groupId,
+        showRemoveFab: !!groupId && isGMOnTabletop.value,
         disableDefaultClick: true,
-        onRemove: groupId ? () => removeMemberFromPinnedGroup(groupId, character.id) : undefined,
-        onClick: () => openCharacterSheet(character),
+        onRemove: groupId && isGMOnTabletop.value ? () => removeMemberFromPinnedGroup(groupId, character.id) : undefined,
+        onClick: canClick ? () => openCharacterSheet(character) : undefined,
     }
+}
+
+// Returns true if the current user can drag this character's token onto the tabletop.
+// GMs can drag anything; non-GMs can only drag characters they own.
+function canDragToken(character) {
+    if (campaignStore.isGMInActiveCampaign) return true
+    if (!character || isBeastCharacter(character) || isNPC(character)) return false
+    return character.ownerId === authStore.user?.uid
 }
 
 function buildDragSnapshot(character) {
@@ -656,6 +676,10 @@ function buildDragSnapshot(character) {
 
 function handleTokenDragStart(event, character) {
     if (!character) return
+    if (isOnTabletopPage.value && !canDragToken(character)) {
+        event.preventDefault()
+        return
+    }
     const snapshot = buildDragSnapshot(character)
     setDraggingCharacter(snapshot)
     event.dataTransfer.setData('application/vtt-character', JSON.stringify(snapshot))
@@ -826,7 +850,10 @@ async function deleteGroupWithConfirm(group) {
  * Builds snapshots for any group members not yet placed on the tabletop.
  */
 function handleGroupDragStart(event, group) {
-    const unplaced = group.members.filter(m => !placedCharacterIds.value.has(m.id))
+    let unplaced = group.members.filter(m => !placedCharacterIds.value.has(m.id))
+    if (isOnTabletopPage.value) {
+        unplaced = unplaced.filter(m => canDragToken(m))
+    }
     if (unplaced.length === 0) {
         event.preventDefault()
         return
@@ -845,6 +872,10 @@ function handleGroupDragStart(event, group) {
 
 function handleGroupDragEnd() {
     clearDraggingGroup()
+}
+
+function isGroupDraggable(group) {
+    return group.members.some(m => !placedCharacterIds.value.has(m.id))
 }
 
 // ─── Cmd/Ctrl key tracking (for visibility FAB gate) ─────────────────────────
@@ -896,7 +927,7 @@ function toggleCulturesVisibility() {
 
 // ─── Initiative controls (GM on tabletop only) ───────────────────────────────
 
-const isInitiativeActive = ref(false)
+const isInitiativeActive = computed(() => characterContextStore.isInitiativeActive)
 
 // Roll initiative for all members of a resolved pinned group
 function rollGroupInitiative(group) {
@@ -927,7 +958,7 @@ function sortGroupsByInitiative() {
         return rB - rA
     })
     characterContextStore.reorderPinnedGroups(sorted)
-    isInitiativeActive.value = true
+    characterContextStore.setIsInitiativeActive(true)
 }
 
 // Cycle to next group (rotate left: first → last) with a three-step animation
@@ -946,7 +977,7 @@ async function cycleNextGroup() {
     const rects = captureGroupRects()
     ids.push(ids.shift())
     characterContextStore.reorderPinnedGroups(ids)
-    isInitiativeActive.value = true
+    characterContextStore.setIsInitiativeActive(true)
     await nextTick()
     animateGroupsFlip(rects)
 
@@ -972,7 +1003,7 @@ async function cyclePrevGroup() {
     const rects = captureGroupRects()
     ids.unshift(ids.pop())
     characterContextStore.reorderPinnedGroups(ids)
-    isInitiativeActive.value = true
+    characterContextStore.setIsInitiativeActive(true)
     await nextTick()
     animateGroupsFlip(rects)
 
@@ -1164,7 +1195,22 @@ function getFocusedTokenProps(character) {
 .token-group--pinned {
     border-color: var(--overlay-white-medium);
     /* Smooth opacity for cycling animation */
-    transition: opacity 140ms ease-in;
+    transition: opacity 140ms ease-in, transform var(--transition-fast);
+}
+
+.token-group--can-grab {
+    cursor: grab;
+}
+
+.token-group--can-grab:hover {
+    transform: scale(1.025);
+}
+
+/* Reset cursor on interactive children so grab only shows on the background */
+.token-group--can-grab button,
+.token-group--can-grab textarea,
+.token-group--can-grab .draggable-token-wrapper {
+    cursor: pointer;
 }
 
 .token-group--pinned.is-cycling-leaving {
@@ -1253,6 +1299,12 @@ function getFocusedTokenProps(character) {
 /* Highlight a rail token when its character is selected on the tabletop canvas */
 .draggable-token-wrapper.is-tabletop-selected :deep(.token-portrait) {
     box-shadow: 0 0 0 3px var(--color-white), var(--shadow-sm);
+}
+
+/* Suppress pointer cursor for tokens that are neither clickable nor draggable for the current user */
+.draggable-token-wrapper.is-no-pointer,
+.token-group--can-grab .draggable-token-wrapper.is-no-pointer {
+    cursor: default;
 }
 
 /* Unplaced tokens shown with muted border and reduced opacity */
@@ -1439,6 +1491,23 @@ function getFocusedTokenProps(character) {
     border-color: var(--color-primary) !important;
 }
 
+/* Non-GM player view: black background, primary-color icon, no hover change */
+.initiative-badge--player-view :deep(.fab--initiative) {
+    background: var(--color-black);
+    border-color: var(--color-black);
+}
+
+.initiative-badge--player-view :deep(.fab--initiative .fab__icon--small),
+.initiative-badge--player-view :deep(.fab--initiative .fab__icon--large) {
+    color: var(--color-text-primary);
+}
+
+.initiative-badge--player-view :deep(.fab--initiative:hover),
+.initiative-badge--player-view :deep(.fab--initiative:disabled:hover) {
+    background: var(--color-black);
+    border-color: var(--color-black);
+}
+
 /* ─── TransitionGroup for pinned group list reordering ───────────────────────── */
 .pinned-groups-list {
     display: flex;
@@ -1497,6 +1566,11 @@ function getFocusedTokenProps(character) {
 
 .token-group-name:focus {
     border-bottom-color: var(--color-primary);
+}
+
+.token-group-name[readonly] {
+    cursor: default;
+    pointer-events: none;
 }
 
 /* ─── Member dots (collapsed state) ──────────────────────────────────────────── */

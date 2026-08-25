@@ -2,7 +2,7 @@
   "id": "efc5fcf5-00cb-4892-9170-f09a5e766676",
   "isDeleted": false,
   "createdAt": "2026-08-17T20:15:03.391Z",
-  "lastModified": "2026-08-22T01:23:04.287Z",
+  "lastModified": "2026-08-25T17:56:52.213Z",
   "characterType": "beastInstance",
   "name": "Banshee 🅐",
   "featuredArtUrls": [
@@ -315,7 +315,7 @@
   "beastTypeIds": [
     "b7e57001-0000-4000-a000-00000000000e"
   ],
-  "updatedAt": "2026-08-22T01:23:04.287Z",
+  "updatedAt": "2026-08-25T17:56:52.213Z",
   "challenge": 33,
   "templateId": "c9cf91be-efe9-48b1-9a3f-efb36d1c0ead"
 }

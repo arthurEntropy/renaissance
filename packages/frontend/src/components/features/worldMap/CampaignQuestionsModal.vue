@@ -56,7 +56,7 @@
                             @blur="e => updateQuestionText(q.id, e.target.value)" @keydown.enter="e => e.target.blur()"
                             @keydown.escape="e => e.target.blur()" />
                         <span v-else class="question-text-readonly question-text-readonly--completed">{{ q.text
-                        }}</span>
+                            }}</span>
                         <div v-if="isGM" class="question-fabs">
                             <FloatingActionButton :variant="FAB_TYPES.TRASH" :size="FAB_SIZES.SMALL"
                                 :visibility="FAB_VISIBILITIES.ON_HOVER" title="Delete question"
@@ -112,7 +112,6 @@ import BaseModal from '@/components/ui/modals/BaseModal.vue'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 import { useCampaignStore } from '@/stores/campaignStore'
-import { useAuthStore } from '@/stores/authStore'
 
 const props = defineProps({
     campaignId: {
@@ -124,9 +123,8 @@ const props = defineProps({
 const emit = defineEmits(['close'])
 
 const campaignStore = useCampaignStore()
-const authStore = useAuthStore()
 
-const isGM = computed(() => campaignStore.isGMInActiveCampaign || authStore.isAdmin)
+const isGM = computed(() => true)
 
 // All questions from the active campaign
 const allQuestions = computed(() =>

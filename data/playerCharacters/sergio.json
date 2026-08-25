@@ -2,7 +2,7 @@
   "id": "285cc523-b6f4-41cc-83b6-91915f207c8a",
   "isDeleted": false,
   "createdAt": "2026-08-17T19:11:39.296Z",
-  "lastModified": "2026-08-22T01:20:36.122Z",
+  "lastModified": "2026-08-25T17:56:55.092Z",
   "characterType": "playerCharacter",
   "name": "Sergio",
   "featuredArtUrls": [
@@ -285,7 +285,7 @@
       "collapsed": true,
       "showImprovements": false,
       "showSuccesses": false,
-      "isActive": false,
+      "isActive": true,
       "columnIndex": 2,
       "difficulty": null
     },
@@ -294,7 +294,7 @@
       "collapsed": true,
       "showImprovements": false,
       "showSuccesses": false,
-      "isActive": false,
+      "isActive": true,
       "columnIndex": 2
     },
     {
@@ -310,7 +310,7 @@
       "collapsed": true,
       "showImprovements": false,
       "showSuccesses": false,
-      "isActive": false,
+      "isActive": true,
       "columnIndex": 2
     },
     {
@@ -362,7 +362,7 @@
     },
     "xpEarned": 0,
     "xpSpent": 0,
-    "treasureEarned": 300,
+    "treasureEarned": 320,
     "treasureSpent": 0
   },
   "biomeTags": [],
@@ -384,7 +384,7 @@
   "summonerVessels": [],
   "hunterTraps": [],
   "campaignId": null,
-  "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
+  "ownerId": "yMwXRvIrCwWwG4NRC4HBjN2BrOM2",
   "isPublicPreview": false,
   "sectionOrder": [],
   "martialTrainingOverrides": {},
@@ -404,5 +404,5 @@
   "treasure": 20,
   "xp": 0,
   "description": "",
-  "updatedAt": "2026-08-22T01:20:36.121Z"
+  "updatedAt": "2026-08-25T17:56:55.092Z"
 }

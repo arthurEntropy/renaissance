@@ -47,11 +47,19 @@ const getAllEntities = (entity) => (req, res) => {
         filteredEntities = filteredEntities.filter(character => character.isPublicPreview)
       } else if (req.user.role !== USER_ROLE.ADMIN) {
         // Include characters owned by this user, beast templates (public game content),
-        // and campaign characters from campaigns they belong to
-        const memberCampaignIds = getUserCampaignIds(req.user.uid)
+        // campaign characters (NPCs/beasts) from campaigns they belong to, and
+        // player characters belonging to fellow campaign members.
+        const campaignsDir = getDirectory('campaigns')
+        const userCampaigns = getAllDataByDirectory(campaignsDir)
+          .filter((c) => !c.isDeleted && c.members?.some((m) => m.userId === req.user.uid && m.status === CAMPAIGN_MEMBER_STATUS.ACCEPTED))
+        const memberCampaignIds = userCampaigns.map((c) => c.id)
+        const campaignPcIds = new Set(
+          userCampaigns.flatMap((c) => (c.members || []).flatMap((m) => m.characterIds || []))
+        )
         filteredEntities = filteredEntities.filter(character =>
           character.characterType === 'beast' ||
           character.ownerId === req.user.uid ||
+          campaignPcIds.has(character.id) ||
           (character.campaignId && memberCampaignIds.includes(character.campaignId) && character.characterType !== 'playerCharacter')
         )
       }
