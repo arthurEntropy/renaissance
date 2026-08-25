@@ -138,9 +138,9 @@ export function useEngagementSession() {
       opponent
     )
     
-    // Automatically save result to rollsStore
+    // Automatically save result to rollsStore, attributed to the engagement character
     if (result) {
-      rollsStore.setRoll(result)
+      rollsStore.setRollForCharacter(result, character.id)
     }
     
     return result

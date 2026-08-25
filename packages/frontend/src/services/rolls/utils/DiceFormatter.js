@@ -13,10 +13,11 @@ class DiceFormatter {
     if (dieSize === DIE_TYPE.D12 && isFeatDieType) {
       if (dieRollValue === SPECIAL_ROLLS.SOL) return EMOJI.SOL
       if (dieRollValue === SPECIAL_ROLLS.MORTE) return EMOJI.MORTE
-    } else if (dieSize === DIE_TYPE.D6 && dieRollValue === SPECIAL_ROLLS.SUCCESS) {
+    } else if (dieSize === DIE_TYPE.D6 && dieRollValue === SPECIAL_ROLLS.SUCCESS && rollType === RollTypes.SKILL_CHECK) {
+      // ✨ only applies to d6s rolling max in skill checks
       return EMOJI.SUCCESS
-    } else if (rolledMaxValue && dieRollValue === dieSize) {
-      // For any die that rolled max value (engagement dice, initiative, etc.)
+    } else if (rolledMaxValue && dieRollValue === dieSize && isFeatDieType) {
+      // Feat-die roll types (other than d12/d6 handled above) get ✨ on max
       return EMOJI.SUCCESS
     }
     return null

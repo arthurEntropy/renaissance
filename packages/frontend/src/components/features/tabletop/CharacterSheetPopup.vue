@@ -380,7 +380,7 @@ watch(activeTab, async (newTab) => {
     cursor: default;
 }
 
-.cs-popup :deep(.collapse-icon) {
+.cs-popup :deep(.title-container .collapse-icon) {
     display: none;
 }
 </style>
