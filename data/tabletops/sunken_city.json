@@ -1,0 +1,164 @@
+{
+  "id": "7afda792-c821-433c-94b6-36cfbc1a24d4",
+  "isDeleted": false,
+  "createdAt": "2026-08-17T20:33:40.216Z",
+  "lastModified": "2026-08-26T12:28:41.141Z",
+  "campaignId": "84b00fc0-eae8-4808-9151-949bf59928ff",
+  "name": "Sunken City",
+  "backgroundImage": {
+    "url": "https://cdn.midjourney.com/efec0703-4df9-48cc-b8c5-6942667b94ac/0_3.png",
+    "naturalWidth": 1456,
+    "naturalHeight": 816
+  },
+  "items": [
+    {
+      "id": "2611a337-5568-4353-8371-850d331f63b6",
+      "characterId": "285cc523-b6f4-41cc-83b6-91915f207c8a",
+      "isBeast": false,
+      "isNpc": false,
+      "name": "Sergio",
+      "portraitUrl": "https://cdn.midjourney.com/c845873a-6dc7-47cc-89e1-1903a4dc622d/0_0_2048_N.webp",
+      "size": 1,
+      "x": 1480,
+      "y": 440,
+      "zIndex": 6
+    },
+    {
+      "id": "3f7b9fdd-2ec9-42bd-81dc-b34c9f524fcf",
+      "characterId": "4083afd8-0594-4647-ac06-09b8a2a8cefc",
+      "isBeast": false,
+      "isNpc": false,
+      "name": "Magnuss",
+      "portraitUrl": "https://cdn.midjourney.com/9d007aef-e372-4e42-9581-a2703cfe7018/0_2_2048_N.webp",
+      "size": 1,
+      "x": 1520,
+      "y": 440,
+      "zIndex": 7
+    },
+    {
+      "id": "711edfd3-49de-4ec8-9c38-1f5b06cd0933",
+      "characterId": "da8bd375-e52c-4b5a-9cbf-d729eb2442cf",
+      "isBeast": false,
+      "isNpc": false,
+      "name": "Palfrey",
+      "portraitUrl": "https://cdn.midjourney.com/5a6c9787-cedb-4eb6-8de1-17f837a10b99/0_1_2048_N.webp",
+      "size": 1,
+      "x": 1480,
+      "y": 480,
+      "zIndex": 8
+    },
+    {
+      "id": "0f83b130-8b11-4007-a091-99c50ceb31a5",
+      "characterId": "13e267c3-f608-466d-9a8d-7442dcd5a7d4",
+      "isBeast": false,
+      "isNpc": false,
+      "name": "Sukha",
+      "portraitUrl": "https://cdn.midjourney.com/95c9a8b1-d0a7-4b44-9c87-91a500f4db7d/0_1_2048_N.webp",
+      "size": 1,
+      "x": 1520,
+      "y": 480,
+      "zIndex": 9
+    },
+    {
+      "id": "61a57d0a-a137-4be8-9f0a-30f43fa2653e",
+      "characterId": "8d15c0d7-8e7b-4a47-8313-72628bc2c22d",
+      "isBeast": true,
+      "isNpc": false,
+      "name": "Carrion Crawler 🅑",
+      "portraitUrl": "https://cdn.midjourney.com/48444f34-cffe-4732-ba92-522ed9c62a29/0_3.png",
+      "size": 2,
+      "x": 1120,
+      "y": 200,
+      "zIndex": 15
+    },
+    {
+      "id": "8ce253ae-7afe-4256-ba05-a4c738e97b43",
+      "characterId": "fc9b742f-e867-4faa-a624-10da107dfcdf",
+      "isBeast": true,
+      "isNpc": false,
+      "name": "Carrion Crawler 🅕",
+      "portraitUrl": "https://cdn.midjourney.com/48444f34-cffe-4732-ba92-522ed9c62a29/0_3.png",
+      "size": 2,
+      "x": 640,
+      "y": 120,
+      "zIndex": 14
+    },
+    {
+      "id": "e5edcaef-a255-482f-a475-670dda0c8384",
+      "characterId": "bc2fd82c-8c6f-41f6-8cef-3b3bae572343",
+      "isBeast": true,
+      "isNpc": false,
+      "name": "Carrion Crawler 🅨",
+      "portraitUrl": "https://cdn.midjourney.com/48444f34-cffe-4732-ba92-522ed9c62a29/0_3.png",
+      "size": 2,
+      "x": 840,
+      "y": 640,
+      "zIndex": 13
+    }
+  ],
+  "transform": {
+    "scale": 0.8573388203017827,
+    "x": 59.861880959804125,
+    "y": 84.2006026846077
+  },
+  "gridSize": 40,
+  "gridColor": "#ffffff",
+  "gridOpacity": 0.06,
+  "mapScale": 1.2,
+  "showPaths": true,
+  "radiusAreas": [],
+  "rollLog": [],
+  "combatGroups": [
+    {
+      "id": "group-1787684109862-pa3ixt",
+      "name": "Team Vengeance",
+      "combatants": [
+        {
+          "id": "pc:285cc523-b6f4-41cc-83b6-91915f207c8a",
+          "type": "pc",
+          "characterId": "285cc523-b6f4-41cc-83b6-91915f207c8a"
+        },
+        {
+          "id": "pc:4083afd8-0594-4647-ac06-09b8a2a8cefc",
+          "type": "pc",
+          "characterId": "4083afd8-0594-4647-ac06-09b8a2a8cefc"
+        },
+        {
+          "id": "pc:da8bd375-e52c-4b5a-9cbf-d729eb2442cf",
+          "type": "pc",
+          "characterId": "da8bd375-e52c-4b5a-9cbf-d729eb2442cf"
+        },
+        {
+          "id": "pc:13e267c3-f608-466d-9a8d-7442dcd5a7d4",
+          "type": "pc",
+          "characterId": "13e267c3-f608-466d-9a8d-7442dcd5a7d4"
+        }
+      ]
+    },
+    {
+      "id": "group-1787747220131-3f6br2",
+      "name": "CARRION THE WEIGHT",
+      "combatants": [
+        {
+          "id": "beast:8d15c0d7-8e7b-4a47-8313-72628bc2c22d",
+          "type": "beast",
+          "characterId": "8d15c0d7-8e7b-4a47-8313-72628bc2c22d"
+        },
+        {
+          "id": "beast:fc9b742f-e867-4faa-a624-10da107dfcdf",
+          "type": "beast",
+          "characterId": "fc9b742f-e867-4faa-a624-10da107dfcdf"
+        },
+        {
+          "id": "beast:bc2fd82c-8c6f-41f6-8cef-3b3bae572343",
+          "type": "beast",
+          "characterId": "bc2fd82c-8c6f-41f6-8cef-3b3bae572343"
+        }
+      ]
+    }
+  ],
+  "pixelsPerMile": 40,
+  "characterTokenSize": 40,
+  "cultureTokenSize": 60,
+  "cultureTokensLocked": false
+}

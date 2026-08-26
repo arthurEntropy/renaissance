@@ -1,10 +1,10 @@
 {
-  "id": "60f100d7-00ed-4287-a2b2-1b7e0690b701",
+  "id": "87ecb3c0-96bd-49d0-89d4-eb3c7aff5777",
   "isDeleted": false,
-  "createdAt": "2026-08-17T20:23:39.703Z",
-  "lastModified": "2026-08-22T02:41:20.061Z",
+  "createdAt": "2026-08-25T18:49:31.559Z",
+  "lastModified": "2026-08-25T18:49:31.562Z",
   "characterType": "beastInstance",
-  "name": "Bugbear 🅔",
+  "name": "Bugbear 🅒",
   "featuredArtUrls": [
     "https://cdn.midjourney.com/1402c1f5-f529-40e7-9999-fb156e622698/0_1.png"
   ],
@@ -148,7 +148,7 @@
   },
   "defense": {
     "current": 11,
-    "base": 2
+    "base": 11
   },
   "load": 0,
   "shadow": 0,
@@ -244,14 +244,12 @@
   },
   "rollStats": {
     "skillChecks": {
-      "attempts": 1,
-      "successes": 1,
-      "totalSum": 12,
-      "bestTotal": 12,
+      "attempts": 0,
+      "successes": 0,
+      "totalSum": 0,
+      "bestTotal": null,
       "hardestSuccess": null,
-      "bySkill": {
-        "Strength": 1
-      },
+      "bySkill": {},
       "solCount": 0,
       "morteCount": 0,
       "successCount": 0
@@ -345,7 +343,7 @@
     "b7e57001-0000-4000-a000-00000000000a",
     "b7e57001-0000-4000-a000-000000000002"
   ],
-  "updatedAt": "2026-08-22T02:41:20.061Z",
+  "updatedAt": "2026-08-14T02:12:14.586Z",
   "challenge": 11,
   "templateId": "e5ccf49a-de26-4459-9e67-0be307c23db1"
 }

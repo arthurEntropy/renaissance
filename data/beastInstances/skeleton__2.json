@@ -1,10 +1,10 @@
 {
-  "id": "039b47aa-7d8a-49ae-937f-f9bf53cfc290",
+  "id": "28c42221-af10-4afb-8cd5-1d4417368cce",
   "isDeleted": false,
-  "createdAt": "2026-08-17T20:15:19.874Z",
-  "lastModified": "2026-08-25T17:56:52.260Z",
+  "createdAt": "2026-08-25T18:32:07.310Z",
+  "lastModified": "2026-08-26T14:09:25.823Z",
   "characterType": "beastInstance",
-  "name": "Skeleton 🅒",
+  "name": "Skeleton 🅞",
   "featuredArtUrls": [
     "https://cdn.midjourney.com/38d41c47-c917-4004-9849-1889abfc5f6c/0_0.png"
   ],
@@ -175,7 +175,9 @@
   },
   "engagementDice": [],
   "engagementSuccesses": [],
-  "engagementDiceStatuses": {},
+  "engagementDiceStatuses": {
+    "7a024694-31ab-4f17-a652-2c15c7b8925e_0": "expended"
+  },
   "equipment": [
     {
       "id": "76522314-9ed4-4408-b72a-02fbe4500782",
@@ -230,12 +232,14 @@
   },
   "rollStats": {
     "skillChecks": {
-      "attempts": 0,
-      "successes": 0,
-      "totalSum": 0,
-      "bestTotal": null,
+      "attempts": 2,
+      "successes": 2,
+      "totalSum": 14,
+      "bestTotal": 9,
       "hardestSuccess": null,
-      "bySkill": {},
+      "bySkill": {
+        "Strength": 2
+      },
       "solCount": 0,
       "morteCount": 0,
       "successCount": 0
@@ -243,7 +247,7 @@
     "contests": {
       "engagement": {
         "wins": 0,
-        "losses": 0,
+        "losses": 3,
         "draws": 0
       },
       "contest": {
@@ -334,7 +338,7 @@
   "beastTypeIds": [
     "b7e57001-0000-4000-a000-00000000000e"
   ],
-  "updatedAt": "2026-08-25T17:56:52.260Z",
+  "updatedAt": "2026-08-26T14:09:25.823Z",
   "challenge": 7,
   "templateId": "785562af-0611-4d1f-817b-9888b379dd4d"
 }

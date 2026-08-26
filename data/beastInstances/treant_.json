@@ -1,25 +1,25 @@
 {
-  "id": "414401f9-86dd-4cf7-b0c0-d1f088025f7b",
+  "id": "628c2cfa-245d-4631-bd1c-a68cf3bfad97",
   "isDeleted": false,
-  "createdAt": "2026-08-17T20:23:36.822Z",
-  "lastModified": "2026-08-22T02:41:20.050Z",
+  "createdAt": "2026-08-25T18:54:25.937Z",
+  "lastModified": "2026-08-25T18:54:25.942Z",
   "characterType": "beastInstance",
-  "name": "Bugbear 🅓",
+  "name": "Treant 🅒",
   "featuredArtUrls": [
-    "https://cdn.midjourney.com/1402c1f5-f529-40e7-9999-fb156e622698/0_1.png"
+    "https://cdn.midjourney.com/f9abdc94-3a4a-4f34-9877-e7748234c084/0_1.png"
   ],
   "speed": {
     "current": 30,
     "base": 30
   },
   "notes": "",
-  "body": 5,
-  "heart": 0,
-  "wits": 2,
+  "body": 9,
+  "heart": 5,
+  "wits": 6,
   "skills": [
     {
       "key": "awe",
-      "ranks": 0,
+      "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -27,7 +27,7 @@
     },
     {
       "key": "strength",
-      "ranks": 2,
+      "ranks": 4,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -35,7 +35,7 @@
     },
     {
       "key": "dexterity",
-      "ranks": 2,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -43,7 +43,7 @@
     },
     {
       "key": "fortitude",
-      "ranks": 1,
+      "ranks": 3,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -67,7 +67,7 @@
     },
     {
       "key": "insight",
-      "ranks": 0,
+      "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -75,7 +75,7 @@
     },
     {
       "key": "courtesy",
-      "ranks": 0,
+      "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -83,7 +83,7 @@
     },
     {
       "key": "spirit",
-      "ranks": 0,
+      "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -91,7 +91,7 @@
     },
     {
       "key": "aid",
-      "ranks": 0,
+      "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -107,7 +107,7 @@
     },
     {
       "key": "awareness",
-      "ranks": 1,
+      "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -115,7 +115,7 @@
     },
     {
       "key": "stealth",
-      "ranks": 1,
+      "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -123,7 +123,7 @@
     },
     {
       "key": "lore",
-      "ranks": 0,
+      "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -131,7 +131,7 @@
     },
     {
       "key": "riddle",
-      "ranks": 0,
+      "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -139,16 +139,16 @@
     }
   ],
   "endurance": {
-    "current": 25,
-    "base": 25
+    "current": 45,
+    "base": 45
   },
   "hope": {
-    "current": 0,
-    "base": 0
+    "current": 10,
+    "base": 10
   },
   "defense": {
-    "current": 11,
-    "base": 2
+    "current": 16,
+    "base": 16
   },
   "load": 0,
   "shadow": 0,
@@ -170,49 +170,14 @@
   },
   "engagementDice": [],
   "engagementSuccesses": [],
-  "engagementDiceStatuses": {
-    "3a61c9aa-09ba-4b44-9efb-529795835e69_0": "expended"
-  },
+  "engagementDiceStatuses": {},
   "equipment": [
     {
-      "id": "46196176-9eb7-4284-ac87-59c8e44bd840",
+      "id": "db418790-1337-43d4-8d92-53a29b16a240",
       "quantity": 1,
       "isCarried": true,
       "isWielding": true,
-      "collapsed": true,
-      "columnIndex": 0
-    },
-    {
-      "id": "9a25bc3b-f4eb-41dd-93be-f3e7b992d7b8",
-      "quantity": 1,
-      "isCarried": true,
-      "isWielding": true,
-      "collapsed": true,
-      "columnIndex": 0
-    },
-    {
-      "id": "3a61c9aa-09ba-4b44-9efb-529795835e69",
-      "quantity": 1,
-      "isCarried": true,
-      "collapsed": true,
-      "isWielding": true,
-      "columnIndex": 0
-    },
-    {
-      "id": "0b8b74b9-40af-410f-bbb7-c3e14ef86186",
-      "quantity": 1,
-      "isCarried": true,
-      "collapsed": false,
-      "isWielding": true,
-      "columnIndex": 1
-    },
-    {
-      "id": "893e43ad-dfd7-46d1-b5a6-48e615753f90",
-      "quantity": 3,
-      "isCarried": true,
-      "collapsed": false,
-      "columnIndex": 2,
-      "isWielding": false
+      "collapsed": false
     }
   ],
   "groupEquipmentBySource": false,
@@ -225,11 +190,36 @@
   },
   "abilities": [
     {
-      "id": "21868d26-c1b9-455a-ac90-e5f4d33af7bb",
+      "id": "bfe93949-2e88-40dd-9e6e-657362567486",
       "collapsed": false,
       "showImprovements": false,
       "showSuccesses": false,
-      "isActive": false
+      "isActive": false,
+      "columnIndex": 0
+    },
+    {
+      "id": "194a8503-f70d-4fed-be8d-27c96eeab069",
+      "collapsed": false,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false,
+      "columnIndex": 1
+    },
+    {
+      "id": "6bdf158c-3bbc-4b70-952b-13ee17cf4079",
+      "collapsed": false,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false,
+      "columnIndex": 1
+    },
+    {
+      "id": "6dd586f6-3e70-4601-a9e0-8f5f6d61955f",
+      "collapsed": false,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false,
+      "columnIndex": 2
     }
   ],
   "groupAbilitiesBySource": false,
@@ -246,21 +236,19 @@
   },
   "rollStats": {
     "skillChecks": {
-      "attempts": 1,
-      "successes": 1,
-      "totalSum": 16,
-      "bestTotal": 16,
+      "attempts": 0,
+      "successes": 0,
+      "totalSum": 0,
+      "bestTotal": null,
       "hardestSuccess": null,
-      "bySkill": {
-        "Strength": 1
-      },
+      "bySkill": {},
       "solCount": 0,
       "morteCount": 0,
-      "successCount": 1
+      "successCount": 0
     },
     "contests": {
       "engagement": {
-        "wins": 1,
+        "wins": 0,
         "losses": 0,
         "draws": 0
       },
@@ -297,18 +285,7 @@
   "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
   "isPublicPreview": false,
   "sectionOrder": [],
-  "martialTrainingOverrides": {
-    "meleeGrades": [
-      "b92d3394-2c64-487f-8c90-c56ea1cbd3f3"
-    ],
-    "polearmGrades": [],
-    "armorGrades": [
-      "b92d3394-2c64-487f-8c90-c56ea1cbd3f3"
-    ],
-    "rangedGrades": [
-      "b92d3394-2c64-487f-8c90-c56ea1cbd3f3"
-    ]
-  },
+  "martialTrainingOverrides": {},
   "pronouns": "",
   "ancestryIds": [],
   "cultureIds": [],
@@ -321,8 +298,8 @@
   "treasure": 0,
   "xp": 0,
   "description": "",
-  "size": 1,
-  "reach": 0,
+  "size": 3,
+  "reach": 5,
   "hasDarkvision": false,
   "hasBlindsight": false,
   "hasTremorsense": false,
@@ -333,21 +310,20 @@
   "swimSpeed": 0,
   "biomeTagsAugment": [
     "forest",
-    "mountain",
-    "temperate"
-  ],
-  "biomeTagsInhibit": [
-    "cold",
-    "hot",
-    "water",
-    "civilized",
     "enchanted"
   ],
-  "beastTypeIds": [
-    "b7e57001-0000-4000-a000-00000000000a",
-    "b7e57001-0000-4000-a000-000000000002"
+  "biomeTagsInhibit": [
+    "desert",
+    "water",
+    "underground",
+    "cold",
+    "civilized",
+    "corrupted"
   ],
-  "updatedAt": "2026-08-22T02:41:20.050Z",
-  "challenge": 11,
-  "templateId": "e5ccf49a-de26-4459-9e67-0be307c23db1"
+  "beastTypeIds": [
+    "b7e57001-0000-4000-a000-00000000000d"
+  ],
+  "challenge": 40,
+  "updatedAt": "2026-08-18T15:21:24.349Z",
+  "templateId": "12c4135e-2dfc-4a2e-bc40-a4524033238a"
 }

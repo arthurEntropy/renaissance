@@ -2,7 +2,7 @@
   "id": "54f77e58-eca4-4e28-ac76-6d55493470cc",
   "isDeleted": false,
   "createdAt": "2026-08-17T14:48:57.453Z",
-  "lastModified": "2026-08-25T15:49:59.017Z",
+  "lastModified": "2026-08-26T14:48:22.364Z",
   "characterType": "playerCharacter",
   "name": "Himo",
   "featuredArtUrls": [
@@ -23,8 +23,7 @@
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "manualDiceMod": 0,
-      "isIllFavoredAutocalc": false
+      "manualDiceMod": 0
     },
     {
       "key": "strength",
@@ -32,8 +31,7 @@
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "manualDiceMod": 0,
-      "isIllFavoredAutocalc": false
+      "manualDiceMod": 0
     },
     {
       "key": "dexterity",
@@ -49,8 +47,7 @@
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "manualDiceMod": 0,
-      "isIllFavoredAutocalc": false
+      "manualDiceMod": 0
     },
     {
       "key": "craft",
@@ -58,8 +55,7 @@
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "manualDiceMod": 0,
-      "isIllFavoredAutocalc": false
+      "manualDiceMod": 0
     },
     {
       "key": "perform",
@@ -143,11 +139,11 @@
     }
   ],
   "endurance": {
-    "current": 0,
+    "current": 10,
     "base": 10
   },
   "hope": {
-    "current": 0,
+    "current": 2,
     "base": 2
   },
   "defense": {
@@ -174,7 +170,10 @@
   },
   "engagementDice": [],
   "engagementSuccesses": [],
-  "engagementDiceStatuses": {},
+  "engagementDiceStatuses": {
+    "mestiere_0": "expended",
+    "mestiere_1": "expended"
+  },
   "equipment": [
     {
       "id": "3d63f295-8941-4ffe-8f4c-d4de52da87a4",
@@ -182,7 +181,7 @@
       "isCarried": true,
       "columnIndex": 0,
       "isWielding": true,
-      "collapsed": false
+      "collapsed": true
     },
     {
       "id": "6bd54a13-d544-4839-bb45-8a8a4c8f9c91",
@@ -190,7 +189,7 @@
       "isCarried": true,
       "columnIndex": 0,
       "isWielding": true,
-      "collapsed": false
+      "collapsed": true
     },
     {
       "id": "2b7188c1-2572-41fa-ad1f-9bc9048d862a",
@@ -264,7 +263,15 @@
       "showImprovements": false,
       "showSuccesses": false,
       "isActive": false,
-      "columnIndex": 0
+      "columnIndex": 1
+    },
+    {
+      "id": "0be14c83-458a-41f4-b5ac-29c2b4266ea5",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false,
+      "columnIndex": 1
     },
     {
       "id": "ea5b56c6-375f-4426-84be-cf4df79b7505",
@@ -275,16 +282,16 @@
       "columnIndex": 1
     },
     {
-      "id": "0be14c83-458a-41f4-b5ac-29c2b4266ea5",
-      "collapsed": false,
+      "id": "4b472223-80bd-437d-b57e-2ff52ab2a3eb",
+      "collapsed": true,
       "showImprovements": false,
       "showSuccesses": false,
       "isActive": false,
-      "columnIndex": 1
+      "columnIndex": 2
     },
     {
-      "id": "4b472223-80bd-437d-b57e-2ff52ab2a3eb",
-      "collapsed": false,
+      "id": "eda4441e-db9f-400a-b4f8-fce91ffb11a7",
+      "collapsed": true,
       "showImprovements": false,
       "showSuccesses": false,
       "isActive": false,
@@ -305,23 +312,25 @@
   },
   "rollStats": {
     "skillChecks": {
-      "attempts": 5,
-      "successes": 5,
-      "totalSum": 65,
-      "bestTotal": 18,
+      "attempts": 22,
+      "successes": 22,
+      "totalSum": 282,
+      "bestTotal": 27,
       "hardestSuccess": null,
       "bySkill": {
-        "Dexterity": 5
+        "Dexterity": 18,
+        "Craft": 2,
+        "Stealth": 2
       },
-      "solCount": 0,
-      "morteCount": 0,
-      "successCount": 3
+      "solCount": 1,
+      "morteCount": 1,
+      "successCount": 11
     },
     "contests": {
       "engagement": {
         "wins": 0,
-        "losses": 0,
-        "draws": 0
+        "losses": 2,
+        "draws": 1
       },
       "contest": {
         "wins": 0,
@@ -329,13 +338,17 @@
         "draws": 0
       }
     },
-    "xpEarned": 0,
+    "xpEarned": 38,
     "xpSpent": 0,
-    "treasureEarned": 9,
-    "treasureSpent": 4
+    "treasureEarned": 13,
+    "treasureSpent": 208
   },
-  "biomeTags": [],
-  "biomeId": null,
+  "biomeTags": [
+    "plains",
+    "temperate",
+    "civilized"
+  ],
+  "biomeId": "2a47dc2b-a4b5-4eca-84cb-6f0075d381c9",
   "nimbleStep": 0,
   "swagger": 0,
   "swaggerIconIndex": 0,
@@ -351,7 +364,23 @@
   "witchcraftTokens": [],
   "witchFamiliar": null,
   "summonerVessels": [],
-  "hunterTraps": [],
+  "hunterTraps": [
+    {
+      "id": "7572f907-9e12-4234-bc43-422473fd7388",
+      "difficulty": 9,
+      "imageUrl": "/assets/wolf_trap-BxLxSTHf.png"
+    },
+    {
+      "id": "2852f308-39e1-4b9c-b1fc-e1ecbbfb1809",
+      "difficulty": null,
+      "imageUrl": "/assets/spiky_pit-DDRMZ_Zo.png"
+    },
+    {
+      "id": "ca564f94-f220-41fa-8e3f-48eaf997f1fe",
+      "difficulty": null,
+      "imageUrl": "/assets/lasso-BdSimWVP.png"
+    }
+  ],
   "campaignId": null,
   "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
   "isPublicPreview": false,
@@ -372,8 +401,8 @@
   "heightInches": 4,
   "weight": 179,
   "keeping": "4d5e6f7a-8b9c-4d0e-1f2a-3b4c5d6e7f8a",
-  "treasure": 0,
-  "xp": 0,
+  "treasure": 4,
+  "xp": 1,
   "description": "",
-  "updatedAt": "2026-08-25T15:49:59.017Z"
+  "updatedAt": "2026-08-26T14:48:22.364Z"
 }

@@ -243,19 +243,7 @@
                             :style="{ backgroundColor: getMemberDotColor(member) }" />
                     </div>
                 </div>
-                <!-- GM group controls: edit, visibility, trash — visible when cmd/ctrl held -->
-                <div v-if="isGMOnTabletop && isCmdHeld" class="group-gm-controls">
-                    <FloatingActionButton :variant="FAB_TYPES.EDIT" :size="FAB_SIZES.SMALL"
-                        :visibility="FAB_VISIBILITIES.ALWAYS" title="Edit group"
-                        @click.stop="openGroupEditModal(group.id)" />
-                    <FloatingActionButton :variant="FAB_TYPES.VISIBILITY" :size="FAB_SIZES.SMALL"
-                        :visibility="FAB_VISIBILITIES.ALWAYS" :is-active="getGroupVisibilityState(group) !== 'hidden'"
-                        :title="getGroupVisibilityState(group) === 'hidden' ? 'Show group' : 'Hide group'"
-                        @click.stop="toggleGroupVisibility(group)" />
-                    <FloatingActionButton :variant="FAB_TYPES.TRASH" :size="FAB_SIZES.SMALL"
-                        :visibility="FAB_VISIBILITIES.ALWAYS" title="Delete group"
-                        @click.stop="deleteGroupWithConfirm(group)" />
-                </div>
+                <!-- GM group controls: edit, visibility, trash — moved to initiative badge on cmd/ctrl -->
                 <div v-if="!isGroupCollapsed(group.id)" class="token-group-members">
                     <div v-for="member in group.members" :key="member.id" class="token-item draggable-token-wrapper"
                         :class="{
@@ -273,28 +261,48 @@
                         class="token-group-chevron" />
                 </button>
 
-                <!-- Initiative badge: visible on the tabletop for all users; roll button inactive for non-GMs -->
+                <!-- Initiative badge: visible on the tabletop for all users.
+                     When GM holds cmd/ctrl, shows group-management FABs instead. -->
                 <div v-if="isOnTabletopPage && !isWorldMap" class="initiative-badge" :class="{
                     'initiative-badge--initiative-active': isInitiativeActive && group.id === resolvedPinnedGroups[0]?.id,
-                    'initiative-badge--player-view': !isGMOnTabletop
+                    'initiative-badge--player-view': !isGMOnTabletop,
+                    'initiative-badge--cmd-mode': isGMOnTabletop && isCmdHeld
                 }"
                     :style="isGroupCollapsed(group.id) ? { top: 'auto', bottom: '0px', transform: 'translate(calc(100% + var(--space-sm)), 0)' } : {}">
-                    <FloatingActionButton :variant="FAB_TYPES.INITIATIVE" :size="FAB_SIZES.SMALL"
-                        :visibility="FAB_VISIBILITIES.ALWAYS" :disabled="!isGMOnTabletop || !isGroupFullyPlaced(group)"
-                        :title="!isGMOnTabletop ? 'Initiative' : isGroupFullyPlaced(group) ? 'Roll group initiative' : 'Place all group tokens on the tabletop first'"
-                        aria-label="Roll group initiative" @click="isGMOnTabletop && rollGroupInitiative(group)" />
-                    <template v-if="isGMOnTabletop && editingInitiativeGroupId === group.id">
-                        <input type="text" inputmode="numeric" pattern="[0-9]*" class="initiative-input"
-                            v-model="editingInitiativeValue"
-                            @input="editingInitiativeValue = editingInitiativeValue.replace(/\D/g, '')"
-                            @blur="saveInitiativeEdit(group.id)" @keydown.enter="saveInitiativeEdit(group.id)"
-                            @keydown.escape="cancelInitiativeEdit" />
+                    <!-- Cmd/Ctrl mode: group management FABs -->
+                    <template v-if="isGMOnTabletop && isCmdHeld">
+                        <FloatingActionButton :variant="FAB_TYPES.EDIT" :size="FAB_SIZES.SMALL"
+                            :visibility="FAB_VISIBILITIES.ALWAYS" title="Edit group"
+                            @click.stop="openGroupEditModal(group.id)" />
+                        <FloatingActionButton :variant="FAB_TYPES.VISIBILITY" :size="FAB_SIZES.SMALL"
+                            :visibility="FAB_VISIBILITIES.ALWAYS"
+                            :is-active="getGroupVisibilityState(group) !== 'hidden'"
+                            :title="getGroupVisibilityState(group) === 'hidden' ? 'Show group' : 'Hide group'"
+                            @click.stop="toggleGroupVisibility(group)" />
+                        <FloatingActionButton :variant="FAB_TYPES.TRASH" :size="FAB_SIZES.SMALL"
+                            :visibility="FAB_VISIBILITIES.ALWAYS" title="Delete group"
+                            @click.stop="deleteGroupWithConfirm(group)" />
                     </template>
-                    <span v-else class="initiative-result-value"
-                        :class="{ 'initiative-result-value--empty': group.initiativeResults?.groupTotal == null }"
-                        @click="isGMOnTabletop && startEditingInitiative(group)">
-                        {{ group.initiativeResults?.groupTotal ?? '—' }}
-                    </span>
+                    <!-- Normal mode: initiative roll FAB and score -->
+                    <template v-else>
+                        <FloatingActionButton :variant="FAB_TYPES.INITIATIVE" :size="FAB_SIZES.SMALL"
+                            :visibility="FAB_VISIBILITIES.ALWAYS"
+                            :disabled="!isGMOnTabletop || !isGroupFullyPlaced(group)"
+                            :title="!isGMOnTabletop ? 'Initiative' : isGroupFullyPlaced(group) ? 'Roll group initiative' : 'Place all group tokens on the tabletop first'"
+                            aria-label="Roll group initiative" @click="isGMOnTabletop && rollGroupInitiative(group)" />
+                        <template v-if="isGMOnTabletop && editingInitiativeGroupId === group.id">
+                            <input type="text" inputmode="numeric" pattern="[0-9]*" class="initiative-input"
+                                v-model="editingInitiativeValue"
+                                @input="editingInitiativeValue = editingInitiativeValue.replace(/\D/g, '')"
+                                @blur="saveInitiativeEdit(group.id)" @keydown.enter="saveInitiativeEdit(group.id)"
+                                @keydown.escape="cancelInitiativeEdit" />
+                        </template>
+                        <span v-else class="initiative-result-value"
+                            :class="{ 'initiative-result-value--empty': group.initiativeResults?.groupTotal == null }"
+                            @click="isGMOnTabletop && startEditingInitiative(group)">
+                            {{ group.initiativeResults?.groupTotal ?? '—' }}
+                        </span>
+                    </template>
                 </div>
             </div>
         </TransitionGroup>
@@ -1266,14 +1274,7 @@ function getFocusedTokenProps(character) {
     display: none;
 }
 
-/* ─── GM group controls strip (cmd-held) ─────────────────────────────────── */
-.group-gm-controls {
-    display: flex;
-    justify-content: center;
-    gap: var(--space-sm);
-    padding: var(--space-xs) 0;
-}
-
+/* ─── Token group member list ─────────────────────────────────────────────── */
 .token-group-members {
     display: flex;
     flex-direction: column;
@@ -1422,8 +1423,8 @@ function getFocusedTokenProps(character) {
 .initiative-badge {
     position: absolute;
     right: 28px;
-    top: 50%;
-    transform: translate(calc(100% + var(--space-sm)), -50%);
+    bottom: var(--space-sm);
+    transform: translate(calc(100% + var(--space-sm)), 0);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -1433,6 +1434,13 @@ function getFocusedTokenProps(character) {
     border: 1px solid var(--overlay-white-medium);
     border-radius: var(--radius-10);
     padding: var(--space-xs);
+    max-height: 80px;
+    overflow: hidden;
+    transition: max-height var(--transition-normal), border-color var(--transition-fast);
+}
+
+.initiative-badge--cmd-mode {
+    max-height: 130px;
 }
 
 .initiative-result-value {

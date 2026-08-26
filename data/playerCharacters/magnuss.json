@@ -2,7 +2,7 @@
   "id": "4083afd8-0594-4647-ac06-09b8a2a8cefc",
   "isDeleted": false,
   "createdAt": "2026-08-17T17:37:39.448Z",
-  "lastModified": "2026-08-25T17:56:55.098Z",
+  "lastModified": "2026-08-26T14:50:33.407Z",
   "characterType": "playerCharacter",
   "name": "Magnuss",
   "featuredArtUrls": [
@@ -32,7 +32,7 @@
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "manualDiceMod": 1
+      "manualDiceMod": 0
     },
     {
       "key": "dexterity",
@@ -40,7 +40,8 @@
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "manualDiceMod": 1
+      "manualDiceMod": 0,
+      "isIllFavoredAutocalc": false
     },
     {
       "key": "fortitude",
@@ -48,7 +49,8 @@
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "manualDiceMod": 0
+      "manualDiceMod": 0,
+      "isIllFavoredAutocalc": false
     },
     {
       "key": "craft",
@@ -74,7 +76,8 @@
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "manualDiceMod": 0
+      "manualDiceMod": 0,
+      "isIllFavoredAutocalc": false
     },
     {
       "key": "courtesy",
@@ -82,7 +85,8 @@
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "manualDiceMod": 0
+      "manualDiceMod": 0,
+      "isIllFavoredAutocalc": false
     },
     {
       "key": "spirit",
@@ -90,7 +94,7 @@
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "manualDiceMod": 1
+      "manualDiceMod": 0
     },
     {
       "key": "aid",
@@ -115,7 +119,8 @@
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "manualDiceMod": 0
+      "manualDiceMod": 0,
+      "isIllFavoredAutocalc": false
     },
     {
       "key": "stealth",
@@ -123,7 +128,8 @@
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "manualDiceMod": 0
+      "manualDiceMod": 0,
+      "isIllFavoredAutocalc": false
     },
     {
       "key": "lore",
@@ -145,7 +151,7 @@
     }
   ],
   "endurance": {
-    "current": 5,
+    "current": 15,
     "base": 15
   },
   "hope": {
@@ -260,7 +266,24 @@
       "columnIndex": 2
     },
     {
+      "id": "a71010fe-d7dc-41c9-ba68-0dd2a01d50d3",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false,
+      "columnIndex": 2
+    },
+    {
       "id": "5f3ef24c-14d6-47c9-a61b-52cec1b64bb9",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false,
+      "columnIndex": 2,
+      "difficulty": null
+    },
+    {
+      "id": "39a3e592-7836-4333-b336-64e75694dc98",
       "collapsed": true,
       "showImprovements": false,
       "showSuccesses": false,
@@ -272,7 +295,7 @@
       "collapsed": true,
       "showImprovements": false,
       "showSuccesses": false,
-      "isActive": true,
+      "isActive": false,
       "columnIndex": 2
     },
     {
@@ -306,23 +329,24 @@
   },
   "rollStats": {
     "skillChecks": {
-      "attempts": 18,
-      "successes": 18,
-      "totalSum": 404,
-      "bestTotal": 31,
+      "attempts": 9,
+      "successes": 7,
+      "totalSum": 130,
+      "bestTotal": 23,
       "hardestSuccess": null,
       "bySkill": {
         "Fortitude": 1,
-        "Spirit": 17
+        "Spirit": 7,
+        "Dexterity": 1
       },
-      "solCount": 1,
-      "morteCount": 1,
-      "successCount": 10
+      "solCount": 0,
+      "morteCount": 2,
+      "successCount": 4
     },
     "contests": {
       "engagement": {
         "wins": 0,
-        "losses": 1,
+        "losses": 5,
         "draws": 0
       },
       "contest": {
@@ -331,10 +355,10 @@
         "draws": 0
       }
     },
-    "xpEarned": 0,
+    "xpEarned": 73,
     "xpSpent": 0,
-    "treasureEarned": 132,
-    "treasureSpent": 0
+    "treasureEarned": 240,
+    "treasureSpent": 280
   },
   "biomeTags": [],
   "biomeId": null,
@@ -343,22 +367,11 @@
   "swaggerIconIndex": 0,
   "swaggerColor": "#ffffff",
   "manaPool": {
-    "white": [
-      false
-    ],
-    "blue": [
-      false
-    ],
-    "black": [
-      false
-    ],
-    "red": [
-      false,
-      false
-    ],
-    "green": [
-      false
-    ],
+    "white": [],
+    "blue": [],
+    "black": [],
+    "red": [],
+    "green": [],
     "colorless": []
   },
   "witchcraftTokens": [],
@@ -388,8 +401,8 @@
   "heightInches": 1,
   "weight": 237,
   "keeping": "2b3c4d5e-6f7a-4b8c-9d0e-1f2a3b4c5d6e",
-  "treasure": 6,
-  "xp": 0,
+  "treasure": 10,
+  "xp": 2,
   "description": "",
-  "updatedAt": "2026-08-25T17:56:55.098Z"
+  "updatedAt": "2026-08-26T14:50:33.407Z"
 }

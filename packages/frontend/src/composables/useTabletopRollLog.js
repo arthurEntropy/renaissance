@@ -134,7 +134,7 @@ export function useTabletopRollLog({ canvasItems, rollLog, saveStateFn, tabletop
    */
   function _createCombinedEngagementEntry(firstEntry, secondEntry) {
     return {
-      id: `combined_${firstEntry.id}`,
+      id: firstEntry.id,
       timestamp: firstEntry.timestamp,
       type: RollTypes.ENGAGEMENT,
       combined: true,
@@ -258,23 +258,19 @@ export function useTabletopRollLog({ canvasItems, rollLog, saveStateFn, tabletop
 
   function _onRollReceived({ entry }) {
     if (!entry) return
-    // Deduplicate by entry ID
-    if (rollLog.value.some((e) => e.id === entry.id)) return
 
-    // Combined engagement entries need special handling: the combined entry shares
-    // the same characterId+timestamp as the first player's individual entry that is
-    // already in the local log.  The normal _appendEntry dedup would reject it, so
-    // we instead replace the matching individual entry directly and show the
-    // opponent's bubble.
+    // Combined engagement entries share the same id as the first participant's individual
+    // entry, so we handle them before the generic ID dedup to avoid early-exit.
     if (entry.type === RollTypes.ENGAGEMENT && entry.combined) {
       const matchingIdx = rollLog.value.findIndex(
         (e) =>
           e.type === RollTypes.ENGAGEMENT &&
-          !e.combined &&
           e.characterId === entry.characterId &&
           e.timestamp === entry.timestamp
       )
       if (matchingIdx !== -1) {
+        // Already combined (e.g. local echo) – nothing to do.
+        if (rollLog.value[matchingIdx].combined) return
         const newLog = [...rollLog.value]
         newLog.splice(matchingIdx, 1, entry)
         rollLog.value = newLog
@@ -284,8 +280,6 @@ export function useTabletopRollLog({ canvasItems, rollLog, saveStateFn, tabletop
             (i) => i.characterId === entry.opponentCharacterId
           )
           if (opponentCanvasItem) {
-            // Show the bubble with the opponent's perspective data if available,
-            // otherwise fall back to the combined entry itself.
             const opponentEntry = {
               ...entry,
               characterId: entry.opponentCharacterId,
@@ -300,7 +294,11 @@ export function useTabletopRollLog({ canvasItems, rollLog, saveStateFn, tabletop
         saveStateFn()
         return
       }
+      // No matching individual entry – fall through to add combined as a new entry.
     }
+
+    // Standard ID-based dedup for non-combined entries.
+    if (rollLog.value.some((e) => e.id === entry.id)) return
 
     const canvasItem = canvasItems.value.find((i) => i.characterId === entry.characterId)
     _appendEntry(entry, canvasItem?.id ?? null, true)

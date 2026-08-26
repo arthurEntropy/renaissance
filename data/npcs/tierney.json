@@ -1,21 +1,21 @@
 {
-  "id": "b536c300-b3b1-49b7-bc04-357c4d3b3bae",
+  "id": "062f7b0a-e73a-48da-b233-7a85dbb343af",
   "isDeleted": false,
-  "createdAt": "2026-08-17T20:23:42.125Z",
-  "lastModified": "2026-08-22T02:41:20.080Z",
-  "characterType": "beastInstance",
-  "name": "Bugbear 🅕",
+  "createdAt": "2026-08-25T14:19:29.400Z",
+  "lastModified": "2026-08-26T14:44:59.878Z",
+  "characterType": "npc",
+  "name": "Tierney",
   "featuredArtUrls": [
-    "https://cdn.midjourney.com/1402c1f5-f529-40e7-9999-fb156e622698/0_1.png"
+    "https://cdn.midjourney.com/dd0503fb-28ce-49bf-8441-f3d7c720bba1/0_1.png"
   ],
   "speed": {
-    "current": 30,
-    "base": 30
+    "current": 0,
+    "base": 0
   },
   "notes": "",
-  "body": 5,
+  "body": 0,
   "heart": 0,
-  "wits": 2,
+  "wits": 0,
   "skills": [
     {
       "key": "awe",
@@ -27,7 +27,7 @@
     },
     {
       "key": "strength",
-      "ranks": 2,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -35,7 +35,7 @@
     },
     {
       "key": "dexterity",
-      "ranks": 2,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -43,7 +43,7 @@
     },
     {
       "key": "fortitude",
-      "ranks": 1,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -107,7 +107,7 @@
     },
     {
       "key": "awareness",
-      "ranks": 1,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -115,7 +115,7 @@
     },
     {
       "key": "stealth",
-      "ranks": 1,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -139,16 +139,16 @@
     }
   ],
   "endurance": {
-    "current": 25,
-    "base": 25
+    "current": 0,
+    "base": 0
   },
   "hope": {
     "current": 0,
     "base": 0
   },
   "defense": {
-    "current": 11,
-    "base": 2
+    "current": 0,
+    "base": 0
   },
   "load": 0,
   "shadow": 0,
@@ -170,54 +170,8 @@
   },
   "engagementDice": [],
   "engagementSuccesses": [],
-  "engagementDiceStatuses": {
-    "mestiere_0": "expended",
-    "mestiere_1": "expended",
-    "3a61c9aa-09ba-4b44-9efb-529795835e69_0": "expended",
-    "0b8b74b9-40af-410f-bbb7-c3e14ef86186_0": "expended"
-  },
-  "equipment": [
-    {
-      "id": "46196176-9eb7-4284-ac87-59c8e44bd840",
-      "quantity": 1,
-      "isCarried": true,
-      "isWielding": true,
-      "collapsed": true,
-      "columnIndex": 0
-    },
-    {
-      "id": "9a25bc3b-f4eb-41dd-93be-f3e7b992d7b8",
-      "quantity": 1,
-      "isCarried": true,
-      "isWielding": true,
-      "collapsed": true,
-      "columnIndex": 0
-    },
-    {
-      "id": "3a61c9aa-09ba-4b44-9efb-529795835e69",
-      "quantity": 1,
-      "isCarried": true,
-      "collapsed": true,
-      "isWielding": true,
-      "columnIndex": 0
-    },
-    {
-      "id": "0b8b74b9-40af-410f-bbb7-c3e14ef86186",
-      "quantity": 1,
-      "isCarried": true,
-      "collapsed": false,
-      "isWielding": true,
-      "columnIndex": 1
-    },
-    {
-      "id": "893e43ad-dfd7-46d1-b5a6-48e615753f90",
-      "quantity": 3,
-      "isCarried": true,
-      "collapsed": false,
-      "columnIndex": 2,
-      "isWielding": false
-    }
-  ],
+  "engagementDiceStatuses": {},
+  "equipment": [],
   "groupEquipmentBySource": false,
   "groupEquipmentByCustom": false,
   "equipmentSortOption": "",
@@ -226,15 +180,7 @@
     "current": 0,
     "base": 0
   },
-  "abilities": [
-    {
-      "id": "21868d26-c1b9-455a-ac90-e5f4d33af7bb",
-      "collapsed": false,
-      "showImprovements": false,
-      "showSuccesses": false,
-      "isActive": false
-    }
-  ],
+  "abilities": [],
   "groupAbilitiesBySource": false,
   "groupAbilitiesByManaColor": false,
   "groupAbilitiesByCustom": false,
@@ -249,22 +195,20 @@
   },
   "rollStats": {
     "skillChecks": {
-      "attempts": 2,
-      "successes": 2,
-      "totalSum": 24,
-      "bestTotal": 13,
+      "attempts": 0,
+      "successes": 0,
+      "totalSum": 0,
+      "bestTotal": null,
       "hardestSuccess": null,
-      "bySkill": {
-        "Strength": 2
-      },
+      "bySkill": {},
       "solCount": 0,
       "morteCount": 0,
-      "successCount": 1
+      "successCount": 0
     },
     "contests": {
       "engagement": {
         "wins": 0,
-        "losses": 1,
+        "losses": 0,
         "draws": 0
       },
       "contest": {
@@ -274,9 +218,9 @@
       }
     },
     "xpEarned": 0,
-    "xpSpent": 0,
+    "xpSpent": 8,
     "treasureEarned": 0,
-    "treasureSpent": 0
+    "treasureSpent": 2
   },
   "biomeTags": [],
   "biomeId": null,
@@ -300,22 +244,14 @@
   "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
   "isPublicPreview": false,
   "sectionOrder": [],
-  "martialTrainingOverrides": {
-    "meleeGrades": [
-      "b92d3394-2c64-487f-8c90-c56ea1cbd3f3"
-    ],
-    "polearmGrades": [],
-    "armorGrades": [
-      "b92d3394-2c64-487f-8c90-c56ea1cbd3f3"
-    ],
-    "rangedGrades": [
-      "b92d3394-2c64-487f-8c90-c56ea1cbd3f3"
-    ]
-  },
-  "pronouns": "",
-  "ancestryIds": [],
+  "martialTrainingOverrides": {},
+  "pronouns": "he/him",
+  "ancestryIds": [
+    "adc655c1-1d9c-433f-a0eb-41f93cf3ee07",
+    "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+  ],
   "cultureIds": [],
-  "mestiereId": null,
+  "mestiereId": "",
   "age": 0,
   "heightFeet": 0,
   "heightInches": 0,
@@ -324,33 +260,5 @@
   "treasure": 0,
   "xp": 0,
   "description": "",
-  "size": 1,
-  "reach": 0,
-  "hasDarkvision": false,
-  "hasBlindsight": false,
-  "hasTremorsense": false,
-  "hasTruesight": false,
-  "burrowSpeed": 0,
-  "climbSpeed": 0,
-  "flySpeed": 0,
-  "swimSpeed": 0,
-  "biomeTagsAugment": [
-    "forest",
-    "mountain",
-    "temperate"
-  ],
-  "biomeTagsInhibit": [
-    "cold",
-    "hot",
-    "water",
-    "civilized",
-    "enchanted"
-  ],
-  "beastTypeIds": [
-    "b7e57001-0000-4000-a000-00000000000a",
-    "b7e57001-0000-4000-a000-000000000002"
-  ],
-  "updatedAt": "2026-08-22T02:41:20.080Z",
-  "challenge": 11,
-  "templateId": "e5ccf49a-de26-4459-9e67-0be307c23db1"
+  "updatedAt": "2026-08-26T14:44:59.878Z"
 }

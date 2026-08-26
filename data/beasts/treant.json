@@ -2,7 +2,7 @@
   "id": "12c4135e-2dfc-4a2e-bc40-a4524033238a",
   "isDeleted": false,
   "createdAt": "2026-08-13T02:23:38.764Z",
-  "lastModified": "2026-08-21T18:46:47.841Z",
+  "lastModified": "2026-08-18T15:21:24.349Z",
   "characterType": "beast",
   "name": "Treant",
   "featuredArtUrls": [
@@ -324,5 +324,5 @@
     "b7e57001-0000-4000-a000-00000000000d"
   ],
   "challenge": 40,
-  "updatedAt": "2026-08-21T18:46:47.841Z"
+  "updatedAt": "2026-08-18T15:21:24.349Z"
 }

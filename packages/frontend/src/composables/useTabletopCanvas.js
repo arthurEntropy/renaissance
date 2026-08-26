@@ -440,6 +440,9 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved, isWorl
             _radiusSourceTokenId = null
         }
 
+        // Clicking a token deselects any selected radius area
+        selectedRadiusAreaId.value = null
+
         // Determine which tokens to drag: if clicked token is already selected, drag all selected;
         // otherwise clear selection and drag only this token.
         const idsToMove = isSelected(item.id) ? [...selectedIds.value] : [item.id]

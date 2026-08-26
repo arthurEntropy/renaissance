@@ -1,10 +1,10 @@
 {
-  "id": "e0272537-0805-4862-9eff-ecbb06e08881",
+  "id": "9b7ce8af-31c6-4d61-b9f0-6c34d7866361",
   "isDeleted": false,
-  "createdAt": "2026-08-17T20:37:05.774Z",
-  "lastModified": "2026-08-25T15:49:36.544Z",
+  "createdAt": "2026-08-25T18:51:37.810Z",
+  "lastModified": "2026-08-25T18:51:37.827Z",
   "characterType": "beastInstance",
-  "name": "Spore Hound 🅗",
+  "name": "Spore Hound 🅥",
   "featuredArtUrls": [
     "https://cdn.midjourney.com/39ad5992-8dc0-48f7-9e24-e9633e4377ae/0_1.png"
   ],
@@ -170,10 +170,7 @@
   },
   "engagementDice": [],
   "engagementSuccesses": [],
-  "engagementDiceStatuses": {
-    "3a61c9aa-09ba-4b44-9efb-529795835e69_0": "expended",
-    "a77e5e36-1c1d-4a15-865f-da6748d815b7_0": "expended"
-  },
+  "engagementDiceStatuses": {},
   "equipment": [
     {
       "id": "3a61c9aa-09ba-4b44-9efb-529795835e69",
@@ -226,8 +223,8 @@
     "contests": {
       "engagement": {
         "wins": 0,
-        "losses": 1,
-        "draws": 1
+        "losses": 0,
+        "draws": 0
       },
       "contest": {
         "wins": 0,
@@ -270,7 +267,7 @@
   "keeping": null,
   "treasure": 0,
   "xp": 0,
-  "updatedAt": "2026-08-25T15:49:36.544Z",
+  "updatedAt": "2026-07-24T00:20:58.932Z",
   "description": "",
   "size": 1,
   "reach": 5,

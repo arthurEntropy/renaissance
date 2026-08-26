@@ -1,0 +1,113 @@
+{
+  "id": "7022a9a6-2127-4325-927e-e775662eebd9",
+  "isDeleted": false,
+  "createdAt": "2026-08-17T20:26:28.856Z",
+  "lastModified": "2026-08-26T12:28:31.299Z",
+  "campaignId": "84b00fc0-eae8-4808-9151-949bf59928ff",
+  "name": "Guildford Gate",
+  "backgroundImage": {
+    "url": "https://cdn.midjourney.com/793db6b8-bc7d-420e-b41e-9ea0c26739be/0_0.png",
+    "naturalWidth": 1456,
+    "naturalHeight": 816
+  },
+  "items": [
+    {
+      "id": "613951db-6996-43bd-9f02-c4ef7e5fc5e9",
+      "characterId": "4083afd8-0594-4647-ac06-09b8a2a8cefc",
+      "isBeast": false,
+      "isNpc": false,
+      "name": "Magnuss",
+      "portraitUrl": "https://cdn.midjourney.com/9d007aef-e372-4e42-9581-a2703cfe7018/0_2_2048_N.webp",
+      "size": 1,
+      "x": 280,
+      "y": 400,
+      "zIndex": 8
+    },
+    {
+      "id": "2148b01d-5213-4a56-a501-e722ab01d012",
+      "characterId": "8f20a6c3-b272-45d6-9d80-c07ced314693",
+      "isBeast": false,
+      "isNpc": false,
+      "name": "Jebeddo",
+      "portraitUrl": "https://cdn.midjourney.com/60fb6863-799d-4119-807e-b397a9bb7534/0_0_2048_N.webp",
+      "size": 1,
+      "x": 320,
+      "y": 400,
+      "zIndex": 10
+    },
+    {
+      "id": "9e5ef625-03bc-47de-9ce0-9dabf87c8842",
+      "characterId": "da8bd375-e52c-4b5a-9cbf-d729eb2442cf",
+      "isBeast": false,
+      "isNpc": false,
+      "name": "Palfrey",
+      "portraitUrl": "https://cdn.midjourney.com/5a6c9787-cedb-4eb6-8de1-17f837a10b99/0_1_2048_N.webp",
+      "size": 1,
+      "x": 280,
+      "y": 440,
+      "zIndex": 9
+    },
+    {
+      "id": "d2671c74-95d7-4840-adff-c4f0ec99970d",
+      "characterId": "1f161f52-1eab-4c82-8f36-a78e83d7639c",
+      "isBeast": true,
+      "isNpc": false,
+      "name": "Owlbear 🅩",
+      "portraitUrl": "https://cdn.midjourney.com/84742b7f-d0e3-4f7b-a76c-7c0472c33b9e/0_2.png",
+      "size": 2,
+      "x": 1200,
+      "y": 480,
+      "zIndex": 11
+    }
+  ],
+  "transform": {
+    "scale": 1,
+    "x": 110.34658033535243,
+    "y": 72.69430190745538
+  },
+  "gridSize": 40,
+  "gridColor": "#ffffff",
+  "gridOpacity": 0.06,
+  "mapScale": 1.3,
+  "showPaths": true,
+  "radiusAreas": [],
+  "rollLog": [],
+  "combatGroups": [
+    {
+      "id": "group-1787683959318-bsmh24",
+      "name": "Team Vengeance",
+      "combatants": [
+        {
+          "id": "pc:4083afd8-0594-4647-ac06-09b8a2a8cefc",
+          "type": "pc",
+          "characterId": "4083afd8-0594-4647-ac06-09b8a2a8cefc"
+        },
+        {
+          "id": "pc:8f20a6c3-b272-45d6-9d80-c07ced314693",
+          "type": "pc",
+          "characterId": "8f20a6c3-b272-45d6-9d80-c07ced314693"
+        },
+        {
+          "id": "pc:da8bd375-e52c-4b5a-9cbf-d729eb2442cf",
+          "type": "pc",
+          "characterId": "da8bd375-e52c-4b5a-9cbf-d729eb2442cf"
+        }
+      ]
+    },
+    {
+      "id": "group-1787683988468-xo39wr",
+      "name": "Owlbear",
+      "combatants": [
+        {
+          "id": "beast:1f161f52-1eab-4c82-8f36-a78e83d7639c",
+          "type": "beast",
+          "characterId": "1f161f52-1eab-4c82-8f36-a78e83d7639c"
+        }
+      ]
+    }
+  ],
+  "pixelsPerMile": 40,
+  "characterTokenSize": 40,
+  "cultureTokenSize": 60,
+  "cultureTokensLocked": false
+}

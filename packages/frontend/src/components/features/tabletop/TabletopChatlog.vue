@@ -35,7 +35,7 @@
                                 <div class="entry-header-line">
                                     <span class="entry-name" :style="{ color: engagementCharColor(entry, true) }">{{
                                         entry.characterName
-                                        }}</span><span class="entry-title"> vs </span><span class="entry-name"
+                                    }}</span><span class="entry-title"> vs </span><span class="entry-name"
                                         :style="{ color: engagementCharColor(entry, false) }">{{ entry.opponentName
                                         }}</span><span class="entry-title">:</span>
                                 </div>
@@ -92,7 +92,7 @@
                                                 entry.modifier }}{{ entry.modifierLabel ? ` (${entry.modifierLabel})` : ''
                                             }}</span>
                                         <span class="entry-total" :class="outcomeClass(entry)">{{ rollTotal(entry)
-                                        }}</span>
+                                            }}</span>
                                         <span v-if="entrySuccessCount(entry) > 0" class="entry-success-stars"
                                             @click.stop="openSuccessPopup(entry)">{{
                                                 '\u2728'.repeat(entrySuccessCount(entry)) }}</span>
@@ -153,6 +153,7 @@ import DamageRollService from '@/services/rolls/damageRollService'
 import CustomRollService from '@/services/rolls/customRollService'
 import InitiativeRollService from '@/services/rolls/initiativeRollService'
 import InjuryRollService from '@/services/rolls/injuryRollService'
+import { SPECIAL_ROLLS, EMOJI } from '@shared/constants/dice'
 
 const props = defineProps({
     rollLog: {
@@ -445,7 +446,10 @@ function rollTotal(entry) {
         return `${entry.userWins ?? 0} – ${entry.opponentWins ?? 0}`
     }
     if (entry.type === RollTypes.INJURY) {
-        return entry.diceTotal != null ? String(entry.diceTotal) : '—'
+        const val = entry.diceTotal != null ? String(entry.diceTotal) : '—'
+        if (entry.diceTotal === SPECIAL_ROLLS.SOL) return `${val} ${EMOJI.SOL}`
+        if (entry.diceTotal === SPECIAL_ROLLS.MORTE) return `${val} ${EMOJI.MORTE}`
+        return val
     }
     if (entry.total == null) return '—'
     // For damage, initiative, and custom rolls the modifier is shown inline; return just the total.

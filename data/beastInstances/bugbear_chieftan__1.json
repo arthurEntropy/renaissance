@@ -1,25 +1,25 @@
 {
-  "id": "c7736194-cfb8-4fb7-ae31-5cf609d22d19",
+  "id": "e3954ca2-c97b-46ea-9a50-a11af43a9ecb",
   "isDeleted": false,
-  "createdAt": "2026-08-17T20:34:19.961Z",
-  "lastModified": "2026-08-18T15:01:28.133Z",
+  "createdAt": "2026-08-25T18:49:30.361Z",
+  "lastModified": "2026-08-25T18:49:30.364Z",
   "characterType": "beastInstance",
-  "name": "Rust Monster 🅐",
+  "name": "Bugbear Chieftan 🅠",
   "featuredArtUrls": [
-    "https://cdn.midjourney.com/2d5fac4f-2463-4b8a-8847-43391a81b4db/0_2.png"
+    "https://cdn.midjourney.com/5d5cfcaf-eb99-44b5-a5c8-cde4cca54439/0_2.png"
   ],
   "speed": {
-    "current": 40,
-    "base": 40
+    "current": 30,
+    "base": 30
   },
   "notes": "",
-  "body": 3,
-  "heart": 0,
-  "wits": 1,
+  "body": 8,
+  "heart": 1,
+  "wits": 3,
   "skills": [
     {
       "key": "awe",
-      "ranks": 0,
+      "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -27,23 +27,23 @@
     },
     {
       "key": "strength",
-      "ranks": 1,
+      "ranks": 3,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "manualDiceMod": -1
+      "manualDiceMod": 0
     },
     {
       "key": "dexterity",
-      "ranks": 1,
+      "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "manualDiceMod": -1
+      "manualDiceMod": 0
     },
     {
       "key": "fortitude",
-      "ranks": 1,
+      "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -67,7 +67,7 @@
     },
     {
       "key": "insight",
-      "ranks": 0,
+      "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -107,7 +107,7 @@
     },
     {
       "key": "awareness",
-      "ranks": 1,
+      "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -115,7 +115,7 @@
     },
     {
       "key": "stealth",
-      "ranks": 0,
+      "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -139,16 +139,16 @@
     }
   ],
   "endurance": {
-    "current": 15,
-    "base": 15
+    "current": 40,
+    "base": 40
   },
   "hope": {
-    "current": 0,
-    "base": 0
+    "current": 2,
+    "base": 2
   },
   "defense": {
-    "current": 6,
-    "base": 1
+    "current": 15,
+    "base": 15
   },
   "load": 0,
   "shadow": 0,
@@ -170,24 +170,52 @@
   },
   "engagementDice": [],
   "engagementSuccesses": [],
-  "engagementDiceStatuses": {
-    "3a61c9aa-09ba-4b44-9efb-529795835e69_0": "expended",
-    "a8a14960-4382-4030-82f7-1da7391a3aa9_0": "expended"
-  },
+  "engagementDiceStatuses": {},
   "equipment": [
     {
       "id": "3a61c9aa-09ba-4b44-9efb-529795835e69",
       "quantity": 1,
       "isCarried": true,
       "isWielding": true,
+      "columnIndex": 0,
+      "collapsed": true
+    },
+    {
+      "id": "ef64fa74-62c0-4686-81b7-839eafa74671",
+      "quantity": 1,
+      "isCarried": true,
+      "isWielding": true,
+      "columnIndex": 0,
+      "collapsed": true
+    },
+    {
+      "id": "b193cb19-c6b6-4491-9581-9d86519bc4a3",
+      "quantity": 1,
+      "isCarried": true,
+      "isWielding": true,
+      "columnIndex": 0,
+      "collapsed": true
+    },
+    {
+      "id": "73fbad42-1ef8-4200-9473-cdc2b317a5aa",
+      "quantity": 1,
+      "isCarried": true,
+      "isWielding": true,
+      "columnIndex": 0,
+      "collapsed": true
+    },
+    {
+      "id": "0b8b74b9-40af-410f-bbb7-c3e14ef86186",
+      "quantity": 1,
+      "isCarried": true,
+      "isWielding": true,
       "collapsed": false
     },
     {
-      "id": "a8a14960-4382-4030-82f7-1da7391a3aa9",
-      "quantity": 1,
+      "id": "893e43ad-dfd7-46d1-b5a6-48e615753f90",
+      "quantity": 3,
       "isCarried": true,
-      "collapsed": false,
-      "isWielding": true
+      "collapsed": false
     }
   ],
   "groupEquipmentBySource": false,
@@ -200,18 +228,28 @@
   },
   "abilities": [
     {
-      "id": "163d9fab-f967-4451-889f-21764a17ada3",
+      "id": "bfe93949-2e88-40dd-9e6e-657362567486",
       "collapsed": false,
       "showImprovements": false,
       "showSuccesses": false,
-      "isActive": false
+      "isActive": false,
+      "columnIndex": 0
     },
     {
-      "id": "2d4eca06-a682-4c53-8fa7-daaa49eed3f2",
+      "id": "21868d26-c1b9-455a-ac90-e5f4d33af7bb",
       "collapsed": false,
       "showImprovements": false,
       "showSuccesses": false,
-      "isActive": false
+      "isActive": false,
+      "columnIndex": 1
+    },
+    {
+      "id": "67386067-a62a-46c1-b753-776767804d2a",
+      "collapsed": false,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false,
+      "columnIndex": 2
     }
   ],
   "groupAbilitiesBySource": false,
@@ -228,22 +266,19 @@
   },
   "rollStats": {
     "skillChecks": {
-      "attempts": 3,
-      "successes": 3,
-      "totalSum": 19,
-      "bestTotal": 12,
+      "attempts": 0,
+      "successes": 0,
+      "totalSum": 0,
+      "bestTotal": null,
       "hardestSuccess": null,
-      "bySkill": {
-        "Strength": 2,
-        "Dexterity": 1
-      },
-      "solCount": 1,
+      "bySkill": {},
+      "solCount": 0,
       "morteCount": 0,
       "successCount": 0
     },
     "contests": {
       "engagement": {
-        "wins": 1,
+        "wins": 0,
         "losses": 0,
         "draws": 0
       },
@@ -280,7 +315,22 @@
   "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
   "isPublicPreview": false,
   "sectionOrder": [],
-  "martialTrainingOverrides": {},
+  "martialTrainingOverrides": {
+    "meleeGrades": [
+      "b92d3394-2c64-487f-8c90-c56ea1cbd3f3",
+      "847d1092-fd43-4d58-b3da-002e6f3b7f3d"
+    ],
+    "polearmGrades": [],
+    "rangedGrades": [
+      "b92d3394-2c64-487f-8c90-c56ea1cbd3f3",
+      "847d1092-fd43-4d58-b3da-002e6f3b7f3d"
+    ],
+    "armorGrades": [
+      "b92d3394-2c64-487f-8c90-c56ea1cbd3f3",
+      "847d1092-fd43-4d58-b3da-002e6f3b7f3d",
+      "ad30b114-3c19-413f-aad2-5f270bd95684"
+    ]
+  },
   "pronouns": "",
   "ancestryIds": [],
   "cultureIds": [],
@@ -295,24 +345,29 @@
   "description": "",
   "size": 1,
   "reach": 0,
-  "hasDarkvision": true,
+  "hasDarkvision": false,
   "hasBlindsight": false,
   "hasTremorsense": false,
   "hasTruesight": false,
-  "burrowSpeed": 20,
+  "burrowSpeed": 0,
   "climbSpeed": 0,
   "flySpeed": 0,
   "swimSpeed": 0,
   "biomeTagsAugment": [
-    "underground",
-    "corrupted",
-    "ruined"
+    "forest",
+    "mountain",
+    "temperate"
   ],
-  "biomeTagsInhibit": [],
+  "biomeTagsInhibit": [
+    "water",
+    "civilized",
+    "enchanted"
+  ],
   "beastTypeIds": [
-    "b7e57001-0000-4000-a000-00000000000b"
+    "b7e57001-0000-4000-a000-000000000002",
+    "b7e57001-0000-4000-a000-00000000000a"
   ],
-  "challenge": 13,
-  "updatedAt": "2026-08-18T15:01:28.133Z",
-  "templateId": "067748ec-282a-4fb5-908e-5abeb67988e4"
+  "updatedAt": "2026-08-16T19:58:12.032Z",
+  "challenge": 26,
+  "templateId": "f2f7d744-aca8-4cc1-8d48-e94a854f66f4"
 }

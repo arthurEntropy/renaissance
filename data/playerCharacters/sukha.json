@@ -2,7 +2,7 @@
   "id": "13e267c3-f608-466d-9a8d-7442dcd5a7d4",
   "isDeleted": false,
   "createdAt": "2026-08-17T19:28:51.662Z",
-  "lastModified": "2026-08-25T17:56:55.111Z",
+  "lastModified": "2026-08-26T14:49:04.572Z",
   "characterType": "playerCharacter",
   "name": "Sukha",
   "featuredArtUrls": [
@@ -23,7 +23,8 @@
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "manualDiceMod": 0
+      "manualDiceMod": 0,
+      "isIllFavoredAutocalc": false
     },
     {
       "key": "strength",
@@ -47,7 +48,8 @@
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "manualDiceMod": 0
+      "manualDiceMod": 0,
+      "isIllFavoredAutocalc": false
     },
     {
       "key": "craft",
@@ -55,7 +57,8 @@
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "manualDiceMod": 0
+      "manualDiceMod": 0,
+      "isIllFavoredAutocalc": false
     },
     {
       "key": "perform",
@@ -63,7 +66,8 @@
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "manualDiceMod": 0
+      "manualDiceMod": 0,
+      "isIllFavoredAutocalc": false
     },
     {
       "key": "insight",
@@ -111,7 +115,8 @@
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "manualDiceMod": 0
+      "manualDiceMod": 0,
+      "isIllFavoredAutocalc": false
     },
     {
       "key": "stealth",
@@ -119,7 +124,8 @@
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "manualDiceMod": 0
+      "manualDiceMod": 0,
+      "isIllFavoredAutocalc": false
     },
     {
       "key": "lore",
@@ -127,7 +133,8 @@
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "manualDiceMod": 0
+      "manualDiceMod": 0,
+      "isIllFavoredAutocalc": false
     },
     {
       "key": "riddle",
@@ -135,7 +142,8 @@
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "manualDiceMod": 0
+      "manualDiceMod": 0,
+      "isIllFavoredAutocalc": false
     }
   ],
   "endurance": {
@@ -172,10 +180,8 @@
   "engagementSuccesses": [],
   "engagementDiceStatuses": {
     "mestiere_0": "expended",
-    "mestiere_2": "expended",
     "mestiere_1": "expended",
-    "mestiere_3": "expended",
-    "mestiere_4": "expended"
+    "mestiere_2": "expended"
   },
   "equipment": [],
   "groupEquipmentBySource": false,
@@ -183,7 +189,7 @@
   "equipmentSortOption": "",
   "equipmentCustomGroups": [],
   "mp": {
-    "current": 0,
+    "current": 2,
     "base": 0
   },
   "abilities": [
@@ -217,7 +223,7 @@
       "showImprovements": false,
       "showSuccesses": false,
       "isActive": false,
-      "columnIndex": 1
+      "columnIndex": 0
     },
     {
       "id": "0f5e0bb0-8f8d-4725-9e2f-9a57781e327b",
@@ -225,7 +231,7 @@
       "showImprovements": false,
       "showSuccesses": false,
       "isActive": false,
-      "columnIndex": 1
+      "columnIndex": 0
     },
     {
       "id": "9c92d5ba-7c73-4480-a357-d98ac4820c7d",
@@ -233,15 +239,7 @@
       "showImprovements": false,
       "showSuccesses": false,
       "isActive": false,
-      "columnIndex": 2
-    },
-    {
-      "id": "f1d0e5f7-bb30-4251-a575-8d31c113fe1a",
-      "collapsed": true,
-      "showImprovements": false,
-      "showSuccesses": false,
-      "isActive": false,
-      "columnIndex": 2
+      "columnIndex": 1
     },
     {
       "id": "1e289ca8-cf6a-4f0d-ad7c-a13fc8e1f381",
@@ -249,7 +247,18 @@
       "showImprovements": false,
       "showSuccesses": false,
       "isActive": false,
-      "columnIndex": 2
+      "columnIndex": 1
+    },
+    {
+      "id": "f1d0e5f7-bb30-4251-a575-8d31c113fe1a",
+      "collapsed": false,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false,
+      "columnIndex": 2,
+      "improvements": {
+        "854306d6-d3b2-5b9d-a387-1474c611803b": true
+      }
     }
   ],
   "groupAbilitiesBySource": false,
@@ -266,23 +275,24 @@
   },
   "rollStats": {
     "skillChecks": {
-      "attempts": 9,
-      "successes": 9,
-      "totalSum": 174,
-      "bestTotal": 28,
+      "attempts": 26,
+      "successes": 25,
+      "totalSum": 509,
+      "bestTotal": 31,
       "hardestSuccess": null,
       "bySkill": {
-        "Strength": 8,
-        "Fortitude": 1
+        "Strength": 24,
+        "Fortitude": 1,
+        "Spirit": 1
       },
-      "solCount": 1,
-      "morteCount": 0,
-      "successCount": 7
+      "solCount": 2,
+      "morteCount": 3,
+      "successCount": 19
     },
     "contests": {
       "engagement": {
-        "wins": 9,
-        "losses": 3,
+        "wins": 24,
+        "losses": 7,
         "draws": 3
       },
       "contest": {
@@ -291,10 +301,10 @@
         "draws": 0
       }
     },
-    "xpEarned": 0,
+    "xpEarned": 64,
     "xpSpent": 0,
-    "treasureEarned": 0,
-    "treasureSpent": 22
+    "treasureEarned": 4,
+    "treasureSpent": 874
   },
   "biomeTags": [],
   "biomeId": null,
@@ -332,8 +342,8 @@
   "heightInches": 9,
   "weight": 144,
   "keeping": "1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d",
-  "treasure": 0,
-  "xp": 0,
+  "treasure": 4,
+  "xp": 8,
   "description": "",
-  "updatedAt": "2026-08-25T17:56:55.111Z"
+  "updatedAt": "2026-08-26T14:49:04.572Z"
 }

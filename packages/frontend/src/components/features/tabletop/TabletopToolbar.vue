@@ -136,6 +136,7 @@ const props = defineProps({
     canUndo: Boolean,
     canRedo: Boolean,
     hasBackground: Boolean,
+    currentBackgroundUrl: { type: String, default: '' },
     mapScale: { type: Number, default: 1 },
     isGM: { type: Boolean, default: false },
     tabletops: { type: Array, default: () => [] },
@@ -161,6 +162,7 @@ const isCurrentTabletopActive = computed(
 )
 
 const openBgInput = () => {
+    bgUrlDraft.value = props.currentBackgroundUrl || ''
     showBgInput.value = true
     nextTick(() => bgInputRef.value?.focus())
 }

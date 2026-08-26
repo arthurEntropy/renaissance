@@ -1,10 +1,10 @@
 {
-  "id": "b84a8a85-f236-4880-96a5-86af7c754fe7",
+  "id": "fc9b742f-e867-4faa-a624-10da107dfcdf",
   "isDeleted": false,
-  "createdAt": "2026-08-17T20:06:08.182Z",
-  "lastModified": "2026-08-25T17:05:06.854Z",
+  "createdAt": "2026-08-26T12:27:21.226Z",
+  "lastModified": "2026-08-26T12:27:21.229Z",
   "characterType": "beastInstance",
-  "name": "Carrion Crawler 🅑",
+  "name": "Carrion Crawler 🅕",
   "featuredArtUrls": [
     "https://cdn.midjourney.com/48444f34-cffe-4732-ba92-522ed9c62a29/0_3.png"
   ],
@@ -148,7 +148,7 @@
   },
   "defense": {
     "current": 11,
-    "base": 6
+    "base": 11
   },
   "load": 0,
   "shadow": 0,
@@ -270,7 +270,7 @@
     "xpEarned": 0,
     "xpSpent": 0,
     "treasureEarned": 0,
-    "treasureSpent": 13
+    "treasureSpent": 0
   },
   "biomeTags": [],
   "biomeId": null,
@@ -327,7 +327,7 @@
   "beastTypeIds": [
     "b7e57001-0000-4000-a000-00000000000b"
   ],
-  "updatedAt": "2026-08-25T17:05:06.854Z",
+  "updatedAt": "2026-08-14T02:38:49.252Z",
   "challenge": 19,
   "templateId": "d6c4191f-9236-4cb9-a410-ec1dd1f14186"
 }

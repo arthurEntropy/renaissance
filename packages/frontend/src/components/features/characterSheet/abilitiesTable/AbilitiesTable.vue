@@ -395,8 +395,8 @@ const handleRollLink = (rollData) => {
 
   if (rollData.type === 'skill-check' || rollData.type === 'contest') {
     rollLinkSkillKey.value = Object.values(SKILLS).find(s => s.label === rollData.skill)?.key ?? rollData.skill?.toLowerCase() ?? null
-    // Contest links open as unopposed (no difficulty)
-    rollLinkRollType.value = rollData.type === 'contest' ? 'unopposed' : RollTypes.SKILL_CHECK
+    // Roll-link clicks always open as unopposed (no difficulty)
+    rollLinkRollType.value = 'unopposed'
     rollLinkBiomeDiceMod.value = rollData.biomeDiceMod ?? 0
     rollLinkSourceName.value = rollData.abilityName || null
     showSkillCheckModal.value = true

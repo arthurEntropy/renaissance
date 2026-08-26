@@ -54,6 +54,7 @@
 import { computed, ref } from 'vue'
 import { RollTypes } from '@/constants/rollTypes'
 import { EngagementResultTypes } from '@/constants/engagementResultTypes'
+import { SPECIAL_ROLLS, EMOJI } from '@shared/constants/dice'
 import SkillCheckSuccessPopup from '@/components/features/characterSheet/diceBox/SkillCheckSuccessPopup.vue'
 
 const MAX_DICE = 4
@@ -101,12 +102,17 @@ const compactTotal = computed(() => {
     return e.total != null ? String(e.total) : '—'
 })
 
-// Only show emoji annotations for skill checks and initiative. Damage and custom rolls produce
-// noisy ✨ on every max d6, which isn't meaningful outside the skill-check context.
+// Only show emoji annotations for skill checks, initiative, and special injury results.
 // Concatenate ALL emoji from non-dropped dice (e.g. "🌞✨") rather than picking one.
 const compactEmoji = computed(() => {
-    if (props.entry.type !== RollTypes.SKILL_CHECK && props.entry.type !== RollTypes.INITIATIVE) return null
-    const emojis = (props.entry.diceResults || [])
+    const e = props.entry
+    if (e.type === RollTypes.INJURY) {
+        if (e.diceTotal === SPECIAL_ROLLS.SOL) return EMOJI.SOL
+        if (e.diceTotal === SPECIAL_ROLLS.MORTE) return EMOJI.MORTE
+        return null
+    }
+    if (e.type !== RollTypes.SKILL_CHECK && e.type !== RollTypes.INITIATIVE) return null
+    const emojis = (e.diceResults || [])
         .filter((d) => !d.isDropped && d.emoji)
         .map((d) => d.emoji)
     return emojis.length > 0 ? emojis.join('') : null

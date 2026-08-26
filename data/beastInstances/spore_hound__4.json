@@ -1,32 +1,24 @@
 {
-  "id": "efc5fcf5-00cb-4892-9170-f09a5e766676",
+  "id": "9bb4a2f9-1ee9-4c76-913d-582c32136153",
   "isDeleted": false,
-  "createdAt": "2026-08-17T20:15:03.391Z",
-  "lastModified": "2026-08-25T17:56:52.213Z",
+  "createdAt": "2026-08-25T18:54:35.397Z",
+  "lastModified": "2026-08-25T18:54:35.402Z",
   "characterType": "beastInstance",
-  "name": "Banshee 🅐",
+  "name": "Spore Hound 🅤",
   "featuredArtUrls": [
-    "https://cdn.midjourney.com/2c3a08ae-00ce-4adc-82a3-c4406135f442/0_0.png"
+    "https://cdn.midjourney.com/39ad5992-8dc0-48f7-9e24-e9633e4377ae/0_1.png"
   ],
   "speed": {
-    "current": 0,
-    "base": 0
+    "current": 35,
+    "base": 35
   },
   "notes": "",
-  "body": 5,
-  "heart": 4,
-  "wits": 4,
+  "body": 2,
+  "heart": 1,
+  "wits": 1,
   "skills": [
     {
       "key": "awe",
-      "ranks": 2,
-      "isFavored": false,
-      "isIllFavored": false,
-      "diceMod": 0,
-      "manualDiceMod": 0
-    },
-    {
-      "key": "strength",
       "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
@@ -34,8 +26,16 @@
       "manualDiceMod": 0
     },
     {
+      "key": "strength",
+      "ranks": 2,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
       "key": "dexterity",
-      "ranks": 1,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -43,7 +43,7 @@
     },
     {
       "key": "fortitude",
-      "ranks": 2,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -67,7 +67,7 @@
     },
     {
       "key": "insight",
-      "ranks": 1,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -83,7 +83,7 @@
     },
     {
       "key": "spirit",
-      "ranks": 3,
+      "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -123,7 +123,7 @@
     },
     {
       "key": "lore",
-      "ranks": 1,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -131,7 +131,7 @@
     },
     {
       "key": "riddle",
-      "ranks": 1,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -139,16 +139,16 @@
     }
   ],
   "endurance": {
-    "current": 25,
-    "base": 25
+    "current": 10,
+    "base": 10
   },
   "hope": {
-    "current": 8,
-    "base": 8
+    "current": 2,
+    "base": 2
   },
   "defense": {
-    "current": 4,
-    "base": 4
+    "current": 6,
+    "base": 6
   },
   "load": 0,
   "shadow": 0,
@@ -171,56 +171,35 @@
   "engagementDice": [],
   "engagementSuccesses": [],
   "engagementDiceStatuses": {},
-  "equipment": [],
+  "equipment": [
+    {
+      "id": "3a61c9aa-09ba-4b44-9efb-529795835e69",
+      "quantity": 1,
+      "isCarried": true,
+      "isWielding": true,
+      "collapsed": false
+    },
+    {
+      "id": "a77e5e36-1c1d-4a15-865f-da6748d815b7",
+      "quantity": 1,
+      "isCarried": true,
+      "isWielding": true,
+      "collapsed": false
+    }
+  ],
   "groupEquipmentBySource": false,
   "groupEquipmentByCustom": false,
-  "equipmentSortOption": "",
+  "equipmentSortOption": "name-asc",
   "equipmentCustomGroups": [],
   "mp": {
     "current": 0,
     "base": 0
   },
-  "abilities": [
-    {
-      "id": "a0523847-8b7a-42a8-bede-0998056f855c",
-      "collapsed": false,
-      "showImprovements": false,
-      "showSuccesses": false,
-      "isActive": false
-    },
-    {
-      "id": "fa16ede3-6c97-4f97-9bc1-c5b5f6e723b3",
-      "collapsed": false,
-      "showImprovements": false,
-      "showSuccesses": false,
-      "isActive": false
-    },
-    {
-      "id": "cd3f87e9-c467-438e-b9df-e5cd4e926e54",
-      "collapsed": false,
-      "showImprovements": false,
-      "showSuccesses": false,
-      "isActive": false
-    },
-    {
-      "id": "762bbac7-6087-43c5-a810-a35706f7f315",
-      "collapsed": false,
-      "showImprovements": false,
-      "showSuccesses": false,
-      "isActive": false
-    },
-    {
-      "id": "56f8aa66-e5e4-48db-87c5-5e95751386ec",
-      "collapsed": false,
-      "showImprovements": false,
-      "showSuccesses": false,
-      "isActive": false
-    }
-  ],
+  "abilities": [],
   "groupAbilitiesBySource": false,
   "groupAbilitiesByManaColor": false,
   "groupAbilitiesByCustom": false,
-  "abilitySortOption": "",
+  "abilitySortOption": "name-asc",
   "abilityCustomGroups": [],
   "autoCalculations": {
     "load": true,
@@ -231,14 +210,12 @@
   },
   "rollStats": {
     "skillChecks": {
-      "attempts": 2,
-      "successes": 2,
-      "totalSum": 28,
-      "bestTotal": 15,
+      "attempts": 0,
+      "successes": 0,
+      "totalSum": 0,
+      "bestTotal": null,
       "hardestSuccess": null,
-      "bySkill": {
-        "Spirit": 2
-      },
+      "bySkill": {},
       "solCount": 0,
       "morteCount": 0,
       "successCount": 0
@@ -258,7 +235,7 @@
     "xpEarned": 0,
     "xpSpent": 0,
     "treasureEarned": 0,
-    "treasureSpent": 36
+    "treasureSpent": 0
   },
   "biomeTags": [],
   "biomeId": null,
@@ -275,14 +252,10 @@
     "colorless": []
   },
   "witchcraftTokens": [],
-  "witchFamiliar": null,
   "summonerVessels": [],
-  "hunterTraps": [],
   "campaignId": "84b00fc0-eae8-4808-9151-949bf59928ff",
   "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
   "isPublicPreview": false,
-  "sectionOrder": [],
-  "martialTrainingOverrides": {},
   "pronouns": "",
   "ancestryIds": [],
   "cultureIds": [],
@@ -294,28 +267,32 @@
   "keeping": null,
   "treasure": 0,
   "xp": 0,
+  "updatedAt": "2026-07-24T00:20:58.932Z",
   "description": "",
   "size": 1,
-  "reach": 0,
+  "reach": 5,
+  "challenge": 5,
+  "sectionOrder": [],
+  "martialTrainingOverrides": {},
   "hasDarkvision": true,
   "hasBlindsight": false,
   "hasTremorsense": false,
   "hasTruesight": false,
   "burrowSpeed": 0,
   "climbSpeed": 0,
-  "flySpeed": 40,
+  "flySpeed": 0,
   "swimSpeed": 0,
   "biomeTagsAugment": [
-    "corrupted",
-    "ruined"
+    "forest",
+    "wetland",
+    "underground"
   ],
   "biomeTagsInhibit": [
-    "enchanted"
+    "cold",
+    "civilized"
   ],
   "beastTypeIds": [
-    "b7e57001-0000-4000-a000-00000000000e"
+    "b7e57001-0000-4000-a000-000000000002"
   ],
-  "updatedAt": "2026-08-25T17:56:52.213Z",
-  "challenge": 33,
-  "templateId": "c9cf91be-efe9-48b1-9a3f-efb36d1c0ead"
+  "templateId": "720bd912-d3a4-4096-9dfd-24d80508ef6e"
 }

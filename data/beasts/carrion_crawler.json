@@ -2,7 +2,7 @@
   "id": "d6c4191f-9236-4cb9-a410-ec1dd1f14186",
   "isDeleted": false,
   "createdAt": "2026-08-14T02:20:06.594Z",
-  "lastModified": "2026-08-22T02:09:20.450Z",
+  "lastModified": "2026-08-14T02:38:49.252Z",
   "characterType": "beast",
   "name": "Carrion Crawler",
   "featuredArtUrls": [
@@ -270,7 +270,7 @@
     "xpEarned": 0,
     "xpSpent": 0,
     "treasureEarned": 0,
-    "treasureSpent": 2
+    "treasureSpent": 0
   },
   "biomeTags": [],
   "biomeId": null,
@@ -327,6 +327,6 @@
   "beastTypeIds": [
     "b7e57001-0000-4000-a000-00000000000b"
   ],
-  "updatedAt": "2026-08-22T02:09:20.450Z",
+  "updatedAt": "2026-08-14T02:38:49.252Z",
   "challenge": 19
 }

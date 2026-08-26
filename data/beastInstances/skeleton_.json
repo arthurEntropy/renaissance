@@ -1,10 +1,10 @@
 {
-  "id": "99d7520c-aaf4-4a49-bd02-74c7d98b8c7b",
+  "id": "075052bc-329f-460b-adc9-38dd8914a3b0",
   "isDeleted": false,
-  "createdAt": "2026-08-17T20:15:12.750Z",
-  "lastModified": "2026-08-25T17:56:52.228Z",
+  "createdAt": "2026-08-25T18:32:04.665Z",
+  "lastModified": "2026-08-26T14:38:06.434Z",
   "characterType": "beastInstance",
-  "name": "Skeleton 🅐",
+  "name": "Skeleton 🅨",
   "featuredArtUrls": [
     "https://cdn.midjourney.com/38d41c47-c917-4004-9849-1889abfc5f6c/0_0.png"
   ],
@@ -144,7 +144,7 @@
     }
   ],
   "endurance": {
-    "current": 15,
+    "current": 1,
     "base": 15
   },
   "hope": {
@@ -175,7 +175,9 @@
   },
   "engagementDice": [],
   "engagementSuccesses": [],
-  "engagementDiceStatuses": {},
+  "engagementDiceStatuses": {
+    "7a024694-31ab-4f17-a652-2c15c7b8925e_0": "expended"
+  },
   "equipment": [
     {
       "id": "76522314-9ed4-4408-b72a-02fbe4500782",
@@ -230,21 +232,23 @@
   },
   "rollStats": {
     "skillChecks": {
-      "attempts": 0,
-      "successes": 0,
-      "totalSum": 0,
-      "bestTotal": null,
+      "attempts": 3,
+      "successes": 3,
+      "totalSum": 39,
+      "bestTotal": 15,
       "hardestSuccess": null,
-      "bySkill": {},
+      "bySkill": {
+        "Strength": 3
+      },
       "solCount": 0,
       "morteCount": 0,
-      "successCount": 0
+      "successCount": 1
     },
     "contests": {
       "engagement": {
-        "wins": 0,
-        "losses": 0,
-        "draws": 0
+        "wins": 1,
+        "losses": 4,
+        "draws": 2
       },
       "contest": {
         "wins": 0,
@@ -255,7 +259,7 @@
     "xpEarned": 0,
     "xpSpent": 0,
     "treasureEarned": 0,
-    "treasureSpent": 6
+    "treasureSpent": 0
   },
   "biomeTags": [],
   "biomeId": null,
@@ -334,7 +338,7 @@
   "beastTypeIds": [
     "b7e57001-0000-4000-a000-00000000000e"
   ],
-  "updatedAt": "2026-08-25T17:56:52.228Z",
+  "updatedAt": "2026-08-26T14:38:06.434Z",
   "challenge": 7,
   "templateId": "785562af-0611-4d1f-817b-9888b379dd4d"
 }

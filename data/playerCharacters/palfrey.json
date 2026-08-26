@@ -2,7 +2,7 @@
   "id": "da8bd375-e52c-4b5a-9cbf-d729eb2442cf",
   "isDeleted": false,
   "createdAt": "2026-08-17T18:10:20.190Z",
-  "lastModified": "2026-08-24T17:54:09.923Z",
+  "lastModified": "2026-08-26T14:45:29.493Z",
   "characterType": "playerCharacter",
   "name": "Palfrey",
   "featuredArtUrls": [
@@ -21,45 +21,45 @@
       "key": "awe",
       "ranks": 0,
       "isFavored": false,
-      "isIllFavored": true,
-      "diceMod": -1,
+      "isIllFavored": false,
+      "diceMod": 0,
       "manualDiceMod": 0,
-      "isIllFavoredAutocalc": true
+      "isIllFavoredAutocalc": false
     },
     {
       "key": "strength",
       "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": -1,
+      "diceMod": 0,
       "manualDiceMod": 0
     },
     {
       "key": "dexterity",
       "ranks": 0,
       "isFavored": false,
-      "isIllFavored": true,
-      "diceMod": -1,
+      "isIllFavored": false,
+      "diceMod": 0,
       "manualDiceMod": 0,
-      "isIllFavoredAutocalc": true
+      "isIllFavoredAutocalc": false
     },
     {
       "key": "fortitude",
       "ranks": 0,
       "isFavored": false,
-      "isIllFavored": true,
-      "diceMod": -1,
+      "isIllFavored": false,
+      "diceMod": 0,
       "manualDiceMod": 0,
-      "isIllFavoredAutocalc": true
+      "isIllFavoredAutocalc": false
     },
     {
       "key": "craft",
       "ranks": 0,
       "isFavored": false,
-      "isIllFavored": true,
-      "diceMod": -1,
+      "isIllFavored": false,
+      "diceMod": 0,
       "manualDiceMod": 0,
-      "isIllFavoredAutocalc": true
+      "isIllFavoredAutocalc": false
     },
     {
       "key": "perform",
@@ -143,7 +143,7 @@
     }
   ],
   "endurance": {
-    "current": 3,
+    "current": 10,
     "base": 10
   },
   "hope": {
@@ -158,7 +158,7 @@
   "shadow": 0,
   "injury": 0,
   "states": {
-    "weary": true,
+    "weary": false,
     "twiceWeary": false,
     "miserable": false,
     "twiceMiserable": false,
@@ -175,9 +175,8 @@
   "engagementDice": [],
   "engagementSuccesses": [],
   "engagementDiceStatuses": {
-    "mestiere_0": "expended",
-    "mestiere_1": "expended",
-    "adfa9a8b-7318-4512-b876-4bd1d857d287_0": "expended"
+    "mestiere_0": "available",
+    "7a024694-31ab-4f17-a652-2c15c7b8925e_0": "expended"
   },
   "equipment": [
     {
@@ -209,18 +208,18 @@
       "columnIndex": 0
     },
     {
-      "id": "381587b8-7519-4d79-b2d6-5bca9a908c2f",
-      "quantity": 1,
-      "isCarried": true,
-      "columnIndex": 2,
-      "collapsed": false
-    },
-    {
       "id": "adfa9a8b-7318-4512-b876-4bd1d857d287",
       "quantity": 1,
       "isCarried": true,
       "isWielding": true,
       "columnIndex": 1,
+      "collapsed": false
+    },
+    {
+      "id": "381587b8-7519-4d79-b2d6-5bca9a908c2f",
+      "quantity": 1,
+      "isCarried": true,
+      "columnIndex": 2,
       "collapsed": false
     }
   ],
@@ -263,7 +262,7 @@
       "showImprovements": false,
       "showSuccesses": false,
       "isActive": false,
-      "columnIndex": 1
+      "columnIndex": 0
     },
     {
       "id": "901bee04-07ea-4bec-a2d1-30c2cca0096b",
@@ -271,19 +270,19 @@
       "showImprovements": false,
       "showSuccesses": false,
       "isActive": false,
-      "columnIndex": 1
+      "columnIndex": 0
     },
     {
       "id": "d4c43cb4-a4d4-4f27-ae4a-6334bb84ea46",
-      "collapsed": true,
+      "collapsed": false,
       "showImprovements": false,
       "showSuccesses": false,
       "isActive": false,
-      "columnIndex": 2
+      "columnIndex": 1
     },
     {
       "id": "79f7d0be-4052-45ae-9351-449cd4023bdf",
-      "collapsed": true,
+      "collapsed": false,
       "showImprovements": false,
       "showSuccesses": false,
       "isActive": false,
@@ -312,23 +311,23 @@
   },
   "rollStats": {
     "skillChecks": {
-      "attempts": 6,
-      "successes": 6,
-      "totalSum": 69,
-      "bestTotal": 21,
+      "attempts": 22,
+      "successes": 22,
+      "totalSum": 324,
+      "bestTotal": 24,
       "hardestSuccess": null,
       "bySkill": {
-        "Strength": 6
+        "Strength": 22
       },
-      "solCount": 0,
-      "morteCount": 1,
-      "successCount": 3
+      "solCount": 3,
+      "morteCount": 2,
+      "successCount": 9
     },
     "contests": {
       "engagement": {
-        "wins": 5,
-        "losses": 2,
-        "draws": 0
+        "wins": 25,
+        "losses": 9,
+        "draws": 5
       },
       "contest": {
         "wins": 0,
@@ -336,10 +335,10 @@
         "draws": 0
       }
     },
-    "xpEarned": 0,
+    "xpEarned": 80,
     "xpSpent": 0,
-    "treasureEarned": 71,
-    "treasureSpent": 1
+    "treasureEarned": 80,
+    "treasureSpent": 871
   },
   "biomeTags": [],
   "biomeId": null,
@@ -378,8 +377,8 @@
   "heightInches": 9,
   "weight": 175,
   "keeping": "3c4d5e6f-7a8b-4c9d-0e1f-2a3b4c5d6e7f",
-  "treasure": 3,
-  "xp": 0,
+  "treasure": 6,
+  "xp": 8,
   "description": "",
-  "updatedAt": "2026-08-24T17:54:09.923Z"
+  "updatedAt": "2026-08-26T14:45:29.493Z"
 }
