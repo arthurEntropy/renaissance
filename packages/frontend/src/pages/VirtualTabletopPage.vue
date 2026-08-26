@@ -140,7 +140,7 @@
 </template>
 
 <script setup>
-import { computed, ref, watch, onUnmounted } from 'vue'
+import { computed, nextTick, ref, watch, onUnmounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useCampaignStore } from '@/stores/campaignStore'
 import { useAuthStore } from '@/stores/authStore'
@@ -276,10 +276,20 @@ function broadcastStateUpdate(snapshot) {
     _broadcastStateUpdateRef?.(snapshot)
 }
 
+// Prevents the [pinnedGroups, isInitiativeActive] watch from re-saving when we are
+// in the process of applying combat-group data received from the socket. Without
+// this guard, every socket echo triggers another save+broadcast, creating a loop.
+let _applyingExternalCombatGroups = false
+
 // Wraps the canvas applyExternalState to also handle combat-group order and
 // initiative-active flag that the GM broadcasts after sorting or cycling.
 function handleExternalState(snapshot) {
     applyExternalState(snapshot)
+    const hasCombatGroupData = Array.isArray(snapshot.combatGroups) || snapshot.isInitiativeActive != null
+    if (hasCombatGroupData) {
+        _applyingExternalCombatGroups = true
+        nextTick(() => { _applyingExternalCombatGroups = false })
+    }
     if (Array.isArray(snapshot.combatGroups)) {
         characterContextStore.setGroupsFromTabletop(snapshot.combatGroups)
     }
@@ -711,6 +721,9 @@ watch(
     [() => characterContextStore.pinnedGroups, () => characterContextStore.isInitiativeActive],
     ([groups, initiativeActive]) => {
         if (!isGM.value || !campaignId.value || !tabletopId.value) return
+        // Skip save when the change originated from an incoming socket update to
+        // prevent an echo loop: socket → setGroupsFromTabletop → watch → save → broadcast → socket…
+        if (_applyingExternalCombatGroups) return
         if (_combatGroupsSaveTimer) clearTimeout(_combatGroupsSaveTimer)
         _combatGroupsSaveTimer = setTimeout(() => {
             const combatGroups = reconstructCombatGroups(groups)

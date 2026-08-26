@@ -349,8 +349,17 @@ export function useEngagementSession() {
 
     // Clear module-level engagement presence set only for participants;
     // spectators never populated it, and the engagement is still happening on other clients.
+    // Remove only the characters from THIS session so a concurrently-started new session's
+    // presence is not accidentally cleared (e.g. 2-second auto-close overlapping with a new roll).
     if (!wasSpectating) {
-      engagedCharacterIds.value = new Set()
+      const sessionUsers = baseSession.sessionData.value?.users
+      if (sessionUsers?.length) {
+        const ids = new Set(engagedCharacterIds.value)
+        sessionUsers.forEach(u => { if (u.characterInfo?.id) ids.delete(u.characterInfo.id) })
+        engagedCharacterIds.value = ids
+      } else {
+        engagedCharacterIds.value = new Set()
+      }
     }
 
     // Reset session ID so stale references in VirtualTabletopPage don't block future spectating

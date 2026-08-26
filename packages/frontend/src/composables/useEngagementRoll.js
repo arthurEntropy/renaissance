@@ -102,12 +102,20 @@ function createSharedState() {
     return removedAny
   }
 
-  const persistDiceStatusesToCharacter = () => {
-    if (!character.value) {
-      return
-    }
+  let _diceStatusPersistTimer = null
 
+  const persistDiceStatusesToCharacter = () => {
+    if (!character.value) return
     character.value.engagementDiceStatuses = { ...diceStatuses }
+    // Debounce backend persistence so rapid toggling doesn't flood the server.
+    const char = character.value
+    if (_diceStatusPersistTimer) clearTimeout(_diceStatusPersistTimer)
+    _diceStatusPersistTimer = setTimeout(() => {
+      _diceStatusPersistTimer = null
+      if (char?.id) {
+        charactersStore.update(char).catch(() => {})
+      }
+    }, 600)
   }
 
   watch(

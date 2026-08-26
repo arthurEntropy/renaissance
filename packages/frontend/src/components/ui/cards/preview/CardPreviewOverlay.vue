@@ -45,7 +45,6 @@ import { useCardPreview } from '@/composables/useCardPreview'
 import { useCharactersStore } from '@/stores/charactersStore'
 import { useAuthStore } from '@/stores/authStore'
 import { useCampaignStore } from '@/stores/campaignStore'
-import { RollTypes } from '@/constants/rollTypes'
 import { getModifierStatKey } from '@/utils/characterKeyUtils'
 import { SKILLS } from '@shared/constants/characterConstants'
 
