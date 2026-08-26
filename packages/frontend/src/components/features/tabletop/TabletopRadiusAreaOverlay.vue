@@ -7,14 +7,16 @@
             <rect v-for="sq in getSquares(area)" :key="`sq-${area.id}-${sq.col},${sq.row}`"
                 :x="toSvgX(sq.col * gridSize)" :y="toSvgY(sq.row * gridSize)" :width="gridSize" :height="gridSize"
                 :fill="areaFill(area)" :stroke="areaStroke(area)" stroke-width="0.5" class="radius-area-body"
-                :data-area-id="area.id" @mousedown.stop @click.stop="onBodyClick(area, $event)"
-                @contextmenu.prevent.stop />
+                :data-area-id="area.id" @mousedown="e => e.button === 0 && e.stopPropagation()"
+                @click.stop="onBodyClick(area, $event)" @contextmenu.prevent.stop />
 
             <!-- Invisible wider hit-target ring for edge resize drag -->
             <circle :cx="toSvgX(area.originX)" :cy="toSvgY(area.originY)" :r="radiusPxSvg(area) + 6 / transform.scale"
                 fill="none" stroke="transparent" stroke-width="13" class="radius-area-edge-hit"
                 :style="{ cursor: getEdgeCursor(area) }" :data-area-id="area.id" @mouseenter="onEdgeEnter(area)"
-                @mouseleave="onEdgeLeave(area)" @mousedown.stop="onEdgeMousedown(area)" @contextmenu.prevent.stop />
+                @mouseleave="onEdgeLeave(area)"
+                @mousedown="e => { if (e.button === 0) { e.stopPropagation(); onEdgeMousedown(area) } }"
+                @contextmenu.prevent.stop />
 
             <!-- Visible circle outline -->
             <circle :cx="toSvgX(area.originX)" :cy="toSvgY(area.originY)" :r="radiusPxSvg(area)" fill="none"
@@ -31,7 +33,7 @@
             <circle v-if="!area.tokenId && hoveredAreaId === area.id" :cx="toSvgX(area.originX)"
                 :cy="toSvgY(area.originY)" :r="3.5 / transform.scale" fill="rgba(255,255,255,0.55)"
                 stroke="rgba(0,0,0,0.35)" stroke-width="1" class="radius-area-anchor"
-                @mousedown.stop="onAnchorMousedown(area, $event)" />
+                @mousedown="e => { if (e.button === 0) { e.stopPropagation(); onAnchorMousedown(area, e) } }" />
         </svg>
     </template>
 

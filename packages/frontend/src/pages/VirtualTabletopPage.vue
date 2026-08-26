@@ -104,7 +104,8 @@
                     :grid-opacity="gridOpacity" :is-g-m="campaignStore.isGMInActiveCampaign"
                     :tabletops="campaignStore.tabletops" :current-tabletop-id="tabletopId"
                     :active-tabletop-id="campaignStore.activeCampaign?.activeTabletopId ?? null"
-                    :current-tabletop-name="currentTabletopName" :map-scale="mapScale" @zoom-in="adjustZoom(1.2)"
+                    :current-tabletop-name="currentTabletopName" :map-scale="mapScale"
+                    :current-background-url="backgroundImage?.url ?? ''" @zoom-in="adjustZoom(1.2)"
                     @zoom-out="adjustZoom(1 / 1.2)" @increase-grid="increaseGridSize" @decrease-grid="decreaseGridSize"
                     @increase-map-scale="increaseMapScale" @decrease-map-scale="decreaseMapScale" @clear-all="clearAll"
                     @undo="undo" @redo="redo" @set-background="setBackgroundImage"
@@ -494,8 +495,10 @@ function openCharacterSheetPopup() {
 function handleTokenCmdClick(item, e) {
     if (e.button !== 0 || (!e.metaKey && !e.ctrlKey) || e.shiftKey) return
     if (!item.characterId) return
+    if (!isGM.value && (item.isNpc || item.isBeast)) return
     const char = resolveCharacterById(item.characterId)
     if (!char) return
+    selectedRadiusAreaId.value = null
     charSheetPopupCharacter.value = char
     charSheetPopupOpen.value = true
 }
@@ -503,8 +506,10 @@ function handleTokenCmdClick(item, e) {
 /** Double-clicking a token opens its CharacterSheetPopup directly. */
 function handleTokenDoubleClick(item) {
     if (!item.characterId) return
+    if (!isGM.value && (item.isNpc || item.isBeast)) return
     const char = resolveCharacterById(item.characterId)
     if (!char) return
+    selectedRadiusAreaId.value = null
     charSheetPopupCharacter.value = char
     charSheetPopupOpen.value = true
 }
@@ -657,6 +662,29 @@ watch(isGM, (gm) => {
         characterContextStore.setIsInitiativeActive(tabletop?.isInitiativeActive ?? false)
     }
 })
+
+// Reactive fallback: populate combat groups as soon as the tabletop data lands in the
+// store. This handles hard-refresh timing where the async campaignId watcher completes
+// its network fetches before (or after) other reactive paths have set the groups.
+// The getter returns null once groups are populated, stopping further firings.
+watch(
+    () => {
+        if (characterContextStore.pinnedGroupIds.length > 0) return null
+        const tid = tabletopId.value
+        if (!tid) return null
+        const tabletop = campaignStore.tabletops.find((t) => t.id === tid)
+        if (!Array.isArray(tabletop?.combatGroups)) return null
+        return tabletop.combatGroups
+    },
+    (combatGroups) => {
+        if (!combatGroups) return
+        const tabletop = campaignStore.tabletops.find((t) => t.id === tabletopId.value)
+        if (!tabletop) return
+        characterContextStore.setGroupsFromTabletop(combatGroups)
+        characterContextStore.setIsInitiativeActive(tabletop.isInitiativeActive ?? false)
+    },
+    { immediate: true }
+)
 
 // ─── Persist combat-group changes from the rail back to the tabletop ─────────
 // When the GM renames, reorders, or sets initiative results for a group in

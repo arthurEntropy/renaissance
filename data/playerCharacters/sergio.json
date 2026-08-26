@@ -2,7 +2,7 @@
   "id": "285cc523-b6f4-41cc-83b6-91915f207c8a",
   "isDeleted": false,
   "createdAt": "2026-08-17T19:11:39.296Z",
-  "lastModified": "2026-08-25T18:33:52.085Z",
+  "lastModified": "2026-08-26T15:30:05.779Z",
   "characterType": "playerCharacter",
   "name": "Sergio",
   "featuredArtUrls": [
@@ -314,7 +314,7 @@
     },
     {
       "id": "d280dcad-3e65-4e9a-9173-c7450cc0205c",
-      "collapsed": true,
+      "collapsed": false,
       "showImprovements": false,
       "showSuccesses": false,
       "isActive": false,
@@ -369,8 +369,8 @@
       }
     },
     "xpEarned": 0,
-    "xpSpent": 0,
-    "treasureEarned": 494,
+    "xpSpent": 4,
+    "treasureEarned": 558,
     "treasureSpent": 0
   },
   "biomeTags": [],
@@ -412,5 +412,5 @@
   "treasure": 20,
   "xp": 0,
   "description": "",
-  "updatedAt": "2026-08-25T18:33:52.085Z"
+  "updatedAt": "2026-08-26T15:30:05.779Z"
 }
