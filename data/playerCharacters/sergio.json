@@ -2,7 +2,7 @@
   "id": "285cc523-b6f4-41cc-83b6-91915f207c8a",
   "isDeleted": false,
   "createdAt": "2026-08-17T19:11:39.296Z",
-  "lastModified": "2026-08-25T17:56:55.092Z",
+  "lastModified": "2026-08-25T18:33:52.085Z",
   "characterType": "playerCharacter",
   "name": "Sergio",
   "featuredArtUrls": [
@@ -31,7 +31,8 @@
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "manualDiceMod": 0
+      "manualDiceMod": 0,
+      "isIllFavoredAutocalc": false
     },
     {
       "key": "dexterity",
@@ -39,7 +40,8 @@
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "manualDiceMod": 0
+      "manualDiceMod": 0,
+      "isIllFavoredAutocalc": false
     },
     {
       "key": "fortitude",
@@ -55,7 +57,8 @@
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "manualDiceMod": 0
+      "manualDiceMod": 0,
+      "isIllFavoredAutocalc": false
     },
     {
       "key": "perform",
@@ -63,7 +66,8 @@
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "manualDiceMod": 0
+      "manualDiceMod": 0,
+      "isIllFavoredAutocalc": false
     },
     {
       "key": "insight",
@@ -95,7 +99,8 @@
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "manualDiceMod": 0
+      "manualDiceMod": 0,
+      "isIllFavoredAutocalc": false
     },
     {
       "key": "persuade",
@@ -103,7 +108,8 @@
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "manualDiceMod": 0
+      "manualDiceMod": 0,
+      "isIllFavoredAutocalc": false
     },
     {
       "key": "awareness",
@@ -111,7 +117,8 @@
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "manualDiceMod": 0
+      "manualDiceMod": 0,
+      "isIllFavoredAutocalc": false
     },
     {
       "key": "stealth",
@@ -119,7 +126,8 @@
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "manualDiceMod": 0
+      "manualDiceMod": 0,
+      "isIllFavoredAutocalc": false
     },
     {
       "key": "lore",
@@ -135,7 +143,8 @@
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "manualDiceMod": 0
+      "manualDiceMod": 0,
+      "isIllFavoredAutocalc": false
     }
   ],
   "endurance": {
@@ -180,15 +189,14 @@
     {
       "id": "604d30f6-42c6-4c34-ba16-18ea3f529161",
       "quantity": 1,
-      "isCarried": true,
-      "collapsed": false
+      "isCarried": true
     },
     {
       "id": "37a3317f-f796-4cc7-b6ae-816fd8404ca5",
       "quantity": 1,
       "isCarried": true,
       "isWielding": true,
-      "collapsed": false
+      "collapsed": true
     }
   ],
   "groupEquipmentBySource": false,
@@ -196,8 +204,8 @@
   "equipmentSortOption": "",
   "equipmentCustomGroups": [],
   "mp": {
-    "current": 5,
-    "base": 10
+    "current": 13,
+    "base": 13
   },
   "abilities": [
     {
@@ -241,15 +249,23 @@
       "columnIndex": 0
     },
     {
+      "id": "2ad8916a-7e41-498f-a001-547bcd6b848a",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false,
+      "columnIndex": 0
+    },
+    {
       "id": "42551b29-5fec-4caa-865a-8bf2d0397950",
       "collapsed": true,
       "showImprovements": false,
       "showSuccesses": false,
       "isActive": false,
-      "columnIndex": 1
+      "columnIndex": 0
     },
     {
-      "id": "4884c979-bad6-48f0-8375-0e49f6f7a8ce",
+      "id": "8d46af6e-4cfd-4515-a753-ae7488f011e2",
       "collapsed": true,
       "showImprovements": false,
       "showSuccesses": false,
@@ -257,11 +273,11 @@
       "columnIndex": 1
     },
     {
-      "id": "316b84c2-2f3c-449e-9d93-0a611c8b55c3",
+      "id": "971b7bf0-754c-401e-8e2e-74e0f21c2df1",
       "collapsed": true,
       "showImprovements": false,
       "showSuccesses": false,
-      "isActive": true,
+      "isActive": false,
       "columnIndex": 1
     },
     {
@@ -273,7 +289,7 @@
       "columnIndex": 1
     },
     {
-      "id": "e3b68a22-7a8a-458f-ae72-74e1c2a0b552",
+      "id": "316b84c2-2f3c-449e-9d93-0a611c8b55c3",
       "collapsed": true,
       "showImprovements": false,
       "showSuccesses": false,
@@ -281,24 +297,7 @@
       "columnIndex": 1
     },
     {
-      "id": "d280dcad-3e65-4e9a-9173-c7450cc0205c",
-      "collapsed": true,
-      "showImprovements": false,
-      "showSuccesses": false,
-      "isActive": true,
-      "columnIndex": 2,
-      "difficulty": null
-    },
-    {
-      "id": "b8720c37-4acd-4da8-872f-140adc87dd5e",
-      "collapsed": true,
-      "showImprovements": false,
-      "showSuccesses": false,
-      "isActive": true,
-      "columnIndex": 2
-    },
-    {
-      "id": "87ffb138-5b53-4c1a-990c-ed0be79061aa",
+      "id": "eccd85bc-375b-42f1-aa45-8bcc56172c5d",
       "collapsed": true,
       "showImprovements": false,
       "showSuccesses": false,
@@ -306,15 +305,23 @@
       "columnIndex": 2
     },
     {
-      "id": "d3a64a0d-dc98-4a78-b2ef-ee7247be0d81",
+      "id": "3ae7e89d-fee2-4fec-bfd5-4bb0b110d285",
       "collapsed": true,
       "showImprovements": false,
       "showSuccesses": false,
-      "isActive": true,
+      "isActive": false,
       "columnIndex": 2
     },
     {
-      "id": "39d2f237-58fb-471d-aad9-13a264ea765c",
+      "id": "d280dcad-3e65-4e9a-9173-c7450cc0205c",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false,
+      "columnIndex": 2
+    },
+    {
+      "id": "e3b68a22-7a8a-458f-ae72-74e1c2a0b552",
       "collapsed": true,
       "showImprovements": false,
       "showSuccesses": false,
@@ -336,13 +343,14 @@
   },
   "rollStats": {
     "skillChecks": {
-      "attempts": 3,
-      "successes": 3,
-      "totalSum": 52,
+      "attempts": 7,
+      "successes": 6,
+      "totalSum": 100,
       "bestTotal": 20,
       "hardestSuccess": null,
       "bySkill": {
-        "Lore": 3
+        "Lore": 6,
+        "Spirit": 1
       },
       "solCount": 0,
       "morteCount": 0,
@@ -362,7 +370,7 @@
     },
     "xpEarned": 0,
     "xpSpent": 0,
-    "treasureEarned": 320,
+    "treasureEarned": 494,
     "treasureSpent": 0
   },
   "biomeTags": [],
@@ -404,5 +412,5 @@
   "treasure": 20,
   "xp": 0,
   "description": "",
-  "updatedAt": "2026-08-25T17:56:55.092Z"
+  "updatedAt": "2026-08-25T18:33:52.085Z"
 }

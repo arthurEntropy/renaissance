@@ -1,10 +1,10 @@
 {
-  "id": "ca5889a9-104d-4b6d-9fb5-9125def99a80",
+  "id": "7aa748ca-6794-4cf4-bb77-84e8cdfb8e1e",
   "isDeleted": false,
-  "createdAt": "2026-08-17T20:15:16.607Z",
-  "lastModified": "2026-08-25T17:56:52.240Z",
+  "createdAt": "2026-08-25T18:32:06.626Z",
+  "lastModified": "2026-08-26T14:40:41.805Z",
   "characterType": "beastInstance",
-  "name": "Skeleton 🅑",
+  "name": "Skeleton 🅔",
   "featuredArtUrls": [
     "https://cdn.midjourney.com/38d41c47-c917-4004-9849-1889abfc5f6c/0_0.png"
   ],
@@ -106,45 +106,50 @@
       "key": "persuade",
       "ranks": 0,
       "isFavored": false,
-      "isIllFavored": false,
-      "diceMod": 0,
-      "manualDiceMod": 0
+      "isIllFavored": true,
+      "diceMod": -1,
+      "manualDiceMod": 0,
+      "isIllFavoredAutocalc": true
     },
     {
       "key": "awareness",
       "ranks": 0,
       "isFavored": false,
-      "isIllFavored": false,
-      "diceMod": 0,
-      "manualDiceMod": 0
+      "isIllFavored": true,
+      "diceMod": -1,
+      "manualDiceMod": 0,
+      "isIllFavoredAutocalc": true
     },
     {
       "key": "stealth",
       "ranks": 0,
       "isFavored": false,
-      "isIllFavored": false,
-      "diceMod": 0,
-      "manualDiceMod": 0
+      "isIllFavored": true,
+      "diceMod": -1,
+      "manualDiceMod": 0,
+      "isIllFavoredAutocalc": true
     },
     {
       "key": "lore",
       "ranks": 0,
       "isFavored": false,
-      "isIllFavored": false,
-      "diceMod": 0,
-      "manualDiceMod": 0
+      "isIllFavored": true,
+      "diceMod": -1,
+      "manualDiceMod": 0,
+      "isIllFavoredAutocalc": true
     },
     {
       "key": "riddle",
       "ranks": 0,
       "isFavored": false,
-      "isIllFavored": false,
-      "diceMod": 0,
-      "manualDiceMod": 0
+      "isIllFavored": true,
+      "diceMod": -1,
+      "manualDiceMod": 0,
+      "isIllFavoredAutocalc": true
     }
   ],
   "endurance": {
-    "current": 15,
+    "current": 8,
     "base": 15
   },
   "hope": {
@@ -153,18 +158,18 @@
   },
   "defense": {
     "current": 3,
-    "base": 1
+    "base": 3
   },
   "load": 0,
   "shadow": 0,
-  "injury": 0,
+  "injury": 4,
   "states": {
     "weary": false,
     "twiceWeary": false,
     "miserable": false,
     "twiceMiserable": false,
-    "helpless": false,
-    "twiceHelpless": false
+    "helpless": true,
+    "twiceHelpless": true
   },
   "conditions": {
     "insecure": false,
@@ -175,7 +180,10 @@
   },
   "engagementDice": [],
   "engagementSuccesses": [],
-  "engagementDiceStatuses": {},
+  "engagementDiceStatuses": {
+    "mestiere_0": "expended",
+    "7a024694-31ab-4f17-a652-2c15c7b8925e_0": "expended"
+  },
   "equipment": [
     {
       "id": "76522314-9ed4-4408-b72a-02fbe4500782",
@@ -230,20 +238,22 @@
   },
   "rollStats": {
     "skillChecks": {
-      "attempts": 0,
-      "successes": 0,
-      "totalSum": 0,
-      "bestTotal": null,
+      "attempts": 5,
+      "successes": 4,
+      "totalSum": 44,
+      "bestTotal": 13,
       "hardestSuccess": null,
-      "bySkill": {},
-      "solCount": 0,
-      "morteCount": 0,
+      "bySkill": {
+        "Strength": 5
+      },
+      "solCount": 1,
+      "morteCount": 2,
       "successCount": 0
     },
     "contests": {
       "engagement": {
-        "wins": 0,
-        "losses": 0,
+        "wins": 3,
+        "losses": 3,
         "draws": 0
       },
       "contest": {
@@ -334,7 +344,7 @@
   "beastTypeIds": [
     "b7e57001-0000-4000-a000-00000000000e"
   ],
-  "updatedAt": "2026-08-25T17:56:52.240Z",
+  "updatedAt": "2026-08-26T14:40:41.805Z",
   "challenge": 7,
   "templateId": "785562af-0611-4d1f-817b-9888b379dd4d"
 }

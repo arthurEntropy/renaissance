@@ -1,0 +1,249 @@
+{
+  "id": "3f52681d-7231-472d-9ce1-305d7db7c791",
+  "isDeleted": false,
+  "createdAt": "2026-08-17T20:35:56.891Z",
+  "lastModified": "2026-08-26T12:30:40.740Z",
+  "campaignId": "84b00fc0-eae8-4808-9151-949bf59928ff",
+  "name": "Desert Dunes",
+  "backgroundImage": {
+    "url": "https://cdn.midjourney.com/935f1238-1385-4e7a-8908-931a6355c966/0_2.jpeg",
+    "naturalWidth": 1456,
+    "naturalHeight": 816
+  },
+  "items": [
+    {
+      "id": "fb5414ca-be63-4ef2-89bf-b120df302dcf",
+      "characterId": "29d01506-5e58-446f-84b1-4f255bb0f885",
+      "isBeast": true,
+      "isNpc": false,
+      "name": "Skeleton 🅘",
+      "portraitUrl": "https://cdn.midjourney.com/38d41c47-c917-4004-9849-1889abfc5f6c/0_0.png",
+      "size": 1,
+      "x": 200,
+      "y": 80,
+      "zIndex": 16
+    },
+    {
+      "id": "059d2e74-a656-4003-aedd-f2fed8a258db",
+      "characterId": "b26d9119-dad9-4b40-8cb9-c9130fd7fb8d",
+      "isBeast": true,
+      "isNpc": false,
+      "name": "Skeleton 🅚",
+      "portraitUrl": "https://cdn.midjourney.com/38d41c47-c917-4004-9849-1889abfc5f6c/0_0.png",
+      "size": 1,
+      "x": 1120,
+      "y": 680,
+      "zIndex": 15
+    },
+    {
+      "id": "8a0d9287-dcd5-4b9c-baa0-c076ddcee30c",
+      "characterId": "b6bbebb8-8968-4d94-877e-adb7c97187d7",
+      "isBeast": true,
+      "isNpc": false,
+      "name": "Skeleton 🅦",
+      "portraitUrl": "https://cdn.midjourney.com/38d41c47-c917-4004-9849-1889abfc5f6c/0_0.png",
+      "size": 1,
+      "x": 360,
+      "y": 40,
+      "zIndex": 10
+    },
+    {
+      "id": "0bd6aa38-08c0-4d36-ba04-39669bc055a5",
+      "characterId": "ce2426da-6f98-4a61-bf9c-a542d6fcd8bf",
+      "isBeast": true,
+      "isNpc": false,
+      "name": "Skeleton 🅣",
+      "portraitUrl": "https://cdn.midjourney.com/38d41c47-c917-4004-9849-1889abfc5f6c/0_0.png",
+      "size": 1,
+      "x": 1160,
+      "y": 200,
+      "zIndex": 17
+    },
+    {
+      "id": "ecfc08d8-6de8-4ca7-bec4-728829c24916",
+      "characterId": "0b64e541-6361-4c44-baf2-4191766b6223",
+      "isBeast": true,
+      "isNpc": false,
+      "name": "Skeleton 🅡",
+      "portraitUrl": "https://cdn.midjourney.com/38d41c47-c917-4004-9849-1889abfc5f6c/0_0.png",
+      "size": 1,
+      "x": 440,
+      "y": 560,
+      "zIndex": 12
+    },
+    {
+      "id": "53f0d200-bfa0-4b41-a0b8-16b13c1dba9e",
+      "characterId": "bb056971-24c2-4acb-b1e3-7a4b12f9faf7",
+      "isBeast": true,
+      "isNpc": false,
+      "name": "Skeleton 🅒",
+      "portraitUrl": "https://cdn.midjourney.com/38d41c47-c917-4004-9849-1889abfc5f6c/0_0.png",
+      "size": 1,
+      "x": 480,
+      "y": 240,
+      "zIndex": 11
+    },
+    {
+      "id": "596774a9-f372-4cf5-90cc-1952d305f730",
+      "characterId": "bbfaad61-7ac4-4bbd-90ed-0147c337fb40",
+      "isBeast": true,
+      "isNpc": false,
+      "name": "Skeleton 🅜",
+      "portraitUrl": "https://cdn.midjourney.com/38d41c47-c917-4004-9849-1889abfc5f6c/0_0.png",
+      "size": 1,
+      "x": 480,
+      "y": 760,
+      "zIndex": 14
+    },
+    {
+      "id": "5ed89a2d-d9f6-4444-a6f8-5aba9bd4aef9",
+      "characterId": "9ad6806f-60b9-4bcb-9a65-616c1dac01ea",
+      "isBeast": true,
+      "isNpc": false,
+      "name": "Skeleton 🅨",
+      "portraitUrl": "https://cdn.midjourney.com/38d41c47-c917-4004-9849-1889abfc5f6c/0_0.png",
+      "size": 1,
+      "x": 800,
+      "y": 520,
+      "zIndex": 13
+    },
+    {
+      "id": "7310d61d-959e-47ca-bbfa-bb4c73506375",
+      "characterId": "54f77e58-eca4-4e28-ac76-6d55493470cc",
+      "isBeast": false,
+      "isNpc": false,
+      "name": "Himo",
+      "portraitUrl": "https://cdn.midjourney.com/8ca5d116-21d5-4a5f-bb7c-7ceaf793a311/0_3_2048_N.webp",
+      "size": 1,
+      "x": 880,
+      "y": 360,
+      "zIndex": 18
+    },
+    {
+      "id": "cf313684-c1cf-4cf7-b499-98a4d6c2f343",
+      "characterId": "8f20a6c3-b272-45d6-9d80-c07ced314693",
+      "isBeast": false,
+      "isNpc": false,
+      "name": "Jebeddo",
+      "portraitUrl": "https://cdn.midjourney.com/60fb6863-799d-4119-807e-b397a9bb7534/0_0_2048_N.webp",
+      "size": 1,
+      "x": 960,
+      "y": 440,
+      "zIndex": 22
+    },
+    {
+      "id": "7f1525b1-d4de-4f5d-b8ab-be477e90ef49",
+      "characterId": "4083afd8-0594-4647-ac06-09b8a2a8cefc",
+      "isBeast": false,
+      "isNpc": false,
+      "name": "Magnuss",
+      "portraitUrl": "https://cdn.midjourney.com/9d007aef-e372-4e42-9581-a2703cfe7018/0_2_2048_N.webp",
+      "size": 1,
+      "x": 1000,
+      "y": 480,
+      "zIndex": 23
+    },
+    {
+      "id": "66f9800f-18cf-43b0-9b79-e0443262b252",
+      "characterId": "13e267c3-f608-466d-9a8d-7442dcd5a7d4",
+      "isBeast": false,
+      "isNpc": false,
+      "name": "Sukha",
+      "portraitUrl": "https://cdn.midjourney.com/95c9a8b1-d0a7-4b44-9c87-91a500f4db7d/0_1_2048_N.webp",
+      "size": 1,
+      "x": 920,
+      "y": 400,
+      "zIndex": 21
+    }
+  ],
+  "transform": {
+    "scale": 1.2597120000000002,
+    "x": 84.41994024201449,
+    "y": 6.650100677214823
+  },
+  "gridSize": 40,
+  "gridColor": "#ffffff",
+  "gridOpacity": 0.15,
+  "mapScale": 1,
+  "showPaths": true,
+  "radiusAreas": [],
+  "rollLog": [],
+  "combatGroups": [
+    {
+      "id": "group-1787747325126-1mj19i",
+      "name": "So Many Bones",
+      "combatants": [
+        {
+          "id": "beast:29d01506-5e58-446f-84b1-4f255bb0f885",
+          "type": "beast",
+          "characterId": "29d01506-5e58-446f-84b1-4f255bb0f885"
+        },
+        {
+          "id": "beast:b26d9119-dad9-4b40-8cb9-c9130fd7fb8d",
+          "type": "beast",
+          "characterId": "b26d9119-dad9-4b40-8cb9-c9130fd7fb8d"
+        },
+        {
+          "id": "beast:b6bbebb8-8968-4d94-877e-adb7c97187d7",
+          "type": "beast",
+          "characterId": "b6bbebb8-8968-4d94-877e-adb7c97187d7"
+        },
+        {
+          "id": "beast:ce2426da-6f98-4a61-bf9c-a542d6fcd8bf",
+          "type": "beast",
+          "characterId": "ce2426da-6f98-4a61-bf9c-a542d6fcd8bf"
+        },
+        {
+          "id": "beast:0b64e541-6361-4c44-baf2-4191766b6223",
+          "type": "beast",
+          "characterId": "0b64e541-6361-4c44-baf2-4191766b6223"
+        },
+        {
+          "id": "beast:bb056971-24c2-4acb-b1e3-7a4b12f9faf7",
+          "type": "beast",
+          "characterId": "bb056971-24c2-4acb-b1e3-7a4b12f9faf7"
+        },
+        {
+          "id": "beast:bbfaad61-7ac4-4bbd-90ed-0147c337fb40",
+          "type": "beast",
+          "characterId": "bbfaad61-7ac4-4bbd-90ed-0147c337fb40"
+        },
+        {
+          "id": "beast:9ad6806f-60b9-4bcb-9a65-616c1dac01ea",
+          "type": "beast",
+          "characterId": "9ad6806f-60b9-4bcb-9a65-616c1dac01ea"
+        }
+      ]
+    },
+    {
+      "id": "group-1787747387227-cufjv7",
+      "name": "Team Vengeance",
+      "combatants": [
+        {
+          "id": "pc:54f77e58-eca4-4e28-ac76-6d55493470cc",
+          "type": "pc",
+          "characterId": "54f77e58-eca4-4e28-ac76-6d55493470cc"
+        },
+        {
+          "id": "pc:8f20a6c3-b272-45d6-9d80-c07ced314693",
+          "type": "pc",
+          "characterId": "8f20a6c3-b272-45d6-9d80-c07ced314693"
+        },
+        {
+          "id": "pc:4083afd8-0594-4647-ac06-09b8a2a8cefc",
+          "type": "pc",
+          "characterId": "4083afd8-0594-4647-ac06-09b8a2a8cefc"
+        },
+        {
+          "id": "pc:13e267c3-f608-466d-9a8d-7442dcd5a7d4",
+          "type": "pc",
+          "characterId": "13e267c3-f608-466d-9a8d-7442dcd5a7d4"
+        }
+      ]
+    }
+  ],
+  "pixelsPerMile": 40,
+  "characterTokenSize": 40,
+  "cultureTokenSize": 60,
+  "cultureTokensLocked": false
+}

@@ -2,7 +2,7 @@
   "id": "785562af-0611-4d1f-817b-9888b379dd4d",
   "isDeleted": false,
   "createdAt": "2026-08-13T01:47:08.329Z",
-  "lastModified": "2026-08-21T18:46:49.233Z",
+  "lastModified": "2026-08-13T02:22:45.924Z",
   "characterType": "beast",
   "name": "Skeleton",
   "featuredArtUrls": [
@@ -334,6 +334,6 @@
   "beastTypeIds": [
     "b7e57001-0000-4000-a000-00000000000e"
   ],
-  "updatedAt": "2026-08-21T18:46:49.233Z",
+  "updatedAt": "2026-08-13T02:22:45.924Z",
   "challenge": 7
 }

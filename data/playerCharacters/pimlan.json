@@ -2,7 +2,7 @@
   "id": "c4883e09-8543-42e5-a69d-26bbae78d44e",
   "isDeleted": false,
   "createdAt": "2026-08-17T18:30:32.343Z",
-  "lastModified": "2026-08-25T17:56:55.084Z",
+  "lastModified": "2026-08-24T20:37:28.856Z",
   "characterType": "playerCharacter",
   "name": "Pimlan",
   "featuredArtUrls": [
@@ -47,7 +47,8 @@
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "manualDiceMod": 0
+      "manualDiceMod": 0,
+      "isIllFavoredAutocalc": false
     },
     {
       "key": "craft",
@@ -55,7 +56,8 @@
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "manualDiceMod": 0
+      "manualDiceMod": 0,
+      "isIllFavoredAutocalc": false
     },
     {
       "key": "perform",
@@ -63,7 +65,8 @@
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "manualDiceMod": 0
+      "manualDiceMod": 0,
+      "isIllFavoredAutocalc": false
     },
     {
       "key": "insight",
@@ -87,7 +90,8 @@
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "manualDiceMod": 0
+      "manualDiceMod": 0,
+      "isIllFavoredAutocalc": false
     },
     {
       "key": "aid",
@@ -95,7 +99,8 @@
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "manualDiceMod": 0
+      "manualDiceMod": 0,
+      "isIllFavoredAutocalc": false
     },
     {
       "key": "persuade",
@@ -103,7 +108,8 @@
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "manualDiceMod": 0
+      "manualDiceMod": 0,
+      "isIllFavoredAutocalc": false
     },
     {
       "key": "awareness",
@@ -127,7 +133,8 @@
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "manualDiceMod": 0
+      "manualDiceMod": 0,
+      "isIllFavoredAutocalc": false
     },
     {
       "key": "riddle",
@@ -135,7 +142,8 @@
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "manualDiceMod": 0
+      "manualDiceMod": 0,
+      "isIllFavoredAutocalc": false
     }
   ],
   "endurance": {
@@ -147,7 +155,7 @@
     "base": 4
   },
   "defense": {
-    "current": 3,
+    "current": 8,
     "base": 3
   },
   "load": 0,
@@ -259,17 +267,19 @@
   },
   "rollStats": {
     "skillChecks": {
-      "attempts": 20,
-      "successes": 20,
-      "totalSum": 329,
+      "attempts": 38,
+      "successes": 37,
+      "totalSum": 590,
       "bestTotal": 24,
       "hardestSuccess": null,
       "bySkill": {
-        "Dexterity": 20
+        "Dexterity": 36,
+        "Strength": 1,
+        "Spirit": 1
       },
-      "solCount": 2,
-      "morteCount": 2,
-      "successCount": 10
+      "solCount": 3,
+      "morteCount": 6,
+      "successCount": 18
     },
     "contests": {
       "engagement": {
@@ -285,8 +295,8 @@
     },
     "xpEarned": 0,
     "xpSpent": 0,
-    "treasureEarned": 54,
-    "treasureSpent": 0
+    "treasureEarned": 168,
+    "treasureSpent": 132
   },
   "biomeTags": [],
   "biomeId": null,
@@ -327,5 +337,5 @@
   "treasure": 8,
   "xp": 0,
   "description": "",
-  "updatedAt": "2026-08-25T17:56:55.084Z"
+  "updatedAt": "2026-08-24T20:37:28.856Z"
 }

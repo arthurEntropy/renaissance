@@ -1,0 +1,147 @@
+{
+  "id": "c3e43b7b-d53a-4e4d-acf0-59886e38147d",
+  "isDeleted": false,
+  "createdAt": "2026-08-17T20:21:15.493Z",
+  "lastModified": "2026-08-26T14:50:57.337Z",
+  "campaignId": "84b00fc0-eae8-4808-9151-949bf59928ff",
+  "name": "Dust Runner's Rest",
+  "backgroundImage": {
+    "url": "https://cdn.midjourney.com/89f32028-ff13-46b3-90ba-3885ce0768db/0_1.png",
+    "naturalWidth": 1456,
+    "naturalHeight": 816
+  },
+  "items": [
+    {
+      "id": "8c18b4ec-b6cc-4f66-8716-39156b99155f",
+      "characterId": "285cc523-b6f4-41cc-83b6-91915f207c8a",
+      "isBeast": false,
+      "isNpc": false,
+      "name": "Sergio",
+      "portraitUrl": "https://cdn.midjourney.com/c845873a-6dc7-47cc-89e1-1903a4dc622d/0_0_2048_N.webp",
+      "size": 1,
+      "x": 360,
+      "y": 320,
+      "zIndex": 5
+    },
+    {
+      "id": "94a6c373-ee04-4f00-9343-ae0dce5819ca",
+      "characterId": "c4883e09-8543-42e5-a69d-26bbae78d44e",
+      "isBeast": false,
+      "isNpc": false,
+      "name": "Pimlan",
+      "portraitUrl": "https://cdn.midjourney.com/cbaeac9c-8720-44f8-b904-bc79ab523e7d/0_3_2048_N.webp",
+      "size": 1,
+      "x": 360,
+      "y": 280,
+      "zIndex": 7
+    },
+    {
+      "id": "ac8a8532-da0b-4a38-b3bd-e1a4f384468b",
+      "characterId": "8f20a6c3-b272-45d6-9d80-c07ced314693",
+      "isBeast": false,
+      "isNpc": false,
+      "name": "Jebeddo",
+      "portraitUrl": "https://cdn.midjourney.com/60fb6863-799d-4119-807e-b397a9bb7534/0_0_2048_N.webp",
+      "size": 1,
+      "x": 360,
+      "y": 360,
+      "zIndex": 6
+    },
+    {
+      "id": "b4670073-a08f-4473-9f71-924d8dd8c6ba",
+      "characterId": "57b75456-865b-40b0-b506-6ce1bbea5873",
+      "isBeast": true,
+      "isNpc": false,
+      "name": "Bugbear 🅘",
+      "portraitUrl": "https://cdn.midjourney.com/1402c1f5-f529-40e7-9999-fb156e622698/0_1.png",
+      "size": 1,
+      "x": 1080,
+      "y": 440,
+      "zIndex": 12
+    },
+    {
+      "id": "4a1736a6-e85f-4f2a-9955-6083a37f964a",
+      "characterId": "e3954ca2-c97b-46ea-9a50-a11af43a9ecb",
+      "isBeast": true,
+      "isNpc": false,
+      "name": "Bugbear Chieftan 🅠",
+      "portraitUrl": "https://cdn.midjourney.com/5d5cfcaf-eb99-44b5-a5c8-cde4cca54439/0_2.png",
+      "size": 1,
+      "x": 1160,
+      "y": 480,
+      "zIndex": 11
+    },
+    {
+      "id": "099b4637-b9ef-4a02-9501-ba54e6a9d301",
+      "characterId": "87ecb3c0-96bd-49d0-89d4-eb3c7aff5777",
+      "isBeast": true,
+      "isNpc": false,
+      "name": "Bugbear 🅒",
+      "portraitUrl": "https://cdn.midjourney.com/1402c1f5-f529-40e7-9999-fb156e622698/0_1.png",
+      "size": 1,
+      "x": 1080,
+      "y": 600,
+      "zIndex": 13
+    }
+  ],
+  "transform": {
+    "scale": 1,
+    "x": 138,
+    "y": 155.5
+  },
+  "gridSize": 40,
+  "gridColor": "#ffffff",
+  "gridOpacity": 0.06,
+  "mapScale": 1,
+  "showPaths": true,
+  "radiusAreas": [],
+  "rollLog": [],
+  "combatGroups": [
+    {
+      "id": "group-1787683700315-43gq07",
+      "name": "Team Vengeance",
+      "combatants": [
+        {
+          "id": "pc:285cc523-b6f4-41cc-83b6-91915f207c8a",
+          "type": "pc",
+          "characterId": "285cc523-b6f4-41cc-83b6-91915f207c8a"
+        },
+        {
+          "id": "pc:c4883e09-8543-42e5-a69d-26bbae78d44e",
+          "type": "pc",
+          "characterId": "c4883e09-8543-42e5-a69d-26bbae78d44e"
+        },
+        {
+          "id": "pc:8f20a6c3-b272-45d6-9d80-c07ced314693",
+          "type": "pc",
+          "characterId": "8f20a6c3-b272-45d6-9d80-c07ced314693"
+        }
+      ]
+    },
+    {
+      "id": "group-1787683735387-dj6p7q",
+      "name": "Bad Boiz",
+      "combatants": [
+        {
+          "id": "beast:57b75456-865b-40b0-b506-6ce1bbea5873",
+          "type": "beast",
+          "characterId": "57b75456-865b-40b0-b506-6ce1bbea5873"
+        },
+        {
+          "id": "beast:e3954ca2-c97b-46ea-9a50-a11af43a9ecb",
+          "type": "beast",
+          "characterId": "e3954ca2-c97b-46ea-9a50-a11af43a9ecb"
+        },
+        {
+          "id": "beast:87ecb3c0-96bd-49d0-89d4-eb3c7aff5777",
+          "type": "beast",
+          "characterId": "87ecb3c0-96bd-49d0-89d4-eb3c7aff5777"
+        }
+      ]
+    }
+  ],
+  "pixelsPerMile": 40,
+  "characterTokenSize": 40,
+  "cultureTokenSize": 60,
+  "cultureTokensLocked": false
+}

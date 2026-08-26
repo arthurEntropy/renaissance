@@ -2,7 +2,7 @@
   "id": "8f20a6c3-b272-45d6-9d80-c07ced314693",
   "isDeleted": false,
   "createdAt": "2026-08-17T15:40:41.734Z",
-  "lastModified": "2026-08-25T15:49:52.018Z",
+  "lastModified": "2026-08-25T12:43:09.972Z",
   "characterType": "playerCharacter",
   "name": "Jebeddo",
   "featuredArtUrls": [
@@ -112,7 +112,8 @@
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "manualDiceMod": 0
+      "manualDiceMod": 0,
+      "isIllFavoredAutocalc": false
     },
     {
       "key": "awareness",
@@ -120,7 +121,8 @@
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "manualDiceMod": 0
+      "manualDiceMod": 0,
+      "isIllFavoredAutocalc": false
     },
     {
       "key": "stealth",
@@ -128,7 +130,8 @@
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "manualDiceMod": 0
+      "manualDiceMod": 0,
+      "isIllFavoredAutocalc": false
     },
     {
       "key": "lore",
@@ -156,8 +159,8 @@
     "base": 2
   },
   "defense": {
-    "current": 7,
-    "base": 7
+    "current": 5,
+    "base": 5
   },
   "load": 2,
   "shadow": 2,
@@ -180,8 +183,8 @@
   "engagementDice": [],
   "engagementSuccesses": [],
   "engagementDiceStatuses": {
-    "mestiere_0": "expended",
-    "mestiere_1": "expended",
+    "3a61c9aa-09ba-4b44-9efb-529795835e69_0": "expended",
+    "a8a14960-4382-4030-82f7-1da7391a3aa9_0": "expended",
     "ef6f473a-0967-4d3f-aec8-465b14390460_0": "expended"
   },
   "equipment": [
@@ -191,7 +194,7 @@
       "isCarried": true,
       "columnIndex": 0,
       "isWielding": true,
-      "collapsed": false
+      "collapsed": true
     },
     {
       "id": "a4da50a7-460d-455c-b3bd-76f7148ad428",
@@ -199,7 +202,7 @@
       "isCarried": true,
       "columnIndex": 0,
       "isWielding": true,
-      "collapsed": false
+      "collapsed": true
     },
     {
       "id": "d5c723e6-e0a6-437f-b174-ee4f366093ba",
@@ -207,7 +210,7 @@
       "isCarried": true,
       "columnIndex": 0,
       "isWielding": true,
-      "collapsed": false
+      "collapsed": true
     },
     {
       "id": "2f7c84ed-8efd-4ff1-86f3-6749b7fc3ef1",
@@ -215,7 +218,7 @@
       "isCarried": true,
       "isWielding": true,
       "columnIndex": 0,
-      "collapsed": false
+      "collapsed": true
     },
     {
       "id": "ef6f473a-0967-4d3f-aec8-465b14390460",
@@ -265,7 +268,7 @@
       "showImprovements": false,
       "showSuccesses": false,
       "isActive": false,
-      "columnIndex": 1
+      "columnIndex": 0
     },
     {
       "id": "370535a8-2e1e-485d-b3a1-96780ab87454",
@@ -273,7 +276,7 @@
       "showImprovements": false,
       "showSuccesses": false,
       "isActive": false,
-      "columnIndex": 1
+      "columnIndex": 0
     },
     {
       "id": "179fdf43-fee1-4755-af63-7c82ad30617f",
@@ -281,19 +284,19 @@
       "showImprovements": false,
       "showSuccesses": false,
       "isActive": false,
-      "columnIndex": 1
+      "columnIndex": 0
     },
     {
       "id": "c93d20c3-2fa2-4001-837d-cf38629b9c1a",
-      "collapsed": true,
+      "collapsed": false,
       "showImprovements": false,
       "showSuccesses": false,
       "isActive": false,
-      "columnIndex": 2
+      "columnIndex": 1
     },
     {
       "id": "7eb3559b-8cd5-49ce-b047-a627e30db31c",
-      "collapsed": true,
+      "collapsed": false,
       "showImprovements": false,
       "showSuccesses": false,
       "isActive": false,
@@ -301,7 +304,7 @@
     },
     {
       "id": "2afaa6d7-93d1-401b-8051-61e4b8ab752b",
-      "collapsed": true,
+      "collapsed": false,
       "showImprovements": false,
       "showSuccesses": false,
       "isActive": false,
@@ -318,29 +321,29 @@
     "states": true,
     "baseEndurance": true,
     "baseHope": true,
-    "baseDefense": false
+    "baseDefense": true
   },
   "rollStats": {
     "skillChecks": {
-      "attempts": 9,
-      "successes": 9,
-      "totalSum": 94,
-      "bestTotal": 16,
+      "attempts": 8,
+      "successes": 8,
+      "totalSum": 82,
+      "bestTotal": 19,
       "hardestSuccess": null,
       "bySkill": {
-        "Courtesy": 1,
-        "Strength": 7,
+        "Courtesy": 3,
+        "Strength": 4,
         "Dexterity": 1
       },
       "solCount": 1,
       "morteCount": 2,
-      "successCount": 3
+      "successCount": 4
     },
     "contests": {
       "engagement": {
-        "wins": 4,
-        "losses": 0,
-        "draws": 1
+        "wins": 6,
+        "losses": 3,
+        "draws": 2
       },
       "contest": {
         "wins": 0,
@@ -350,8 +353,8 @@
     },
     "xpEarned": 0,
     "xpSpent": 0,
-    "treasureEarned": 49,
-    "treasureSpent": 1
+    "treasureEarned": 37,
+    "treasureSpent": 425
   },
   "biomeTags": [],
   "biomeId": null,
@@ -393,5 +396,5 @@
   "treasure": 2,
   "xp": 0,
   "description": "",
-  "updatedAt": "2026-08-25T15:49:52.018Z"
+  "updatedAt": "2026-08-25T12:43:09.972Z"
 }

@@ -1,21 +1,21 @@
 {
-  "id": "591e649b-da90-48e5-a5f2-abbdbe49c077",
+  "id": "b02c9dff-da41-4f1a-b4e1-e06a000f5bf2",
   "isDeleted": false,
-  "createdAt": "2026-08-17T20:34:23.628Z",
-  "lastModified": "2026-08-18T18:34:30.894Z",
+  "createdAt": "2026-08-26T13:48:18.740Z",
+  "lastModified": "2026-08-26T14:29:46.815Z",
   "characterType": "beastInstance",
-  "name": "Rust Monster 🅑",
+  "name": "Skeleton 🅐",
   "featuredArtUrls": [
-    "https://cdn.midjourney.com/2d5fac4f-2463-4b8a-8847-43391a81b4db/0_2.png"
+    "https://cdn.midjourney.com/38d41c47-c917-4004-9849-1889abfc5f6c/0_0.png"
   ],
   "speed": {
-    "current": 40,
-    "base": 40
+    "current": 30,
+    "base": 30
   },
   "notes": "",
   "body": 3,
   "heart": 0,
-  "wits": 1,
+  "wits": 0,
   "skills": [
     {
       "key": "awe",
@@ -23,7 +23,8 @@
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "manualDiceMod": 0
+      "manualDiceMod": 0,
+      "isIllFavoredAutocalc": false
     },
     {
       "key": "strength",
@@ -31,23 +32,26 @@
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "manualDiceMod": 0
+      "manualDiceMod": 0,
+      "isIllFavoredAutocalc": false
     },
     {
       "key": "dexterity",
-      "ranks": 1,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "manualDiceMod": 0
+      "manualDiceMod": 0,
+      "isIllFavoredAutocalc": false
     },
     {
       "key": "fortitude",
-      "ranks": 1,
+      "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "manualDiceMod": 0
+      "manualDiceMod": 0,
+      "isIllFavoredAutocalc": false
     },
     {
       "key": "craft",
@@ -55,7 +59,8 @@
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "manualDiceMod": 0
+      "manualDiceMod": 0,
+      "isIllFavoredAutocalc": false
     },
     {
       "key": "perform",
@@ -107,7 +112,7 @@
     },
     {
       "key": "awareness",
-      "ranks": 1,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -139,7 +144,7 @@
     }
   ],
   "endurance": {
-    "current": 5,
+    "current": 4,
     "base": 15
   },
   "hope": {
@@ -147,7 +152,7 @@
     "base": 0
   },
   "defense": {
-    "current": 4,
+    "current": 3,
     "base": 3
   },
   "load": 0,
@@ -171,24 +176,29 @@
   "engagementDice": [],
   "engagementSuccesses": [],
   "engagementDiceStatuses": {
-    "adfa9a8b-7318-4512-b876-4bd1d857d287_0": "expended",
-    "mestiere_1": "available",
-    "3a61c9aa-09ba-4b44-9efb-529795835e69_0": "expended"
+    "7a024694-31ab-4f17-a652-2c15c7b8925e_0": "expended"
   },
   "equipment": [
     {
-      "id": "3a61c9aa-09ba-4b44-9efb-529795835e69",
+      "id": "76522314-9ed4-4408-b72a-02fbe4500782",
       "quantity": 1,
       "isCarried": true,
       "isWielding": true,
       "collapsed": false
     },
     {
-      "id": "a8a14960-4382-4030-82f7-1da7391a3aa9",
+      "id": "7a024694-31ab-4f17-a652-2c15c7b8925e",
       "quantity": 1,
       "isCarried": true,
       "collapsed": false,
       "isWielding": true
+    },
+    {
+      "id": "d3548df0-323f-4551-913d-0cee9852be8d",
+      "quantity": 1,
+      "isCarried": true,
+      "isWielding": true,
+      "collapsed": false
     }
   ],
   "groupEquipmentBySource": false,
@@ -201,14 +211,7 @@
   },
   "abilities": [
     {
-      "id": "163d9fab-f967-4451-889f-21764a17ada3",
-      "collapsed": false,
-      "showImprovements": false,
-      "showSuccesses": false,
-      "isActive": false
-    },
-    {
-      "id": "2d4eca06-a682-4c53-8fa7-daaa49eed3f2",
+      "id": "1a6edbcc-da4c-4b3c-939a-29f31434799e",
       "collapsed": false,
       "showImprovements": false,
       "showSuccesses": false,
@@ -231,21 +234,20 @@
     "skillChecks": {
       "attempts": 3,
       "successes": 3,
-      "totalSum": 9,
-      "bestTotal": 5,
+      "totalSum": 28,
+      "bestTotal": 11,
       "hardestSuccess": null,
       "bySkill": {
-        "Strength": 2,
-        "Dexterity": 1
+        "Strength": 3
       },
       "solCount": 0,
-      "morteCount": 1,
+      "morteCount": 0,
       "successCount": 0
     },
     "contests": {
       "engagement": {
         "wins": 0,
-        "losses": 2,
+        "losses": 0,
         "draws": 0
       },
       "contest": {
@@ -281,7 +283,28 @@
   "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
   "isPublicPreview": false,
   "sectionOrder": [],
-  "martialTrainingOverrides": {},
+  "martialTrainingOverrides": {
+    "meleeGrades": [
+      "847d1092-fd43-4d58-b3da-002e6f3b7f3d",
+      "b92d3394-2c64-487f-8c90-c56ea1cbd3f3",
+      "ad30b114-3c19-413f-aad2-5f270bd95684"
+    ],
+    "armorGrades": [
+      "b92d3394-2c64-487f-8c90-c56ea1cbd3f3",
+      "ad30b114-3c19-413f-aad2-5f270bd95684",
+      "847d1092-fd43-4d58-b3da-002e6f3b7f3d"
+    ],
+    "polearmGrades": [
+      "ad30b114-3c19-413f-aad2-5f270bd95684",
+      "b92d3394-2c64-487f-8c90-c56ea1cbd3f3",
+      "847d1092-fd43-4d58-b3da-002e6f3b7f3d"
+    ],
+    "rangedGrades": [
+      "ad30b114-3c19-413f-aad2-5f270bd95684",
+      "b92d3394-2c64-487f-8c90-c56ea1cbd3f3",
+      "847d1092-fd43-4d58-b3da-002e6f3b7f3d"
+    ]
+  },
   "pronouns": "",
   "ancestryIds": [],
   "cultureIds": [],
@@ -296,24 +319,26 @@
   "description": "",
   "size": 1,
   "reach": 0,
-  "hasDarkvision": true,
+  "hasDarkvision": false,
   "hasBlindsight": false,
   "hasTremorsense": false,
   "hasTruesight": false,
-  "burrowSpeed": 20,
+  "burrowSpeed": 0,
   "climbSpeed": 0,
   "flySpeed": 0,
   "swimSpeed": 0,
   "biomeTagsAugment": [
-    "underground",
     "corrupted",
-    "ruined"
+    "ruined",
+    "underground"
   ],
-  "biomeTagsInhibit": [],
+  "biomeTagsInhibit": [
+    "enchanted"
+  ],
   "beastTypeIds": [
-    "b7e57001-0000-4000-a000-00000000000b"
+    "b7e57001-0000-4000-a000-00000000000e"
   ],
-  "challenge": 13,
-  "updatedAt": "2026-08-18T18:34:30.894Z",
-  "templateId": "067748ec-282a-4fb5-908e-5abeb67988e4"
+  "updatedAt": "2026-08-26T14:29:46.815Z",
+  "challenge": 7,
+  "templateId": "785562af-0611-4d1f-817b-9888b379dd4d"
 }

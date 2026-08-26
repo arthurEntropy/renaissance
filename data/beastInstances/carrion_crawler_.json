@@ -1,10 +1,10 @@
 {
-  "id": "ce6c45df-906d-4f6a-85e9-58a7b458a394",
+  "id": "8d15c0d7-8e7b-4a47-8313-72628bc2c22d",
   "isDeleted": false,
-  "createdAt": "2026-08-17T20:05:59.945Z",
-  "lastModified": "2026-08-24T17:54:11.241Z",
+  "createdAt": "2026-08-26T12:27:19.635Z",
+  "lastModified": "2026-08-26T12:27:19.687Z",
   "characterType": "beastInstance",
-  "name": "Carrion Crawler 🅐",
+  "name": "Carrion Crawler 🅑",
   "featuredArtUrls": [
     "https://cdn.midjourney.com/48444f34-cffe-4732-ba92-522ed9c62a29/0_3.png"
   ],
@@ -139,7 +139,7 @@
     }
   ],
   "endurance": {
-    "current": 7,
+    "current": 30,
     "base": 30
   },
   "hope": {
@@ -170,10 +170,7 @@
   },
   "engagementDice": [],
   "engagementSuccesses": [],
-  "engagementDiceStatuses": {
-    "a8a14960-4382-4030-82f7-1da7391a3aa9_0": "expended",
-    "db418790-1337-43d4-8d92-53a29b16a240_0": "expended"
-  },
+  "engagementDiceStatuses": {},
   "equipment": [
     {
       "id": "db418790-1337-43d4-8d92-53a29b16a240",
@@ -248,22 +245,20 @@
   },
   "rollStats": {
     "skillChecks": {
-      "attempts": 2,
-      "successes": 2,
-      "totalSum": 26,
-      "bestTotal": 17,
+      "attempts": 0,
+      "successes": 0,
+      "totalSum": 0,
+      "bestTotal": null,
       "hardestSuccess": null,
-      "bySkill": {
-        "Strength": 2
-      },
+      "bySkill": {},
       "solCount": 0,
       "morteCount": 0,
-      "successCount": 3
+      "successCount": 0
     },
     "contests": {
       "engagement": {
         "wins": 0,
-        "losses": 3,
+        "losses": 0,
         "draws": 0
       },
       "contest": {
@@ -275,7 +270,7 @@
     "xpEarned": 0,
     "xpSpent": 0,
     "treasureEarned": 0,
-    "treasureSpent": 2
+    "treasureSpent": 0
   },
   "biomeTags": [],
   "biomeId": null,
@@ -332,7 +327,7 @@
   "beastTypeIds": [
     "b7e57001-0000-4000-a000-00000000000b"
   ],
-  "updatedAt": "2026-08-24T17:54:11.241Z",
+  "updatedAt": "2026-08-14T02:38:49.252Z",
   "challenge": 19,
   "templateId": "d6c4191f-9236-4cb9-a410-ec1dd1f14186"
 }
