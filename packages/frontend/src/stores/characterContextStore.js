@@ -30,6 +30,10 @@ export const useCharacterContextStore = defineStore('characterContext', () => {
         initiativeResults: group.initiativeResults ?? null,
       }
     }
+    // Skip the assignment entirely when both the incoming and current state are
+    // empty — assigning a new [] / {} would fire the pinnedGroups watcher and
+    // trigger the save timer even though nothing meaningful changed.
+    if (ids.length === 0 && pinnedGroupIds.value.length === 0) return
     pinnedGroupIds.value = ids
     pinnedGroupsById.value = byId
   }

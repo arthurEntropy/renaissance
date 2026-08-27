@@ -324,13 +324,14 @@
 
 <script setup>
 import { computed, ref, watch, nextTick, onMounted, onUnmounted } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
+import { useRoute } from 'vue-router'
 import { ChevronDownIcon, ChevronUpIcon, ChevronLeftIcon, ChevronRightIcon, PlusIcon } from '@heroicons/vue/24/outline'
 import { useCharacterContextStore } from '@/stores/characterContextStore'
 import { useCharactersStore } from '@/stores/charactersStore'
 import { useCampaignStore } from '@/stores/campaignStore'
 import { useConceptsStore } from '@/stores/conceptsStore'
 import { useAuthStore } from '@/stores/authStore'
+import { CAMPAIGN_ROLE } from '@shared/constants/campaignConstants'
 import TokenGroupEditModal from '@/components/features/characterSelection/TokenGroupEditModal.vue'
 import CharacterToken from '@/components/features/characterSelection/CharacterToken.vue'
 import BeastToken from '@/components/features/characterSelection/BeastToken.vue'
@@ -362,14 +363,15 @@ const rollsStore = useRollsStore()
 const abilitiesStore = useAbilitiesStore()
 const authStore = useAuthStore()
 const route = useRoute()
-const router = useRouter()
 
-// Eagerly updated via router.beforeEach so the UI switches the moment navigation
-// starts, rather than waiting for the new route component to mount/unmount.
-const isOnTabletopPage = ref(route.path.includes('/tabletop/'))
-const _unregisterGuard = router.beforeEach((to) => {
-    isOnTabletopPage.value = to.path.includes('/tabletop/')
-})
+// Derived directly from the current route so it stays correct on a hard page
+// refresh. This component mounts as soon as auth resolves (App.vue v-if), which
+// can happen while the initial navigation is still pending — at that point
+// route.path is the router's start location ('/'), not the tabletop URL. A ref
+// initialized once from route.path (or a router.beforeEach guard registered in
+// setup, which runs too late to observe the initial navigation) would get stuck
+// at false, hiding all GM-only rail UI (initiative controls/badges, Add Group).
+const isOnTabletopPage = computed(() => route.path.includes('/tabletop/'))
 const { setDraggingCharacter, clearDraggingCharacter, setDraggingGroup, clearDraggingGroup, setDraggingCulture, clearDraggingCulture } = useTabletopDragState()
 const { selectedCharacterIds } = useTabletopSelectionState()
 const { placedCharacterIds, hiddenCharacterIds, setCharactersVisibility, removeTokensByCharacterIds, isWorldMapActive, placedCultureIds, cultureTokensLocked: sharedCultureTokensLocked, toggleCultureLock } = useTabletopSharedCanvas()
@@ -549,7 +551,10 @@ const resolvedPinnedGroups = computed(() => {
                 members,
             }
         })
-        .filter((group) => group.members.length > 0)
+        // Keep groups that have member IDs even if the characters aren't resolved yet.
+        // Filtering by resolved members.length would hide groups while campaign characters
+        // are still loading (e.g. beast instances in campaignStore.campaignCharacters).
+        .filter((group) => (group.memberIds || []).length > 0)
 })
 const hasFocusedTokens = computed(() => !!visibleFocusedCharacter.value)
 // Only apply the active-view border when the open sheet belongs to the token shown
@@ -570,9 +575,21 @@ const isViewingFamiliarSheet = computed(() =>
 )
 
 // Hide focused/summoned/familiar sections when the GM is viewing the tabletop.
-const isGMOnTabletop = computed(() =>
-    campaignStore.isGMInActiveCampaign && isOnTabletopPage.value
-)
+const isGMOnTabletop = computed(() => {
+    if (!isOnTabletopPage.value) return false
+    // Admin users always have GM-level controls on any tabletop.
+    if (authStore.isAdmin) return true
+    // Primary path: activeCampaignId-based check (ensured by VirtualTabletopPage's
+    // userProfile sync watcher, so this resolves as soon as the profile loads).
+    if (campaignStore.isGMInActiveCampaign) return true
+    // Fallback: check the campaign for the current route directly, without depending
+    // on activeCampaignId being set (e.g. on first load before enterCampaign runs).
+    const slug = route.params.slug
+    if (!slug) return false
+    const campaign = campaignStore.getBySlug(slug)
+    const membership = campaign?.members?.find(m => m.userId === authStore.user?.uid)
+    return membership?.role === CAMPAIGN_ROLE.GM
+})
 
 // Show treasure & XP on focused token hover on any page (for non-beast characters).
 // Suppressed entirely while any character sheet is open.
@@ -901,7 +918,6 @@ onUnmounted(() => {
     window.removeEventListener('keydown', _onKeydown)
     window.removeEventListener('keyup', _onKeyup)
     window.removeEventListener('blur', _onBlur)
-    _unregisterGuard()
 })
 
 // ─── World map visibility helpers ────────────────────────────────────────────

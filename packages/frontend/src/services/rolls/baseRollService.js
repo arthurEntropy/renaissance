@@ -28,8 +28,8 @@ class BaseRollService {
     return diceResults
   }
 
-  static calculateTotal(diceResults, twiceWeary = false) {
-    return DiceProcessor.calculateTotal(diceResults, twiceWeary)
+  static calculateTotal(diceResults, twiceWeary = false, applyFateDieRules = true) {
+    return DiceProcessor.calculateTotal(diceResults, twiceWeary, applyFateDieRules)
   }
 
   static createMaxValueDiceResult(diceArray, rollType) {

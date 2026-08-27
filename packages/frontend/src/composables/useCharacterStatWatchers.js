@@ -63,6 +63,9 @@ export function useCharacterStatWatchers(selectedCharacter, allEquipment, { onSa
 
   watch(selectedCharacter, (newCharacter) => {
     if (!newCharacter) return
+    // Skip when the change originated from a socket broadcast — saving would create
+    // an echo loop where every client re-saves what they just received.
+    if (charactersStore.isSocketUpdatePending(newCharacter.id)) return
     pendingChar = newCharacter
 
     // Notify immediately (short debounce batches derived state mutations)

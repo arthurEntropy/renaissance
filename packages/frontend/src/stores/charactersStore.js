@@ -151,8 +151,16 @@ export const useCharactersStore = defineStore('characters', () => {
    *
    * @param {Object} character - The full updated character object received from socket
    */
+  // IDs of characters currently being merged from a socket update.
+  // Cleared after a macrotask so that Vue's post-flush watchers can read the flag
+  // and skip echo-saving the just-received data.
+  const _socketUpdateSet = new Set()
+
+  const isSocketUpdatePending = (characterId) => _socketUpdateSet.has(characterId)
+
   const updateFromSocket = (character) => {
     if (!character?.id) return
+    _socketUpdateSet.add(character.id)
     const idx = base.allItems.value.findIndex((c) => c.id === character.id)
     if (idx !== -1) {
       if (selectedCharacter.value?.id === character.id) {
@@ -164,6 +172,9 @@ export const useCharactersStore = defineStore('characters', () => {
         base.allItems.value.splice(idx, 1, character)
       }
     }
+    // Clear the flag after all microtask-scheduled Vue watchers have had a chance
+    // to fire (setTimeout is a macrotask, guaranteed to run after Vue's flush).
+    setTimeout(() => _socketUpdateSet.delete(character.id), 0)
   }
 
   return {
@@ -187,5 +198,6 @@ export const useCharactersStore = defineStore('characters', () => {
     hasSelectedCharacter,
     canEditSelectedCharacter,
     updateFromSocket,
+    isSocketUpdatePending,
   }
 })

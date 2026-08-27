@@ -8,8 +8,8 @@ class CustomRollService extends BaseRollService {
     // Roll the dice
     let diceResults = this.rollDicePool(dicePool)
     
-    // Calculate dice total
-    const diceTotal = this.calculateTotal(diceResults)
+    // Calculate dice total — custom rolls are free-form, so fate die rules (Morte = 0) do not apply
+    const diceTotal = this.calculateTotal(diceResults, false, false)
     
     // Apply modifier
     const finalTotal = diceTotal + modifier
