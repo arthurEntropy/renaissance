@@ -1,6 +1,6 @@
 <template>
     <!-- Anchor: positioned at the horizontal centre of the token, at its top edge -->
-    <div class="bubble-anchor" :style="anchorStyle" @mousedown.stop>
+    <div class="bubble-anchor" :class="{ 'bubble-anchor--fading': isFading }" :style="anchorStyle" @mousedown.stop>
         <div class="roll-bubble" :class="{ 'roll-bubble--expanded': expanded }" @click.stop="$emit('toggle-expand')">
 
             <!-- Compact state: total + emoji pill -->
@@ -51,7 +51,7 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue'
+import { computed, ref, onMounted, onUnmounted, watch } from 'vue'
 import { RollTypes } from '@/constants/rollTypes'
 import { EngagementResultTypes } from '@/constants/engagementResultTypes'
 import { SPECIAL_ROLLS, EMOJI } from '@shared/constants/dice'
@@ -72,7 +72,36 @@ const props = defineProps({
     tokenPx: { type: Number, required: true },
 })
 
-defineEmits(['toggle-expand', 'dismiss'])
+// ── Auto-dismiss ──────────────────────────────────────────────────────────────
+// The bubble fades out after AUTO_DISMISS_MS and then emits 'dismiss'.
+// The timer restarts whenever the entry changes (new roll for the same token).
+const AUTO_DISMISS_MS = 10000
+const FADE_DURATION_MS = 500 // matches --duration-medium
+
+const emit = defineEmits(['toggle-expand', 'dismiss'])
+
+const isFading = ref(false)
+let _fadeTimer = null
+let _dismissTimer = null
+
+function _clearTimers() {
+    if (_fadeTimer !== null) { clearTimeout(_fadeTimer); _fadeTimer = null }
+    if (_dismissTimer !== null) { clearTimeout(_dismissTimer); _dismissTimer = null }
+}
+
+function _startDismissTimer() {
+    _clearTimers()
+    isFading.value = false
+    _fadeTimer = setTimeout(() => {
+        isFading.value = true
+        _dismissTimer = setTimeout(() => emit('dismiss'), FADE_DURATION_MS)
+    }, AUTO_DISMISS_MS - FADE_DURATION_MS)
+}
+
+onMounted(_startDismissTimer)
+onUnmounted(_clearTimers)
+
+watch(() => props.entry, _startDismissTimer)
 
 // ── Positioning ──────────────────────────────────────────────────────────────
 // The anchor sits at the horizontal centre of the token, aligned with its top edge.
@@ -192,6 +221,12 @@ function openSuccessPopup() {
 <style scoped>
 /* ── Anchor (canvas-space container) ─────────────────────────────────────────── */
 .bubble-anchor {
+    pointer-events: none;
+    transition: var(--transition-opacity);
+}
+
+.bubble-anchor--fading {
+    opacity: 0;
     pointer-events: none;
 }
 

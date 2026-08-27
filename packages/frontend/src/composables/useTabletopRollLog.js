@@ -96,7 +96,9 @@ export function useTabletopRollLog({ canvasItems, rollLog, saveStateFn, tabletop
   const activeBubbles = ref({})
 
   // Roll IDs we have already processed, to avoid reprocessing on re-renders.
-  const _processedRollIds = new Set()
+  // Pre-populated with all rolls that exist at init time so that stale entries
+  // from previous tabletop sessions (or other tabletops) are never shown.
+  const _processedRollIds = new Set(Object.keys(rollsStore.rollsById))
 
   // ── Bubble helpers ──────────────────────────────────────────────────────────
 

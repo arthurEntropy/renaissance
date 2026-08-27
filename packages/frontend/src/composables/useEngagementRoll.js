@@ -127,6 +127,18 @@ function createSharedState() {
     { immediate: true }
   )
 
+  // Reload diceStatuses when the character's persisted statuses change externally
+  // (e.g. via a socket update from another client). This keeps the local reactive
+  // diceStatuses object in sync with what other users have set.
+  watch(
+    () => character.value?.engagementDiceStatuses,
+    () => {
+      loadDiceStatusesFromCharacter()
+      pruneStaleDiceStatuses()
+    },
+    { deep: true }
+  )
+
   watch(
     () => {
       const validKeys = Array.from(getValidStatusKeys()).sort()

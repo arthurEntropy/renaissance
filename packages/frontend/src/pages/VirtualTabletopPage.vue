@@ -145,6 +145,7 @@ import { useRoute, useRouter } from 'vue-router'
 import { useCampaignStore } from '@/stores/campaignStore'
 import { useAuthStore } from '@/stores/authStore'
 import { useCharactersStore } from '@/stores/charactersStore'
+import { useUserStore } from '@/stores/userStore'
 import { useTabletopCanvas } from '@/composables/useTabletopCanvas'
 import TabletopToken from '@/components/features/tabletop/TabletopToken.vue'
 import TabletopToolbar from '@/components/features/tabletop/TabletopToolbar.vue'
@@ -177,6 +178,7 @@ const router = useRouter()
 const campaignStore = useCampaignStore()
 const authStore = useAuthStore()
 const charactersStore = useCharactersStore()
+const userStore = useUserStore()
 const characterContextStore = useCharacterContextStore()
 
 const campaignSlug = computed(() => route.params.slug)
@@ -288,13 +290,34 @@ function handleExternalState(snapshot) {
     const hasCombatGroupData = Array.isArray(snapshot.combatGroups) || snapshot.isInitiativeActive != null
     if (hasCombatGroupData) {
         _applyingExternalCombatGroups = true
-        nextTick(() => { _applyingExternalCombatGroups = false })
     }
     if (Array.isArray(snapshot.combatGroups)) {
+        // Re-fetch campaign characters if any combatant IDs can't be resolved locally.
+        // Covers the case where characters (e.g. beast instances) were created in
+        // another browser session after this browser's initial campaignCharacters load.
+        if (campaignId.value) {
+            const allIds = snapshot.combatGroups.flatMap(g =>
+                (g.combatants || []).map(c => c.characterId).filter(Boolean)
+            )
+            const hasUnknown = allIds.some(id =>
+                !charactersStore.getById(id) &&
+                !campaignStore.campaignCharacters.find(c => c.id === id)
+            )
+            if (hasUnknown) {
+                campaignStore.fetchCampaignCharacters(campaignId.value)
+            }
+        }
         characterContextStore.setGroupsFromTabletop(snapshot.combatGroups)
     }
     if (snapshot.isInitiativeActive != null) {
         characterContextStore.setIsInitiativeActive(snapshot.isInitiativeActive)
+    }
+    if (hasCombatGroupData) {
+        // nextTick must be called AFTER the reactive changes above so that Vue's
+        // flush promise (currentFlushPromise) is already scheduled when we chain
+        // onto it. If called before, resolvedPromise.then() fires the reset
+        // microtask ahead of the flush, clearing the flag before the watcher runs.
+        nextTick(() => { _applyingExternalCombatGroups = false })
     }
 }
 
@@ -606,6 +629,24 @@ function handleSwitchTabletop(targetTabletopId) {
     router.push(`/campaigns/${campaignSlug.value}/tabletop/${targetTabletopId}`)
 }
 
+// ─── Ensure activeCampaignId stays in sync on this page ─────────────────────
+// isGMInActiveCampaign (and therefore isGMOnTabletop in PinnedTokensContainer)
+// depends on userProfile.activeCampaignId matching the current campaign. On a
+// hard refresh without a lobby visit, activeCampaignId may be null/stale, and
+// a concurrent App.vue profile fetch can race against enterCampaign's REST call
+// and overwrite the local fix. This watcher corrects it immediately whenever
+// both campaignId and userProfile are available, without a REST roundtrip.
+watch(
+    [campaignId, () => userStore.userProfile],
+    ([id, profile]) => {
+        if (!id || !profile) return
+        if (profile.activeCampaignId !== id) {
+            userStore.userProfile = { ...profile, activeCampaignId: id }
+        }
+    },
+    { immediate: true }
+)
+
 // Load state when campaign data becomes available.
 // A watch (rather than onMounted) is required because child onMounted hooks run
 // before the parent App.vue onMounted, which is where auth + campaigns are fetched.
@@ -616,6 +657,15 @@ watch(campaignId, async (id) => {
 
     const fetches = []
 
+    // Ensure this campaign is the active campaign so that GM-specific UI (e.g.
+    // initiative badges in PinnedTokensContainer, which checks isGMInActiveCampaign)
+    // resolves correctly on a hard refresh directly to the tabletop URL without
+    // first navigating through the lobby page, which is where enterCampaign is
+    // normally called.
+    if (campaignStore.activeCampaign?.id !== id) {
+        fetches.push(campaignStore.enterCampaign(id))
+    }
+
     // Fetch tabletops for this campaign if the current tabletop is not yet in the store.
     const tid = tabletopId.value
     if (tid && !campaignStore.tabletops.some((t) => t.id === tid)) {
@@ -624,9 +674,10 @@ watch(campaignId, async (id) => {
 
     // Ensure campaign characters (NPCs & beast instances) are loaded so that
     // PinnedTokensContainer can resolve group members on a hard page refresh.
-    if (!campaignStore.campaignCharacters.length) {
-        fetches.push(campaignStore.fetchCampaignCharacters(id))
-    }
+    // Always re-fetch rather than checking length: the array may hold characters
+    // from a different campaign (e.g. after navigating between campaigns), leaving
+    // beast-instance members in PinnedTokensContainer unresolvable.
+    fetches.push(campaignStore.fetchCampaignCharacters(id))
 
     // Ensure player characters are loaded for the same reason.
     if (!charactersStore.characters.length) {
@@ -683,7 +734,11 @@ watch(
         const tid = tabletopId.value
         if (!tid) return null
         const tabletop = campaignStore.tabletops.find((t) => t.id === tid)
-        if (!Array.isArray(tabletop?.combatGroups)) return null
+        // Only trigger when the server has actual groups to populate from.
+        // Returning null for an empty server list prevents a loop where the timer
+        // writes [] optimistically, the new array reference triggers this watcher,
+        // setGroupsFromTabletop fires, and the pinnedGroups watcher sets another timer.
+        if (!Array.isArray(tabletop?.combatGroups) || tabletop.combatGroups.length === 0) return null
         return tabletop.combatGroups
     },
     (combatGroups) => {
@@ -719,15 +774,19 @@ function reconstructCombatGroups(pinnedGroups) {
 
 watch(
     [() => characterContextStore.pinnedGroups, () => characterContextStore.isInitiativeActive],
-    ([groups, initiativeActive]) => {
+    () => {
         if (!isGM.value || !campaignId.value || !tabletopId.value) return
         // Skip save when the change originated from an incoming socket update to
         // prevent an echo loop: socket → setGroupsFromTabletop → watch → save → broadcast → socket…
         if (_applyingExternalCombatGroups) return
         if (_combatGroupsSaveTimer) clearTimeout(_combatGroupsSaveTimer)
         _combatGroupsSaveTimer = setTimeout(() => {
-            const combatGroups = reconstructCombatGroups(groups)
-            const payload = { combatGroups, isInitiativeActive: initiativeActive }
+            // Read live store state at fire time rather than values captured when the
+            // timer was set. This prevents stale-data broadcasts when a socket update
+            // (e.g. initiative results from the other browser) arrives between the
+            // moment this timer was scheduled and the moment it fires.
+            const combatGroups = reconstructCombatGroups(characterContextStore.pinnedGroups)
+            const payload = { combatGroups, isInitiativeActive: characterContextStore.isInitiativeActive }
             campaignStore.updateTabletop(campaignId.value, tabletopId.value, payload)
                 .then(() => broadcastStateUpdate(payload))
                 .catch(err => console.error('[VTT] Failed to persist combat groups:', err))

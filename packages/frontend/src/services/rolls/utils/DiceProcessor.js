@@ -57,15 +57,15 @@ class DiceProcessor {
     return diceResults
   }
 
-  static calculateTotal(diceResults, twiceWearyFilter = false) {
+  static calculateTotal(diceResults, twiceWearyFilter = false, applyFateDieRules = true) {
     return diceResults.reduce((sum, result) => {
       // Always exclude dropped dice
       if (result.isDropped) {
         return sum
       }
       
-      // Always exclude Morte on d12s
-      if (result.die.dieSize === DIE_TYPE.D12 && result.dieRollValue === SPECIAL_ROLLS.MORTE) {
+      // Exclude Morte on d12s only for feat-die roll types (skill checks, initiative, etc.)
+      if (applyFateDieRules && result.die.dieSize === DIE_TYPE.D12 && result.dieRollValue === SPECIAL_ROLLS.MORTE) {
         return sum
       }
       

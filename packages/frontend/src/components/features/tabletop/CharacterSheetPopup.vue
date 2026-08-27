@@ -76,6 +76,8 @@ import { useConceptsStore } from '@/stores/conceptsStore'
 import { useEquipmentStore } from '@/stores/equipmentStore'
 import { useAbilitiesStore } from '@/stores/abilitiesStore'
 import { useActionCostsStore } from '@/stores/actionCostsStore'
+import { useAbilitySchoolsStore } from '@/stores/abilitySchoolsStore'
+import { useEquipmentRangesStore } from '@/stores/equipmentRangesStore'
 import { useCharacterStatWatchers } from '@/composables/useCharacterStatWatchers'
 import { CORE_ABILITIES } from '@shared/constants/characterConstants'
 import { BIOME_MESTIERI } from '@shared/constants/biomeTags'
@@ -116,6 +118,8 @@ const conceptsStore = useConceptsStore()
 const equipmentStore = useEquipmentStore()
 const abilitiesStore = useAbilitiesStore()
 const actionCostsStore = useActionCostsStore()
+const abilitySchoolsStore = useAbilitySchoolsStore()
+const equipmentRangesStore = useEquipmentRangesStore()
 
 // Save / restore selectedCharacter around the popup's lifetime
 let prevSelectedCharacter = null
@@ -131,6 +135,8 @@ onMounted(() => {
     equipmentStore.fetch()
     conceptsStore.fetch()
     actionCostsStore.fetch()
+    abilitySchoolsStore.fetch()
+    equipmentRangesStore.fetch()
 })
 onUnmounted(() => {
     if (prevSelectedCharacter) {

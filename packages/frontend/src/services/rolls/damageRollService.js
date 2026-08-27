@@ -52,7 +52,8 @@ class DamageRollService extends BaseRollService {
       dropped.isDropped = true
     }
 
-    const diceTotal = this.calculateTotal(diceResults)
+    // Damage rolls are not feat-die rolls, so fate die rules (Morte = 0) do not apply
+    const diceTotal = this.calculateTotal(diceResults, false, false)
     const finalTotal = diceTotal + modifier
 
     const formattedDiceResults = this.formatDiceForDisplay(diceResults, RollTypes.DAMAGE)
