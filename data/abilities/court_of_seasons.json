@@ -1,0 +1,23 @@
+{
+  "id": "75bd13b2-7183-4967-a8b6-4e1386ff19df",
+  "isDeleted": false,
+  "createdAt": "2026-09-02T15:19:06.293Z",
+  "lastModified": "2026-09-02T16:55:28.193Z",
+  "name": "Court of Seasons",
+  "artUrl": "https://cdn.midjourney.com/fc50a943-30a9-4a40-93df-7c7e45e84ecb/0_3.png",
+  "description": "<p><em>You belong to one of the four Houses of the Seasons of Tir Tylwyth.</em></p><p>When you gain this ability, choose one season, permanently: Winter, Spring, Summer, Autumn. You gain these benefits:</p><ul><li><p>Once per rest during your chosen season, +1d to a skill check of your choice.</p></li><li><p>On the solstice or equinox of your chosen season, +1d to all your skill checks.</p></li></ul><p>If the season in your current location differs from the season at Tir Tylwyth, use the latter to determine these benefits.</p><p><strong>Describe your alignment with your chosen season.</strong></p>",
+  "successes": null,
+  "improvements": [],
+  "source": "83d190cb-0e05-4392-a5b1-f8a8017f505b",
+  "school": null,
+  "isMagical": false,
+  "isBeastAbility": false,
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": null,
+  "manaCost": null,
+  "biomeTagsAugment": [],
+  "biomeTagsInhibit": [],
+  "canBeActive": false,
+  "hasDifficulty": false
+}

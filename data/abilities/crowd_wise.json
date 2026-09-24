@@ -1,0 +1,23 @@
+{
+  "id": "95cfd5af-e7a9-4a68-958d-bfa0e07787a0",
+  "isDeleted": false,
+  "createdAt": "2026-09-16T14:47:49.311Z",
+  "lastModified": "2026-09-16T15:03:36.712Z",
+  "name": "Crowd-wise",
+  "artUrl": "https://cdn.midjourney.com/85062581-2295-4cc8-a5ee-5156fd2ed03f/0_0.png",
+  "description": "<p><em>Your time spent amid the chaos of Sila City has made you comfortable in a crowd.</em></p><p>All your skill checks are favored outside of combat while in crowded urban areas, and in combat when at least eight creatures are within short range of you.</p><p><strong>Describe how you navigate the crowd.</strong></p>",
+  "successes": null,
+  "improvements": [],
+  "source": "7016610e-ddf9-415b-8711-3b1c5fff241c",
+  "school": null,
+  "isMagical": false,
+  "isBeastAbility": false,
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": null,
+  "manaCost": null,
+  "biomeTagsAugment": [],
+  "biomeTagsInhibit": [],
+  "canBeActive": false,
+  "hasDifficulty": false
+}

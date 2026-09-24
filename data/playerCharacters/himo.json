@@ -2,7 +2,7 @@
   "id": "54f77e58-eca4-4e28-ac76-6d55493470cc",
   "isDeleted": false,
   "createdAt": "2026-08-17T14:48:57.453Z",
-  "lastModified": "2026-08-26T14:48:22.364Z",
+  "lastModified": "2026-08-27T14:46:55.948Z",
   "characterType": "playerCharacter",
   "name": "Himo",
   "featuredArtUrls": [
@@ -139,7 +139,7 @@
     }
   ],
   "endurance": {
-    "current": 10,
+    "current": 1,
     "base": 10
   },
   "hope": {
@@ -170,10 +170,7 @@
   },
   "engagementDice": [],
   "engagementSuccesses": [],
-  "engagementDiceStatuses": {
-    "mestiere_0": "expended",
-    "mestiere_1": "expended"
-  },
+  "engagementDiceStatuses": {},
   "equipment": [
     {
       "id": "3d63f295-8941-4ffe-8f4c-d4de52da87a4",
@@ -213,7 +210,7 @@
   "equipmentSortOption": "",
   "equipmentCustomGroups": [],
   "mp": {
-    "current": 5,
+    "current": 4,
     "base": 5
   },
   "abilities": [
@@ -312,24 +309,24 @@
   },
   "rollStats": {
     "skillChecks": {
-      "attempts": 22,
-      "successes": 22,
-      "totalSum": 282,
+      "attempts": 27,
+      "successes": 27,
+      "totalSum": 357,
       "bestTotal": 27,
       "hardestSuccess": null,
       "bySkill": {
-        "Dexterity": 18,
+        "Dexterity": 23,
         "Craft": 2,
         "Stealth": 2
       },
       "solCount": 1,
       "morteCount": 1,
-      "successCount": 11
+      "successCount": 13
     },
     "contests": {
       "engagement": {
-        "wins": 0,
-        "losses": 2,
+        "wins": 1,
+        "losses": 4,
         "draws": 1
       },
       "contest": {
@@ -338,9 +335,9 @@
         "draws": 0
       }
     },
-    "xpEarned": 38,
+    "xpEarned": 54,
     "xpSpent": 0,
-    "treasureEarned": 13,
+    "treasureEarned": 77,
     "treasureSpent": 208
   },
   "biomeTags": [
@@ -404,5 +401,5 @@
   "treasure": 4,
   "xp": 1,
   "description": "",
-  "updatedAt": "2026-08-26T14:48:22.364Z"
+  "updatedAt": "2026-08-27T14:46:55.948Z"
 }

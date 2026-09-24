@@ -1,0 +1,14 @@
+{
+  "id": "a26dd645-a2bf-4836-b5fc-d46b80f73402",
+  "isDeleted": false,
+  "lastModified": "2026-09-11T18:23:04.412Z",
+  "name": "Iliyanite",
+  "artUrl": "https://cdn.midjourney.com/feb9a855-1974-4fee-bab3-4d58ede27176/0_1.jpeg",
+  "description": "<p><em>You were born into the Iliyanite sect.</em></p><p>You cannot speak.</p><p>Once per rest for each rank you have in Spirit, you may spend an action to magically reshape a metal weapon or piece of armor within medium range. Choose one effect:</p><ul><li><p>The item grants +1 Defense.</p></li><li><p>One of the item's damage dice increases or decreases by 1 die type.</p></li><li><p>One of the item's engagement dice increases or decreases by 1 die type.</p></li></ul><p>The effect is magical and lasts for one hour, after which the item returns to its original form.</p><p><strong>Describe how you shape metal.</strong></p><p></p>",
+  "source": "68fadf5d-6661-4611-bb38-deaf05f01d45",
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": null,
+  "canBeActive": false,
+  "hasDifficulty": false
+}

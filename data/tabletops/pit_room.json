@@ -1,0 +1,23 @@
+{
+  "id": "759db615-42d3-4fc4-be06-003111f2b20e",
+  "isDeleted": false,
+  "createdAt": "2026-09-18T17:35:31.068Z",
+  "lastModified": "2026-09-18T17:35:35.990Z",
+  "campaignId": "84b00fc0-eae8-4808-9151-949bf59928ff",
+  "name": "Pit Room",
+  "backgroundImage": null,
+  "items": [],
+  "transform": {
+    "x": 0,
+    "y": 0,
+    "scale": 1
+  },
+  "gridSize": 40,
+  "gridColor": "#ffffff",
+  "gridOpacity": 0.06,
+  "mapScale": 1,
+  "showPaths": true,
+  "radiusAreas": [],
+  "rollLog": [],
+  "combatGroups": []
+}

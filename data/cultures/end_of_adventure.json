@@ -2,22 +2,49 @@
   "id": "5c67bedd-8e73-4add-b46b-9b911bf0fd59",
   "conceptType": "CULTURE",
   "name": "End Of Adventure",
-  "description": "<p>It is not easy to get to End of Adventure. The deadly outer currents, a sheer range of mountain cliffs, an impassable swamp and the eruptive ruins of Eanna conspire to make this one of the least-accessible places in all of Iago - which is exactly why its residents came here. Its accidental founding by stranded balloonists a century ago is evidenced by the many dirigibles traveling between precariously-built structures. Here, feats of daring are cause for public celebration - often rowdy and excessive. But even as some new record is set, some limit cast down in triumph, there are some whose eyes come to rest on the southern horizon, which remains untested…</p>",
+  "description": "<p>It is not easy to get to End of Adventure. The deadly outer currents, a sheer range of mountain cliffs, an impassable swamp and the eruptive ruins of Eanna conspire to make this one of the least-accessible places in the world - which is exactly why its residents came here.</p><p>Its accidental founding by stranded balloonists a century ago is evidenced by the many dirigibles traveling between structures built precariously on the cliffs above the harbor. Here, feats of daring are cause for public celebration - often rowdy and excessive. But even as some new record is set, some limit cast down in triumph, there are some whose eyes come to rest on the horizon, which remains untested…</p>",
   "isDeleted": false,
   "featuredArtUrls": [
     "https://cdn.midjourney.com/6600e48a-a9b5-4901-8630-f771a58abcba/0_3.png"
   ],
-  "backgroundImage": "",
-  "cardBackgroundImage": "",
+  "backgroundImage": "https://cdn.midjourney.com/ea5c1e83-f937-425d-9481-e1399327b32b/0_2.png",
+  "cardBackgroundImage": "https://cdn.midjourney.com/571c035a-d12b-4bae-9c95-a246ee9e8cb6/0_3.png",
   "expansion": "e46f4320-a414-4300-95d5-397ba717d982",
-  "playlists": [],
-  "hooks": [],
+  "playlists": [
+    "<iframe allow=\"autoplay *; encrypted-media *;\" frameborder=\"0\" height=\"450\" style=\"width:100%;max-width:660px;overflow:hidden;background:transparent;\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation\" src=\"https://embed.music.apple.com/us/playlist/end-of-adventure-calm/pl.u-qxylg4JtGkb7Kv?theme=dark\"></iframe>",
+    "<iframe allow=\"autoplay *; encrypted-media *;\" frameborder=\"0\" height=\"450\" style=\"width:100%;max-width:660px;overflow:hidden;background:transparent;\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation\" src=\"https://embed.music.apple.com/us/playlist/end-of-adventure-action/pl.u-4Jom5YDFmk9eWx?theme=dark\"></iframe>",
+    "<iframe allow=\"autoplay *; encrypted-media *;\" frameborder=\"0\" height=\"450\" style=\"width:100%;max-width:660px;overflow:hidden;background:transparent;\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation\" src=\"https://embed.music.apple.com/us/playlist/ruins-of-eanna/pl.u-55D6GE3fVRap4d?theme=dark\"></iframe>"
+  ],
+  "hooks": [
+    {
+      "id": null,
+      "name": "A Gust of Wind",
+      "description": "<p>The largest dirigible yet built, the Spirito no Seishin, was due to make it maiden flight this morning, but an unexpectedly strong gust of wind broke it free of its moorings, and now it's drifting toward the town, with passengers still aboard!</p>",
+      "gmNotes": "<p>This if course calls for a rooftop rescue attempt, but things should be further complicated when it becomes apparent that the unexpected gust of wind was created by a powerful air mage who is offended by End of Adventure's attempts to conquer the skies.</p>",
+      "index": 0
+    },
+    {
+      "id": null,
+      "name": "Gara Jitensha",
+      "description": "<p>The much-anticipated Gara Jitensha bicycle race runs from the highest point in End of Adventure to the end of the longest wharf in the harbor, winding among the city's streets on the way down. Rumor has it that a disgruntled banker has hired the Hara Gang to enter the race and deliberately crash into all the businesses along the course that are behind on their debts. The businesses are looking to sponsor a race team to tail the Haras and prevent destruction.</p>",
+      "gmNotes": "<p>This can be a straight-ahead, action-packed race adventure, with combat carried out while careening down narrow streets. The Hara Gang can wield simple weapons, bombs or just reinforced bicycles for ramming.</p><p>If you want to thicken the plot, it could come to light throughout the course of the race that destroying the various shops is a ruse to distract from the real job the banker has hired the gang for: assassinating his boss: the bank president!</p>",
+      "index": 1
+    },
+    {
+      "id": null,
+      "name": "The Ruins of Eanna",
+      "description": "<p>The ruins of Eanna - visible in the distance from the clocktower of End of Adventure - are overrun daily by new lava flows, but the tops of the ancient buildings still rise above the chaos. A local balloonist, Pazu, wants to test a newfangled dirigible, designed to make use of the heat rising from the lava flows in an effort to reach the ruins and find whatever treasure lies there.</p>",
+      "gmNotes": "<p>The dirigible works, but strikes the top of one of the ruins and is torn to shreds. Key components fall into the active lava flows and thus repairs are out of the question. Our Heroes and Pazu must navigate the ruins and shifting lava to make it back to the city.</p><p>The ruins themselves are an interconnected complex of surprisingly intact structures - traps, guardian constructs and all. While some areas have been inundated with lava, others are seemingly impervious to it - consider a long \"glass\" hallway that is submerged in glowing, flowing magma. An inner chamber should contain an artifact that is the source of this lava warding. The artifact should be defended by something powerful, and removing it should cause the complex to begin to collapse, lava rushing in on all sides. The person bearing the artifact can step on hot lava and cause it to cool, forming a makeshift pathway out of the ruins.</p><p>The precise nature and origin of the ruins and the people who made them are entirely up to you and should of course fit into your campaign world as you see fit.</p>",
+      "index": 2
+    }
+  ],
   "localFlavor": {
-    "names": "",
-    "occupations": "",
-    "publicHouses": "",
-    "vittles": "",
-    "pointsOfInterest": "",
-    "floraFauna": ""
-  }
+    "names": "Akivio, Maruko, Kenaro, Lucemi, Hirova, Masetto, Akenzo, Norika, Takio, Mireko, Renzoa, Kazella, Emivaro, Saburino, Harietta, Kairenzo, Yumina, Tomiro, Aleshiro, Fumello",
+    "occupations": "Balloonist, Daredevil, Mechanic, Machinist, Riveter, Ropewright, Cliff Diver, Swamp Guide, Salvager, Waiter, Pyrotechnician, Record Keeper, Expedition Leader, Photographer, Steward, Machinist, Festival Promoter",
+    "publicHouses": "Il Kaze, Bar Haru, Da Sora, Kiro's, Casa Nami, Vento Maru, Osteria Kumo, Mio Bar, Trattoria Hoshi, Sera House",
+    "vittles": "Cherry Tree, Black Pine, Bamboo, Camellia, Wisteria, Cypress, Olive, Lemon, Lotus, Reed, Macaque, Wild Boar, Mountain Deer, Golden Eagle, Black Kite, Gray Wolf, Serow, Great Egret, Rock Viper, Flying Squirrel",
+    "pointsOfInterest": "Ramen, Porchetta, Yakitori, Risotto Nero, Tonkatsu, Polenta with Mushrooms, Tempura, Arancini, Miso Eggplant, Osso Buco, Udon, Focaccia, Gyoza, Panzanella, Curry Rice, Marinated Olives, Omurice, Pasta al Pesto, Yakisoba, Lemon Granita",
+    "floraFauna": "The Dirigible Docks, The Mooring Tower, Record Square, Ruins of Eanna, The Daredevil's Stair, The Cliffside Aerodrome, The Hundred-Rope Bridge, The Hall of Records, The Last Watchtower, Piazza dell'Avventura"
+  },
+  "lastModified": "2026-09-17T20:04:49.708Z"
 }

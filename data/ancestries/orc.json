@@ -2,7 +2,7 @@
   "id": "eed942f5-8cc4-446a-8806-b83186098274",
   "conceptType": "ANCESTRY",
   "name": "Orc",
-  "description": "<p>Orcs are large, broad, and built for endurance — their skin ranging from gray to green, some bearing tusks, others not. Old stories cast them as creatures of destruction and ruin, but an Orc will tell you that those stories were not told by them. What persists in the Orcish body is simply strength, and an appetite for using it.</p>",
+  "description": "<p>Orcs are large, broad, and built for endurance — their skin ranging from gray to green, some bearing tusks, others not. Old stories cast them as creatures of destruction and ruin, but an Orc will tell you that those stories were not told by them. What is undisputed is that Orcs almost universally exhibit exceptional strength.</p>",
   "isDeleted": false,
   "featuredArtUrls": [
     "https://cdn.midjourney.com/8d595be7-bd0e-44c1-ba84-8a49dc8b357a/0_2.png"
@@ -10,7 +10,7 @@
   "backgroundImage": "",
   "cardBackgroundImage": "https://cdn.midjourney.com/7128c765-227e-4450-9c40-2f1dc055b8f6/0_3.png",
   "expansion": "",
-  "lastModified": "2026-07-02T14:41:59.718Z",
+  "lastModified": "2026-08-28T18:34:45.167Z",
   "physiology": {
     "heightMin": 4,
     "heightMax": 6,

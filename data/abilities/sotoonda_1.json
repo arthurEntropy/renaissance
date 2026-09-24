@@ -1,0 +1,23 @@
+{
+  "id": "0aa1ff1f-35a4-4100-ae51-b46e11654200",
+  "isDeleted": false,
+  "createdAt": "2026-09-23T18:53:58.274Z",
+  "lastModified": "2026-09-23T18:54:05.836Z",
+  "name": "Sotoonda 1",
+  "artUrl": null,
+  "description": "",
+  "successes": null,
+  "improvements": [],
+  "source": "55c314d3-11ec-4d2d-921d-241b4132f737",
+  "school": null,
+  "isMagical": false,
+  "isBeastAbility": false,
+  "actionCost": null,
+  "mpCost": null,
+  "xpCost": null,
+  "manaCost": null,
+  "biomeTagsAugment": [],
+  "biomeTagsInhibit": [],
+  "canBeActive": false,
+  "hasDifficulty": false
+}

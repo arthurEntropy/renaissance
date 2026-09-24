@@ -2,7 +2,7 @@
   "id": "18953367-9a25-4dd1-8429-ff2820832d9b",
   "isDeleted": false,
   "createdAt": "2026-08-17T19:54:55.724Z",
-  "lastModified": "2026-08-26T14:50:45.151Z",
+  "lastModified": "2026-08-27T15:09:14.712Z",
   "campaignId": "84b00fc0-eae8-4808-9151-949bf59928ff",
   "name": "Crystal Caves",
   "backgroundImage": {
@@ -19,9 +19,9 @@
       "name": "Palfrey",
       "portraitUrl": "https://cdn.midjourney.com/5a6c9787-cedb-4eb6-8de1-17f837a10b99/0_1_2048_N.webp",
       "size": 1,
-      "x": 120,
-      "y": 1000,
-      "zIndex": 218
+      "x": 1720,
+      "y": 840,
+      "zIndex": 221
     },
     {
       "id": "d18e8d34-850c-4598-8904-56aa6cb56db6",
@@ -31,9 +31,9 @@
       "name": "Magnuss",
       "portraitUrl": "https://cdn.midjourney.com/9d007aef-e372-4e42-9581-a2703cfe7018/0_2_2048_N.webp",
       "size": 1,
-      "x": 200,
-      "y": 960,
-      "zIndex": 214,
+      "x": 1560,
+      "y": 720,
+      "zIndex": 225,
       "isHidden": false
     },
     {
@@ -44,9 +44,9 @@
       "name": "Himo",
       "portraitUrl": "https://cdn.midjourney.com/8ca5d116-21d5-4a5f-bb7c-7ceaf793a311/0_3_2048_N.webp",
       "size": 1,
-      "x": 200,
-      "y": 1000,
-      "zIndex": 215,
+      "x": 1560,
+      "y": 760,
+      "zIndex": 227,
       "isHidden": false
     },
     {
@@ -57,9 +57,9 @@
       "name": "Sukha",
       "portraitUrl": "https://cdn.midjourney.com/95c9a8b1-d0a7-4b44-9c87-91a500f4db7d/0_1_2048_N.webp",
       "size": 1,
-      "x": 160,
-      "y": 1000,
-      "zIndex": 216
+      "x": 1520,
+      "y": 760,
+      "zIndex": 226
     },
     {
       "id": "a5d3f38d-d627-4a9c-985b-ac410ca2629e",
@@ -73,12 +73,25 @@
       "y": 920,
       "zIndex": 219,
       "isHidden": false
+    },
+    {
+      "id": "9d5f1903-3a72-45c1-b6e8-7a3241b74a5e",
+      "characterId": "924fa30a-b15b-4f52-bf12-d06a4eeae3cc",
+      "isBeast": true,
+      "isNpc": false,
+      "name": "Banshee 🅐",
+      "portraitUrl": "https://cdn.midjourney.com/2c3a08ae-00ce-4adc-82a3-c4406135f442/0_0.png",
+      "size": 1,
+      "x": 1760,
+      "y": 880,
+      "zIndex": 233,
+      "isHidden": true
     }
   ],
   "transform": {
-    "scale": 1.08,
-    "x": 225.8048343362292,
-    "y": -332.5603634486614
+    "scale": 1.3604889599999999,
+    "x": -918.4215614220343,
+    "y": -561.5237867209851
   },
   "gridSize": 40,
   "gridColor": "#ffffff",
@@ -87,42 +100,6 @@
   "showPaths": true,
   "radiusAreas": [],
   "rollLog": [
-    {
-      "id": "da8bd375-e52c-4b5a-9cbf-d729eb2442cf_1787751286633_1cpq",
-      "timestamp": 1787751286633,
-      "characterId": "da8bd375-e52c-4b5a-9cbf-d729eb2442cf",
-      "characterName": "Palfrey",
-      "portraitUrl": "https://cdn.midjourney.com/5a6c9787-cedb-4eb6-8de1-17f837a10b99/0_1_2048_N.webp",
-      "isNpc": false,
-      "isBeast": false,
-      "type": "damage",
-      "skillName": "Estoc",
-      "total": 11,
-      "diceTotal": 8,
-      "modifier": 3,
-      "modifierLabel": "BODY",
-      "success": null,
-      "difficulty": null,
-      "footer": "+ BODY",
-      "favoredStatus": null,
-      "userWins": null,
-      "opponentWins": null,
-      "drawCount": null,
-      "result": null,
-      "opponentName": null,
-      "sourceName": "Estoc",
-      "diceResults": [
-        {
-          "dieSize": 10,
-          "dieRollValue": 8,
-          "emoji": null,
-          "isDropped": false,
-          "rolledMaxValue": false,
-          "cssClass": "df-d10-8"
-        }
-      ],
-      "wasTokenVisible": true
-    },
     {
       "id": "combined_da8bd375-e52c-4b5a-9cbf-d729eb2442cf_1787751373092_2ne0",
       "timestamp": 1787751373092,
@@ -4500,93 +4477,45 @@
         }
       ],
       "wasTokenVisible": true
+    },
+    {
+      "id": "924fa30a-b15b-4f52-bf12-d06a4eeae3cc_1787843319151_n31x",
+      "timestamp": 1787843319151,
+      "characterId": "924fa30a-b15b-4f52-bf12-d06a4eeae3cc",
+      "characterName": "Banshee 🅐",
+      "portraitUrl": "https://cdn.midjourney.com/2c3a08ae-00ce-4adc-82a3-c4406135f442/0_0.png",
+      "isNpc": false,
+      "isBeast": true,
+      "type": "initiative",
+      "skillName": "Initiative",
+      "total": 7,
+      "diceTotal": 3,
+      "modifier": 4,
+      "modifierLabel": "WITS",
+      "success": null,
+      "difficulty": null,
+      "footer": null,
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 3,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-3"
+        }
+      ],
+      "wasTokenVisible": true
     }
   ],
   "combatGroups": [
-    {
-      "id": "group-1787682718569-kh1qiw",
-      "name": "Skeletons",
-      "combatants": [
-        {
-          "id": "beast:075052bc-329f-460b-adc9-38dd8914a3b0",
-          "type": "beast",
-          "characterId": "075052bc-329f-460b-adc9-38dd8914a3b0"
-        },
-        {
-          "id": "beast:7aa748ca-6794-4cf4-bb77-84e8cdfb8e1e",
-          "type": "beast",
-          "characterId": "7aa748ca-6794-4cf4-bb77-84e8cdfb8e1e"
-        },
-        {
-          "id": "beast:28c42221-af10-4afb-8cd5-1d4417368cce",
-          "type": "beast",
-          "characterId": "28c42221-af10-4afb-8cd5-1d4417368cce"
-        },
-        {
-          "id": "beast:a6ba27ab-daf0-4a16-8a9f-56bc38c74ad8",
-          "type": "beast",
-          "characterId": "a6ba27ab-daf0-4a16-8a9f-56bc38c74ad8"
-        },
-        {
-          "id": "beast:b02c9dff-da41-4f1a-b4e1-e06a000f5bf2",
-          "type": "beast",
-          "characterId": "b02c9dff-da41-4f1a-b4e1-e06a000f5bf2"
-        }
-      ],
-      "initiativeResults": {
-        "groupTotal": 18,
-        "members": [
-          {
-            "characterId": "28c42221-af10-4afb-8cd5-1d4417368cce",
-            "name": "Skeleton 🅞",
-            "individualTotal": 12,
-            "diceRoll": 12,
-            "isSol": true,
-            "isMorte": false,
-            "isCaughtOffGuard": false,
-            "emoji": "🌞",
-            "role": "highest",
-            "success": true
-          },
-          {
-            "characterId": "075052bc-329f-460b-adc9-38dd8914a3b0",
-            "name": "Skeleton 🅨",
-            "individualTotal": 10,
-            "diceRoll": 10,
-            "isSol": false,
-            "isMorte": false,
-            "isCaughtOffGuard": false,
-            "emoji": null,
-            "role": "middle",
-            "success": true
-          },
-          {
-            "characterId": "7aa748ca-6794-4cf4-bb77-84e8cdfb8e1e",
-            "name": "Skeleton 🅔",
-            "individualTotal": 7,
-            "diceRoll": 7,
-            "isSol": false,
-            "isMorte": false,
-            "isCaughtOffGuard": false,
-            "emoji": null,
-            "role": "middle",
-            "success": true
-          },
-          {
-            "characterId": "a6ba27ab-daf0-4a16-8a9f-56bc38c74ad8",
-            "name": "Skeleton 🅠",
-            "individualTotal": 6,
-            "diceRoll": 6,
-            "isSol": false,
-            "isMorte": false,
-            "isCaughtOffGuard": false,
-            "emoji": null,
-            "role": "lowest",
-            "success": true
-          }
-        ]
-      }
-    },
     {
       "id": "group-1787682392412-ufqvwf",
       "name": "Team Vengeance",
@@ -4676,6 +4605,118 @@
           "characterId": "062f7b0a-e73a-48da-b233-7a85dbb343af"
         }
       ]
+    },
+    {
+      "id": "group-1787843296866-v9jy74",
+      "name": "Banshee",
+      "combatants": [
+        {
+          "id": "beast:924fa30a-b15b-4f52-bf12-d06a4eeae3cc",
+          "type": "beast",
+          "characterId": "924fa30a-b15b-4f52-bf12-d06a4eeae3cc"
+        }
+      ],
+      "initiativeResults": {
+        "groupTotal": 7,
+        "members": [
+          {
+            "characterId": "924fa30a-b15b-4f52-bf12-d06a4eeae3cc",
+            "name": "Banshee 🅐",
+            "individualTotal": 7,
+            "diceRoll": 3,
+            "isSol": false,
+            "isMorte": false,
+            "isCaughtOffGuard": false,
+            "emoji": null,
+            "role": "only",
+            "success": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "group-1787682718569-kh1qiw",
+      "name": "Skeletons",
+      "combatants": [
+        {
+          "id": "beast:075052bc-329f-460b-adc9-38dd8914a3b0",
+          "type": "beast",
+          "characterId": "075052bc-329f-460b-adc9-38dd8914a3b0"
+        },
+        {
+          "id": "beast:7aa748ca-6794-4cf4-bb77-84e8cdfb8e1e",
+          "type": "beast",
+          "characterId": "7aa748ca-6794-4cf4-bb77-84e8cdfb8e1e"
+        },
+        {
+          "id": "beast:28c42221-af10-4afb-8cd5-1d4417368cce",
+          "type": "beast",
+          "characterId": "28c42221-af10-4afb-8cd5-1d4417368cce"
+        },
+        {
+          "id": "beast:a6ba27ab-daf0-4a16-8a9f-56bc38c74ad8",
+          "type": "beast",
+          "characterId": "a6ba27ab-daf0-4a16-8a9f-56bc38c74ad8"
+        },
+        {
+          "id": "beast:b02c9dff-da41-4f1a-b4e1-e06a000f5bf2",
+          "type": "beast",
+          "characterId": "b02c9dff-da41-4f1a-b4e1-e06a000f5bf2"
+        }
+      ],
+      "initiativeResults": {
+        "groupTotal": 0,
+        "members": [
+          {
+            "characterId": "28c42221-af10-4afb-8cd5-1d4417368cce",
+            "name": "Skeleton 🅞",
+            "individualTotal": 12,
+            "diceRoll": 12,
+            "isSol": true,
+            "isMorte": false,
+            "isCaughtOffGuard": false,
+            "emoji": "🌞",
+            "role": "highest",
+            "success": true
+          },
+          {
+            "characterId": "075052bc-329f-460b-adc9-38dd8914a3b0",
+            "name": "Skeleton 🅨",
+            "individualTotal": 10,
+            "diceRoll": 10,
+            "isSol": false,
+            "isMorte": false,
+            "isCaughtOffGuard": false,
+            "emoji": null,
+            "role": "middle",
+            "success": true
+          },
+          {
+            "characterId": "7aa748ca-6794-4cf4-bb77-84e8cdfb8e1e",
+            "name": "Skeleton 🅔",
+            "individualTotal": 7,
+            "diceRoll": 7,
+            "isSol": false,
+            "isMorte": false,
+            "isCaughtOffGuard": false,
+            "emoji": null,
+            "role": "middle",
+            "success": true
+          },
+          {
+            "characterId": "a6ba27ab-daf0-4a16-8a9f-56bc38c74ad8",
+            "name": "Skeleton 🅠",
+            "individualTotal": 6,
+            "diceRoll": 6,
+            "isSol": false,
+            "isMorte": false,
+            "isCaughtOffGuard": false,
+            "emoji": null,
+            "role": "lowest",
+            "success": true
+          }
+        ]
+      }
     }
   ],
   "pixelsPerMile": 40,

@@ -1,0 +1,14 @@
+{
+  "id": "8f9c579e-1089-4532-a10a-3cf5115bb403",
+  "isDeleted": false,
+  "lastModified": "2026-09-01T23:51:37.853Z",
+  "name": "Champion",
+  "artUrl": "https://cdn.midjourney.com/0a5e40b3-f8d9-4627-a008-f11437c5104a/0_2.png",
+  "description": "<p><em>You have trained as a champion for the public bouts of Adiri's stages and arenas.</em></p><p>Any time you enter engagement with a foe and there are no other adjacent combatants, you may re-roll one of your engagement dice before resolving. If there are no other combatants within short range, you may re-roll each of your engagement dice before resolving.</p><p><strong>Describe how you fight best one-on-one.</strong></p>",
+  "source": "68fadf5d-6661-4611-bb38-deaf05f01d45",
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": 0,
+  "canBeActive": false,
+  "hasDifficulty": false
+}

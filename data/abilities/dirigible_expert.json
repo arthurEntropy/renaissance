@@ -1,12 +1,13 @@
 {
   "id": "58053504-5c3c-4a1d-ad1f-e880fbee1ef3",
   "isDeleted": false,
-  "lastModified": "2026-02-12T21:22:31.629Z",
+  "lastModified": "2026-09-16T15:21:31.995Z",
   "name": "Dirigible Expert",
-  "description": "<p>You know how to operate and repair lighter-than-air-craft. If you have access to the necessary materials, you can construct an air vessel. It takes one day per passenger capacity to build and costs you 1 Endurance per hour per passenger to keep aloft. Describe the work, the finished product and how you operate the craft.</p>",
+  "description": "<p><em>You know how to build, operate and repair lighter-than-air-craft.</em></p><p>Whenever you roll to operate or repair an air vessel, +2d.</p><p>Additionally, if you have access to the necessary materials, you can construct an air vessel. It takes one day per passenger capacity to build, costs you 1 Endurance per hour per passenger to keep aloft, and has a cruising speed of 5 miles per hour times the number of ranks you have in Craft.</p><p><strong>Describe the work, the finished product and how you operate the craft.</strong></p>",
   "source": "5c67bedd-8e73-4add-b46b-9b911bf0fd59",
   "mpCost": null,
   "xpCost": null,
   "canBeActive": false,
-  "hasDifficulty": false
+  "hasDifficulty": false,
+  "artUrl": "https://cdn.midjourney.com/972f99c0-bb5d-4815-8640-241ccd0bff51/0_2.png"
 }

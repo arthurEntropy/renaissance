@@ -1,10 +1,10 @@
 {
   "id": "c769d4e0-12bc-4198-94f7-c10953e32670",
   "createdAt": "2026-04-07T00:43:37.140Z",
-  "lastModified": "2026-04-10T12:29:33.993Z",
+  "lastModified": "2026-09-13T01:36:37.320Z",
   "name": "Addle",
   "artUrl": "https://cdn.midjourney.com/0b27ea87-c3b7-4657-8d11-2bfcdd381278/0_0.png",
-  "description": "<p>You project frightening sounds or words you choose into a creature's mind.</p><p>Roll Awe vs Spirit against a creature within medium range. On a win, the creature checks a Condition and immediately spends a reaction (if available) to move away from you, moving half its speed. On a loss, it just checks a Condition.</p><p><strong>Describe the sounds or words.</strong></p>",
+  "description": "<p>You project frightening sounds or words you choose into a creature's mind. Roll Awe vs Spirit against a creature within medium range. On a win, the creature checks a Condition and immediately spends a reaction (if available) to move away from you, moving half its speed. On a loss, it just checks a Condition.</p><p><strong>Describe the sounds or words.</strong></p>",
   "successes": "<p>✨: The creature checks an additional Condition.</p><p>🌞: The creature checks an additional Condition, rolls Injury, and it cannot uncheck the Conditions checked by this ability while it can see you.</p>",
   "source": "dab3e414-0118-49be-9779-4e3018cdba71",
   "school": "fcf1aa58-1d97-4950-82ba-8807f46de194",

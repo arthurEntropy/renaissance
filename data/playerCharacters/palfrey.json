@@ -2,7 +2,7 @@
   "id": "da8bd375-e52c-4b5a-9cbf-d729eb2442cf",
   "isDeleted": false,
   "createdAt": "2026-08-17T18:10:20.190Z",
-  "lastModified": "2026-08-26T14:45:29.493Z",
+  "lastModified": "2026-08-26T18:23:54.585Z",
   "characterType": "playerCharacter",
   "name": "Palfrey",
   "featuredArtUrls": [
@@ -175,8 +175,9 @@
   "engagementDice": [],
   "engagementSuccesses": [],
   "engagementDiceStatuses": {
-    "mestiere_0": "available",
-    "7a024694-31ab-4f17-a652-2c15c7b8925e_0": "expended"
+    "mestiere_0": "expended",
+    "mestiere_1": "available",
+    "adfa9a8b-7318-4512-b876-4bd1d857d287_0": "available"
   },
   "equipment": [
     {
@@ -311,21 +312,21 @@
   },
   "rollStats": {
     "skillChecks": {
-      "attempts": 22,
-      "successes": 22,
-      "totalSum": 324,
+      "attempts": 24,
+      "successes": 24,
+      "totalSum": 354,
       "bestTotal": 24,
       "hardestSuccess": null,
       "bySkill": {
-        "Strength": 22
+        "Strength": 24
       },
       "solCount": 3,
       "morteCount": 2,
-      "successCount": 9
+      "successCount": 10
     },
     "contests": {
       "engagement": {
-        "wins": 25,
+        "wins": 28,
         "losses": 9,
         "draws": 5
       },
@@ -335,9 +336,9 @@
         "draws": 0
       }
     },
-    "xpEarned": 80,
+    "xpEarned": 144,
     "xpSpent": 0,
-    "treasureEarned": 80,
+    "treasureEarned": 128,
     "treasureSpent": 871
   },
   "biomeTags": [],
@@ -380,5 +381,5 @@
   "treasure": 6,
   "xp": 8,
   "description": "",
-  "updatedAt": "2026-08-26T14:45:29.493Z"
+  "updatedAt": "2026-08-26T18:23:54.585Z"
 }

@@ -1,10 +1,10 @@
 {
   "id": "7cbea262-49dc-45de-a1e0-cc4270835f14",
   "isDeleted": false,
-  "lastModified": "2026-04-24T18:41:09.146Z",
+  "lastModified": "2026-09-11T18:25:11.269Z",
   "name": "Weapons Specialist",
   "artUrl": "https://cdn.midjourney.com/5c1e2ff4-fe38-441f-9d93-406eca0c5f27/0_0.png",
-  "description": "<p>The bustling weapons trade in Adiri has familiarized you with armaments from every corner of the land. You can identify any weapon by type, material, use and culture of origin. Once per rest, you can identify the magical properties of a weapon. </p><p><strong>Describe how you gained this knowledge.</strong></p>",
+  "description": "<p><em>The bustling weapons trade in Adiri has familiarized you with armaments from every corner of the land.</em></p><p>You can identify any weapon by type, material, use and culture of origin. Once per rest, you can identify the magical properties of a weapon.</p><p>You gain martial training in the Light or Common grade of one weapon type of your choice.</p><p><strong>Describe how you gained this knowledge.</strong></p>",
   "source": "68fadf5d-6661-4611-bb38-deaf05f01d45",
   "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
   "mpCost": null,

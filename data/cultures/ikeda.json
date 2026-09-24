@@ -2,23 +2,47 @@
   "id": "55cfd313-75c6-4f83-9361-39af123f6f38",
   "conceptType": "CULTURE",
   "name": "Ikeda",
-  "description": "<p>A humble halfling fishing village long isolated from the rest of Iago, Ikeda was thrust upon the world stage as waves of refugees fled from the Potluck Plague and landed upon their shores. Ikedan seamanship was discovered to be peerless and invaluable in navigating the straits between the continents.  Whether from the water-shaping boon of Tenkara or some other source, Ikedan captains seemed able to anticipate the weather and tides with startling accuracy. Little more than a century later, Ikeda is now one of the largest ports in Iago and their merchant navy grows ever larger…</p>",
+  "description": "<p>If it's good to eat, it's sold in Ikeda.</p><p>A humble halfling fishing village passed over by the world for long years, a shift in sea routes suddenly brought the trade of half the world through its humble harbor. The growth was explosive and the market, outpacing the rate at which new buildings could be constructed, grew out into the harbor itself, with vendors floating to and fro on skiffs and barges laden with the produce of the sea and of lands near and far.</p><p>The Ikedans, far from being bystanders in all this, have proven to be peerless in their seamanship, now manning the helms of many vessels in their own port and across the world. But while they are respected, they are also regarded with awe and suspicion, for it is said that they are able to move the water itself around their vessels, pushing them forward despite slack sails in a calm sea. This \"Boon of Tenkara,\" as they term it, once limited to the old families of the village, now appears in some children born to newcomers.</p><p>And while this Boon brings the bounty of the seas to the village, those versed in lore speak in fear of what the use of that power will bring to the village...</p>",
   "isDeleted": false,
   "featuredArtUrls": [
-    "https://cdn.midjourney.com/23a23e84-07a7-41a9-b101-afa4e1c95892/0_1.png"
+    "https://cdn.midjourney.com/23436f37-3598-4eb2-b094-72abcf23e10c/0_2.png"
   ],
-  "backgroundImage": "https://cdn.midjourney.com/9ca6875c-cac1-4440-b0ac-4bf66aeaf1f0/0_2.png",
-  "cardBackgroundImage": "",
+  "backgroundImage": "https://cdn.midjourney.com/9ca6875c-cac1-4440-b0ac-4bf66aeaf1f0/0_3.png",
+  "cardBackgroundImage": "https://cdn.midjourney.com/c9183387-daf7-4785-8bd4-ae1c6992ca30/0_0.png",
   "expansion": "e46f4320-a414-4300-95d5-397ba717d982",
-  "playlists": [],
-  "hooks": [],
+  "playlists": [
+    "<iframe allow=\"autoplay *; encrypted-media *;\" frameborder=\"0\" height=\"450\" style=\"width:100%;max-width:660px;overflow:hidden;background:transparent;\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation\" src=\"https://embed.music.apple.com/us/playlist/ikeda/pl.u-r2yB8jqsj1Wkpv?theme=dark\"></iframe>"
+  ],
+  "hooks": [
+    {
+      "id": null,
+      "name": "Bane of Tenkara",
+      "description": "<p>The tides have become irregular and in recent days a rogue wave tore through the floating market, causing inestimable loss of property. While newcomers talk of building a breakwall, locals whisper fears of the coming of the Bane of Tenkara.</p>",
+      "gmNotes": "<p>This is the legend of Tenkara:</p><p>\"Centuries ago, a terrible wave came to the bay of Ikeda, destroying homes and lives. When the water receded, a strange young girl was found unharmed on the beach. She bore no resemblance to the humble halfling locals, her hair in ornate plaits, her garb of some unknown material and her skin covered in silver runes. She had no memory of her origin, and the Ikedans raised her as their own. She had a strange gift, a power to move the waters of the bay, with which she brought plentiful food to shore. They called her Tenkara, after their fishing lures, now discarded.</p><p>Years later when she had grown old, there was a season where the fish were gone from the bay and the village was starving. They asked Tenkara to user her powers to bring fish from further waters. She refused at first, saying that use of her power would invite destruction upon the village. But as she saw the people starving, she resigned herself to her fate.</p><p>In a display of power far greater than anything she had previously shown, she shaped the waters of the bay far out to the horizon, and a current of foam brought shoals of fish surging onto the shore. The people rejoiced and feasted all day, but toward evening they saw that the horizon was bulging upward: a great wave was approaching. They ran in fear for the hills surrounding the bay, but Tenkara stood and faced the wave. As it rose to crash upon the village. She held up her arms and stopped it in midair. Holding it there, she walked into the waters of the bay, disappearing below the surface. The wave reversed its course and receded into the distance. The village was saved. Tenkara was gone.</p><p>The people wept, but soon found that her gift was not gone from them. From that year onward, some children born in the village had the power to shape water like Tenkara. It was a lesser power than hers, to be sure, but as they came of age they worked together to bring the village the bounties of the sea once again.\"</p><p>In the explosive growth of Ikeda, the locals were surprised to find that the Boon of Tenkara has appeared in the children of newcomers, and in recent years the Boon has become something of a party trick among them. The loremasters of the Old Families fear that the gratuitous use of this power will invite another great wave, and that the recent disruptions are but a preamble to destruction.</p><p>Tensions should rise as further disruptions and moderately destructive tides occur and locals and newcomers take to blaming each other. When a day dawns with no tides and the horizon begins to bulge upward, Our Heroes must help to broken peace and cooperation to attempt to stave off disaster.</p>",
+      "index": 0
+    },
+    {
+      "id": null,
+      "name": "The Phantom Barge",
+      "description": "<p>A mysterious barge laden with rare, glowing deep-sea delicacies has begun appearing in the harbor each midnight, unattended. There is a general clamor, the food is intoxicatingly delicious, and the people gorge themselves. All this excess is underselling local vendors, but more concerning is that those who eat the food begin sleepwalking into the sea, muttering praises to an unknown entity.</p>",
+      "gmNotes": "<p>The barge is being sent each night by a fearfully powerful magical being that resides on a ghostly atoll, which only appears far out in the bay while the barge is present in the harbor. If Our Heroes trek there, they should find all the missing people there, but they are unsettlingly cheerful and spout continuous praise of a leader among them, who they call Mo-Euneun, the one who gathers. This leader is a charismatic human who is very hospitable and eager to act as a gracious host, offering a feast of delicacies.</p><p>Further inspection, however, should reveal that all is not well. The villagers here show signs of starvation despite continuous eating, the food appears without any apparent source. Perhaps most concerning, once the midnight hour has passed, Our Heroes can no longer see Ikeda back on the shore where it should be. The night will stretch along infinitely, the no change in tides or weather, and a calm sea all around.</p><p>Amid this carefree atmosphere, there is just one rule: it is not permitted to swim in the lagoon encircled by the atoll. Any attempts to do so will incur the wrath of Mo-Euneun and their followers, the latter's appearance changing to appear as drowned corpses and attacking without mercy.</p><p>If Our Heroes can manage to dive into the lagoon, they will find a giant oyster at the center. This is Mo-Euneun themself, and the human form on the atoll is only part of the great illusion they put out into the world in order to feed. Their lair should be littered with the bones and articles of the dead, and their wrath at being discovered should be great. They will not easily be shucked.</p><p>Should Our Heroes prevail, they should find a massive pearl within the shell of Mo-Euneun, and rising to the surface they should find themselves in the harbor market. The fate of the taken villagers is up to you.</p>",
+      "index": 1
+    },
+    {
+      "id": null,
+      "name": "Wizards of the Coast",
+      "description": "<p>A rash of broad-daylight raids by a group of eccentric bandit-wizards is stifling trade and threatening to undermine Ikeda's status as a safe port. Local authorities have offered a reward for the capture of the wizards, who are believed to have a hideout somewhere along the rocky coast nearby.</p>",
+      "gmNotes": "<p>The wizard-bandits have a hideout in a network of sea caves that are only accessible at low tide. Our Heroes will need to proceed through a series of chambers filled with strange magical challenges and ultimately battle the wizards themselves.</p><p>The fun here should be playing up the eccentricity of these pirate-coded wizards, and some sort of twist should underlie their motivations.</p><p>Perhaps they were denied a stall at the market and are exacting their revenge. Brokering an agreement with the local market authorities will satisfy their demands.</p><p>Perhaps they are agents of a militant authority that seeks to claim lordship over Ikeda, and their raids have the dual purpose of destabilizing the region and securing provisions for the invasion forces that will be arriving imminently.</p><p>Or perhaps they're just mad wizards.</p>",
+      "index": 2
+    }
+  ],
   "localFlavor": {
-    "names": "",
-    "occupations": "",
-    "publicHouses": "",
-    "vittles": "",
-    "pointsOfInterest": "",
-    "floraFauna": ""
+    "names": "Haneji, Minaro, Suyon, Jamaru, Dehwan, Kofi, Yejun, Maraji, Seorin, Tavon, Hyemi, Omari, Junseo, Kalin, Bomi, Zayun, Daeji, Nakoa, Hwanji, Amari",
+    "occupations": "Fishing Captain, Merchant, Tide Reader, Net Maker, Boatwright, Sailmaker, Dockmaster, Fishmonger, Navigator, Harbor Pilot, Diver, Fruit Gatherer, Salt Maker, Rope Maker, Cartographer, Ship's Cook, Deckhand, Harbor Guard, Porter",
+    "publicHouses": "Janga's Soundbar, The Salt Kettle, Genba House, Twiny's, The Laughing Gull, Tuckie's Bar, Daeji, Blue Mango, The Pink Sponge, The Palm Cup",
+    "vittles": "Grilled Mackerel, Jerk Eel, Salted Herring, Coconut Rice, Fish Stew, Sweet Potato Cakes, Spiced Crab, Plantain Fritters, Seaweed Soup, Pepper Shrimp, Barley Porridge, Coconut Dumplings, Smoked Tuna, Ginger Chicken, Pickled Radish, Mango Relish, Grilled Squid, Honeyed Rice Cakes, Saltfish Pancakes, Pigeon Peas",
+    "pointsOfInterest": "The Great Harbor, Tenkara Shrine, The Fishermen's Steps, The Tide Hall, The Floating Market, The Merchant Navy Yard, The Salt Pools, The Cave of Seven Winds, The Ropewalk, The Captains' Pavilion",
+    "floraFauna": "Camellia, Bamboo, Pine, Persimmon, Ginger, Banana, Plantain, Coconut Palm, Mango, Hibiscus, Sea Turtle, Flying Fish, Mackerel, Barracuda, Reef Shark, Pelican, Frigatebird, Eel, Kingfisher, Green Monkey"
   },
-  "lastModified": "2026-03-13T20:45:51.557Z"
+  "lastModified": "2026-09-23T17:24:10.220Z"
 }

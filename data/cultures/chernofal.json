@@ -2,23 +2,55 @@
   "id": "7016610e-ddf9-415b-8711-3b1c5fff241c",
   "conceptType": "CULTURE",
   "name": "Chernofal",
-  "description": "<p>Travelers and traders moving through the Commonwealth face an ever-changing patchwork of local and regional laws as the Democracy Pits churn out newfangled ideas, seemingly by the hour. Goods dearly bought in Esil might be confiscated at Terinsay, having just been banned at the local Pit meeting the night before. Despite this messiness, the many towns remain united by their oft-stated commitments to Democracy, mining and agriculture, though the products of their work are increasingly demanded by Sila to support its explosive growth. Indeed, the capital seems less and less interested in the hinterland that birthed it, even as the Monte dei Paschi banking houses seem to take more and more interest in the region…</p>",
+  "description": "<p>Travelers and traders moving through the Commonwealth of Chernofal face an ever-changing patchwork of local and regional laws as the Democracy Pits churn out newfangled ideas, seemingly by the hour. Goods dearly bought in one town might be confiscated in another, having just been banned at the local Pit meeting the night before. Despite this messiness, the many towns remain united by their oft-stated commitments to Democracy, mining and agriculture.</p><p>However, the products of their work are increasingly demanded by the new capitol, Sila City, to support its explosive growth. In that place rises an ever-growing, ever-changing \"Cathedral of Ideas,\" its innumerable towers, buttresses and various other agglomerations (their practical uses absent or long-forgotten) a chaotic testament to design by committee, and the increasingly unruly city growing around it swelled each year by more newcomers attracted by the Commonwealth's reputation for legal flexibility.</p><p>As the wild city grows amid the patchwork of principled country towns, the Chernofalan democratic experiment is increasingly tested. Will the spirit of cooperation and compromise persist?</p>",
   "isDeleted": false,
   "featuredArtUrls": [
     "https://cdn.midjourney.com/fa3515eb-27bf-4510-973d-f6a84cdfa3db/0_1.png"
   ],
-  "backgroundImage": "",
+  "backgroundImage": "https://cdn.midjourney.com/1af124f1-136c-4f21-87f7-b94f4b5c59e9/0_1.png",
   "cardBackgroundImage": "https://cdn.midjourney.com/713ca3be-8022-48d1-8456-cd56ec91f28b/0_1.png",
   "expansion": "e46f4320-a414-4300-95d5-397ba717d982",
-  "playlists": [],
-  "hooks": [],
+  "playlists": [
+    "<iframe allow=\"autoplay *; encrypted-media *;\" frameborder=\"0\" height=\"450\" style=\"width:100%;max-width:660px;overflow:hidden;background:transparent;\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation\" src=\"https://embed.music.apple.com/us/playlist/chernofal-towns-countryside/pl.u-qxylgqBIGkb7Kv?theme=dark\"></iframe>",
+    "<iframe allow=\"autoplay *; encrypted-media *;\" frameborder=\"0\" height=\"450\" style=\"width:100%;max-width:660px;overflow:hidden;background:transparent;\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation\" src=\"https://embed.music.apple.com/us/playlist/chernofal-sila-city/pl.u-yZyVB5rIqRNX7y?theme=dark\"></iframe>"
+  ],
+  "hooks": [
+    {
+      "id": null,
+      "name": "Three Jurisdictions",
+      "description": "<p>A dragon-like water beast, the Vishap, haunts the waters of Lake Van. It has recently been wreaking havoc, stealing livestock and even eating people. The Democracy Pit of each of the three towns along the lakeshore have passed different laws regarding the beast: One bans killing it (it's a protected sacred animal), one demands its immediate execution, and the third requires it to be safely captured for taxation.</p>",
+      "gmNotes": "<p>Two options:</p><p>1) Each of the three laws has compelling evidence supporting it, and thus the main challenge is trying to find a way to address the problem of the beast while upsetting the least people.</p><p>2) The beast is in fact a summoned creature, called forth at intervals by a reclusive mage to steal supplies and keep the locals fearful of the water. What are they hiding?</p><p>Either way, there should of course be an exciting and challenging encounter with the beast.</p>",
+      "index": 0
+    },
+    {
+      "id": null,
+      "name": "The Filibuster Fiend",
+      "description": "<p>A corrupt local politician has summoned a pedantic fiend to legally lock a town’s Democracy Pit meeting in an endless filibuster, completely halting local government for the past month.</p>",
+      "gmNotes": "<p>Despite this being an obvious act of obstructionism, the local Pit citizens are committed to adhering to their laws, and refuse to allow the fiend to be harmed. They want to find a procedural or rhetorical solution to the problem. Weeks have passed without a solution coming to light, and the challenge is now drawing scholars from other towns.</p><p>Our Heroes should learn that the only way to banish this particular type of fiend is to point out a flaw in its logic. They will need to investigate why the politician who summoned the fiend wants to bring things to a halt in the town in the first place. Perhaps they are shielding themselves or a loved one, delaying the revelation of some embarrassing or damning information that will come to light when the filibuster is broken. Or perhaps they are taking advantage of an economic policy that is likely to be struck down.</p><p>Whatever the case, Our Heroes must dig into the local drama and find the truth, so that the fiend may be silenced.</p>",
+      "index": 1
+    },
+    {
+      "id": null,
+      "name": "The Necromancer",
+      "description": "<p>A powerful necromancer, Uylak, recently took up residence in the Ak Ormandar, a forest that stands in territory disputed by two towns. A joint envoy sent to demand the necromancer's departure was surprised to be met with a sound legal argument: Uylak can legally claim sovereignty over the land by exploiting a loophole, claiming their undead army as \"unregistered long-term residents.\" Legal acrobatics in the Pits of both towns have now cleared the way for an all-out assault of Uylak's fortress.</p>",
+      "gmNotes": "<p>This can be a straight-ahead assault with as many undead combat encounters as you like, culminating in battle with Uylak themself.</p><p>If you care to thicken the plot a bit, it could come to light that the undead have been exhumed from graveyards in the region, and their living relatives may be able to convince them to come live with them in town, thus stripping Uylak of the \"unregistered long-term residents\" required for their continued residence there.</p>",
+      "index": 2
+    },
+    {
+      "id": null,
+      "name": "The Grain Strike",
+      "description": "<p>Fed up with Sila City demanding more food while attracting \"undemocratic types\" to the region, a coalition of the agricultural towns has blocked the main trade highway, starving the capitol. Rumor has it that a radical faction within the city is preparing a military detachment to seize the grain by force, and fears of civil war are rising.</p>",
+      "gmNotes": "<p>This can be a peacekeeping mission, or you can choose to make one side or the other more clearly in the right, nudging Our Heroes to take a side.</p><p>If you want some intrigue, consider making both sides less unified. In Sila City, academics of the Monument advocate for diplomacy, while the starving masses clamor for violence. In the countryside, the blockade is being perpetrated by the most powerful farmers, who stand to gain the most from price hikes, while the less powerful would rather see the flow of trade resume.</p>",
+      "index": 3
+    }
+  ],
   "localFlavor": {
-    "names": "",
-    "occupations": "",
-    "publicHouses": "",
-    "vittles": "",
-    "pointsOfInterest": "",
-    "floraFauna": ""
+    "names": "Aydemir, Svetan, Dilara, Mirov, Selim, Nadira, Borinlev, Leyla, Temir, Zorina, Emre, Galina, Orhan, Yelena, Tarkan, Milena, Cemal, Anara, Rustem, Vesna",
+    "occupations": "Pit Delegate, Secretary, Mine Surveyor, Quarry Foreman, Grain Inspector, Collective Farmer, Caravan Master, Toll Worker, Arcane Tram Conductor, Blacksmith, Millwright, Geologist, Agricultural Brigadier, State Clerk, Border Inspector, Scrollwright, Mason, Cartographer, Lecturer",
+    "publicHouses": "Dritta's, The Red Plow, Borlo House, Orsia Now, Esil Café, Urmo's, Trassilico Cooperative, The Iron Cup, Issyk Kul, Terinsay Tavern, Madam Torre's",
+    "vittles": "Lamb Mantı, Barley Pilaf, Borscht, Pepper Börek, Dolma, Wheat Porridge, Walnut Baklava, Pickled Eggplant, Sour Cherry Soup, Potato Pirozhki, Lentil Köfte, Rye Bread, Ayran, Mushroom Solyanka, Honey Halva, Stuffed Cabbage, Apricot Compote, Lamb Shashlik, Cheese Gözleme, Black Bread",
+    "pointsOfInterest": "The Democracy Pits, The Cathedral of Ideas, The Hall of Revisions, Monument to the First Vote, Road of Ten Tolls, Fountain of Equality",
+    "floraFauna": "Birch, Oak, Scots Pine, Black Pine, Steppe Sage, Pomegranate, Apricot, Mulberry, Sunflower, Rye, Red Poppy, Gray Wolf, Shepherd Dog, Brown Bear, Horse, Wild Boar, Golden Eagle, Saiga Antelope, Lynx, Steppe Marmot, White Stork"
   },
-  "lastModified": "2026-05-12T17:57:50.662Z"
+  "lastModified": "2026-09-17T19:33:17.153Z"
 }

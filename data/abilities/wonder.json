@@ -1,0 +1,14 @@
+{
+  "id": "666b2870-f941-452a-a5c2-ff801d1ad955",
+  "isDeleted": false,
+  "lastModified": "2026-09-18T02:28:29.478Z",
+  "name": "Wonder",
+  "description": "<p><em>You've learned that quiet contemplation of the world's wonders is always worthwhile.</em></p><p>Once per rest, when you encounter an exceptionally beautiful natural place or phenomenon you have never seen before, you may spend time taking it in. If you spend at least one hour, take one +1d bonus. If you spend at least one day, take five +1d bonuses. These bonuses persist for the duration of the Quest and may be applied to any skill check you make.</p><p><strong>Describe what ignites your sense of wonder.</strong></p>",
+  "source": "f66ab54f-ef77-4d04-9ae3-ca575615a6d1",
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": null,
+  "canBeActive": false,
+  "hasDifficulty": false,
+  "artUrl": "https://cdn.midjourney.com/1cce7f20-2d4b-448c-931d-1ce7dfee1baa/0_1.png"
+}

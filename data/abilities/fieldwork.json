@@ -1,0 +1,23 @@
+{
+  "id": "9dc83e83-7589-498f-bd97-73364522569d",
+  "isDeleted": false,
+  "createdAt": "2026-09-21T15:53:27.463Z",
+  "lastModified": "2026-09-21T17:20:38.228Z",
+  "name": "Fieldwork",
+  "artUrl": "https://cdn.midjourney.com/6cd5d1a5-f230-48cb-9f3f-9972ff9ce59c/0_0.png",
+  "description": "<p><em>You are a research scholar in the employ of the University, delivering treatises based on your adventures in exchange for grants.</em></p><p>At the start of each Quest, privately choose a research subject with the GM that is relevant to the upcoming adventure.</p><p>During the next Intermezzo, you must write an actual report on that subject and privately grade it from 1 to 10. Read the report word-for-word to the other players (who represent the University Board) without commenting or participating in their subsequent discussion. Each board member privately grades the report from 1 to 10, then reveal all grades (including yours) and average them; you receive this average amount as Treasure in the form of a University grant.</p><p><strong>Describe how you attempt to win academic favor.</strong></p>",
+  "successes": null,
+  "improvements": [],
+  "source": "2d359f20-1746-46aa-9533-b516352c6d1c",
+  "school": null,
+  "isMagical": false,
+  "isBeastAbility": false,
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": null,
+  "manaCost": null,
+  "biomeTagsAugment": [],
+  "biomeTagsInhibit": [],
+  "canBeActive": false,
+  "hasDifficulty": false
+}

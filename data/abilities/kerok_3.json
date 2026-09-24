@@ -1,0 +1,23 @@
+{
+  "id": "ed2cc339-f2d5-40a0-918f-cf72da50cf68",
+  "isDeleted": false,
+  "createdAt": "2026-09-23T18:47:13.219Z",
+  "lastModified": "2026-09-23T18:47:18.747Z",
+  "name": "Kerok 3",
+  "artUrl": null,
+  "description": "",
+  "successes": null,
+  "improvements": [],
+  "source": "8221b753-1564-447e-b26a-4c95761d2714",
+  "school": null,
+  "isMagical": false,
+  "isBeastAbility": false,
+  "actionCost": null,
+  "mpCost": null,
+  "xpCost": null,
+  "manaCost": null,
+  "biomeTagsAugment": [],
+  "biomeTagsInhibit": [],
+  "canBeActive": false,
+  "hasDifficulty": false
+}

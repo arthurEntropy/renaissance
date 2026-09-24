@@ -1,9 +1,9 @@
 {
   "id": "5431c38e-e0be-4571-ab29-7e3f49549c9e",
   "isDeleted": false,
-  "lastModified": "2026-02-12T21:37:52.064Z",
+  "lastModified": "2026-09-23T18:36:55.664Z",
   "name": "Dragon Slayer",
-  "description": "<p>When you attack a creature at least five times your size, you roll with advantage. When you succeed, describe how you get the upper hand against all odds.</p>",
+  "description": "<p><em>You know how to turn a size disadvantage into a tactical advantage.</em></p><p>Whenever you attack a creature whose size is 8 or greater, the attack roll is favored and, on a hit, +2d damage.</p><p>Describe how you get the upper hand against the odds.</p>",
   "source": "fa6eb60c-0895-4635-8124-ab50b0bac28e",
   "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
   "mpCost": null,

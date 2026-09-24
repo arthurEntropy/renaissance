@@ -1,0 +1,23 @@
+{
+  "id": "cbb98fda-e292-43d2-855a-d58c1d33b409",
+  "isDeleted": false,
+  "createdAt": "2026-09-16T15:33:26.952Z",
+  "lastModified": "2026-09-17T18:48:19.674Z",
+  "name": "Newfangled",
+  "artUrl": "https://cdn.midjourney.com/25d64327-597a-4c20-bc8f-64d581d2e5c1/0_2.png",
+  "description": "<p><em>The daring and inventive spirit of End of Adventure has produced some newfangled contraptions.</em></p><p>When you gain this ability, choose one, which you own:</p><ul><li><p>A pocketwatch that keeps accurate time if you spend one minute winding it each day.</p></li><li><p>A parachute, held in a backpack. While wearing it, you may spend an action to pull the ripcord. When you do, roll a d8. On a 1, the parachute fails to deploy and has no effect. Otherwise, the parachute slows you falling to a safe speed.</p></li><li><p>A camera with one roll of film (good for 5 exposures) and a developing kit. Whenever you spend an action to take a photograph, roll a d8. On a 1, the camera jams, the image is overexposed and you must spend 1 minute fixing it. Otherwise, the image is captured. The developing process requires darkness and one hour of work. You may purchase additional rolls of film in End of Adventure at a cost of 50 treasure per roll.</p></li></ul><p><strong>Describe your newfangled contraption.</strong></p>",
+  "successes": null,
+  "improvements": [],
+  "source": "5c67bedd-8e73-4add-b46b-9b911bf0fd59",
+  "school": null,
+  "isMagical": false,
+  "isBeastAbility": false,
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": null,
+  "manaCost": null,
+  "biomeTagsAugment": [],
+  "biomeTagsInhibit": [],
+  "canBeActive": false,
+  "hasDifficulty": false
+}

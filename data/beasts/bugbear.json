@@ -2,7 +2,7 @@
   "id": "e5ccf49a-de26-4459-9e67-0be307c23db1",
   "isDeleted": false,
   "createdAt": "2026-08-14T01:47:47.720Z",
-  "lastModified": "2026-08-14T02:12:14.586Z",
+  "lastModified": "2026-08-26T17:43:24.911Z",
   "characterType": "beast",
   "name": "Bugbear",
   "featuredArtUrls": [
@@ -343,6 +343,6 @@
     "b7e57001-0000-4000-a000-00000000000a",
     "b7e57001-0000-4000-a000-000000000002"
   ],
-  "updatedAt": "2026-08-14T02:12:14.586Z",
+  "updatedAt": "2026-08-26T17:43:24.911Z",
   "challenge": 11
 }

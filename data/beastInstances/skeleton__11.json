@@ -2,7 +2,7 @@
   "id": "9ad6806f-60b9-4bcb-9a65-616c1dac01ea",
   "isDeleted": false,
   "createdAt": "2026-08-26T12:29:04.367Z",
-  "lastModified": "2026-08-26T12:29:04.371Z",
+  "lastModified": "2026-08-27T14:17:42.571Z",
   "characterType": "beastInstance",
   "name": "Skeleton 🅨",
   "featuredArtUrls": [
@@ -144,7 +144,7 @@
     }
   ],
   "endurance": {
-    "current": 15,
+    "current": 2,
     "base": 15
   },
   "hope": {
@@ -175,7 +175,9 @@
   },
   "engagementDice": [],
   "engagementSuccesses": [],
-  "engagementDiceStatuses": {},
+  "engagementDiceStatuses": {
+    "7a024694-31ab-4f17-a652-2c15c7b8925e_0": "expended"
+  },
   "equipment": [
     {
       "id": "76522314-9ed4-4408-b72a-02fbe4500782",
@@ -243,8 +245,8 @@
     "contests": {
       "engagement": {
         "wins": 0,
-        "losses": 0,
-        "draws": 0
+        "losses": 1,
+        "draws": 1
       },
       "contest": {
         "wins": 0,
@@ -334,7 +336,7 @@
   "beastTypeIds": [
     "b7e57001-0000-4000-a000-00000000000e"
   ],
-  "updatedAt": "2026-08-13T02:22:45.924Z",
+  "updatedAt": "2026-08-27T14:17:42.570Z",
   "challenge": 7,
   "templateId": "785562af-0611-4d1f-817b-9888b379dd4d"
 }

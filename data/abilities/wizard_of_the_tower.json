@@ -1,7 +1,7 @@
 {
   "id": "2ad8916a-7e41-498f-a001-547bcd6b848a",
   "createdAt": "2026-04-10T14:54:49.093Z",
-  "lastModified": "2026-07-16T19:11:56.206Z",
+  "lastModified": "2026-09-16T15:52:24.216Z",
   "name": "Wizard of the Tower",
   "artUrl": "https://cdn.midjourney.com/bf2deb73-6552-45f2-a400-6bc9f8b68d3a/0_2.png",
   "description": "<p><em>Arcane Focus: A wand, rod or staff, provided by the institution.</em></p><p>You are an initiate in a powerful, established institution of arcane learning, which grants you access to valuable resources but comes with limitations.</p><p>You bear a magic ring, amulet or other worn item given to you by the institution. It grants you a reserve of additional MP equal to your WITS score that is replenished each sunrise. Once per Quest, you may spend an action to replenish it at-will. Whenever you cast a spell while wearing the item, the institution is able to detect your location and which spell you cast. The institution can also detect if you remove the item.</p><p>You must follow a proscribed course of magical study. When you gain this ability, choose and gain one ability from each school of magic that has the lowest XP cost (or is tied for lowest) in that school. You do not need to pay the XP cost of these initial abilities.</p><p>To gain subsequent abilities, you must pay their XP cost as normal, and you may not gain an ability unless you have already gained all other abilities with a lower XP cost in that school.</p><p><strong>Describe the institution and how you earned membership in it.</strong></p>",
@@ -11,6 +11,12 @@
       "description": "<p>You may bypass the institution's proscribed course of study and gain any abilities you choose - regardless of your progression in that ability's school - by paying double its normal XP cost.</p>",
       "xpCost": 10,
       "id": "da9fb706-fbe1-40ef-8360-eb47833a1d78"
+    },
+    {
+      "name": "Namecloak",
+      "description": "<p>You have achieved a high tier of Arcanist studies, and you have earned the protection of a namecloak.</p><p>Choose a single word starting with the letter \"S\" that encompasses your approach to the arcane arts. This becomes your official title: \"The Wizard Sly,\" \"The Wizard Stone,\" etc.</p><p>When you take your namecloak, every creature in the world where your institution is located forgets your given name, except you and anyone who holds a written copy of your full given name. Anyone who knows your given name always rolls favored when acting upon you, regardless of whether they intend to help or harm you.</p>",
+      "xpCost": 30,
+      "id": "657e4d36-1de9-42c0-851f-6e0af11eee9b"
     }
   ],
   "source": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",

@@ -4,7 +4,7 @@
   "logoUrl": "https://cdn.midjourney.com/f5fc6edb-7f79-4fa7-a67f-dfe3b863b46c/0_2.png",
   "index": 0,
   "isDeleted": false,
-  "isAdminVisible": true,
-  "isPublic": true,
-  "lastModified": "2026-06-08T18:06:13.803Z"
+  "isAdminVisible": false,
+  "isPublic": false,
+  "lastModified": "2026-09-23T18:58:34.131Z"
 }

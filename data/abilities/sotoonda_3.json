@@ -1,0 +1,23 @@
+{
+  "id": "e0acdae8-f139-41cf-ad97-fb551bf5dae7",
+  "isDeleted": false,
+  "createdAt": "2026-09-23T18:54:15.156Z",
+  "lastModified": "2026-09-23T18:54:20.978Z",
+  "name": "Sotoonda 3",
+  "artUrl": null,
+  "description": "",
+  "successes": null,
+  "improvements": [],
+  "source": "55c314d3-11ec-4d2d-921d-241b4132f737",
+  "school": null,
+  "isMagical": false,
+  "isBeastAbility": false,
+  "actionCost": null,
+  "mpCost": null,
+  "xpCost": null,
+  "manaCost": null,
+  "biomeTagsAugment": [],
+  "biomeTagsInhibit": [],
+  "canBeActive": false,
+  "hasDifficulty": false
+}

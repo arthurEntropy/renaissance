@@ -102,7 +102,8 @@
     </div>
 
     <!-- Settings Modal -->
-    <ConceptSettingsModal :visible="showSettingsModal" @save="saveSettings" @cancel="closeSettingsModal" />
+    <ConceptSettingsModal :visible="showSettingsModal" @save="saveSettings" @cancel="closeSettingsModal"
+      @delete="deleteConcept" />
 
     <!-- Edit Ability Modal -->
     <EditAbilityModal v-if="showEditAbilityModal" :ability="selectedAbility" @update="saveEditedAbility"
@@ -165,7 +166,7 @@ const _props = defineProps({
 })
 
 // Emits
-defineEmits(['close'])
+const emit = defineEmits(['close'])
 
 // Stores
 const conceptsStore = useConceptsStore()
@@ -327,6 +328,14 @@ const saveSettings = async (settings) => {
 
   await conceptsStore.update(selectedConcept.value)
   closeSettingsModal()
+}
+
+const deleteConcept = async () => {
+  if (!selectedConcept.value) return
+  const updatedConcept = { ...selectedConcept.value, isDeleted: true }
+  await conceptsStore.update(updatedConcept)
+  closeSettingsModal()
+  emit('close')
 }
 
 // Lifecycle

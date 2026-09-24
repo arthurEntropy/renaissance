@@ -1,0 +1,23 @@
+{
+  "id": "c9fde14d-1b27-4949-825d-529d333e62e2",
+  "isDeleted": false,
+  "createdAt": "2026-08-27T20:56:04.141Z",
+  "lastModified": "2026-08-28T03:03:05.731Z",
+  "name": "Go Ascendant",
+  "artUrl": "https://cdn.midjourney.com/81f9b7dc-6302-4398-bc76-bdc881794276/0_1.png",
+  "description": "<p>Once per Quest: You assume your Ascendant form. For the next minute:</p><ul><li><p>You become incorporeal and emit bright light out to far range.</p></li><li><p>You may spend a half action to alter your form to any shape you choose and becoming any size between ¼ and 10.</p></li><li><p>Your actions increase to 5 per round.</p></li><li><p>You can fly with a Speed of 200 ft.</p></li><li><p>Multiply your current and base Endurance, Hope and Defense by 10.</p></li><li><p>Whenever you make a skill check, roll one fate die and ten success dice, regardless of the number of ranks you have in that skill.</p></li><li><p>Multiply all damage you deal by 10.</p></li><li><p>Prevent all damage dealt to you by non-magical sources. Divide all damage dealt to you by magical sources by 10.</p></li><li><p>You may cast any spell from any Mestiere.</p></li></ul><p>At the end of the minute, these effects end and you check four Conditions.</p>",
+  "successes": null,
+  "improvements": [],
+  "source": "6ed6b66c-0fc1-49f2-94e8-5639c87e58c7",
+  "school": null,
+  "isMagical": false,
+  "isBeastAbility": false,
+  "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
+  "mpCost": null,
+  "xpCost": null,
+  "manaCost": null,
+  "biomeTagsAugment": [],
+  "biomeTagsInhibit": [],
+  "canBeActive": true,
+  "hasDifficulty": false
+}

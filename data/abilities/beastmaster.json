@@ -1,9 +1,9 @@
 {
   "id": "2fd206e0-8cae-42cf-a446-c0d772e7752a",
   "isDeleted": false,
-  "lastModified": "2026-02-12T21:37:52.057Z",
+  "lastModified": "2026-09-13T10:12:19.789Z",
   "name": "Beastmaster",
-  "description": "<p>When you roll to recall information about animals, you roll with advantage. Additionally, you can attempt to use any animal that can bear your weight as a mount. If the animal is unwilling, roll 1d6+WIS. If the result is higher than the animal’s current HP, you may mount it. Describe how you tame it.</p>",
+  "description": "<p>Whenever you roll Lore to recall information about animals, +2d.</p><p>Additionally, you may attempt to use any animal that can bear your weight as a mount. If the animal is unwilling, roll Lore vs Strength against it. If you or your allies have harmed the animal within the past day, your roll is ill-favored and the animal’s roll is favored. On a win, it becomes willing to bear you.</p><p><strong>Describe how you tame it.</strong></p>",
   "source": "ccd8ce71-021b-425f-9720-fd0ee87e0140",
   "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
   "mpCost": null,

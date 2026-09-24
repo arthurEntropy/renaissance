@@ -2,22 +2,48 @@
   "id": "372c0d28-68df-4202-8e2b-80f96c8928d6",
   "conceptType": "CULTURE",
   "name": "First Home",
-  "description": "<p>It has been said that the Goblins claim the great northern Spire is the home of their “missing deities,” and that Ascendants among them are vying for influence. Their effortless expulsion of the Saddlers’ incursions a century ago stands as evidence that gathering dangerous magic, fierce competition and hundreds of divine aspirants into one city leads to a hell of an army. Outsiders brave enough to venture within sight of the Spire clearly perceive a terrible power emanating from it, while the swarm of Goblins at its feet seems to grow with impossible speed…</p>",
+  "description": "<p>The Great Spire stands alone visible from great distances across the wide, frostbitten tundra. An ill power and a darkness seem to emanate from it. It is fearful from afar, but as one approaches, the blasted land gives way to signs of life, and the Spire seems to exude a warmth down onto the lands at its feet, giving life as the sun has here failed to do, or perhaps has been prevented from doing.</p><p>The Goblins that appeared in First Home long ago maintain that they emerged from the Spire itself, and that a trio of powerful entities once resided at its pinnacle. The identity and nature of these three - \"The Missing Ones\" - is either long forgotten or well-hidden by the Priesthood of the Spire, who today are chiefly occupied with officiating the innumerable wild bouts of bloodsport, commenced thrice-daily in honor of the Spire and its absent tenants.</p><p>Even as the fiercest fighters gather from all lands to sharpen their teeth in the arenas, outcast scholars and aspirant warlords skulk about the feet of the spire, wondering whether the legend of the Missing Ones represents an absence or a <em>vacancy...</em></p>",
   "isDeleted": false,
   "featuredArtUrls": [
-    "https://cdn.midjourney.com/1e16316f-237d-4c41-bee9-d663d3523377/0_3.png"
+    "https://cdn.midjourney.com/27231635-0475-4c12-ac26-8098b681e7d2/0_3.png"
   ],
-  "backgroundImage": "",
-  "cardBackgroundImage": "",
+  "backgroundImage": "https://cdn.midjourney.com/5e83f3cf-b42a-4058-ab0c-ff5c59963980/0_0.png",
+  "cardBackgroundImage": "https://cdn.midjourney.com/27785f5b-8051-4559-84c3-20abd533297d/0_2.png",
   "expansion": "e46f4320-a414-4300-95d5-397ba717d982",
-  "playlists": [],
-  "hooks": [],
+  "playlists": [
+    "<iframe allow=\"autoplay *; encrypted-media *;\" frameborder=\"0\" height=\"450\" style=\"width:100%;max-width:660px;overflow:hidden;background:transparent;\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation\" src=\"https://embed.music.apple.com/us/playlist/first-home-carousing/pl.u-r2yBaNETj1Wkpv?theme=dark\"></iframe>",
+    "<iframe allow=\"autoplay *; encrypted-media *;\" frameborder=\"0\" height=\"450\" style=\"width:100%;max-width:660px;overflow:hidden;background:transparent;\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation\" src=\"https://embed.music.apple.com/us/playlist/first-home-violence/pl.u-pMylr6LuK7P3g1?theme=dark\"></iframe>"
+  ],
+  "hooks": [
+    {
+      "id": null,
+      "name": "The Claiming of the Spire",
+      "description": "<p>A Priest of the Spire with a bloody nose comes running out of the temple. Someone has forced their way past the guards and has ascended the sacred stair, violating the sacred high chambers of the Missing Ones. Fierce and raucous though the multitudinous locals may be, none dare tread those hallowed halls. Who is brave enough to ascend the steps and confront the interloper?</p>",
+      "gmNotes": "<p>The crux of this adventure will be to discover the true nature of the Spire, of the Missing Ones, and of the one (or ones?) who has (have?) dared to climb the steps.</p><p>These things are for you to decide, but consider the following questions:</p><ul><li><p>Who built/created the Spire? Was it the Missing Ones, or did they find it or take it after it was made?</p></li><li><p>Do the Missing Ones still exist? If so, what became of them? Did the power of the Spire overtake them in some way?</p></li><li><p>What happens when someone new lays claim to the power of the Spire? Can they take it up freely or do they need to pass a test first?</p></li><li><p>Where do the goblins fit into all this? Did they really emerge from the Spire, as their legends tell? Were they given their role as guardians and tribute-makers to the Spire, or did they take it up on their own? Do the bloody bouts in the town below really fuel the Spire's power?</p></li></ul><p>Feel free to throw a visiting scholar into the mix for lore and/or betrayal twist purposes.</p>",
+      "index": 0
+    },
+    {
+      "id": null,
+      "name": "\"Volunteers\"",
+      "description": "<p>This afternoon's blood bout is short a few fighters, which means the stadium bouncers are out rounding up \"volunteers,\" which of course means forcibly grabbing people off the street at random. Rumor has it that this bout will be particularly \"good sport.\"</p>",
+      "gmNotes": "<p>Our Heroes of course should be swept up in this and thrown into the arena with something truly terrifying and formidable. It should be something they can overcome, and then the challenge becomes getting out of the arena complex alive, because of course they weren't thrown into the arena to survive. The Spire is thirsty...</p>",
+      "index": 1
+    },
+    {
+      "id": null,
+      "name": "Closing Shift",
+      "description": "<p>The bar staff of the busiest tavern in town was killed in a blood bout earlier today and the tavern is offering top dollar for replacements. Handling drink orders in the thick local dialect will be challenging enough, but self-defense is an equally large part of the job in this town.</p>",
+      "gmNotes": "<p>This should be an endurance challenge, with waves of patron/combatants of variable levels of thirst and malice crashing against the bar (and Our Heroes' skulls, if they're not careful).</p><p>If Our Heroes do well in defending themselves, the rebuffed ruffians should vocalize the degree to which they are impressed, and run next door to get more, bigger, meaner patrons to have a go, in the name of \"good sport.\"</p>",
+      "index": 2
+    }
+  ],
   "localFlavor": {
-    "names": "",
-    "occupations": "",
-    "publicHouses": "",
-    "vittles": "",
-    "pointsOfInterest": "",
-    "floraFauna": ""
-  }
+    "names": "Grak, Uvra, Skorri, Murgan, Brakka, Zogren, Kriva, Durg, Veshka, Groln, Rukka, Thagri, Mozg, Kerva, Brugan, Zavra, Skagga, Urgash, Drakka, Vorga",
+    "occupations": "Pit Fighter, Bout Caller, Blood Steward, Bone Carver, Spire Priest, Torch Bearer, Tundra Hunter, Frost Shepherd, Firekeeper, Beast Handler, Hide Scraper, Gut Merchant, Soap Brewer, Trophy Maker, Grave Robber, Scavenger, Entertainer, Barkeep, Bouncer",
+    "publicHouses": "Grishnákh's, The Warm Gut, Uglúk's, Blood & Bone, Snaga House, The Three Knuckles, Murgan's, Futt Bucket, The Bent Fang",
+    "vittles": "Spirebread, Charred Tundra Hare, Blood Sausage, Frostroot Mash, Smoked Mammoth, Hot Bone Broth, Offal Stew, Cavefish Buns, Pickled Eyeballs, Lichen Cakes, Salted Elk, Spirebean Porridge, Roasted Ice Beetles, Warm Mushroom Gruel, Gore Dumplings, Roasted Bone Marrow, Berry Mash",
+    "pointsOfInterest": "The Great Spire, The Shrine of the Missing Ones, The Blood Pits, The Warmfoot, The Priest's Stair, The Bone Market, The First Scar, The Black Snowfield, The Hearth Caves, The Unlit Gate",
+    "floraFauna": "Frostroot, Black Lichen, Spire Moss, Snow Thistle, Snowleaf, Bloodberry, Ghost Pine, Tundra Reed, Snow Elk, Tusked Hare, Frost Bear, Whitefang Wolf, Horned Mammoth, Iceback Tortoise, Giant Raven, Cave Lynx, Frost Serpent, Six-Legged Marmot"
+  },
+  "lastModified": "2026-09-18T02:12:52.679Z"
 }

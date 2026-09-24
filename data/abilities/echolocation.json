@@ -1,10 +1,10 @@
 {
   "id": "553ec305-0d83-47f9-9398-2036831d8235",
   "isDeleted": false,
-  "lastModified": "2026-05-16T02:30:56.099Z",
+  "lastModified": "2026-08-28T18:41:46.676Z",
   "name": "Echolocation",
-  "artUrl": "https://cdn.midjourney.com/a4bfb6cd-25a0-4838-ac32-4cd6dc76369a/0_3.png",
-  "description": "<p><em>Your ancestors learned to take advantage of sound as a method of navigation.</em></p><p>You emit a loud clicking noise which can be heard up to long range if you are out of water and thrice that distance underwater. You become aware of the location, size and relative movement of objects within range.</p><p><strong>Describe the sound and how it reverberates in the space around you.</strong></p>",
+  "artUrl": "https://cdn.midjourney.com/01486592-edd9-4292-b34b-0845f2939043/0_3.png",
+  "description": "<p><em>Your ancestors learned to take advantage of sound as a method of navigation.</em></p><p>As free action, you may emit a loud clicking noise which can be heard out to long range if you are out of water and thrice that distance underwater. You become aware of the location, size and relative movement of objects within range.</p><p><strong>Describe the sound and how it reverberates in the space around you.</strong></p>",
   "source": "e40c3cff-9f6b-4940-ae41-cef878821a75",
   "actionCost": "40656418-af01-43ae-8a60-a1bd0124efb4",
   "mpCost": null,

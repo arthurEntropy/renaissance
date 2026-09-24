@@ -2,26 +2,48 @@
   "id": "68fadf5d-6661-4611-bb38-deaf05f01d45",
   "conceptType": "CULTURE",
   "name": "Adiri",
-  "description": "<p>Its former power long since worn down by war, the Human-founded city-state of Adiri remains stubbornly independent from the united lands surrounding it. Here still the long tradition of champion warfare is practiced, augmented now by the Iliyanites’ metal-shaping, which also fills the city’s bazaars with one-of-a-kind armaments. Public displays of combative skill are the centerpiece of life in the city, and those who still remember the former aspirational glory of the Adirian Empire begin to look at neighboring lands with hungry eyes…</p><p></p><p>(Iliyanites)</p><p>While nominally residents of the city-state they inexplicably fought to defend centuries ago, the small, unspeaking population of Iliyanites maintains their tradition in isolated quarters within the walls of Adiri. When they do emerge, it is to gift some new crafting to the city, to participate in the ceremonial champion battles - shaping their fighting partners’ weapons as they spar - or to make their annual pilgrimage to the Iliyanite Sands, where their ancestors long dwelled and honed their magic. Of late, however, some of the younger generation have excommunicated themselves in order to seek other uses for their gift among the riot and bustle of the burgeoning towns and cities beyond the walls of Adiri…</p>",
+  "description": "<p>Once a great seat of power but much diminished by war, the city-state of Adiri remains stubbornly independent. Here, the ancient tradition of champion warfare is still practiced, though it has been confined to largely bloodless public bouts that have become as much social occasions as tests of martial prowess.</p><p>The city owes its continued existence to the Iliyanites, a strange sect of outsiders who inexplicably came to its aid during its rapid fall from power, rescuing it from utter destruction. These mysterious, unspeaking folk were much reduced in the fighting, and now, many years on, remain a small, reclusive minority. Even so, their metal-shaping magic is employed by arena champions and their works fill the city's bazaars with one-of-a-kind armaments.</p><p>Even as the city's traditions begin to evolve from pugilism into pageantry, those who still remember Adiri's former glory look upon the neighboring lands with hungry eyes…</p>",
   "isDeleted": false,
   "featuredArtUrls": [
     "https://cdn.midjourney.com/9c3c1165-785a-40c6-8d0d-d191822012d7/0_1.png"
   ],
-  "backgroundImage": "https://cdn.midjourney.com/f22380a9-d67e-47a2-9750-87fa07b6d211/0_2_2048_N.webp",
+  "backgroundImage": "https://cdn.midjourney.com/04756da0-8e51-4701-950c-d80b980ec187/0_3.png",
   "cardBackgroundImage": "https://cdn.midjourney.com/8d6a4126-e11c-41f2-90a6-9a829595bdbe/0_2.png",
   "expansion": "e46f4320-a414-4300-95d5-397ba717d982",
   "playlists": [
     "<iframe allow=\"autoplay *; encrypted-media *;\" frameborder=\"0\" height=\"450\" style=\"width:100%;max-width:660px;overflow:hidden;background:transparent;\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation\" src=\"https://embed.music.apple.com/us/playlist/adiri-calm/pl.u-yZyVjV1CqRNX7y?theme=dark\"></iframe>",
     "<iframe allow=\"autoplay *; encrypted-media *;\" frameborder=\"0\" height=\"450\" style=\"width:100%;max-width:660px;overflow:hidden;background:transparent;\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation\" src=\"https://embed.music.apple.com/us/playlist/adiri-action/pl.u-zPyLJL3uxaR5Xr?theme=dark\"></iframe>"
   ],
-  "hooks": [],
+  "hooks": [
+    {
+      "id": null,
+      "name": "The Rust",
+      "description": "<p>A strange, fast-spreading blight known as \"The Rust\" begins infecting the metal structures and armaments across the city, turning priceless gear into brittle, flaking rust. The economy is in free fall, the city’s defensive readiness is compromised, and scapegoating threatens to destroy the long peace of Adiri.</p>",
+      "gmNotes": "<p>The pattern of blight should indicate a clear point of origin: the shop of a disreputable blacksmith who has been known to rant against the Iliyanites. Our Heroes should find a secret door in the shop leading down into a hidden chamber, where they find a grim scene.</p><p>It seems that for some months the blacksmith has been holding one or more Iliyanites captive, attempting to force out of them the secrets of their ways. What he has managed to learn is a volatile perversion of their gifts, and The Rust is a by-product of that perversion.</p><p>The blacksmith himself should wield a terrifying bodysuit of ever-warping, ever-rusting metal with innumerable sharp appendages, and should be a formidable foe.</p><p>Should Our Heroes prevail, it's up to you to determine whether there is some antidote for The Rust, or if the city must simply let it run its course and start anew.</p><p>Questions to consider:</p><ul><li><p>Why couldn't the blacksmith fully gain the Iliyanites' gifts?</p></li><li><p>How will a city built around the creation, use and sale of weaponry respond to losing all of its weapons?</p></li></ul>",
+      "index": 0
+    },
+    {
+      "id": null,
+      "name": "Blood On The Sand",
+      "description": "<p>A faction of hardline traditionalists believes Adiri has grown soft on \"bloodless pageantry.\" Rumor has it that they have bribed or blackmailed several arena champions to turn a major public festival into a real bloodbath and assassinate a visiting foreign diplomat during the chaos. If they succeed, Adiri will be forced into an unwanted war. A worried arena coordinator is looking to recruit someone to infiltrate the games as replacement combatants and stop the assassinations from the inside.</p>",
+      "gmNotes": "<p>This can be fairly straight-ahead as written, or you may consider one or more of the following twists:</p><ul><li><p>The arena coordinator is in fact a member of the traditionalist faction and Our Heroes are being set up to be framed as foreign interlopers.</p></li><li><p>The \"traditionalist movement\" is actually a group of agents working for the foreign power, tasked with assassinating its own diplomat, who knows too much about something in that land.</p></li><li><p>The \"traditionalist movement\" is actually a group of agents working for the foreign power, tasked with assassinating its own diplomat as a pretext for sparking war with Adiri.</p></li></ul>",
+      "index": 1
+    },
+    {
+      "id": null,
+      "name": "The Ghost Ship",
+      "description": "<p>A strange, metallic vessel, empty of any crew, crashes into the shores near Adiri (or, if your Adiri is landlocked, it appears in the dunes outside of town in the night). The vessel is evidently of Iliyanite make, and matches descriptions handed down in oral tradition of the vessels that the Iliyanites arrived in generations ago. The unspeaking Iliyanites in the city quickly set up a perimeter, refusing to let anyone get near the wreckage. Curiosity and wonder grips the city, and a wealthy bazaar merchant is offering a hefty sum for any willing to attempt to sneak aboard the vessel and retrieve any logbooks or artifacts.</p>",
+      "gmNotes": "<p>This one is open-ended and invites you to address the question of why the Iliyanites came to the aid of Adiri. Did they come here for that purpose or did they arrive here <em>because they were running from something?</em></p><p>The heist/exploration should bring Our Heroes face-to-face with some fierce Iliyanite warriors and their metalshaping magic.</p>",
+      "index": 2
+    }
+  ],
   "localFlavor": {
     "names": "Bakari, Asha, Jabari, Nia, Idrissa, Zuberi, Malika, Ayodele, Tariq, Imani, Sekou, Halima, Nuru, Kofi, Adama, Salif, Zara, Amadou, Kenza, Faizah",
-    "occupations": "Smith, Champion, Herder, Sandwalker Guide, Bazaar Merchant, Storykeeper, Herbalist, Water Bearer, Tiler, Drum Maker, Oracle, Armor Carver, Scribe, Sandglass Maker, Dancer",
-    "publicHouses": "The Bronze Fang, The Arena’s Edge, The Red Sand Cup, The Ember Gate, The Golden Horn,  Champion's Arms",
-    "vittles": "Spiced Lamb, Flatbread, Date Paste, Honeyed Millet, Roasted Chickpeas, Grilled Eggplant, Fig Jam, Stewed Okra, Mint Tea, Tamarind Juice, Fried Locusts, Almond Couscous, Pomegranate Seeds, Goat Stew, Smoked Fish",
-    "pointsOfInterest": "The Arena of Echoes, The Forge of Kings, The Painted Gate, The Moonlit Bazaar, The Whispering Obelisk, The Fountain of Ancestry",
-    "floraFauna": "Acacia, Baobab, Date Palm, Desert Rose, Henna, Myrrh, Scorpion, Dromedary, Monitor Lizard, Sand Cat, Jerboa, Desert Hawk, Horned Viper, Gazelle, Fire Beetle"
+    "occupations": "Weaponsmith, Champion, Squire, Archivist, Bazaar Merchant, Historian, Swordmaster, Water Bearer, Tiler, Arena Attendant, Dancer, Armorer, Scribe, Battle Bard",
+    "publicHouses": "Youwarou's, Doua House, Whetty Cup, Bema Bev Stalls, Tavern Kokoye, Amandine, Bamako Kitchen, Lafia Bougou, Eagle Eye Sarl's, Babemba Magic, Niarela's",
+    "vittles": "Spiced Lamb, Flatbread, Date Paste, Millet Porridge, Roasted Chickpeas, Grilled Eggplant, Fig Jam, Stewed Okra, Mint Tea, Tamarind Juice, Fried Locusts, Almond Couscous, Pomegranate Seeds, Goat Stew",
+    "pointsOfInterest": "Arena Row, The Whetting Stone, Champion's Academy, The Empty Throne, The Archive of Empire, The Iliyanite Quarter, The Haft Groves",
+    "floraFauna": "Acacia, Baobab, Date Palm, Desert Rose, Henna, Myrrh, Scorpion, Dromedary, Monitor Lizard, Sand Cat, Jerboa, Desert Hawk, Horned Viper, Gazelle, Knife Beetle"
   },
-  "lastModified": "2026-05-13T03:01:15.349Z"
+  "lastModified": "2026-09-17T19:24:15.268Z"
 }

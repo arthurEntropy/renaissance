@@ -1,0 +1,23 @@
+{
+  "id": "0ed94402-68d3-4c45-b81c-b9b30adad438",
+  "isDeleted": false,
+  "createdAt": "2026-09-17T19:18:24.976Z",
+  "lastModified": "2026-09-18T13:35:27.020Z",
+  "name": "Favor of the Spire",
+  "artUrl": "https://cdn.midjourney.com/83d1b2b1-44d6-4432-a51f-435d1be08539/0_2.png",
+  "description": "<p><em>You've undergone a brutal ritual in order to gain the favor of The Great Spire.</em></p><p>When you gain this ability, take Injury equal to your BODY score, and your Injury score can never go below an amount equal to your BODY score. Also when you gain this ability, increase your base Endurance by twice your BODY score. These effects change any time your BODY score changes.</p><p><strong>Describe your scars.</strong></p>",
+  "successes": null,
+  "improvements": [],
+  "source": "372c0d28-68df-4202-8e2b-80f96c8928d6",
+  "school": null,
+  "isMagical": false,
+  "isBeastAbility": false,
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": null,
+  "manaCost": null,
+  "biomeTagsAugment": [],
+  "biomeTagsInhibit": [],
+  "canBeActive": false,
+  "hasDifficulty": false
+}

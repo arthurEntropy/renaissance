@@ -2,7 +2,7 @@
   "id": "7022a9a6-2127-4325-927e-e775662eebd9",
   "isDeleted": false,
   "createdAt": "2026-08-17T20:26:28.856Z",
-  "lastModified": "2026-08-26T12:28:31.299Z",
+  "lastModified": "2026-08-26T18:35:57.784Z",
   "campaignId": "84b00fc0-eae8-4808-9151-949bf59928ff",
   "name": "Guildford Gate",
   "backgroundImage": {
@@ -19,9 +19,9 @@
       "name": "Magnuss",
       "portraitUrl": "https://cdn.midjourney.com/9d007aef-e372-4e42-9581-a2703cfe7018/0_2_2048_N.webp",
       "size": 1,
-      "x": 280,
-      "y": 400,
-      "zIndex": 8
+      "x": 720,
+      "y": 240,
+      "zIndex": 49
     },
     {
       "id": "2148b01d-5213-4a56-a501-e722ab01d012",
@@ -31,9 +31,10 @@
       "name": "Jebeddo",
       "portraitUrl": "https://cdn.midjourney.com/60fb6863-799d-4119-807e-b397a9bb7534/0_0_2048_N.webp",
       "size": 1,
-      "x": 320,
-      "y": 400,
-      "zIndex": 10
+      "x": 640,
+      "y": 320,
+      "zIndex": 40,
+      "isHidden": true
     },
     {
       "id": "9e5ef625-03bc-47de-9ce0-9dabf87c8842",
@@ -43,9 +44,9 @@
       "name": "Palfrey",
       "portraitUrl": "https://cdn.midjourney.com/5a6c9787-cedb-4eb6-8de1-17f837a10b99/0_1_2048_N.webp",
       "size": 1,
-      "x": 280,
-      "y": 440,
-      "zIndex": 9
+      "x": 760,
+      "y": 280,
+      "zIndex": 44
     },
     {
       "id": "d2671c74-95d7-4840-adff-c4f0ec99970d",
@@ -55,23 +56,1094 @@
       "name": "Owlbear 🅩",
       "portraitUrl": "https://cdn.midjourney.com/84742b7f-d0e3-4f7b-a76c-7c0472c33b9e/0_2.png",
       "size": 2,
-      "x": 1200,
-      "y": 480,
-      "zIndex": 11
+      "x": 680,
+      "y": 280,
+      "zIndex": 56
     }
   ],
   "transform": {
-    "scale": 1,
-    "x": 110.34658033535243,
-    "y": 72.69430190745538
+    "scale": 1.1664,
+    "x": -285.65814869684505,
+    "y": 15.806633744855844
   },
   "gridSize": 40,
   "gridColor": "#ffffff",
   "gridOpacity": 0.06,
   "mapScale": 1.3,
   "showPaths": true,
-  "radiusAreas": [],
-  "rollLog": [],
+  "radiusAreas": [
+    {
+      "id": "0e113968-c098-4552-a66c-a9ba7b3622cb",
+      "originX": 720,
+      "originY": 320,
+      "radiusFeet": 5,
+      "color": "#ffffff",
+      "label": "",
+      "tokenId": "1f161f52-1eab-4c82-8f36-a78e83d7639c"
+    }
+  ],
+  "rollLog": [
+    {
+      "id": "13e267c3-f608-466d-9a8d-7442dcd5a7d4_1787767590998_v25l",
+      "timestamp": 1787767590998,
+      "type": "engagement",
+      "combined": true,
+      "characterId": "13e267c3-f608-466d-9a8d-7442dcd5a7d4",
+      "characterName": "Sukha",
+      "portraitUrl": null,
+      "isNpc": false,
+      "isBeast": false,
+      "result": "loss",
+      "userWins": 0,
+      "opponentWins": 2,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 6,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-6"
+        },
+        {
+          "dieSize": 12,
+          "dieRollValue": 1,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-1"
+        }
+      ],
+      "opponentCharacterId": "b60d9e6e-b0f1-43af-ac8e-f667fe3b2052",
+      "opponentName": "Spore Hound 🅖",
+      "opponentPortraitUrl": null,
+      "opponentIsNpc": false,
+      "opponentIsBeast": false,
+      "opponentResult": "loss",
+      "opponentDiceResults": []
+    },
+    {
+      "id": "652492e4-9f11-4eba-a67c-9eb4f3510098_1787767732596_wcmh",
+      "timestamp": 1787767732596,
+      "characterId": "652492e4-9f11-4eba-a67c-9eb4f3510098",
+      "characterName": "Mycoderm 🅛",
+      "portraitUrl": null,
+      "isNpc": false,
+      "isBeast": false,
+      "type": "engagement",
+      "skillName": null,
+      "total": null,
+      "diceTotal": null,
+      "modifier": 0,
+      "modifierLabel": null,
+      "success": null,
+      "difficulty": null,
+      "footer": null,
+      "favoredStatus": null,
+      "userWins": 2,
+      "opponentWins": 0,
+      "drawCount": 0,
+      "result": "win",
+      "opponentName": "Sukha",
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 6,
+          "dieRollValue": 4,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-4"
+        },
+        {
+          "dieSize": 10,
+          "dieRollValue": 7,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d10-7"
+        }
+      ],
+      "wasTokenVisible": false
+    },
+    {
+      "id": "4083afd8-0594-4647-ac06-09b8a2a8cefc_1787768109004_9u0a",
+      "timestamp": 1787768109004,
+      "characterId": "4083afd8-0594-4647-ac06-09b8a2a8cefc",
+      "characterName": "Magnuss",
+      "portraitUrl": "https://cdn.midjourney.com/9d007aef-e372-4e42-9581-a2703cfe7018/0_2_2048_N.webp",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "initiative",
+      "skillName": "Initiative",
+      "total": 3,
+      "diceTotal": 2,
+      "modifier": 1,
+      "modifierLabel": "WITS",
+      "success": null,
+      "difficulty": null,
+      "footer": null,
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 2,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-2"
+        }
+      ],
+      "wasTokenVisible": true
+    },
+    {
+      "id": "8f20a6c3-b272-45d6-9d80-c07ced314693_1787768109004_0vx0",
+      "timestamp": 1787768109004,
+      "characterId": "8f20a6c3-b272-45d6-9d80-c07ced314693",
+      "characterName": "Jebeddo",
+      "portraitUrl": "https://cdn.midjourney.com/60fb6863-799d-4119-807e-b397a9bb7534/0_0_2048_N.webp",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "initiative",
+      "skillName": "Initiative",
+      "total": 9,
+      "diceTotal": 8,
+      "modifier": 1,
+      "modifierLabel": "WITS",
+      "success": null,
+      "difficulty": null,
+      "footer": null,
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 8,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-8"
+        }
+      ],
+      "wasTokenVisible": true
+    },
+    {
+      "id": "da8bd375-e52c-4b5a-9cbf-d729eb2442cf_1787768109004_twyi",
+      "timestamp": 1787768109004,
+      "characterId": "da8bd375-e52c-4b5a-9cbf-d729eb2442cf",
+      "characterName": "Palfrey",
+      "portraitUrl": "https://cdn.midjourney.com/5a6c9787-cedb-4eb6-8de1-17f837a10b99/0_1_2048_N.webp",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "initiative",
+      "skillName": "Initiative",
+      "total": 3,
+      "diceTotal": 1,
+      "modifier": 2,
+      "modifierLabel": "WITS",
+      "success": null,
+      "difficulty": null,
+      "footer": null,
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 1,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-1"
+        }
+      ],
+      "wasTokenVisible": true
+    },
+    {
+      "id": "1f161f52-1eab-4c82-8f36-a78e83d7639c_1787768110217_1kja",
+      "timestamp": 1787768110217,
+      "characterId": "1f161f52-1eab-4c82-8f36-a78e83d7639c",
+      "characterName": "Owlbear 🅩",
+      "portraitUrl": "https://cdn.midjourney.com/84742b7f-d0e3-4f7b-a76c-7c0472c33b9e/0_2.png",
+      "isNpc": false,
+      "isBeast": true,
+      "type": "initiative",
+      "skillName": "Initiative",
+      "total": 3,
+      "diceTotal": 0,
+      "modifier": 3,
+      "modifierLabel": "WITS",
+      "success": null,
+      "difficulty": null,
+      "footer": null,
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 11,
+          "emoji": "💀",
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-11"
+        }
+      ],
+      "wasTokenVisible": true
+    },
+    {
+      "id": "1f161f52-1eab-4c82-8f36-a78e83d7639c_1787768250610_kx29",
+      "timestamp": 1787768250610,
+      "type": "engagement",
+      "combined": true,
+      "characterId": "1f161f52-1eab-4c82-8f36-a78e83d7639c",
+      "characterName": "Owlbear 🅩",
+      "portraitUrl": "https://cdn.midjourney.com/84742b7f-d0e3-4f7b-a76c-7c0472c33b9e/0_2.png",
+      "isNpc": false,
+      "isBeast": true,
+      "result": "loss",
+      "userWins": 0,
+      "opponentWins": 2,
+      "diceResults": [
+        {
+          "dieSize": 8,
+          "dieRollValue": 2,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d8-2"
+        },
+        {
+          "dieSize": 8,
+          "dieRollValue": 2,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d8-2"
+        }
+      ],
+      "opponentCharacterId": "da8bd375-e52c-4b5a-9cbf-d729eb2442cf",
+      "opponentName": "Palfrey",
+      "opponentPortraitUrl": "https://cdn.midjourney.com/5a6c9787-cedb-4eb6-8de1-17f837a10b99/0_1_2048_N.webp",
+      "opponentIsNpc": false,
+      "opponentIsBeast": false,
+      "opponentResult": "win",
+      "opponentDiceResults": [
+        {
+          "dieSize": 6,
+          "dieRollValue": 5,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-5"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 4,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-4"
+        }
+      ]
+    },
+    {
+      "id": "da8bd375-e52c-4b5a-9cbf-d729eb2442cf_1787768260993_k4ep",
+      "timestamp": 1787768260993,
+      "characterId": "da8bd375-e52c-4b5a-9cbf-d729eb2442cf",
+      "characterName": "Palfrey",
+      "portraitUrl": "https://cdn.midjourney.com/5a6c9787-cedb-4eb6-8de1-17f837a10b99/0_1_2048_N.webp",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "skill_check",
+      "skillName": "Strength",
+      "total": 16,
+      "diceTotal": null,
+      "modifier": 0,
+      "modifierLabel": null,
+      "success": true,
+      "difficulty": null,
+      "footer": "",
+      "favoredStatus": "favored",
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": "Estoc",
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 8,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-8"
+        },
+        {
+          "dieSize": 12,
+          "dieRollValue": 0,
+          "emoji": null,
+          "isDropped": true,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-8"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 6,
+          "emoji": "✨",
+          "isDropped": false,
+          "rolledMaxValue": true,
+          "cssClass": "df-d6-6"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 2,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-2"
+        }
+      ],
+      "wasTokenVisible": true
+    },
+    {
+      "id": "da8bd375-e52c-4b5a-9cbf-d729eb2442cf_1787768270819_o3x0",
+      "timestamp": 1787768270819,
+      "characterId": "da8bd375-e52c-4b5a-9cbf-d729eb2442cf",
+      "characterName": "Palfrey",
+      "portraitUrl": "https://cdn.midjourney.com/5a6c9787-cedb-4eb6-8de1-17f837a10b99/0_1_2048_N.webp",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "damage",
+      "skillName": "Estoc",
+      "total": 12,
+      "diceTotal": 9,
+      "modifier": 3,
+      "modifierLabel": "BODY",
+      "success": null,
+      "difficulty": null,
+      "footer": "+ BODY",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": "Estoc",
+      "diceResults": [
+        {
+          "dieSize": 10,
+          "dieRollValue": 9,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d10-9"
+        }
+      ],
+      "wasTokenVisible": true
+    },
+    {
+      "id": "8f20a6c3-b272-45d6-9d80-c07ced314693_1787768322433_ssnt",
+      "timestamp": 1787768322433,
+      "characterId": "8f20a6c3-b272-45d6-9d80-c07ced314693",
+      "characterName": "Jebeddo",
+      "portraitUrl": "https://cdn.midjourney.com/60fb6863-799d-4119-807e-b397a9bb7534/0_0_2048_N.webp",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "skill_check",
+      "skillName": "Courtesy",
+      "total": 8,
+      "diceTotal": null,
+      "modifier": 0,
+      "modifierLabel": null,
+      "success": true,
+      "difficulty": null,
+      "footer": "Troubled",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 7,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-7"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 1,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-1"
+        }
+      ],
+      "wasTokenVisible": true
+    },
+    {
+      "id": "1f161f52-1eab-4c82-8f36-a78e83d7639c_1787768328917_qhpn",
+      "timestamp": 1787768328917,
+      "characterId": "1f161f52-1eab-4c82-8f36-a78e83d7639c",
+      "characterName": "Owlbear 🅩",
+      "portraitUrl": "https://cdn.midjourney.com/84742b7f-d0e3-4f7b-a76c-7c0472c33b9e/0_2.png",
+      "isNpc": false,
+      "isBeast": true,
+      "type": "skill_check",
+      "skillName": "Courtesy",
+      "total": 7,
+      "diceTotal": null,
+      "modifier": 0,
+      "modifierLabel": null,
+      "success": true,
+      "difficulty": null,
+      "footer": "",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 7,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-7"
+        }
+      ],
+      "wasTokenVisible": true
+    },
+    {
+      "id": "1f161f52-1eab-4c82-8f36-a78e83d7639c_1787768380488_a6zs",
+      "timestamp": 1787768380488,
+      "type": "engagement",
+      "combined": true,
+      "characterId": "1f161f52-1eab-4c82-8f36-a78e83d7639c",
+      "characterName": "Owlbear 🅩",
+      "portraitUrl": "https://cdn.midjourney.com/84742b7f-d0e3-4f7b-a76c-7c0472c33b9e/0_2.png",
+      "isNpc": false,
+      "isBeast": true,
+      "result": "win",
+      "userWins": 2,
+      "opponentWins": 0,
+      "diceResults": [
+        {
+          "dieSize": 8,
+          "dieRollValue": 6,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d8-6"
+        },
+        {
+          "dieSize": 8,
+          "dieRollValue": 1,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d8-1"
+        },
+        {
+          "dieSize": 10,
+          "dieRollValue": 8,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d10-8"
+        }
+      ],
+      "opponentCharacterId": "8f20a6c3-b272-45d6-9d80-c07ced314693",
+      "opponentName": "Jebeddo",
+      "opponentPortraitUrl": "https://cdn.midjourney.com/60fb6863-799d-4119-807e-b397a9bb7534/0_0_2048_N.webp",
+      "opponentIsNpc": false,
+      "opponentIsBeast": false,
+      "opponentResult": "loss",
+      "opponentDiceResults": [
+        {
+          "dieSize": 4,
+          "dieRollValue": 3,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d4-3"
+        },
+        {
+          "dieSize": 4,
+          "dieRollValue": 1,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d4-1"
+        },
+        {
+          "dieSize": 8,
+          "dieRollValue": 4,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d8-4"
+        }
+      ]
+    },
+    {
+      "id": "1f161f52-1eab-4c82-8f36-a78e83d7639c_1787768391471_74kp",
+      "timestamp": 1787768391471,
+      "characterId": "1f161f52-1eab-4c82-8f36-a78e83d7639c",
+      "characterName": "Owlbear 🅩",
+      "portraitUrl": "https://cdn.midjourney.com/84742b7f-d0e3-4f7b-a76c-7c0472c33b9e/0_2.png",
+      "isNpc": false,
+      "isBeast": true,
+      "type": "skill_check",
+      "skillName": "Strength",
+      "total": 20,
+      "diceTotal": null,
+      "modifier": 0,
+      "modifierLabel": null,
+      "success": true,
+      "difficulty": null,
+      "footer": "",
+      "favoredStatus": "favored",
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": "Claws",
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 9,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-9"
+        },
+        {
+          "dieSize": 12,
+          "dieRollValue": 0,
+          "emoji": null,
+          "isDropped": true,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-5"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 6,
+          "emoji": "✨",
+          "isDropped": false,
+          "rolledMaxValue": true,
+          "cssClass": "df-d6-6"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 3,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-3"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 2,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-2"
+        }
+      ],
+      "wasTokenVisible": true
+    },
+    {
+      "id": "1f161f52-1eab-4c82-8f36-a78e83d7639c_1787768404354_awhu",
+      "timestamp": 1787768404354,
+      "characterId": "1f161f52-1eab-4c82-8f36-a78e83d7639c",
+      "characterName": "Owlbear 🅩",
+      "portraitUrl": "https://cdn.midjourney.com/84742b7f-d0e3-4f7b-a76c-7c0472c33b9e/0_2.png",
+      "isNpc": false,
+      "isBeast": true,
+      "type": "damage",
+      "skillName": "Claws",
+      "total": 14,
+      "diceTotal": 4,
+      "modifier": 10,
+      "modifierLabel": "BODY",
+      "success": null,
+      "difficulty": null,
+      "footer": "+ BODY",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": "Claws",
+      "diceResults": [
+        {
+          "dieSize": 8,
+          "dieRollValue": 4,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d8-4"
+        }
+      ],
+      "wasTokenVisible": true
+    },
+    {
+      "id": "da8bd375-e52c-4b5a-9cbf-d729eb2442cf_1787768464219_wisv",
+      "timestamp": 1787768464219,
+      "type": "engagement",
+      "combined": true,
+      "characterId": "da8bd375-e52c-4b5a-9cbf-d729eb2442cf",
+      "characterName": "Palfrey",
+      "portraitUrl": "https://cdn.midjourney.com/5a6c9787-cedb-4eb6-8de1-17f837a10b99/0_1_2048_N.webp",
+      "isNpc": false,
+      "isBeast": false,
+      "result": "win",
+      "userWins": 1,
+      "opponentWins": 0,
+      "diceResults": [
+        {
+          "dieSize": 10,
+          "dieRollValue": 10,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": true,
+          "cssClass": "df-d10-10"
+        }
+      ],
+      "opponentCharacterId": "1f161f52-1eab-4c82-8f36-a78e83d7639c",
+      "opponentName": "Owlbear 🅩",
+      "opponentPortraitUrl": "https://cdn.midjourney.com/84742b7f-d0e3-4f7b-a76c-7c0472c33b9e/0_2.png",
+      "opponentIsNpc": false,
+      "opponentIsBeast": true,
+      "opponentResult": "loss",
+      "opponentDiceResults": []
+    },
+    {
+      "id": "1f161f52-1eab-4c82-8f36-a78e83d7639c_1787768480369_wt7n",
+      "timestamp": 1787768480369,
+      "characterId": "1f161f52-1eab-4c82-8f36-a78e83d7639c",
+      "characterName": "Owlbear 🅩",
+      "portraitUrl": "https://cdn.midjourney.com/84742b7f-d0e3-4f7b-a76c-7c0472c33b9e/0_2.png",
+      "isNpc": false,
+      "isBeast": true,
+      "type": "skill_check",
+      "skillName": "Strength",
+      "total": 7,
+      "diceTotal": null,
+      "modifier": 0,
+      "modifierLabel": null,
+      "success": true,
+      "difficulty": null,
+      "footer": "",
+      "favoredStatus": "ill-favored",
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": "Bite",
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 11,
+          "emoji": "💀",
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-11"
+        },
+        {
+          "dieSize": 12,
+          "dieRollValue": 0,
+          "emoji": null,
+          "isDropped": true,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-5"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 5,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-5"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 1,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-1"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 1,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-1"
+        }
+      ],
+      "wasTokenVisible": true
+    },
+    {
+      "id": "da8bd375-e52c-4b5a-9cbf-d729eb2442cf_1787768614800_9ft9",
+      "timestamp": 1787768614800,
+      "type": "engagement",
+      "combined": true,
+      "characterId": "da8bd375-e52c-4b5a-9cbf-d729eb2442cf",
+      "characterName": "Palfrey",
+      "portraitUrl": "https://cdn.midjourney.com/5a6c9787-cedb-4eb6-8de1-17f837a10b99/0_1_2048_N.webp",
+      "isNpc": false,
+      "isBeast": false,
+      "result": "win",
+      "userWins": 1,
+      "opponentWins": 0,
+      "diceResults": [
+        {
+          "dieSize": 6,
+          "dieRollValue": 3,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-3"
+        }
+      ],
+      "opponentCharacterId": "1f161f52-1eab-4c82-8f36-a78e83d7639c",
+      "opponentName": "Owlbear 🅩",
+      "opponentPortraitUrl": "https://cdn.midjourney.com/84742b7f-d0e3-4f7b-a76c-7c0472c33b9e/0_2.png",
+      "opponentIsNpc": false,
+      "opponentIsBeast": true,
+      "opponentResult": "loss",
+      "opponentDiceResults": []
+    },
+    {
+      "id": "da8bd375-e52c-4b5a-9cbf-d729eb2442cf_1787768628268_02o0",
+      "timestamp": 1787768628268,
+      "characterId": "da8bd375-e52c-4b5a-9cbf-d729eb2442cf",
+      "characterName": "Palfrey",
+      "portraitUrl": "https://cdn.midjourney.com/5a6c9787-cedb-4eb6-8de1-17f837a10b99/0_1_2048_N.webp",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "skill_check",
+      "skillName": "Strength",
+      "total": 14,
+      "diceTotal": null,
+      "modifier": 0,
+      "modifierLabel": null,
+      "success": true,
+      "difficulty": null,
+      "footer": "",
+      "favoredStatus": "favored",
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": "Estoc",
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 10,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-10"
+        },
+        {
+          "dieSize": 12,
+          "dieRollValue": 0,
+          "emoji": null,
+          "isDropped": true,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-2"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 2,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-2"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 2,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-2"
+        }
+      ],
+      "wasTokenVisible": true
+    },
+    {
+      "id": "da8bd375-e52c-4b5a-9cbf-d729eb2442cf_1787768634103_6q7g",
+      "timestamp": 1787768634103,
+      "characterId": "da8bd375-e52c-4b5a-9cbf-d729eb2442cf",
+      "characterName": "Palfrey",
+      "portraitUrl": "https://cdn.midjourney.com/5a6c9787-cedb-4eb6-8de1-17f837a10b99/0_1_2048_N.webp",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "damage",
+      "skillName": "Estoc",
+      "total": 3,
+      "diceTotal": 1,
+      "modifier": 2,
+      "modifierLabel": "BODY",
+      "success": null,
+      "difficulty": null,
+      "footer": "+ BODY",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": "Estoc",
+      "diceResults": [
+        {
+          "dieSize": 10,
+          "dieRollValue": 1,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d10-1"
+        }
+      ],
+      "wasTokenVisible": true
+    },
+    {
+      "id": "4083afd8-0594-4647-ac06-09b8a2a8cefc_1787768663373_zg2j",
+      "timestamp": 1787768663373,
+      "characterId": "4083afd8-0594-4647-ac06-09b8a2a8cefc",
+      "characterName": "Magnuss",
+      "portraitUrl": "https://cdn.midjourney.com/9d007aef-e372-4e42-9581-a2703cfe7018/0_2_2048_N.webp",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "custom_roll",
+      "skillName": "Custom Roll",
+      "total": 8,
+      "diceTotal": 4,
+      "modifier": 4,
+      "modifierLabel": null,
+      "success": null,
+      "difficulty": null,
+      "footer": "",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 4,
+          "dieRollValue": 2,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d4-2"
+        },
+        {
+          "dieSize": 4,
+          "dieRollValue": 2,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d4-2"
+        }
+      ],
+      "wasTokenVisible": true
+    },
+    {
+      "id": "4083afd8-0594-4647-ac06-09b8a2a8cefc_1787768704573_8xv1",
+      "timestamp": 1787768704573,
+      "characterId": "4083afd8-0594-4647-ac06-09b8a2a8cefc",
+      "characterName": "Magnuss",
+      "portraitUrl": "https://cdn.midjourney.com/9d007aef-e372-4e42-9581-a2703cfe7018/0_2_2048_N.webp",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "skill_check",
+      "skillName": "Spirit",
+      "total": 16,
+      "diceTotal": null,
+      "modifier": 0,
+      "modifierLabel": null,
+      "success": true,
+      "difficulty": null,
+      "footer": "Insecure, Troubled",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 2,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-2"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 6,
+          "emoji": "✨",
+          "isDropped": false,
+          "rolledMaxValue": true,
+          "cssClass": "df-d6-6"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 4,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-4"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 3,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-3"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 1,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-1"
+        }
+      ],
+      "wasTokenVisible": true
+    },
+    {
+      "id": "1f161f52-1eab-4c82-8f36-a78e83d7639c_1787768713010_0dto",
+      "timestamp": 1787768713010,
+      "characterId": "1f161f52-1eab-4c82-8f36-a78e83d7639c",
+      "characterName": "Owlbear 🅩",
+      "portraitUrl": "https://cdn.midjourney.com/84742b7f-d0e3-4f7b-a76c-7c0472c33b9e/0_2.png",
+      "isNpc": false,
+      "isBeast": true,
+      "type": "skill_check",
+      "skillName": "Strength",
+      "total": 15,
+      "diceTotal": null,
+      "modifier": 0,
+      "modifierLabel": null,
+      "success": true,
+      "difficulty": null,
+      "footer": "",
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": null,
+      "diceResults": [
+        {
+          "dieSize": 12,
+          "dieRollValue": 6,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d12-6"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 4,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-4"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 3,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-3"
+        },
+        {
+          "dieSize": 6,
+          "dieRollValue": 2,
+          "emoji": null,
+          "isDropped": false,
+          "rolledMaxValue": false,
+          "cssClass": "df-d6-2"
+        }
+      ],
+      "wasTokenVisible": true
+    },
+    {
+      "id": "4083afd8-0594-4647-ac06-09b8a2a8cefc_1787768723810_s1ul",
+      "timestamp": 1787768723810,
+      "characterId": "4083afd8-0594-4647-ac06-09b8a2a8cefc",
+      "characterName": "Magnuss",
+      "portraitUrl": "https://cdn.midjourney.com/9d007aef-e372-4e42-9581-a2703cfe7018/0_2_2048_N.webp",
+      "isNpc": false,
+      "isBeast": false,
+      "type": "chat_link",
+      "skillName": null,
+      "total": null,
+      "diceTotal": null,
+      "modifier": 0,
+      "modifierLabel": null,
+      "success": null,
+      "difficulty": null,
+      "footer": null,
+      "favoredStatus": null,
+      "userWins": null,
+      "opponentWins": null,
+      "drawCount": null,
+      "result": null,
+      "opponentName": null,
+      "sourceName": "Engulf",
+      "diceResults": [],
+      "wasTokenVisible": true
+    }
+  ],
   "combatGroups": [
     {
       "id": "group-1787683959318-bsmh24",
@@ -92,7 +1164,10 @@
           "type": "pc",
           "characterId": "da8bd375-e52c-4b5a-9cbf-d729eb2442cf"
         }
-      ]
+      ],
+      "initiativeResults": {
+        "groupTotal": 12
+      }
     },
     {
       "id": "group-1787683988468-xo39wr",
@@ -103,7 +1178,24 @@
           "type": "beast",
           "characterId": "1f161f52-1eab-4c82-8f36-a78e83d7639c"
         }
-      ]
+      ],
+      "initiativeResults": {
+        "groupTotal": 3,
+        "members": [
+          {
+            "characterId": "1f161f52-1eab-4c82-8f36-a78e83d7639c",
+            "name": "Owlbear 🅩",
+            "individualTotal": 3,
+            "diceRoll": 0,
+            "isSol": false,
+            "isMorte": false,
+            "isCaughtOffGuard": false,
+            "emoji": null,
+            "role": "only",
+            "success": true
+          }
+        ]
+      }
     }
   ],
   "pixelsPerMile": 40,
