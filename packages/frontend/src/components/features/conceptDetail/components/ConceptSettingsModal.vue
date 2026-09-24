@@ -28,6 +28,7 @@
     <template #actions>
       <ActionButton variant="neutral" size="large" text="Cancel" @click="cancel" />
       <ActionButton variant="primary" size="large" text="Save" @click="save" />
+      <ActionButton variant="danger" size="large" text="Delete" @click="deleteConcept" />
     </template>
   </BaseModal>
 </template>
@@ -38,6 +39,7 @@ import { useExpansionsStore } from '@/stores/expansionsStore'
 import { useConceptsStore } from '@/stores/conceptsStore'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import BaseModal from '@/components/ui/modals/BaseModal.vue'
+import { useConfirm } from '@/composables/useConfirm'
 
 const props = defineProps({
   visible: {
@@ -46,7 +48,7 @@ const props = defineProps({
   },
 })
 
-const emit = defineEmits(['cancel', 'save'])
+const emit = defineEmits(['cancel', 'save', 'delete'])
 
 const expansionsStore = useExpansionsStore()
 const conceptsStore = useConceptsStore()
@@ -65,6 +67,14 @@ const save = () => {
 
 const cancel = () => {
   emit('cancel')
+}
+
+const deleteConcept = async () => {
+  const { confirm } = useConfirm()
+  const name = conceptsStore.selectedConcept?.name || 'this concept'
+  if (await confirm(`Are you sure you want to delete "${name}"?`)) {
+    emit('delete')
+  }
 }
 
 const loadSettings = () => {

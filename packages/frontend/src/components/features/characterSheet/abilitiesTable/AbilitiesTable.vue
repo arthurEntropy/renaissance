@@ -132,7 +132,6 @@ import { useSourcesStore } from '@/stores/sourcesStore'
 import { useConceptsStore } from '@/stores/conceptsStore'
 import { MANA_COLOR_ORDER } from '@/constants/manaColors'
 import CustomRollModal from '@/components/features/characterSheet/customDiceRoller/CustomRollModal.vue'
-import { RollTypes } from '@/constants/rollTypes'
 import { getModifierStatKey } from '@/utils/characterKeyUtils'
 import { SKILLS } from '@shared/constants/characterConstants'
 
