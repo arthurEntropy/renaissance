@@ -1,0 +1,14 @@
+{
+  "id": "603f37e3-851a-49f8-a21c-c94e6ae40a0f",
+  "isDeleted": false,
+  "lastModified": "2026-09-02T15:45:41.370Z",
+  "name": "Intrigue",
+  "description": "<p><em>Your time spent near the Fey Court has taught you how to manipulate others.</em></p><p>Your Awe, Perform and Persuade skills are favored.</p><p><strong>Describe your influence.</strong></p>",
+  "source": "83d190cb-0e05-4392-a5b1-f8a8017f505b",
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": null,
+  "canBeActive": false,
+  "hasDifficulty": false,
+  "artUrl": "https://cdn.midjourney.com/cb5133fc-c0ea-4a15-8332-323a8764da4c/0_3.png"
+}

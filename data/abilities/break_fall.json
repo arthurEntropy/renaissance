@@ -1,10 +1,10 @@
 {
   "id": "20751e8e-a5ed-4e42-be6b-76f05ccc3dbe",
   "createdAt": "2026-03-06T20:04:24.253Z",
-  "lastModified": "2026-03-17T14:30:28.917Z",
+  "lastModified": "2026-09-13T10:21:35.301Z",
   "name": "Break Fall",
   "artUrl": "https://cdn.midjourney.com/0fed061b-40f8-4a16-8a43-5ff9be199f32/0_1.png",
-  "description": "<p>Once per rest: Your Ward Plant extends tendrils as you fall, slowing and softening your landing. Prevent all falling damage from a single fall.</p><p><strong>Describe how your Ward Plant saves you.</strong></p>",
+  "description": "<p><em>Trigger: You would take damage from a fall.</em></p><p>Once per rest: Your Ward Plant extends tendrils as you fall, slowing and softening your landing. Prevent all falling damage from a single fall.</p><p><strong>Describe how your Ward Plant saves you.</strong></p>",
   "source": "937d52da-0ebf-4d74-b3ee-be395f2f5d0a",
   "school": "f8572abf-975d-4007-b007-4cbe9bfdec01",
   "isMagical": true,

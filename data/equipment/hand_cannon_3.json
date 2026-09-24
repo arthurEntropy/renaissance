@@ -1,7 +1,7 @@
 {
   "isDeleted": false,
   "createdAt": "2026-05-06T17:55:10.305Z",
-  "lastModified": "2026-06-24T14:09:27.072Z",
+  "lastModified": "2026-08-28T15:36:22.038Z",
   "name": "Hand Cannon",
   "artUrl": "https://cdn.midjourney.com/51d1706e-742a-4798-b8d3-aaf39743fa79/0_3.png",
   "description": "",
@@ -9,7 +9,7 @@
   "improvements": [],
   "source": "be62ac3d-7168-4779-8274-e60574a2fd27",
   "school": null,
-  "keeping": "785f93f5-e4fd-4512-b888-5efdc1a1130f",
+  "keeping": "5e6f7a8b-9c0d-4e1f-2a3b-4c5d6e7f8a9b",
   "isCustom": false,
   "isTemplate": false,
   "isMagical": false,

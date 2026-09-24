@@ -1,0 +1,14 @@
+{
+  "id": "fc251bc8-4a9a-43c1-9ad1-2ed1c7a6fef7",
+  "isDeleted": false,
+  "lastModified": "2026-09-11T18:57:09.166Z",
+  "name": "Flame-Hardened",
+  "description": "<p><em>Living among the forges and lava canals of Azca have made you heat-hardy.</em></p><p>Halve all damage dealt to you by fire or extreme heat, and whenever you roll Fortitude to endure fire or extreme heat, the roll is favored.</p><p><strong>Describe how you handle fire.</strong></p>",
+  "source": "a3a54cb6-09c4-42e3-b142-3053b7c1d4e8",
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": null,
+  "canBeActive": false,
+  "hasDifficulty": false,
+  "artUrl": "https://cdn.midjourney.com/ddd2d5f6-21b2-4f8c-80e1-c3bf90b16439/0_0.png"
+}

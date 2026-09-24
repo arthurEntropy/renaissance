@@ -1,13 +1,14 @@
 {
   "id": "7e55ed19-1588-4c98-9cc6-338f3af0acc0",
   "isDeleted": false,
-  "lastModified": "2026-02-12T21:37:52.072Z",
+  "lastModified": "2026-09-21T15:22:23.450Z",
   "name": "Loremaster",
-  "description": "<p>Once per rest, you may roll <em>Lore</em> in place of any other skill. Describe what tale you’re drawing on to help with the situation.</p>",
+  "description": "<p><em>You carry innumerable tales with you and know how to draw upon them in need.</em></p><p>Once per rest, when an effect would force you to roll a skill other than Lore, you may roll Lore instead.</p><p><strong>Describe the tale you recall.</strong></p>",
   "source": "f66ab54f-ef77-4d04-9ae3-ca575615a6d1",
   "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
   "mpCost": null,
   "xpCost": null,
   "canBeActive": false,
-  "hasDifficulty": false
+  "hasDifficulty": false,
+  "artUrl": "https://cdn.midjourney.com/a6b179e3-48c0-4fc4-b912-57c635b7892f/0_2.png"
 }

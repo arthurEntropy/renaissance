@@ -1,10 +1,10 @@
 {
   "id": "8f795b75-3ac1-4028-b1a8-0d3cbf8a2c3b",
   "createdAt": "2026-03-04T19:04:33.244Z",
-  "lastModified": "2026-03-17T14:50:41.676Z",
+  "lastModified": "2026-09-13T10:59:17.297Z",
   "name": "Call Animals",
   "artUrl": "https://cdn.midjourney.com/fb783f81-e5cb-44f0-b7a2-28fab737c656/0_3.png",
-  "description": "<p><em>Concentration, up to 1 hour.</em></p><p>You issue a loud call — a whistle, shout, or resonant cry — summoning nearby animals native to the current biome.</p><p>Choose one animal of Challenge 4, or any number of animals with a combined Challenge of 4 or less, up to a maximum of 10 animals. The summoned animals emerge from the nearest plausible hiding places and move toward you until they are within medium range. If summoned during combat, they roll initiative as a single group when they appear.</p><p>The animals are friendly to you and your allies. While within medium range, they obey your verbal commands. If given no commands, they defend themselves but otherwise take no action.</p><p><strong>Describe your call.</strong></p>",
+  "description": "<p><em>Concentration, up to 1 hour.</em></p><p>You issue a loud call — a whistle, shout, or resonant cry — summoning nearby animals native to the current biome.</p><p>Choose one animal of up to Challenge 4, or any number of animals with a combined Challenge of 4 or less, up to a maximum of 10 animals. The summoned animals emerge from the nearest plausible hiding places and move toward you until they are within medium range. If summoned during combat, they roll initiative as a single group when they appear.</p><p>The animals are friendly to you and your allies. While within medium range, they obey your verbal commands. If given no commands, they defend themselves but otherwise take no action.</p><p><strong>Describe your call.</strong></p>",
   "source": "937d52da-0ebf-4d74-b3ee-be395f2f5d0a",
   "isMagical": true,
   "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",

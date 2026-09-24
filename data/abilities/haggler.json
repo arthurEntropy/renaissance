@@ -1,13 +1,15 @@
 {
   "id": "b5da66c8-9726-471d-8009-2ec7874528c3",
   "isDeleted": false,
-  "lastModified": "2026-02-12T21:37:52.069Z",
+  "lastModified": "2026-09-23T15:12:49.471Z",
   "name": "Haggler",
-  "description": "<p>You always get the lowest possible price when purchasing and always get the highest possible price when selling. Describe how you strike a bargain.</p>",
-  "source": "6c11415a-8f95-4da2-95d8-26a858caffc3",
+  "description": "<p><em>Your time in the floating markets of Ikeda have taught you that you should never pay the asking price.</em></p><p>Each time you purchase an equipment item, roll Persuade against a Difficulty equal to the item's cost, in Treasure. On a pass, choose one:</p><ul><li><p>You may purchase the item for 1 less Treasure than its listed cost (minimum 1 Treasure).</p></li><li><p>You may purchase the item for its listed cost and receive another item costing at least 2 Treasure less for free.</p></li></ul><p>Whenever you sell Equipment, you always get ¾ of its original cost instead of ½.</p><p><strong>Describe how you strike a bargain.</strong></p>",
+  "source": "55cfd313-75c6-4f83-9361-39af123f6f38",
   "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
   "mpCost": null,
   "xpCost": null,
   "canBeActive": false,
-  "hasDifficulty": false
+  "hasDifficulty": false,
+  "school": null,
+  "artUrl": "https://cdn.midjourney.com/804e3ebf-a9f7-4a7e-90bd-d6a631b1d4a4/0_0.png"
 }

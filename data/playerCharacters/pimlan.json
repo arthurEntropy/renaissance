@@ -2,7 +2,7 @@
   "id": "c4883e09-8543-42e5-a69d-26bbae78d44e",
   "isDeleted": false,
   "createdAt": "2026-08-17T18:30:32.343Z",
-  "lastModified": "2026-08-26T15:28:10.460Z",
+  "lastModified": "2026-08-26T18:13:47.232Z",
   "characterType": "playerCharacter",
   "name": "Pimlan",
   "featuredArtUrls": [
@@ -151,11 +151,11 @@
     "base": 20
   },
   "hope": {
-    "current": 4,
+    "current": 3,
     "base": 4
   },
   "defense": {
-    "current": 8,
+    "current": 3,
     "base": 3
   },
   "load": 0,
@@ -267,23 +267,23 @@
   },
   "rollStats": {
     "skillChecks": {
-      "attempts": 38,
-      "successes": 37,
-      "totalSum": 590,
+      "attempts": 55,
+      "successes": 54,
+      "totalSum": 843,
       "bestTotal": 24,
       "hardestSuccess": null,
       "bySkill": {
-        "Dexterity": 36,
-        "Strength": 1,
+        "Dexterity": 52,
+        "Strength": 2,
         "Spirit": 1
       },
-      "solCount": 3,
-      "morteCount": 6,
-      "successCount": 18
+      "solCount": 5,
+      "morteCount": 8,
+      "successCount": 23
     },
     "contests": {
       "engagement": {
-        "wins": 0,
+        "wins": 2,
         "losses": 0,
         "draws": 0
       },
@@ -293,10 +293,10 @@
         "draws": 0
       }
     },
-    "xpEarned": 0,
-    "xpSpent": 1,
-    "treasureEarned": 172,
-    "treasureSpent": 132
+    "xpEarned": 22,
+    "xpSpent": 2,
+    "treasureEarned": 256,
+    "treasureSpent": 386
   },
   "biomeTags": [],
   "biomeId": null,
@@ -335,7 +335,7 @@
   "weight": 149,
   "keeping": "3c4d5e6f-7a8b-4c9d-0e1f-2a3b4c5d6e7f",
   "treasure": 8,
-  "xp": 0,
+  "xp": 2,
   "description": "",
-  "updatedAt": "2026-08-26T15:28:10.460Z"
+  "updatedAt": "2026-08-26T18:13:47.232Z"
 }

@@ -2,7 +2,7 @@
   "id": "4083afd8-0594-4647-ac06-09b8a2a8cefc",
   "isDeleted": false,
   "createdAt": "2026-08-17T17:37:39.448Z",
-  "lastModified": "2026-08-26T14:50:33.407Z",
+  "lastModified": "2026-08-27T14:54:42.428Z",
   "characterType": "playerCharacter",
   "name": "Magnuss",
   "featuredArtUrls": [
@@ -21,27 +21,27 @@
       "key": "awe",
       "ranks": 0,
       "isFavored": false,
-      "isIllFavored": false,
-      "diceMod": 0,
+      "isIllFavored": true,
+      "diceMod": -1,
       "manualDiceMod": 0,
-      "isIllFavoredAutocalc": false
+      "isIllFavoredAutocalc": true
     },
     {
       "key": "strength",
       "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": 0,
+      "diceMod": -1,
       "manualDiceMod": 0
     },
     {
       "key": "dexterity",
       "ranks": 0,
       "isFavored": false,
-      "isIllFavored": false,
-      "diceMod": 0,
+      "isIllFavored": true,
+      "diceMod": -1,
       "manualDiceMod": 0,
-      "isIllFavoredAutocalc": false
+      "isIllFavoredAutocalc": true
     },
     {
       "key": "fortitude",
@@ -56,37 +56,37 @@
       "key": "craft",
       "ranks": 0,
       "isFavored": false,
-      "isIllFavored": false,
-      "diceMod": 0,
+      "isIllFavored": true,
+      "diceMod": -1,
       "manualDiceMod": 0,
-      "isIllFavoredAutocalc": false
+      "isIllFavoredAutocalc": true
     },
     {
       "key": "perform",
       "ranks": 0,
       "isFavored": false,
-      "isIllFavored": false,
-      "diceMod": 0,
+      "isIllFavored": true,
+      "diceMod": -1,
       "manualDiceMod": 0,
-      "isIllFavoredAutocalc": false
+      "isIllFavoredAutocalc": true
     },
     {
       "key": "insight",
       "ranks": 0,
       "isFavored": false,
-      "isIllFavored": false,
-      "diceMod": 0,
+      "isIllFavored": true,
+      "diceMod": -1,
       "manualDiceMod": 0,
-      "isIllFavoredAutocalc": false
+      "isIllFavoredAutocalc": true
     },
     {
       "key": "courtesy",
       "ranks": 0,
       "isFavored": false,
-      "isIllFavored": false,
-      "diceMod": 0,
+      "isIllFavored": true,
+      "diceMod": -1,
       "manualDiceMod": 0,
-      "isIllFavoredAutocalc": false
+      "isIllFavoredAutocalc": true
     },
     {
       "key": "spirit",
@@ -100,36 +100,36 @@
       "key": "aid",
       "ranks": 0,
       "isFavored": false,
-      "isIllFavored": false,
-      "diceMod": 0,
+      "isIllFavored": true,
+      "diceMod": -1,
       "manualDiceMod": 0,
-      "isIllFavoredAutocalc": false
+      "isIllFavoredAutocalc": true
     },
     {
       "key": "persuade",
       "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": 0,
+      "diceMod": -1,
       "manualDiceMod": 0
     },
     {
       "key": "awareness",
       "ranks": 0,
       "isFavored": false,
-      "isIllFavored": false,
-      "diceMod": 0,
+      "isIllFavored": true,
+      "diceMod": -1,
       "manualDiceMod": 0,
-      "isIllFavoredAutocalc": false
+      "isIllFavoredAutocalc": true
     },
     {
       "key": "stealth",
       "ranks": 0,
       "isFavored": false,
-      "isIllFavored": false,
-      "diceMod": 0,
+      "isIllFavored": true,
+      "diceMod": -1,
       "manualDiceMod": 0,
-      "isIllFavoredAutocalc": false
+      "isIllFavoredAutocalc": true
     },
     {
       "key": "lore",
@@ -144,14 +144,14 @@
       "key": "riddle",
       "ranks": 0,
       "isFavored": false,
-      "isIllFavored": false,
-      "diceMod": 0,
+      "isIllFavored": true,
+      "diceMod": -1,
       "manualDiceMod": 0,
-      "isIllFavoredAutocalc": false
+      "isIllFavoredAutocalc": true
     }
   ],
   "endurance": {
-    "current": 15,
+    "current": 10,
     "base": 15
   },
   "hope": {
@@ -159,7 +159,7 @@
     "base": 8
   },
   "defense": {
-    "current": 1,
+    "current": 6,
     "base": 1
   },
   "load": 0,
@@ -174,11 +174,11 @@
     "twiceHelpless": false
   },
   "conditions": {
-    "insecure": false,
-    "guilty": false,
-    "angry": false,
+    "insecure": true,
+    "guilty": true,
+    "angry": true,
     "afraid": false,
-    "troubled": false
+    "troubled": true
   },
   "engagementDice": [],
   "engagementSuccesses": [],
@@ -278,9 +278,9 @@
       "collapsed": true,
       "showImprovements": false,
       "showSuccesses": false,
-      "isActive": false,
+      "isActive": true,
       "columnIndex": 2,
-      "difficulty": null
+      "difficulty": 23
     },
     {
       "id": "39a3e592-7836-4333-b336-64e75694dc98",
@@ -311,7 +311,7 @@
       "collapsed": true,
       "showImprovements": false,
       "showSuccesses": false,
-      "isActive": false,
+      "isActive": true,
       "columnIndex": 2
     }
   ],
@@ -329,25 +329,26 @@
   },
   "rollStats": {
     "skillChecks": {
-      "attempts": 9,
-      "successes": 7,
-      "totalSum": 130,
+      "attempts": 12,
+      "successes": 10,
+      "totalSum": 174,
       "bestTotal": 23,
       "hardestSuccess": null,
       "bySkill": {
         "Fortitude": 1,
-        "Spirit": 7,
-        "Dexterity": 1
+        "Spirit": 9,
+        "Dexterity": 1,
+        "Strength": 1
       },
       "solCount": 0,
       "morteCount": 2,
-      "successCount": 4
+      "successCount": 7
     },
     "contests": {
       "engagement": {
         "wins": 0,
-        "losses": 5,
-        "draws": 0
+        "losses": 8,
+        "draws": 1
       },
       "contest": {
         "wins": 0,
@@ -355,9 +356,9 @@
         "draws": 0
       }
     },
-    "xpEarned": 73,
+    "xpEarned": 135,
     "xpSpent": 0,
-    "treasureEarned": 240,
+    "treasureEarned": 550,
     "treasureSpent": 280
   },
   "biomeTags": [],
@@ -367,11 +368,20 @@
   "swaggerIconIndex": 0,
   "swaggerColor": "#ffffff",
   "manaPool": {
-    "white": [],
-    "blue": [],
+    "white": [
+      true
+    ],
+    "blue": [
+      true
+    ],
     "black": [],
-    "red": [],
-    "green": [],
+    "red": [
+      true,
+      true
+    ],
+    "green": [
+      false
+    ],
     "colorless": []
   },
   "witchcraftTokens": [],
@@ -404,5 +414,5 @@
   "treasure": 10,
   "xp": 2,
   "description": "",
-  "updatedAt": "2026-08-26T14:50:33.407Z"
+  "updatedAt": "2026-08-27T14:54:42.428Z"
 }

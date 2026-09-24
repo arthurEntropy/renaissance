@@ -2,7 +2,7 @@
   "id": "b26d9119-dad9-4b40-8cb9-c9130fd7fb8d",
   "isDeleted": false,
   "createdAt": "2026-08-26T12:28:55.545Z",
-  "lastModified": "2026-08-26T12:28:55.551Z",
+  "lastModified": "2026-08-27T14:43:20.267Z",
   "characterType": "beastInstance",
   "name": "Skeleton 🅚",
   "featuredArtUrls": [
@@ -144,7 +144,7 @@
     }
   ],
   "endurance": {
-    "current": 15,
+    "current": 7,
     "base": 15
   },
   "hope": {
@@ -157,7 +157,7 @@
   },
   "load": 0,
   "shadow": 0,
-  "injury": 0,
+  "injury": 1,
   "states": {
     "weary": false,
     "twiceWeary": false,
@@ -175,7 +175,9 @@
   },
   "engagementDice": [],
   "engagementSuccesses": [],
-  "engagementDiceStatuses": {},
+  "engagementDiceStatuses": {
+    "7a024694-31ab-4f17-a652-2c15c7b8925e_0": "expended"
+  },
   "equipment": [
     {
       "id": "76522314-9ed4-4408-b72a-02fbe4500782",
@@ -230,12 +232,14 @@
   },
   "rollStats": {
     "skillChecks": {
-      "attempts": 0,
-      "successes": 0,
-      "totalSum": 0,
-      "bestTotal": null,
+      "attempts": 1,
+      "successes": 1,
+      "totalSum": 9,
+      "bestTotal": 9,
       "hardestSuccess": null,
-      "bySkill": {},
+      "bySkill": {
+        "Strength": 1
+      },
       "solCount": 0,
       "morteCount": 0,
       "successCount": 0
@@ -243,7 +247,7 @@
     "contests": {
       "engagement": {
         "wins": 0,
-        "losses": 0,
+        "losses": 3,
         "draws": 0
       },
       "contest": {
@@ -334,7 +338,7 @@
   "beastTypeIds": [
     "b7e57001-0000-4000-a000-00000000000e"
   ],
-  "updatedAt": "2026-08-13T02:22:45.924Z",
+  "updatedAt": "2026-08-27T14:43:20.267Z",
   "challenge": 7,
   "templateId": "785562af-0611-4d1f-817b-9888b379dd4d"
 }

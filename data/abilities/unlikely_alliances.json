@@ -1,0 +1,23 @@
+{
+  "id": "31d070d6-c92f-4a4e-9c29-35b59817ebec",
+  "isDeleted": false,
+  "createdAt": "2026-09-01T20:19:13.782Z",
+  "lastModified": "2026-09-11T20:29:44.701Z",
+  "name": "Unlikely Alliances",
+  "artUrl": "https://cdn.midjourney.com/ed379700-1209-49b8-bccb-a7aef4a36f66/0_3.png",
+  "description": "<p><em>The ancient alliance of the Dwarves and Dragons taught Azcans to seek a middle way.</em></p><p>When you observe two clashing or disparate factions, you can always discern one shared interest, mutual threat, or common goal between them. When you use this shared interest to convince them to stand down or cooperate, roll Persuade, favored.</p><p><strong>Describe how you find common ground.</strong></p>",
+  "successes": null,
+  "improvements": [],
+  "source": "a3a54cb6-09c4-42e3-b142-3053b7c1d4e8",
+  "school": null,
+  "isMagical": false,
+  "isBeastAbility": false,
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": null,
+  "manaCost": null,
+  "biomeTagsAugment": [],
+  "biomeTagsInhibit": [],
+  "canBeActive": false,
+  "hasDifficulty": false
+}

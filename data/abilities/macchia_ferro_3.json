@@ -1,0 +1,23 @@
+{
+  "id": "fc2018cf-ff8e-4f98-92be-c4a205dc599d",
+  "isDeleted": false,
+  "createdAt": "2026-09-23T18:46:38.838Z",
+  "lastModified": "2026-09-23T18:46:47.874Z",
+  "name": "Macchia Ferro 3",
+  "artUrl": null,
+  "description": "",
+  "successes": null,
+  "improvements": [],
+  "source": "72dc5437-4072-4e9e-8e9f-0316fab002bb",
+  "school": null,
+  "isMagical": false,
+  "isBeastAbility": false,
+  "actionCost": null,
+  "mpCost": null,
+  "xpCost": null,
+  "manaCost": null,
+  "biomeTagsAugment": [],
+  "biomeTagsInhibit": [],
+  "canBeActive": false,
+  "hasDifficulty": false
+}

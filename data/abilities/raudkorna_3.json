@@ -1,0 +1,23 @@
+{
+  "id": "0ea500c5-1756-49b9-b369-69a81e6a427a",
+  "isDeleted": false,
+  "createdAt": "2026-09-23T18:52:21.172Z",
+  "lastModified": "2026-09-23T18:52:34.941Z",
+  "name": "Raudkorna 3",
+  "artUrl": null,
+  "description": "",
+  "successes": null,
+  "improvements": [],
+  "source": "34ea8807-b404-435c-a860-704b4a40df8f",
+  "school": null,
+  "isMagical": false,
+  "isBeastAbility": false,
+  "actionCost": null,
+  "mpCost": null,
+  "xpCost": null,
+  "manaCost": null,
+  "biomeTagsAugment": [],
+  "biomeTagsInhibit": [],
+  "canBeActive": false,
+  "hasDifficulty": false
+}

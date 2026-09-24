@@ -1,0 +1,14 @@
+{
+  "id": "e9e9868c-2788-467b-98bd-a2f3680bd5ff",
+  "isDeleted": false,
+  "lastModified": "2026-09-21T17:09:38.574Z",
+  "name": "Speculum Mundi",
+  "description": "<p><em>You have perused the many treatises and travelogues in the University's libraries.</em></p><p>At the outset of each Quest, you may request up to three pieces of knowledge from the GM, each of which should be relevant to the Quest and the lands you will travel through.</p><p>However, the information is only as accurate as the accounts brought back by University expeditions to those places: The knowledge should be broadly correct, but one key detail should be incorrect, or presented through the lens of someone ignorant of the nuances of the locality.</p><p><strong>Describe how you gained this knowledge.</strong></p>",
+  "source": "2d359f20-1746-46aa-9533-b516352c6d1c",
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": null,
+  "canBeActive": false,
+  "hasDifficulty": false,
+  "artUrl": "https://cdn.midjourney.com/42131a86-e39b-40a0-a1d4-bd91c8a50d25/0_0.png"
+}

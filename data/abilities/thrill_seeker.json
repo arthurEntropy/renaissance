@@ -1,12 +1,14 @@
 {
   "id": "85b6482f-63af-4096-af3b-fdb1b08af596",
   "isDeleted": false,
-  "lastModified": "2026-02-12T21:22:31.656Z",
+  "lastModified": "2026-09-17T18:41:24.687Z",
   "name": "Thrill Seeker",
-  "description": "<p>Each time you succeed on a Dexterity roll to avoid an attack, dodge an obstacle or otherwise skirt danger, you gain +1d on your next roll (doesn’t stack). Describe how you thrive on adrenaline.</p>",
+  "description": "<p><em>You love the thrill of danger.</em></p><p>Each time any of the following occurs, you take +1d on your next skill check made within the next minute:</p><ul><li><p>You are forced to roll Dexterity for a contest and you win.</p></li><li><p>You roll Dexterity to avoid an attack, dodge an obstacle or otherwise skirt danger and you pass.</p></li><li><p>You take any amount of falling damage.</p></li></ul><p>The bonuses are cumulative.</p><p><strong>Describe how you thrive on adrenaline.</strong></p>",
   "source": "5c67bedd-8e73-4add-b46b-9b911bf0fd59",
   "mpCost": null,
   "xpCost": null,
   "canBeActive": false,
-  "hasDifficulty": false
+  "hasDifficulty": false,
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "artUrl": "https://cdn.midjourney.com/6cf7365c-27b5-4ddb-ab49-af391574c7b5/0_0.png"
 }

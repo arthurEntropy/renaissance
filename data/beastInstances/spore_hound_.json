@@ -2,7 +2,7 @@
   "id": "9b7ce8af-31c6-4d61-b9f0-6c34d7866361",
   "isDeleted": false,
   "createdAt": "2026-08-25T18:51:37.810Z",
-  "lastModified": "2026-08-25T18:51:37.827Z",
+  "lastModified": "2026-08-26T18:04:31.997Z",
   "characterType": "beastInstance",
   "name": "Spore Hound 🅥",
   "featuredArtUrls": [
@@ -139,7 +139,7 @@
     }
   ],
   "endurance": {
-    "current": 10,
+    "current": 5,
     "base": 10
   },
   "hope": {
@@ -267,7 +267,7 @@
   "keeping": null,
   "treasure": 0,
   "xp": 0,
-  "updatedAt": "2026-07-24T00:20:58.932Z",
+  "updatedAt": "2026-08-26T18:04:31.997Z",
   "description": "",
   "size": 1,
   "reach": 5,

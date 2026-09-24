@@ -1,0 +1,14 @@
+{
+  "id": "13762ac7-ddf7-4644-9f90-703271954cec",
+  "isDeleted": false,
+  "lastModified": "2026-09-21T17:28:30.036Z",
+  "name": "Ill-Gotten Gains",
+  "description": "<p><em>You possess an artifact from the University’s collection, but the item's rightful owners want it back.</em></p><p>When you gain this ability, choose and gain one non-weapon, non-armor item from Iago City, then roll 2d6 to set the Difficulty.</p><p>Each time a Quest you are on reaches BANE, reduce the Difficulty by 1. When the Difficulty reaches 0, formidable forces from the Culture that originally produced the item (as chosen by the GM) immediately appear and demand the item's return. They will kill to reclaim it, if necessary.</p><p><strong>Describe how you obtained the artifact.</strong></p>",
+  "source": "2d359f20-1746-46aa-9533-b516352c6d1c",
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": null,
+  "canBeActive": false,
+  "hasDifficulty": true,
+  "artUrl": "https://cdn.midjourney.com/238fae98-5026-452c-869b-04c012f95fbf/0_3.png"
+}

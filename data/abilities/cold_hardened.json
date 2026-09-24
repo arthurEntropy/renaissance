@@ -1,0 +1,23 @@
+{
+  "id": "e1dca4a5-18f5-4a2a-9856-b631fa1a2a91",
+  "isDeleted": false,
+  "createdAt": "2026-09-18T02:21:17.076Z",
+  "lastModified": "2026-09-18T02:28:58.636Z",
+  "name": "Cold-Hardened",
+  "artUrl": "https://cdn.midjourney.com/a1f64c6d-ac0a-45a9-bbc5-0dca16542863/0_1.png",
+  "description": "<p><em>Living among the frozen forests of Furulia have made you cold-hardy.</em></p><p style=\"text-align: left\">Halve all damage dealt to you by ice or extreme cold, and whenever you roll <a target=\"_blank\" rel=\"noopener noreferrer\" class=\"roll-link\" href=\"https://www.renaissancegame.com/abilities#\">Fortitude</a> to endure ice or extreme cold, the roll is favored.</p><p style=\"text-align: left\"><strong>Describe how you handle the cold.</strong></p>",
+  "successes": null,
+  "improvements": [],
+  "source": "f66ab54f-ef77-4d04-9ae3-ca575615a6d1",
+  "school": null,
+  "isMagical": false,
+  "isBeastAbility": false,
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": null,
+  "manaCost": null,
+  "biomeTagsAugment": [],
+  "biomeTagsInhibit": [],
+  "canBeActive": false,
+  "hasDifficulty": false
+}

@@ -2,22 +2,48 @@
   "id": "f66ab54f-ef77-4d04-9ae3-ca575615a6d1",
   "conceptType": "CULTURE",
   "name": "Furulia",
-  "description": "<p>More than three centuries have passed since the trees last turned. The settlements of the Furu are all but abandoned as most of their number continue to scour the world for a way to rekindle their beloved Torches. Those who remain play host to a colony of spiritual pilgrims, but increasingly they find themselves stepping in to aid their ‘Neath-neighbors. Has the time of the Torches passed? Is the continued devotion of the Furu misplaced when so much suffering is happening nearby? The snowy, feathered brows of the Furu and their acolytes are furrowed…</p>",
+  "description": "<p>The Torches have gone out.</p><p>For centuries, long lines of pilgrims would trek across the frozen tundras and forests of Furulia for the annual Turning of the Torches: when the tall evergreens leapt to life with light, sending shafts of bright colors high into the starry night sky. A great festival of storytelling took place around this event, facilitated by the Furu: the watchers, the rememberers, the Keepers of the Torches.</p><p>One year, the Torches did not turn. There was great fear and sadness, and the Furu were distraught. What had they done to cause this? What must they do to bring life back to the Torches?</p><p>Many long years have passed, and still the Torches have not turned. Many of the Furu have set out across the world to try discover some reason for the misfortune of their land, some answer that could set things aright. Still, their nocturnal tradition of storytelling remains strong, and many scholars and lovers of tales still flock to the frozen villages to listen, to speak and to bask in the fading glow of the land.</p><p>Has the time of the Torches passed? The snowy, feathered brows of the Furu and their acolytes are furrowed…</p>",
   "isDeleted": false,
   "featuredArtUrls": [
     "https://cdn.midjourney.com/68a6ab37-c6fe-4a85-bc41-e7f423de77c8/0_3.png"
   ],
-  "backgroundImage": "",
+  "backgroundImage": "https://cdn.midjourney.com/0b6a82b1-33e8-4c23-b70c-9a877b84e3fa/0_0.png",
   "cardBackgroundImage": "https://cdn.midjourney.com/a310900e-5039-463c-b5c8-097299af7013/0_1.png",
   "expansion": "e46f4320-a414-4300-95d5-397ba717d982",
-  "playlists": [],
-  "hooks": [],
+  "playlists": [
+    "<iframe allow=\"autoplay *; encrypted-media *;\" frameborder=\"0\" height=\"450\" style=\"width:100%;max-width:660px;overflow:hidden;background:transparent;\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation\" src=\"https://embed.music.apple.com/us/playlist/furulia-town-tundra/pl.u-qxyl8jDuGkb7Kv?theme=dark\"></iframe>",
+    "<iframe allow=\"autoplay *; encrypted-media *;\" frameborder=\"0\" height=\"450\" style=\"width:100%;max-width:660px;overflow:hidden;background:transparent;\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation\" src=\"https://embed.music.apple.com/us/playlist/furulia-torches/pl.u-4Jom0LlImk9eWx?theme=dark\"></iframe>"
+  ],
+  "hooks": [
+    {
+      "id": null,
+      "name": "The Thaw",
+      "description": "<p>The warmest summer ever experienced in Furulia has revealed something strange amid the roots of the trees. Could this be the cause of the Torches' long darkness?</p>",
+      "gmNotes": "<p>This of course will address the problem of the Torches head on, and it is up to you what the thaw reveals.</p><p>It could be a vast network of mycelia, which perhaps has been broken or infected by a subterranean monster.</p><p>It could be something unexpected, like pipes unlike anything the Furulians have in their towns. Are the Torches growing atop some ancient machine-city that was fueling them, and the tank has run dry?</p><p>Or, in a darker turn, it could be thousands and thousands of skeletons. Did the Furu of old secretly feed the Torches with the bodies of pilgrims? Of each other? Why was this practice stopped, or has it stopped entirely? Will it begin again?</p>",
+      "index": 0
+    },
+    {
+      "id": null,
+      "name": "The Boy In The Ice",
+      "description": "<p>A brother and sister were kayak in a remote inlet when they spotted the frozen figure of a boy inside an iceberg. They freed him and brought him back to town, but when he awoke he became hostile, cast a fearsome, destructive spell, and fled into the forest.</p>",
+      "gmNotes": "<p>The precise origin of the boy is up to you, but this is an opportunity to reveal some information about the history of Furulia or the world at large.</p><p>Perhaps the boy was part of an ancient culture that created the Torches.</p><p>Perhaps the boy was sent long ago to try to stop the Torches from turning.</p><p>Perhaps the boy is from a city that - along with its residents - is trapped within a glacier.</p>",
+      "index": 1
+    },
+    {
+      "id": null,
+      "name": "Life Imitates Art",
+      "description": "<p>One of the High Storykeepers of the Furu has suddenly begun attracting far more acolytes than the others, as rumor spreads that stories told in their Circle are coming true. Others of the Furu are decrying this development as something outside of their tradition, but as fantastic creations are brought forth, wealth appears out of thin air and lost loved ones return, more and more people clamor for this power.</p>",
+      "gmNotes": "<p>The Furu in question has of course been dabbling in some new or dark art that is not part of the Storykeeping tradition. What is the source of this power? What is the cost of it? When will it come due?</p>",
+      "index": 2
+    }
+  ],
   "localFlavor": {
-    "names": "",
-    "occupations": "",
-    "publicHouses": "",
-    "vittles": "",
-    "pointsOfInterest": "",
-    "floraFauna": ""
-  }
+    "names": "Kukavi, Oqura, Huvik, Anuku, Tuvra, Qori, Uvasha, Kivuk, Nulya, Aqqo, Hurni, Kuvaya, Orvik, Taqura, Ilyuk, Qavri, Nuvik, Hushka, Oruqa, Kivaya",
+    "occupations": "Storyteller, Torch Keeper, Aurora Augur, Tundra Hunter, Furrier, Ice Fisher, Forest Guide, Birch Taperer, Kayak Maker, Tanner, Sledwright, Navigator, Hearthsmith, Singer, Dancer, Woodcutter, Resin Gatherer, Story Apprentice, Torch-Seeker",
+    "publicHouses": "Kuku's, Kvitnes Gård, Café Iluliaq, Qavi House, Gruvelageret, Huset House, Uviku Taqura's, Hunter's Market, Turaarvik Bar",
+    "vittles": "Smoked Char, Birch-Salt Fish, Reindeer Stew, Berry Porridge, Bone Broth, Birch Syrup Cakes, Snowberry Preserve, Smoked Goose, Seal-Fat Dumplings, Juniper Venison, Roasted Hare, Dried Fish Strips, Spruce-Tip Lager, Muskrat Sausage, Pickled Root Vegetables, Flatbread with Gizzards",
+    "pointsOfInterest": "The First Torch, The Storying Grove, The Unlit Forest, The Frozen Road, The Great Furu's Nest, The Ice Narrows, The Hall of Voices, The Birch Circle, The Outsider's Hearth, The Silent Torch",
+    "floraFauna": "Birch, Spruce, Larch, Pine, Rowan, Juniper, Lingonberry, Arctic Moss, Snowy Owl, Great Gray Owl, Arctic Fox, Reindeer, Wolverine, Lynx, Snow Hare, Musk Ox, Golden Eagle, Caribou"
+  },
+  "lastModified": "2026-09-23T17:33:11.822Z"
 }

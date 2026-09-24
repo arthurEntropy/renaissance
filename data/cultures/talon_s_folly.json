@@ -8,7 +8,7 @@
     "https://cdn.midjourney.com/8df2f891-c335-4c44-b84b-948bd857839f/0_2.png"
   ],
   "backgroundImage": "",
-  "cardBackgroundImage": "",
+  "cardBackgroundImage": "https://cdn.midjourney.com/b5d4cc0d-d93a-4c3e-bd93-e503eb24b89b/0_0.png",
   "expansion": "e46f4320-a414-4300-95d5-397ba717d982",
   "playlists": [],
   "hooks": [],
@@ -19,5 +19,6 @@
     "vittles": "",
     "pointsOfInterest": "",
     "floraFauna": ""
-  }
+  },
+  "lastModified": "2026-09-23T18:41:04.544Z"
 }

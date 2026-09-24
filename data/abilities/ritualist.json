@@ -1,0 +1,14 @@
+{
+  "id": "17dc2012-47f2-4b6b-bbd6-f584551d0286",
+  "isDeleted": false,
+  "lastModified": "2026-09-01T23:52:20.358Z",
+  "name": "Ritualist",
+  "description": "<p><em>Your time among the Azcans has shown you the power of shared formality.</em></p><p>Once per rest, you may spend at least 10 minutes performing a ritual of preparation. State what you’re preparing for and choose a relevant skill. You and anyone who participates in the ritual gets +1d on their next roll of the chosen skill. This benefit expires after the next rest.<br><br><strong>Describe the ritual.</strong></p>",
+  "source": "a3a54cb6-09c4-42e3-b142-3053b7c1d4e8",
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": null,
+  "canBeActive": false,
+  "hasDifficulty": false,
+  "artUrl": "https://cdn.midjourney.com/0c59fcfb-0a80-40db-914f-edbafdb79209/0_2.png"
+}

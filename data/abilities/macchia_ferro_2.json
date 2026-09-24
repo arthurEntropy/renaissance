@@ -1,0 +1,23 @@
+{
+  "id": "12b9c0b3-fe04-4020-bfbc-dc45688ce26a",
+  "isDeleted": false,
+  "createdAt": "2026-09-23T18:46:18.626Z",
+  "lastModified": "2026-09-23T18:46:37.716Z",
+  "name": "Macchia Ferro 2",
+  "artUrl": null,
+  "description": "",
+  "successes": null,
+  "improvements": [],
+  "source": "72dc5437-4072-4e9e-8e9f-0316fab002bb",
+  "school": null,
+  "isMagical": false,
+  "isBeastAbility": false,
+  "actionCost": null,
+  "mpCost": null,
+  "xpCost": null,
+  "manaCost": null,
+  "biomeTagsAugment": [],
+  "biomeTagsInhibit": [],
+  "canBeActive": false,
+  "hasDifficulty": false
+}

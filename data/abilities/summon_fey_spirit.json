@@ -1,0 +1,14 @@
+{
+  "id": "b3f0e2f6-1ecf-4cf5-bf66-746f93f76b60",
+  "isDeleted": false,
+  "lastModified": "2026-09-13T01:19:33.483Z",
+  "name": "Summon Fey Spirit",
+  "description": "<p><em>You have lived where the border between our world and the Fey Realm is thin, and you know how to call spirits to your aid.</em></p><p>Once per rest while in natural areas, you may spend 1 minute summoning a fey spirit to aid you. The spirit manifests for one minute in a shape formed from natural objects in the area: leaves, sticks, the bark of a tree, etc. Its knowledge and influence is limited to the natural area you're currently in. It can speak and understand you.</p><p>To determine the spirit's behavior, roll Spirit. On a...</p><ul><li><p>1-5: The spirit is a trickster. It will either pester you and/or offer help at an unreasonable price.</p></li><li><p>6-10: The spirit is friendly and will offer helpful information if able.</p></li><li><p>🌞: The spirit takes a liking to you. The spirit will follow you and aid you three times within the next day (at times chosen by the GM), granting a +1d bonus to a skill check you make.</p></li><li><p>💀: The spirit is roused to anger by your request. Check a Condition. The spirit will follow you and interfere with you three times within the next day (at times chosen by the GM), imposing a -1d penalty to a skill check you make.</p></li></ul><p><strong>Describe how you summon the spirit.</strong></p>",
+  "source": "83d190cb-0e05-4392-a5b1-f8a8017f505b",
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": null,
+  "canBeActive": false,
+  "hasDifficulty": false,
+  "artUrl": "https://cdn.midjourney.com/1b2c3eb6-da98-45b2-a361-32f823bcbaf6/0_2.png"
+}

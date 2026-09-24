@@ -1,0 +1,23 @@
+{
+  "id": "7eb57f2a-0f5d-4cd9-a248-f1f88f5bfb9d",
+  "isDeleted": false,
+  "createdAt": "2026-09-23T18:53:30.523Z",
+  "lastModified": "2026-09-23T18:53:42.730Z",
+  "name": "Talon's Folly 3",
+  "artUrl": null,
+  "description": "",
+  "successes": null,
+  "improvements": [],
+  "source": "fa6eb60c-0895-4635-8124-ab50b0bac28e",
+  "school": null,
+  "isMagical": false,
+  "isBeastAbility": false,
+  "actionCost": null,
+  "mpCost": null,
+  "xpCost": null,
+  "manaCost": null,
+  "biomeTagsAugment": [],
+  "biomeTagsInhibit": [],
+  "canBeActive": false,
+  "hasDifficulty": false
+}

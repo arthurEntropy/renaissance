@@ -1,0 +1,15 @@
+{
+  "id": "3cfdd280-3e8f-4478-be7d-1198f6613295",
+  "isDeleted": false,
+  "createdAt": "2026-08-28T15:11:17.317Z",
+  "lastModified": "2026-08-28T15:54:38.252Z",
+  "conceptType": "WORLD_ELEMENT",
+  "name": "Tierney's Magic Nifty Trinkets",
+  "description": "<p>In practically every city and town of this world, Our Heroes find the same gaudy, multicolored shop tent. There is a hand-painted sign that reads \"Tierney's Magic Nifty Trinkets\" and the faint pulse of music from inside invites them in. There is a rush of air and noise, and a brief feeling of nausea as Our Heroes cross the threshold. Inside they find a dizzying panoply of strange and wonderful wares, arrayed on magically levitating spiral shelves which disappear in the hazy darkness of the upper reaches of the tent.</p><p>From behind the counter appears an affable little man with a snow white beard, rosy cheeks, and a brightly colored cloak that shifts as he moves. He is an enthusiastic salesman, taking great pride in his wares - which he claims to have crafted himself - and great interest in Our Heroes, who (he will cheerily explain) are his first customers in \"some centuries!\"</p><p>He has no memory of when or how he came be in this tent, and he cannot leave it. He has an obvious talent for crafting unusual magic items, but he's not sure when, where or how he developed such a talent. Despite his apparent entrapment, he seems content to make the most of it, and his store of good cheer seems inexhaustable.</p><p>Should our heroes inquire of others about Tierney's tent, they will find that they are the only ones who can see it. Tierney also has no idea why this is so.</p><p>Who is Tierney? How did he become trapped in this tent? Why can Our Heroes see him? These are questions to ponder while perusing his prolific output of unusual - and occasionally even useful - works.</p>",
+  "featuredArtUrls": [
+    "https://cdn.midjourney.com/b34d581a-c8a8-4ce7-ae9f-865c84bc3536/0_1_640_N.webp"
+  ],
+  "backgroundImage": "https://cdn.midjourney.com/73a4a3ad-0b64-40d0-ae40-a30a78f50eff/0_3.png",
+  "cardBackgroundImage": "https://cdn.midjourney.com/af27a2a3-0296-497d-8046-93954509492b/0_1.png",
+  "expansion": "824cad94-3a4a-4df3-b81a-ede17b84644b"
+}

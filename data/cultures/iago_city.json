@@ -2,23 +2,48 @@
   "id": "2d359f20-1746-46aa-9533-b516352c6d1c",
   "conceptType": "CULTURE",
   "name": "Iago City",
-  "description": "<p>Founded over 500 years ago by Karto Graffikos himself, the shining towers of the university stand as a beacon of knowledge at the head of the great Bay of Iago. Protected by the long-indentured Adjuncts, the university is now surrounded by a labyrinthine city and several outlying towns ringing the bay. Even as some decry the University’s aggressive tradition of acquiring relics from around the world, others point to the city’s vulnerability. Indeed, a recent financial setback brought the University under the leadership of an agent of Monte dei Paschi, whose policies are putting significant strain on regional alliances…</p>",
+  "description": "<p>Founded centuries ago by Karto Graffikos himself, the shining towers of the university stand as a beacon of knowledge at the head of the great Bay of Iago. Protected by the swords of the long-indentured Adjuncts, the University is now surrounded by a labyrinthine city and several outlying towns ringing the bay.</p><p>Even as some decry the University’s aggressive tradition of acquiring relics from around the world, others point to the city’s vulnerability. Indeed, as each expedition returns with new rarities from far-flung lands, people from those lands often follow closely behind. Some seeking a better life in the city, others seeking revenge for things taken...</p>",
   "isDeleted": false,
   "featuredArtUrls": [
     "https://cdn.midjourney.com/3d13bcb8-0a72-4366-b8d6-b0a2f98ba7d6/0_3.png"
   ],
   "backgroundImage": "https://cdn.midjourney.com/1f611311-2f88-47af-841a-07a76b6ee011/0_1.png",
-  "cardBackgroundImage": "",
+  "cardBackgroundImage": "https://cdn.midjourney.com/87115586-0f4f-4946-8b59-5a20604f72f4/0_3.png",
   "expansion": "e46f4320-a414-4300-95d5-397ba717d982",
-  "playlists": [],
-  "hooks": [],
+  "playlists": [
+    "<iframe allow=\"autoplay *; encrypted-media *;\" frameborder=\"0\" height=\"450\" style=\"width:100%;max-width:660px;overflow:hidden;background:transparent;\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation\" src=\"https://embed.music.apple.com/us/playlist/iago-city/pl.u-55D60dltVRap4d?theme=dark\"></iframe>",
+    "<iframe allow=\"autoplay *; encrypted-media *;\" frameborder=\"0\" height=\"450\" style=\"width:100%;max-width:660px;overflow:hidden;background:transparent;\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation\" src=\"https://embed.music.apple.com/us/playlist/iago-city-university/pl.u-pMyl8kvcK7P3g1?theme=dark\"></iframe>"
+  ],
+  "hooks": [
+    {
+      "id": null,
+      "name": "The Debt Collectors",
+      "description": "<p>A convoy of masked figures have arrived in town claiming to be representatives of the University's creditor, come to collect an overdue balance. Their paperwork checks out, but the University had no prior notification and does not have the funds to make the payment. Now the collectors are threatening to disassemble the University's massive prized golden telescope in lieu of a cash payment.</p>",
+      "gmNotes": "<p>You could make this adventure a matter of intrigue, in which the collectors are indeed legitimate and Our Heroes must discover why they have shown up at this exact moment. Perhaps an aspirant bureaucrat was motivated to embarrass the current University administration in hopes of taking its place. Perhaps the golden telescope was installed in a tower that a scholar had hoped would become their personal study.</p><p>Or there could be darker things afoot. Perhaps the documents produced by the collectors turn out to be gibberish upon further inspection, the charm spells they contained having been expended. This discovery could come after the collectors have already begun their disassembly of the telescope, and thus they must be confronted in the high observatory tower, at which point their true identity and power will be revealed.</p>",
+      "index": 0
+    },
+    {
+      "id": null,
+      "name": "Rise of the Adjuncts",
+      "description": "<p>Anger and resentment have festered among The Adjuncts after generations of hereditary servitude. As the official University guard, their numbers are great and their access to important buildings and officials is extensive. Thus it is with concern that folk in the city have begun whispering that their leadership have been seen gathering in a private room at a local tavern, with raised voices heard through the walls.</p>",
+      "gmNotes": "<p>The first thing you need to decide is the origin of the Adjuncts. Were they prisoners pressed into service long ago? Did the early University come to their aid and they pledged their service and the service of their children?</p><p>Whatever the case, what about the University's treatment of the Adjuncts has sown discontent within their ranks? What are their goals and demands?</p><p>Our Heroes can be roped into this in any number of ways. Perhaps a concerned young Adjunct wants to avoid violence and is seeking help in diffusing the situation. Perhaps a University Administrator wants someone to find out what the Adjuncts are planning. Or perhaps Our Heroes just happen to be at the tavern where the Adjunct are meeting on the night when they finally decide to take action.</p><p>Whichever path you choose, the result should be multi-stage conflict in multiple areas of the city, as a general coup attempt erupts in several places at once.</p>",
+      "index": 1
+    },
+    {
+      "id": null,
+      "name": "Repatriation",
+      "description": "<p>It seems the University's long habit of \"collecting\" artifacts from distant cultures has finally caught up with it: a huge fleet from a far-away land has appeared in the Bay of Iago and is threatening to overrun the City's ramparts. The University is looking for volunteers to don garb from the University's collection that was taken from that culture and infiltrate their forces aboard the ships in the bay in an attempt to gather information and, if possible, sabotage their gear of war.</p>",
+      "gmNotes": "<p>The main theme here of course will be the tension between Our Heroes' duty to their employers and the very reasonable anger that the invaders feel against the University for stealing their stuff.</p><p>Though many artifacts were carted off, the invaders should be fixated on a single artifact of great power and cultural significance. If the University will yield that one item, they will leave without bloodshed.</p><p>The problem is that, though the University had filed the artifact away as merely a trinket, now that the invaders are asking for it, they're conducting hurried research into its powers, with dangerous results.</p><p>A further problem is that, a faction of the invaders secretly intends to unleash a massacre upon the city even if the artifact is recovered.</p><p>How will Our Heroes navigate these myriad threats? Which side is right?</p>",
+      "index": 2
+    }
+  ],
   "localFlavor": {
-    "names": "",
-    "occupations": "",
-    "publicHouses": "",
-    "vittles": "",
-    "pointsOfInterest": "",
-    "floraFauna": ""
+    "names": "Kaviero, Lucanto, Maravio, Bellaro, Tenzio, Corvani, Alessaro, Virello, Galvessa, Renavio, Montaro, Savelli, Darviano, Cazaro, Orsavio, Abira, Melzaro, Tavelli, Lorvesso, Braviano, Zorenti",
+    "occupations": "Rector, Professor, Adjunct, Expedition Captain, Relic Broker, Antiquarian, Cartographer, Natural Philosopher, Archivist, Translator, Shipwright, Dockmaster, Merchant, Artificer, Porter, Curio Seller, Recruiter",
+    "publicHouses": "Da Karto, La Graffa, Bellaro's, Osteria del Golfo, Corvessa, Casa Renzi, Il Relicario, Tavaro's, La Rondine, Mercato Vecchio",
+    "vittles": "Saffron Risotto, Bay Mussels, Salt Cod Fritters, Chestnut Polenta, Braised Rabbit, Stuffed Artichokes, Anchovy Tart, Herb Focaccia, Lemon Chicken, Walnut Pasta, Fried Squid, Roasted Peppers, Lentil Soup, Fig Tarts, Almond Biscotti, Braised Beef, Olive Flatbread, Garlic Beans, Pear Mostarda, Baywashed Cheese",
+    "pointsOfInterest": "The University of Karto Graffikos, The Great Archive, The Hall of Relics, The Adjunct Barracks, The Expedition Gate, The Bay Steps, The Old Customs House, The World Gallery, The New Quarter",
+    "floraFauna": "Cypress, Olive, Stone Pine, Laurel, Grapevine, Fig, Pomegranate, Rosemary, Bay Laurel, Lemon, Wild Boar, Red Fox, Peregrine Falcon, Moorish Gecko, Wild Goat, Mullet, Swordfish, Octopus, Sea Turtle, Monk Seal"
   },
-  "lastModified": "2026-03-13T20:40:34.161Z"
+  "lastModified": "2026-09-21T18:17:45.003Z"
 }

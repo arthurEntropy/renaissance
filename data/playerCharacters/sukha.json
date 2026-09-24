@@ -2,7 +2,7 @@
   "id": "13e267c3-f608-466d-9a8d-7442dcd5a7d4",
   "isDeleted": false,
   "createdAt": "2026-08-17T19:28:51.662Z",
-  "lastModified": "2026-08-26T14:49:04.572Z",
+  "lastModified": "2026-08-27T14:53:29.817Z",
   "characterType": "playerCharacter",
   "name": "Sukha",
   "featuredArtUrls": [
@@ -147,7 +147,7 @@
     }
   ],
   "endurance": {
-    "current": 20,
+    "current": 1,
     "base": 20
   },
   "hope": {
@@ -189,7 +189,7 @@
   "equipmentSortOption": "",
   "equipmentCustomGroups": [],
   "mp": {
-    "current": 2,
+    "current": 1,
     "base": 0
   },
   "abilities": [
@@ -275,24 +275,24 @@
   },
   "rollStats": {
     "skillChecks": {
-      "attempts": 26,
-      "successes": 25,
-      "totalSum": 509,
+      "attempts": 35,
+      "successes": 34,
+      "totalSum": 676,
       "bestTotal": 31,
       "hardestSuccess": null,
       "bySkill": {
-        "Strength": 24,
+        "Strength": 33,
         "Fortitude": 1,
         "Spirit": 1
       },
       "solCount": 2,
-      "morteCount": 3,
-      "successCount": 19
+      "morteCount": 8,
+      "successCount": 25
     },
     "contests": {
       "engagement": {
-        "wins": 24,
-        "losses": 7,
+        "wins": 35,
+        "losses": 9,
         "draws": 3
       },
       "contest": {
@@ -301,9 +301,9 @@
         "draws": 0
       }
     },
-    "xpEarned": 64,
+    "xpEarned": 432,
     "xpSpent": 0,
-    "treasureEarned": 4,
+    "treasureEarned": 188,
     "treasureSpent": 874
   },
   "biomeTags": [],
@@ -345,5 +345,5 @@
   "treasure": 4,
   "xp": 8,
   "description": "",
-  "updatedAt": "2026-08-26T14:49:04.572Z"
+  "updatedAt": "2026-08-27T14:53:29.817Z"
 }

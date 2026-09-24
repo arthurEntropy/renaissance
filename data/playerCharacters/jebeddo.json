@@ -2,7 +2,7 @@
   "id": "8f20a6c3-b272-45d6-9d80-c07ced314693",
   "isDeleted": false,
   "createdAt": "2026-08-17T15:40:41.734Z",
-  "lastModified": "2026-08-25T12:43:09.972Z",
+  "lastModified": "2026-08-27T15:11:52.528Z",
   "characterType": "playerCharacter",
   "name": "Jebeddo",
   "featuredArtUrls": [
@@ -56,10 +56,10 @@
       "key": "craft",
       "ranks": 0,
       "isFavored": false,
-      "isIllFavored": false,
-      "diceMod": 0,
+      "isIllFavored": true,
+      "diceMod": -1,
       "manualDiceMod": 0,
-      "isIllFavoredAutocalc": false
+      "isIllFavoredAutocalc": true
     },
     {
       "key": "perform",
@@ -101,10 +101,10 @@
       "key": "aid",
       "ranks": 0,
       "isFavored": false,
-      "isIllFavored": false,
-      "diceMod": 0,
+      "isIllFavored": true,
+      "diceMod": -1,
       "manualDiceMod": 0,
-      "isIllFavoredAutocalc": false
+      "isIllFavoredAutocalc": true
     },
     {
       "key": "persuade",
@@ -146,7 +146,7 @@
       "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": 0,
+      "diceMod": -1,
       "manualDiceMod": 2
     }
   ],
@@ -178,14 +178,13 @@
     "guilty": false,
     "angry": false,
     "afraid": false,
-    "troubled": false
+    "troubled": true
   },
   "engagementDice": [],
   "engagementSuccesses": [],
   "engagementDiceStatuses": {
-    "3a61c9aa-09ba-4b44-9efb-529795835e69_0": "expended",
-    "a8a14960-4382-4030-82f7-1da7391a3aa9_0": "expended",
-    "ef6f473a-0967-4d3f-aec8-465b14390460_0": "expended"
+    "mestiere_0": "expended",
+    "mestiere_1": "expended"
   },
   "equipment": [
     {
@@ -234,7 +233,7 @@
   "equipmentSortOption": "",
   "equipmentCustomGroups": [],
   "mp": {
-    "current": 0,
+    "current": 2,
     "base": 0
   },
   "abilities": [
@@ -304,7 +303,7 @@
     },
     {
       "id": "2afaa6d7-93d1-401b-8051-61e4b8ab752b",
-      "collapsed": false,
+      "collapsed": true,
       "showImprovements": false,
       "showSuccesses": false,
       "isActive": false,
@@ -325,25 +324,25 @@
   },
   "rollStats": {
     "skillChecks": {
-      "attempts": 8,
-      "successes": 8,
-      "totalSum": 82,
-      "bestTotal": 19,
+      "attempts": 12,
+      "successes": 12,
+      "totalSum": 146,
+      "bestTotal": 21,
       "hardestSuccess": null,
       "bySkill": {
         "Courtesy": 3,
-        "Strength": 4,
+        "Strength": 8,
         "Dexterity": 1
       },
       "solCount": 1,
       "morteCount": 2,
-      "successCount": 4
+      "successCount": 5
     },
     "contests": {
       "engagement": {
-        "wins": 6,
-        "losses": 3,
-        "draws": 2
+        "wins": 9,
+        "losses": 5,
+        "draws": 3
       },
       "contest": {
         "wins": 0,
@@ -351,10 +350,10 @@
         "draws": 0
       }
     },
-    "xpEarned": 0,
+    "xpEarned": 184,
     "xpSpent": 0,
-    "treasureEarned": 37,
-    "treasureSpent": 425
+    "treasureEarned": 77,
+    "treasureSpent": 605
   },
   "biomeTags": [],
   "biomeId": null,
@@ -394,7 +393,7 @@
   "weight": 50,
   "keeping": "2b3c4d5e-6f7a-4b8c-9d0e-1f2a3b4c5d6e",
   "treasure": 2,
-  "xp": 0,
+  "xp": 10,
   "description": "",
-  "updatedAt": "2026-08-25T12:43:09.972Z"
+  "updatedAt": "2026-08-27T15:11:52.528Z"
 }

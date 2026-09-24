@@ -1,0 +1,23 @@
+{
+  "id": "47675750-2170-4beb-8ca4-6109af665895",
+  "isDeleted": false,
+  "createdAt": "2026-09-14T18:54:37.361Z",
+  "lastModified": "2026-09-16T14:53:00.478Z",
+  "name": "Laborer's Hands",
+  "artUrl": "https://cdn.midjourney.com/3529a47e-46f0-4791-847f-453db2477720/0_3.png",
+  "description": "<p><em>You grew strong working in the fields and quarries of the Commonwealth of Chernofal.</em></p><p>Whenever you roll Strength or Fortitude for a non-attack action, +2d.</p><p><strong>Describe your rustic strength.</strong></p>",
+  "successes": null,
+  "improvements": [],
+  "source": "7016610e-ddf9-415b-8711-3b1c5fff241c",
+  "school": null,
+  "isMagical": false,
+  "isBeastAbility": false,
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": null,
+  "manaCost": null,
+  "biomeTagsAugment": [],
+  "biomeTagsInhibit": [],
+  "canBeActive": false,
+  "hasDifficulty": false
+}

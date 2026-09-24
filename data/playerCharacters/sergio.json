@@ -2,7 +2,7 @@
   "id": "285cc523-b6f4-41cc-83b6-91915f207c8a",
   "isDeleted": false,
   "createdAt": "2026-08-17T19:11:39.296Z",
-  "lastModified": "2026-08-26T15:30:05.779Z",
+  "lastModified": "2026-08-26T18:13:50.835Z",
   "characterType": "playerCharacter",
   "name": "Sergio",
   "featuredArtUrls": [
@@ -314,11 +314,12 @@
     },
     {
       "id": "d280dcad-3e65-4e9a-9173-c7450cc0205c",
-      "collapsed": false,
+      "collapsed": true,
       "showImprovements": false,
       "showSuccesses": false,
       "isActive": false,
-      "columnIndex": 2
+      "columnIndex": 2,
+      "difficulty": null
     },
     {
       "id": "e3b68a22-7a8a-458f-ae72-74e1c2a0b552",
@@ -343,13 +344,13 @@
   },
   "rollStats": {
     "skillChecks": {
-      "attempts": 7,
-      "successes": 6,
-      "totalSum": 100,
+      "attempts": 8,
+      "successes": 7,
+      "totalSum": 111,
       "bestTotal": 20,
       "hardestSuccess": null,
       "bySkill": {
-        "Lore": 6,
+        "Lore": 7,
         "Spirit": 1
       },
       "solCount": 0,
@@ -369,8 +370,8 @@
       }
     },
     "xpEarned": 0,
-    "xpSpent": 4,
-    "treasureEarned": 558,
+    "xpSpent": 6,
+    "treasureEarned": 624,
     "treasureSpent": 0
   },
   "biomeTags": [],
@@ -412,5 +413,5 @@
   "treasure": 20,
   "xp": 0,
   "description": "",
-  "updatedAt": "2026-08-26T15:30:05.779Z"
+  "updatedAt": "2026-08-26T18:13:50.835Z"
 }

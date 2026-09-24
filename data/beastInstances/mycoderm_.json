@@ -2,7 +2,7 @@
   "id": "652492e4-9f11-4eba-a67c-9eb4f3510098",
   "isDeleted": false,
   "createdAt": "2026-08-25T18:51:33.793Z",
-  "lastModified": "2026-08-25T18:51:33.800Z",
+  "lastModified": "2026-08-26T18:10:05.874Z",
   "characterType": "beastInstance",
   "name": "Mycoderm 🅛",
   "featuredArtUrls": [
@@ -139,7 +139,7 @@
     }
   ],
   "endurance": {
-    "current": 30,
+    "current": 7,
     "base": 30
   },
   "hope": {
@@ -170,7 +170,10 @@
   },
   "engagementDice": [],
   "engagementSuccesses": [],
-  "engagementDiceStatuses": {},
+  "engagementDiceStatuses": {
+    "4d9fd1b5-b468-431c-961f-82a84c91de39_0": "expended",
+    "db418790-1337-43d4-8d92-53a29b16a240_0": "expended"
+  },
   "equipment": [
     {
       "id": "db418790-1337-43d4-8d92-53a29b16a240",
@@ -230,7 +233,7 @@
     },
     "contests": {
       "engagement": {
-        "wins": 6,
+        "wins": 7,
         "losses": 2,
         "draws": 0
       },
@@ -278,7 +281,7 @@
   "description": "",
   "size": 3,
   "reach": 5,
-  "updatedAt": "2026-08-14T01:05:00.216Z",
+  "updatedAt": "2026-08-26T18:10:05.873Z",
   "challenge": 17,
   "sectionOrder": [],
   "martialTrainingOverrides": {},

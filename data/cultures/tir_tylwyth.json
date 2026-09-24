@@ -1,0 +1,50 @@
+{
+  "id": "83d190cb-0e05-4392-a5b1-f8a8017f505b",
+  "conceptType": "CULTURE",
+  "name": "Tir Tylwyth",
+  "description": "<p>Deep in the half-light beneath towering colonnades of ancient trees, the Fey Court presides over the city which has grown up around it. Pageantry and intrigue are the rule of the day among the courtiers, while the rest of the city maneuvers to anticipate and benefit from the various fads, rises and falls of the four Houses of the Seasons.</p><p>Despite this turmoil, the Court seems to draw more and more power from the forest, and new, fearsome beasts have begun appearing in the surrounding hills. It is said that the Court was built where the border between our world and the Fey Realm is worn thin. Some now fear whether the machinations of the Court threaten to tear it open completely...</p>",
+  "isDeleted": false,
+  "featuredArtUrls": [
+    "https://cdn.midjourney.com/b392c2f0-750f-47fe-ba27-d906e661d74a/0_0.png"
+  ],
+  "backgroundImage": "https://cdn.midjourney.com/9ff8cfd6-5d65-4257-96ce-3d9ea4e258c1/0_2_2048_N.webp",
+  "cardBackgroundImage": "https://cdn.midjourney.com/ce7aa2b1-a531-4201-acaf-b95e9d99c25c/0_1.png",
+  "expansion": "e46f4320-a414-4300-95d5-397ba717d982",
+  "playlists": [
+    "<iframe allow=\"autoplay *; encrypted-media *;\" frameborder=\"0\" height=\"450\" style=\"width:100%;max-width:660px;overflow:hidden;background:transparent;\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation\" src=\"https://embed.music.apple.com/us/playlist/tir-tylwyth-court-of-seasons/pl.u-zPyLq8RuxaR5Xr?theme=dark\"></iframe>",
+    "<iframe allow=\"autoplay *; encrypted-media *;\" frameborder=\"0\" height=\"450\" style=\"width:100%;max-width:660px;overflow:hidden;background:transparent;\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation\" src=\"https://embed.music.apple.com/us/playlist/tir-tylwyth-feywild/pl.u-4Jom50msmk9eWx?theme=dark\"></iframe>",
+    "<iframe allow=\"autoplay *; encrypted-media *;\" frameborder=\"0\" height=\"450\" style=\"width:100%;max-width:660px;overflow:hidden;background:transparent;\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation\" src=\"https://embed.music.apple.com/us/playlist/tir-tylwyth-town/pl.u-qxylg86uGkb7Kv?theme=dark\"></iframe>"
+  ],
+  "hooks": [
+    {
+      "id": null,
+      "name": "Roast Boar",
+      "description": "<p>A servant arrives breathless in the marketplace in the middle of the night with an urgent order from the Court kitchens. It seems the King of Autumn saw a magnificent wild boar while wandering in the woods during the day and now - amidst a particularly elevated bout of revelry with his courtiers - he is calling for the boar to be caught, roasted, and served to him as quickly as can be done, at whatever cost.</p>",
+      "gmNotes": "<p>The servant should have a description of the boar's location that should lead Our Heroes to it without much trouble, but the boar should prove to be very, very large, and with an air of wisdom about it. It should put up a very good fight but ultimately Our Heroes should prevail.</p><p>Returning to the Court kitchens with their prize, they should indeed be paid handsomely, but trouble soon ensues, as it comes to light that the boar was in fact Baedd Suar, a spirit brought from the Feywild by the House of Spring many seasons past. Our Heroes have been unwitting instruments of Court mischief between Houses.</p><p>When and how the wrath of the House of Spring falls upon Our Heroes is up to you. Perhaps they are doomed to execution and must find a way to escape (perhaps the servant who gave them the task feels guilty and wants to help them?). Or perhaps the act of killing a spirit of the Feywild causes them to be brought into the Feywild itself for judgement and/or recompense.</p>",
+      "index": 0
+    },
+    {
+      "id": null,
+      "name": "The Knights' Retinue",
+      "description": "<p>The Knight of Summer and the Knight of Winter are feuding. The threats have escalated to the point that each has begun traveling with an armored guard, and rumors are circulating that there may be a clash at the next Courtly gathering. Each Knight is calling for strong fighters to join their retinue.</p>",
+      "gmNotes": "<p>Should Our Heroes offer to join one of the retinues of the Knights, they should be put through some sort of initial test of their combative prowess - perhaps against the Knight themselves or against some fierce captured beast.</p><p>Whatever the case, the mood among the retinue should be high spirits, but also high tempers and and an evidence eagerness for bloodshed. Indeed - it seems that some folk have joined simply because some enemy of theirs had joined the opposing Knight's retinue, and so the impending conflict will give them an excuse to visit their wrath upon them.</p><p>The circumstances of the Courtly gathering and the exact precipitation of the conflict are up to you, but the fighting should break out spectacularly, with combatants on both sides demonstrating both prowess and brutality. As the battle progresses, however, it should become clear that the Knights themselves have no intention of putting themselves in danger, and eventually it should come to light that they in fact have no rivalry at all, but rather have been collaborators in orchestrating this great and bloody battle for their own entertainment and false glory.</p><p>Will Our Heroes turn against the Knights? Will they attempt to stop the fighting? Or will they be caught up in the actual enmity between the two retinues?</p><p>If your version of the Court of Seasons would not allow for such violence to be transacted within its walls, consider having the battle occur in a clearing in the woods at some other time and place (perhaps after tempers flared in the court and the presiding House forbade violence).</p><p>Bonus points for making the rivalries between the combatants more compelling than the rivalry between the Knights.</p>",
+      "index": 1
+    },
+    {
+      "id": null,
+      "name": "The Drws Gahna",
+      "description": "<p>The Houses of the Seasons are famous for their hoards of wealth as much as for their intrigue, but there is one treasure they share ownership of: The Drws Gahna, or Door Jewel. It is said that each reigning House takes temporary possession of it as the seasons change, and that it can open a portal to the Feywild. Rumor has it that a famous thief from afar has come to Tir Tylwyth to steal it - not to sell it or to use it, but simply to achieve an unmatched feat of thievery.</p>",
+      "gmNotes": "<p>There are a lot of variables for you to play with here:  Where is the thief from and what are the cultural implications of that? Which house is currently reigning? Are Our Heroes pulled into these events in defense against the theft or in assistance to it?</p><p>Whichever side of things they find themselves on, the thief should reveal their true nature once they have gotten their hands on the jewel: they are in fact Tala Cloen - a spirit from the Feywild who wants to cut off the Court (and the rest of our world) from the Feywild, forever.</p><p>You may of course invent your own lore about how the Court came to possess the Drws Gahna in the first place, whether it was fairly gotten, and what power it lends while the connection to the Feywild remains intact.</p><p>There should also be some evident material benefit to the rest of Tir Tylwyth (and perhaps the world at large) to maintaining the connection to the Feywild - protection against some threat, a bounty that saves lives, perhaps magic itself(!?) - such that the common folk are for once united with the Court in wanting to prevent Tala Cloen's mischief.</p><p>This can all culminate in a conflict with the grand chambers of The Court or - if you want to really raise the stakes - perhaps Tala Cloen succeeds in taking the jewel back to the Feywild and Our Heroes are part of a last-ditch effort to go there and bring it back. How they get there one last time and what they'll have to do to win it back are up to you.</p>",
+      "index": 2
+    }
+  ],
+  "localFlavor": {
+    "names": "Kavren, Nilwen, Marwyn, Velrin, Ilwen, Kanwyn, Tavari, Malen, Veylan, Nax, Aruni, Ceyran, Mavren, Neravi, Theryn, Kelyn, Vannor, Elaran, Mirevan, Selyr, Ruvani",
+    "occupations": "Court Herald, Valet, House Retainer, Procession Guard, Grove Warden, Gatekeeper, Bay Pilot, Tailor, Page, Garland Maker, Court Musician, Paddy Merchant, Spice Merchant, Honey Gatherer, Tea Brewer, Importer, Dyer, Whitesmith, Beast Keeper",
+    "publicHouses": "Rohini Bar, Snooty Fox, Saaral, Ivy Bush Inn, Tasmac, Lost Coins, Aniruth's Knights Tafarn, Greenvaults, Erumbur, The Huntsman, Peralam Ambal, The Four Seasons",
+    "vittles": "Millet Kali, Pepper Cawl, Tamarind Broth, Forest Rice, Leek Sambar, Coconut Porridge, Honey Thinai, Pepper Venison, Curd Rice, Horse-Gram Stew, Paniyaram, Spiced Leek Cakes, Honey Cakes, Pepper Sausages, Apple Preserves, Mushroom Dosai, Smoked Fish with Relish, Jackfruit Cakes, Black Pepper Bread",
+    "pointsOfInterest": "The Fey Court, The Hall of Seasons, The Thousand-Root Banyan, Yewshade Grove, Lake Maelur, The Procession Road, The Elephant Yard, The Garland Market, The Old Boundary Stones, The Cove of Unquiet",
+    "floraFauna": "Banyan, Neem, Tamarind, Sandalwood, Curry Leaf, Oak, Yew, Rowan, Kurinji, Palmyra Palm, Blue Deer, Wild Boar, Elephant, Peafowl, Nilgai, Otter, Raven, Rock Python, Blackbuck, Hound-of-the-Woods"
+  },
+  "lastModified": "2026-09-21T17:36:19.911Z"
+}

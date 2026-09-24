@@ -2,7 +2,7 @@
   "id": "1f161f52-1eab-4c82-8f36-a78e83d7639c",
   "isDeleted": false,
   "createdAt": "2026-08-25T18:53:17.227Z",
-  "lastModified": "2026-08-25T18:53:17.231Z",
+  "lastModified": "2026-08-26T18:25:13.506Z",
   "characterType": "beastInstance",
   "name": "Owlbear 🅩",
   "featuredArtUrls": [
@@ -139,7 +139,7 @@
     }
   ],
   "endurance": {
-    "current": 35,
+    "current": 3,
     "base": 35
   },
   "hope": {
@@ -170,7 +170,11 @@
   },
   "engagementDice": [],
   "engagementSuccesses": [],
-  "engagementDiceStatuses": {},
+  "engagementDiceStatuses": {
+    "3a61c9aa-09ba-4b44-9efb-529795835e69_0": "expended",
+    "e0867661-0d29-441c-bde5-e18aa4c5f96b_0": "expended",
+    "91ad10eb-b140-4a30-a98b-e1c0056e71e9_0": "expended"
+  },
   "equipment": [
     {
       "id": "3a61c9aa-09ba-4b44-9efb-529795835e69",
@@ -235,20 +239,23 @@
   },
   "rollStats": {
     "skillChecks": {
-      "attempts": 0,
-      "successes": 0,
-      "totalSum": 0,
-      "bestTotal": null,
+      "attempts": 3,
+      "successes": 3,
+      "totalSum": 42,
+      "bestTotal": 20,
       "hardestSuccess": null,
-      "bySkill": {},
+      "bySkill": {
+        "Courtesy": 1,
+        "Strength": 2
+      },
       "solCount": 0,
       "morteCount": 0,
-      "successCount": 0
+      "successCount": 1
     },
     "contests": {
       "engagement": {
-        "wins": 0,
-        "losses": 0,
+        "wins": 1,
+        "losses": 3,
         "draws": 0
       },
       "contest": {
@@ -321,7 +328,7 @@
   "beastTypeIds": [
     "b7e57001-0000-4000-a000-000000000002"
   ],
-  "updatedAt": "2026-08-13T01:10:38.331Z",
+  "updatedAt": "2026-08-26T18:25:13.506Z",
   "challenge": 15,
   "templateId": "dfd4a7d0-10d5-49c7-8ee2-1de1d1ad4093"
 }

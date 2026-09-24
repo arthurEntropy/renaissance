@@ -1,13 +1,14 @@
 {
   "id": "7b55612d-b325-4761-94cc-3f3e28deec35",
   "isDeleted": false,
-  "lastModified": "2026-02-12T21:37:52.077Z",
+  "lastModified": "2026-09-22T15:52:14.960Z",
   "name": "Seaworthy",
-  "description": "<p>You know how to operate and repair water vessels. If you have access to the necessary materials, you can construct a water vessel. It takes one day per passenger capacity to build. Describe the work and the finished product.</p>",
+  "description": "<p><em>You've spent as much time on boats as on land.</em></p><p>You always know how to operate and repair any water vessel you encounter. Any skill checks you make to control, repair or navigate with a water vessel are favored.</p><p>If you have access to the necessary materials, you can construct a water vessel. It takes one day per passenger capacity to build.</p><p><strong>Describe how handle the vessel.</strong></p>",
   "source": "55cfd313-75c6-4f83-9361-39af123f6f38",
   "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
   "mpCost": null,
   "xpCost": null,
   "canBeActive": false,
-  "hasDifficulty": false
+  "hasDifficulty": false,
+  "artUrl": "https://cdn.midjourney.com/3d3420f0-2397-4f7b-a0c6-630d8a1d16c9/0_0.png"
 }
