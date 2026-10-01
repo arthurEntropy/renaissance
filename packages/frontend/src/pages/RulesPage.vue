@@ -1,11 +1,23 @@
 <template>
   <div class="rules-view">
+    <div class="mobile-rules-toolbar">
+      <button type="button" class="contents-toggle" :aria-expanded="mobileContentsOpen"
+        @click="mobileContentsOpen = true">
+        <span class="contents-toggle-label">Contents</span>
+        <span class="contents-toggle-section">{{ rulesStore.selectedSection?.name || 'Choose a section' }}</span>
+        <ChevronDownIcon class="contents-toggle-icon" />
+      </button>
+    </div>
     <div class="rules-container">
+
+      <button v-if="mobileContentsOpen" type="button" class="mobile-contents-backdrop"
+        aria-label="Close table of contents" @click="mobileContentsOpen = false" />
 
       <!-- NAVIGATION -->
       <RulesNavigation @selectSection="handleSelectSection" @update:isStructureEditMode="toggleStructureEditMode"
         @sectionCreated="handleSectionCreated" @scrollToHeading="handleScrollToHeading"
-        @scrollToTarget="handleScrollToTarget" :activeHeading="activeHeading" />
+        @scrollToTarget="handleScrollToTarget" :activeHeading="activeHeading" :mobile-open="mobileContentsOpen"
+        @close-mobile="mobileContentsOpen = false" />
 
       <!-- CONTENT AREA -->
       <div class="rules-content">
@@ -36,6 +48,7 @@
 <script setup>
 import { ref, computed, watch, onMounted, provide } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import { ChevronDownIcon } from '@heroicons/vue/24/outline'
 
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import RulesNavigation from '@/components/features/rules/RulesNavigation.vue'
@@ -48,6 +61,7 @@ import { createSlug, findConceptBySlug } from '@/utils/urlHelpers'
 const route = useRoute()
 const router = useRouter()
 const rulesStore = useRulesStore()
+const mobileContentsOpen = ref(false)
 
 const filteredSections = computed(() => {
   return rulesStore.sections
@@ -137,6 +151,7 @@ const toggleStructureEditMode = () => {
 // Event Handlers
 const handleSelectSection = async (sectionId) => {
   await selectSection(sectionId)
+  mobileContentsOpen.value = false
 }
 
 const handleSectionCreated = () => {
@@ -147,6 +162,7 @@ const rulesContentRef = ref(null)
 const activeHeading = ref(null)
 
 const handleScrollToHeading = (heading) => {
+  mobileContentsOpen.value = false
   rulesContentRef.value?.scrollToHeading(heading)
 }
 
@@ -161,12 +177,15 @@ onMounted(async () => {
 
 <style scoped>
 .rules-view {
-  margin-top: -18px;
   height: calc(100vh - 50px);
   display: flex;
   flex-direction: column;
   width: 80%;
   overflow: hidden;
+}
+
+.mobile-rules-toolbar {
+  display: none;
 }
 
 .rules-container {
@@ -236,13 +255,78 @@ onMounted(async () => {
   padding: var(--space-xl);
 }
 
-@media (max-width: var(--breakpoint-md)) {
+@media (max-width: 767px) {
+  .rules-view {
+    width: 100vw;
+    height: calc(100dvh - var(--content-padding-mobile) - var(--space-md));
+    min-height: 0;
+    margin-top: -13px;
+    margin-left: 0;
+    position: static;
+    left: auto;
+    transform: none;
+  }
+
+  .mobile-rules-toolbar {
+    display: block;
+    flex: 0 0 auto;
+    margin-left: 35px;
+    padding: 0 var(--space-sm) var(--space-xs);
+  }
+
+  .contents-toggle {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) 18px;
+    align-items: center;
+    gap: var(--space-sm);
+    width: 100%;
+    min-height: 38px;
+    padding: var(--space-xs) var(--space-sm);
+    color: var(--color-text-primary);
+    background: var(--overlay-black-heavy);
+    border: 1px solid var(--overlay-white-medium);
+    border-radius: var(--radius-10);
+    text-align: left;
+  }
+
+  .contents-toggle-label {
+    font-family: var(--font-family-primary);
+    font-size: var(--font-size-12);
+    text-transform: uppercase;
+    color: var(--color-primary);
+    white-space: nowrap;
+  }
+
+  .contents-toggle-section {
+    font-family: var(--font-family-primary);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .contents-toggle-icon {
+    width: 18px;
+    height: 18px;
+  }
+
   .rules-container {
-    flex-direction: column;
+    position: relative;
+    min-height: 0;
   }
 
   .section-layout {
-    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .mobile-contents-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: var(--z-modal);
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border: 0;
+    background: var(--overlay-black-heavy);
   }
 }
 </style>

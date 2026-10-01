@@ -1,5 +1,5 @@
 <template>
-  <base-card :item="ability" :metaInfo="traitOrMp" :collapsed="collapsed" :editable="editable"
+  <base-card v-bind="$attrs" :item="ability" :metaInfo="traitOrMp" :collapsed="collapsed" :editable="editable"
     @edit="$emit('edit', ability)" :collapsible="collapsible" @update:collapsed="$emit('update:collapsed', $event)"
     @roll-link="handleRollLinkWithBiome" :itemType="ItemType.ABILITY"
     :class="[$attrs.class, biomeLinkClass, { 'ability-card--active': isAbilityActive, 'ability-card--with-difficulty': isShowingDifficulty }]"

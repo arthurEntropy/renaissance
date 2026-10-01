@@ -17,9 +17,11 @@
     </FilterBar>
 
     <!-- Item Cards -->
-    <MasonryGrid :gap="20" :row-height="10" class="cards-container" role="list">
+    <MasonryGrid ref="masonryGrid" :gap="20" :row-height="10" class="cards-container" role="list">
       <slot name="item-cards" :items="props.items"></slot>
     </MasonryGrid>
+
+    <AlphabetRail v-if="alphabetItems.length" :items="alphabetItems" @select="emit('select-letter', $event)" />
 
     <!-- Loading Indicator Slot - allows parent to attach ref and manage observer for infinite scroll -->
     <slot name="loading-indicator" :hasMore="hasMore" :isLoadingMore="isLoadingMore">
@@ -35,7 +37,8 @@
 <script setup>
 import MasonryGrid from '@/components/ui/layouts/MasonryGrid.vue'
 import FilterBar from '@/components/ui/FilterBar.vue'
-import { computed, useSlots } from 'vue'
+import AlphabetRail from '@/components/ui/AlphabetRail.vue'
+import { computed, ref, useSlots } from 'vue'
 import { useAuthStore } from '@/stores/authStore'
 import { useSourcesStore } from '@/stores/sourcesStore'
 import { SOURCE_COLLECTION_TYPES } from '@/constants/sourceTypes'
@@ -43,6 +46,7 @@ import { SOURCE_COLLECTION_TYPES } from '@/constants/sourceTypes'
 const authStore = useAuthStore()
 const sourcesStore = useSourcesStore()
 const slots = useSlots()
+const masonryGrid = ref(null)
 const isAdmin = computed(() => authStore.isAdmin)
 
 const props = defineProps({
@@ -58,6 +62,7 @@ const props = defineProps({
   sortOption: { type: String, default: '' },
   sortOptions: { type: Object, default: () => ({}) },
   items: { type: Array, default: () => [] },
+  alphabetItems: { type: Array, default: () => [] },
   hasMore: { type: Boolean, default: false },
   isLoadingMore: { type: Boolean, default: false },
   showSourceGroupOptions: { type: Boolean, default: false },
@@ -66,7 +71,7 @@ const props = defineProps({
   constrainToColumnWidths: { type: Boolean, default: false },
 })
 
-const emit = defineEmits(['update:searchQuery', 'update:sourceFilter', 'update:tagFilters', 'update:groupBy', 'update:sortOption', 'create', 'load-more'])
+const emit = defineEmits(['update:searchQuery', 'update:sourceFilter', 'update:tagFilters', 'update:groupBy', 'update:sortOption', 'create', 'load-more', 'select-letter'])
 
 const hasExplicitTagFilters = computed(() => Array.isArray(props.tagFilters))
 
@@ -123,6 +128,10 @@ const resolvedTagGroups = computed(() => {
 const createItem = () => {
   emit('create')
 }
+
+defineExpose({
+  updateGridLayout: () => masonryGrid.value?.updateLayoutImmediate(),
+})
 </script>
 
 <style scoped>
@@ -177,6 +186,12 @@ const createItem = () => {
 .cards-container {
   padding: var(--space-sm);
   overflow: visible;
+}
+
+@media (max-width: 767px) {
+  .item-cards-layout :deep([data-alpha-letter]) {
+    scroll-margin-top: calc(var(--content-padding-mobile) + var(--nav-height) + var(--space-sm));
+  }
 }
 
 .loading-indicator {
