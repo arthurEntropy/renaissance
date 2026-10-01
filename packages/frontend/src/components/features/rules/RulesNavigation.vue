@@ -1,9 +1,12 @@
 <template>
-  <div class="rules-navigation">
+  <div class="rules-navigation" :class="{ 'rules-navigation--mobile-open': mobileOpen }">
 
     <!-- Header with edit toggle button -->
     <div class="rules-nav-header">
       <h3>Table of Contents</h3>
+      <button v-if="mobileOpen" type="button" class="mobile-close-button" @click="$emit('close-mobile')">
+        Close
+      </button>
       <FloatingActionButton v-if="isAdmin" :variant="isStructureEditMode ? FAB_TYPES.CONFIRM : FAB_TYPES.EDIT"
         :visibility="FAB_VISIBILITIES.ALWAYS" @click="toggleStructureEditMode" />
     </div>
@@ -115,6 +118,7 @@ const selectSearchResult = (result) => {
     pendingScrollTarget.value = scrollTarget
     selectSection(result.section.id)
   }
+  emit('close-mobile')
 }
 
 const emit = defineEmits([
@@ -123,9 +127,14 @@ const emit = defineEmits([
   'update:isStructureEditMode',
   'scrollToHeading',
   'scrollToTarget',
+  'close-mobile',
 ])
 
 const props = defineProps({
+  mobileOpen: {
+    type: Boolean,
+    default: false,
+  },
   activeHeading: {
     type: String,
     default: null
@@ -381,13 +390,52 @@ const updateLocalSections = (newSections) => {
   padding: 0 1px;
 }
 
-@media (max-width: var(--breakpoint-md)) {
+@media (max-width: 767px) {
   .rules-navigation {
-    width: 100%;
+    display: none;
+    position: fixed;
+    inset: calc(var(--content-padding-mobile) + 51px) var(--space-sm) var(--space-sm);
+    z-index: calc(var(--z-modal) + 1);
+    width: auto;
     height: auto;
-    max-height: 200px;
-    border-right: none;
+    max-height: none;
+    padding: 0;
+    border: 1px solid var(--overlay-white-medium);
+    border-radius: var(--radius-5);
+    background: var(--color-bg-primary);
+    box-shadow: 0 12px 36px var(--overlay-black-heavy);
+  }
+
+  .rules-navigation--mobile-open {
+    display: flex;
+  }
+
+  .rules-nav-header {
+    flex: 0 0 auto;
+    padding: var(--space-md);
     border-bottom: 1px solid var(--overlay-white-medium);
+  }
+
+  .mobile-close-button {
+    font-family: var(--font-family-primary);
+    padding: var(--space-xs) var(--space-sm);
+    color: var(--color-text-primary);
+    background: var(--overlay-white-subtle);
+    border: 1px solid var(--overlay-white-medium);
+    border-radius: var(--radius-5);
+  }
+
+  .search-container {
+    flex: 0 0 auto;
+    padding: var(--space-md);
+  }
+
+  .rule-sections-list {
+    min-height: 0;
+  }
+
+  .rule-section-item {
+    padding: var(--space-sm) var(--space-md);
   }
 }
 </style>

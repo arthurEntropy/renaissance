@@ -132,8 +132,8 @@ function handleImageLoad() {
   })
 }
 
-// Expose updateLayout for manual layout recalculation if needed
-defineExpose({ updateLayout })
+// Expose layout recalculation for callers that need stable item positions before scrolling.
+defineExpose({ updateLayout, updateLayoutImmediate })
 </script>
 <style scoped>
 .masonry-grid {

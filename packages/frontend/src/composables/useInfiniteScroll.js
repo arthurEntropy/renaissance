@@ -18,6 +18,10 @@ export function useInfiniteScroll(items, itemsPerPage = 50) {
     }
   }
 
+  const revealThroughIndex = (index) => {
+    currentPage.value = Math.max(currentPage.value, Math.ceil((index + 1) / itemsPerPage))
+  }
+
   const reset = () => {
     currentPage.value = 1
   }
@@ -29,6 +33,7 @@ export function useInfiniteScroll(items, itemsPerPage = 50) {
   return {
     paginatedItems,
     loadMore,
+    revealThroughIndex,
     reset,
     hasMore,
     currentPage,

@@ -23,7 +23,7 @@
 }
 
 /* Mobile content area adjustment (top nav is hidden on mobile) */
-@media (max-width: calc(var(--breakpoint-lg) - 1px)) {
+@media (max-width: 1023px) {
   .content-area {
     padding-top: var(--content-padding-mobile);
   }
@@ -72,7 +72,7 @@ body {
 }
 
 /* Mobile background positioning */
-@media (max-width: calc(var(--breakpoint-lg) - 1px)) {
+@media (max-width: 1023px) {
   html,
   body {
     /* All the cool stuff in the current background image is on the left */

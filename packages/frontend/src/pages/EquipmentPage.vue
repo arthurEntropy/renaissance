@@ -1,8 +1,9 @@
 <template>
     <!-- Flat/Ungrouped view using ItemCardsLayout -->
-    <ItemCardsLayout v-if="!groupByOption" v-model:searchQuery="searchQuery" v-model:tagFilters="equipmentTagFilters"
-        v-model:groupBy="groupByOption" v-model:sortOption="sortOption" v-bind="layoutProps" @create="createEquipment"
-        @load-more="loadMore">
+    <ItemCardsLayout v-if="!groupByOption" ref="cardsLayoutRef" v-model:searchQuery="searchQuery"
+        v-model:tagFilters="equipmentTagFilters" v-model:groupBy="groupByOption" v-model:sortOption="sortOption"
+        v-bind="layoutProps" @create="createEquipment" :alphabet-items="allFilteredEquipment" @load-more="loadMore"
+        @select-letter="jumpToLetter">
 
         <template #additional-filters>
             <label v-if="selectedCharacter" class="template-toggle">
@@ -35,10 +36,10 @@
 
         <!-- Item cards slot -->
         <template #item-cards="{ items }">
-            <EquipmentCard v-for="item in items" :key="item.id" :equipment="item" :editable="isAdmin"
-                :duplicatable="isAdmin" :sources="sources" :art-expanded="true"
-                :engagement-success-options="engagementSuccessOptions" :collapsible="false"
-                :showImprovements="getEquipmentShowImprovements(item.id)"
+            <EquipmentCard v-for="item in items" :key="item.id" :equipment="item"
+                :data-alpha-letter="letterAnchorById.get(item.id)" :editable="isAdmin" :duplicatable="isAdmin"
+                :sources="sources" :art-expanded="true" :engagement-success-options="engagementSuccessOptions"
+                :collapsible="false" :showImprovements="getEquipmentShowImprovements(item.id)"
                 :showSuccesses="getEquipmentShowSuccesses(item.id)" @edit="openEditEquipmentModal(item)"
                 @duplicate="handleDuplicateEquipment"
                 @update:showImprovements="updateEquipmentShowImprovements(item.id, $event)"
@@ -118,7 +119,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, watch } from 'vue'
+import { ref, computed, onMounted, watch, nextTick } from 'vue'
 import { useEquipmentStore } from '@/stores/equipmentStore'
 import { useEquipmentTypesStore } from '@/stores/equipmentTypesStore'
 import { useEquipmentSubtypesStore } from '@/stores/equipmentSubtypesStore'
@@ -141,6 +142,7 @@ import { ARMOR_TYPE_ID } from '@/constants/armorConstants'
 import { SOURCE_COLLECTION_TYPES } from '@/constants/sourceTypes'
 import { FILTER_TAG_PREFIXES } from '@/constants/filterTagPrefixes'
 import { FILTER_SPECIAL_TAG_GROUP_LABEL } from '@/constants/filterBar'
+import { getAlphabetLetter } from '@/utils/getAlphabetLetter'
 import EquipmentCard from '@/components/ui/cards/item/EquipmentCard.vue'
 import EditEquipmentModal from '@/components/editModals/EditEquipmentModal.vue'
 import ItemCardsLayout from '@/components/ui/layouts/ItemCardsLayout.vue'
@@ -185,6 +187,7 @@ const engagementSuccessOptions = computed(() => engagementSuccessesStore.items)
 const isLoadingMore = ref(false)
 const improvementVisibility = ref(new Map())
 const successesVisibility = ref(new Map())
+const cardsLayoutRef = ref(null)
 
 // Computed properties
 const isAdmin = computed(() => authStore.isAdmin)
@@ -476,10 +479,36 @@ const groupedEquipment = computed(() => {
 const groupPersistenceKey = computed(() => `equipment-${groupByOption.value}-groups`)
 
 // Infinite scroll setup
-const { paginatedItems: paginatedEquipment, loadMore: loadMoreItems, hasMore, reset } = useInfiniteScroll(
+const letterAnchorById = computed(() => {
+    const firstEquipmentByLetter = new Map()
+    for (const item of allFilteredEquipment.value) {
+        const letter = getAlphabetLetter(item.name)
+        if (letter && !firstEquipmentByLetter.has(letter)) firstEquipmentByLetter.set(letter, item.id)
+    }
+    return new Map([...firstEquipmentByLetter].map(([letter, equipmentId]) => [equipmentId, letter]))
+})
+
+const {
+    paginatedItems: paginatedEquipment,
+    loadMore: loadMoreItems,
+    revealThroughIndex,
+    hasMore,
+    reset,
+} = useInfiniteScroll(
     allFilteredEquipment,
     50
 )
+
+const jumpToLetter = async (letter) => {
+    const itemIndex = allFilteredEquipment.value.findIndex((item) => getAlphabetLetter(item.name) === letter)
+    if (itemIndex < 0) return
+    revealThroughIndex(itemIndex)
+    await nextTick()
+    cardsLayoutRef.value?.updateGridLayout()
+    await nextTick()
+    document.querySelector(`.item-cards-layout [data-alpha-letter="${letter}"]`)
+        ?.scrollIntoView({ behavior: 'instant', block: 'start' })
+}
 
 const loadMore = async () => {
     isLoadingMore.value = true

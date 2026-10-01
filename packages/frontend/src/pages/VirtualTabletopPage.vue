@@ -22,7 +22,8 @@
                     :selected-area-id="selectedRadiusAreaId" :editing-area-id="editingRadiusAreaId"
                     :hovered-area-id="hoveringRadiusAreaId" :hovered-canvas-pos="hoveredCanvasPos"
                     @select="onRadiusAreaSelect($event)" @deselect="selectedRadiusAreaId = null"
-                    @resize-start="beginRadiusResize($event)" @move-start="beginAreaMove"
+                    @resize-start="(e) => { clearBubbles(); beginRadiusResize(e) }"
+                    @move-start="(...args) => { clearBubbles(); beginAreaMove(...args) }"
                     @set-color="(id, color) => setRadiusAreaColor(id, color)"
                     @set-label="(id, label) => setRadiusAreaLabel(id, label)"
                     @remove-area="_removeRadiusArea($event)" />
@@ -32,7 +33,7 @@
                     :ref="(el) => registerTokenRef(item.id, el)"
                     :class="{ 'is-dragging': isDragging(item.id), 'is-hidden-token': item.isHidden }"
                     :style="{ transform: `translate(${item.x}px, ${item.y}px)`, zIndex: item.zIndex }"
-                    @mousedown="(e) => { dismissBubble(item.id); handleTokenMousedown(item, e); handleTokenRightClick(item, e); handleTokenCmdClick(item, e) }"
+                    @mousedown="(e) => { clearBubbles(); handleTokenMousedown(item, e); handleTokenRightClick(item, e); handleTokenCmdClick(item, e) }"
                     @dblclick="(e) => handleTokenDoubleClick(item, e)">
                     <TabletopToken :name="item.name" :portrait-url="item.portraitUrl" :is-beast="item.isBeast"
                         :is-npc="item.isNpc" :size="item.size" :grid-size="gridSize" :is-selected="isSelected(item.id)"
@@ -379,14 +380,11 @@ const visibleActiveBubbles = computed(() => {
     return result
 })
 
-// Wrap the canvas container mousedown to also clear bubbles on plain canvas clicks.
+// Wrap the canvas container mousedown to also clear bubbles on canvas clicks (including measurements).
 // Speech bubble components call @mousedown.stop, so clicks on bubbles won't reach here.
 function handleCanvasContainerMousedown(e) {
     handleContainerMousedown(e)
-    // Plain left-click on empty canvas (no modifier keys) → clear all speech bubbles
-    if (e.button === 0 && !e.shiftKey && !e.metaKey && !e.ctrlKey) {
-        clearBubbles()
-    }
+    clearBubbles()
 }
 
 // Newer areas are later in the array = rendered on top (DOM order stacking)
@@ -403,6 +401,7 @@ const canvasCursorStyle = computed(() => {
 })
 
 const onRadiusAreaSelect = (id) => {
+    clearBubbles()
     selectedRadiusAreaId.value = id
     bringRadiusAreaToFront(id)
 }

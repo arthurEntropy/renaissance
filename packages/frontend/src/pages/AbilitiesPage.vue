@@ -1,8 +1,9 @@
 <template>
   <!-- Flat/Ungrouped view using ItemCardsLayout -->
-  <ItemCardsLayout v-if="!groupByOption" v-model:searchQuery="searchQuery" v-model:tagFilters="abilityTagFilters"
-    v-model:groupBy="groupByOption" v-model:sortOption="sortOption" v-bind="layoutProps" @create="createAbility"
-    @load-more="loadMore">
+  <ItemCardsLayout v-if="!groupByOption" ref="cardsLayoutRef" v-model:searchQuery="searchQuery"
+    v-model:tagFilters="abilityTagFilters" v-model:groupBy="groupByOption" v-model:sortOption="sortOption"
+    v-bind="layoutProps" @create="createAbility" :alphabet-items="allFilteredAbilities" @load-more="loadMore"
+    @select-letter="jumpToLetter">
 
     <template #additional-filters>
       <div v-if="isAdmin" class="top-row-actions">
@@ -21,7 +22,8 @@
 
     <!-- Item cards slot -->
     <template #item-cards="{ items }">
-      <AbilityCard v-for="ability in items" :key="ability.id" :ability="ability" :editable="isAdmin" :sources="sources"
+      <AbilityCard v-for="ability in items" :key="ability.id" :ability="ability"
+        :data-alpha-letter="letterAnchorById.get(ability.id)" :editable="isAdmin" :sources="sources"
         :duplicatable="isAdmin" :collapsible="false" :showImprovements="getAbilityShowImprovements(ability.id)"
         @delete="deleteAbility(ability)" @update="handleUpdate" @edit="openEditAbilityModal(ability)"
         @duplicate="handleDuplicateAbility" @update:showImprovements="updateAbilityShowImprovements(ability.id, $event)"
@@ -134,7 +136,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, nextTick } from 'vue'
 import { useAbilitiesStore } from '@/stores/abilitiesStore'
 import { useAuthStore } from '@/stores/authStore'
 import { useSourcesStore } from '@/stores/sourcesStore'
@@ -163,6 +165,7 @@ import {
 } from '@/constants/manaColors'
 import { FILTER_TAG_PREFIXES } from '@/constants/filterTagPrefixes'
 import { FILTER_SPECIAL_TAG_GROUP_LABEL } from '@/constants/filterBar'
+import { getAlphabetLetter } from '@/utils/getAlphabetLetter'
 
 // Stores
 const abilitiesStore = useAbilitiesStore()
@@ -190,6 +193,7 @@ const searchQuery = ref('')
 const abilityTagFilters = ref([])
 const improvementVisibility = ref(new Map())
 const successesVisibility = ref(new Map())
+const cardsLayoutRef = ref(null)
 const isLoadingMore = ref(false)
 const showBeastAbilities = ref(false)
 const beastAbilitiesOnly = ref(false)
@@ -427,8 +431,33 @@ const allFilteredAbilities = computed(() => {
   })
 })
 
+const letterAnchorById = computed(() => {
+  const firstAbilityByLetter = new Map()
+  for (const ability of allFilteredAbilities.value) {
+    const letter = getAlphabetLetter(ability.name)
+    if (letter && !firstAbilityByLetter.has(letter)) firstAbilityByLetter.set(letter, ability.id)
+  }
+  return new Map([...firstAbilityByLetter].map(([letter, abilityId]) => [abilityId, letter]))
+})
+
 // Infinite scroll setup - paginate the filtered results
-const { paginatedItems: paginatedAbilities, loadMore: loadMoreItems, hasMore } = useInfiniteScroll(allFilteredAbilities, 50)
+const {
+  paginatedItems: paginatedAbilities,
+  loadMore: loadMoreItems,
+  revealThroughIndex,
+  hasMore,
+} = useInfiniteScroll(allFilteredAbilities, 50)
+
+const jumpToLetter = async (letter) => {
+  const itemIndex = allFilteredAbilities.value.findIndex((ability) => getAlphabetLetter(ability.name) === letter)
+  if (itemIndex < 0) return
+  revealThroughIndex(itemIndex)
+  await nextTick()
+  cardsLayoutRef.value?.updateGridLayout()
+  await nextTick()
+  document.querySelector(`.item-cards-layout [data-alpha-letter="${letter}"]`)
+    ?.scrollIntoView({ behavior: 'instant', block: 'start' })
+}
 
 const loadMore = async () => {
   isLoadingMore.value = true

@@ -358,12 +358,31 @@ defineExpose({ scrollToHeading, applyScrollTarget })
   outline-offset: 1px;
 }
 
-@media (max-width: var(--breakpoint-md)) {
+@media (max-width: 767px) {
   .rules-content-container {
     width: 100%;
-    padding: var(--space-lg);
-    overflow-y: visible;
-    height: auto;
+    height: 100%;
+    min-height: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .section-name-container {
+    padding: 0 var(--space-xl);
+  }
+
+  .section-name-container h2 {
+    margin-top: var(--space-md);
+    font-size: var(--font-size-20);
+  }
+
+  .scrollable-content {
+    min-height: 0;
+    padding: 0 var(--space-xl);
+  }
+
+  .section-content-container {
+    margin-bottom: 0;
   }
 }
 </style>

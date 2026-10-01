@@ -56,17 +56,25 @@ const currentSection = computed(() => rulesStore.selectedSection || {})
     border-radius: var(--radius-10);
 }
 
-@media (max-width: var(--breakpoint-md)) {
+@media (max-width: 767px) {
     .image-side {
-        position: relative;
+        position: absolute;
+        inset: 0;
         width: 100%;
-        height: var(--height-200);
-        margin-top: var(--spacing-20);
+        height: 100%;
+        margin: 0;
     }
 
     .side-image {
-        position: relative;
-        height: var(--height-200);
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        background-position: center;
+        opacity: 0.2;
+        mask-image: linear-gradient(to bottom, transparent 0%, black 12%, black 100%);
+        -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 12%, black 100%);
+        pointer-events: none;
     }
 }
 </style>

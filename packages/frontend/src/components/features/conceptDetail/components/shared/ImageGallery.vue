@@ -3,7 +3,8 @@
 
     <!-- Main image with navigation controls and edit button -->
     <div v-if="displayImages.length > 0" class="enlarged-image-wrapper edit-hover-area" @mouseenter="showNav = true"
-      @mouseleave="showNav = false">
+      @mouseleave="showNav = false" @touchstart="handleTouchStart" @touchmove="handleTouchMove"
+      @touchend="handleTouchEnd" @touchcancel="handleTouchCancel">
 
       <!-- Navigation button - previous image -->
       <button v-if="showNav && displayImages.length > 1" class="nav-button left" @click.stop="prevImage"
@@ -13,7 +14,7 @@
 
       <!-- Image -->
       <img :src="optimizedMainImage" :alt="`Image ${selectedIndex + 1}`" class="enlarged-image"
-        @click="openFullSizeModal" />
+        @click="handleImageClick" />
 
       <!-- Edit button - only in manual mode -->
       <FloatingActionButton v-if="editable && isManualOrCombined" :variant="FAB_TYPES.EDIT" :size="FAB_SIZES.SMALL"
@@ -233,13 +234,74 @@ const selectImage = (index) => {
 }
 
 const prevImage = () => {
+  if (displayImages.value.length <= 1) return
   selectedIndex.value =
     (selectedIndex.value - 1 + displayImages.value.length) %
     displayImages.value.length
 }
 
 const nextImage = () => {
+  if (displayImages.value.length <= 1) return
   selectedIndex.value = (selectedIndex.value + 1) % displayImages.value.length
+}
+
+// Touch swipe navigation for mobile
+const touchStartX = ref(0)
+const touchStartY = ref(0)
+const hasSwiped = ref(false)
+
+const handleTouchStart = (e) => {
+  if (e.touches.length !== 1) return
+  touchStartX.value = e.touches[0].clientX
+  touchStartY.value = e.touches[0].clientY
+  hasSwiped.value = false
+}
+
+const handleTouchMove = (e) => {
+  if (e.touches.length !== 1) return
+  const currentX = e.touches[0].clientX
+  const currentY = e.touches[0].clientY
+  const deltaX = currentX - touchStartX.value
+  const deltaY = currentY - touchStartY.value
+  if (Math.abs(deltaX) > 10 && Math.abs(deltaX) > Math.abs(deltaY)) {
+    hasSwiped.value = true
+  }
+}
+
+const handleTouchEnd = (e) => {
+  if (touchStartX.value === 0 && touchStartY.value === 0) return
+  const touch = e.changedTouches?.[0]
+  if (!touch) return
+  const deltaX = touch.clientX - touchStartX.value
+  const deltaY = touch.clientY - touchStartY.value
+  const absX = Math.abs(deltaX)
+  const absY = Math.abs(deltaY)
+  const SWIPE_THRESHOLD = 40
+
+  if (absX >= SWIPE_THRESHOLD && absX > absY) {
+    hasSwiped.value = true
+    if (deltaX < 0) {
+      nextImage()
+    } else {
+      prevImage()
+    }
+  }
+
+  touchStartX.value = 0
+  touchStartY.value = 0
+}
+
+const handleTouchCancel = () => {
+  touchStartX.value = 0
+  touchStartY.value = 0
+}
+
+const handleImageClick = () => {
+  if (hasSwiped.value) {
+    hasSwiped.value = false
+    return
+  }
+  openFullSizeModal()
 }
 
 // Thumbnail pagination
@@ -425,6 +487,7 @@ watch(totalThumbnailPages, (total) => {
   width: 100%;
   margin-bottom: 1rem;
   position: relative;
+  touch-action: pan-y;
 }
 
 .enlarged-image {
@@ -453,6 +516,13 @@ watch(totalThumbnailPages, (total) => {
   opacity: 0;
   transition: opacity var(--transition-normal);
   z-index: var(--z-raised);
+}
+
+@media (hover: none),
+(max-width: 1024px) {
+  .nav-button {
+    display: none !important;
+  }
 }
 
 .nav-button:hover {
