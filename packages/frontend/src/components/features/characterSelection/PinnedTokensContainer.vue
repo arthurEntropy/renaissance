@@ -1333,31 +1333,10 @@ function getFocusedTokenProps(character) {
     opacity: 0.7;
 }
 
-/* Mobile: horizontal condensed row */
+/* Mobile: hide token rail container on mobile */
 @media (max-width: 768px) {
     .token-rail-container {
-        top: unset;
-        bottom: var(--space-lg);
-        left: 0;
-        right: 0;
-        flex-direction: row;
-        overflow-x: auto;
-        padding: 0 var(--space-md);
-        gap: var(--space-sm);
-        background: var(--color-surface-overlay, rgba(0, 0, 0, 0.6));
-        backdrop-filter: blur(4px);
-        border-top: 1px solid var(--color-border, rgba(255, 255, 255, 0.1));
-        padding-block: var(--space-xs);
-    }
-
-    .token-group {
-        flex-shrink: 0;
-        width: var(--token-group-width);
-    }
-
-    .token-group-members {
-        flex-direction: row;
-        gap: var(--space-xs);
+        display: none !important;
     }
 }
 
