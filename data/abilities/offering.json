@@ -1,0 +1,14 @@
+{
+  "id": "dc284954-7d4b-4b94-91bc-c27d2d79452e",
+  "isDeleted": false,
+  "lastModified": "2026-09-25T14:32:05.249Z",
+  "name": "Offering",
+  "description": "<p><em>You've participated in Madumarean rituals of sacrifice.</em></p><p>Once per rest, you may offer a sacrificial object to a body of water. Describe how the object is destroyed or rendered unusable. Increase the Difficulty by an amount equal to the cost, in Treasure, of the object.</p><p>At any time, you may spend a half action while near a body of water and reduce the Difficulty to call the water to your aid:</p><ul><li><p><strong>Reduce by 1</strong> to make your first skill check made within the next minute favored.</p></li><li><p><strong>Reduce by 5</strong> to take +2d on your next skill check made within the next minute.</p></li><li><p><strong>Reduce by 10</strong> to gain 5 temporary Defense for the next minute.</p></li><li><p><strong>Reduce by 15 </strong>to gain four temporary d4 engagement dice.</p></li><li><p><strong>Reduce by 20 </strong>to regain Endurance equal to twice your BODY score.</p></li></ul><p><strong>Describe how you call the water to your aid.</strong></p>",
+  "source": "3531c0c2-5f33-4421-ab1f-24e2e6ba82a1",
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": null,
+  "canBeActive": false,
+  "hasDifficulty": true,
+  "artUrl": "https://cdn.midjourney.com/bb1b4b0e-ec2a-4309-b0f1-da6c3e3c1f7f/0_2.png"
+}

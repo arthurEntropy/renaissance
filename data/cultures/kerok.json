@@ -2,23 +2,48 @@
   "id": "8221b753-1564-447e-b26a-4c95761d2714",
   "conceptType": "CULTURE",
   "name": "Kerok",
-  "description": "<p>Fierce folk of the desert and jealous guardians of many of the engineering secrets of the True Giantkin, the gnomes of the Kerok Desert have long lived and thrived in the red sands and wind-carved mesas. Since fear spurred them to action over 400 years ago, they have constructed more and more elaborate star-fortresses which - more than mere copies of ancient works - boast innumerable gnomish innovations. The onset of the Potluck Plague jump-started a golden age of medicine in Kerok, with sudden advances in the fields of biology, germ theory, and mechanized prosthetics. More recently, they have established contact with the newly-emerged Gearborn, whose forms bear a striking resemblance to the more Giantkin-influenced elements of Kerok’s fortresses…</p>",
+  "description": "<p>Fierce folk of the desert and jealous guardians of the many engineering secrets of the ancients, the gnomes of the Kerok Desert long lived and thrived in the red sands and wind-carved mesas. The harsh climate and fierce fauna of the region have spurred them to construct more and more elaborate star-fortresses which - more than mere copies of ancient works - boast innumerable gnomish innovations. Among these are great advances in medicine and mechanized prosthetics.</p><p>Even as the fort-dwellers barter and study in the security of their fortresses, the wide flats and canyons are the domain of The Saddlers, who tame the fearful beasts and dodge the wildly tornadic weather patterns of the desert, escorting travelers and shipments of great value, as well as pursuing secret goals of their own.</p>",
   "isDeleted": false,
   "featuredArtUrls": [
     "https://cdn.midjourney.com/c0cb8c78-4e5e-4cd5-94c7-cdeab800812a/0_1.png"
   ],
-  "backgroundImage": "https://cdn.midjourney.com/cd0dd31d-e545-4582-858c-bb9f9cb966ef/0_2_2048_N.webp",
+  "backgroundImage": "https://cdn.midjourney.com/6062ba24-865b-4f32-a9a6-5db8f900d158/0_0.png",
   "cardBackgroundImage": "https://cdn.midjourney.com/f20ee54b-4ea2-4fd7-9e8a-9e1d18c3ca5e/0_0.png",
   "expansion": "e46f4320-a414-4300-95d5-397ba717d982",
-  "playlists": [],
-  "hooks": [],
+  "playlists": [
+    "<iframe allow=\"autoplay *; encrypted-media *;\" frameborder=\"0\" height=\"450\" style=\"width:100%;max-width:660px;overflow:hidden;background:transparent;\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation\" src=\"https://embed.music.apple.com/us/playlist/kerok/pl.u-r2yB8MBTj1Wkpv?theme=dark\"></iframe>",
+    "<iframe allow=\"autoplay *; encrypted-media *;\" frameborder=\"0\" height=\"450\" style=\"width:100%;max-width:660px;overflow:hidden;background:transparent;\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation\" src=\"https://embed.music.apple.com/us/playlist/kerok-saddlers/pl.u-EdAVZDYCMlo1P8?theme=dark\"></iframe>"
+  ],
+  "hooks": [
+    {
+      "id": null,
+      "name": "Stolen Blueprints",
+      "description": "<p>A rogue engineer has fled the fortress of Itri Alsahra with stolen, un-redacted schematics of an ancient superweapon. The Fortress Council is hiring a group to track them down before they can sell the secrets to a rival fort—or worse, a faction of radical Saddlers.</p>",
+      "gmNotes": "<p>A Saddler guide, trusted by the Council, is assigned to go with Our Heroes on this mission. The guide is stern and of few words, but extremely competent, perhaps even saving Our Heroes' lives in a tight spot.</p><p>As Our Heroes track down the engineer, both of the Council's fears should prove valid: the engineer fled with the goal of taking the plans to a rival fortress, but was intercepted by a faction of radical Saddlers. This faction, incidentally, wants to build and use the weapon against the rival fortress, which has imprisoned several of their number cruelly and unjustly. </p><p>Our Heroes' guide was once a member of this faction but defected when they turned to plans of violence.</p><p>The engineer, we should learn, was motivated by love: one of the imprisoned Saddlers is dear to them, and the plans were a ransom for their freedom.</p><p>So, then, Our Heroes should find themselves caught between a radical faction that has the plans for a superweapon and a cruel fortress regime that is highly motivated to find and seize those plans. Will they choose a side in the conflict? Will they attempt to steal and return the plans to Itri Alsahra? Will they help reunite the lovers?</p>",
+      "index": 0
+    },
+    {
+      "id": null,
+      "name": "Lockdown",
+      "description": "<p>A dormant, automated defense system deep below a fortress has suddenly reactivated, mistaking the modern residents for invaders, its own mechanized defenses turning on the inhabitants. The chief engineers are embarrassed to admit that they had no prior knowledge of these systems, and know of no way to disable them. As the city is being torn apart, the Council is calling for volunteers to delve into the mechanical underbelly to find and flip the kill switch.</p>",
+      "gmNotes": "<p>This can essentially be a dungeon crawl into the bowels of the fortress, but it should raise questions about whether the Kerok gnomes were actually the builders of the fortress, or did they take up residence in something more ancient?</p><p>Is there a kill switch? What guards it? Who built all this anyway, and what were they protecting?</p>",
+      "index": 1
+    },
+    {
+      "id": null,
+      "name": "Rare Venom",
+      "description": "<p>A high-ranking fortress official has taken ill and needs a special dose of medicine. The medicine can only be distilled from the venom of an extremely rare desert beast. Time is of the essence, and a high-speed caravan of Saddlers and escorts will soon depart for the remote canyon where the beasts are said to lurk. The risks are high but the reward for success will be great.</p>",
+      "gmNotes": "<p>This can be a relatively straightforward fetch quest, but Our Heroes should have to learn to ride the Saddlers fastest tamed steeds (giant lizards? overgrown flightless birds?) and dodge the terrible tornadic winds of the Kerok desert along the way. If you'd prefer more of a wrinkle, perhaps those winds have shifted the sands and displaced the population of Our Heroes quarry into newly-exposed ruins. Perhaps along the way Our Heroes learn that, while a dose of the medicine will indeed cure the fortress official, the venom has other properties that could power a dark weapon, and the quantity of venom requested far exceeds what's needed for treatment.</p>",
+      "index": 2
+    }
+  ],
   "localFlavor": {
-    "names": "",
-    "occupations": "",
-    "publicHouses": "",
-    "vittles": "",
-    "pointsOfInterest": "",
-    "floraFauna": ""
+    "names": "Khemali, Nadiru, Samtah, Meraki, Haseyo, Tareqen, Nefero, Zahmira, Kalebu, Menkari, Safiya, Djenar, Amuni, Farako, Nesira, Khepri, Yamaro, Seneti, Abdiru, Tazima",
+    "occupations": "Fortress Engineer, Physician, Prosthetist, Anatomist, Apothecary, Field Surgeon, Star-Surveyor, Water Diviner, Saddler, Desert Scout, Stonecutter, Mason, Metalworker, Glassmaker, Mechanist, Irrigation Engineer, Genealogist, Scribe, Relic Keeper, Sand Diver",
+    "publicHouses": "Dur-Dur Bar, The Red Star, Gabsoor House, Jabarti's, Thorn Tree Lodge, Maqaada Xaarbi, The Brass Camel, Zabira's, Waaberi Rayaan",
+    "vittles": "Spiced Lamb, Camel Milk, Injira, Lentil Stew, Dates with Sesame, Grilled Goat, Spiced Chickpeas, Dried Fish, Stuffed Olives, Sorghum Porridge, Honey Cakes, Tamarind Stew, Goat Cheese, Roasted Eggplant, Spiced Rice, Dried Apricots, Sesame Bread, Lentil Fritters, Charred Okra, Cardamom Tea, Coffee",
+    "pointsOfInterest": "Bakaara Market, The Hall of Living Anatomy, The Ancient Observatory, The Brassworks, The Red Mesa, The Physicians' Court, The Prosthetists' Quarter, The Deep Cistern, The Archive of Ancients, The Saddler's Wastes",
+    "floraFauna": "Date Palm, Doum Palm, Acacia, Aloe, Frankincense Tree, Myrrh Shrub, Desert Rose, Sorghum, Millet, Red Sand Grass, Dromedary Camel, Fennec Fox, Oryx, Spotted Hyena, Desert Tortoise, Sand Viper, Secretary Bird, Moa, Rock Hyrax, Crocodile"
   },
-  "lastModified": "2026-03-13T20:46:31.475Z"
+  "lastModified": "2026-10-02T00:22:47.460Z"
 }

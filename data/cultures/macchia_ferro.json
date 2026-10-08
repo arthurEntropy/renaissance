@@ -2,23 +2,49 @@
   "id": "72dc5437-4072-4e9e-8e9f-0316fab002bb",
   "conceptType": "CULTURE",
   "name": "Macchia Ferro",
-  "description": "<p>Once an empty stretch of sea, the sudden rising of ancient ruins populated by singing automatons was met with fear and wonder. As the ruins gathered beaches and vegetation about them, the Grung appeared, quickly populating the new archipelago, seemingly immune to the “persistent magical malaise” emanating from the islands. Eventually, they learned to communicate with the automatons - the Gearborn, of ancient Dwarven make - and quickly grew to rely on their services. When the Potluck Plague wreaked havoc on the lazy frogkin, they quickly placed blame on the Gearborn and made to scour the islands of their presence. A stalemate quickly developed and the emergence of yet more ruins from the sea quashed any notions of further offensives from the Grung. Tensions have lessened in recent years, especially as Kerok has taken an interest in the Gearborn and brought more connection between the Murgle and the rest of Iago…</p>",
+  "description": "<p>Once an empty stretch of sea, the sudden rising of ancient ruins populated by singing automatons was met with fear and wonder. As the ruins gathered beaches and vegetation about them, the Ranagenti appeared, quickly populating the new archipelago, seemingly immune to the “persistent magical malaise” emanating from the islands. Eventually, they learned to communicate with the automatons - the Gearborn, of ancient make - and quickly grew to rely on their services.</p><p>When a series of natural disasters wreaked havoc on the lazy frogkin, they quickly placed blame on the Gearborn and made to scour the islands of their presence. A stalemate quickly developed and the emergence of yet more ruins from the sea quashed any notions of further major offensives from the Ranagenti. The two sides remain locked in endless exchanges of guerrilla warfare over an ever-changing patchwork of territory among the palms and rusting towers.</p><p>Even as the fighting rages on, newcomers begin to establish neutral settlements, seeking to profit from the sale of armaments to both sides, or to investigate the origins of the ruins and the secrets they may hold...</p>",
   "isDeleted": false,
   "featuredArtUrls": [
     "https://cdn.midjourney.com/e270e21a-56a5-43d5-b824-99645450c6cd/0_2.png"
   ],
-  "backgroundImage": "",
+  "backgroundImage": "https://cdn.midjourney.com/a9f54e7e-71cd-47e8-bb05-72d8eddc512a/0_2.png",
   "cardBackgroundImage": "https://cdn.midjourney.com/144c469b-9011-4088-9771-93f33af2f2c3/0_0.png",
   "expansion": "e46f4320-a414-4300-95d5-397ba717d982",
-  "playlists": [],
-  "hooks": [],
+  "playlists": [
+    "<iframe allow=\"autoplay *; encrypted-media *;\" frameborder=\"0\" height=\"450\" style=\"width:100%;max-width:660px;overflow:hidden;background:transparent;\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation\" src=\"https://embed.music.apple.com/us/playlist/macchia-ferro-villages/pl.u-pMyl81MuK7P3g1?theme=dark\"></iframe>",
+    "<iframe allow=\"autoplay *; encrypted-media *;\" frameborder=\"0\" height=\"450\" style=\"width:100%;max-width:660px;overflow:hidden;background:transparent;\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation\" src=\"https://embed.music.apple.com/us/playlist/macchia-ferro-ruins/pl.u-06oxeVbso16LeR?theme=dark\"></iframe>",
+    "<iframe allow=\"autoplay *; encrypted-media *;\" frameborder=\"0\" height=\"450\" style=\"width:100%;max-width:660px;overflow:hidden;background:transparent;\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation\" src=\"https://embed.music.apple.com/us/playlist/machia-ferro-battle/pl.u-MDAWY5NTqD7Gmp?theme=dark\"></iframe>"
+  ],
+  "hooks": [
+    {
+      "id": null,
+      "name": "Rising Ruin",
+      "description": "<p>A massive new ruin has broken the ocean surface right between a Ranagenti war camp and a Gearborn grove, throwing the local frontline into chaos. The two factions are preparing for a clash to claim the fresh, unmapped territory, but anyone who can get in beforehand has a chance to walk away with great riches.</p>",
+      "gmNotes": "<p>The ruins themselves should prove dangerous, with defenses awakening, still-flooded chambers occupied by sea-horrors, and unstable sections that could collapse at any moment.</p><p>Also perilous are scouting parties sent by either side of the conflict, who will of course assume Our Heroes are enemies on sight.</p><p>If you want to go big with this, consider placing pictograms or other information throughout the ruins that hint at the civilization that built them. Was it made by the Gearborn themselves, or where they mere servants? If the latter who built it? Perhaps some ancient ancestors of the Ranagenti themselves? What will Our Heroes do with this information? Do they have a chance to diffuse the conflict once and for all?</p>",
+      "index": 0
+    },
+    {
+      "id": null,
+      "name": "Foundry Prime",
+      "description": "<p>In the markets of a neutral settlement, an antiquities dealer accidentally activates a map leading to the \"Foundry Prime\"—the birthplace of the first Gearborn. Now a Ranagenti zealot fleet and a fanatical faction of Gearborn who want to seal their birthplace away forever are racing to follow the map.</p>",
+      "gmNotes": "<p>Here is an opportunity to explore the origins of the Gearborn, and perhaps to humanize them a bit. If they have previously seemed strange, advanced and dangerous,  the Foundry can be a fragile place, surprisingly organic in its mechanisms. Perhaps it proves to be a fount from which not just the Gearborn, but the ruins themselves have sprung and continue to spring.</p>",
+      "index": 1
+    },
+    {
+      "id": null,
+      "name": "The Lazy War Hero",
+      "description": "<p>A high-ranking, incredibly lazy Ranagenti noble wants to look like a war hero without actually fighting. He's hiring a discreet team to stage a fake, glorious victory over a \"dangerous\" Gearborn outpost.</p>",
+      "gmNotes": "<p>Everything goes horribly wrong, of course. A massive, genuinely hostile Gearborn titan wakes up beneath the stage-managed battlefield and Our Heroes find themselves in a life-or-death situation.</p>",
+      "index": 2
+    }
+  ],
   "localFlavor": {
-    "names": "",
-    "occupations": "",
-    "publicHouses": "",
-    "vittles": "",
-    "pointsOfInterest": "",
-    "floraFauna": ""
+    "names": "Ravilo, Ketara, Banyu, Mariso, Tanjel, Kaluna, Sembari, Joraku, Manado, Velani, Raskel, Jensrik, Koldren, Madsen, Vortik, Haldrek, Skovik, Brannert, Gerdal, Olsvik",
+    "occupations": "Mercenary, Lagoon Fisher, Scout, Canoe Pilot, Detachment Chief, Reef Diver, Rum Distiller, Net Weaver, Shell Carver, Tide Caller, Island Trader, Gearwright, Riveter, Boiler Tender, Archeologist, Automaton Surgeon, Researcher, Foundry Master, Brass Turner, Signaler, Salvage Mechanist",
+    "publicHouses": "The Crooked Palm, Ranya's Lantern, House Kalima, The Brass Gull, Kestrel Beach, Warung Tanjora, Rust House, Molucca Hall, The Copper Frog, Skovara's",
+    "vittles": "Jerk Pork, Coconut Rice, Saltfish Fritters, Spiced Plantain, Nasi Goreng, Grilled Snapper, Coconut Curry, Pepper Crab, Satay Skewers, Fried Cassava, Tamarind Fish, Jackfruit Stew, Smoked Eel, Sweet Potato Dumplings, Palm-Sugar Cakes, Pineapple Relish, Spiced Goat, Cassava Bread, Fried Banana, Coconut Porridge",
+    "pointsOfInterest": "The Singing Towers, The Great Cog, The New Lagoon, The Palm Sea, The Sunken Causeway, Neutral Harbor, The Battle Swamp, The Glowing Pools",
+    "floraFauna": "Coconut Palm, Breadfruit, Banana, Sugarcane, Mangrove, Hibiscus, Pandanus, Taro, Ginger, Frangipani, Tree Frog, Poison Dart Frog, Saltwater Iguana, Mongoose, Flying Fox, Heron, Frigatebird, Sea Turtle, Monitor Lizard, Reef Shark"
   },
-  "lastModified": "2026-08-28T20:32:54.343Z"
+  "lastModified": "2026-10-02T00:30:13.577Z"
 }

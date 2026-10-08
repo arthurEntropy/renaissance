@@ -1,0 +1,15 @@
+{
+  "id": "21eae89a-b24d-4a7f-9973-c93e1b5a908a",
+  "isDeleted": false,
+  "createdAt": "2026-10-03T02:20:27.317Z",
+  "lastModified": "2026-10-07T15:18:42.070Z",
+  "conceptType": "WORLD_ELEMENT",
+  "name": "The God Eaters",
+  "description": "",
+  "featuredArtUrls": [
+    "https://cdn.midjourney.com/b5e4960c-5279-4c65-99d2-2cfd0b9c893b/0_0.png"
+  ],
+  "backgroundImage": "",
+  "cardBackgroundImage": "",
+  "expansion": "e46f4320-a414-4300-95d5-397ba717d982"
+}

@@ -1,0 +1,23 @@
+{
+  "id": "0aa1ff1f-35a4-4100-ae51-b46e11654200",
+  "isDeleted": false,
+  "createdAt": "2026-09-23T18:53:58.274Z",
+  "lastModified": "2026-09-25T15:08:48.979Z",
+  "name": "Bioluminescence",
+  "artUrl": "https://cdn.midjourney.com/0224bb4f-a1b5-48e1-b4f8-0589152dd43f/0_1.png",
+  "description": "<p><em>You have allowed bioluminescent organisms to grow into your skin.</em></p><p>Your body casts dim light out to short range.</p><p><strong>Describe the patterns of your bioluminescence.</strong></p>",
+  "successes": null,
+  "improvements": [],
+  "source": "55c314d3-11ec-4d2d-921d-241b4132f737",
+  "school": null,
+  "isMagical": false,
+  "isBeastAbility": false,
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": null,
+  "manaCost": null,
+  "biomeTagsAugment": [],
+  "biomeTagsInhibit": [],
+  "canBeActive": false,
+  "hasDifficulty": false
+}

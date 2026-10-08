@@ -1,0 +1,49 @@
+{
+  "id": "01869d39-1961-4c8d-941d-744ce1d51bbd",
+  "conceptType": "CULTURE",
+  "name": "Monte dell'Avidità",
+  "description": "<p>The placid surface of Lake Bracchiano reflects the gilt marble facades of the Banking Houses, piled one atop the other like so many heaps of ivory and gold. What began as a pact of cooperation between several neighboring landholding families quickly grew as their shared love of commerce and profit spawned innovations in finance and investment, filling their coffers and drawing borrowers from all corners of the land.</p><p>Today, even as much of the city that has grown up around them remains desperate and dirty, the Banking Houses are veritable shrines of opulence, with wealth pouring from every quarter, and the Bankers now concealing their identities with the ubiquitous \"Usurial Masks,\" even as they spend conspicuously and throw lavish galas, in town or at their country villas in the surrounding hills.</p><p>And while any Banker will tell you that all this wealth is simply the fruit of good business sense and careful bookkeeping, it's common knowledge that an entity simply known as Greed counts many of the heads of the Houses among its supplicants. It is a faith that takes a toll, as evidenced by the coin-vomiting and scars of those who have been ejected from it.</p><p>As debts between the Houses rise and transactions become less and less logical, the hand of Greed tightens around the city...</p>",
+  "isDeleted": false,
+  "featuredArtUrls": [
+    "https://cdn.midjourney.com/2103a7cb-730b-4460-bf52-ca68fd685c11/0_2.png"
+  ],
+  "backgroundImage": "https://cdn.midjourney.com/8a7dd994-f9ac-4695-afa4-4e85e75c748d/0_0.png",
+  "cardBackgroundImage": "https://cdn.midjourney.com/a5593763-5ac2-4ba5-9898-6dd161d7f1f6/0_1.png",
+  "expansion": "e46f4320-a414-4300-95d5-397ba717d982",
+  "playlists": [
+    "<iframe allow=\"autoplay *; encrypted-media *;\" frameborder=\"0\" height=\"450\" style=\"width:100%;max-width:660px;overflow:hidden;background:transparent;\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation\" src=\"https://embed.music.apple.com/us/playlist/monte-dellavidit%C3%A0-opulence/pl.u-06oxeDNuo16LeR?theme=dark\"></iframe>",
+    "<iframe allow=\"autoplay *; encrypted-media *;\" frameborder=\"0\" height=\"450\" style=\"width:100%;max-width:660px;overflow:hidden;background:transparent;\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation\" src=\"https://embed.music.apple.com/us/playlist/monte-dellavidit%C3%A0-greed/pl.u-MDAWYqGtqD7Gmp?theme=dark\"></iframe>"
+  ],
+  "hooks": [
+    {
+      "id": null,
+      "name": "The Living Ledger",
+      "description": "<p>A disgraced former Banker has been heard raving in seedy taverns about a magical ledger in the vault of the Mosca Dorata Banking House: how it holds secrets nobody would believe, how its value nearly equals that of all the gold in the city.</p>",
+      "gmNotes": "<p>The Banker, Tommaso lo Sciocco, has horrible scarring on his face within the outline of the mask he once wore. He is hard to look at and hard to listen to, but his story should be corroborated should Our Heroes investigate it. Perhaps a bookbinder was contracted to repair the book, but was required to do so blindfolded. The material was strange to them - warm, it seemed, and soft, like vellum.</p><p>The main part of the adventure should of course be a heist-type challenge to get into the vault. Our Heroes should have to deal with observant, officious bank staff, magical defenses and complex locking mechanisms, all while racing against the clock.</p><p>Should they gain entry to the vault, they should find the book to be truly disturbing: it appears to be bound in living flesh, with the ledger kept in a sort of grim tattoo script. But equally unsettling should be the contents of the ledger. It seems that the highest echelons of city society have been borrowing greater and greater sums from one another, and offering more and more desperate collateral: years of life, memories, firstborn's names, etc.</p><p>It is at this point that Tommaso should become suddenly much more coherent and lucid than he has been up to this point, turning the \"book\" to a particular \"page\" where his name is written. He pulls out a golden dagger and begins to cut the page out, but the book emits an ear-splitting scream, summoning all the guards in the building.</p><p>What did Tommaso borrow? What did he give in exchange?</p>",
+      "index": 0
+    },
+    {
+      "id": null,
+      "name": "The Auction Ball",
+      "description": "<p>The Corno da Caccia Banking House is throwing their annual auction ball gala. It's one of the most opulent events of the year, and only the wealthy and prestigious receive invitations, and the items on offer are of the highest rarity and quality. Word on the street is that some of the lesser Houses are willing to discretely sell their invitations for a reasonable price to help offset their losses.</p>",
+      "gmNotes": "<p>Our Heroes will have to dress the part in order to gain admittance to the ball, donning colorful garb of high quality and, of course, masks.</p><p>The ball should be fabulous and fun, the victuals extravagant, the entertainment outlandish and delightful, the company surprisingly smart, interesting and funny.</p><p>But things get a bit strange as the night goes on. One of the hosts takes a particular interest in one of Our Heroes, laughing a bit too hard at their jokes, inviting them into more exclusive rooms, etc. And when does the auction start anyway? People are saying that there's just one item up for bidding this year. Just as the bell rings to get everyone's attention, one of Our Heroes bumps into a fellow party-goer and sees that it's a member of the House that sold their tickets to Our Heroes. Why are they here?</p><p>The host announces the item up for auction: the rarest and yet commonest thing they have ever presented: a single life.</p><p>It is, of course, the life of whichever of Our Heroes they took a liking to.</p>",
+      "index": 1
+    },
+    {
+      "id": null,
+      "name": "Greed's Gambit",
+      "description": "<p>A string of bizarre, wildly illogical transactions has thrown the city into chaos: a Banker trades a massive shipping fleet for a single, rotting apple, another trades a chest of gems for a threadbare shawl. As they Houses lock down their vaults for fear that the madness should take them, too, all are casting about to try to find the cause of it all, and whether there could be any sort of strange logic behind it.</p>",
+      "gmNotes": "<p>For this adventure, you will need to decide upon the nature of Greed. Is it something abstract invented by the Houses to give meaning to their hoarding? Is it a person who has been slowly gaining power through careful maneuvering? Is it some sort of magical being or ascendant entity?</p><p>Whatever it is, it is working to bring a specific set of objects to its temple, carried by the hands of its devotees. What are the objects? What strange chain of trades must be made before they are all acquired? What is special about them? Or is their meaningless the point: the trades themselves being a final gesture of supplication, upon which Greed can feed and... do what? Manifest? Ascend? Be revealed as nothing but the madness of the wealthy?</p>",
+      "index": 2
+    }
+  ],
+  "localFlavor": {
+    "names": "Lorenzo, Matteo, Vittorio, Alessia, Marcello, Beatrice, Cosimo, Fiorella, Giovanni, Caterina, Ludovico, Isabella, Raffaele, Bianca, Tommaso, Lucrezia, Jacopo, Francesca, Bartolomeo, Maddalena",
+    "occupations": "Banker, Moneylender, Notary, Accountant, Bookkeeper, Broker, Merchant, Investment Agent, Coiner, Goldsmith, Jeweler, Silk Merchant, Art Dealer, Factor, Courier, Maskmaker, Galamaster, Debt Collector, Beggar",
+    "publicHouses": "La Moneta, Il Gallo Nero, Osteria della Luna, La Bilancia, Il Leone Dorato, Casa del Ponte, La Civetta, Il Cervo Bianco, Tavola Rossa, La Chiave d'Oro",
+    "vittles": "Steak, Saffron Risotto, Wild Boar Ragu, Chestnut Polenta, Stuffed Artichokes, Salt Cod, Truffle Pasta, White Bean Stew, Roasted Pheasant, Mushroom Crostini, Fried Zucchini, Almond Biscotti, Fig Tart, Marzipan Fruits, Ricotta Cakes, Candied Citrus, Honeyed Pears, Walnut Bread, Olive Focaccia, Vin Santo Custard",
+    "pointsOfInterest": "The Banking Houses, The Hall of Ledgers, The Rights Exchange, The Black Steps, The Maskmakers' Quarter, The Temple of Greed, The Golden Arcade, The Debt Square, The Old Counting House, The Lakefront Promenade",
+    "floraFauna": "Olive, Cypress, Grapevine, Fig, Pomegranate, Laurel, Rosemary, Chestnut, Artichoke, Saffron Crocus, Wild Boar, Red Deer, Wolf, Golden Eagle, Peregrine Falcon, Mullet, Carp, Eel, Otter, Hare"
+  },
+  "lastModified": "2026-10-02T12:30:24.095Z"
+}

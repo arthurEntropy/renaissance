@@ -2,23 +2,48 @@
   "id": "55c314d3-11ec-4d2d-921d-241b4132f737",
   "conceptType": "CULTURE",
   "name": "Sotoonda",
-  "description": "<p>From their dark and stately towers atop a broad seamount, the Ündercï claim authority over the underwave, which teems with civilizations to rival the land. This largely undisputed authority was shaken by the warnings of prominent scholar Parmen’Ides, who told of an impending abyssal emergence of terrifying scale. Her warnings were met with anger and she was cast out. Almost immediately, the Potluck Plague - seeming not to discriminate between the land or the sea - fell upon Sotoonda. Given its origins among the Rospogenti, tensions between the surface and sea kingdoms were greatly exacerbated by competing recriminations.  The timing of the plague lent great credence and weight to Parmen’Ides’ warnings.  Many of the Underci clamor for her return…</p>",
+  "description": "<p>From their dark and stately towers atop a broad seamount, the Tritoni of Sotoonda long claimed authority over the Underwave. This largely undisputed authority was shaken by the warnings of an impending abyssal emergence of terrifying scale. The foundations of the city were shaken and chasms yawned open on the seafloor, releasing plumes of living darkness and creatures of unspeakable horror.</p><p>Those were grim days. Much of the city was overrun, and many of the villages in the surrounding reefs and kelp forests were destroyed. In their desperation, the Tritoni looked to the surface-dwellers for succor. An alliance resulted, and after many hard-fought battles, a magical barrier was established around the city, keeping back the darkness, but forsaking much of the wide, watery realm.</p><p>Many Tritoni held the \"victory\" to be hollow, and left to take up a life in exile among the surface-dwellers, but their places were taken by newcomers from the land, drawn to the dark allure of the city and the exotic novelty of life Underwave.</p><p>As time passed, the magical barrier proved to be resilient, keeping the forces of the abyss at bay and allowing the city to flourish once more. But even as goods change hands, children grow and life bubbles on, always there is the many-eyed darkness roiling on all sides, like a threatening storm...</p>",
   "isDeleted": false,
   "featuredArtUrls": [
     "https://cdn.midjourney.com/295c82f3-ce0c-4c45-aa20-2e41611959c7/0_2.png"
   ],
-  "backgroundImage": "",
+  "backgroundImage": "https://cdn.midjourney.com/8b77bb2c-e165-49a1-9a50-d0d3d0adc797/0_3.png",
   "cardBackgroundImage": "https://cdn.midjourney.com/ebfd23bf-feda-496a-9feb-00e45c09f0db/0_2.png",
   "expansion": "e46f4320-a414-4300-95d5-397ba717d982",
-  "playlists": [],
-  "hooks": [],
+  "playlists": [
+    "<iframe allow=\"autoplay *; encrypted-media *;\" frameborder=\"0\" height=\"450\" style=\"width:100%;max-width:660px;overflow:hidden;background:transparent;\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation\" src=\"https://embed.music.apple.com/us/playlist/sotoonda-the-abyss/pl.u-zPyL8W6TxaR5Xr?theme=dark\"></iframe>",
+    "<iframe allow=\"autoplay *; encrypted-media *;\" frameborder=\"0\" height=\"450\" style=\"width:100%;max-width:660px;overflow:hidden;background:transparent;\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation\" src=\"https://embed.music.apple.com/us/playlist/sotoonda-the-abyss/pl.u-MDAWYlgIqD7Gmp?theme=dark\"></iframe>"
+  ],
+  "hooks": [
+    {
+      "id": null,
+      "name": "Delved Too Deep",
+      "description": "<p>With the city limited to the confines of the barrier, space is at a premium. A wealthy newcomer to the city was excavating below their manor to add a fourth sub-basement when workers accidentally pierced the bottom of the barrier. Now creatures of darkness are leaking into the structure and threatening to compromise the security of the whole city. The city sorcerers have contrived an arcane device that can mend the tear in the barrier, but it must be applied to the barrier directly.</p>",
+      "gmNotes": "<p>This of course sets up a good, old-fashioned dungeon crawl, with the foes growing more numerous and more fierce as Our Heroes brave lower and lower chambers, culminating in a deadly encounter with an abyssal horror of your choosing.</p><p>If you want to add a wrinkle, consider having the owner of the manor be missing, and on the way down Our Heroes can encounter scrolls, paintings, or other artifacts hinting at the owner's keen interest in the abyssal darkness and raising the question of whether this was in fact an accident. The final encounter could be the owner themselves, revealed to be a supplicant of darkness and/or an abyssal creature in disguise!</p>",
+      "index": 0
+    },
+    {
+      "id": null,
+      "name": "The Seal of House Uvakai",
+      "description": "<p>For decades, the Viscount Uvakai has had a standing offer of reward for anyone brave enough to venture out into the darkness to his forsaken home deep in the kelp forests and retrieve his family's ancient golden seal, which is said to grant unnaturally long life. Several brave souls ventured out early on, but none returned, and none have tried since. Now the Viscount, heirless and on his deathbed, has tripled the reward, and several parties are preparing to risk the darkness once more for this great prize.</p>",
+      "gmNotes": "<p>At least two rival parties should venture out in competition with Our Heroes. Passing out of the Abyssal Gate, it should be a hard fight to get past the initial swarm of dark creatures that perpetually surround the city. Then it can be a matter of speed or stealth to get across the open ocean to the kelp forests, past horrors of unimaginable size, teeth the size of buildings, etc.</p><p>The house of the Viscount itself should be largely intact and un-harassed by abyssal creatures. Here conflict between the various search parties should come to a head. Perhaps one party is in bad shape, has lost one or more of their number, and won't make it back to the city without help. Perhaps another is willing to kill for the seal and/or plans to keep it for themselves, or to sell it to someone on the surface.</p><p>Whatever conflict erupts from this should attract the attention of something very big and very dangerous, which threatens everyone present.</p>",
+      "index": 1
+    },
+    {
+      "id": null,
+      "name": "The Call of the Abyss",
+      "description": "<p>There is a madness spreading among the citizens of Sotoonda. It starts with a preoccupation with the darkness: people are found standing and staring through the barrier in the middle of the night with no memory of how they got there. Later, the eyes go full black and they become senseless to the world around them. Finally, they rush the Abyssal Gate, attacking any who stand in their way, and disappear into the darkness. The Gate Guard has been doubled, but the afflicted now number in the hundreds.</p>",
+      "gmNotes": "<p>Probably the best way to pull Our Heroes into this is for a beloved NPC to come down with this sickness and to disappear through the gate.</p><p>This is open-ended and is an opportunity to address some questions about the abyss: What IS it? What caused it to open? Where are these creatures coming from? What powers them? What does that power want? Why is it drawing the citizens of Sotoonda toward it?</p><p>The answer is entirely up to you, but consider something surprising, like an ancient underground civilization that uses the darkness as a self-defense system, much like Sotoonda's own barrier.</p>",
+      "index": 2
+    }
+  ],
   "localFlavor": {
-    "names": "",
-    "occupations": "",
-    "publicHouses": "",
-    "vittles": "",
-    "pointsOfInterest": "",
-    "floraFauna": ""
+    "names": "Tavanu, Akiroa, Nuvakai, Moanuk, Kaletu, Sivara, Taqanu, Vaikoa, Anuri, Kaimana, Qoratu, Maviko, Inuak, Talani, Uvakai, Maronu, Sikuva, Tovanu, Aroki, Nairuk",
+    "occupations": "Reef Herder, Kelp Farmer, Pearl Gardener, Shell Carver, Current Reader, Coral Mason, Tide Singer, Spear Hunter, Shark Keeper, Deepwater Scout, Barrier Guard, Abyss Watcher, Wreck Diver, Bubble Brewer, Glowworm Keeper, Ink Gatherer, Tide Merchant, Trench Guide",
+    "publicHouses": "The Whale's Eye, Kalira's, The Kelp Bell, House Tuvaka, The Singing Shell, Nairua's, The Black Current, Coral Hearth, The Eight Fins, Arokan's",
+    "vittles": "Kelp Noodles, Sponge Stew, White Mussels, Sea Urchin Custard, Salted Eel, Coral Crab Cakes, Smoke-Bubble Octopus, Fan-Wrapped Fish, Clam Porridge, Raw Tuna with Sea Citrus, Boiled Squid, Seaweed Salad, Roasted Conch, Jellyfish Fritters, Fermented Fish Paste, Anemone Cakes, Deepwater Eel Dumplings",
+    "pointsOfInterest": "The Barrier Wall, The Seamount Crown, The Blackwater Chasms, The Fin Towers, The Coral Citadel, The Kelpway, The Pearl Gardens, The Sunken Court, The Abyssal Gate, The Deep Market",
+    "floraFauna": "Giant Kelp, Coral Fan, Sea Lettuce, Seagrass, Red Algae, Black Coral, Sea Grapes, Kelp Moss, Tidal Fern, Blue Anemone, Reef Shark, Sea Turtle, Manta Ray, Humpback Whale, Orca, Giant Clam, Octopus, Moray Eel, Albatross, Dandân"
   },
-  "lastModified": "2026-09-23T18:55:42.821Z"
+  "lastModified": "2026-10-07T15:47:30.618Z"
 }

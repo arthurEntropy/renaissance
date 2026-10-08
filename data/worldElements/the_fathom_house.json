@@ -1,0 +1,15 @@
+{
+  "id": "09b20944-7e0f-492d-af7f-f4988c365d18",
+  "isDeleted": false,
+  "createdAt": "2026-10-03T02:12:24.754Z",
+  "lastModified": "2026-10-07T15:18:32.591Z",
+  "conceptType": "WORLD_ELEMENT",
+  "name": "The Fathom House",
+  "description": "",
+  "featuredArtUrls": [
+    "https://cdn.midjourney.com/ec2924d9-a0a3-476c-aae4-11d379866dcd/0_0.png"
+  ],
+  "backgroundImage": "",
+  "cardBackgroundImage": "",
+  "expansion": "e46f4320-a414-4300-95d5-397ba717d982"
+}

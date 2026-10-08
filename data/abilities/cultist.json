@@ -1,0 +1,23 @@
+{
+  "id": "0ea500c5-1756-49b9-b369-69a81e6a427a",
+  "isDeleted": false,
+  "createdAt": "2026-09-23T18:52:21.172Z",
+  "lastModified": "2026-09-30T14:01:52.296Z",
+  "name": "Cultist",
+  "artUrl": "https://cdn.midjourney.com/5314a590-216b-424e-9b8e-ea8691539f02/0_3.png",
+  "description": "<p><em>You are a member of the Cult of The Unknown and it is your mission to spread the faith to others.</em></p><p>When you gain this ability, if you have not already done so for the current campaign, determine the nature of The Unknown.</p><p>At the end of each Quest, you must pay 10% of the Treasure you acquired on the Quest - rounded up - to the Cult. In return, you receive a number of Tracts equal to the amount of Treasure you paid.</p><p>Once per rest, you may spend 10 minutes and expend one Tract to attempt to win a convert to your Cult: Roll Persuade vs Lore against a humanoid creature that can see, hear and understand you. On a win, increase the Difficulty by 1, the creature joins your Cult, gains this ability, and immediately pays 10% of its wealth to the Cult, receiving Tracts in return. On a loss, subsequent attempts to convert the creature automatically fail.</p><p>In a moment of need, you may call upon the power of your faith. At any time, when an effect would force you to make a skill check, you may instead use the Difficulty as the result for the roll. When you do, reset the Difficulty to 0.</p><p><strong>Describe your methods of proselytizing.</strong></p>",
+  "successes": null,
+  "improvements": [],
+  "source": "34ea8807-b404-435c-a860-704b4a40df8f",
+  "school": null,
+  "isMagical": false,
+  "isBeastAbility": false,
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": null,
+  "manaCost": null,
+  "biomeTagsAugment": [],
+  "biomeTagsInhibit": [],
+  "canBeActive": false,
+  "hasDifficulty": true
+}

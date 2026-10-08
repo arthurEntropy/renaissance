@@ -1,13 +1,14 @@
 {
   "id": "4f01e99f-1a9f-4c76-9435-c116c4d6c958",
   "isDeleted": false,
-  "lastModified": "2026-09-23T18:37:40.781Z",
+  "lastModified": "2026-09-24T18:11:09.396Z",
   "name": "Resilience",
-  "description": "<p><em>You thrive in the face of adversity.</em></p><p>Any time you regain Endurance, you regain 1 additional Endurance.</p><p><strong>Describe what’s keeping you on your feet.</strong></p>",
+  "description": "<p><em>You thrive in the face of adversity.</em></p><p>Any time you regain Endurance, you regain 1 additional Endurance. This additional Endurance increases by 1 for every 5 points you have in WITS.</p><p><strong>Describe what’s keeping you on your feet.</strong></p>",
   "source": "fa6eb60c-0895-4635-8124-ab50b0bac28e",
   "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
   "mpCost": null,
   "xpCost": null,
   "canBeActive": false,
-  "hasDifficulty": false
+  "hasDifficulty": false,
+  "artUrl": "https://cdn.midjourney.com/6506f479-8f47-4a47-ba2b-723745789391/0_2.png"
 }

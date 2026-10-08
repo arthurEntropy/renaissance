@@ -1,0 +1,13 @@
+{
+  "id": "785d9d99-06cb-4037-b23e-a678c525f24b",
+  "isDeleted": false,
+  "createdAt": "2026-10-05T13:51:22.878Z",
+  "lastModified": "2026-10-05T13:51:23.245Z",
+  "url": "https://cdn.midjourney.com/2ee43ff6-f838-47ca-b1c5-24b96a8caa6d/0_0.png",
+  "type": "faces",
+  "sources": [
+    "55c314d3-11ec-4d2d-921d-241b4132f737",
+    "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+    "6ff91bc4-122f-4e95-bb08-b577f1a94bb6"
+  ]
+}

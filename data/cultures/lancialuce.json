@@ -3,7 +3,7 @@
   "conceptType": "CULTURE",
   "name": "Lancialuce",
   "description": "",
-  "isDeleted": false,
+  "isDeleted": true,
   "featuredArtUrls": [
     "https://cdn.midjourney.com/2e03c28d-c56c-4a44-9424-295bec60e549/0_3.png"
   ],
@@ -19,5 +19,6 @@
     "vittles": "",
     "pointsOfInterest": "",
     "floraFauna": ""
-  }
+  },
+  "lastModified": "2026-09-24T15:12:20.314Z"
 }

@@ -2,23 +2,48 @@
   "id": "34ea8807-b404-435c-a860-704b4a40df8f",
   "conceptType": "CULTURE",
   "name": "Raudkorna",
-  "description": "<p>Centuries ago, a strange affliction descended upon the forests of east Breithlond. Although the trees do not die outright, the leaves now seem to burn with the color of flame. The entire area seemed newly alive with elemental energy, and every year the blight seemed to creep a few miles outward. Cults of worship of Baldur, a God of Light, arose among the hamlets and vills of the region, but vicious enmity on the part of Erebus (worshiped by the fallen Giants and other adherents of Chaos) led to the death of Baldur, the end of the spread of the Red Blight, and whispers of a dread fate for all Iago. Even so, the Potluck Plague pushed refugees into the region, settling in the flametouched recesses of what is now known as the Raudkorna, or red horn. Although the spread of the blight has ceased, it seems that the raw elemental magic of the area has lost none of its potency, as the newly arrived peoples begin to notice changes in themselves… </p>",
+  "description": "<p>A strange affliction has descended upon the forests. Although the trees do not die outright, the leaves now seem to burn continually with the color of flame. The entire landscape seems newly alive with elemental energy. Every year the blight seems to creep a few miles outward, and more residents find the power of flame within themselves.</p><p>A cult of worship of The Unknown, an entity vaguely credited with the change, has arisen quickly among the hamlets and vills of the region, spreading like wildfire to the edges of the tree-turning, and now grasping beyond. The Cult initially served to hold communities together as the world changed around them, but now it binds them in arcane duties, with tithing and with missionary work quotas.</p><p>Perhaps due to those latter efforts or perhaps due to some magnetism of the region itself, newcomers have flocked into the region, settling in the flametouched recesses of what is now known as the Raudkorna, or red horn, and begin to notice changes in themselves...</p><h3>Determining the nature of The Unknown</h3><p>When a player character gains the <em>Cultist </em>or <em>Pray to the Unknown </em>ability, you must determine the nature of The Unknown. Choose a player to be the keeper of this knowledge. That player flips a coin:</p><ul><li><p><strong>Tails</strong> means that The Unknown does not exist, and the Cult of The Unknown is founded on a lie. The goals and actions of The Cult - its members and leadership - are entirely their own.</p></li><li><p><strong>Heads</strong> means that The Unknown does exist. The player who flipped the coin must answer these questions: What is The Unknown? What is the source of its power? What are its goals?</p></li></ul><p>The player who performed the coin flip is responsible for recording this information in secret and sharing it with each GM who runs a Quest that includes the player character with the the <em>Cultist </em>or <em>Pray to the Unknown </em>ability.</p>",
   "isDeleted": false,
   "featuredArtUrls": [
     "https://cdn.midjourney.com/646c83b8-0d6e-4976-9da3-3905a3178221/0_2.png"
   ],
-  "backgroundImage": "https://cdn.midjourney.com/6651f64d-28d6-4629-9288-1076adbd2f8d/0_2_2048_N.webp",
+  "backgroundImage": "https://cdn.midjourney.com/cca9d9b5-c403-478b-9dde-b462bf5eb231/0_2.png",
   "cardBackgroundImage": "https://cdn.midjourney.com/26ebe844-3120-4826-8916-ea58f7f3aab2/0_3.png",
   "expansion": "e46f4320-a414-4300-95d5-397ba717d982",
-  "playlists": [],
-  "hooks": [],
+  "playlists": [
+    "<iframe allow=\"autoplay *; encrypted-media *;\" frameborder=\"0\" height=\"450\" style=\"width:100%;max-width:660px;overflow:hidden;background:transparent;\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation\" src=\"https://embed.music.apple.com/us/playlist/raudkorna-hills-vills/pl.u-06oxeNyso16LeR?theme=dark\"></iframe>",
+    "<iframe allow=\"autoplay *; encrypted-media *;\" frameborder=\"0\" height=\"450\" style=\"width:100%;max-width:660px;overflow:hidden;background:transparent;\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation\" src=\"https://embed.music.apple.com/us/playlist/raudkorna-cult-of-the-unknown/pl.u-XkD0A1kCZEeYAv?theme=dark\"></iframe>"
+  ],
+  "hooks": [
+    {
+      "id": null,
+      "name": "High Tithe",
+      "description": "<p>A rogue priest of the Cult of the Unknown has raised tithes to unprecedented rates in a remote parish. Those unable or unwilling to pay up have been thrown in jail or chased out of town. A small band of defiant citizens has fled, seeking help in deposing the priest or otherwise restoring reason to their village and their faith.</p>",
+      "gmNotes": "<p>Our Heroes will need to determine the best way to get into the area of the village without attracting the attention of the priest's many enforcers - village bullies armed with magical weapons carved from flametouched trees.</p><p>Should Our Heroes gain access to the priest's quarters in the church, they should find a trapdoor leading to a secret chamber below the church, where the priest has been putting the tithed goods to use.</p><p>What have they been doing with these good? What are they feeding? Some spirit of flame? Themselves, and thus becoming a powerful monster? The Unknown itself?</p>",
+      "index": 0
+    },
+    {
+      "id": null,
+      "name": "Hot on the Trail",
+      "description": "<p>A merchant guild needs to get an important shipment of goods through an area of the forest that has recently been subject to unpredictable earthquakes and fires. The path will be narrow and the convoy will be long, slow and vulnerable, but the guild is paying top dollar.</p>",
+      "gmNotes": "<p>This adventure is an opportunity to explore the ways in which the \"Blight\" is transforming the natural world of the region. Our Heroes and a very slow, very stupid, easily-spooked caravan of ox-drawn carts and carriages must navigate shifting patterns of \"fires,\" which appear to just be a further expression of the turning of the trees, moving beyond the appearance of flame in their branches to actual flame that burns but does not consume the branches.</p><p>The narrow path along the ridgeline is cut off by a newly-formed fissure. Perhaps the only way to proceed is through fiery caves. Perhaps fire or ash spirits block the way.</p><p>What does all this say about the force or forces causing the change? Is it a natural phenomenon or is there a will moving it?</p><p>Throw a small group of passenger NPCs into the mix with competing motivations for some extra contour.</p>",
+      "index": 1
+    },
+    {
+      "id": null,
+      "name": "Trouble in Brimsholler",
+      "description": "<p>People have been going missing in the remote hamlet of Brimsholler. Some have been walking into the woods at night, never returning. At the same time, ashen spirits have been making assaults on the outlying buildings, consuming them in flame, the hissing smoke seeming to intone \"join us.\"</p>",
+      "gmNotes": "<p>The spirits are of course the missing persons. They have been lured into the woods and turned into emissaries of the force that is changing the Raudkorna - whatever that might be.</p><p>Optionally, there can be a tension of doctrine among the Cultist villagers: is this spiritual state a corruption of faith or some new, purer form of devotion?</p><p>Whatever the truths, the fact remains that the people of the town grow fewer every night, and the ring of smoldering ruins moves toward the center of town each day. If Our Heroes are not to become ash spirits themselves, they'll need to confront this growing army of fire-wielding spirits.</p>",
+      "index": 2
+    }
+  ],
   "localFlavor": {
-    "names": "",
-    "occupations": "",
-    "publicHouses": "",
-    "vittles": "",
-    "pointsOfInterest": "",
-    "floraFauna": ""
+    "names": "Arlenbek, Kairen, Elzbira, Turgan, Maribel, Kubat, Roska, Nurbek, Harlan, Aizada, Doviek, Bekara, Coraibek, Zhenna, Silas, Gulren, Maebek, Erkina, Boonezhan, Talley",
+    "occupations": "Mountain Farmer, Coal Miner, Horse Breeder, Herdsman, Trapper, Moonshiner, Herbalist, Blacksmith, Woodcutter, Cooper, Midwife, Preacher, Storyteller, Ferryman, Prospecter, Trail Guide, Tinker, Weaver, Beekeeper, Missionary",
+    "publicHouses": "The Red Horn, Kairbek's, The Dying Fire, Gulnara's, The Burning Stag, House Talaa, The Cinder Cup, Aruzhan's, The Flame & Bell, Korbek's",
+    "vittles": "Cornbread, Venison Stew, Bean Soup, Smoked Trout, Fried Chicken, Mountain Ham, Mutton Korma, Barley Porridge, Corn Mush, Fried Apples, Dumplings, Goat Cheese, Dried Apricots, Walnut Bread, Wild Berry Jam, Smoked Mutton, Honey Cakes, Pickled Vegetables, Sorghum Syrup, Roasted Chestnuts",
+    "pointsOfInterest": "The Flametouched Wood, Stone of the Unknown, The Burning Bridge, The Ember Road, The Tithe House, Mission Hall, The Flame Wells, The Broken Pass",
+    "floraFauna": "Flameleaf Oak, Red Maple, Mountain Laurel, Rhododendron, Birch, Juniper, Ramp, Goldenrod, Elderberry, Wild Grape, Black Bear, White-tailed Deer, Mountain Goat, Golden Eagle, Red Fox, Wild Turkey, Timber Wolf, Marmot, Elk, Copperhead Snake"
   },
-  "lastModified": "2026-03-13T20:48:06.043Z"
+  "lastModified": "2026-10-07T15:49:06.952Z"
 }

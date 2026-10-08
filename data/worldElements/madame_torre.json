@@ -1,0 +1,15 @@
+{
+  "id": "2b4c00a0-9bcb-497a-bdcf-bc47d3fbd7fd",
+  "isDeleted": false,
+  "createdAt": "2026-10-03T02:19:51.064Z",
+  "lastModified": "2026-10-07T15:18:57.974Z",
+  "conceptType": "WORLD_ELEMENT",
+  "name": "Madame Torré",
+  "description": "",
+  "featuredArtUrls": [
+    "https://cdn.midjourney.com/9ca749f2-573c-4f46-bdf2-6b61e9a51b5f/0_1.png"
+  ],
+  "backgroundImage": "",
+  "cardBackgroundImage": "",
+  "expansion": "e46f4320-a414-4300-95d5-397ba717d982"
+}

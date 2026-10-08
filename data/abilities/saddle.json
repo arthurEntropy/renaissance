@@ -1,0 +1,23 @@
+{
+  "id": "205a3539-1005-491e-a802-679633a4722a",
+  "isDeleted": false,
+  "createdAt": "2026-09-23T18:52:43.092Z",
+  "lastModified": "2026-09-24T15:17:04.753Z",
+  "name": "Saddle",
+  "artUrl": "https://cdn.midjourney.com/aac7e48c-9dce-4c72-bcfe-d0fc3cde96b6/0_1.png",
+  "description": "<p><em>You have a hand-crafted saddle which you can use to ride a variety of animals.</em></p><p>Once per rest: Roll Craft vs Strength against an adjacent animal of at least 2 sizes larger than you. If you or your allies have harmed the animal within the past day, your roll is ill-favored and the animal’s roll is favored. On a win, it becomes willing to bear you for the next day. On a loss, the animal runs away or, if it cannot run away, it becomes hostile to you and your allies.</p><p><strong>Describe your saddle.</strong></p>",
+  "successes": "<p>✨: The animal will bear you for one additional day.</p><p>🌞: The animal will bear you for as long as you choose.</p><p>💀: The animal becomes hostile and immediately makes an attack against you.</p>",
+  "improvements": [],
+  "source": "ccd8ce71-021b-425f-9720-fd0ee87e0140",
+  "school": null,
+  "isMagical": false,
+  "isBeastAbility": false,
+  "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
+  "mpCost": null,
+  "xpCost": null,
+  "manaCost": null,
+  "biomeTagsAugment": [],
+  "biomeTagsInhibit": [],
+  "canBeActive": false,
+  "hasDifficulty": false
+}

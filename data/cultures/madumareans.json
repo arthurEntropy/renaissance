@@ -2,23 +2,48 @@
   "id": "3531c0c2-5f33-4421-ab1f-24e2e6ba82a1",
   "conceptType": "CULTURE",
   "name": "Madumareans",
-  "description": "<p>Once an obscure, isolated cult of the sea-goddess Madumare founded around a sacrificial wave-altar, Karto Graffikos’ discovery of giant mineralized bones in the region swelled the Madumareans’ numbers in the ensuing decades. When an Iago University expedition to the nearby ruins of Eanna accidentally flooded the bay with cursed goo, the Madumareans’ wrath was great enough to invade and sack much of the University. Alas, the encircling goo proved insurmountable and the cult-turned-civilization was forced to migrate south across the salt flats to make another humble beginning. Despite a dramatic and cleansing wave sent over their original home by Madumare herself, the Madumareans remain downtrodden and destitute in their southern outpost, seemingly bereft of their former zeal. Forgotten on his remote island, Elder Brother continues his undying solitude…</p>",
+  "description": "<p>An obscure, isolated cult of the sea-goddess Madumare founded around a sacrificial wave-altar built from giant mineralized bones, the Madumareans were once of such great numbers that their ships carried the faith to every corner of the land. </p><p>But there was trouble at home: a mysterious orange goo began to seep out of the ground, corrupting the villages and grasslands around the temple, fouling the shores, and scattering the great majority of the faithful to the four winds. While some remain, working to cleanse the region and discover the reasons for their goddess' abandonment of them, most Madumareans have become nomadic, traveling in sad, tired bands, offering their sacrifices to lesser watercourses of lesser divinity.</p><p>Meanwhile, forgotten on his remote island, Elder Brother continues his undying solitude…</p>",
   "isDeleted": false,
   "featuredArtUrls": [
     "https://cdn.midjourney.com/12b56a1d-b2ef-48d8-addf-80bb16c7fa50/0_1.png"
   ],
-  "backgroundImage": "",
+  "backgroundImage": "https://cdn.midjourney.com/ef0ce190-f30a-4889-838b-4a0195424c57/0_0.png",
   "cardBackgroundImage": "https://cdn.midjourney.com/b887cba2-116d-4735-b3cb-d4d0bfc0bbb0/0_1.png",
   "expansion": "e46f4320-a414-4300-95d5-397ba717d982",
-  "playlists": [],
-  "hooks": [],
+  "playlists": [
+    "<iframe allow=\"autoplay *; encrypted-media *;\" frameborder=\"0\" height=\"450\" style=\"width:100%;max-width:660px;overflow:hidden;background:transparent;\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation\" src=\"https://embed.music.apple.com/us/playlist/madumareans-festive/pl.u-r2yB81xsj1Wkpv?theme=dark\"></iframe>",
+    "<iframe allow=\"autoplay *; encrypted-media *;\" frameborder=\"0\" height=\"450\" style=\"width:100%;max-width:660px;overflow:hidden;background:transparent;\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation\" src=\"https://embed.music.apple.com/us/playlist/madumareans-rituals/pl.u-EdAVZz4tMlo1P8?theme=dark\"></iframe>"
+  ],
+  "hooks": [
+    {
+      "id": null,
+      "name": "Straight to the Source",
+      "description": "<p>The orange goo is creeping closer and closer to the Wave Temple, despite the acolytes' best efforts. Now a group of the faithful is going to attempt to trace the orange goo back to its origin, which is suspected to be deep within the island's calcified caverns.</p>",
+      "gmNotes": "<p>The caverns should be a complex network of passages and chambers, which fill and empty without warning as the goo moves through them.</p><p>In a central chamber, Our Heroes should discover that the goo is actually the weeping, infected blood of a trapped primordial entity, directly beneath the Wave Temple. Was it drawn to this place by the power of the Madumareans' sacrifices, or was the Temple built to hold it at bay? Or is the being... \"Madumare\" herself?</p>",
+      "index": 0
+    },
+    {
+      "id": null,
+      "name": "The Goddess' New Form",
+      "description": "<p>A desperate village near the Temple has begun consuming marine life mutated by the orange sludge to avoid starvation. The villagers are rapidly transforming into amphibious, hive-minded zealots who seek to drag outsiders into the fouled surf to \"receive the Goddess’s new form.\"</p>",
+      "gmNotes": "<p>The villagers are indeed crazed, but there seems to be some truth to their message, as those who disappear beneath the waves emerge unharmed and even more adamant that others should join them.</p><p>Should Our Heroes ingest any of the corrupted fish, it should of course be gross, but they should also receive a vision or a brief mental interaction with a kind-seeming entity that is in evident distress and is in need of urgent help. They should also find that they are able to breathe underwater for a period after eating it.</p><p>Beneath the waves, they should find Madumare herself - whatever you decide she is - trapped by a parasitic force that has nearly consumed her.</p>",
+      "index": 1
+    },
+    {
+      "id": null,
+      "name": "The Awakening Bones",
+      "description": "<p>As the orange goo has spread into the Bone Fields, villagers report that the bones appear to be moving: a femur in a valley one day is found on the hillside next morning, a skull facing North at noon faces East at nightfall. These movements appear to be becoming increasingly common, and locals are becoming worried.</p>",
+      "gmNotes": "<p>An investigation of reported incidents should reveal that the movement of the bones is not random: groups of them appear to be moving toward each other, centered on a point in one of the villages.</p><p>As these bones converge, at first, whole skeletons of normal-sized beasts should reassemble and become aggressive, then skeletons of increasing size and ferocity, until we reach epic proportions.</p><p>Should our heroes manage to impede the movements of some of the bones, consider strange assemblages: a massive quadruped with the head of a shark-like creature, etc.</p><p>Also, given that the locals have long made use of the great bones as building materials, whole dwellings should suddenly shift and reassemble themselves into unexpected threats.</p><p>The cause of all this? What's pulling these bones toward the village? A tomb hidden in the center of town contains the bones of a humanoid who was once a shepherd of these great beasts. If they can be reassembled, they will lead away the fearsome creatures.</p>",
+      "index": 2
+    }
+  ],
   "localFlavor": {
-    "names": "",
-    "occupations": "",
-    "publicHouses": "",
-    "vittles": "",
-    "pointsOfInterest": "",
-    "floraFauna": ""
+    "names": "Madren, Sigrali, Hafira, Kelvar, Nurvik, Ismara, Eydran, Laksen, Ragnira, Malvik, Suraya, Thoren, Afnara, Kjellin, Mairun, Haldira, Zafir, Brynja, Kamran, Yrsa",
+    "occupations": "Wave Priest, Bone Carver, Sacrifice Appraiser, Tide Reader, Salt Gatherer, Fisher, Boatwright, Navigator, Seaweed Harvester, Pearl Diver, Herd Keeper, Grassland Tender, Resin Gatherer, Healer, Pilgrim Guide, Relic Guard, Water Bearer, Traveling Priest, Cleansing Acolyte",
+    "publicHouses": "The Bone Lantern, Selka's Rest, The Orange Kettle, House of the Last Tide, The Whale's Rib, Nordara, The Weary Sail, Blue Hearth, The Salted Oar, Keluna's",
+    "vittles": "Smoked Cod, Coconut Rice, Salted Mackerel, Lamb Stew, Fish Curry, Rye Flatbread, Pickled Herring, Spiced Coconut Fish, Barley Porridge, Grilled Goat, Seaweed Soup, Coconut Cakes, Dried Fish, Fermented Shark, Tamarind Lentils, Smoked Eel, Root Vegetable Stew, Fried Banana, Skyr with Berries, Cardamom Bread",
+    "pointsOfInterest": "The Wave-Altar, The Temple of Madumare, The Orange Fields, The Fouled Shore, The Bone Road, The Pilgrim's Spring, The Abandoned Villages, The Four Waters, Elder Brother's Island, The Cleansing Pools",
+    "floraFauna": "Coconut Palm, Sea Buckthorn, Birch, Juniper, Mangrove, Lupine, Kelp, Sugarcane, Moss, Cloudberry, Puffin, Harbor Seal, Arctic Fox, Reindeer, Humpback Whale, Mackerel, Cod, Eider, Orca, Grey Seal"
   },
-  "lastModified": "2026-09-23T18:45:26.571Z"
+  "lastModified": "2026-10-02T00:32:37.314Z"
 }
