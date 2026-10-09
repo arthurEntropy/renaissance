@@ -623,7 +623,7 @@ const equipmentPropertiesDisplay = computed(() => {
 
   // Add reach if greater than 0
   if (props.equipment.reach > 0) {
-    sections.push(`${hintSpan('Reach')}: ${props.equipment.reach}`)
+    sections.push(`${hintSpan('Reach')}: ${props.equipment.reach} ft`)
   }
 
   // Add range if set

@@ -3,11 +3,11 @@
 
     <!-- Filter Bar -->
     <FilterBar v-model:searchQuery="searchQueryLocal" v-model:selectedTags="selectedTagsLocal"
-      v-model:groupBy="groupByLocal" v-model:orderBy="sortOptionLocal" :tag-groups="resolvedTagGroups"
-      :tag-picker-mode="tagPickerMode" :multiselect="tagMultiselect" :group-options="groupOptions"
-      :order-options="sortOptions" :show-add-button="isAdmin" search-placeholder="Search..."
-      :tag-search-placeholder="tagSearchPlaceholder" :stats="stats" :hide-to-top-button="hideToTopButton"
-      @add="createItem">
+      v-model:groupBy="groupByLocal" v-model:orderBy="sortOptionLocal" v-model:viewMode="viewModeLocal"
+      :show-view-toggle="showViewToggle" :tag-groups="resolvedTagGroups" :tag-picker-mode="tagPickerMode"
+      :multiselect="tagMultiselect" :group-options="groupOptions" :order-options="sortOptions"
+      :show-add-button="isAdmin" search-placeholder="Search..." :tag-search-placeholder="tagSearchPlaceholder"
+      :stats="stats" :hide-to-top-button="hideToTopButton" @add="createItem">
       <template #additional-filters>
         <slot name="additional-filters"></slot>
       </template>
@@ -69,9 +69,11 @@ const props = defineProps({
   stats: { type: Array, default: () => [] },
   hideToTopButton: { type: Boolean, default: false },
   constrainToColumnWidths: { type: Boolean, default: false },
+  viewMode: { type: String, default: 'cards' },
+  showViewToggle: { type: Boolean, default: false },
 })
 
-const emit = defineEmits(['update:searchQuery', 'update:sourceFilter', 'update:tagFilters', 'update:groupBy', 'update:sortOption', 'create', 'load-more', 'select-letter'])
+const emit = defineEmits(['update:searchQuery', 'update:sourceFilter', 'update:tagFilters', 'update:groupBy', 'update:sortOption', 'update:viewMode', 'create', 'load-more', 'select-letter'])
 
 const hasExplicitTagFilters = computed(() => Array.isArray(props.tagFilters))
 
@@ -102,6 +104,11 @@ const groupByLocal = computed({
 const sortOptionLocal = computed({
   get: () => props.sortOption,
   set: (value) => emit('update:sortOption', value),
+})
+
+const viewModeLocal = computed({
+  get: () => props.viewMode,
+  set: (value) => emit('update:viewMode', value),
 })
 
 // Build tag groups from the sources store, optionally prepending group-select items
