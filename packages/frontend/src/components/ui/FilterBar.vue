@@ -27,6 +27,14 @@
             <!-- Additional Filters Slot -->
             <slot name="additional-filters" />
 
+            <!-- Cards/Table Toggle -->
+            <div v-if="showViewToggle" class="view-toggle" role="group" aria-label="View mode">
+                <button v-for="option in VIEW_MODE_OPTIONS" :key="option.value" type="button" class="size-button"
+                    :class="{ selected: localViewMode === option.value }" @click="localViewMode = option.value">
+                    {{ option.label }}
+                </button>
+            </div>
+
             <!-- Grid Size Toggle -->
             <div v-if="showSizeToggle" class="size-toggle">
                 <button type="button" class="size-button" :class="{ selected: localGridSize === 'large' }"
@@ -52,7 +60,7 @@
                 <SortingPicker v-if="hasGroupOptions" v-model="localGroupBy" :options="groupOptions"
                     placeholder="Group by..." />
                 <SortingPicker v-if="hasOrderOptions" v-model="localOrderBy" :options="orderOptions"
-                    placeholder="Order by..." />
+                    placeholder="Order by..." :disabled="orderDisabled" />
                 <slot name="actions" />
                 <ActionButton v-if="showAddButton" variant="primary" size="small" :text="addButtonLabel"
                     @click="$emit('add')" />
@@ -150,7 +158,24 @@ const props = defineProps({
         type: Boolean,
         default: false,
     },
+
+    // Cards/Table toggle in the controls row
+    showViewToggle: {
+        type: Boolean,
+        default: false,
+    },
+
+    // Disables the order-by picker (e.g. when column headers control sorting)
+    orderDisabled: {
+        type: Boolean,
+        default: false,
+    },
 })
+
+const VIEW_MODE_OPTIONS = [
+    { value: 'cards', label: 'Cards' },
+    { value: 'table', label: 'Table' },
+]
 
 defineEmits(['add'])
 
@@ -161,6 +186,7 @@ const localGridSize = defineModel('gridSize', { default: 'large' })
 const localGroupBy = defineModel('groupBy', { default: '' })
 const localOrderBy = defineModel('orderBy', { default: '' })
 const localSearchQuery = defineModel('searchQuery', { default: '' })
+const localViewMode = defineModel('viewMode', { default: 'cards' })
 
 const slots = useSlots()
 
@@ -334,6 +360,20 @@ const showControlsRow = computed(() =>
     font-weight: var(--font-weight-semibold);
     cursor: pointer;
     transition: var(--transition-normal);
+}
+
+/* Shares .size-button styling; pushed right unless admin toggles (which carry their own auto margin) precede it */
+.view-toggle {
+    display: flex;
+    gap: var(--space-xs);
+    background: var(--color-bg-primary);
+    padding: var(--space-xs);
+    border-radius: var(--radius-5);
+    margin-left: auto;
+}
+
+.filter-row:has(.top-row-actions) .view-toggle {
+    margin-left: 0;
 }
 
 .size-button:hover,

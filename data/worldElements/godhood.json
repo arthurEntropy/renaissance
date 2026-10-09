@@ -1,0 +1,15 @@
+{
+  "id": "49ca77ac-ff91-46cd-a409-fd1bc1fdabde",
+  "isDeleted": false,
+  "createdAt": "2026-10-03T01:57:57.641Z",
+  "lastModified": "2026-10-07T15:18:50.353Z",
+  "conceptType": "WORLD_ELEMENT",
+  "name": "Godhood",
+  "description": "",
+  "featuredArtUrls": [
+    "https://cdn.midjourney.com/aba9cae5-7ac5-4238-8cae-0b38882a04db/0_1.png"
+  ],
+  "backgroundImage": "",
+  "cardBackgroundImage": "",
+  "expansion": "e46f4320-a414-4300-95d5-397ba717d982"
+}

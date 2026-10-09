@@ -1,7 +1,7 @@
 <template>
     <div class="sorting-row">
         <label v-if="label" class="sorting-label">{{ label }}</label>
-        <button ref="triggerRef" type="button" class="sort-select" :aria-expanded="showPicker"
+        <button ref="triggerRef" type="button" class="sort-select" :aria-expanded="showPicker" :disabled="disabled"
             @click="toggleFromTrigger">
             <span class="sort-select-value">{{ selectedLabel }}</span>
             <span class="dropdown-icon">
@@ -63,6 +63,10 @@ const props = defineProps({
     placeholder: {
         type: String,
         default: ''
+    },
+    disabled: {
+        type: Boolean,
+        default: false
     }
 })
 
@@ -144,6 +148,11 @@ const selectOption = (value) => {
 
 .sort-select:hover {
     border-color: var(--color-border-primary);
+}
+
+.sort-select:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
 }
 
 .sort-select:focus {

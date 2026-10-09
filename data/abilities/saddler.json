@@ -1,0 +1,16 @@
+{
+  "id": "2fd206e0-8cae-42cf-a446-c0d772e7752a",
+  "isDeleted": false,
+  "lastModified": "2026-09-29T18:15:41.806Z",
+  "name": "Saddler",
+  "description": "<p><em>You're experienced riding the beasts of the plains of Kerok.</em></p><p>All your rolls against animals are favored. Whenever you roll Lore to recall information about animals, +2d.</p><p>Once per rest, you may spend an action to roll Craft vs Strength against an adjacent animal at least 2 sizes larger than you. If you or your allies have harmed the animal within the past day, your roll is ill-favored and the animal’s roll is favored. On a win, it becomes willing to bear you for the next day. On a loss, the animal runs away or, if it cannot run away, it becomes hostile to you and your allies.</p><p><strong>Describe your way with animals.</strong></p>",
+  "source": "8221b753-1564-447e-b26a-4c95761d2714",
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": null,
+  "canBeActive": false,
+  "hasDifficulty": false,
+  "artUrl": "https://cdn.midjourney.com/e5b11cb3-671b-41ba-935f-8a2abb21a47d/0_2.png",
+  "successes": "<p>✨: The animal will bear you for one additional day.</p><p>🌞: The animal will bear you for as long as you choose.</p><p>💀: The animal becomes hostile and immediately makes an attack against you.</p>",
+  "school": null
+}

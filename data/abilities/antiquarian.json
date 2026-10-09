@@ -1,0 +1,14 @@
+{
+  "id": "fc4a01dc-cdcf-45bf-98b1-384da7d69832",
+  "isDeleted": false,
+  "lastModified": "2026-09-24T17:48:38.596Z",
+  "name": "Antiquarian",
+  "description": "<p><em>You've seen innumerable rarities change hands in the antiquities markets of Kerok.</em></p><p>You can always identify the material, use and culture of origin of any non-weapon, non-armor item. Once per rest per rank you have in Craft (minimum 1), you can also identify its magical properties.</p><p><strong>Describe your expertise.</strong></p>",
+  "source": "8221b753-1564-447e-b26a-4c95761d2714",
+  "mpCost": null,
+  "xpCost": null,
+  "canBeActive": false,
+  "hasDifficulty": false,
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "artUrl": "https://cdn.midjourney.com/6f75ea81-1de7-474c-8042-9a51e94e9db5/0_0.png"
+}

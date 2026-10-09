@@ -3,7 +3,7 @@
   "conceptType": "CULTURE",
   "name": "The Saddlers",
   "description": "<p>For centuries, the terrifying call of the Cerca kept settlers away from the edges of the great plains of the Talameunlaith. When a group of revolutionaries was sentenced to march into this region, their death at the beaks of the Cercas was a foregone conclusion. To the surprise of all observers, they learned to tame and ride the beasts, establishing a rowdy settlement and public menagerie on the northern edge of the plains. From here, they raided the towns of the Breithlond and would have taken Adiri itself if not for the intervention of the Iliyanites. This rebuff quieted the tempers of the Saddlers for a time, until expeditions discovered the threat of the goblin city of First Home in the far north. Going on the offensive, the Saddlers were massacred by an unexpectedly fierce counter-attack, and thus many of their best riders were lost. Their military might humbled, the Saddlers today are the renowned beastmasters of Iago. But even as they ply their trade, they feel a chill drifting over the northern mountains…</p>",
-  "isDeleted": false,
+  "isDeleted": true,
   "featuredArtUrls": [
     "https://cdn.midjourney.com/5182ee17-05c1-4261-800e-4c362fdd0692/0_1.png"
   ],
@@ -20,5 +20,5 @@
     "pointsOfInterest": "",
     "floraFauna": ""
   },
-  "lastModified": "2026-08-28T20:53:21.796Z"
+  "lastModified": "2026-09-24T15:25:28.939Z"
 }

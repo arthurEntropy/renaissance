@@ -1,0 +1,15 @@
+{
+  "id": "bf1ad1ea-3e1e-49f7-a874-ca6fff7a108b",
+  "isDeleted": false,
+  "lastModified": "2026-09-30T14:20:53.238Z",
+  "name": "Augury",
+  "description": "<p><em>You've learned to seek meaning in the flight of birds.</em></p><p>Once per long rest, you may spend at least 1 minute observing the flight of birds. Share your interpretation with your companions (in their attentive presence), then select a skill. For the next day, whenever a companion who chooses to believe you rolls the selected skill, the roll is favored. The effect ends if they fail/lose a roll using the selected skill.</p><p><strong>Describe your augury.</strong></p>",
+  "source": "49f10189-9634-4083-933b-fa74c2583b87",
+  "mpCost": null,
+  "xpCost": null,
+  "canBeActive": false,
+  "hasDifficulty": false,
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "artUrl": "https://cdn.midjourney.com/04845d88-8324-4278-bd21-ee1cc0226a80/0_3.png",
+  "school": null
+}

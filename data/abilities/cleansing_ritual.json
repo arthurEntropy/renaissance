@@ -1,0 +1,23 @@
+{
+  "id": "97b48b85-dcc3-4379-9a4a-64e170ea9292",
+  "isDeleted": false,
+  "createdAt": "2026-09-23T18:45:29.271Z",
+  "lastModified": "2026-09-30T13:48:37.464Z",
+  "name": "Cleansing Ritual",
+  "artUrl": "https://cdn.midjourney.com/03e6dbbe-c849-4d36-bb50-0d6400b35559/0_1.png",
+  "description": "<p><em>You have helped the Madumareans in their work cleansing their corrupted shores.</em></p><p>Once per day, you may spend one hour attempting to cleanse the area around you of corruption. Roll Spirit against a Difficulty equal to the number of square miles you're attempting to cleanse. On a pass, roll Craft against the same Difficulty. On a second success, the area is cleansed. Remove the Corrupted tag from the current biome, permanently.</p><p><strong>Describe the ritual.</strong></p>",
+  "successes": null,
+  "improvements": [],
+  "source": "3531c0c2-5f33-4421-ab1f-24e2e6ba82a1",
+  "school": null,
+  "isMagical": false,
+  "isBeastAbility": false,
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": null,
+  "manaCost": null,
+  "biomeTagsAugment": [],
+  "biomeTagsInhibit": [],
+  "canBeActive": false,
+  "hasDifficulty": false
+}

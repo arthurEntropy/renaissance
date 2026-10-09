@@ -1,7 +1,7 @@
 <template>
     <div v-if="showBadge" :class="badgeClass" @click.stop="handleClick" @mouseenter="handleMouseEnter"
         @mouseleave="handleMouseLeave">
-        <template v-if="type === 'keeping' && !isHovering && value !== null && value !== undefined">
+        <template v-if="type === 'keeping' && !isHovering && (hasValue || isOwned)">
             {{ displayValue }}
             <img :src="keepingIcon" alt="keeping" class="keeping-icon" />
         </template>
@@ -56,9 +56,11 @@ const emit = defineEmits(['toggle'])
 // Reactive state for hover
 const isHovering = ref(false)
 
+const hasValue = computed(() => props.value !== undefined && props.value !== null)
+
 const showBadge = computed(() => {
     // Show when a value is present, OR when interactive (allows a no-cost item "+Add" badge)
-    return (props.value !== undefined && props.value !== null) || props.isInteractive
+    return hasValue.value || props.isInteractive
 })
 
 // Badge is interactive if marked as interactive (regardless of ownership status)
@@ -85,7 +87,8 @@ const handleMouseLeave = () => {
 }
 
 const displayValue = computed(() => {
-    return props.value
+    // Owned free keeping items have no cost value but still read as 0 treasure
+    return props.value ?? 0
 })
 
 const displayText = computed(() => {
@@ -98,7 +101,7 @@ const displayText = computed(() => {
         // Free items (no cost): show "0 XP" for owned items, "+Add" for unowned
         // (the badge is opacity:0 at rest anyway, only revealed on card hover)
         if (props.value === undefined || props.value === null) {
-            return props.isOwned ? '0 XP' : '+ Add'
+            return props.isOwned ? (props.type === 'xp' ? '0 XP' : '0') : '+ Add'
         }
         // Show normal badge text when not hovering
         return props.type === 'xp' ? `${props.value} XP` : props.value

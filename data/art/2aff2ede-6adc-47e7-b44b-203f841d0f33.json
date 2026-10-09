@@ -1,11 +1,10 @@
 {
   "id": "2aff2ede-6adc-47e7-b44b-203f841d0f33",
   "url": "https://cdn.midjourney.com/ae7dd621-4b55-4ae3-b8c4-1e8b3dc581ed/0_0.png",
-  "isDeleted": false,
-  "createdAt": "2025-11-02T21:42:07.102Z",
-  "lastModified": "2025-11-02T21:42:07.102Z",
   "type": "faces",
   "sources": [
     "d7578278-c801-410b-b194-12b555042f29"
-  ]
+  ],
+  "isDeleted": true,
+  "lastModified": "2026-09-25T18:01:41.800Z"
 }

@@ -2,23 +2,48 @@
   "id": "fa6eb60c-0895-4635-8124-ab50b0bac28e",
   "conceptType": "CULTURE",
   "name": "Talon's Folly",
-  "description": "<p>When the Red Dragon Flight scoured the Eastern plains and turned it to The Ashlands, the surviving displaced peoples of the formerly verdant region founded a settlement to the north, where they nursed their anger and sharpened their spears. Destroyed and re-settled innumerable times over the centuries - as if the gods themselves were bickering over its existence - tumult is routine here. Although the Blue Dragon flight displaced the Red, and afterward the Potluck Plague significantly reduced their numbers, the great geyser that once fed orchards is now charged with the bolts of the scaly overlords of the Ashlands, every hill and field boiled clear of life with every eruption. And yet, the bold, the reckless and the hopeful take up the near-suicidal dragon hunt again and again…</p>",
+  "description": "<p>Once there was a wide, verdant land, nearly a perfect circle of green amid the arid flats, surrounding the Great Geyser, which daily fed the crops that in turn fed thousands. Then came the dragons. Scouring the plains of every feature, they even stripped it of its name. Now it known as The Ashlands.</p><p>The surviving displaced peoples founded a settlement on its edge, where they nursed their anger and sharpened their spears. Destroyed and re-settled innumerable times over the centuries - as if the gods themselves were bickering over its existence - tumult is routine here.</p><p>The great geyser that once fed orchards is now charged with the bolts of the scaly overlords of The Ashlands, every hill and field boiled clear of life with every eruption. And yet, the bold, the reckless and the hopeful take up the near-suicidal dragon hunt again and again…</p>",
   "isDeleted": false,
   "featuredArtUrls": [
-    "https://cdn.midjourney.com/8df2f891-c335-4c44-b84b-948bd857839f/0_2.png"
+    "https://cdn.midjourney.com/b64b6e85-0d19-4e8e-a74e-736cf26aefde/0_2.png"
   ],
-  "backgroundImage": "",
+  "backgroundImage": "https://cdn.midjourney.com/5f0c1889-04e3-448b-97ed-8b471e3f925c/0_1.png",
   "cardBackgroundImage": "https://cdn.midjourney.com/b5d4cc0d-d93a-4c3e-bd93-e503eb24b89b/0_0.png",
   "expansion": "e46f4320-a414-4300-95d5-397ba717d982",
-  "playlists": [],
-  "hooks": [],
+  "playlists": [
+    "<iframe allow=\"autoplay *; encrypted-media *;\" frameborder=\"0\" height=\"450\" style=\"width:100%;max-width:660px;overflow:hidden;background:transparent;\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation\" src=\"https://embed.music.apple.com/us/playlist/talons-folly-in-town/pl.u-06oxe93so16LeR?theme=dark\"></iframe>",
+    "<iframe allow=\"autoplay *; encrypted-media *;\" frameborder=\"0\" height=\"450\" style=\"width:100%;max-width:660px;overflow:hidden;background:transparent;\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation\" src=\"https://embed.music.apple.com/us/playlist/talons-folly-dragon-hunt/pl.u-yZyV8jAIqRNX7y?theme=dark\"></iframe>"
+  ],
+  "hooks": [
+    {
+      "id": null,
+      "name": "The Geyser Blueprint",
+      "description": "<p>A well digger recently broke into a subterranean chamber full of ancient artifacts, among which was what appears to be blueprints for an extensive set of tunnels and aqueducts below what is now the Great Geyser. Could it be that it was made by humanoid hands? Could humanoid hands destroy or disable it, robbing the dragons of their power over the land?</p>",
+      "gmNotes": "<p>This can be a legitimate artifact, which details actual, ancient, humanoid-made structures that still exist. The Great Geyser was built to water the surrounding plains and the dragons have weaponized it.</p><p>Or it can be a hoax, fabricated by a dragon hunter with an ulterior motive. Perhaps they want to send Our Heroes as bait to draw out the dragons so that they can get at a hoard they have scouted. Perhaps they seek to convince the entirely of Talon's Folly to rise up against the dragons in a final, all-or-nothing battle.</p>",
+      "index": 0
+    },
+    {
+      "id": null,
+      "name": "The Shard Fall",
+      "description": "<p>Being caught out on the flats during an eruption is a deadly enterprise: if the electrified rain doesn't get you, the shards will. Razor sharp slivers of molten minerals fall among the geyser's spray, skewering anyone foolish enough to get in the way. Even so, there are those who brave this deadly rain. Left to cool on their own, the shards become brittle and shatter, but if they are quickly seized and quenched, they are tempered and become the best dragon-killing spearheads money can buy. A single elder of Talon's Folly has long been the sole procurer of these rarest of blades, but they recently went missing on one of their forays out onto the flats.</p>",
+      "gmNotes": "<p>Our Heroes should find the elder pinned down in a ruined watchtower by a dragon who is hellbent on devouring them. Our Heroes face a tough choice: fight their way into the watchtower quickly or risk being caught out during the next eruption, which is fast-approaching.</p>",
+      "index": 1
+    },
+    {
+      "id": null,
+      "name": "The Captive",
+      "description": "<p>A dragon hunting party recently captured a juvenile dragon alive and brought it back to Talon's Folly for a ritual public execution. The town is at a fever pitch of wrathful bloodlust, and lost in all the commotion is the insistence of a scholar that the dragon is pleading for peace and may be willing to betray its kind.</p>",
+      "gmNotes": "<p>Here is an opportunity to humanize the dragons to your liking. What spurred them to take up residence in the geyser in the first place? Were they running from something? Are they happy there? How do they view the people of Talon's Folly?</p><p>From the captured dragon we should learn that they are the child of one of the leaders of the dragons, and that the entire Flight will be coming to find them in short order.</p><p>Can Our Heroes broker peace, or will the people get a very different bloodbath than the one they're hoping for?</p>",
+      "index": 2
+    }
+  ],
   "localFlavor": {
-    "names": "",
-    "occupations": "",
-    "publicHouses": "",
-    "vittles": "",
-    "pointsOfInterest": "",
-    "floraFauna": ""
+    "names": "Fariano, Mehrando, Rosafah, Damiros, Soraviel, Jalvero, Nazario, Parvessa, Taviran, Esfario, Marzella, Caspian, Zarello, Lalevan, Ramiro, Ferayel, Vareza, Omidaro, Yasvero, Dalvian",
+    "occupations": "Dragon Hunter, Geyser Watcher, Spear Maker, Mudbrick Mason, Cactus Gardener, Date Grower, Goat Herder, Hunt Guide, Salt Gatherer, Water Finder, Pot Maker, Copperworker, Leatherworker, Fire Keeper, Ruin Squatter, Dragon Tracker, Ash Raker, Squire",
+    "publicHouses": "La Mehrana, Cazmiran, El Roshan, Faravela, La Zareta, Darviento, Casa Parvaz, Mardaluz, La Soraya, Varezán, El Jalmar, Tavazco",
+    "vittles": "Lamb Kebab, Bean Mole, Saffron Rice, Chili Stew, Date Cakes, Goat Birria, Pomegranate Rice, Lizard Tamales, Spiced Lentils, Cactus Salad, Ash-Roasted Peppers, Barley Flatbread, Lamb Pozole, Stuffed Dates, Chili Beans, Dried Apricot Cakes, Roasted Corn, Herb Goat Cheese, Spiced Pumpkin, Honeyed Corn Cakes",
+    "pointsOfInterest": "The Great Geyser, The Scarred Canyon, The Spear Quarter, Ash Market, The Old Orchard, The Boiling Fields, The Valley of Ruins, Dragonbone Ridge, The Dry Wells, The Last Wall",
+    "floraFauna": "Prickly Pear, Agave, Mesquite, Creosote Bush, Date Palm, Pomegranate, Desert Willow, Ocotillo, Saltbush, Golden Barrel Cactus, Horned Lizard, Desert Tortoise, Coyote, Jackrabbit, Roadrunner, Rattlesnake, Mountain Lion, Vulture, Scorpion, Desert Fox"
   },
-  "lastModified": "2026-09-23T18:41:04.544Z"
+  "lastModified": "2026-10-07T15:49:45.854Z"
 }

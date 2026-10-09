@@ -1,13 +1,14 @@
 {
   "id": "6dc33bff-c958-4bcd-855b-2726d477f0fe",
   "isDeleted": false,
-  "lastModified": "2026-02-12T21:37:52.061Z",
+  "lastModified": "2026-09-23T20:24:43.441Z",
   "name": "Cloudwatcher",
-  "description": "<p>Once per day, you may accurately predict the weather for the next day (per DM). Describe how you read the signs.</p>",
+  "description": "<p><em>Out on the Imeqqranen, knowing the weather means surviving.</em></p><p>Once per day, you may spend 1 minute observing the sky. If you do, you learn what the weather will be in the current area over the next day.</p><p><strong>Describe how you read the sky.</strong></p>",
   "source": "ccd8ce71-021b-425f-9720-fd0ee87e0140",
   "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
   "mpCost": null,
   "xpCost": null,
   "canBeActive": false,
-  "hasDifficulty": false
+  "hasDifficulty": false,
+  "artUrl": "https://cdn.midjourney.com/59a276c4-e69d-44a7-b2ed-949a991cf274/0_2.png"
 }

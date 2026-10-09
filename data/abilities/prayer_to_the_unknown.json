@@ -1,0 +1,14 @@
+{
+  "id": "2f5eb357-d8dc-48c4-ade1-900496c7fd9c",
+  "isDeleted": false,
+  "lastModified": "2026-09-30T14:01:45.086Z",
+  "name": "Prayer To The Unknown",
+  "description": "<p><em>The Unknown answers your calls for guidance.</em></p><p>When you gain this ability, if you have not already done so for the current campaign, determine the nature of The Unknown.</p><p>Once per Quest per rank you have in Spirit, you may spend one minute in prayer to call upon The Unknown for guidance. You may ask it one question and the GM will provide an answer.</p><p>If The Unknown is real, the GM's answer should reflect its goals and interests, though its knowledge of the world and recent events should be limited by the prevalence of The Cult in the world.</p><p>If The Unknown is not real, the GM's answer should instead reflect your own subconscious hopes and desires, with a bias toward action and the pursuit of your personal goals.</p><p><strong>Describe how you commune with The Unknown.</strong></p>",
+  "source": "34ea8807-b404-435c-a860-704b4a40df8f",
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": null,
+  "canBeActive": false,
+  "hasDifficulty": false,
+  "artUrl": "https://cdn.midjourney.com/9c7c51d7-485d-42e7-94ea-d62249659dcf/0_1.png"
+}

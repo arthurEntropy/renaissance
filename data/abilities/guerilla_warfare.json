@@ -1,12 +1,14 @@
 {
   "id": "72f30b9a-0c59-41dc-a5a0-a5e72b22f017",
   "isDeleted": false,
-  "lastModified": "2026-02-12T21:22:31.635Z",
+  "lastModified": "2026-09-25T13:34:28.177Z",
   "name": "Guerilla Warfare",
-  "description": "<p>You roll with advantage to hide in natural areas and have advantage on attack rolls when hidden. Describe how you take advantage of the surrounding terrain.</p>",
+  "description": "<p><em>You know how to get the drop on your foes.</em></p><p>Your initiative rolls are favored.</p><p><strong>Describe how you gain a tactical advantage.</strong></p>",
   "source": "72dc5437-4072-4e9e-8e9f-0316fab002bb",
   "mpCost": null,
   "xpCost": null,
   "canBeActive": false,
-  "hasDifficulty": false
+  "hasDifficulty": false,
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "artUrl": "https://cdn.midjourney.com/f0015ae3-0861-4efc-9e2e-a3ebfd016409/0_3.png"
 }

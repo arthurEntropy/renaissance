@@ -1,0 +1,23 @@
+{
+  "id": "1a4ad71f-ecc7-48c8-b071-f0cc57f88529",
+  "isDeleted": false,
+  "createdAt": "2026-09-30T14:20:55.223Z",
+  "lastModified": "2026-09-30T17:54:30.855Z",
+  "name": "Nomad",
+  "artUrl": "https://cdn.midjourney.com/a89ccbc8-579e-44ac-8e2a-268bcd4c37e6/0_3.png",
+  "description": "<p><em>You've spent your life moving from place to place, carrying your culture with you.</em></p><p>You can always find other members of your Culture in any town or city.</p><p>Whenever you spend more than 1 week in a single location, check a Condition. You cannot uncheck this Condition until you spend at least 1 day away from the location.</p><p>Once per Quest: When you arrive in a Culture you've never visited before, double your current Hope.</p><p><strong>Describe how you stay on the move.</strong></p>",
+  "successes": null,
+  "improvements": [],
+  "source": "3531c0c2-5f33-4421-ab1f-24e2e6ba82a1",
+  "school": null,
+  "isMagical": false,
+  "isBeastAbility": false,
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": null,
+  "manaCost": null,
+  "biomeTagsAugment": [],
+  "biomeTagsInhibit": [],
+  "canBeActive": false,
+  "hasDifficulty": false
+}

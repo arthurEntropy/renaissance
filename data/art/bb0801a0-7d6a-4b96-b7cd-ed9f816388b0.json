@@ -2,7 +2,9 @@
   "id": "bb0801a0-7d6a-4b96-b7cd-ed9f816388b0",
   "url": "https://cdn.midjourney.com/76258171-ac48-4b8d-b716-755b622ffc7e/0_2.jpeg",
   "type": "faces",
-  "sources": [],
+  "sources": [
+    "49f10189-9634-4083-933b-fa74c2583b87"
+  ],
   "isDeleted": false,
-  "lastModified": "2026-07-02T15:09:14.487Z"
+  "lastModified": "2026-09-25T18:44:56.815Z"
 }

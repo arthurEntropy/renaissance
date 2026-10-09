@@ -1,9 +1,112 @@
 <template>
+    <!-- Table view (grouped or ungrouped) -->
+    <ItemTableLayout v-if="viewMode === 'table'" v-model:searchQuery="searchQuery"
+        v-model:tagFilters="equipmentTagFilters" v-model:groupBy="groupByOption" v-model:viewMode="viewMode"
+        :columns="tableColumns" :items="allFilteredEquipment" :groups="groupByOption ? groupedEquipment : null"
+        group-persistence-key="equipment-table-groups" :group-options="groupByOptions" :sort-options="sortOptions"
+        :stats="stats" :tag-groups="equipmentTagGroups" tag-picker-mode="cascade" :tag-multiselect="true"
+        tag-search-placeholder="Filter by tags..." :show-view-toggle="true" :hide-to-top-button="showEditEquipmentModal"
+        @table-width="tableWidth = $event" @create="createEquipment">
+
+        <template #additional-filters>
+            <label v-if="selectedCharacter" class="template-toggle">
+                <input type="checkbox" v-model="hideUntrained" />
+                <span>Hide Untrained</span>
+            </label>
+            <div v-if="isAdmin" class="top-row-actions">
+                <div class="toggle-column">
+                    <label class="template-toggle">
+                        <input type="checkbox" v-model="templatesOnly" />
+                        <span>Templates Only</span>
+                    </label>
+                    <label class="template-toggle">
+                        <input type="checkbox" v-model="showTemplates" />
+                        <span>Show Templates</span>
+                    </label>
+                </div>
+                <div class="toggle-column">
+                    <label class="template-toggle">
+                        <input type="checkbox" v-model="beastEquipmentOnly" />
+                        <span>Beast Equipment Only</span>
+                    </label>
+                    <label class="template-toggle">
+                        <input type="checkbox" v-model="showBeastEquipment" />
+                        <span>Show Beast Equipment</span>
+                    </label>
+                </div>
+            </div>
+        </template>
+
+        <template #cell-keeping="{ item }">
+            <EquipmentKeepingBadge :equipment="item" :character="selectedCharacter" @update="handleCharacterUpdate" />
+        </template>
+
+        <template #cell-isMagical="{ item }">
+            <span v-if="item.isMagical" class="magic-tag">Magic</span>
+        </template>
+
+        <template #cell-type="{ item }">{{ equipmentTypesStore.getById(item.type)?.name || '-' }}</template>
+        <template #cell-subtype="{ item }">{{ equipmentSubtypesStore.getById(item.subtype)?.name || '-' }}</template>
+        <template #cell-grade="{ item }">{{ equipmentGradesStore.getById(item.grade)?.name || '-' }}</template>
+
+        <template #cell-weight="{ item }">
+            <template v-if="item.weight">{{ item.weight }} {{ item.weight === 1 ? 'lb' : 'lbs' }}</template>
+            <template v-else>-</template>
+        </template>
+
+        <template #cell-reach="{ item }">{{ item.reach ? `${item.reach} ft` : '-' }}</template>
+        <template #cell-range="{ item }">{{ equipmentRangesStore.getById(item.range)?.name || '-' }}</template>
+
+        <template v-for="flag in BOOLEAN_COLUMN_SLOTS" :key="flag.key" #[flag.slot]="{ item }">
+            <CheckIcon v-if="item[flag.key]" class="check-icon" />
+        </template>
+
+        <template #cell-name="{ item }">
+            <div class="name-chip text-stroke" :style="getSourceChipStyle(item)"
+                @mouseenter="cardPreview.showEquipmentPreview(item, $event.currentTarget)"
+                @mouseleave="cardPreview.scheduleHide()">
+                <span class="name-text">{{ item.name }}</span>
+                <FloatingActionButton v-if="isAdmin" :variant="FAB_TYPES.EDIT" :size="FAB_SIZES.SMALL"
+                    :visibility="FAB_VISIBILITIES.ON_HOVER" class="name-edit-fab" title="Edit equipment"
+                    @click.stop="openEditEquipmentModal(item)" />
+            </div>
+        </template>
+
+        <template #cell-damageDice="{ item }">
+            <div class="table-dice table-dice--centered">
+                <i v-for="(die, index) in item.damageDice" :key="`${index}-${die}`"
+                    :class="getDiceFontMaxClass(die)"></i>
+            </div>
+        </template>
+
+        <template #cell-engagementDice="{ item }">
+            <div class="table-dice table-dice--centered">
+                <i v-for="(die, index) in item.engagementDice" :key="`${index}-${die}`"
+                    :class="getDiceFontMaxClass(die)"></i>
+            </div>
+        </template>
+
+        <template #cell-engagementSuccesses="{ item }">
+            <div class="engagement-chips">
+                <ChipTag v-for="success in getEngagementSuccesses(item)" :key="success.id" :text="success.name"
+                    :rounded="CHIP_TAG_ROUNDED.FULL"
+                    :tooltip="{ description: success.description, sources: success.sources }" />
+            </div>
+        </template>
+
+        <template #cell-defenseBonus="{ item }">{{ item.defenseBonus > 0 ? `+${item.defenseBonus}` : '-' }}</template>
+
+        <template #modals>
+            <EditEquipmentModal v-if="showEditEquipmentModal" :equipment="equipmentToEdit" @update="saveEditedEquipment"
+                @close="closeEditEquipmentModal" @delete="deleteEquipment(equipmentToEdit)" />
+        </template>
+    </ItemTableLayout>
+
     <!-- Flat/Ungrouped view using ItemCardsLayout -->
-    <ItemCardsLayout v-if="!groupByOption" ref="cardsLayoutRef" v-model:searchQuery="searchQuery"
+    <ItemCardsLayout v-else-if="!groupByOption" ref="cardsLayoutRef" v-model:searchQuery="searchQuery"
         v-model:tagFilters="equipmentTagFilters" v-model:groupBy="groupByOption" v-model:sortOption="sortOption"
-        v-bind="layoutProps" @create="createEquipment" :alphabet-items="allFilteredEquipment" @load-more="loadMore"
-        @select-letter="jumpToLetter">
+        v-model:viewMode="viewMode" :show-view-toggle="canShowTable" v-bind="layoutProps" @create="createEquipment"
+        :alphabet-items="allFilteredEquipment" @load-more="loadMore" @select-letter="jumpToLetter">
 
         <template #additional-filters>
             <label v-if="selectedCharacter" class="template-toggle">
@@ -64,11 +167,11 @@
     <!-- Grouped view -->
     <div v-else class="equipment-page">
         <FilterBar v-model:searchQuery="searchQuery" v-model:selectedTags="equipmentTagFilters"
-            v-model:groupBy="groupByOption" v-model:orderBy="sortOption" :tag-groups="equipmentTagGroups"
-            :tag-picker-mode="'cascade'" :multiselect="true" :group-options="groupByOptions"
-            :order-options="sortOptions" :show-add-button="isAdmin" search-placeholder="Search equipment..."
-            :tag-search-placeholder="'Filter by tags...'" :stats="stats" :hide-to-top-button="showEditEquipmentModal"
-            @add="createEquipment">
+            v-model:groupBy="groupByOption" v-model:orderBy="sortOption" v-model:viewMode="viewMode"
+            :show-view-toggle="canShowTable" :tag-groups="equipmentTagGroups" :tag-picker-mode="'cascade'"
+            :multiselect="true" :group-options="groupByOptions" :order-options="sortOptions" :show-add-button="isAdmin"
+            search-placeholder="Search equipment..." :tag-search-placeholder="'Filter by tags...'" :stats="stats"
+            :hide-to-top-button="showEditEquipmentModal" @add="createEquipment">
             <template #additional-filters>
                 <label v-if="selectedCharacter" class="template-toggle">
                     <input type="checkbox" v-model="hideUntrained" />
@@ -119,7 +222,15 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, watch, nextTick } from 'vue'
+import { ref, computed, onMounted, onBeforeUnmount, watch, nextTick } from 'vue'
+import { CheckIcon } from '@heroicons/vue/24/outline'
+import TwoHandedIcon from '@/assets/icons/equipment/two-handed.svg?component'
+import ThrownIcon from '@/assets/icons/equipment/thrown.svg?component'
+import FinesseIcon from '@/assets/icons/equipment/finesse.svg?component'
+import PiercingIcon from '@/assets/icons/equipment/piercing.svg?component'
+import ProjectileIcon from '@/assets/icons/equipment/projectile.svg?component'
+import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
+import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 import { useEquipmentStore } from '@/stores/equipmentStore'
 import { useEquipmentTypesStore } from '@/stores/equipmentTypesStore'
 import { useEquipmentSubtypesStore } from '@/stores/equipmentSubtypesStore'
@@ -136,7 +247,12 @@ import { useEditModal } from '@/composables/useEditModal'
 import { useInfiniteScroll } from '@/composables/useInfiniteScroll'
 import { useInfiniteScrollObserver } from '@/composables/useInfiniteScrollObserver'
 import { useFilterPersistence } from '@/composables/useFilterPersistence'
+import { useCardPreview } from '@/composables/useCardPreview'
 import { sortItems } from '@/utils/sortItems'
+import { getDiceFontMaxClass } from '@/utils/diceFontUtils'
+import { getOptimizedImageUrl } from '@/utils/imageOptimization'
+import { MIDJOURNEY_IMAGE_CONTEXTS } from '@shared/constants/artConstants.js'
+import { CHIP_TAG_ROUNDED } from '@/constants/chipTag'
 import { EQUIPMENT_SORT_OPTIONS, EQUIPMENT_GROUP_BY_OPTIONS, filterAdminSortOptions } from '@/constants/sortOptions'
 import { ARMOR_TYPE_ID } from '@/constants/armorConstants'
 import { SOURCE_COLLECTION_TYPES } from '@/constants/sourceTypes'
@@ -146,6 +262,9 @@ import { getAlphabetLetter } from '@/utils/getAlphabetLetter'
 import EquipmentCard from '@/components/ui/cards/item/EquipmentCard.vue'
 import EditEquipmentModal from '@/components/editModals/EditEquipmentModal.vue'
 import ItemCardsLayout from '@/components/ui/layouts/ItemCardsLayout.vue'
+import ItemTableLayout from '@/components/ui/layouts/ItemTableLayout.vue'
+import EquipmentKeepingBadge from '@/components/ui/cards/item/EquipmentKeepingBadge.vue'
+import ChipTag from '@/components/ui/chips/ChipTag.vue'
 import FilterBar from '@/components/ui/FilterBar.vue'
 import GroupedMasonryGrid from '@/components/ui/layouts/GroupedMasonryGrid.vue'
 
@@ -176,6 +295,7 @@ const {
 // Reactive state
 const sortOption = ref('name-asc')
 const groupByOption = ref('')
+const viewMode = ref('cards')
 const searchQuery = ref('')
 const equipmentTagFilters = ref([])
 const showTemplates = ref(false)
@@ -521,6 +641,7 @@ const loadMore = async () => {
 useFilterPersistence('equipment', {
     sortOption,
     groupByOption,
+    viewMode,
     searchQuery,
     equipmentTagFilters,
     showTemplates,
@@ -529,6 +650,78 @@ useFilterPersistence('equipment', {
     beastEquipmentOnly,
     hideUntrained,
 })
+
+// Table view
+const cardPreview = useCardPreview()
+
+// The table is only offered when the viewport fits it; once forced to cards it stays there until the user switches back
+const TABLE_VIEWPORT_FRACTION = 0.95
+const tableWidth = ref(0)
+const windowWidth = ref(window.innerWidth)
+const updateWindowWidth = () => { windowWidth.value = window.innerWidth }
+const canShowTable = computed(() => tableWidth.value === 0 || windowWidth.value * TABLE_VIEWPORT_FRACTION >= tableWidth.value)
+
+watch([canShowTable, viewMode], () => {
+    if (viewMode.value === 'table' && !canShowTable.value) viewMode.value = 'cards'
+})
+
+onMounted(() => window.addEventListener('resize', updateWindowWidth))
+onBeforeUnmount(() => window.removeEventListener('resize', updateWindowWidth))
+
+const BOOLEAN_COLUMN_KEYS = ['twoHanded', 'thrown', 'finesse', 'piercing', 'projectile']
+const BOOLEAN_COLUMN_SLOTS = BOOLEAN_COLUMN_KEYS.map((key) => ({ key, slot: `cell-${key}` }))
+
+// Average roll, so d8 > d6 and 2d6 > d6
+const averageDiceValue = (dice) =>
+    Array.isArray(dice) && dice.length > 0 ? dice.reduce((sum, die) => sum + (die + 1) / 2, 0) : null
+
+const getKeepingCost = (item) => (item.keeping ? keepingStore.getById(item.keeping)?.cost ?? null : null)
+
+// Mirrors EquipmentCard: the keeping image is only a fallback for items with no source
+const getSourceBackgroundUrl = (item) => {
+    if (item.source) return sourcesStore.getSourceById(item.source)?.cardBackgroundImage || null
+    return item.keeping ? keepingStore.getById(item.keeping)?.imageUrl || null : null
+}
+
+const getSourceChipStyle = (item) => {
+    const url = getSourceBackgroundUrl(item)
+    if (!url) return { backgroundColor: 'var(--color-bg-secondary)' }
+    const optimized = getOptimizedImageUrl(url, MIDJOURNEY_IMAGE_CONTEXTS.SMALL)
+    return {
+        backgroundImage: `linear-gradient(var(--overlay-black-subtle), var(--overlay-black-subtle)), url("${optimized}")`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+    }
+}
+
+const getEngagementSuccesses = (item) =>
+    (item.engagementSuccesses || [])
+        .map((id) => engagementSuccessOptions.value.find((success) => success.id === id))
+        .filter(Boolean)
+
+// Damage and engagement dice columns share a width so the "Engagement" header can't widen its column
+const DICE_COLUMN_WIDTH = '70px'
+
+const tableColumns = computed(() => [
+    { key: 'keeping', label: 'Keeping', sortValue: getKeepingCost },
+    { key: 'name', label: 'Name', dividerBefore: true, sortValue: (item) => item.name || '' },
+    { key: 'isMagical', label: 'Magic', flushLeft: true, sortValue: (item) => (item.isMagical ? 1 : 0) },
+    { key: 'type', label: 'Type', dividerBefore: true, sortValue: (item) => equipmentTypesStore.getById(item.type)?.name },
+    { key: 'subtype', label: 'Subtype', sortValue: (item) => equipmentSubtypesStore.getById(item.subtype)?.name },
+    { key: 'grade', label: 'Grade', sortValue: (item) => equipmentGradesStore.getById(item.grade)?.index },
+    { key: 'weight', label: 'Weight', sortValue: (item) => item.weight },
+    { key: 'reach', label: 'Reach', sortValue: (item) => item.reach },
+    { key: 'range', label: 'Range', sortValue: (item) => equipmentRangesStore.getById(item.range)?.index },
+    { key: 'defenseBonus', label: 'Defense', sortValue: (item) => item.defenseBonus },
+    { key: 'twoHanded', label: 'Two-Handed', icon: TwoHandedIcon, narrow: true, dividerBefore: true, sortValue: (item) => (item.twoHanded ? 1 : 0) },
+    { key: 'thrown', label: 'Thrown', icon: ThrownIcon, narrow: true, dividerBefore: true, sortValue: (item) => (item.thrown ? 1 : 0) },
+    { key: 'finesse', label: 'Finesse', icon: FinesseIcon, narrow: true, dividerBefore: true, sortValue: (item) => (item.finesse ? 1 : 0) },
+    { key: 'piercing', label: 'Piercing', icon: PiercingIcon, narrow: true, dividerBefore: true, sortValue: (item) => (item.piercing ? 1 : 0) },
+    { key: 'projectile', label: 'Projectile', icon: ProjectileIcon, narrow: true, dividerBefore: true, sortValue: (item) => (item.projectile ? 1 : 0) },
+    { key: 'damageDice', label: 'Damage', narrow: true, width: DICE_COLUMN_WIDTH, dividerBefore: true, sortValue: (item) => averageDiceValue(item.damageDice) },
+    { key: 'engagementDice', label: 'Dice', group: 'Engagement', narrow: true, width: DICE_COLUMN_WIDTH, dividerBefore: true },
+    { key: 'engagementSuccesses', label: 'Successes', group: 'Engagement', width: '220px' },
+])
 
 // Improvement visibility methods
 const getEquipmentShowImprovements = (equipmentId) => {
@@ -747,6 +940,85 @@ const layoutProps = computed(() => ({
 
 .cards-container {
     width: 100%;
+}
+
+/* Table view cells */
+.name-chip {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 8px 8px;
+    border: 1px solid var(--color-gray-medium);
+    border-radius: var(--radius-5);
+    font-size: var(--font-size-16);
+    font-weight: var(--font-weight-bold);
+    width: 250px;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.name-text {
+    flex: 1;
+    min-width: 0;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.name-edit-fab {
+    position: absolute;
+    right: var(--space-xs);
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* Same pennant styling as the magic badge in BaseCard */
+.magic-tag {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 7px;
+    padding: 3px 10px;
+    background: rgba(6, 182, 212, 0.8);
+    color: var(--color-black);
+    font-size: var(--font-size-10);
+    font-weight: var(--font-weight-bold);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    white-space: nowrap;
+    line-height: 1.4;
+}
+
+.magic-tag::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 7px solid rgba(6, 182, 212, 0.8);
+}
+
+.check-icon {
+    width: 14px;
+    height: 14px;
+}
+
+.table-dice {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    font-size: var(--font-size-30);
+}
+
+.table-dice--centered {
+    justify-content: center;
+}
+
+.engagement-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
 }
 
 .loading-indicator {
