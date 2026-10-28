@@ -20,5 +20,27 @@
   "prettier": {
     "semi": false,
     "singleQuote": true
+  },
+  "overrides": {
+    "qs": "^6.16.2",
+    "body-parser": "^1.20.9",
+    "ws": "^8.21.3",
+    "linkify-it": "^5.0.2",
+    "markdown-it": "^14.3.3",
+    "uuid": "^11.1.1",
+    "@grpc/grpc-js": "^1.14.6",
+    "dompurify": "^3.4.17",
+    "prosemirror-state": "^1.4.4"
+  },
+  "resolutions": {
+    "**/qs": "^6.16.2",
+    "**/body-parser": "^1.20.9",
+    "**/ws": "^8.21.3",
+    "**/linkify-it": "^5.0.2",
+    "**/markdown-it": "^14.3.3",
+    "**/uuid": "^11.1.1",
+    "**/@grpc/grpc-js": "^1.14.6",
+    "**/dompurify": "^3.4.17",
+    "**/prosemirror-state": "^1.4.4"
   }
 }

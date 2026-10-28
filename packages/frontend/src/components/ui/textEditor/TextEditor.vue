@@ -16,10 +16,7 @@ import StarterKit from '@tiptap/starter-kit'
 import Link from '@tiptap/extension-link'
 import Image from '@tiptap/extension-image'
 import TextAlign from '@tiptap/extension-text-align'
-import Table from '@tiptap/extension-table'
-import TableRow from '@tiptap/extension-table-row'
-import TableHeader from '@tiptap/extension-table-header'
-import TableCell from '@tiptap/extension-table-cell'
+import { Table, TableRow, TableHeader, TableCell } from '@tiptap/extension-table'
 import DiceFontNode from '@/extensions/DiceFontNode'
 import TextEditorToolbar from './TextEditorToolbar.vue'
 
@@ -142,7 +139,7 @@ onMounted(() => {
     content: props.modelValue,
     editable: !props.readonly,
     extensions: [
-      StarterKit,
+      StarterKit.configure({ link: false }),
       Link.configure({
         openOnClick: false,
         linkOnPaste: true,
