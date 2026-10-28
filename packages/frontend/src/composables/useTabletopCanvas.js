@@ -247,7 +247,6 @@ export function useTabletopCanvas(campaignId, tabletopId, { onStateSaved, isWorl
 
     // ─── Measurement / path display ───────────────────────────────────────────
     const showPaths = ref(true)
-    const setShowPaths = (val) => { showPaths.value = val; saveState() }
 
     // ─── Measurement tracks (one per dragged token) ───────────────────────────
     // Each track: { waypoints: [{x,y}], currentPoint: {x,y} | null, size: Number }
