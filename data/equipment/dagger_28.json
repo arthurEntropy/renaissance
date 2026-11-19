@@ -1,0 +1,38 @@
+{
+  "isDeleted": true,
+  "name": "Dagger",
+  "artUrl": null,
+  "description": "",
+  "successes": null,
+  "improvements": [],
+  "source": "72dc5437-4072-4e9e-8e9f-0316fab002bb",
+  "school": null,
+  "keeping": "2b3c4d5e-6f7a-4b8c-9d0e-1f2a3b4c5d6e",
+  "isCustom": false,
+  "isTemplate": false,
+  "isMagical": false,
+  "isBeastEquipment": false,
+  "hasDifficulty": false,
+  "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
+  "subtype": "ab765755-b7c9-47ac-b62f-34f069e00dc3",
+  "grade": "ad30b114-3c19-413f-aad2-5f270bd95684",
+  "weight": 1,
+  "reach": 0,
+  "range": "55e83a64-59b5-4d1a-b30f-2a01ff020a0b",
+  "twoHanded": false,
+  "thrown": true,
+  "finesse": true,
+  "piercing": false,
+  "projectile": false,
+  "damageDice": [
+    4
+  ],
+  "engagementDice": [
+    4
+  ],
+  "engagementSuccesses": [],
+  "defenseBonus": 0,
+  "id": "03d323e0-7751-4002-885f-fd2afafb3e10",
+  "createdAt": "2026-10-09T17:31:15.329Z",
+  "lastModified": "2026-11-11T14:56:24.516Z"
+}

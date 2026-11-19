@@ -1,0 +1,38 @@
+{
+  "isDeleted": false,
+  "name": "Spear",
+  "artUrl": "https://cdn.midjourney.com/a29470e7-0e17-41fc-9f19-ecfd185a78bf/0_2.png",
+  "description": "",
+  "successes": null,
+  "improvements": [],
+  "source": "372c0d28-68df-4202-8e2b-80f96c8928d6",
+  "school": null,
+  "keeping": "3c4d5e6f-7a8b-4c9d-0e1f-2a3b4c5d6e7f",
+  "isCustom": false,
+  "isTemplate": false,
+  "isMagical": false,
+  "isBeastEquipment": false,
+  "hasDifficulty": false,
+  "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
+  "subtype": "3d4f28d9-d757-4789-b3a2-0e9fffda4fc0",
+  "grade": "847d1092-fd43-4d58-b3da-002e6f3b7f3d",
+  "weight": 4,
+  "reach": 0,
+  "range": "c8e24244-5f2f-42a5-848c-1a4371dd1922",
+  "twoHanded": false,
+  "thrown": true,
+  "finesse": false,
+  "piercing": false,
+  "projectile": false,
+  "damageDice": [
+    6
+  ],
+  "engagementDice": [
+    8
+  ],
+  "engagementSuccesses": [],
+  "defenseBonus": 0,
+  "id": "7d40a3bb-2090-436d-8f96-e3723eeef2e0",
+  "createdAt": "2026-10-09T17:31:15.475Z",
+  "lastModified": "2026-11-11T18:45:34.897Z"
+}

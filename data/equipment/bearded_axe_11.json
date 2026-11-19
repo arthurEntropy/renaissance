@@ -1,0 +1,42 @@
+{
+  "isDeleted": false,
+  "name": "Bearded Axe",
+  "artUrl": "https://cdn.midjourney.com/b0b7e955-1b55-4365-bd33-214d249d3637/0_3.png",
+  "description": "",
+  "successes": null,
+  "improvements": [],
+  "source": "83d190cb-0e05-4392-a5b1-f8a8017f505b",
+  "school": null,
+  "keeping": "3c4d5e6f-7a8b-4c9d-0e1f-2a3b4c5d6e7f",
+  "isCustom": false,
+  "isTemplate": false,
+  "isMagical": false,
+  "isBeastEquipment": false,
+  "hasDifficulty": false,
+  "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
+  "subtype": "ab765755-b7c9-47ac-b62f-34f069e00dc3",
+  "grade": "847d1092-fd43-4d58-b3da-002e6f3b7f3d",
+  "weight": 3,
+  "reach": 0,
+  "range": null,
+  "twoHanded": true,
+  "thrown": false,
+  "finesse": false,
+  "piercing": false,
+  "projectile": false,
+  "damageDice": [
+    8
+  ],
+  "engagementDice": [
+    8
+  ],
+  "engagementSuccesses": [
+    "b2c3d4e5-f6a7-48b9-c0d1-e2f3a4b5c6d7",
+    "e1f2a3b4-c5d6-47e8-f9a0-b1c2d3e4f5a6",
+    "a3b4c5d6-e7f8-49a0-b1c2-d3e4f5a6b7c8"
+  ],
+  "defenseBonus": 0,
+  "id": "c6634f56-ca52-43e5-81c5-3faeac7df046",
+  "createdAt": "2026-10-09T17:31:15.457Z",
+  "lastModified": "2026-11-11T03:07:29.600Z"
+}

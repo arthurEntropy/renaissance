@@ -1,0 +1,41 @@
+{
+  "isDeleted": false,
+  "name": "Ahlspeiss",
+  "artUrl": "https://cdn.midjourney.com/159daf64-b8cc-4e2c-acca-ad9f74ab52d5/0_1.png",
+  "description": "",
+  "successes": null,
+  "improvements": [],
+  "source": "8221b753-1564-447e-b26a-4c95761d2714",
+  "school": null,
+  "keeping": "3c4d5e6f-7a8b-4c9d-0e1f-2a3b4c5d6e7f",
+  "isCustom": false,
+  "isTemplate": false,
+  "isMagical": false,
+  "isBeastEquipment": false,
+  "hasDifficulty": false,
+  "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
+  "subtype": "3d4f28d9-d757-4789-b3a2-0e9fffda4fc0",
+  "grade": "847d1092-fd43-4d58-b3da-002e6f3b7f3d",
+  "weight": 6,
+  "reach": 5,
+  "range": null,
+  "twoHanded": true,
+  "thrown": false,
+  "finesse": false,
+  "piercing": true,
+  "projectile": false,
+  "damageDice": [
+    8
+  ],
+  "engagementDice": [
+    8
+  ],
+  "engagementSuccesses": [
+    "b4c5d6e7-f8a9-40b1-c2d3-e4f5a6b7c8d9",
+    "f6a7b8c9-d0e1-42f3-a4b5-c6d7e8f9a0b1"
+  ],
+  "defenseBonus": 0,
+  "id": "d5bc84a0-d344-4c6a-bf1f-758a57bd0f9d",
+  "createdAt": "2026-10-09T17:31:15.445Z",
+  "lastModified": "2026-11-10T17:55:20.858Z"
+}

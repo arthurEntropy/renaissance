@@ -1,0 +1,41 @@
+{
+  "isDeleted": false,
+  "name": "Chain",
+  "artUrl": "https://cdn.midjourney.com/9f2b98c7-41e4-4f97-8f25-0b26c08064d3/0_2.png",
+  "description": "",
+  "successes": null,
+  "improvements": [],
+  "source": "72dc5437-4072-4e9e-8e9f-0316fab002bb",
+  "school": null,
+  "keeping": "2b3c4d5e-6f7a-4b8c-9d0e-1f2a3b4c5d6e",
+  "isCustom": false,
+  "isTemplate": false,
+  "isMagical": false,
+  "isBeastEquipment": false,
+  "hasDifficulty": false,
+  "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
+  "subtype": "ab765755-b7c9-47ac-b62f-34f069e00dc3",
+  "grade": "ad30b114-3c19-413f-aad2-5f270bd95684",
+  "weight": 1,
+  "reach": 0,
+  "range": null,
+  "twoHanded": false,
+  "thrown": false,
+  "finesse": true,
+  "piercing": false,
+  "projectile": false,
+  "damageDice": [
+    4
+  ],
+  "engagementDice": [
+    6
+  ],
+  "engagementSuccesses": [
+    "b2c3d4e5-f6a7-48b9-c0d1-e2f3a4b5c6d7",
+    "d4e5f6a7-b8c9-40d1-e2f3-a4b5c6d7e8f9"
+  ],
+  "defenseBonus": 0,
+  "id": "56fc45c2-60a4-41b0-a347-8f62bebb1f04",
+  "createdAt": "2026-10-09T17:31:15.320Z",
+  "lastModified": "2026-11-11T14:56:06.399Z"
+}

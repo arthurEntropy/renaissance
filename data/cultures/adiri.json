@@ -2,13 +2,13 @@
   "id": "68fadf5d-6661-4611-bb38-deaf05f01d45",
   "conceptType": "CULTURE",
   "name": "Adiri",
-  "description": "<p>Once a great seat of power but much diminished by war, the city-state of Adiri remains stubbornly independent. Here, the ancient tradition of champion warfare is still practiced, though it has been confined to largely bloodless public bouts that have become as much social occasions as tests of martial prowess.</p><p>The city owes its continued existence to the Iliyanites, a strange sect of outsiders who inexplicably came to its aid during its rapid fall from power, rescuing it from utter destruction. These mysterious, unspeaking folk were much reduced in the fighting, and now, many years on, remain a small, reclusive minority. Even so, their metal-shaping magic is employed by arena champions and their works fill the city's bazaars with one-of-a-kind armaments.</p><p>Even as the city's traditions begin to evolve from pugilism into pageantry, those who still remember Adiri's former glory look upon the neighboring lands with hungry eyes…</p>",
+  "description": "<p>Once a great seat of power but much diminished by war, the city-state of Adiri remains stubbornly independent. Here, the ancient tradition of champion warfare is still practiced, though it is now confined to largely bloodless public bouts that have become as much social occasions as tests of martial prowess.</p><p>The city owes its continued existence to the Iliyanites, a strange sect of outsiders who inexplicably came to its aid during its rapid fall from power, rescuing it from utter destruction. These mysterious, unspeaking folk were much reduced in the fighting, and now, many years on, remain a small, reclusive minority. Even so, their metal-shaping magic is employed by arena champions and their works fill the city's bazaars with one-of-a-kind armaments.</p><p>Even as the city's traditions begin to evolve from pugilism into pageantry, those who still remember Adiri's former glory look upon the neighboring lands with hungry eyes…</p>",
   "isDeleted": false,
   "featuredArtUrls": [
     "https://cdn.midjourney.com/9c3c1165-785a-40c6-8d0d-d191822012d7/0_1.png"
   ],
   "backgroundImage": "https://cdn.midjourney.com/04756da0-8e51-4701-950c-d80b980ec187/0_3.png",
-  "cardBackgroundImage": "https://cdn.midjourney.com/8d6a4126-e11c-41f2-90a6-9a829595bdbe/0_2.png",
+  "cardBackgroundImage": "https://cdn.midjourney.com/0bb7c126-9ca4-42ff-b665-16867a8da1e0/0_3.png",
   "expansion": "e46f4320-a414-4300-95d5-397ba717d982",
   "playlists": [
     "<iframe allow=\"autoplay *; encrypted-media *;\" frameborder=\"0\" height=\"450\" style=\"width:100%;max-width:660px;overflow:hidden;background:transparent;\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation\" src=\"https://embed.music.apple.com/us/playlist/adiri-calm/pl.u-yZyVjV1CqRNX7y?theme=dark\"></iframe>",
@@ -45,5 +45,5 @@
     "pointsOfInterest": "Arena Row, The Whetting Stone, Champion's Academy, The Empty Throne, The Archive of Empire, The Iliyanite Quarter, The Haft Groves",
     "floraFauna": "Acacia, Baobab, Date Palm, Desert Rose, Henna, Myrrh, Scorpion, Dromedary, Monitor Lizard, Sand Cat, Jerboa, Desert Hawk, Horned Viper, Gazelle, Knife Beetle"
   },
-  "lastModified": "2026-09-17T19:24:15.268Z"
+  "lastModified": "2026-11-11T14:30:32.491Z"
 }

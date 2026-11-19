@@ -1,0 +1,41 @@
+{
+  "isDeleted": false,
+  "name": "Corseque",
+  "artUrl": "https://cdn.midjourney.com/7674a017-9d3e-4cc3-9063-66e7c9d218eb/0_0.png",
+  "description": "",
+  "successes": null,
+  "improvements": [],
+  "source": "68fadf5d-6661-4611-bb38-deaf05f01d45",
+  "school": null,
+  "keeping": "4d5e6f7a-8b9c-4d0e-1f2a-3b4c5d6e7f8a",
+  "isCustom": false,
+  "isTemplate": false,
+  "isMagical": false,
+  "isBeastEquipment": false,
+  "hasDifficulty": false,
+  "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
+  "subtype": "3d4f28d9-d757-4789-b3a2-0e9fffda4fc0",
+  "grade": "847d1092-fd43-4d58-b3da-002e6f3b7f3d",
+  "weight": 3,
+  "reach": 0,
+  "range": null,
+  "twoHanded": true,
+  "thrown": false,
+  "finesse": false,
+  "piercing": true,
+  "projectile": false,
+  "damageDice": [
+    8
+  ],
+  "engagementDice": [
+    8
+  ],
+  "engagementSuccesses": [
+    "b2c3d4e5-f6a7-48b9-c0d1-e2f3a4b5c6d7",
+    "a3b4c5d6-e7f8-49a0-b1c2-d3e4f5a6b7c8"
+  ],
+  "defenseBonus": 0,
+  "id": "30a67cc2-8356-4764-8ec1-403f2fe56ade",
+  "createdAt": "2026-10-09T17:31:15.468Z",
+  "lastModified": "2026-11-11T14:09:49.568Z"
+}

@@ -1,9 +1,9 @@
 {
   "id": "c78c5f87-8c9d-4b14-a82e-e3f2b688f161",
   "isDeleted": false,
-  "lastModified": "2026-09-18T13:56:11.615Z",
+  "lastModified": "2026-11-05T23:58:54.467Z",
   "name": "Mob Rule",
-  "description": "<p><em>You know how to harness the terrifying momentum of a crowd.</em></p><p>Whenever you roll Awe, Perform or Persuade to influence a crowd of eight or more, your roll is favored.</p><p>Whenever you act in concert with eight or more creatures that are all within short range of you, all your rolls and their rolls are favored.</p><p><strong>Describe how you appeal to the masses.</strong></p>",
+  "description": "<p><em>You know how to harness the terrifying momentum of a crowd.</em></p><p>Whenever you roll Awe, Perform or Persuade to influence a crowd of eight or more, your roll is favored.</p><p>Whenever you make a group skill check with eight or more creatures that are all within short range of you, your roll and their rolls are favored.</p><p><strong>Describe how you appeal to the masses.</strong></p>",
   "source": "372c0d28-68df-4202-8e2b-80f96c8928d6",
   "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
   "mpCost": null,

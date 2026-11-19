@@ -1,0 +1,49 @@
+{
+  "id": "e6d52298-4519-4522-aaa3-5c0c3b49a530",
+  "isDeleted": false,
+  "createdAt": "2026-10-09T21:11:51.559Z",
+  "lastModified": "2026-10-15T00:13:46.745Z",
+  "name": "Rigel's Sword",
+  "artUrl": "https://cdn.midjourney.com/9856ed3c-21da-4277-8337-560f65ac5e49/0_1.png",
+  "description": "<p>This sword is perpetually wreathed in magical flame.</p>",
+  "successes": "<p>✨: On a hit, +1d damage.</p><p>🌞: On a hit, +2d damage, and the creature catches on fire, taking 1d4 damage at the beginning of each of its turns until it spends an action to put the fire out.</p>",
+  "improvements": [],
+  "source": "16a17b5d-5a76-445d-8f76-cf841ec74e63",
+  "school": null,
+  "keeping": "917cb5ee-f996-4a84-be4a-47a43c25c15a",
+  "isCustom": false,
+  "isTemplate": false,
+  "isMagical": true,
+  "isBeastEquipment": false,
+  "hasDifficulty": false,
+  "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
+  "subtype": "ab765755-b7c9-47ac-b62f-34f069e00dc3",
+  "grade": "a9023254-92ed-4c54-9840-5a7577c1aa1f",
+  "weight": 10,
+  "reach": 0,
+  "range": null,
+  "twoHanded": true,
+  "thrown": false,
+  "finesse": false,
+  "piercing": false,
+  "projectile": false,
+  "damageDice": [
+    20
+  ],
+  "engagementDice": [
+    20,
+    20,
+    20
+  ],
+  "engagementSuccesses": [
+    "a1b2c3d4-e5f6-47a8-b9c0-d1e2f3a4b5c6",
+    "c3d4e5f6-a7b8-49c0-d1e2-f3a4b5c6d7e8",
+    "f6a7b8c9-d0e1-42f3-a4b5-c6d7e8f9a0b1",
+    "b8c9d0e1-f2a3-44b5-c6d7-e8f9a0b1c2d3",
+    "d0e1f2a3-b4c5-46d7-e8f9-a0b1c2d3e4f5",
+    "e1f2a3b4-c5d6-47e8-f9a0-b1c2d3e4f5a6",
+    "a3b4c5d6-e7f8-49a0-b1c2-d3e4f5a6b7c8",
+    "b4c5d6e7-f8a9-40b1-c2d3-e4f5a6b7c8d9"
+  ],
+  "defenseBonus": 0
+}

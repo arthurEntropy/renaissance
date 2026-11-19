@@ -1,0 +1,23 @@
+{
+  "id": "bf8a18b9-c0a3-4fb9-b6cb-9eac46296519",
+  "isDeleted": false,
+  "createdAt": "2026-11-12T14:36:04.160Z",
+  "lastModified": "2026-11-12T16:43:03.762Z",
+  "name": "Godhood",
+  "artUrl": "https://cdn.midjourney.com/6829d964-3a8f-464f-9dd4-ecbb1609771a/0_2.png",
+  "description": "<p><em>You have gathered enough devotional power within yourself to achieve godhood.</em></p><ul><li><p>You become undying and do not age.</p></li></ul><ul><li><p>Multiply your base Endurance by your Devotion score.</p></li><li><p>Double your base Hope and Defense.</p></li><li><p>Halve all non-magical damage dealt to you.</p></li><li><p>You may grant +1d bonuses to any creature a number of times per day equal to their Devotion score. The creature must be acting within your domain or be a worshipper of you.</p></li><li><p>You may phase in, phase out, alter your appearance to any form within your domain, or teleport to the location of one of your shrines or devotees a number of times per day equal to your Devotion score, divided by 10.</p></li><li><p>You can always sense when you are receiving devotion, as well as when one of your devotees or shrines is in danger.</p></li><li><p>If you would be killed outright, you are instead reduced to a powerless, incorporeal being and you lose this ability.</p></li><li><p>Whenever you would gain XP, halve it. All XP costs are doubled for you.</p></li></ul><p><strong>Describe how godhood manifests in you.</strong></p>",
+  "successes": null,
+  "improvements": [],
+  "source": "49ca77ac-ff91-46cd-a409-fd1bc1fdabde",
+  "school": null,
+  "isMagical": false,
+  "isBeastAbility": false,
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": null,
+  "manaCost": null,
+  "biomeTagsAugment": [],
+  "biomeTagsInhibit": [],
+  "canBeActive": false,
+  "hasDifficulty": false
+}

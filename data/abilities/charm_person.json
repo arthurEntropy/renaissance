@@ -1,15 +1,15 @@
 {
   "id": "aef34ad0-19d9-4509-9cda-7e957955f580",
   "createdAt": "2026-04-04T21:44:30.036Z",
-  "lastModified": "2026-04-10T13:31:43.466Z",
+  "lastModified": "2026-10-14T01:16:39.608Z",
   "name": "Charm Person",
   "artUrl": "https://cdn.midjourney.com/1992fe58-8a57-456e-93ad-fefc68cba252/0_0.png",
-  "description": "<p>Roll Persuade vs Riddle against a humanoid creature within short range. If you or your allies are engaged in combat with it, the creature's roll is favored.</p><p>On a win, the creature is charmed by you for the next hour. The charmed creature regards you as a friendly acquaintance. If you or your allies do anything harmful to the creature, the spell ends. When the spell ends, the creature knows it was charmed by you.</p><p><strong>Describe how you charm them.</strong></p>",
+  "description": "<p>Roll Persuade vs Riddle against a humanoid creature within short range. If you or your allies are engaged in combat with it, the creature's roll is favored.</p><p>On a win, the creature is charmed by you for the next hour. The charmed creature regards you as a friendly acquaintance. If you or your allies harm the creature, the spell ends. When the spell ends, the creature knows you charmed it.</p><p><strong>Describe how you charm them.</strong></p>",
   "successes": "<p>✨: On a win, the effect lasts for 1 additional hour.</p><p>🌞: On a win, the effect instead lasts for 1 day.</p>",
   "improvements": [
     {
       "name": "Dominate Person",
-      "description": "<p>On a win:</p><ul><li><p>While the effect lasts, you have a telepathic link with the creature. You may use this link to issue simple commands to the creature as a free action, which it does its best to obey.</p></li><li><p>You may spend an action to take total and precise control of the target. For the next round, the creature spends its movement, actions and reactions as you choose, and doesn’t do anything that you don’t allow it to do. While you maintain this control, each time the creature takes damage, roll Persuade vs Riddle against it. On a loss, the spell ends.</p></li></ul><p>On a loss, the creature checks a Condition.</p>",
+      "description": "<p>On a win:</p><ul><li><p>While the effect lasts, you have a telepathic link with the creature, which you can use to give simple commands to the creature as a free action, which it obeys to the best of its ability.</p></li><li><p>You may spend an action to take complete control of the target. For the next round, the creature spends its movement, actions and reactions as you choose. While you maintain this control, each time the creature takes damage, roll Persuade against a difficulty equal to the amount of damage taken. On a failure, the spell ends.</p></li></ul><p>On a loss, the creature checks a Condition.</p>",
       "xpCost": 0,
       "id": "a7d62745-aaa0-40cf-9d66-8691bed5dbef"
     }

@@ -1,0 +1,40 @@
+{
+  "isDeleted": false,
+  "name": "Quarterstaff",
+  "artUrl": "https://cdn.midjourney.com/3edf9286-13de-49ac-902c-2324e4a9d0aa/0_1.png",
+  "description": "",
+  "successes": null,
+  "improvements": [],
+  "source": "5c67bedd-8e73-4add-b46b-9b911bf0fd59",
+  "school": null,
+  "keeping": "2b3c4d5e-6f7a-4b8c-9d0e-1f2a3b4c5d6e",
+  "isCustom": false,
+  "isTemplate": false,
+  "isMagical": false,
+  "isBeastEquipment": false,
+  "hasDifficulty": false,
+  "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
+  "subtype": "ab765755-b7c9-47ac-b62f-34f069e00dc3",
+  "grade": "b92d3394-2c64-487f-8c90-c56ea1cbd3f3",
+  "weight": 4,
+  "reach": 0,
+  "range": null,
+  "twoHanded": false,
+  "thrown": false,
+  "finesse": true,
+  "piercing": false,
+  "projectile": false,
+  "damageDice": [
+    4
+  ],
+  "engagementDice": [
+    4
+  ],
+  "engagementSuccesses": [
+    "e1f2a3b4-c5d6-47e8-f9a0-b1c2d3e4f5a6"
+  ],
+  "defenseBonus": 0,
+  "id": "354812ca-0056-4aaf-b263-a106cf58eb05",
+  "createdAt": "2026-10-09T17:31:15.378Z",
+  "lastModified": "2026-11-10T21:40:37.302Z"
+}

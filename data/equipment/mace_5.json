@@ -1,0 +1,43 @@
+{
+  "isDeleted": false,
+  "name": "Mace",
+  "artUrl": "https://cdn.midjourney.com/07129607-2c32-422d-815a-d1eb7575825a/0_3.png",
+  "description": "",
+  "successes": null,
+  "improvements": [],
+  "source": "2d359f20-1746-46aa-9533-b516352c6d1c",
+  "school": null,
+  "keeping": "2b3c4d5e-6f7a-4b8c-9d0e-1f2a3b4c5d6e",
+  "isCustom": false,
+  "isTemplate": false,
+  "isMagical": false,
+  "isBeastEquipment": false,
+  "hasDifficulty": false,
+  "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
+  "subtype": "ab765755-b7c9-47ac-b62f-34f069e00dc3",
+  "grade": "847d1092-fd43-4d58-b3da-002e6f3b7f3d",
+  "weight": 2,
+  "reach": 0,
+  "range": null,
+  "twoHanded": false,
+  "thrown": false,
+  "finesse": false,
+  "piercing": false,
+  "projectile": false,
+  "damageDice": [
+    8
+  ],
+  "engagementDice": [
+    8
+  ],
+  "engagementSuccesses": [
+    "e1f2a3b4-c5d6-47e8-f9a0-b1c2d3e4f5a6",
+    "b4c5d6e7-f8a9-40b1-c2d3-e4f5a6b7c8d9",
+    "d4e5f6a7-b8c9-40d1-e2f3-a4b5c6d7e8f9",
+    "f6a7b8c9-d0e1-42f3-a4b5-c6d7e8f9a0b1"
+  ],
+  "defenseBonus": 0,
+  "id": "13c5922e-911c-4940-87bd-0c48d9ef4cb7",
+  "createdAt": "2026-10-09T17:31:15.404Z",
+  "lastModified": "2026-11-10T19:12:35.616Z"
+}

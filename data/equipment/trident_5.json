@@ -1,0 +1,40 @@
+{
+  "isDeleted": false,
+  "name": "Trident",
+  "artUrl": "https://cdn.midjourney.com/0929a742-2a65-4c99-ad43-ee49a45b6472/0_2.png",
+  "description": "",
+  "successes": null,
+  "improvements": [],
+  "source": "55c314d3-11ec-4d2d-921d-241b4132f737",
+  "school": null,
+  "keeping": "3c4d5e6f-7a8b-4c9d-0e1f-2a3b4c5d6e7f",
+  "isCustom": false,
+  "isTemplate": false,
+  "isMagical": false,
+  "isBeastEquipment": false,
+  "hasDifficulty": false,
+  "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
+  "subtype": "ab765755-b7c9-47ac-b62f-34f069e00dc3",
+  "grade": "b92d3394-2c64-487f-8c90-c56ea1cbd3f3",
+  "weight": 3,
+  "reach": 0,
+  "range": "55e83a64-59b5-4d1a-b30f-2a01ff020a0b",
+  "twoHanded": false,
+  "thrown": true,
+  "finesse": false,
+  "piercing": true,
+  "projectile": false,
+  "damageDice": [
+    6
+  ],
+  "engagementDice": [
+    6
+  ],
+  "engagementSuccesses": [
+    "b2c3d4e5-f6a7-48b9-c0d1-e2f3a4b5c6d7"
+  ],
+  "defenseBonus": 0,
+  "id": "eb2e763d-4205-45dc-b603-f80a1541d5b7",
+  "createdAt": "2026-10-09T17:31:15.390Z",
+  "lastModified": "2026-11-11T02:50:24.159Z"
+}

@@ -1,0 +1,40 @@
+{
+  "isDeleted": true,
+  "name": "Hunting Sword",
+  "artUrl": null,
+  "description": "",
+  "successes": null,
+  "improvements": [],
+  "source": "5c67bedd-8e73-4add-b46b-9b911bf0fd59",
+  "school": null,
+  "keeping": "5e6f7a8b-9c0d-4e1f-2a3b-4c5d6e7f8a9b",
+  "isCustom": false,
+  "isTemplate": false,
+  "isMagical": false,
+  "isBeastEquipment": false,
+  "hasDifficulty": false,
+  "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
+  "subtype": "ab765755-b7c9-47ac-b62f-34f069e00dc3",
+  "grade": "b92d3394-2c64-487f-8c90-c56ea1cbd3f3",
+  "weight": 2,
+  "reach": 0,
+  "range": null,
+  "twoHanded": false,
+  "thrown": false,
+  "finesse": false,
+  "piercing": false,
+  "projectile": false,
+  "damageDice": [
+    6
+  ],
+  "engagementDice": [
+    6
+  ],
+  "engagementSuccesses": [
+    "a1b2c3d4-e5f6-47a8-b9c0-d1e2f3a4b5c6"
+  ],
+  "defenseBonus": 0,
+  "id": "96b9de7b-2d47-453b-930f-d18d65b02b3f",
+  "createdAt": "2026-10-09T17:31:15.369Z",
+  "lastModified": "2026-11-10T21:36:13.924Z"
+}

@@ -2,7 +2,7 @@
   "id": "5c062e5a-f179-4326-b956-d3a39031e5cb",
   "isDeleted": false,
   "createdAt": "2026-07-21T19:07:27.144Z",
-  "lastModified": "2026-07-22T02:21:12.960Z",
+  "lastModified": "2026-11-12T18:43:12.448Z",
   "characterType": "beast",
   "name": "Owl",
   "featuredArtUrls": [
@@ -281,7 +281,7 @@
   "keeping": null,
   "treasure": 0,
   "xp": 0,
-  "updatedAt": "2026-07-22T02:21:12.960Z",
+  "updatedAt": "2026-11-12T18:43:12.448Z",
   "description": "",
   "size": 0.25,
   "reach": 5,
@@ -305,6 +305,7 @@
     "civilized"
   ],
   "beastTypeIds": [
-    "68d4459c-1c9f-4b98-b3be-d8d795a51372"
+    "68d4459c-1c9f-4b98-b3be-d8d795a51372",
+    "b7e57001-0000-4000-a000-000000000002"
   ]
 }

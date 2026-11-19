@@ -1,0 +1,38 @@
+{
+  "isDeleted": false,
+  "name": "Dirk",
+  "artUrl": "https://cdn.midjourney.com/e17eb58b-0ecb-4c5b-9339-21c594d3accd/0_3.png",
+  "description": "",
+  "successes": null,
+  "improvements": [],
+  "source": "372c0d28-68df-4202-8e2b-80f96c8928d6",
+  "school": null,
+  "keeping": "4d5e6f7a-8b9c-4d0e-1f2a-3b4c5d6e7f8a",
+  "isCustom": false,
+  "isTemplate": false,
+  "isMagical": false,
+  "isBeastEquipment": false,
+  "hasDifficulty": false,
+  "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
+  "subtype": "ab765755-b7c9-47ac-b62f-34f069e00dc3",
+  "grade": "ad30b114-3c19-413f-aad2-5f270bd95684",
+  "weight": 1,
+  "reach": 0,
+  "range": null,
+  "twoHanded": false,
+  "thrown": false,
+  "finesse": false,
+  "piercing": false,
+  "projectile": false,
+  "damageDice": [
+    4
+  ],
+  "engagementDice": [
+    6
+  ],
+  "engagementSuccesses": [],
+  "defenseBonus": 0,
+  "id": "c94732ef-d77e-4d5a-985a-cf30ffeabbf1",
+  "createdAt": "2026-10-09T17:31:15.338Z",
+  "lastModified": "2026-11-11T18:32:16.088Z"
+}

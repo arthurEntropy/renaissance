@@ -1,0 +1,41 @@
+{
+  "isDeleted": false,
+  "name": "War Hammer",
+  "artUrl": "https://cdn.midjourney.com/4eac72f2-03ef-4ba1-9e70-2591110a84e1/0_2.png",
+  "description": "",
+  "successes": null,
+  "improvements": [],
+  "source": "8221b753-1564-447e-b26a-4c95761d2714",
+  "school": null,
+  "keeping": "3c4d5e6f-7a8b-4c9d-0e1f-2a3b4c5d6e7f",
+  "isCustom": false,
+  "isTemplate": false,
+  "isMagical": false,
+  "isBeastEquipment": false,
+  "hasDifficulty": false,
+  "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
+  "subtype": "ab765755-b7c9-47ac-b62f-34f069e00dc3",
+  "grade": "847d1092-fd43-4d58-b3da-002e6f3b7f3d",
+  "weight": 1,
+  "reach": 0,
+  "range": null,
+  "twoHanded": false,
+  "thrown": false,
+  "finesse": false,
+  "piercing": false,
+  "projectile": false,
+  "damageDice": [
+    8
+  ],
+  "engagementDice": [
+    8
+  ],
+  "engagementSuccesses": [
+    "e1f2a3b4-c5d6-47e8-f9a0-b1c2d3e4f5a6",
+    "b4c5d6e7-f8a9-40b1-c2d3-e4f5a6b7c8d9"
+  ],
+  "defenseBonus": 0,
+  "id": "29ec048c-816d-4ad4-8cbe-790e5c1dc2bb",
+  "createdAt": "2026-10-09T17:31:15.417Z",
+  "lastModified": "2026-11-10T18:16:48.676Z"
+}

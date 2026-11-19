@@ -1,0 +1,38 @@
+{
+  "isDeleted": false,
+  "name": "Throwing Axe",
+  "artUrl": "https://cdn.midjourney.com/e60e4a34-0520-49cb-afd1-340ef10dc4fa/0_3.png",
+  "description": "",
+  "successes": null,
+  "improvements": [],
+  "source": "68fadf5d-6661-4611-bb38-deaf05f01d45",
+  "school": null,
+  "keeping": "2b3c4d5e-6f7a-4b8c-9d0e-1f2a3b4c5d6e",
+  "isCustom": false,
+  "isTemplate": false,
+  "isMagical": false,
+  "isBeastEquipment": false,
+  "hasDifficulty": false,
+  "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
+  "subtype": "ab765755-b7c9-47ac-b62f-34f069e00dc3",
+  "grade": "ad30b114-3c19-413f-aad2-5f270bd95684",
+  "weight": 1,
+  "reach": 0,
+  "range": "55e83a64-59b5-4d1a-b30f-2a01ff020a0b",
+  "twoHanded": false,
+  "thrown": true,
+  "finesse": false,
+  "piercing": false,
+  "projectile": false,
+  "damageDice": [
+    6
+  ],
+  "engagementDice": [],
+  "engagementSuccesses": [
+    "e1f2a3b4-c5d6-47e8-f9a0-b1c2d3e4f5a6"
+  ],
+  "defenseBonus": 0,
+  "id": "3d29a768-e8ee-47a5-9945-e8344d2d6f24",
+  "createdAt": "2026-10-09T17:31:15.345Z",
+  "lastModified": "2026-11-11T14:27:43.090Z"
+}

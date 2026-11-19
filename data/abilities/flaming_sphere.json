@@ -1,10 +1,10 @@
 {
   "id": "906b18a7-c889-4bbb-917e-8ebdb3d42ec4",
   "createdAt": "2026-04-23T14:46:58.852Z",
-  "lastModified": "2026-08-03T19:57:19.204Z",
+  "lastModified": "2026-10-13T00:25:00.388Z",
   "name": "Flaming Sphere",
   "artUrl": "https://cdn.midjourney.com/de9ed6ea-1321-4a3e-b5c8-f07ebd3ea28b/0_3.png",
-  "description": "<p><em>Concentration, up to 1 minute.</em></p><p>Uncheck a Condition. If you did, choose an unoccupied space within medium range. A 5-foot-diameter sphere of fire appears there. Roll Spirit to set the Difficulty.</p><p>You may spend a half action to move the sphere up to your Speed. If you ram the sphere into a creature, the sphere stops and cannot move further this turn. Any creature that comes into contact with the sphere or ends its turn adjacent to it must roll Dexterity against the Difficulty. On a failure, the creature takes 1d6+HEART damage. On a pass, half damage.</p><p>When you move the sphere, you can direct it over barriers up to 5 ft tall and across gaps up to 10 ft wide. The sphere ignites flammable objects not being worn or carried, and it sheds light out to medium range.</p><p>If the Condition you unchecked was Angry, +1d damage.</p><p><strong>Describe the sphere.</strong></p>",
+  "description": "<p><em>Concentration, up to 1 minute.</em></p><p>Uncheck a Condition. If you did, choose an unoccupied space within medium range. A 5-foot-diameter sphere of fire appears there. Roll Spirit to set the Difficulty.</p><p>You may spend a half action to move the sphere up to your Speed. It can move over obstacles no higher than its radius and gaps no wider than twice its radius. If the sphere strikes a creature, the sphere stops and cannot move further this turn. Any creature that comes into contact with the sphere or ends its turn adjacent to it must roll Dexterity against the Difficulty. On a failure, the creature takes 1d6+HEART damage. On a pass, half damage.</p><p>The sphere emits light out to medium range, and anything flammable that touches the sphere is ignited.</p><p>If the Condition you unchecked was Angry, +1d damage.</p><p><strong>Describe the sphere.</strong></p>",
   "successes": "<p>✨: The first time the sphere deals damage each round, +1d.</p><p>🌞: The sphere increases to 10 ft in diameter, it gets +1d damage, and when you move it, you may move it an additional 10 ft.</p>",
   "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
   "isMagical": true,

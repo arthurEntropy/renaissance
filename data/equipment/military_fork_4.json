@@ -1,0 +1,41 @@
+{
+  "isDeleted": false,
+  "name": "Military Fork",
+  "artUrl": "https://cdn.midjourney.com/f7e7e770-818f-4213-a177-ac37caa7ed96/0_0.png",
+  "description": "",
+  "successes": null,
+  "improvements": [],
+  "source": "34ea8807-b404-435c-a860-704b4a40df8f",
+  "school": null,
+  "keeping": "2b3c4d5e-6f7a-4b8c-9d0e-1f2a3b4c5d6e",
+  "isCustom": false,
+  "isTemplate": false,
+  "isMagical": false,
+  "isBeastEquipment": false,
+  "hasDifficulty": false,
+  "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
+  "subtype": "3d4f28d9-d757-4789-b3a2-0e9fffda4fc0",
+  "grade": "847d1092-fd43-4d58-b3da-002e6f3b7f3d",
+  "weight": 3,
+  "reach": 0,
+  "range": null,
+  "twoHanded": true,
+  "thrown": false,
+  "finesse": false,
+  "piercing": true,
+  "projectile": false,
+  "damageDice": [
+    8
+  ],
+  "engagementDice": [
+    8
+  ],
+  "engagementSuccesses": [
+    "b2c3d4e5-f6a7-48b9-c0d1-e2f3a4b5c6d7",
+    "a3b4c5d6-e7f8-49a0-b1c2-d3e4f5a6b7c8"
+  ],
+  "defenseBonus": 0,
+  "id": "da00377b-5371-41ad-a0fa-43b33ec913d6",
+  "createdAt": "2026-10-09T17:31:15.471Z",
+  "lastModified": "2026-11-11T13:04:28.254Z"
+}

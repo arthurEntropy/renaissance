@@ -1,0 +1,40 @@
+{
+  "isDeleted": false,
+  "name": "Truncheon",
+  "artUrl": "https://cdn.midjourney.com/4b7329df-3fe8-4d1c-a290-e29a1e948a3a/0_3.png",
+  "description": "",
+  "successes": null,
+  "improvements": [],
+  "source": "34ea8807-b404-435c-a860-704b4a40df8f",
+  "school": null,
+  "keeping": "3c4d5e6f-7a8b-4c9d-0e1f-2a3b4c5d6e7f",
+  "isCustom": false,
+  "isTemplate": false,
+  "isMagical": false,
+  "isBeastEquipment": false,
+  "hasDifficulty": false,
+  "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
+  "subtype": "ab765755-b7c9-47ac-b62f-34f069e00dc3",
+  "grade": "b92d3394-2c64-487f-8c90-c56ea1cbd3f3",
+  "weight": 2,
+  "reach": 0,
+  "range": null,
+  "twoHanded": false,
+  "thrown": false,
+  "finesse": false,
+  "piercing": false,
+  "projectile": false,
+  "damageDice": [
+    6
+  ],
+  "engagementDice": [
+    6
+  ],
+  "engagementSuccesses": [
+    "e1f2a3b4-c5d6-47e8-f9a0-b1c2d3e4f5a6"
+  ],
+  "defenseBonus": 0,
+  "id": "a8223f83-f249-4b7e-969c-97839c997734",
+  "createdAt": "2026-10-09T17:31:15.364Z",
+  "lastModified": "2026-11-11T13:09:52.576Z"
+}

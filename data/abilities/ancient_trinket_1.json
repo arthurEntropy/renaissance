@@ -1,0 +1,23 @@
+{
+  "id": "834cc7da-d861-48b6-9caa-3b1dfd214376",
+  "isDeleted": false,
+  "createdAt": "2026-11-09T18:42:26.141Z",
+  "lastModified": "2026-11-09T18:52:18.543Z",
+  "name": "Ancient Trinket",
+  "artUrl": "https://cdn.midjourney.com/0df24a34-aed2-4fef-8d09-48fee2b27551/0_3.png",
+  "description": "<p><em>You have a small, ancient relic retrieved from the harbor of Agralao.</em></p><p>When you gain this ability, choose one effect:</p><ul><li><p>Once per Quest when you roll Craft, +2d.</p></li><li><p>Once per Quest, you may spent a half action to activate the trinket, which grants you darkvision for one hour.</p></li><li><p>Roll 2d20. The result is the trinket's cost, in treasure.</p></li></ul><p>Your relic is permanently imbued with this effect.</p><p><strong>Describe how you activate the relic.</strong></p><p></p>",
+  "successes": null,
+  "improvements": [],
+  "source": "c02c53d1-b456-45d0-a048-6fc941cacc03",
+  "school": null,
+  "isMagical": false,
+  "isBeastAbility": false,
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": null,
+  "manaCost": null,
+  "biomeTagsAugment": [],
+  "biomeTagsInhibit": [],
+  "canBeActive": false,
+  "hasDifficulty": false
+}

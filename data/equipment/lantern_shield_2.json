@@ -1,0 +1,41 @@
+{
+  "isDeleted": false,
+  "name": "Lantern Shield",
+  "artUrl": "https://cdn.midjourney.com/cd1b7376-5fdd-472d-9773-9550da574785/0_3.png",
+  "description": "",
+  "successes": null,
+  "improvements": [],
+  "source": "2d359f20-1746-46aa-9533-b516352c6d1c",
+  "school": null,
+  "keeping": "5e6f7a8b-9c0d-4e1f-2a3b-4c5d6e7f8a9b",
+  "isCustom": false,
+  "isTemplate": false,
+  "isMagical": false,
+  "isBeastEquipment": false,
+  "hasDifficulty": false,
+  "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
+  "subtype": "ab765755-b7c9-47ac-b62f-34f069e00dc3",
+  "grade": "ebcc2bcb-8221-4ca0-bef3-000fb7e59e96",
+  "weight": 7,
+  "reach": 0,
+  "range": null,
+  "twoHanded": false,
+  "thrown": false,
+  "finesse": false,
+  "piercing": false,
+  "projectile": false,
+  "damageDice": [
+    8
+  ],
+  "engagementDice": [
+    8,
+    10
+  ],
+  "engagementSuccesses": [
+    "f6a7b8c9-d0e1-42f3-a4b5-c6d7e8f9a0b1"
+  ],
+  "defenseBonus": 0,
+  "id": "c7eb75a3-633a-4712-90f4-a8496a28c75d",
+  "createdAt": "2026-10-09T17:31:15.422Z",
+  "lastModified": "2026-11-10T19:06:54.798Z"
+}

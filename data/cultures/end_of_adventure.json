@@ -19,7 +19,7 @@
     {
       "id": null,
       "name": "A Gust of Wind",
-      "description": "<p>The largest dirigible yet built, the Spirito no Seishin, was due to make it maiden flight this morning, but an unexpectedly strong gust of wind broke it free of its moorings, and now it's drifting toward the town, with passengers still aboard!</p>",
+      "description": "<p>The largest dirigible yet built, the Spirito no Seishin, was due to make its maiden flight this morning, but an unexpectedly strong gust of wind broke it free of its moorings, and now it's drifting toward the town, with passengers still aboard!</p>",
       "gmNotes": "<p>This if course calls for a rooftop rescue attempt, but things should be further complicated when it becomes apparent that the unexpected gust of wind was created by a powerful air mage who is offended by End of Adventure's attempts to conquer the skies.</p>",
       "index": 0
     },
@@ -42,9 +42,9 @@
     "names": "Akivio, Maruko, Kenaro, Lucemi, Hirova, Masetto, Akenzo, Norika, Takio, Mireko, Renzoa, Kazella, Emivaro, Saburino, Harietta, Kairenzo, Yumina, Tomiro, Aleshiro, Fumello",
     "occupations": "Balloonist, Daredevil, Mechanic, Machinist, Riveter, Ropewright, Cliff Diver, Swamp Guide, Salvager, Waiter, Pyrotechnician, Record Keeper, Expedition Leader, Photographer, Steward, Machinist, Festival Promoter",
     "publicHouses": "Il Kaze, Bar Haru, Da Sora, Kiro's, Casa Nami, Vento Maru, Osteria Kumo, Mio Bar, Trattoria Hoshi, Sera House",
-    "vittles": "Cherry Tree, Black Pine, Bamboo, Camellia, Wisteria, Cypress, Olive, Lemon, Lotus, Reed, Macaque, Wild Boar, Mountain Deer, Golden Eagle, Black Kite, Gray Wolf, Serow, Great Egret, Rock Viper, Flying Squirrel",
-    "pointsOfInterest": "Ramen, Porchetta, Yakitori, Risotto Nero, Tonkatsu, Polenta with Mushrooms, Tempura, Arancini, Miso Eggplant, Osso Buco, Udon, Focaccia, Gyoza, Panzanella, Curry Rice, Marinated Olives, Omurice, Pasta al Pesto, Yakisoba, Lemon Granita",
-    "floraFauna": "The Dirigible Docks, The Mooring Tower, Record Square, Ruins of Eanna, The Daredevil's Stair, The Cliffside Aerodrome, The Hundred-Rope Bridge, The Hall of Records, The Last Watchtower, Piazza dell'Avventura"
+    "vittles": "Tonkatsu, Porchetta, Yakitori, Risotto Nero, Polenta with Mushrooms, Tempura, Arancini, Miso Eggplant, Osso Buco, Udon, Focaccia, Gyoza, Panzanella, Curry Rice, Marinated Olives, Omurice, Pasta al Pesto, Yakisoba, Lemon Granita",
+    "pointsOfInterest": "The Dirigible Docks, The Mooring Tower, Leaderboard Square, Ruins of Eanna, The Daredevil's Stair, The Cliffside Aerodrome, The Hundred-Rope Bridge, The Hall of Records, The Last Watchtower, Piazza dell'Avventura",
+    "floraFauna": "Cherry Tree, Black Pine, Bamboo, Camellia, Wisteria, Cypress, Olive, Lemon, Lotus, Reed, Macaque, Wild Boar, Mountain Deer, Golden Eagle, Black Kite, Gray Wolf, Serow, Great Egret, Rock Viper, Flying Squirrel"
   },
-  "lastModified": "2026-09-17T20:04:49.708Z"
+  "lastModified": "2026-11-09T22:06:37.559Z"
 }

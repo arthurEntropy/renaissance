@@ -1,9 +1,9 @@
 {
   "id": "b5da66c8-9726-471d-8009-2ec7874528c3",
   "isDeleted": false,
-  "lastModified": "2026-09-23T15:12:49.471Z",
+  "lastModified": "2026-11-07T15:58:03.801Z",
   "name": "Haggler",
-  "description": "<p><em>Your time in the floating markets of Ikeda have taught you that you should never pay the asking price.</em></p><p>Each time you purchase an equipment item, roll Persuade against a Difficulty equal to the item's cost, in Treasure. On a pass, choose one:</p><ul><li><p>You may purchase the item for 1 less Treasure than its listed cost (minimum 1 Treasure).</p></li><li><p>You may purchase the item for its listed cost and receive another item costing at least 2 Treasure less for free.</p></li></ul><p>Whenever you sell Equipment, you always get ¾ of its original cost instead of ½.</p><p><strong>Describe how you strike a bargain.</strong></p>",
+  "description": "<p><em>Your time in the floating markets of Ikeda have taught you that you should never pay the asking price.</em></p><p>Each time you purchase an equipment item, roll Persuade against a Difficulty equal to the item's cost, in Treasure. On a pass, choose one:</p><ul><li><p>You may purchase the item for 1 less Treasure than its listed cost (minimum 1 Treasure).</p></li><li><p>You may purchase the item for its listed cost and receive another item costing at least 2 Treasure less for free.</p></li></ul><p>Additionally, whenever you sell Equipment, you always get ¾ of its original cost instead of ½.</p><p><strong>Describe how you strike a bargain.</strong></p>",
   "source": "55cfd313-75c6-4f83-9361-39af123f6f38",
   "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
   "mpCost": null,

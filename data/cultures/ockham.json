@@ -32,7 +32,7 @@
     {
       "id": "9d8c7dee-7177-49c5-9738-ce8d9976e04e",
       "name": "Rapier For Sale",
-      "description": "<p>On a busy festival day, a nervous man is standing in the middle of the Festival Square attempting to sell a very fancy, bejeweled rapier. His garments suggest a scholar more than a merchant and he is doing a very bad job convincing passersby of the rapier's great value.</p>",
+      "description": "<p>On a busy festival day, a nervous man is standing in the middle of the Festival Square attempting to sell a very fancy bejeweled rapier. His garments suggest a scholar more than a merchant and he is doing a very bad job convincing passersby of the rapier's great value.</p>",
       "gmNotes": "<p>The man is indeed a scholar whose research led him to visit this region in search of a long-lost artifact of great cultural, magical and military significance - the very rapier he's \"selling.\" He will not offer this information readily, and his frequent nervous glances into the crowd may indicate a connection with a few tough-looking ruffians keeping a close eye on him. These latter are of course local ne'er-do-wells who caught wind of his discovery and who now hope to make some easy coin from the forced sale of the item.</p><p>These goons will flee if confronted with lethal force, but will return in much greater numbers at the next opportunity for an ambush - perhaps breaking into Our Heroes' lodgings in the middle of the night?</p><p>Should Our Heroes manage to foil these threats and secure the scholar's safety, he will share his research with them. If he is killed or otherwise lost in the shuffle, they should find their way to his lodgings, where his research is gathered in a journal.</p><p>Either way, the research indicates that there are a number of other companion artifacts that are worth Questing after. What is their number? What is their significance? What is their power? Who else might be after them?</p>",
       "index": 2
     }
@@ -45,5 +45,5 @@
     "pointsOfInterest": "The Festival Square, The Grand Fountain, The Exchange House, The Tithing Barn, The Hollow Tree, Cheese Hill, Ledgeward's Clover Farm, The Falls At Ottershaw",
     "floraFauna": "Oak, Willow, Beech, Elderberry, Wild Garlic, Nettles, Foxglove, Crow, Hedgehog, Vole, Red Deer, Silver Minnow, Screech Owl, Toad, Lark"
   },
-  "lastModified": "2026-08-28T15:50:20.468Z"
+  "lastModified": "2026-11-09T17:04:18.356Z"
 }

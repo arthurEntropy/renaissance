@@ -1,0 +1,40 @@
+{
+  "isDeleted": false,
+  "name": "Goedendag",
+  "artUrl": "https://cdn.midjourney.com/83f18f49-461e-4f26-a4e4-97f6aec819f6/0_1.png",
+  "description": "",
+  "successes": null,
+  "improvements": [],
+  "source": "7016610e-ddf9-415b-8711-3b1c5fff241c",
+  "school": null,
+  "keeping": "3c4d5e6f-7a8b-4c9d-0e1f-2a3b4c5d6e7f",
+  "isCustom": false,
+  "isTemplate": false,
+  "isMagical": false,
+  "isBeastEquipment": false,
+  "hasDifficulty": false,
+  "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
+  "subtype": "ab765755-b7c9-47ac-b62f-34f069e00dc3",
+  "grade": "847d1092-fd43-4d58-b3da-002e6f3b7f3d",
+  "weight": 3,
+  "reach": 0,
+  "range": null,
+  "twoHanded": false,
+  "thrown": false,
+  "finesse": false,
+  "piercing": true,
+  "projectile": false,
+  "damageDice": [
+    8
+  ],
+  "engagementDice": [
+    8
+  ],
+  "engagementSuccesses": [
+    "e1f2a3b4-c5d6-47e8-f9a0-b1c2d3e4f5a6"
+  ],
+  "defenseBonus": 0,
+  "id": "fd604cd5-0266-48d8-a9a0-e82aa1f4b583",
+  "createdAt": "2026-10-09T17:31:15.401Z",
+  "lastModified": "2026-11-10T19:55:56.553Z"
+}

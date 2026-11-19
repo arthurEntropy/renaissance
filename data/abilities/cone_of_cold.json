@@ -1,10 +1,10 @@
 {
   "id": "7283814f-6904-4508-b127-4aa80901cb90",
   "createdAt": "2026-04-23T17:23:31.142Z",
-  "lastModified": "2026-08-04T00:48:33.561Z",
+  "lastModified": "2026-10-13T00:30:20.401Z",
   "name": "Cone of Cold",
   "artUrl": "https://cdn.midjourney.com/5ec5bc7c-a63b-4470-9148-3f5fc914f34d/0_0.png",
-  "description": "<p>Choose a point within medium range. Uncheck any number of Conditions and roll Spirit vs Fortitude against each creature within short range of that point. On each win, for each Condition you unchecked, the creature takes 2d8 damage. On each loss, half damage.</p><p>Either way, total the amount of damage dealt. You regain half that much Endurance.</p><p>A creature killed by this spell becomes a frozen statue until it thaws.</p><p><strong>Describe the cold.</strong></p>",
+  "description": "<p>Choose a point within medium range. Uncheck any number of Conditions and roll Spirit vs Fortitude against each creature within short range of that point. On each win, for each Condition you unchecked, the creature takes 2d8 damage. On each loss, half damage.</p><p>Either way, total the amount of damage dealt. You regain half that much Endurance.</p><p><strong>Describe the cold.</strong></p>",
   "successes": "<p>✨: +1d damage.</p><p>🌞: You instead regain the full amount of damage dealt in Endurance.</p>",
   "source": "49f10189-9634-4083-933b-fa74c2583b87",
   "isMagical": true,

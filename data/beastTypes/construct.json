@@ -1,10 +1,10 @@
 {
   "id": "b7e57001-0000-4000-a000-000000000004",
   "name": "Construct",
-  "description": "Constructs are made, not born. Some are programmed by their creators to follow a simple set of instructions, while others are imbued with sentience and capable of independent thought. Golems are the iconic constructs.",
+  "description": "Creatures crafted from raw materials and given life",
   "artUrl": "",
-  "index": 4,
+  "index": 1,
   "isDeleted": false,
   "createdAt": "2026-07-21T00:00:00.000Z",
-  "lastModified": "2026-07-22T01:09:03.084Z"
+  "lastModified": "2026-11-12T18:39:47.967Z"
 }

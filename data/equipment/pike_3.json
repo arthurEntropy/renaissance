@@ -1,0 +1,38 @@
+{
+  "isDeleted": false,
+  "name": "Pike",
+  "artUrl": "https://cdn.midjourney.com/1b135e7f-8873-4e0d-aeaf-1ec082914976/0_1.png",
+  "description": "",
+  "successes": null,
+  "improvements": [],
+  "source": "68fadf5d-6661-4611-bb38-deaf05f01d45",
+  "school": null,
+  "keeping": "3c4d5e6f-7a8b-4c9d-0e1f-2a3b4c5d6e7f",
+  "isCustom": false,
+  "isTemplate": false,
+  "isMagical": false,
+  "isBeastEquipment": false,
+  "hasDifficulty": false,
+  "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
+  "subtype": "3d4f28d9-d757-4789-b3a2-0e9fffda4fc0",
+  "grade": "a9023254-92ed-4c54-9840-5a7577c1aa1f",
+  "weight": 10,
+  "reach": 10,
+  "range": null,
+  "twoHanded": false,
+  "thrown": false,
+  "finesse": false,
+  "piercing": true,
+  "projectile": false,
+  "damageDice": [
+    12
+  ],
+  "engagementDice": [
+    12
+  ],
+  "engagementSuccesses": [],
+  "defenseBonus": 0,
+  "id": "51a9960e-d30c-4961-94c3-43ad43a28011",
+  "createdAt": "2026-10-09T17:31:15.482Z",
+  "lastModified": "2026-11-11T14:23:07.653Z"
+}

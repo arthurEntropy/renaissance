@@ -1,0 +1,43 @@
+{
+  "isDeleted": false,
+  "name": "Greatclub",
+  "artUrl": "https://cdn.midjourney.com/67e305dc-c68b-4b80-bd0d-8ddbf0e89aec/0_3.png",
+  "description": "",
+  "successes": null,
+  "improvements": [],
+  "source": "372c0d28-68df-4202-8e2b-80f96c8928d6",
+  "school": null,
+  "keeping": "3c4d5e6f-7a8b-4c9d-0e1f-2a3b4c5d6e7f",
+  "isCustom": false,
+  "isTemplate": false,
+  "isMagical": false,
+  "isBeastEquipment": false,
+  "hasDifficulty": false,
+  "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
+  "subtype": "ab765755-b7c9-47ac-b62f-34f069e00dc3",
+  "grade": "a9023254-92ed-4c54-9840-5a7577c1aa1f",
+  "weight": 10,
+  "reach": 0,
+  "range": null,
+  "twoHanded": true,
+  "thrown": false,
+  "finesse": false,
+  "piercing": false,
+  "projectile": false,
+  "damageDice": [
+    12
+  ],
+  "engagementDice": [
+    12
+  ],
+  "engagementSuccesses": [
+    "e1f2a3b4-c5d6-47e8-f9a0-b1c2d3e4f5a6",
+    "b4c5d6e7-f8a9-40b1-c2d3-e4f5a6b7c8d9",
+    "d4e5f6a7-b8c9-40d1-e2f3-a4b5c6d7e8f9",
+    "f6a7b8c9-d0e1-42f3-a4b5-c6d7e8f9a0b1"
+  ],
+  "defenseBonus": 0,
+  "id": "0eff2c2c-e015-4761-a61e-7c9128d6ad63",
+  "createdAt": "2026-10-09T17:31:15.431Z",
+  "lastModified": "2026-11-11T18:37:15.173Z"
+}
