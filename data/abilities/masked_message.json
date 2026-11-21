@@ -1,0 +1,17 @@
+{
+  "id": "190aa098-ee87-46ba-937c-c052e4d3f032",
+  "createdAt": "2026-04-14T19:56:16.219Z",
+  "lastModified": "2026-10-12T02:46:51.510Z",
+  "name": "Masked Message",
+  "artUrl": "https://cdn.midjourney.com/1783e3de-480c-4188-a5c5-1d86abb12e90/0_2.png",
+  "description": "<p><em>Casting time: 1 minute.</em></p><p>You write a message on a surface and conceal it with an illusion. You and any creatures you choose can see the true message as your wrote it. To all others, the message appears altered as you choose: in another handwriting, in an unintelligible script, or in the form of an entirely different message.</p><p><strong>Describe your message and the illusion.</strong></p>",
+  "successes": "",
+  "source": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
+  "school": "ed9b382c-f5e3-458e-a7b7-d3cc74e09894",
+  "isMagical": true,
+  "actionCost": "c7ea4889-0dc9-40cb-a437-70329cac43ab",
+  "mpCost": 1,
+  "xpCost": 5,
+  "canBeActive": false,
+  "hasDifficulty": false
+}

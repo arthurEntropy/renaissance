@@ -1,10 +1,10 @@
 {
   "id": "ac6ecf70-0870-4d2c-a01a-470c85b733d7",
   "createdAt": "2026-03-11T13:34:22.154Z",
-  "lastModified": "2026-03-17T15:22:57.876Z",
+  "lastModified": "2026-10-13T00:15:11.071Z",
   "name": "Eyebite",
   "artUrl": "https://cdn.midjourney.com/7baa1e33-56d9-4046-86c4-149528f55145/0_0.png",
-  "description": "<p><em>Concentration, up to 1 minute.</em></p><p>Roll Spirit vs Spirit against a creature within medium range. On a win, choose one effect:</p><ul><li><p><strong>Asleep</strong>. The creature falls unconscious. It wakes up if it takes any damage or if another creature spends an action to shake the sleeper awake.</p></li><li><p><strong>Panicked</strong>. The creature is frightened of you. On each of its turns, it must move away from you until it is outside long range from you.</p></li><li><p><strong>Sickened</strong>. The creature becomes temporarily Weary, Miserable or Helpless - your choice.</p></li></ul><p>On a loss, no effect, and you cannot target that creature again with this casting of this spell.</p><p>Each Round, you may spend an action to target one additional creature within medium range.</p><p><strong>Describe your eyes.</strong></p>",
+  "description": "<p><strong>Concentration, up to 1 minute.</strong></p><p>You fix your gaze upon a creature within medium range. Roll Spirit vs Spirit against the creature. On a win, count the total number of times you've won against the creature with this ability within the last minute to determine the effect:</p><ul><li><p><strong>1:</strong> The creature checks a Condition.</p></li><li><p><strong>2:</strong> The creature cannot willingly move closer to you.</p></li><li><p><strong>3:</strong> The creature rolls Injury.</p></li><li><p><strong>4:</strong> The creature checks an additional Condition.</p></li><li><p><strong>5:</strong> The creature falls unconscious.</p></li></ul><p>While the spell persists, you may spend an action to fix your gaze upon another creature within medium range, rolling and applying an effect as above.</p><p><strong>Describe what your victim sees.</strong></p>",
   "source": "162ae4db-7a67-4770-8a2c-7e9883da14f6",
   "school": "19af0449-55e0-49ee-93c1-58d4daaaf9a5",
   "isMagical": true,

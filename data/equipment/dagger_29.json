@@ -1,0 +1,38 @@
+{
+  "isDeleted": false,
+  "name": "Dagger",
+  "artUrl": "https://cdn.midjourney.com/fbe4fab3-b7ec-4622-acd6-ee0d23346a36/0_1.png",
+  "description": "",
+  "successes": null,
+  "improvements": [],
+  "source": "3531c0c2-5f33-4421-ab1f-24e2e6ba82a1",
+  "school": null,
+  "keeping": "2b3c4d5e-6f7a-4b8c-9d0e-1f2a3b4c5d6e",
+  "isCustom": false,
+  "isTemplate": false,
+  "isMagical": false,
+  "isBeastEquipment": false,
+  "hasDifficulty": false,
+  "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
+  "subtype": "ab765755-b7c9-47ac-b62f-34f069e00dc3",
+  "grade": "ad30b114-3c19-413f-aad2-5f270bd95684",
+  "weight": 1,
+  "reach": 0,
+  "range": "55e83a64-59b5-4d1a-b30f-2a01ff020a0b",
+  "twoHanded": false,
+  "thrown": true,
+  "finesse": true,
+  "piercing": false,
+  "projectile": false,
+  "damageDice": [
+    4
+  ],
+  "engagementDice": [
+    4
+  ],
+  "engagementSuccesses": [],
+  "defenseBonus": 0,
+  "id": "70b7f038-2006-46a3-9f81-410a662f63f5",
+  "createdAt": "2026-10-09T17:31:15.330Z",
+  "lastModified": "2026-11-11T18:56:07.457Z"
+}

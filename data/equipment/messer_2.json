@@ -1,0 +1,42 @@
+{
+  "isDeleted": false,
+  "name": "Messer",
+  "artUrl": "https://cdn.midjourney.com/a8487cb1-cb9d-4462-99b9-6afe529fa904/0_2.png",
+  "description": "",
+  "successes": null,
+  "improvements": [],
+  "source": "a3a54cb6-09c4-42e3-b142-3053b7c1d4e8",
+  "school": null,
+  "keeping": "5e6f7a8b-9c0d-4e1f-2a3b-4c5d6e7f8a9b",
+  "isCustom": false,
+  "isTemplate": false,
+  "isMagical": false,
+  "isBeastEquipment": false,
+  "hasDifficulty": false,
+  "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
+  "subtype": "ab765755-b7c9-47ac-b62f-34f069e00dc3",
+  "grade": "847d1092-fd43-4d58-b3da-002e6f3b7f3d",
+  "weight": 2,
+  "reach": 0,
+  "range": null,
+  "twoHanded": false,
+  "thrown": false,
+  "finesse": false,
+  "piercing": false,
+  "projectile": false,
+  "damageDice": [
+    8
+  ],
+  "engagementDice": [
+    8
+  ],
+  "engagementSuccesses": [
+    "b2c3d4e5-f6a7-48b9-c0d1-e2f3a4b5c6d7",
+    "e1f2a3b4-c5d6-47e8-f9a0-b1c2d3e4f5a6",
+    "d4e5f6a7-b8c9-40d1-e2f3-a4b5c6d7e8f9"
+  ],
+  "defenseBonus": 0,
+  "id": "d83b30b0-b8dc-4e96-8ad2-1f628e05aec4",
+  "createdAt": "2026-10-09T17:31:15.392Z",
+  "lastModified": "2026-11-11T20:45:34.729Z"
+}

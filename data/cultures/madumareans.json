@@ -2,7 +2,7 @@
   "id": "3531c0c2-5f33-4421-ab1f-24e2e6ba82a1",
   "conceptType": "CULTURE",
   "name": "Madumareans",
-  "description": "<p>An obscure, isolated cult of the sea-goddess Madumare founded around a sacrificial wave-altar built from giant mineralized bones, the Madumareans were once of such great numbers that their ships carried the faith to every corner of the land. </p><p>But there was trouble at home: a mysterious orange goo began to seep out of the ground, corrupting the villages and grasslands around the temple, fouling the shores, and scattering the great majority of the faithful to the four winds. While some remain, working to cleanse the region and discover the reasons for their goddess' abandonment of them, most Madumareans have become nomadic, traveling in sad, tired bands, offering their sacrifices to lesser watercourses of lesser divinity.</p><p>Meanwhile, forgotten on his remote island, Elder Brother continues his undying solitude…</p>",
+  "description": "<p>Now an obscure, isolated cult of the sea-goddess Madumare founded around a sacrificial wave-altar built from giant mineralized bones, the Madumareans were once of such great numbers that their ships carried their faith to every corner of the land.</p><p>But there was trouble at home: a mysterious orange goo began to seep out of the ground, corrupting the villages and grasslands around the temple, fouling the shores, and scattering the great majority of the faithful to the six winds.</p><p>While some remain, working to cleanse the region and discover the reasons for their goddess' abandonment of them, most Madumareans have become nomadic, traveling the world in sad, tired bands, offering their sacrifices to lesser watercourses of lesser divinity.</p><p>Meanwhile, forgotten on his remote island, Elder Brother persists in his undying solitude…</p>",
   "isDeleted": false,
   "featuredArtUrls": [
     "https://cdn.midjourney.com/12b56a1d-b2ef-48d8-addf-80bb16c7fa50/0_1.png"
@@ -39,11 +39,11 @@
   ],
   "localFlavor": {
     "names": "Madren, Sigrali, Hafira, Kelvar, Nurvik, Ismara, Eydran, Laksen, Ragnira, Malvik, Suraya, Thoren, Afnara, Kjellin, Mairun, Haldira, Zafir, Brynja, Kamran, Yrsa",
-    "occupations": "Wave Priest, Bone Carver, Sacrifice Appraiser, Tide Reader, Salt Gatherer, Fisher, Boatwright, Navigator, Seaweed Harvester, Pearl Diver, Herd Keeper, Grassland Tender, Resin Gatherer, Healer, Pilgrim Guide, Relic Guard, Water Bearer, Traveling Priest, Cleansing Acolyte",
+    "occupations": "Wave Priest, Bone Carver, Sacrifice Appraiser, Tide Reader, Trapper, Boatwright, Navigator, Seaweed Harvester, Herd Keeper, Grass Weaver, Resin Gatherer, Healer, Pilgrim, Relic Guard, Water Bearer, Traveling Priest, Cleansing Acolyte",
     "publicHouses": "The Bone Lantern, Selka's Rest, The Orange Kettle, House of the Last Tide, The Whale's Rib, Nordara, The Weary Sail, Blue Hearth, The Salted Oar, Keluna's",
-    "vittles": "Smoked Cod, Coconut Rice, Salted Mackerel, Lamb Stew, Fish Curry, Rye Flatbread, Pickled Herring, Spiced Coconut Fish, Barley Porridge, Grilled Goat, Seaweed Soup, Coconut Cakes, Dried Fish, Fermented Shark, Tamarind Lentils, Smoked Eel, Root Vegetable Stew, Fried Banana, Skyr with Berries, Cardamom Bread",
+    "vittles": "Smoked Cod, Coconut Rice, Salted Mackerel, Lamb Stew, Fish Curry, Rye Flatbread, Pickled Herring, Barley Porridge, Grilled Goat, Seaweed Soup, Dried Eel, Fermented Shark, Tamarind Lentils, Smoked Squid, Root Vegetable Stew, Fried Banana, Skyr with Berries, Cardamom Bread",
     "pointsOfInterest": "The Wave-Altar, The Temple of Madumare, The Orange Fields, The Fouled Shore, The Bone Road, The Pilgrim's Spring, The Abandoned Villages, The Four Waters, Elder Brother's Island, The Cleansing Pools",
     "floraFauna": "Coconut Palm, Sea Buckthorn, Birch, Juniper, Mangrove, Lupine, Kelp, Sugarcane, Moss, Cloudberry, Puffin, Harbor Seal, Arctic Fox, Reindeer, Humpback Whale, Mackerel, Cod, Eider, Orca, Grey Seal"
   },
-  "lastModified": "2026-10-02T00:32:37.314Z"
+  "lastModified": "2026-11-05T18:11:23.258Z"
 }

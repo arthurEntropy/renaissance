@@ -1,8 +1,8 @@
 {
   "id": "2205ff30-ca18-4b7c-9315-fdd1423837ae",
-  "isDeleted": false,
+  "isDeleted": true,
   "createdAt": "2026-05-06T17:55:10.305Z",
-  "lastModified": "2025-12-26T19:23:09.565Z",
+  "lastModified": "2026-11-10T18:03:19.937Z",
   "name": "Dagger",
   "artUrl": "https://cdn.midjourney.com/73dafc1f-3b9b-49b9-ae90-6cbf04018f00/0_0.png",
   "description": "",

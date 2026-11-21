@@ -1,0 +1,22 @@
+{
+  "id": "b6f7cc3e-f689-4cd9-a8ed-73bf5e7f0fef",
+  "conceptType": "ANCESTRY",
+  "name": "Mousefolk",
+  "description": "<p>Rodent-like in feature and modest in stature, the Mousefolk are easy to underestimate. They carry within them a quiet attunement to divine presence, like an ear for music. Sacred beings find the Mousefolk unusually easy to hear, and are in turn unusually willing to listen.</p>",
+  "isDeleted": false,
+  "featuredArtUrls": [
+    "https://cdn.midjourney.com/7a1fcf86-49b5-4371-b51c-de1799128ab6/0_3.jpeg"
+  ],
+  "backgroundImage": "",
+  "cardBackgroundImage": "https://cdn.midjourney.com/ecc09774-1264-4f1e-9778-593263887818/0_3.png",
+  "expansion": "824cad94-3a4a-4df3-b81a-ede17b84644b",
+  "lastModified": "2026-11-10T16:17:33.779Z",
+  "physiology": {
+    "heightMin": 3,
+    "heightMax": 4,
+    "weightMin": 30,
+    "weightMax": 100,
+    "lifespan": 100,
+    "speed": 25
+  }
+}

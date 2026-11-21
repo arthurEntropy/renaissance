@@ -39,11 +39,11 @@
   ],
   "localFlavor": {
     "names": "Grak, Uvra, Skorri, Murgan, Brakka, Zogren, Kriva, Durg, Veshka, Groln, Rukka, Thagri, Mozg, Kerva, Brugan, Zavra, Skagga, Urgash, Drakka, Vorga",
-    "occupations": "Pit Fighter, Bout Caller, Blood Steward, Bone Carver, Spire Priest, Torch Bearer, Tundra Hunter, Frost Shepherd, Firekeeper, Beast Handler, Hide Scraper, Gut Merchant, Soap Brewer, Trophy Maker, Grave Robber, Scavenger, Entertainer, Barkeep, Bouncer",
-    "publicHouses": "Grishnákh's, The Warm Gut, Uglúk's, Blood & Bone, Snaga House, The Three Knuckles, Murgan's, Futt Bucket, The Bent Fang",
-    "vittles": "Spirebread, Charred Tundra Hare, Blood Sausage, Frostroot Mash, Smoked Mammoth, Hot Bone Broth, Offal Stew, Cavefish Buns, Pickled Eyeballs, Lichen Cakes, Salted Elk, Spirebean Porridge, Roasted Ice Beetles, Warm Mushroom Gruel, Gore Dumplings, Roasted Bone Marrow, Berry Mash",
-    "pointsOfInterest": "The Great Spire, The Shrine of the Missing Ones, The Blood Pits, The Warmfoot, The Priest's Stair, The Bone Market, The First Scar, The Black Snowfield, The Hearth Caves, The Unlit Gate",
-    "floraFauna": "Frostroot, Black Lichen, Spire Moss, Snow Thistle, Snowleaf, Bloodberry, Ghost Pine, Tundra Reed, Snow Elk, Tusked Hare, Frost Bear, Whitefang Wolf, Horned Mammoth, Iceback Tortoise, Giant Raven, Cave Lynx, Frost Serpent, Six-Legged Marmot"
+    "occupations": "Pit Fighter, Bout Caller, Blood Steward, Bone Raker, Spire Priest, Tundra Hunter, Frost Shepherd, Firekeeper, Beast Handler, Hide Scraper, Gut Merchant, Warpaint Brewer, Trophy Maker, Grave Robber, Scavenger, Entertainer, Barkeep, Bouncer",
+    "publicHouses": "Grizm's, The Warm Gut, Uglúk's, Blood & Bone, Snaga House, The Three Knuckles, Murgan's, Futt Bucket, The Bent Fang",
+    "vittles": "Spirebread, Roast Hare, Blood Sausage, Frostroot Mash, Smoked Mammoth, Hot Bone Broth, Offal Stew, Cavefish Buns, Eyeball Stew, Lichen Cakes, Salted Elk, Spirebean Porridge, Roasted Ice Beetles, Warm Mushroom Gruel, Gore Dumplings, Roasted Bone Marrow, Berry Mash",
+    "pointsOfInterest": "The Great Spire, The Shrine of the Missing Ones, The Blood Pits, The Warmfoot, The Priest's Stair, The Bone Market, The Black Snowfield, The Hearth Caves, The Unlit Gate",
+    "floraFauna": "Frostroot, Black Lichen, Spire Moss, Snow Thistle, Bloodberry, Devil Pine, Ice Grass, Snow Elk, Tusked Hare, Pale Bear, Whitefang Wolf, Horned Mammoth, Iceback Tortoise, Giant Raven, Cave Lynx, Frost Serpent, Six-Legged Marmot"
   },
-  "lastModified": "2026-10-06T11:24:45.374Z"
+  "lastModified": "2026-11-05T21:27:04.541Z"
 }

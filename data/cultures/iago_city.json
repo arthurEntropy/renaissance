@@ -26,7 +26,7 @@
       "id": null,
       "name": "Rise of the Adjuncts",
       "description": "<p>Anger and resentment have festered among The Adjuncts after generations of hereditary servitude. As the official University guard, their numbers are great and their access to important buildings and officials is extensive. Thus it is with concern that folk in the city have begun whispering that their leadership have been seen gathering in a private room at a local tavern, with raised voices heard through the walls.</p>",
-      "gmNotes": "<p>The first thing you need to decide is the origin of the Adjuncts. Were they prisoners pressed into service long ago? Did the early University come to their aid and they pledged their service and the service of their children?</p><p>Whatever the case, what about the University's treatment of the Adjuncts has sown discontent within their ranks? What are their goals and demands?</p><p>Our Heroes can be roped into this in any number of ways. Perhaps a concerned young Adjunct wants to avoid violence and is seeking help in diffusing the situation. Perhaps a University Administrator wants someone to find out what the Adjuncts are planning. Or perhaps Our Heroes just happen to be at the tavern where the Adjunct are meeting on the night when they finally decide to take action.</p><p>Whichever path you choose, the result should be multi-stage conflict in multiple areas of the city, as a general coup attempt erupts in several places at once.</p>",
+      "gmNotes": "<p>The first thing you need to decide is the origin of the Adjuncts. Were they prisoners pressed into service long ago? Did the early University come to their aid and they pledged their service and the service of their children as repayment?</p><p>Whatever the case, what about the University's treatment of the Adjuncts has sown discontent within their ranks? What are their goals and demands?</p><p>Our Heroes can be roped into this in any number of ways. Perhaps a concerned young Adjunct wants to avoid violence and is seeking help in diffusing the situation. Perhaps a University Administrator wants someone to find out what the Adjuncts are planning. Or perhaps Our Heroes just happen to be at the tavern where the Adjunct are meeting on the night when they finally decide to take action.</p><p>Whichever path you choose, the result should be multi-stage conflict in multiple areas of the city, as a general coup attempt erupts in several places at once.</p>",
       "index": 1
     },
     {
@@ -40,10 +40,10 @@
   "localFlavor": {
     "names": "Kaviero, Lucanto, Maravio, Bellaro, Tenzio, Corvani, Alessaro, Virello, Galvessa, Renavio, Montaro, Savelli, Darviano, Cazaro, Orsavio, Abira, Melzaro, Tavelli, Lorvesso, Braviano, Zorenti",
     "occupations": "Rector, Professor, Adjunct, Expedition Captain, Relic Broker, Antiquarian, Cartographer, Natural Philosopher, Archivist, Translator, Shipwright, Dockmaster, Merchant, Artificer, Porter, Curio Seller, Recruiter",
-    "publicHouses": "Da Karto, La Graffa, Bellaro's, Osteria del Golfo, Corvessa, Casa Renzi, Il Relicario, Tavaro's, La Rondine, Mercato Vecchio",
-    "vittles": "Saffron Risotto, Bay Mussels, Salt Cod Fritters, Chestnut Polenta, Braised Rabbit, Stuffed Artichokes, Anchovy Tart, Herb Focaccia, Lemon Chicken, Walnut Pasta, Fried Squid, Roasted Peppers, Lentil Soup, Fig Tarts, Almond Biscotti, Braised Beef, Olive Flatbread, Garlic Beans, Pear Mostarda, Baywashed Cheese",
+    "publicHouses": "Da Karto, La Graffa, Bogioli, Osteria del Golfo, Corvessa, Casa Renzi, Il Relicario, Tavaro's, La Rondine, Mercato Vecchio",
+    "vittles": "Saffron Risotto, Bay Mussels, Salt Cod Fritters, Chestnut Polenta, Braised Rabbit, Stuffed Artichokes, Anchovy Tart, Herb Focaccia, Lemon Chicken, Pasta with Wood Pigeon Sauce, Fried Squid, Roasted Peppers, Lentil Soup, Fig Tarts, Almond Biscotti, Braised Beef, Olive Flatbread, Garlic Beans, Pear Mostarda, Baywashed Cheese",
     "pointsOfInterest": "The University of Karto Graffikos, The Great Archive, The Hall of Relics, The Adjunct Barracks, The Expedition Gate, The Bay Steps, The Old Customs House, The World Gallery, The New Quarter",
-    "floraFauna": "Cypress, Olive, Stone Pine, Laurel, Grapevine, Fig, Pomegranate, Rosemary, Bay Laurel, Lemon, Wild Boar, Red Fox, Peregrine Falcon, Moorish Gecko, Wild Goat, Mullet, Swordfish, Octopus, Sea Turtle, Monk Seal"
+    "floraFauna": "Cypress, Olive, Stone Pine, Grapevine, Fig, Pomegranate, Rosemary, Bay Tree, Lemon, Wild Boar, Red Fox, Peregrine Falcon, Moorish Gecko, Wild Goat, Mullet, Swordfish, Octopus, Sea Turtle, Monk Seal"
   },
-  "lastModified": "2026-09-21T18:17:45.003Z"
+  "lastModified": "2026-11-10T02:34:37.500Z"
 }

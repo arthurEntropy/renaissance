@@ -1,0 +1,40 @@
+{
+  "isDeleted": false,
+  "name": "Hunting Sword",
+  "artUrl": "https://cdn.midjourney.com/7ec69c78-623f-4756-9134-16532de9ad6d/0_1.png",
+  "description": "",
+  "successes": null,
+  "improvements": [],
+  "source": "83d190cb-0e05-4392-a5b1-f8a8017f505b",
+  "school": null,
+  "keeping": "5e6f7a8b-9c0d-4e1f-2a3b-4c5d6e7f8a9b",
+  "isCustom": false,
+  "isTemplate": false,
+  "isMagical": false,
+  "isBeastEquipment": false,
+  "hasDifficulty": false,
+  "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
+  "subtype": "ab765755-b7c9-47ac-b62f-34f069e00dc3",
+  "grade": "b92d3394-2c64-487f-8c90-c56ea1cbd3f3",
+  "weight": 2,
+  "reach": 0,
+  "range": null,
+  "twoHanded": false,
+  "thrown": false,
+  "finesse": false,
+  "piercing": false,
+  "projectile": false,
+  "damageDice": [
+    6
+  ],
+  "engagementDice": [
+    6
+  ],
+  "engagementSuccesses": [
+    "a1b2c3d4-e5f6-47a8-b9c0-d1e2f3a4b5c6"
+  ],
+  "defenseBonus": 0,
+  "id": "4d439623-f322-43eb-aad0-9c29cbc940bc",
+  "createdAt": "2026-10-09T17:31:15.374Z",
+  "lastModified": "2026-11-11T03:13:43.452Z"
+}

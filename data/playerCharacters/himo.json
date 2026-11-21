@@ -2,7 +2,7 @@
   "id": "54f77e58-eca4-4e28-ac76-6d55493470cc",
   "isDeleted": false,
   "createdAt": "2026-08-17T14:48:57.453Z",
-  "lastModified": "2026-08-27T14:46:55.948Z",
+  "lastModified": "2026-11-12T00:41:22.577Z",
   "characterType": "playerCharacter",
   "name": "Himo",
   "featuredArtUrls": [
@@ -341,11 +341,12 @@
     "treasureSpent": 208
   },
   "biomeTags": [
+    "forest",
     "plains",
-    "temperate",
-    "civilized"
+    "mountain",
+    "temperate"
   ],
-  "biomeId": "2a47dc2b-a4b5-4eca-84cb-6f0075d381c9",
+  "biomeId": "3a2baff7-4f75-42b8-9174-4194d6636dd9",
   "nimbleStep": 0,
   "swagger": 0,
   "swaggerIconIndex": 0,
@@ -401,5 +402,5 @@
   "treasure": 4,
   "xp": 1,
   "description": "",
-  "updatedAt": "2026-08-27T14:46:55.948Z"
+  "updatedAt": "2026-11-12T00:41:22.577Z"
 }

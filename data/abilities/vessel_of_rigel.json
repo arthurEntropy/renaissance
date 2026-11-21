@@ -1,0 +1,23 @@
+{
+  "id": "ece5828a-b828-4e7b-8e1f-364aa670446c",
+  "isDeleted": false,
+  "createdAt": "2026-10-09T21:10:57.159Z",
+  "lastModified": "2026-10-15T00:11:18.394Z",
+  "name": "Vessel of Rigel",
+  "artUrl": "https://cdn.midjourney.com/fe75f366-36e7-4f4f-9e46-1ac9954a949a/0_3.png",
+  "description": "<p><em>Your body has become host to the spirit of Rigel, which controls your movements and actions.</em></p><p>When you gain this ability, your flesh reddens, bubbles and swells to extreme proportions:</p><ul><li><p>Your size increases by 2.</p></li><li><p>Your ranks in Awe, Strength, Fortitude and Spirit each increase to 5.</p></li><li><p>Your current and base Endurance are both tripled.</p></li><li><p>Your current and base Speed both increase by 10 ft.</p></li><li><p>The GM controls your actions.</p></li><li><p>Any time you take damage, roll Injury.</p></li></ul><p>You may spend an action and roll Injury to summon Rigel's Sword, pulling it from your own throat. For the next minute, you have the Rigel's Sword equipment item. At the end of the minute or if at any time you lose contact with the sword, it vanishes, and you must spend another action and roll Injury again to summon it.</p><p><strong>Describe the last moments before the change.</strong></p>",
+  "successes": null,
+  "improvements": [],
+  "source": "16a17b5d-5a76-445d-8f76-cf841ec74e63",
+  "school": null,
+  "isMagical": false,
+  "isBeastAbility": false,
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": null,
+  "manaCost": null,
+  "biomeTagsAugment": [],
+  "biomeTagsInhibit": [],
+  "canBeActive": false,
+  "hasDifficulty": false
+}

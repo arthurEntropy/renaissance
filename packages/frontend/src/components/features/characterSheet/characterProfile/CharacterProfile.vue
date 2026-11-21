@@ -50,28 +50,42 @@
       </template>
       <template v-else>
         <!-- Challenge Badge (beasts only) -->
+        <FloatingActionButton v-if="authStore.isAdmin && canEdit" :variant="FAB_TYPES.REFRESH" class="challenge-refresh"
+          title="Calculate challenge" :disabled="calculatingChallenge" @click="refreshChallenge" />
         <div class="challenge-badge">
           <span class="challenge-label">CHALLENGE:</span>
           <NumberInput :model-value="character.challenge || 0" :disabled="!canEdit"
-            @update:model-value="character.challenge = $event" :min="0" :size="NUMBER_INPUT_SIZES.MEDIUM" />
+            @update:model-value="character.challenge = $event" :min="0" :step="1" :size="NUMBER_INPUT_SIZES.MEDIUM" />
         </div>
+        <span v-if="challengeError" class="challenge-error" role="alert">{{ challengeError }}</span>
       </template>
     </div>
   </CharacterSheetSection>
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import keepingIcon from '@/assets/icons/keeping/keeping.png'
 import CharacterArt from './CharacterArt.vue'
 import CharacterPhysicalStats from './CharacterPhysicalStats.vue'
 import CharacterVitals from './CharacterVitals.vue'
 import CharacterSheetSection from '@/components/ui/containers/CharacterSheetSection.vue'
 import NumberInput from '@/components/ui/forms/NumberInput.vue'
+import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import { NUMBER_INPUT_SIZES } from '@/constants/numberInput'
+import { FAB_TYPES } from '@/constants/fab'
 import { useCharactersStore } from '@/stores/charactersStore'
 import { useKeepingStore } from '@/stores/keepingStore'
 import { useBeastTypesStore } from '@/stores/beastTypesStore'
+import { useAuthStore } from '@/stores/authStore'
+import { useEquipmentStore } from '@/stores/equipmentStore'
+import { useAbilitiesStore } from '@/stores/abilitiesStore'
+import { useEquipmentTypesStore } from '@/stores/equipmentTypesStore'
+import { useEquipmentSubtypesStore } from '@/stores/equipmentSubtypesStore'
+import { useConceptsStore } from '@/stores/conceptsStore'
+import { ARMOR_TYPE_ID } from '@/constants/armorConstants'
+import { getMartialTrainingKey, characterLacksTraining } from '@/utils/martialTrainingUtils'
+import { calculateBeastChallenge } from '@shared/utils/characterUtils'
 import { KEEPING_COLORS } from '@/constants/keepingConstants'
 import { isBeastTemplate, isBeastInstance } from '@/utils/characterTypeGuards'
 import { useOptimizedImage } from '@/composables/useOptimizedImage'
@@ -95,12 +109,20 @@ defineEmits(['close-sheet'])
 const charactersStore = useCharactersStore()
 const keepingStore = useKeepingStore()
 const beastTypesStore = useBeastTypesStore()
+const authStore = useAuthStore()
+const equipmentStore = useEquipmentStore()
+const abilitiesStore = useAbilitiesStore()
+const equipmentTypesStore = useEquipmentTypesStore()
+const equipmentSubtypesStore = useEquipmentSubtypesStore()
+const conceptsStore = useConceptsStore()
+const calculatingChallenge = ref(false)
+const challengeError = ref('')
 
 const character = computed(() => props.characterOverride ?? charactersStore.selectedCharacter ?? { characterType: 'playerCharacter' })
 
 const beastTypeNames = computed(() => {
   const ids = character.value?.beastTypeIds || []
-  return ids.map(id => beastTypesStore.getById(id)?.name).filter(Boolean)
+  return beastTypesStore.items.filter(type => ids.includes(type.id)).map(type => type.name)
 })
 
 function formatBeastSize(size) {
@@ -115,6 +137,37 @@ const canEdit = computed(() => {
   if (props.forceReadonly || props.characterOverride) return false
   return charactersStore.canEditSelectedCharacter
 })
+
+async function refreshChallenge() {
+  const target = character.value
+  calculatingChallenge.value = true
+  challengeError.value = ''
+  try {
+    await Promise.all([
+      equipmentStore.fetch(), abilitiesStore.fetch(), keepingStore.fetch(),
+      equipmentTypesStore.fetch(), equipmentSubtypesStore.fetch(), conceptsStore.fetch(),
+    ])
+    const mestiere = target.mestiereId ? conceptsStore.getById(target.mestiereId) : null
+    if (target.mestiereId && !mestiere) throw new Error(`Mestiere not found: ${target.mestiereId}`)
+    const challenge = calculateBeastChallenge(target, equipmentStore.equipment, abilitiesStore.abilities, keepingStore.keeping, (item) => {
+      const type = item.type ? equipmentTypesStore.getById(item.type) : null
+      const subtype = item.subtype ? equipmentSubtypesStore.getById(item.subtype) : null
+      if (item.type && !type) throw new Error(`Equipment type not found: ${item.type}`)
+      if (item.subtype && !subtype) throw new Error(`Equipment subtype not found: ${item.subtype}`)
+      const trainingKey = getMartialTrainingKey({
+        equipmentTypeId: item.type, equipmentTypeName: type?.name,
+        equipmentSubtypeName: subtype?.name, armorTypeId: ARMOR_TYPE_ID,
+      })
+      return !characterLacksTraining({ character: target, trainingKey, equipmentGradeId: item.grade, mestiere })
+    })
+    if (character.value === target && canEdit.value && authStore.isAdmin) target.challenge = challenge
+  } catch (error) {
+    console.error('Error calculating beast challenge:', error)
+    challengeError.value = `Unable to calculate challenge: ${error.message}`
+  } finally {
+    calculatingChallenge.value = false
+  }
+}
 
 const keepingImageUrl = computed(() => {
   if (!character.value?.keeping) return ''
@@ -258,6 +311,24 @@ const keepingBadgeStyle = computed(() => {
   border-top-left-radius: var(--radius-15);
   position: relative;
   z-index: var(--z-raised);
+}
+
+.challenge-refresh {
+  align-self: center;
+  margin-right: var(--space-xs);
+}
+
+.character-profile:hover :deep(.challenge-refresh),
+.character-profile:focus-within :deep(.challenge-refresh) {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.challenge-error {
+  color: var(--color-danger);
+  font-size: var(--font-size-12);
+  align-self: flex-end;
+  margin-bottom: var(--space-xl);
 }
 
 .challenge-label {

@@ -1,0 +1,44 @@
+{
+  "isDeleted": false,
+  "name": "Claymore",
+  "artUrl": "https://cdn.midjourney.com/cafbc53b-67e3-4ac7-a53e-24f4fada94a9/0_1.png",
+  "description": "",
+  "successes": null,
+  "improvements": [],
+  "source": "68fadf5d-6661-4611-bb38-deaf05f01d45",
+  "school": null,
+  "keeping": "5e6f7a8b-9c0d-4e1f-2a3b-4c5d6e7f8a9b",
+  "isCustom": false,
+  "isTemplate": false,
+  "isMagical": false,
+  "isBeastEquipment": false,
+  "hasDifficulty": false,
+  "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
+  "subtype": "ab765755-b7c9-47ac-b62f-34f069e00dc3",
+  "grade": "a9023254-92ed-4c54-9840-5a7577c1aa1f",
+  "weight": 5,
+  "reach": 0,
+  "range": null,
+  "twoHanded": true,
+  "thrown": false,
+  "finesse": false,
+  "piercing": false,
+  "projectile": false,
+  "damageDice": [
+    12
+  ],
+  "engagementDice": [
+    12
+  ],
+  "engagementSuccesses": [
+    "b2c3d4e5-f6a7-48b9-c0d1-e2f3a4b5c6d7",
+    "e1f2a3b4-c5d6-47e8-f9a0-b1c2d3e4f5a6",
+    "b4c5d6e7-f8a9-40b1-c2d3-e4f5a6b7c8d9",
+    "d4e5f6a7-b8c9-40d1-e2f3-a4b5c6d7e8f9",
+    "f6a7b8c9-d0e1-42f3-a4b5-c6d7e8f9a0b1"
+  ],
+  "defenseBonus": 0,
+  "id": "080d76ae-d92e-48cf-8171-cf2a1d20e307",
+  "createdAt": "2026-10-09T17:31:15.428Z",
+  "lastModified": "2026-11-11T14:06:23.164Z"
+}

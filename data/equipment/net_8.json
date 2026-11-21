@@ -1,0 +1,40 @@
+{
+  "isDeleted": true,
+  "name": "Net",
+  "artUrl": null,
+  "description": "",
+  "successes": null,
+  "improvements": [],
+  "source": "a3a54cb6-09c4-42e3-b142-3053b7c1d4e8",
+  "school": null,
+  "keeping": "2b3c4d5e-6f7a-4b8c-9d0e-1f2a3b4c5d6e",
+  "isCustom": false,
+  "isTemplate": false,
+  "isMagical": false,
+  "isBeastEquipment": false,
+  "hasDifficulty": false,
+  "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
+  "subtype": "956839d8-393c-4743-9cb3-8038c8a7aa93",
+  "grade": "b92d3394-2c64-487f-8c90-c56ea1cbd3f3",
+  "weight": 1,
+  "reach": 5,
+  "range": "55e83a64-59b5-4d1a-b30f-2a01ff020a0b",
+  "twoHanded": true,
+  "thrown": true,
+  "finesse": true,
+  "piercing": false,
+  "projectile": false,
+  "damageDice": [],
+  "engagementDice": [
+    4
+  ],
+  "engagementSuccesses": [
+    "b2c3d4e5-f6a7-48b9-c0d1-e2f3a4b5c6d7",
+    "a3b4c5d6-e7f8-49a0-b1c2-d3e4f5a6b7c8",
+    "d4e5f6a7-b8c9-40d1-e2f3-a4b5c6d7e8f9"
+  ],
+  "defenseBonus": 0,
+  "id": "660e49cc-186c-407d-8a1a-b19a2477c0ee",
+  "createdAt": "2026-10-09T17:31:15.539Z",
+  "lastModified": "2026-11-11T20:48:08.196Z"
+}

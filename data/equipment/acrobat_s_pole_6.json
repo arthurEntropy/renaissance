@@ -1,0 +1,41 @@
+{
+  "isDeleted": false,
+  "name": "Acrobat's Pole",
+  "artUrl": "https://cdn.midjourney.com/053cc6ed-070c-4e40-9724-ef628a26831a/0_0.png",
+  "description": "",
+  "successes": null,
+  "improvements": [],
+  "source": "2d359f20-1746-46aa-9533-b516352c6d1c",
+  "school": null,
+  "keeping": "3c4d5e6f-7a8b-4c9d-0e1f-2a3b4c5d6e7f",
+  "isCustom": false,
+  "isTemplate": false,
+  "isMagical": false,
+  "isBeastEquipment": false,
+  "hasDifficulty": false,
+  "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
+  "subtype": "078c69c2-2644-4be5-b378-05c177ce1a9f",
+  "grade": "ebcc2bcb-8221-4ca0-bef3-000fb7e59e96",
+  "weight": 10,
+  "reach": 5,
+  "range": null,
+  "twoHanded": true,
+  "thrown": false,
+  "finesse": true,
+  "piercing": false,
+  "projectile": false,
+  "damageDice": [
+    4
+  ],
+  "engagementDice": [
+    8
+  ],
+  "engagementSuccesses": [
+    "e1f2a3b4-c5d6-47e8-f9a0-b1c2d3e4f5a6",
+    "f6a7b8c9-d0e1-42f3-a4b5-c6d7e8f9a0b1"
+  ],
+  "defenseBonus": 0,
+  "id": "f674cc6f-21d0-4e72-9d8d-2da07fc5d773",
+  "createdAt": "2026-10-09T17:31:15.546Z",
+  "lastModified": "2026-11-10T18:51:42.844Z"
+}

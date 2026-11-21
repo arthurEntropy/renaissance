@@ -2,7 +2,7 @@
   "id": "fa6eb60c-0895-4635-8124-ab50b0bac28e",
   "conceptType": "CULTURE",
   "name": "Talon's Folly",
-  "description": "<p>Once there was a wide, verdant land, nearly a perfect circle of green amid the arid flats, surrounding the Great Geyser, which daily fed the crops that in turn fed thousands. Then came the dragons. Scouring the plains of every feature, they even stripped it of its name. Now it known as The Ashlands.</p><p>The surviving displaced peoples founded a settlement on its edge, where they nursed their anger and sharpened their spears. Destroyed and re-settled innumerable times over the centuries - as if the gods themselves were bickering over its existence - tumult is routine here.</p><p>The great geyser that once fed orchards is now charged with the bolts of the scaly overlords of The Ashlands, every hill and field boiled clear of life with every eruption. And yet, the bold, the reckless and the hopeful take up the near-suicidal dragon hunt again and again…</p>",
+  "description": "<p>Once there was a verdant land amid the arid flats: nearly a perfect circle of green, centered on the Great Geyser, which daily fed the crops that in turn fed thousands. Then came the dragons. Scouring the plains, clearing away every feature, they even stripped it of whatever name it held. Now it known as The Ashlands.</p><p>The surviving displaced peoples founded a settlement on the edge of this wasteland, where they nursed their anger and sharpened their spears. The ensuing years saw the bravery of the people and the wrath of the dragons each wax and wane in turn and in the process Talon's Folly has been destroyed and re-settled innumerable times, as if the gods themselves were bickering over its existence. Tumult is routine here.</p><p>The Great Geyser that once fed orchards is now charged with the crackling bolts of the scaly overlords of The Ashlands, every hill and field boiled clear of life with each eruption. And yet, the bold, the reckless and the hopeful take up the near-suicidal dragon hunt again and again…</p>",
   "isDeleted": false,
   "featuredArtUrls": [
     "https://cdn.midjourney.com/b64b6e85-0d19-4e8e-a74e-736cf26aefde/0_2.png"
@@ -11,15 +11,15 @@
   "cardBackgroundImage": "https://cdn.midjourney.com/b5d4cc0d-d93a-4c3e-bd93-e503eb24b89b/0_0.png",
   "expansion": "e46f4320-a414-4300-95d5-397ba717d982",
   "playlists": [
-    "<iframe allow=\"autoplay *; encrypted-media *;\" frameborder=\"0\" height=\"450\" style=\"width:100%;max-width:660px;overflow:hidden;background:transparent;\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation\" src=\"https://embed.music.apple.com/us/playlist/talons-folly-in-town/pl.u-06oxe93so16LeR?theme=dark\"></iframe>",
-    "<iframe allow=\"autoplay *; encrypted-media *;\" frameborder=\"0\" height=\"450\" style=\"width:100%;max-width:660px;overflow:hidden;background:transparent;\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation\" src=\"https://embed.music.apple.com/us/playlist/talons-folly-dragon-hunt/pl.u-yZyV8jAIqRNX7y?theme=dark\"></iframe>"
+    "<iframe allow=\"autoplay *; encrypted-media *;\" frameborder=\"0\" height=\"450\" style=\"width:100%;max-width:660px;overflow:hidden;background:transparent;\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation\" src=\"https://embed.music.apple.com/us/playlist/talons-folly-dragon-hunt/pl.u-yZyV8jAIqRNX7y?theme=dark\"></iframe>",
+    "<iframe allow=\"autoplay *; encrypted-media *;\" frameborder=\"0\" height=\"450\" style=\"width:100%;max-width:660px;overflow:hidden;background:transparent;\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation\" src=\"https://embed.music.apple.com/us/playlist/talons-folly-in-town/pl.u-06oxe93so16LeR?theme=dark\"></iframe>"
   ],
   "hooks": [
     {
       "id": null,
       "name": "The Geyser Blueprint",
       "description": "<p>A well digger recently broke into a subterranean chamber full of ancient artifacts, among which was what appears to be blueprints for an extensive set of tunnels and aqueducts below what is now the Great Geyser. Could it be that it was made by humanoid hands? Could humanoid hands destroy or disable it, robbing the dragons of their power over the land?</p>",
-      "gmNotes": "<p>This can be a legitimate artifact, which details actual, ancient, humanoid-made structures that still exist. The Great Geyser was built to water the surrounding plains and the dragons have weaponized it.</p><p>Or it can be a hoax, fabricated by a dragon hunter with an ulterior motive. Perhaps they want to send Our Heroes as bait to draw out the dragons so that they can get at a hoard they have scouted. Perhaps they seek to convince the entirely of Talon's Folly to rise up against the dragons in a final, all-or-nothing battle.</p>",
+      "gmNotes": "<p>This can be a legitimate artifact, which details actual, ancient, humanoid-made structures that still exist. The Great Geyser was built to water the surrounding plains and the dragons have weaponized it.</p><p>Or it can be a hoax, fabricated by a dragon hunter with an ulterior motive. Perhaps they want to send Our Heroes as bait to draw out the dragons so that they can get at a hoard they have scouted. Perhaps they seek to convince the entirety of Talon's Folly to rise up against the dragons in a final, all-or-nothing battle.</p>",
       "index": 0
     },
     {
@@ -39,11 +39,11 @@
   ],
   "localFlavor": {
     "names": "Fariano, Mehrando, Rosafah, Damiros, Soraviel, Jalvero, Nazario, Parvessa, Taviran, Esfario, Marzella, Caspian, Zarello, Lalevan, Ramiro, Ferayel, Vareza, Omidaro, Yasvero, Dalvian",
-    "occupations": "Dragon Hunter, Geyser Watcher, Spear Maker, Mudbrick Mason, Cactus Gardener, Date Grower, Goat Herder, Hunt Guide, Salt Gatherer, Water Finder, Pot Maker, Copperworker, Leatherworker, Fire Keeper, Ruin Squatter, Dragon Tracker, Ash Raker, Squire",
+    "occupations": "Dragon Hunter, Geyser Watcher, Spear Maker, Mudbrick Mason, Cactus Gardener, Bone Framer, Goat Herder, Hunt Guide, Salt Gatherer, Water Finder, Pot Maker, Copperworker, Dragonhide Tailor, Fire Keeper, Ruin Squatter, Dragon Tracker, Ash Raker, Squire",
     "publicHouses": "La Mehrana, Cazmiran, El Roshan, Faravela, La Zareta, Darviento, Casa Parvaz, Mardaluz, La Soraya, Varezán, El Jalmar, Tavazco",
-    "vittles": "Lamb Kebab, Bean Mole, Saffron Rice, Chili Stew, Date Cakes, Goat Birria, Pomegranate Rice, Lizard Tamales, Spiced Lentils, Cactus Salad, Ash-Roasted Peppers, Barley Flatbread, Lamb Pozole, Stuffed Dates, Chili Beans, Dried Apricot Cakes, Roasted Corn, Herb Goat Cheese, Spiced Pumpkin, Honeyed Corn Cakes",
-    "pointsOfInterest": "The Great Geyser, The Scarred Canyon, The Spear Quarter, Ash Market, The Old Orchard, The Boiling Fields, The Valley of Ruins, Dragonbone Ridge, The Dry Wells, The Last Wall",
+    "vittles": "Lamb Kebab, Mole Beans, Saffron Rice, Date Cakes, Goat Birria, Pomegranate Chutney, Lizard Tamales, Spiced Lentils, Cactus Salad, Ash-Roasted Peppers, Lamb Pozole, Stuffed Dates, Roasted Corn, Spiced Pumpkin, Blackened Corn Cakes",
+    "pointsOfInterest": "The Great Geyser, The Scarred Canyon, Spearmaker's Quarter, The Old Orchard, The Boiling Fields, The Valley of Ruins, Dragonbone Ridge, The Dry Wells, The Last Wall",
     "floraFauna": "Prickly Pear, Agave, Mesquite, Creosote Bush, Date Palm, Pomegranate, Desert Willow, Ocotillo, Saltbush, Golden Barrel Cactus, Horned Lizard, Desert Tortoise, Coyote, Jackrabbit, Roadrunner, Rattlesnake, Mountain Lion, Vulture, Scorpion, Desert Fox"
   },
-  "lastModified": "2026-10-07T15:49:45.854Z"
+  "lastModified": "2026-11-05T17:45:30.193Z"
 }

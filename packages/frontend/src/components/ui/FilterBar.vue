@@ -1,5 +1,5 @@
 <template>
-    <div ref="filterBarRef" class="filter-bar">
+    <div ref="filterBarRef" class="filter-bar" :class="{ 'filter-bar--centered': $slots['controls-center'] }">
         <div class="filter-row">
             <!-- Type Toggle Buttons (optional) -->
             <div v-if="typeToggles.length > 0" class="type-toggle">
@@ -49,11 +49,15 @@
         </div>
 
         <!-- Controls Row: stats + sort/group pickers + actions -->
-        <div v-if="showControlsRow" class="controls-row">
+        <div v-if="showControlsRow" class="controls-row" :class="{ 'controls-row--centered': $slots['controls-center'] }">
             <div v-if="stats.length > 0" class="stats-items">
                 <span v-for="stat in stats" :key="stat.label" class="stat-item">
                     {{ stat.label }}: <span class="stat-value">{{ stat.value }}</span>
                 </span>
+            </div>
+
+            <div v-if="$slots['controls-center']" class="controls-center">
+                <slot name="controls-center" />
             </div>
 
             <div class="controls-right" :class="{ 'controls-right--full': stats.length === 0 }">
@@ -224,6 +228,7 @@ const showControlsRow = computed(() =>
     hasGroupOptions.value ||
     hasOrderOptions.value ||
     props.showAddButton ||
+    !!slots['controls-center'] ||
     !!slots.actions,
 )
 </script>
@@ -239,6 +244,10 @@ const showControlsRow = computed(() =>
     background: var(--overlay-black-heavy);
     border-radius: var(--radius-10);
     overflow: visible;
+}
+
+.filter-bar--centered {
+    container-type: inline-size;
 }
 
 .filter-row {
@@ -421,9 +430,51 @@ const showControlsRow = computed(() =>
     flex-shrink: 0;
 }
 
+.controls-center {
+    display: flex;
+    justify-content: center;
+    flex: 1;
+    min-width: 0;
+}
+
 .controls-right--full {
     margin-left: auto;
     z-index: var(--z-interactive);
+}
+
+@container (min-width: 1100px) {
+    .controls-row--centered {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    }
+
+    .controls-row--centered .stats-items {
+        justify-self: start;
+    }
+
+    .controls-row--centered .controls-right {
+        justify-self: end;
+        min-width: 0;
+        justify-content: flex-end;
+    }
+}
+
+@container (max-width: 1099px) {
+    .controls-row--centered .stats-items {
+        flex: 0 0 auto;
+    }
+
+    .controls-row--centered .controls-center {
+        order: 1;
+        flex-basis: 100%;
+    }
+
+    .controls-row--centered .controls-right {
+        margin-left: auto;
+        min-width: 0;
+        flex-shrink: 1;
+        justify-content: flex-end;
+    }
 }
 
 .icon-sm {

@@ -1,12 +1,12 @@
 <template>
     <div class="biome-tags-cycle-picker">
-        <div v-for="group in groupedTags" :key="group.label" class="picker-group">
-            <span class="picker-group-label">{{ group.label }}</span>
+        <div v-for="group in groupedTags" :key="group.label" class="picker-group" :class="{ 'picker-group--compact': compact }">
+            <span v-if="!compact" class="picker-group-label">{{ group.label }}</span>
             <div class="picker-tags">
                 <button v-for="tag in group.tags" :key="tag" type="button" class="picker-tag-btn"
-                    :class="tagStateClass(tag)" :title="tagTitle(tag)" @click="cycleTag(tag)">
-                    <BiomeTagSymbol :tag="tag" :effect="tagEffect(tag)" :active="tagEffect(tag) !== null" />
-                    <span class="picker-tag-label">{{ BIOME_TAG_LABELS[tag] }}</span>
+                    :class="tagStateClass(tag)" :title="tagTitle(tag)" :aria-label="tagTitle(tag)" @click="cycleTag(tag)">
+                    <BiomeTagSymbol :tag="tag" :effect="compact ? null : tagEffect(tag)" :active="tagEffect(tag) !== null" />
+                    <span v-if="!compact" class="picker-tag-label">{{ BIOME_TAG_LABELS[tag] }}</span>
                 </button>
             </div>
         </div>
@@ -20,6 +20,7 @@ import BiomeTagSymbol from './BiomeTagSymbol.vue'
 const props = defineProps({
     augmentTags: { type: Array, default: () => [] },
     inhibitTags: { type: Array, default: () => [] },
+    compact: { type: Boolean, default: false },
 })
 
 const emit = defineEmits(['update:augmentTags', 'update:inhibitTags'])
@@ -87,6 +88,21 @@ function tagTitle(tag) {
     display: flex;
     flex-direction: column;
     gap: 4px;
+}
+
+.biome-tags-cycle-picker:has(.picker-group--compact) {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.picker-group--compact + .picker-group--compact {
+    border-left: 1px solid var(--color-border-primary);
+    padding-left: var(--space-sm);
+}
+
+.picker-group--compact .picker-tag-btn {
+    padding: 2px;
 }
 
 .picker-group-label {

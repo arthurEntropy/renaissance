@@ -1,0 +1,38 @@
+{
+  "isDeleted": false,
+  "name": "Anguvigaq",
+  "artUrl": "https://cdn.midjourney.com/6d367850-e3bb-4dda-b675-fb879e0649b5/0_1.png",
+  "description": "",
+  "successes": null,
+  "improvements": [],
+  "source": "55c314d3-11ec-4d2d-921d-241b4132f737",
+  "school": null,
+  "keeping": "3c4d5e6f-7a8b-4c9d-0e1f-2a3b4c5d6e7f",
+  "isCustom": false,
+  "isTemplate": false,
+  "isMagical": false,
+  "isBeastEquipment": false,
+  "hasDifficulty": false,
+  "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
+  "subtype": "3d4f28d9-d757-4789-b3a2-0e9fffda4fc0",
+  "grade": "b92d3394-2c64-487f-8c90-c56ea1cbd3f3",
+  "weight": 5,
+  "reach": 0,
+  "range": "c8e24244-5f2f-42a5-848c-1a4371dd1922",
+  "twoHanded": false,
+  "thrown": true,
+  "finesse": false,
+  "piercing": true,
+  "projectile": false,
+  "damageDice": [
+    6
+  ],
+  "engagementDice": [
+    6
+  ],
+  "engagementSuccesses": [],
+  "defenseBonus": 0,
+  "id": "e2eddd4e-8cf6-48f0-91b0-a11c4bf7b8f4",
+  "createdAt": "2026-10-09T17:31:15.436Z",
+  "lastModified": "2026-11-11T02:45:16.856Z"
+}

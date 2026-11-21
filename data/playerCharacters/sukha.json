@@ -2,7 +2,7 @@
   "id": "13e267c3-f608-466d-9a8d-7442dcd5a7d4",
   "isDeleted": false,
   "createdAt": "2026-08-17T19:28:51.662Z",
-  "lastModified": "2026-08-27T14:53:29.817Z",
+  "lastModified": "2026-11-19T18:33:42.900Z",
   "characterType": "playerCharacter",
   "name": "Sukha",
   "featuredArtUrls": [
@@ -301,9 +301,9 @@
         "draws": 0
       }
     },
-    "xpEarned": 432,
+    "xpEarned": 440,
     "xpSpent": 0,
-    "treasureEarned": 188,
+    "treasureEarned": 192,
     "treasureSpent": 874
   },
   "biomeTags": [],
@@ -345,5 +345,5 @@
   "treasure": 4,
   "xp": 8,
   "description": "",
-  "updatedAt": "2026-08-27T14:53:29.817Z"
+  "updatedAt": "2026-11-19T18:33:42.900Z"
 }

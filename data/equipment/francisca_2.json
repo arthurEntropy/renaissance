@@ -1,0 +1,38 @@
+{
+  "isDeleted": false,
+  "name": "Francisca",
+  "artUrl": "https://cdn.midjourney.com/5dce08eb-4dc7-43d7-b20f-c03c44deb64d/0_2.png",
+  "description": "",
+  "successes": null,
+  "improvements": [],
+  "source": "372c0d28-68df-4202-8e2b-80f96c8928d6",
+  "school": null,
+  "keeping": "2b3c4d5e-6f7a-4b8c-9d0e-1f2a3b4c5d6e",
+  "isCustom": false,
+  "isTemplate": false,
+  "isMagical": false,
+  "isBeastEquipment": false,
+  "hasDifficulty": false,
+  "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
+  "subtype": "ab765755-b7c9-47ac-b62f-34f069e00dc3",
+  "grade": "ad30b114-3c19-413f-aad2-5f270bd95684",
+  "weight": 1,
+  "reach": 0,
+  "range": "55e83a64-59b5-4d1a-b30f-2a01ff020a0b",
+  "twoHanded": false,
+  "thrown": true,
+  "finesse": false,
+  "piercing": false,
+  "projectile": false,
+  "damageDice": [
+    6
+  ],
+  "engagementDice": [],
+  "engagementSuccesses": [
+    "e1f2a3b4-c5d6-47e8-f9a0-b1c2d3e4f5a6"
+  ],
+  "defenseBonus": 0,
+  "id": "d3866deb-9abb-4b6b-a2bf-d3d631eb3e4f",
+  "createdAt": "2026-10-09T17:31:15.347Z",
+  "lastModified": "2026-11-11T18:35:11.572Z"
+}

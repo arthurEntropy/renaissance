@@ -1,0 +1,39 @@
+{
+  "isDeleted": false,
+  "name": "Nunchaku",
+  "artUrl": "https://cdn.midjourney.com/69d747be-2d4d-42d3-a7b4-b09c19547e8f/0_3.png",
+  "description": "",
+  "successes": null,
+  "improvements": [],
+  "source": "68fadf5d-6661-4611-bb38-deaf05f01d45",
+  "school": null,
+  "keeping": "2b3c4d5e-6f7a-4b8c-9d0e-1f2a3b4c5d6e",
+  "isCustom": false,
+  "isTemplate": false,
+  "isMagical": false,
+  "isBeastEquipment": false,
+  "hasDifficulty": false,
+  "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
+  "subtype": "956839d8-393c-4743-9cb3-8038c8a7aa93",
+  "grade": "ad30b114-3c19-413f-aad2-5f270bd95684",
+  "weight": 2,
+  "reach": 0,
+  "range": null,
+  "twoHanded": false,
+  "thrown": false,
+  "finesse": true,
+  "piercing": false,
+  "projectile": false,
+  "damageDice": [],
+  "engagementDice": [
+    4,
+    4
+  ],
+  "engagementSuccesses": [
+    "b2c3d4e5-f6a7-48b9-c0d1-e2f3a4b5c6d7"
+  ],
+  "defenseBonus": 0,
+  "id": "d2e7f78e-4dc3-42a5-a4d8-de8cea0e8e63",
+  "createdAt": "2026-10-09T17:31:15.533Z",
+  "lastModified": "2026-11-11T14:18:16.261Z"
+}

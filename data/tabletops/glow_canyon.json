@@ -2,7 +2,7 @@
   "id": "87b9491c-b265-4a8b-be84-dac5866a3784",
   "isDeleted": false,
   "createdAt": "2026-08-17T20:11:22.169Z",
-  "lastModified": "2026-08-26T18:14:27.548Z",
+  "lastModified": "2026-11-19T18:36:04.456Z",
   "campaignId": "84b00fc0-eae8-4808-9151-949bf59928ff",
   "name": "Glow Canyon",
   "backgroundImage": {
@@ -33,7 +33,7 @@
       "size": 1,
       "x": 1600,
       "y": 680,
-      "zIndex": 56
+      "zIndex": 80
     },
     {
       "id": "0d7430d8-0aa7-4728-b228-90136c79cf54",
@@ -58,19 +58,41 @@
       "x": 2040,
       "y": 840,
       "zIndex": 60
+    },
+    {
+      "id": "7e003b76-eaeb-4727-b823-c4164fec12cf",
+      "characterId": "932947a7-2e4a-4e3b-9ec3-eb699ab46174",
+      "isBeast": true,
+      "isNpc": false,
+      "name": "Bathymora 🅔",
+      "portraitUrl": "https://cdn.midjourney.com/312b9332-40ed-42ec-90cb-7e8d758670a0/0_2.png",
+      "size": 5,
+      "x": 1240,
+      "y": 520,
+      "zIndex": 85
     }
   ],
   "transform": {
     "scale": 0.9999999999999996,
-    "x": -494.1677331734702,
-    "y": -337.24120171746176
+    "x": -621.1677331734702,
+    "y": -173.24120171746176
   },
   "gridSize": 40,
   "gridColor": "#ffffff",
-  "gridOpacity": 0.06,
+  "gridOpacity": 0.09,
   "mapScale": 1.6,
   "showPaths": true,
-  "radiusAreas": [],
+  "radiusAreas": [
+    {
+      "id": "90e8e6b8-4c20-407b-821a-2eabe488f06a",
+      "originX": 1340,
+      "originY": 620,
+      "radiusFeet": 30,
+      "color": "#ffffff",
+      "label": "",
+      "tokenId": "932947a7-2e4a-4e3b-9ec3-eb699ab46174"
+    }
+  ],
   "rollLog": [
     {
       "id": "285cc523-b6f4-41cc-83b6-91915f207c8a_1787764194232_7ywk",
@@ -4545,33 +4567,7 @@
     {
       "id": "group-1787683876219-xsz2jm",
       "name": "Creeps",
-      "combatants": [
-        {
-          "id": "beast:652492e4-9f11-4eba-a67c-9eb4f3510098",
-          "type": "beast",
-          "characterId": "652492e4-9f11-4eba-a67c-9eb4f3510098"
-        },
-        {
-          "id": "beast:9b7ce8af-31c6-4d61-b9f0-6c34d7866361",
-          "type": "beast",
-          "characterId": "9b7ce8af-31c6-4d61-b9f0-6c34d7866361"
-        },
-        {
-          "id": "beast:b60d9e6e-b0f1-43af-ac8e-f667fe3b2052",
-          "type": "beast",
-          "characterId": "b60d9e6e-b0f1-43af-ac8e-f667fe3b2052"
-        },
-        {
-          "id": "beast:7dcba78d-bab0-4033-b3b8-e83afd204cb6",
-          "type": "beast",
-          "characterId": "7dcba78d-bab0-4033-b3b8-e83afd204cb6"
-        },
-        {
-          "id": "beast:3929d81b-d394-4e84-8359-df21543395ff",
-          "type": "beast",
-          "characterId": "3929d81b-d394-4e84-8359-df21543395ff"
-        }
-      ],
+      "combatants": [],
       "initiativeResults": {
         "groupTotal": 11,
         "members": [
@@ -4637,6 +4633,22 @@
           }
         ]
       }
+    },
+    {
+      "id": "group-1795112975831-dxffxa",
+      "name": "Big Bad",
+      "combatants": [
+        {
+          "id": "beast:932947a7-2e4a-4e3b-9ec3-eb699ab46174",
+          "type": "beast",
+          "characterId": "932947a7-2e4a-4e3b-9ec3-eb699ab46174"
+        },
+        {
+          "id": "beast:167704fc-57b4-4ea1-8fed-0b178b9888e4",
+          "type": "beast",
+          "characterId": "167704fc-57b4-4ea1-8fed-0b178b9888e4"
+        }
+      ]
     }
   ],
   "pixelsPerMile": 40,

@@ -1,0 +1,17 @@
+{
+  "id": "ccd0501e-d0bc-427a-ace5-224ec67249bb",
+  "createdAt": "2026-04-06T19:18:58.843Z",
+  "lastModified": "2026-10-11T21:17:54.379Z",
+  "name": "Word of Command",
+  "artUrl": "https://cdn.midjourney.com/a6d806a8-5316-4dee-b279-6aad6ac21c18/0_0.png",
+  "description": "<p>You issue a spoken command to a creature with medium range, using a single word imbued with magical power. Roll Persuade vs Riddle against the creature. On a win, the creature must obey your command on its next turn, unless it has a WITS score of 10, doesn’t understand your language you're using or if following the command would cause it obvious harm. The GM determines how the target behaves.</p><p><strong>Describe how you issue the command.</strong></p>",
+  "successes": "<p>✨: You may issue a second one-word command that does not contradict your first command. On a win, the creature must also obey that command on its next turn.</p><p>🌞: The creature must obey the command(s) on 2 additional turns in addition to its next turn.</p>",
+  "source": "dab3e414-0118-49be-9779-4e3018cdba71",
+  "school": "9d93af3f-008e-429d-b7c4-7838a39d3b1b",
+  "isMagical": true,
+  "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
+  "mpCost": 1,
+  "xpCost": 5,
+  "canBeActive": false,
+  "hasDifficulty": false
+}
