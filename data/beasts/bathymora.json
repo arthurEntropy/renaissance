@@ -2,24 +2,24 @@
   "id": "7b299779-bb48-4c00-a660-02758a44e193",
   "isDeleted": false,
   "createdAt": "2026-11-18T13:36:02.255Z",
-  "lastModified": "2026-11-18T19:49:07.013Z",
+  "lastModified": "2026-11-19T18:27:54.878Z",
   "characterType": "beast",
   "name": "Bathymora",
   "featuredArtUrls": [
     "https://cdn.midjourney.com/312b9332-40ed-42ec-90cb-7e8d758670a0/0_2.png"
   ],
   "speed": {
-    "current": 0,
-    "base": 0
+    "current": 10,
+    "base": 10
   },
   "notes": "",
-  "body": 0,
-  "heart": 0,
-  "wits": 0,
+  "body": 16,
+  "heart": 1,
+  "wits": 6,
   "skills": [
     {
       "key": "awe",
-      "ranks": 0,
+      "ranks": 5,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -27,7 +27,7 @@
     },
     {
       "key": "strength",
-      "ranks": 0,
+      "ranks": 5,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -35,7 +35,7 @@
     },
     {
       "key": "dexterity",
-      "ranks": 0,
+      "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -43,7 +43,7 @@
     },
     {
       "key": "fortitude",
-      "ranks": 0,
+      "ranks": 5,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -83,7 +83,7 @@
     },
     {
       "key": "spirit",
-      "ranks": 0,
+      "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -107,7 +107,7 @@
     },
     {
       "key": "awareness",
-      "ranks": 0,
+      "ranks": 3,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -115,7 +115,7 @@
     },
     {
       "key": "stealth",
-      "ranks": 0,
+      "ranks": 3,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -139,16 +139,16 @@
     }
   ],
   "endurance": {
-    "current": 0,
-    "base": 0
+    "current": 80,
+    "base": 80
   },
   "hope": {
-    "current": 0,
-    "base": 0
+    "current": 2,
+    "base": 2
   },
   "defense": {
-    "current": 0,
-    "base": 0
+    "current": 21,
+    "base": 21
   },
   "load": 0,
   "shadow": 0,
@@ -171,7 +171,29 @@
   "engagementDice": [],
   "engagementSuccesses": [],
   "engagementDiceStatuses": {},
-  "equipment": [],
+  "equipment": [
+    {
+      "id": "4535f135-96b8-4fc4-a8db-3e41cce2c926",
+      "quantity": 1,
+      "isCarried": true,
+      "isWielding": true,
+      "collapsed": false
+    },
+    {
+      "id": "db418790-1337-43d4-8d92-53a29b16a240",
+      "quantity": 1,
+      "isCarried": true,
+      "isWielding": true,
+      "collapsed": false
+    },
+    {
+      "id": "fd713178-3701-4c8f-adf9-c740b0877018",
+      "quantity": 1,
+      "isCarried": true,
+      "isWielding": true,
+      "collapsed": false
+    }
+  ],
   "groupEquipmentBySource": false,
   "groupEquipmentByCustom": false,
   "equipmentSortOption": "",
@@ -180,7 +202,48 @@
     "current": 0,
     "base": 0
   },
-  "abilities": [],
+  "abilities": [
+    {
+      "id": "21868d26-c1b9-455a-ac90-e5f4d33af7bb",
+      "collapsed": false,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false,
+      "columnIndex": 0
+    },
+    {
+      "id": "67386067-a62a-46c1-b753-776767804d2a",
+      "collapsed": false,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false,
+      "columnIndex": 0
+    },
+    {
+      "id": "2b1f3cf5-5d30-4234-8328-40bf9f4680be",
+      "collapsed": false,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false,
+      "columnIndex": 1
+    },
+    {
+      "id": "b62162c2-751b-49f0-a602-db5da4d388da",
+      "collapsed": false,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false,
+      "columnIndex": 1
+    },
+    {
+      "id": "762bbac7-6087-43c5-a810-a35706f7f315",
+      "collapsed": false,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false,
+      "columnIndex": 2
+    }
+  ],
   "groupAbilitiesBySource": false,
   "groupAbilitiesByManaColor": false,
   "groupAbilitiesByCustom": false,
@@ -191,7 +254,7 @@
     "states": true,
     "baseEndurance": true,
     "baseHope": true,
-    "baseDefense": true
+    "baseDefense": false
   },
   "rollStats": {
     "skillChecks": {
@@ -281,5 +344,6 @@
   "beastTypeIds": [
     "b7e57001-0000-4000-a000-000000000002"
   ],
-  "updatedAt": "2026-11-18T19:49:07.013Z"
+  "updatedAt": "2026-11-19T18:27:54.878Z",
+  "challenge": 37
 }

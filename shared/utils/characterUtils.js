@@ -24,6 +24,26 @@ export function calculatebaseDefense(wits) {
   return wits + BASE_DEFENSE_MINIMUM
 }
 
+/** Calculates challenge from attributes, trained wielded equipment and base ability XP costs. */
+export function calculateBeastChallenge(character, equipment, abilities, keeping, isTrained) {
+  const equipmentCost = (character.equipment || []).reduce((total, entry) => {
+    if (!entry.isWielding || !entry.id) return total
+    const item = equipment.find((candidate) => candidate.id === entry.id)
+    if (!item) throw new Error(`Equipment not found: ${entry.id}`)
+    if (!isTrained(item)) return total
+    const price = item.keeping ? keeping.find((candidate) => candidate.id === item.keeping) : null
+    if (item.keeping && !price) throw new Error(`Equipment keeping not found: ${item.keeping}`)
+    return total + (price?.cost ?? 0) * (entry.quantity ?? 1)
+  }, 0)
+  const abilityCost = (character.abilities || []).reduce((total, entry) => {
+    if (!entry.id) return total
+    const ability = abilities.find((candidate) => candidate.id === entry.id)
+    if (!ability) throw new Error(`Ability not found: ${entry.id}`)
+    return total + (ability.xpCost ?? 0)
+  }, 0)
+  return (character.body ?? 0) + (character.heart ?? 0) + (character.wits ?? 0) + equipmentCost + abilityCost / 5
+}
+
 export function getTotalWeightCarried(character, allEquipment) {
   if (!Array.isArray(allEquipment) || !character?.equipment) {
     return 0

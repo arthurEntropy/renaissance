@@ -2,7 +2,7 @@
   "id": "45713a00-85c3-46d2-be44-3dbdc2c27cfe",
   "isDeleted": false,
   "createdAt": "2026-11-18T13:10:25.587Z",
-  "lastModified": "2026-11-19T15:55:07.228Z",
+  "lastModified": "2026-11-19T16:40:46.661Z",
   "characterType": "beast",
   "name": "Arqminid",
   "featuredArtUrls": [
@@ -300,7 +300,11 @@
   "campaignId": null,
   "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
   "isPublicPreview": false,
-  "sectionOrder": [],
+  "sectionOrder": [
+    "engagement",
+    "equipment",
+    "abilities"
+  ],
   "martialTrainingOverrides": {},
   "pronouns": "",
   "ancestryIds": [],
@@ -331,6 +335,6 @@
   "beastTypeIds": [
     "b7e57001-0000-4000-a000-000000000008"
   ],
-  "updatedAt": "2026-11-19T15:55:07.228Z",
-  "challenge": 51
+  "updatedAt": "2026-11-19T16:40:46.661Z",
+  "challenge": 31
 }

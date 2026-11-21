@@ -9,6 +9,7 @@ Let me be unequivocal: this game is a sort of head cheese of parts both invented
 ## Features
 
 - **Character Management:** Complete character sheets with skills, abilities, ancestry, culture, and equipment
+- **Bestiary:** Filter beasts by type and biome effects, group by type combination in collapsible sections, and sort by challenge. Admins can refresh a beast's editable challenge from its attributes, trained wielded equipment's treasure cost, and ability XP costs divided by five.
 - **Real-time Multiplayer Combat:** Live engagement sessions with WebSocket-powered dice rolling and result tracking
 - **Advanced Dice System:** Custom dice font integration with animated rolling mechanics supporting d4, d6, d8, d10, d12, and d20
 - **Equipment System:** Comprehensive equipment management with engagement dice, successes, and wielding mechanics

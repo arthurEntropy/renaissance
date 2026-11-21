@@ -2,7 +2,7 @@
   "id": "067748ec-282a-4fb5-908e-5abeb67988e4",
   "isDeleted": false,
   "createdAt": "2026-08-13T01:11:15.498Z",
-  "lastModified": "2026-11-12T21:12:18.423Z",
+  "lastModified": "2026-11-19T16:47:54.111Z",
   "characterType": "beast",
   "name": "Ferrophage",
   "featuredArtUrls": [
@@ -307,6 +307,6 @@
     "b7e57001-0000-4000-a000-00000000000b",
     "b7e57001-0000-4000-a000-000000000002"
   ],
-  "challenge": 13,
-  "updatedAt": "2026-11-12T21:12:18.423Z"
+  "challenge": 12,
+  "updatedAt": "2026-11-19T16:47:54.111Z"
 }

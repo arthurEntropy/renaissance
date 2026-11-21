@@ -12,7 +12,14 @@
       tag-search-placeholder="Filter by expansion..." @add="createConcept" />
 
     <!-- Selection Cards: hidden when concept detail is open, or while expansion data is loading -->
-    <div v-show="!showConceptDetail && conceptsVisible" class="concept-cards-container"
+    <GroupedMasonryGrid v-if="groupedConcepts && !showConceptDetail && conceptsVisible" class="concept-groups"
+      :grouped-items="groupedConcepts" :gap="0" :persistence-key="`${storageKey}-groups`">
+      <template #default="{ item }">
+        <ConceptCard :concept="item" :sources="sources" :expansions="expansionStore.items"
+          @select="openConceptDetail" />
+      </template>
+    </GroupedMasonryGrid>
+    <div v-else v-show="!showConceptDetail && conceptsVisible" class="concept-cards-container"
       :class="{ 'concept-cards-container--empty': isEmptyStateVisible }">
       <ConceptCard v-for="concept in filteredConcepts" :key="concept.id" :concept="concept" :sources="sources"
         :expansions="expansionStore.items" @select="openConceptDetail" />
@@ -46,6 +53,7 @@ import { useAuthStore } from '@/stores/authStore'
 import { useFilterPersistence } from '@/composables/useFilterPersistence'
 import { createSlug, findConceptBySlug, getBasePath } from '@/utils/urlHelpers'
 import ConceptCard from '@/components/ui/cards/concept/ConceptCard.vue'
+import GroupedMasonryGrid from '@/components/ui/layouts/GroupedMasonryGrid.vue'
 import FilterBar from '@/components/ui/FilterBar.vue'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
@@ -95,6 +103,10 @@ const props = defineProps({
   },
   emptyStateLabel: {
     type: String,
+    default: null,
+  },
+  groupedConcepts: {
+    type: Array,
     default: null,
   },
 })
@@ -379,6 +391,10 @@ onBeforeUnmount(() => {
   align-items: center;
   min-height: 50vh;
   padding-bottom: 0;
+}
+
+.concept-groups {
+  --card-width: calc(200px + var(--space-xl) + var(--space-xl) + var(--space-md) + var(--space-md));
 }
 
 .empty-state-cta-wrapper {

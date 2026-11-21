@@ -2,7 +2,7 @@
   "id": "dfd4a7d0-10d5-49c7-8ee2-1de1d1ad4093",
   "isDeleted": false,
   "createdAt": "2026-08-13T00:41:27.714Z",
-  "lastModified": "2026-11-18T20:01:00.854Z",
+  "lastModified": "2026-11-19T16:47:45.283Z",
   "characterType": "beast",
   "name": "Caraclaw",
   "featuredArtUrls": [
@@ -321,6 +321,6 @@
   "beastTypeIds": [
     "b7e57001-0000-4000-a000-000000000002"
   ],
-  "updatedAt": "2026-11-18T20:01:00.854Z",
-  "challenge": 15
+  "updatedAt": "2026-11-19T16:47:45.283Z",
+  "challenge": 21
 }

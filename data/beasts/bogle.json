@@ -2,7 +2,7 @@
   "id": "e5ccf49a-de26-4459-9e67-0be307c23db1",
   "isDeleted": false,
   "createdAt": "2026-08-14T01:47:47.720Z",
-  "lastModified": "2026-11-18T19:56:44.394Z",
+  "lastModified": "2026-11-19T16:47:58.178Z",
   "characterType": "beast",
   "name": "Bogle",
   "featuredArtUrls": [
@@ -343,6 +343,6 @@
     "b7e57001-0000-4000-a000-00000000000a",
     "b7e57001-0000-4000-a000-000000000002"
   ],
-  "updatedAt": "2026-11-18T19:56:44.394Z",
-  "challenge": 11
+  "updatedAt": "2026-11-19T16:47:58.178Z",
+  "challenge": 10
 }
